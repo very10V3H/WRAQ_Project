@@ -26,13 +26,13 @@ public class StarArmor extends WraqArmor {
     public StarArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.LEGGINGS)) {
-            Utils.maxHealth.put(this, 24000d);
-            Utils.defence.put(this, 30d);
+            Utils.maxHealth.put(this, 30000d);
+            Utils.defence.put(this, 40d);
         }
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, 0.008);
-            Utils.healthRecover.put(this, 100d);
-            Utils.defence.put(this, 30d);
+            Utils.percentHealthRecover.put(this, 0.01);
+            Utils.healthRecover.put(this, 120d);
+            Utils.defence.put(this, 40d);
         }
         Utils.levelRequire.put(this, 200);
     }

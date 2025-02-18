@@ -1,9 +1,11 @@
 package fun.wraq.render.gui.illustrate;
 
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.customized.UniformItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -83,23 +85,14 @@ public class Display {
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
             Item[] items = {
-                    SpecialEventItems.FIRE_CRACKER.get(),
-                    SpecialEventItems.MONEY.get(),
-                    SpecialEventItems.RED_ENVELOPE.get(),
-                    SpecialEventItems.SPRING_GOLD_COIN.get(),
-                    SpecialEventItems.SPRING_GOLD_INGOT.get(),
-                    SpecialEventItems.RING.get(),
-                    SpecialEventItems.HAND.get(),
-                    SpecialEventItems.NECKLACE.get(),
-                    SpecialEventItems.BELT.get(),
-                    SpecialEventItems.FIRE_WORK_GUN.get(),
-                    SpecialEventItems.SCALE_PIECE.get(),
-                    SpecialEventItems.BIG_RED_ENVELOPE.get(),
-                    SpecialEventItems.SCALE_2025_0.get(),
-                    ModItems.SKY_SWORD.get(),
-                    ModItems.PLAIN_BOSS_SCEPTRE.get(),
-                    ModItems.REVENANT_GOLDEN_HELMET.get(),
-                    ModItems.ENHANCE_PURPLE_IRON_CHEST.get()
+                    UniformItems.ATTACK_CURIO_LX.get(),
+                    UniformItems.BOW_CURIO_LEI_YAN.get(),
+                    UniformItems.MANA_CURIO_TABOO.get(),
+                    SunIslandItems.TABOO_PAPER_CURIO.get(),
+                    ModItems.FANTASY_MEDAL_1.get(),
+                    ModItems.FANTASY_BRACELET_1.get(),
+                    ModItems.FANTASY_MEDAL_2.get(),
+                    ModItems.FANTASY_BRACELET_2.get()
             };
             newItemList.addAll(List.of(items));
         }

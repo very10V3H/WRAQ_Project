@@ -14,6 +14,7 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.instance.instances.tower.ManaTowerData;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.VersionCheckS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
@@ -508,6 +509,7 @@ public class LoginInEvent {
         Spring2025.dailyRedEnvelopeReward(player);
         SmithPlayerData.setDailyReward(player, true);
         MissionV2Helper.onResetDailyContent(player);
+        ManaTowerData.resetDailyRecord(player);
     }
 
     public static void refreshWeeklyContent(Player player) {

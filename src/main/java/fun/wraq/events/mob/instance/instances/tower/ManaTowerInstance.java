@@ -32,7 +32,7 @@ public class ManaTowerInstance extends NoTeamInstance {
     public static ManaTowerInstance getInstance() {
         if (instance == null) {
             instance = new ManaTowerInstance(new Vec3(1511, 110, -535), 60, 60, new Vec3(1511, 110, -535),
-                    Te.s("炼魔塔", style), 250);
+                    Te.s("炼魔塔(测试阶段)", style), 250);
         }
         return instance;
     }

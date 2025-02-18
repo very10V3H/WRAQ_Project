@@ -24,7 +24,7 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
 
     public HarbingerSword(Properties properties) {
         super(properties);
-        Utils.attackDamage.put(this, 2200d);
+        Utils.attackDamage.put(this, 2500d);
         Utils.defencePenetration0.put(this, 50d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.35);

@@ -29,6 +29,7 @@ public class FantasyCurio extends Item implements ICurioItem {
         components.add(Component.literal(" 使基础属性的最终值提升" + new int[]{3, 4, 5}[tier] + "%")
                 .withStyle(CustomStyle.styleOfFantasy));
         components.add(Te.s(" 暴击几率/百分比穿透不受加成", ChatFormatting.ITALIC, ChatFormatting.GRAY));
+        components.add(Te.s(" 同一槽位的幻想饰品仅生效最高加成", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

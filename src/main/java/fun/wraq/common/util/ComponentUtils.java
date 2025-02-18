@@ -920,6 +920,6 @@ public class ComponentUtils {
     }
 
     public static Component getRightAngleQuote(String content, Style style) {
-        return Te.s("「" + content, "」", style);
+        return Te.s("「" + content + "」", style);
     }
 }
