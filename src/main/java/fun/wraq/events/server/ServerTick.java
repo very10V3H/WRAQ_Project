@@ -6,6 +6,7 @@ import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.func.damage.SputteringDamage;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
@@ -48,6 +49,9 @@ public class ServerTick {
             AllayPet.handleServerTick();
             SputteringDamage.handleServerTick();
             Spring2025BossBar.handleServerTick();
+            if (tickCount % 100 == 97) {
+                Element.handleServerTick();
+            }
 
             if (tickCount % 6000 == 3288) {
                 ThreadPools.dataExecutor.execute(new Runnable() {

@@ -196,7 +196,6 @@ public class VMD {
         DBConnection.connection = null;
         LogUtils.getLogger().info("Database connection closed");
 
-        ThreadPools.attributeExecutor.shutdown();
         ThreadPools.clearFireExecutor.shutdown();
         ThreadPools.dataExecutor.shutdown();
     }

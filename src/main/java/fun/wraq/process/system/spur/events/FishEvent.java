@@ -1,6 +1,7 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -168,7 +169,9 @@ public class FishEvent {
         }
         Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                 Component.literal("当前钓鱼熟练度为: " + RodLevel));
-        if (RodLevel > 1000 && RodLevel < 2000) {
+        if (RodLevel >= 2000) {
+
+        } else if (RodLevel > 1000) {
             Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (2000 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
@@ -204,5 +207,9 @@ public class FishEvent {
                             append(Component.literal(" " + (20 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
         }
+    }
+
+    public static void sendMSG(Player player, Component content) {
+        Compute.sendFormatMSG(player, Te.s("钓鱼", CustomStyle.styleOfSea), content);
     }
 }

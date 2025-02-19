@@ -7,9 +7,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class ThreadPools {
-    public static ThreadPoolExecutor attributeExecutor =
-            new ThreadPoolExecutor(20, 100, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>(),
-                    new NamedThreadFactory("WRAQ-ATTRIBUTES"), new ThreadPoolExecutor.CallerRunsPolicy());
     public static ThreadPoolExecutor clearFireExecutor =
             new ThreadPoolExecutor(3, 5, 10, TimeUnit.MINUTES, new LinkedBlockingQueue<>(),
                     new NamedThreadFactory("WRAQ-CLEAR-FIRE"), new ThreadPoolExecutor.CallerRunsPolicy());

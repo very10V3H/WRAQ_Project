@@ -201,13 +201,13 @@ public class ManaTowerData {
                     change = true;
                 }
             }
-            recordList.sort(new Comparator<TimeRecord>() {
-                @Override
-                public int compare(TimeRecord o1, TimeRecord o2) {
-                    return o1.usedTick - o2.usedTick;
-                }
-            });
         }
+        recordList.sort(new Comparator<TimeRecord>() {
+            @Override
+            public int compare(TimeRecord o1, TimeRecord o2) {
+                return o1.usedTick - o2.usedTick;
+            }
+        });
         sendMSG(player, Te.s("本次挑战的纪录为:", getRecordTickDescription(usedTick)));
         int dailyRecord = getPlayerManaTowerDailyRecord(player);
         if (dailyRecord == -1 || dailyRecord > usedTick) {
@@ -247,11 +247,11 @@ public class ManaTowerData {
                     }
                     Compute.broad(player.level(), Te.s(" ".repeat(8),
                             (i + 1) + ".", timeRecord.playerName,
-                            ":", timeRecord.usedTick, " ", sign));
+                            " - ", getRecordTickDescription(timeRecord.usedTick), " ", sign));
                 } else {
                     Compute.broad(player.level(), Te.s(" ".repeat(8),
                             (i + 1) + ".", timeRecord.playerName,
-                            ":", timeRecord.usedTick, " ", "new", ChatFormatting.GOLD));
+                            " - ", getRecordTickDescription(timeRecord.usedTick), " ", "new", ChatFormatting.GOLD));
                 }
             }
         }

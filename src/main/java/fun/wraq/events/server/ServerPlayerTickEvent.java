@@ -505,34 +505,28 @@ public class ServerPlayerTickEvent {
                     player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 100, 10));
                 }
             }
-
-            if (player.tickCount % 5 == 0) {
-                ThreadPools.attributeExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 属性赋予
-                        ModNetworking.sendToClient(new Attribute0S2CPacket(PlayerAttributes.attackDamage(player),
-                                PlayerAttributes.defencePenetration(player),
-                                PlayerAttributes.critRate(player),
-                                PlayerAttributes.critDamage(player)), (ServerPlayer) player);
-                        ModNetworking.sendToClient(new Attribute1S2CPacket(PlayerAttributes.manaDamage(player),
-                                PlayerAttributes.manaPenetration(player),
-                                PlayerAttributes.manaRecover(player),
-                                PlayerAttributes.powerReleaseSpeed(player)), (ServerPlayer) player);
-                        ModNetworking.sendToClient(new Attribute2S2CPacket(PlayerAttributes.healthSteal(player),
-                                PlayerAttributes.defence(player),
-                                PlayerAttributes.manaDefence(player),
-                                PlayerAttributes.movementSpeedCurrent(player)), (ServerPlayer) player);
-                        ModNetworking.sendToClient(new Attribute3S2CPacket(PlayerAttributes.defencePenetration0(player),
-                                PlayerAttributes.manaPenetration0(player),
-                                PlayerAttributes.attackRangeUp(player),
-                                PlayerAttributes.expUp(player)), (ServerPlayer) player);
-                        ModNetworking.sendToClient(new Attribute4S2CPacket(PlayerAttributes.healthRecover(player),
-                                PlayerAttributes.extraSwiftness(player),
-                                PlayerAttributes.manaHealthSteal(player),
-                                PlayerAttributes.dodgeRate(player)), (ServerPlayer) player);
-                    }
-                });
+            if (player.tickCount % 2 == 0) {
+                // 属性赋予
+                ModNetworking.sendToClient(new Attribute0S2CPacket(PlayerAttributes.attackDamage(player),
+                        PlayerAttributes.defencePenetration(player),
+                        PlayerAttributes.critRate(player),
+                        PlayerAttributes.critDamage(player)), (ServerPlayer) player);
+                ModNetworking.sendToClient(new Attribute1S2CPacket(PlayerAttributes.manaDamage(player),
+                        PlayerAttributes.manaPenetration(player),
+                        PlayerAttributes.manaRecover(player),
+                        PlayerAttributes.powerReleaseSpeed(player)), (ServerPlayer) player);
+                ModNetworking.sendToClient(new Attribute2S2CPacket(PlayerAttributes.healthSteal(player),
+                        PlayerAttributes.defence(player),
+                        PlayerAttributes.manaDefence(player),
+                        PlayerAttributes.movementSpeedCurrent(player)), (ServerPlayer) player);
+                ModNetworking.sendToClient(new Attribute3S2CPacket(PlayerAttributes.defencePenetration0(player),
+                        PlayerAttributes.manaPenetration0(player),
+                        PlayerAttributes.attackRangeUp(player),
+                        PlayerAttributes.expUp(player)), (ServerPlayer) player);
+                ModNetworking.sendToClient(new Attribute4S2CPacket(PlayerAttributes.healthRecover(player),
+                        PlayerAttributes.extraSwiftness(player),
+                        PlayerAttributes.manaHealthSteal(player),
+                        PlayerAttributes.dodgeRate(player)), (ServerPlayer) player);
             }
 
             List<Shield> shieldQueue = Utils.playerShieldQueue.get(player.getName().getString());

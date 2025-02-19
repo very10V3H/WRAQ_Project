@@ -104,10 +104,14 @@ public class Element {
         if (livingEntity instanceof Mob) {
             value *= (1 + MySeason.getCurrentSeasonElementEffect(type));
         }
-        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         entityElementUnit.put(livingEntity, new Unit(type, value));
         if (livingEntity instanceof Player player) ElementEffectTimeSend(player,
                 map.get(type).getDefaultInstance(), 8888, (int) (value * 100), true);
+    }
+
+    public static void handleServerTick() {
+        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null
+                || entry.getKey().isRemoved() || entry.getKey().isDeadOrDying());
     }
 
     public static void provideElement(Player player, String type, double value, int lastTick) {
@@ -120,13 +124,11 @@ public class Element {
             put(lightning, ModItems.LightningElement.get());
             put(wind, ModItems.WindElement.get());
         }};
-        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         entityElementUnit.put(player, new Unit(type, value));
         ElementEffectTimeSend(player, map.get(type).getDefaultInstance(), lastTick, (int) (value * 100), false);
     }
 
     public static double ElementEffectAddToEntity(LivingEntity active, LivingEntity passive, String type, double value, boolean isAd, double damage) {
-        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         if (!entityElementUnit.containsKey(passive)) {
             entityElementUnit.put(passive, new Unit(life, 0));
         }

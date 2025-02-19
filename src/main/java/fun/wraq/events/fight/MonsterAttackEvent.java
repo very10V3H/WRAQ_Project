@@ -12,6 +12,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.networking.ModNetworking;
@@ -20,6 +21,7 @@ import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.teamInstance.instances.spring.SpringSnakeInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnWithstandDamage;
@@ -67,7 +69,9 @@ public class MonsterAttackEvent {
         damageDecreaseRate += Compute.getSwordSkill14(data, player, monster);
         damageDecreaseRate += Compute.getBowSkill4(data, player);
         damageDecreaseRate += Compute.getManaSkill4(data, player);
-        damageDecreaseRate += DamageInfluence.levelSuppress(player, monster); // 等级压制
+        if (!MobSpawn.getMobOriginName(monster).equals(SpringMobEvent.mobName)) {
+            damageDecreaseRate += DamageInfluence.levelSuppress(player, monster); // 等级压制
+        }
         damageDecreaseRate += ScarecrowChestPlate(player); // 稻草甲
         damageDecreaseRate += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
         damageDecreaseRate += EarthPower.MobDamageDecrease(monster); // 地蕴法术
