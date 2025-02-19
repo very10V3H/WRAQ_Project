@@ -27,7 +27,7 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Befor
     public CitadelCurio(Properties properties, int tier) {
         super(properties);
         Utils.expUp.put(this, new double[]{0.44, 0.66, 0.88, 1.11}[tier]);
-        Utils.levelRequire.put(this, 220);
+        Utils.levelRequire.put(this, 215);
         this.tier = tier;
     }
 

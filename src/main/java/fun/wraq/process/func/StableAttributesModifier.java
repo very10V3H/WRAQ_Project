@@ -7,8 +7,10 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public record StableAttributesModifier(String tag, double value, int stopTick) {
@@ -40,6 +42,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> playerSlowdownEffectModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerToughnessModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerManaPenetrationModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerSwiftnessModifier = new HashMap<>();
 
     public static Map<LivingEntity, List<StableAttributesModifier>> mobDefenceModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentDefenceModifier = new HashMap<>();
@@ -48,7 +51,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
 
     public static List<StableAttributesModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {
-            modifierMap.put(entity, new CopyOnWriteArrayList<>());
+            modifierMap.put(entity, new ArrayList<>());
         }
         return modifierMap.get(entity);
     }
@@ -57,7 +60,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
                                             StableAttributesModifier attributeModifier) {
         modifierMap.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         List<StableAttributesModifier> modifierList = getAttributeModifierList(entity, modifierMap);
-        List<StableAttributesModifier> removeList = new CopyOnWriteArrayList<>();
+        List<StableAttributesModifier> removeList = new ArrayList<>();
         modifierList.forEach(modifier -> {
             if (modifier.tag.equals(attributeModifier.tag)) {
                 removeList.add(modifier);
@@ -96,7 +99,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
 
     public static void removeAttributeModifierByTag(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap, String tag) {
         List<StableAttributesModifier> modifierList = getAttributeModifierList(entity, modifierMap);
-        List<StableAttributesModifier> removeList = new CopyOnWriteArrayList<>();
+        List<StableAttributesModifier> removeList = new ArrayList<>();
         modifierList.forEach(modifier -> {
             if (modifier.tag.equals(tag)) {
                 removeList.add(modifier);
@@ -109,7 +112,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
         if (!modifierMap.containsKey(entity)) return 0;
         int tick = Tick.get();
         List<StableAttributesModifier> modifiers = modifierMap.get(entity);
-        List<StableAttributesModifier> removeList = new CopyOnWriteArrayList<>();
+        List<StableAttributesModifier> removeList = new ArrayList<>();
         AtomicReference<Double> value = new AtomicReference<>((double) 0);
         modifiers.forEach(modifier -> {
             if (tick < modifier.stopTick) {

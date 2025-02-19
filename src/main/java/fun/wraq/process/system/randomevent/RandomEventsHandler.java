@@ -253,7 +253,7 @@ public class RandomEventsHandler {
 
     public static RandomEvent nextTimeEvent;
 
-    public static int status = 0;
+    public static int status = -1;
 
     public static void tick() {
         getRandomEvents()

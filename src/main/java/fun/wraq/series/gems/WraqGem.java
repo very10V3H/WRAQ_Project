@@ -160,8 +160,20 @@ public class WraqGem extends Item {
         return gemList;
     }
 
-    public static Set<WraqGem> getPlayerAllEquipGems(Player player) {
+    public static Set<WraqGem> getPlayerDistinctEquipGemsSet(Player player) {
         Set<WraqGem> gems = new HashSet<>();
+        InventoryOperation.getAllEquipSlotItems(player).forEach(stack -> {
+            try {
+                gems.addAll(getEquipContainGemList(stack));
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return gems;
+    }
+
+    public static List<WraqGem> getPlayerAllEquipGems(Player player) {
+        List<WraqGem> gems = new ArrayList<>();
         InventoryOperation.getAllEquipSlotItems(player).forEach(stack -> {
             try {
                 gems.addAll(getEquipContainGemList(stack));

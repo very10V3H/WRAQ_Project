@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 
@@ -561,5 +562,8 @@ public class ClientUtils {
     public static boolean isInBattle = false;
 
     public static long tabSwitchLastTime = 0;
+
+    public static Map<UUID, Integer> clientPlayerLevelIdMap = new HashMap<>();
+    public static Map<UUID, Vec3> clientPlayerLocationMap = new HashMap<>();
 }
 

@@ -1752,10 +1752,13 @@ public class TradeList {
         ItemStack castleSwordPiece = new ItemStack(ModItems.CastleSwordPiece.get());
         ItemStack castleBowPiece = new ItemStack(ModItems.CastleBowPiece.get());
         ItemStack castleSceptrePiece = new ItemStack(ModItems.CastleSceptrePiece.get());
+        ItemStack castleWeaponGem = new ItemStack(GemItems.castleWeaponGem.get());
+        ItemStack castleArmorGem = new ItemStack(GemItems.castleArmorGem.get());
         ItemStack[] itemStacks = {
                 blazeRune, beaconRune, treeRune,
                 blazeSword, beaconBow, treeSceptre,
-                castleSwordPiece, castleBowPiece, castleSceptrePiece
+                castleSwordPiece, castleBowPiece, castleSceptrePiece,
+                castleWeaponGem, castleArmorGem
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -1798,6 +1801,14 @@ public class TradeList {
         tradeRecipeMap.put(castleSceptrePiece, List.of(
                 new ItemStack(ModItems.CastleSwordPiece.get(), 2),
                 new ItemStack(ModItems.CastleBowPiece.get(), 2)
+        ));
+        tradeRecipeMap.put(castleWeaponGem, List.of(
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 10),
+                new ItemStack(ModItems.CastleCuriosPowder.get(), 16)
+        ));
+        tradeRecipeMap.put(castleArmorGem, List.of(
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 10),
+                new ItemStack(ModItems.CastleCuriosPowder.get(), 16)
         ));
     }
 
@@ -2199,6 +2210,7 @@ public class TradeList {
                 Items.LEATHER.getDefaultInstance(),
                 ModItems.PlainRune.get().getDefaultInstance(),
                 new ItemStack(ModItems.silverCoin.get(), 4),
+                new ItemStack(ModItems.PlainManaBook.get())
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -2216,6 +2228,11 @@ public class TradeList {
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PlainSoul.get(), 64));
+                }});
+                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.PlainRune.get(), 4));
+                    add(new ItemStack(ModItems.GEM_PIECE.get(), 4));
+                    add(new ItemStack(Items.LEATHER, 16));
                 }});
             }
         }

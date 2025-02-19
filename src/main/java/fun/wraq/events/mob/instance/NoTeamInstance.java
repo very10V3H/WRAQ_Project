@@ -5,9 +5,9 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.AdjustStackBeforeGive;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -34,10 +34,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 public abstract class NoTeamInstance {
     public List<ServerBossEvent> bossInfoList = new ArrayList<>();
@@ -52,7 +52,7 @@ public abstract class NoTeamInstance {
     public final MutableComponent name;
     public boolean ready;
     public final int level;
-    public Set<Player> players = new CopyOnWriteArraySet<>();
+    public Set<Player> players = new HashSet<>();
     public int spawnTick = 0;
     public int clearTick = 0;
 
@@ -196,6 +196,11 @@ public abstract class NoTeamInstance {
         return false;
     }
 
+    @Nullable
+    public Component getExtraInfo() {
+        return null;
+    }
+
     public void summonLeftSecondsArmorStand(Level level) {
         if (!getNearPlayers(level).isEmpty() && !inChallenge) {
             List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos,
@@ -205,6 +210,9 @@ public abstract class NoTeamInstance {
             if (tick > summonTick) {
                 summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
                         getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName(), "右键以召唤", ChatFormatting.AQUA));
+                if (getExtraInfo() != null) {
+                    summonArmorStand(level, new Vec3(0, -0.5, 0), getExtraInfo());
+                }
             } else {
                 summonArmorStand(level, new Vec3(0, -0.25, 0), Component.literal("剩余:").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(String.valueOf((summonTick - tick) / 20)).withStyle(ChatFormatting.WHITE)).

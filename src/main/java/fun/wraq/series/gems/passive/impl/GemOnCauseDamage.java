@@ -8,7 +8,7 @@ public interface GemOnCauseDamage {
     void onCauseDamage(Player player, Mob mob, double damage);
 
     static void causeDamage(Player player, Mob mob, double damage) {
-        WraqGem.getPlayerAllEquipGems(player)
+        WraqGem.getPlayerDistinctEquipGemsSet(player)
                 .stream().filter(gem -> gem instanceof GemOnCauseDamage)
                 .map(gem -> (GemOnCauseDamage) gem)
                 .forEach(gem -> gem.onCauseDamage(player, mob, damage));

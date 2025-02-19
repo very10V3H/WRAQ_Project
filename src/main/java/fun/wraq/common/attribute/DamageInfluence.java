@@ -14,6 +14,7 @@ import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
@@ -165,6 +166,9 @@ public class DamageInfluence {
 
     public static double levelSuppress(Player player, Mob monster) {
         int mobLevel = MobSpawn.MobBaseAttributes.xpLevel.getOrDefault(MobSpawn.getMobOriginName(monster), 0);
+        if (MobSpawn.getMobOriginName(monster).equals(SpringMobEvent.mobName)) {
+            return 0;
+        }
         return (player.experienceLevel - mobLevel) / 500d;
     }
 

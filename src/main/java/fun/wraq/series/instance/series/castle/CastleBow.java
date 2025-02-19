@@ -33,6 +33,7 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem, Enhance
         Utils.attackDamage.put(this, 1500d);
         Utils.defencePenetration0.put(this, 36d);
         Utils.critRate.put(this, 0.25);
+        Utils.levelRequire.put(this, 180);
         this.tier = tier;
     }
 

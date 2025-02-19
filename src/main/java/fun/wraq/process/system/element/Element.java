@@ -89,24 +89,30 @@ public class Element {
 
     public static WeakHashMap<Player, String> PlayerResonanceType = new WeakHashMap<>();
 
-    public static void provideElement(LivingEntity livingEntity, String type, double value) {
-        Map<String, Item> map = new HashMap<>() {{
-            put(life, ModItems.LifeElement.get());
-            put(water, ModItems.WaterElement.get());
-            put(fire, ModItems.FireElement.get());
-            put(stone, ModItems.StoneElement.get());
-            put(ice, ModItems.IceElement.get());
-            put(lightning, ModItems.LightningElement.get());
-            put(wind, ModItems.WindElement.get());
-        }};
+    public static Map<String, Item> elementItemMap;
+    public static Map<String, Item> getElementItemMap() {
+        if (elementItemMap == null) {
+            elementItemMap = new HashMap<>() {{
+                put(life, ModItems.LifeElement.get());
+                put(water, ModItems.WaterElement.get());
+                put(fire, ModItems.FireElement.get());
+                put(stone, ModItems.StoneElement.get());
+                put(ice, ModItems.IceElement.get());
+                put(lightning, ModItems.LightningElement.get());
+                put(wind, ModItems.WindElement.get());
+            }};
+        }
+        return elementItemMap;
+    }
 
+    public static void provideElement(LivingEntity livingEntity, String type, double value) {
         // 季节影响怪物元素量
         if (livingEntity instanceof Mob) {
             value *= (1 + MySeason.getCurrentSeasonElementEffect(type));
         }
         entityElementUnit.put(livingEntity, new Unit(type, value));
         if (livingEntity instanceof Player player) ElementEffectTimeSend(player,
-                map.get(type).getDefaultInstance(), 8888, (int) (value * 100), true);
+                getElementItemMap().get(type).getDefaultInstance(), 8888, (int) (value * 100), true);
     }
 
     public static void handleServerTick() {
@@ -115,17 +121,9 @@ public class Element {
     }
 
     public static void provideElement(Player player, String type, double value, int lastTick) {
-        Map<String, Item> map = new HashMap<>() {{
-            put(life, ModItems.LifeElement.get());
-            put(water, ModItems.WaterElement.get());
-            put(fire, ModItems.FireElement.get());
-            put(stone, ModItems.StoneElement.get());
-            put(ice, ModItems.IceElement.get());
-            put(lightning, ModItems.LightningElement.get());
-            put(wind, ModItems.WindElement.get());
-        }};
         entityElementUnit.put(player, new Unit(type, value));
-        ElementEffectTimeSend(player, map.get(type).getDefaultInstance(), lastTick, (int) (value * 100), false);
+        ElementEffectTimeSend(player, getElementItemMap().get(type).getDefaultInstance(),
+                lastTick, (int) (value * 100), false);
     }
 
     public static double ElementEffectAddToEntity(LivingEntity active, LivingEntity passive, String type, double value, boolean isAd, double damage) {
@@ -885,6 +883,8 @@ public class Element {
         } else if (PlayerResonanceType.containsKey(player)) {
             provideElement(player, PlayerResonanceType.get(player),
                     ElementValue.getElementValueJudgeByType(player, PlayerResonanceType.get(player)));
+        } else if (!PlayerResonanceType.containsKey(player)) {
+            provideElement(player, life, 0);
         }
     }
 

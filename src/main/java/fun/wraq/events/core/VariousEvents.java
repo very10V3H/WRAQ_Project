@@ -21,6 +21,7 @@ import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
+import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
@@ -55,6 +56,7 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.event.CurioChangeEvent;
 import top.theillusivec4.curios.api.event.CurioEquipEvent;
@@ -234,37 +236,47 @@ public class VariousEvents {
                     break;
                 }
             }
-            String Level = Name.substring(FirstLvIndex + 1, SecondLvIndex);
+            String xpLevel = Name.substring(FirstLvIndex + 1, SecondLvIndex);
             int xp = Integer.parseInt(Name.substring(FirstLvIndex + 4, SecondLvIndex));
             if (SecondPrefixIndex == 0) return;
-            String NewName = Name.substring(SecondLvIndex + 1);
+            String playerName = Name.substring(SecondLvIndex + 1);
             UUID uuid = event.getSender();
-            MutableComponent component = Te.s("");
+            MutableComponent prefix = Te.s("");
             if (PrefixCommand.clientPrefixInfo.containsKey(uuid)) {
                 PrefixInfo prefixInfo = PrefixCommand.clientPrefixInfo.get(uuid);
-                component.append(Component.literal(prefixInfo.getPrefix())
+                prefix.append(Component.literal(prefixInfo.getPrefix())
                         .withStyle(Style.EMPTY.withColor(TextColor.parseColor(prefixInfo.getColor()))));
             } else {
-                component.append(Component.literal("初来乍到").withStyle(CustomStyle.styleOfMine));
+                prefix.append(Component.literal("初来乍到").withStyle(CustomStyle.styleOfMine));
             }
-            MutableComponent rankComponent = Te.s("");
+            MutableComponent rankPrefix = Te.s("");
             if (RankData.clientPlayerCurrentRankMap.containsKey(uuid)) {
                 String rank = RankData.clientPlayerCurrentRankMap.get(uuid);
                 if (!rank.equals("null")) {
-                    rankComponent.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
+                    rankPrefix.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
                 }
             }
-            event.setMessage(Component.literal("[" + showTime + "]").withStyle(ChatFormatting.GRAY).
-                    append(rankComponent).
-                    append(Component.literal("|").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.BOLD)).
-                    append(component).
-                    append(Component.literal("|").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.BOLD)).
-                    append(Component.literal("[").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD)).
-                    append(Component.literal(Level).withStyle(Utils.levelStyleList.get(xp / 25))).
-                    append(Component.literal("]").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD)).
-                    append(Component.literal(NewName).withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal(" >> ").withStyle(ChatFormatting.GRAY)).
-                    append(Component.literal(NewMSG).withStyle(ChatFormatting.WHITE)));
+            MutableComponent locationInfo = Te.s("");
+            if (ClientUtils.clientPlayerLevelIdMap.containsKey(uuid)) {
+                int levelId = ClientUtils.clientPlayerLevelIdMap.get(uuid);
+                Vec3 pos = ClientUtils.clientPlayerLocationMap.get(uuid);
+                if (levelId == 0) {
+                    locationInfo = getLocationInfo(MyWayPoint.overworldPointList, pos);
+                } else if (levelId == 1) {
+                    locationInfo = getLocationInfo(MyWayPoint.netherPointList, pos);
+                } else if (levelId == 2) {
+                    locationInfo = Te.s("终界", CustomStyle.styleOfEnd);
+                }
+            }
+            event.setMessage(Te.s("[" + showTime + "]", CustomStyle.styleOfStone,
+                    "|", CustomStyle.styleOfStone, ChatFormatting.BOLD,
+                    locationInfo, "|", CustomStyle.styleOfStone, ChatFormatting.BOLD,
+                    rankPrefix,
+                    "|", ChatFormatting.GOLD, ChatFormatting.BOLD,
+                    prefix, "|", ChatFormatting.GOLD, ChatFormatting.BOLD,
+                    "[", ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD,
+                    Utils.getLevelDescription(xp), "]", ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD,
+                    playerName, " >> ", CustomStyle.styleOfStone, NewMSG));
             ClientUtils.Sounds = 12;
         }
         if (event.isSystem()) {
@@ -274,6 +286,21 @@ public class VariousEvents {
             }
         }
     }
+
+    @Nullable
+    private static MutableComponent getLocationInfo(List<MyWayPoint> myWayPoints, Vec3 pos) {
+        MyWayPoint wayPoint = myWayPoints.stream().min(new Comparator<MyWayPoint>() {
+            @Override
+            public int compare(MyWayPoint o1, MyWayPoint o2) {
+                return (int) (o1.pos.distanceTo(pos) - o2.pos.distanceTo(pos));
+            }
+        }).orElse(null);
+        if (wayPoint != null && wayPoint.style != null) {
+            return Te.s(wayPoint.name, wayPoint.style);
+        }
+        return null;
+    }
+
 
     @SubscribeEvent
     public static void Dimension(PlayerEvent.PlayerChangedDimensionEvent event) {

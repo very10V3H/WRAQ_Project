@@ -28,7 +28,7 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
         Utils.manaRecover.put(this, 40d);
         Utils.manaPenetration0.put(this, 50d);
         Utils.coolDownDecrease.put(this, 0.25);
-        Utils.levelRequire.put(this, 230);
+        Utils.levelRequire.put(this, 225);
     }
 
     @Override

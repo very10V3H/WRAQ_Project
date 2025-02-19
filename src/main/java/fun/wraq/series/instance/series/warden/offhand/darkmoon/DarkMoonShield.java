@@ -20,7 +20,7 @@ public class DarkMoonShield extends WardenOffhandItem implements ForgeItem {
         Utils.critDamage.put(this, 0.09);
         Utils.expUp.put(this, 1.08);
         Utils.shieldTag.put(this, 1d);
-        Utils.levelRequire.put(this, 225);
+        Utils.levelRequire.put(this, 220);
     }
 
     @Override

@@ -8,6 +8,7 @@ import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPac
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -23,16 +24,22 @@ import java.io.IOException;
 import java.util.*;
 
 public class MyWayPoint {
-    public Vec3 pos;
-    public String name;
-    public int color;
-    public int type; // 0 - 局部 / 1 - 全局
+    public final Vec3 pos;
+    public final String name;
+    public final int color;
+    public final int type; // 0 - 局部 / 1 - 全局
+    public final Style style;
 
-    public MyWayPoint(Vec3 pos, String name, int color, int type) {
+    public MyWayPoint(Vec3 pos, String name, int color, Style style, int type) {
         this.pos = pos;
         this.name = name;
         this.color = color;
         this.type = type;
+        this.style = style;
+    }
+
+    public MyWayPoint(Vec3 pos, String name, int color, int type) {
+        this(pos, name, color, null, type);
     }
 
     public Waypoint toWayPoint() {
@@ -214,31 +221,44 @@ public class MyWayPoint {
 
     public static class VillageWayPoint {
         public static final MyWayPoint PLAIN_VILLAGE
-                = new MyWayPoint(new Vec3(756, 84, 207), "平原村", colorMap.get(green), 0);
+                = new MyWayPoint(new Vec3(756, 84, 207), "平原村",
+                colorMap.get(green), CustomStyle.styleOfPlain, 0);
         public static final MyWayPoint SKY_CITY
-                = new MyWayPoint(new Vec3(956, 232, 17), "天空城", colorMap.get(aqua), 0);
+                = new MyWayPoint(new Vec3(956, 232, 17), "天空城",
+                colorMap.get(aqua), CustomStyle.styleOfSky, 0);
         public static final MyWayPoint FOREST_VILLAGE
-                = new MyWayPoint(new Vec3(1091, 80, 40), "雨林村", colorMap.get(darkGreen), 0);
+                = new MyWayPoint(new Vec3(1091, 80, 40), "雨林村",
+                colorMap.get(darkGreen), CustomStyle.styleOfForest, 0);
         public static final MyWayPoint SEA_VILLAGE
-                = new MyWayPoint(new Vec3(889, 62, -422), "海岸村", colorMap.get(blue), 0);
+                = new MyWayPoint(new Vec3(889, 62, -422), "海岸村",
+                colorMap.get(blue), CustomStyle.styleOfSea, 0);
         public static final MyWayPoint VOLCANO_VILLAGE
-                = new MyWayPoint(new Vec3(2573, 120, -492), "火山村", colorMap.get(yellow), 0);
+                = new MyWayPoint(new Vec3(2573, 120, -492), "火山村",
+                colorMap.get(yellow), CustomStyle.styleOfVolcano, 0);
         public static final MyWayPoint XUNNAN_VILLAGE
-                = new MyWayPoint(new Vec3(1157, 76, -1077), "薰楠村", colorMap.get(purple), 0);
+                = new MyWayPoint(new Vec3(1157, 76, -1077), "薰楠村",
+                colorMap.get(purple), CustomStyle.styleOfJacaranda, 0);
         public static final MyWayPoint XUNXI_VILLAGE
-                = new MyWayPoint(new Vec3(1036, 76, -1288), "薰曦村", colorMap.get(purple), 0);
+                = new MyWayPoint(new Vec3(1036, 76, -1288), "薰曦村",
+                colorMap.get(purple), CustomStyle.styleOfJacaranda, 0);
         public static final MyWayPoint SNOW_VILLAGE
-                = new MyWayPoint(new Vec3(1329, 71, -1612), "北洋村", colorMap.get(aqua), 0);
+                = new MyWayPoint(new Vec3(1329, 71, -1612), "北洋村",
+                colorMap.get(aqua), CustomStyle.styleOfSnow, 0);
         public static final MyWayPoint SAND_VILLAGE
-                = new MyWayPoint(new Vec3(1911, 86, 1688), "沙岸村", colorMap.get(yellow), 0);
+                = new MyWayPoint(new Vec3(1911, 86, 1688), "沙岸村",
+                colorMap.get(yellow), CustomStyle.styleOfHusk, 0);
         public static final MyWayPoint SAKURA_VILLAGE
-                = new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村", colorMap.get(purple), 0);
+                = new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村",
+                colorMap.get(purple), CustomStyle.styleOfSakura, 0);
         public static final MyWayPoint MOONTAIN_BASE
-                = new MyWayPoint(new Vec3(1921, 151, -936), "望山据点", colorMap.get(darkGreen), 0);
+                = new MyWayPoint(new Vec3(1921, 151, -936), "望山据点",
+                colorMap.get(darkGreen), CustomStyle.styleOfMoontain, 0);
         public static final MyWayPoint SUN_RISE_ISLAND
-                = new MyWayPoint(new Vec3(1808, 74, 339), "旭升岛", colorMap.get(yellow), 0);
+                = new MyWayPoint(new Vec3(1808, 74, 339), "旭升岛",
+                colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0);
         public static final MyWayPoint FOR_NORTH_VILLAGE
-                = new MyWayPoint(new Vec3(1731, 137, 1875), "北望村", colorMap.get(green), 0);
+                = new MyWayPoint(new Vec3(1731, 137, 1875), "北望村",
+                colorMap.get(green), CustomStyle.styleOfSunIsland, 0);
 
         public static List<MyWayPoint> getAllVillageWayPoints() {
             return List.of(
@@ -262,7 +282,7 @@ public class MyWayPoint {
     public static List<MyWayPoint> overworldPointList = new ArrayList<>() {{
         add(VillageWayPoint.PLAIN_VILLAGE);
         add(VillageWayPoint.SKY_CITY);
-        add(new MyWayPoint(new Vec3(754, 181, -86), "德朗斯蒂克", colorMap.get(green), 0));
+        add(new MyWayPoint(new Vec3(754, 181, -86), "德朗斯蒂克", colorMap.get(green), CustomStyle.styleOfPlain, 0));
         add(VillageWayPoint.FOREST_VILLAGE);
         add(VillageWayPoint.SEA_VILLAGE);
         add(VillageWayPoint.VOLCANO_VILLAGE);
@@ -271,137 +291,119 @@ public class MyWayPoint {
         add(VillageWayPoint.SNOW_VILLAGE);
         add(VillageWayPoint.SAND_VILLAGE);
         add(VillageWayPoint.SAKURA_VILLAGE);
-        add(new MyWayPoint(new Vec3(2122, 152, -1138), "艾里蒙特大陆", colorMap.get(purple), 0));
-
-        add(new MyWayPoint(new Vec3(735, 79, 263), "平原僵尸刷怪点", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(621, 70, 443), "怀德风骨刷怪点", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(887, 79, 229), "森林僵尸刷怪点", colorMap.get(darkGreen), 0));
-        add(new MyWayPoint(new Vec3(1106, 72, 132), "雨林蜘蛛刷怪点", colorMap.get(darkGreen), 0));
-        add(new MyWayPoint(new Vec3(804, 68, 366), "脆弱的岩灵刷怪点", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1220, 58, 55), "河流故灵刷怪点", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1287, 75, 62), "焰芒虫刷怪点", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(1479, 78, -19), "炽魂刷怪点", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(1500, 69, -179), "唤魔者刷怪点", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1050, 65, -510), "史莱姆刷怪点", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(1559, 63, -2214), "冰川流浪者刷怪点", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(1119, 77, -1208), "紫晶妖妇刷怪点", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1614, 74, 45), "伐木工刷怪点", colorMap.get(darkGreen), 0));
-        add(new MyWayPoint(new Vec3(1768, 78, 43), "森林狼刷怪点", colorMap.get(darkGreen), 0));
-        add(new MyWayPoint(new Vec3(1188, 70, -29), "矿洞入口", colorMap.get(gray), 0));
-        add(new MyWayPoint(new Vec3(976, 250, 47), "本源回收装置", colorMap.get(aqua), 0));
-
-        add(new MyWayPoint(new Vec3(2414, 151, -1537), "烽火台哨卫刷怪点", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(2392, 154, -1443), "古树魔能研究者刷怪点", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(2450, 149, -1419), "熔岩湖溢出物刷怪点", colorMap.get(red), 0));
-
-        add(new MyWayPoint(new Vec3(1057, 226, 616), "梦灵刷怪点", colorMap.get(white), 0));
-        add(new MyWayPoint(new Vec3(1088, 23, 892), "神殿守卫刷怪点", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1039, 67, 1094), "海盗刷怪点", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1743, 69, 1241), "雷光灯塔守卫刷怪点", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(2262, 71, 1408), "腥月血灵刷怪点", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(2388, 163, 1622), "地蕴蓝灵刷怪点", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(2338, 151, 1683), "樱灵刷怪点", colorMap.get(purple), 0));
-
-        add(new MyWayPoint(new Vec3(2566, 126, -621), "炽魂刷怪点-A", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(2609, 132, -650), "炽鬼刷怪点", colorMap.get(red), 0));
-
-        add(new MyWayPoint(new Vec3(2624, 192, 1724), "魔王挑战点", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(1565, 63, -2924), "冰霜骑士挑战点", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(1761, 130, -463), "阿尔忒弥斯挑战点", colorMap.get(white), 0));
-        add(new MyWayPoint(new Vec3(1167, 111, 24), "普莱尼挑战点", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(1171.5, -35.5, -171.5), "紫晶巨蟹挑战点", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(2257, 140, 1694), "突见忍挑战点", colorMap.get(gold), 0));
-        add(new MyWayPoint(new Vec3(2417, 152, -1372), "暗黑城堡团队副本挑战点", colorMap.get(black), 0));
-
-        add(new MyWayPoint(new Vec3(2335, 148, 17), "东洋塔", colorMap.get(red), 0));
-
+        add(new MyWayPoint(new Vec3(2122, 152, -1138), "艾里蒙特大陆", colorMap.get(purple), CustomStyle.styleOfWorld, 0));
+        add(new MyWayPoint(new Vec3(735, 79, 263), "平原僵尸刷怪点", colorMap.get(green), CustomStyle.styleOfPlain, 0));
+        add(new MyWayPoint(new Vec3(621, 70, 443), "怀德风骨刷怪点", colorMap.get(green), CustomStyle.styleOfKaze, 0));
+        add(new MyWayPoint(new Vec3(887, 79, 229), "森林僵尸刷怪点", colorMap.get(darkGreen), CustomStyle.styleOfForest, 0));
+        add(new MyWayPoint(new Vec3(1106, 72, 132), "雨林蜘蛛刷怪点", colorMap.get(darkGreen), CustomStyle.styleOfForest, 0));
+        add(new MyWayPoint(new Vec3(804, 68, 366), "脆弱的岩灵刷怪点", colorMap.get(yellow), CustomStyle.styleOfHusk, 0));
+        add(new MyWayPoint(new Vec3(1220, 58, 55), "河流故灵刷怪点", colorMap.get(blue), CustomStyle.styleOfLake, 0));
+        add(new MyWayPoint(new Vec3(1287, 75, 62), "焰芒虫刷怪点", colorMap.get(red), CustomStyle.styleOfFire, 0));
+        add(new MyWayPoint(new Vec3(1479, 78, -19), "炽魂刷怪点", colorMap.get(red), CustomStyle.styleOfFire, 0));
+        add(new MyWayPoint(new Vec3(1500, 69, -179), "唤魔者刷怪点", colorMap.get(purple), CustomStyle.styleOfMana, 0));
+        add(new MyWayPoint(new Vec3(1050, 65, -510), "史莱姆刷怪点", colorMap.get(green), CustomStyle.styleOfLife, 0));
+        add(new MyWayPoint(new Vec3(1559, 63, -2214), "冰川流浪者刷怪点", colorMap.get(aqua), CustomStyle.styleOfIce, 0));
+        add(new MyWayPoint(new Vec3(1119, 77, -1208), "紫晶妖妇刷怪点", colorMap.get(purple), CustomStyle.styleOfJacaranda, 0));
+        add(new MyWayPoint(new Vec3(1614, 74, 45), "伐木工刷怪点", colorMap.get(darkGreen), CustomStyle.styleOfForest, 0));
+        add(new MyWayPoint(new Vec3(1768, 78, 43), "森林狼刷怪点", colorMap.get(darkGreen), CustomStyle.styleOfForest, 0));
+        add(new MyWayPoint(new Vec3(1188, 70, -29), "矿洞入口", colorMap.get(gray), CustomStyle.styleOfMine, 0));
+        add(new MyWayPoint(new Vec3(976, 250, 47), "本源回收装置", colorMap.get(aqua), CustomStyle.styleOfWorld, 0));
+        add(new MyWayPoint(new Vec3(2414, 151, -1537), "烽火台哨卫刷怪点", colorMap.get(red), CustomStyle.styleOfMagma, 0));
+        add(new MyWayPoint(new Vec3(2392, 154, -1443), "古树魔能研究者刷怪点", colorMap.get(purple), CustomStyle.styleOfLife, 0));
+        add(new MyWayPoint(new Vec3(2450, 149, -1419), "熔岩湖溢出物刷怪点", colorMap.get(red), CustomStyle.styleOfMagma, 0));
+        add(new MyWayPoint(new Vec3(1057, 226, 616), "梦灵刷怪点", colorMap.get(white), CustomStyle.styleOfMoon1, 0));
+        add(new MyWayPoint(new Vec3(1088, 23, 892), "神殿守卫刷怪点", colorMap.get(blue), CustomStyle.styleOfSea, 0));
+        add(new MyWayPoint(new Vec3(1039, 67, 1094), "海盗刷怪点", colorMap.get(blue), CustomStyle.styleOfSea, 0));
+        add(new MyWayPoint(new Vec3(1743, 69, 1241), "雷光灯塔守卫刷怪点", colorMap.get(blue), CustomStyle.styleOfLightingIsland, 0));
+        add(new MyWayPoint(new Vec3(2262, 71, 1408), "腥月血灵刷怪点", colorMap.get(red), CustomStyle.styleOfBloodMana, 0));
+        add(new MyWayPoint(new Vec3(2388, 163, 1622), "地蕴蓝灵刷怪点", colorMap.get(purple), CustomStyle.styleOfJacaranda, 0));
+        add(new MyWayPoint(new Vec3(2338, 151, 1683), "樱灵刷怪点", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(2566, 126, -621), "炽魂刷怪点-A", colorMap.get(red), CustomStyle.styleOfFire, 0));
+        add(new MyWayPoint(new Vec3(2609, 132, -650), "炽鬼刷怪点", colorMap.get(red), CustomStyle.styleOfFire, 0));
+        add(new MyWayPoint(new Vec3(2624, 192, 1724), "魔王挑战点", colorMap.get(red), CustomStyle.styleOfDemon, 0));
+        add(new MyWayPoint(new Vec3(1565, 63, -2924), "冰霜骑士挑战点", colorMap.get(aqua), CustomStyle.styleOfIce, 0));
+        add(new MyWayPoint(new Vec3(1761, 130, -463), "阿尔忒弥斯挑战点", colorMap.get(white), CustomStyle.styleOfMoon, 0));
+        add(new MyWayPoint(new Vec3(1167, 111, 24), "普莱尼挑战点", colorMap.get(green), CustomStyle.styleOfPlain, 0));
+        add(new MyWayPoint(new Vec3(1171.5, -35.5, -171.5), "紫晶巨蟹挑战点", colorMap.get(purple), CustomStyle.styleOfPurpleIron, 0));
+        add(new MyWayPoint(new Vec3(2257, 140, 1694), "突见忍挑战点", colorMap.get(gold), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(2417, 152, -1372), "暗黑城堡团队副本挑战点", colorMap.get(black), CustomStyle.styleOfCastle, 0));
+        add(new MyWayPoint(new Vec3(2335, 148, 17), "东洋塔", colorMap.get(red), CustomStyle.styleOfHusk, 0));
         // 24.9.15 新增地点命名
-        add(new MyWayPoint(new Vec3(2132, 304, -228), "朔山", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(2232, 281, -775), "望山", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1954, 153, -881), "望山阁", colorMap.get(darkPurple), 0));
-
-        add(new MyWayPoint(new Vec3(1460, 74, -900), "炼雨湖", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(1488, 105, -1059), "炼雨府邸", colorMap.get(darkAqua), 0));
-
-        add(new MyWayPoint(new Vec3(2688, 222, -968), "焱山", colorMap.get(darkRed), 0));
-
-        add(new MyWayPoint(new Vec3(1534, 81, 305), "炼魔平原", colorMap.get(darkPurple), 0));
-        add(new MyWayPoint(new Vec3(1584, 81, 143), "炼魔庙", colorMap.get(darkPurple), 0));
-        add(new MyWayPoint(new Vec3(1742, 63, 241), "旭升湾", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1101, 76, 260), "纽维雨林", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(1280, 82, 209), "纽维庙", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(1147, 300, 554), "尘月之梦", colorMap.get(white), 0));
-        add(new MyWayPoint(new Vec3(1484, 63, -240), "唤魔湖", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1376, 81, -271), "唤魔庙", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(2243, 72, 1418), "腥月岛", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(2310, 140, 1586), "绯樱林", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(2437, 135, 1485), "蓝花林", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1743, 68, 1285), "雷光岛", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(2688, 222, -968), "焱山", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(1216, 63, -107), "斯蒂河", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1035, 63, -629), "斯蒂河", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(658, 63, -437), "德朗湾", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(752, 63, -1241), "薰花河", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(886, 63, -836), "薰花河", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(136, 63, -1433), "薰花河", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1276, 63, -1503), "北洋江", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(871, 63, -1886), "江东湖", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(290, 63, -1738), "江西湖", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(1173, 63, -2095), "北西洋", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(2320, 63, -2111), "北东洋", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(416, 63, -3332), "北西海", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(2964, 63, -3404), "北东海", colorMap.get(aqua), 0));
-
+        add(new MyWayPoint(new Vec3(2132, 304, -228), "朔山", colorMap.get(blue), CustomStyle.styleOfMoon1, 0));
+        add(new MyWayPoint(new Vec3(2232, 281, -775), "望山", colorMap.get(blue), CustomStyle.styleOfMoontain, 0));
+        add(new MyWayPoint(new Vec3(1954, 153, -881), "望山阁", colorMap.get(darkPurple), CustomStyle.styleOfMoontain, 0));
+        add(new MyWayPoint(new Vec3(1460, 74, -900), "炼雨湖", colorMap.get(aqua), CustomStyle.MANA_TOWER_STYLE, 0));
+        add(new MyWayPoint(new Vec3(1488, 105, -1059), "炼雨府邸", colorMap.get(darkAqua), CustomStyle.MANA_TOWER_STYLE, 0));
+        add(new MyWayPoint(new Vec3(2688, 222, -968), "焱山", colorMap.get(darkRed), CustomStyle.styleOfFire,  0));
+        add(new MyWayPoint(new Vec3(1534, 81, 305), "炼魔平原", colorMap.get(darkPurple), CustomStyle.styleOfMana, 0));
+        add(new MyWayPoint(new Vec3(1584, 81, 143), "炼魔庙", colorMap.get(darkPurple), CustomStyle.styleOfMana, 0));
+        add(new MyWayPoint(new Vec3(1742, 63, 241), "旭升湾", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(1101, 76, 260), "纽维雨林", colorMap.get(green), CustomStyle.styleOfForest, 0));
+        add(new MyWayPoint(new Vec3(1280, 82, 209), "纽维庙", colorMap.get(green), CustomStyle.styleOfForest, 0));
+        add(new MyWayPoint(new Vec3(1147, 300, 554), "尘月之梦", colorMap.get(white), CustomStyle.styleOfMoon, 0));
+        add(new MyWayPoint(new Vec3(1484, 63, -240), "唤魔湖", colorMap.get(purple), CustomStyle.styleOfMana, 0));
+        add(new MyWayPoint(new Vec3(1376, 81, -271), "唤魔庙", colorMap.get(purple), CustomStyle.styleOfMana, 0));
+        add(new MyWayPoint(new Vec3(2243, 72, 1418), "腥月岛", colorMap.get(red), CustomStyle.styleOfBloodMana, 0));
+        add(new MyWayPoint(new Vec3(2310, 140, 1586), "绯樱林", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(2437, 135, 1485), "蓝花林", colorMap.get(blue), CustomStyle.styleOfJacaranda, 0));
+        add(new MyWayPoint(new Vec3(1743, 68, 1285), "雷光岛", colorMap.get(blue), CustomStyle.styleOfLightingIsland, 0));
+        add(new MyWayPoint(new Vec3(2688, 222, -968), "焱山", colorMap.get(red), CustomStyle.styleOfFire, 0));
+        add(new MyWayPoint(new Vec3(1216, 63, -107), "斯蒂河", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(1035, 63, -629), "斯蒂河", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(658, 63, -437), "德朗湾", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(752, 63, -1241), "薰花河", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(886, 63, -836), "薰花河", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(136, 63, -1433), "薰花河", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(1276, 63, -1503), "北洋江", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(871, 63, -1886), "江东湖", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(290, 63, -1738), "江西湖", colorMap.get(blue), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(1173, 63, -2095), "北西洋", colorMap.get(aqua), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(2320, 63, -2111), "北东洋", colorMap.get(aqua), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(416, 63, -3332), "北西海", colorMap.get(aqua), CustomStyle.styleOfWater, 0));
+        add(new MyWayPoint(new Vec3(2964, 63, -3404), "北东海", colorMap.get(aqua), CustomStyle.styleOfWater, 0));
         add(VillageWayPoint.MOONTAIN_BASE);
-        add(new MyWayPoint(new Vec3(2046, 172, -818), "望山矿道西口", colorMap.get(darkGreen), 0));
-        add(new MyWayPoint(new Vec3(2342, 182, -790), "望山矿道东口", colorMap.get(darkRed), 0));
-
-        add(new MyWayPoint(new Vec3(2412, 185, 1733), "绯樱村 - 魔王府邸通路西口", colorMap.get(red), 0));
-
-        add(new MyWayPoint(new Vec3(2459, 170, 1753), "粉钻矿区", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1408, 12, -2853), "北境晶钻矿区", colorMap.get(aqua), 0));
-
+        add(new MyWayPoint(new Vec3(2046, 172, -818), "望山矿道西口", colorMap.get(darkGreen), CustomStyle.styleOfMoontain, 0));
+        add(new MyWayPoint(new Vec3(2342, 182, -790), "望山矿道东口", colorMap.get(darkRed), CustomStyle.styleOfMoontain, 0));
+        add(new MyWayPoint(new Vec3(2412, 185, 1733), "绯樱村 - 魔王府邸通路西口", colorMap.get(red), CustomStyle.styleOfDemon, 0));
+        add(new MyWayPoint(new Vec3(2459, 170, 1753), "粉钻矿区", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(1408, 12, -2853), "北境晶钻矿区", colorMap.get(aqua), CustomStyle.styleOfIce, 0));
         add(VillageWayPoint.SUN_RISE_ISLAND);
-
-        add(new MyWayPoint(new Vec3(1168, -36, -69), "玛瑙矿区", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(1883, 147, -461), "月影坡", colorMap.get(yellow), 0));
-
-        add(new MyWayPoint(new Vec3(962, 207, 13), "天空城传送中枢", colorMap.get(darkPurple), 0));
-
-        add(new MyWayPoint(new Vec3(2352, -34, -704), "远古之城", colorMap.get(darkBlue), 0));
+        add(new MyWayPoint(new Vec3(1168, -36, -69), "玛瑙矿区", colorMap.get(green), CustomStyle.styleOfLife, 0));
+        add(new MyWayPoint(new Vec3(1883, 147, -461), "月影坡", colorMap.get(yellow), CustomStyle.styleOfMoon, 0));
+        add(new MyWayPoint(new Vec3(962, 207, 13), "天空城传送中枢", colorMap.get(darkPurple), CustomStyle.styleOfSky, 0));
+        add(new MyWayPoint(new Vec3(2352, -34, -704), "远古之城", colorMap.get(darkBlue), CustomStyle.styleOfWarden, 0));
         add(VillageWayPoint.FOR_NORTH_VILLAGE);
-        add(new MyWayPoint(new Vec3(1934, -25, 1798), "鹰眼工厂", colorMap.get(red), 0));
-
-        add(new MyWayPoint(new Vec3(1573, 54, 149), "炼魔涌溢", colorMap.get(darkPurple), 0));
-        add(new MyWayPoint(new Vec3(2006, 130, -1785), "菌菇聚落", colorMap.get(red), 0));
+        add(new MyWayPoint(new Vec3(1934, -25, 1798), "鹰眼工厂", colorMap.get(red), CustomStyle.styleOfHarbinger, 0));
+        add(new MyWayPoint(new Vec3(1573, 54, 149), "炼魔涌溢", colorMap.get(darkPurple), CustomStyle.styleOfMana, 0));
+        add(new MyWayPoint(new Vec3(2006, 130, -1785), "菌菇聚落", colorMap.get(red), CustomStyle.MUSHROOM_STYLE, 0));
         // 轻轨
-        add(new MyWayPoint(new Vec3(2454, 130, -171), "蒙特轻轨检修基地", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(2343, 130, 31), "轻轨东洋塔站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(2343, 130, 31), "轻轨东洋塔站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1800, 72, 274), "轻轨旭升岛站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1213, 85, 54), "轻轨雨林村站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1003, 226, 0), "轻轨天空城站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(948, 79, -423), "轻轨海岸村站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1071, 80, -1328), "轻轨薰曦村站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1270, 72, -1622), "轻轨北洋村站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(2472, 170, -1374), "轻轨暗黑城堡站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(2496, 149, -486), "轻轨火山村站", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1908, 162, -1655), "轻轨北部高地站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(2454, 130, -171), "蒙特轻轨检修基地", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(2343, 130, 31), "轻轨东洋塔站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(2343, 130, 31), "轻轨东洋塔站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(1800, 72, 274), "轻轨旭升岛站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(1213, 85, 54), "轻轨雨林村站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(1003, 226, 0), "轻轨天空城站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(948, 79, -423), "轻轨海岸村站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(1071, 80, -1328), "轻轨薰曦村站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(1270, 72, -1622), "轻轨北洋村站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(2472, 170, -1374), "轻轨暗黑城堡站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(2496, 149, -486), "轻轨火山村站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
+        add(new MyWayPoint(new Vec3(1908, 162, -1655), "轻轨北部高地站", colorMap.get(yellow), CustomStyle.styleOfSunIsland, 0));
         // 地铁
-        add(new MyWayPoint(new Vec3(2054, 60, 1705), "艾樱地铁检修基地", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1898, 78, 1664), "地铁沙岸村站", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1759, 68, 1232), "地铁雷光岛站", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1797, 74, 318), "地铁旭升岛站", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1880, 147, -451), "地铁月影坡站", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1916, 151, -943), "地铁望山据点站", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1900, 158, -1648), "地铁北部高地站", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(2054, 60, 1705), "艾樱地铁检修基地", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(1898, 78, 1664), "地铁沙岸村站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(1759, 68, 1232), "地铁雷光岛站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(1797, 74, 318), "地铁旭升岛站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(1880, 147, -451), "地铁月影坡站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(1916, 151, -943), "地铁望山据点站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(new Vec3(1900, 158, -1648), "地铁北部高地站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{
-        add(new MyWayPoint(new Vec3(603, 79, -601), "下界猪灵刷怪点", colorMap.get(gold), 0));
-        add(new MyWayPoint(new Vec3(558, 67, -633), "下界凋零骷髅/骷髅刷怪点", colorMap.get(gray), 0));
-        add(new MyWayPoint(new Vec3(529, 64, -541), "燃魂挑战点", colorMap.get(red), 0));
-        add(new MyWayPoint(new Vec3(480, 64, -617), "熔岩能量聚合物刷怪点", colorMap.get(red), 0));
+        add(new MyWayPoint(new Vec3(603, 79, -601), "下界猪灵刷怪点", colorMap.get(gold), CustomStyle.styleOfGold, 0));
+        add(new MyWayPoint(new Vec3(558, 67, -633), "下界凋零骷髅/骷髅刷怪点", colorMap.get(gray), CustomStyle.styleOfWither, 0));
+        add(new MyWayPoint(new Vec3(529, 64, -541), "燃魂挑战点", colorMap.get(red), CustomStyle.styleOfFire, 0));
+        add(new MyWayPoint(new Vec3(480, 64, -617), "熔岩能量聚合物刷怪点", colorMap.get(red), CustomStyle.styleOfMagma, 0));
     }};
 
     @OnlyIn(Dist.CLIENT)

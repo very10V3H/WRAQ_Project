@@ -525,17 +525,17 @@ public class Utils {
     public static Map<Player, List<PlayerTeam>> PlayerRequestTeamMap = new WeakHashMap<>();
 
     public static List<Style> levelStyleList = new ArrayList<>() {{
-        add(CustomStyle.styleOfPlain);
-        add(CustomStyle.styleOfMana);
-        add(CustomStyle.styleOfSakura);
-        add(CustomStyle.styleOfEntropy);
-        add(CustomStyle.styleOfWorld);
-        add(CustomStyle.styleOfPower);
-        add(CustomStyle.styleOfMoon1);
-        add(CustomStyle.styleOfPurpleIron);
-        add(CustomStyle.styleOfMoon);
-        add(CustomStyle.styleOfMoontain);
-        add(CustomStyle.styleOfLightning);
+        add(CustomStyle.styleOfPlain); // < 25
+        add(CustomStyle.styleOfFire); // < 50
+        add(CustomStyle.styleOfSky); // < 75
+        add(CustomStyle.styleOfRed); // < 100
+        add(CustomStyle.styleOfPurpleIron); // < 125
+        add(CustomStyle.styleOfSakura); // < 150
+        add(CustomStyle.styleOfMoon); // < 175
+        add(CustomStyle.styleOfCastleCrystal); // < 200
+        add(CustomStyle.styleOfMoontain); // < 225
+        add(CustomStyle.styleOfHarbinger); // < 250
+        add(CustomStyle.MANA_TOWER_STYLE); // < 275
     }};
 
     public static Style getLevelStyle(int level) {

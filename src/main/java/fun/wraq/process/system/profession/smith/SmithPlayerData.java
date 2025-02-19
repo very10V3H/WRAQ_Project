@@ -54,9 +54,9 @@ public class SmithPlayerData {
             } else {
                 stack = new ItemStack(equipPiece6, tier - 4);
             }
-            InventoryOperation.giveItemStack(player, stack);
             sendMSG(player, Te.s("你的", "工匠等阶", CustomStyle.styleOfGold,
                     "为你额外提供了", stack, " * " + stack.getCount(), ChatFormatting.AQUA));
+            InventoryOperation.giveItemStack(player, stack);
         }
         if (tier > 0 && RandomUtils.nextDouble(0, 1) < tier * 0.05) {
             InventoryOperation.giveItemStack(player, new ItemStack(equipPiece5));

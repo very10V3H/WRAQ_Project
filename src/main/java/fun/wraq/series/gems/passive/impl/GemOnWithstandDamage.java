@@ -8,7 +8,7 @@ public interface GemOnWithstandDamage {
     void onWithStandDamage(Player player, Mob mob, double damage);
 
     static void withStandDamage(Player player, Mob mob, double damage) {
-        WraqGem.getPlayerAllEquipGems(player)
+        WraqGem.getPlayerDistinctEquipGemsSet(player)
                 .stream().filter(gem -> gem instanceof GemOnWithstandDamage)
                 .map(gem -> (GemOnWithstandDamage) gem)
                 .forEach(gem -> gem.onWithStandDamage(player, mob, damage));

@@ -57,7 +57,8 @@ public enum ModArmorMaterials implements ArmorMaterial {
     Castle("castle", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_NETHERITE),
     FANVER_GOLDEN("fanver_golden", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_GOLD),
     MOONTAIN("moontain", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
-    ENHANCE_PURPLE_IRON("enhance_purple_iron", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_IRON);
+    ENHANCE_PURPLE_IRON("enhance_purple_iron", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_IRON),
+    FANVER_DIAMOND("fanver_diamond", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND);
 
     private final int Durability;
     private final int Defense;

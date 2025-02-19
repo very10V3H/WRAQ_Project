@@ -8,7 +8,7 @@ public interface GemOnNormalAttackHit {
     void onHit(Player player, Mob mob, double damage);
 
     static void hit(Player player, Mob mob, double damage) {
-        WraqGem.getPlayerAllEquipGems(player)
+        WraqGem.getPlayerDistinctEquipGemsSet(player)
                 .stream().filter(gem -> gem instanceof GemOnNormalAttackHit)
                 .map(gem -> (GemOnNormalAttackHit) gem)
                 .forEach(gem -> gem.onHit(player, mob, damage));

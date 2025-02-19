@@ -2,6 +2,7 @@ package fun.wraq.series.overworld.chapter7.star;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.registry.ModItems;
@@ -53,11 +54,9 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
                 append(Component.literal("星屑").withStyle(style)));
         components.add(Component.literal(" 每秒会将").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)).
-                append(Component.literal("掷向半径16格内的目标，每枚").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("星屑").withStyle(style)).
-                append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("(星屑数) * 10%").withStyle(CustomStyle.styleOfSea)).
-                append(ComponentUtils.getAutoAdaptTrueDamageDescription("")));
+                append(Component.literal("掷向半径16格内的目标;")));
+        components.add(Te.s("每枚", "星屑", style, "造成", "(星屑数) * 10%", CustomStyle.styleOfSea,
+                ComponentUtils.getAutoAdaptDamageDescription("")));
         components.add(Component.literal(" 只有当星星瓶中的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("被完全释放后，你才可以再次收集").withStyle(ChatFormatting.WHITE)).
@@ -89,7 +88,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
             playerStatusMap.put(player, false);
         }
         if (playerStatusMap.get(player) && playerCountsMap.get(player) > 0 && player.tickCount % 20 == 0) {
-
+            attackRange(player);
         }
     }
 

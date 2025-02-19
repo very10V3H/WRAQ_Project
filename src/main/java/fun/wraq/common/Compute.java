@@ -12,7 +12,6 @@ import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
@@ -114,7 +113,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.acos;
@@ -335,10 +333,6 @@ public class Compute {
             }
             return false;
         } else {
-            if (SuitCount.getEarthManaSuitCount(player) > 0) {
-                playerHeal(player, manaCost * SuitCount.getEarthManaSuitCount(player));
-            }
-            OnCostManaEquip.costMana(player, manaCost);
             Mana.addOrCostPlayerMana(player, -manaCost);
         }
         return true;
@@ -354,11 +348,6 @@ public class Compute {
             }
             return false;
         } else {
-            PowerLogic.playerLastTimeReleasePowerManaCost.put(player, manaCost);
-            if (SuitCount.getEarthManaSuitCount(player) > 0) {
-                playerHeal(player, manaCost * SuitCount.getEarthManaSuitCount(player));
-            }
-            OnCostManaEquip.costMana(player, manaCost);
             Mana.addOrCostPlayerMana(player, -manaCost);
         }
         return true;
@@ -1360,7 +1349,7 @@ public class Compute {
 
     public static class CuriosAttribute {
 
-        public static Map<Player, List<ItemStack>> curiosListCache = new ConcurrentHashMap<>();
+        public static Map<Player, List<ItemStack>> curiosListCache = new HashMap<>();
         /**
          * 获取玩家去重饰品列表
          */
@@ -1399,7 +1388,7 @@ public class Compute {
             return set;
         }
 
-        public static Map<Player, Set<Item>> curiosSetCache = new ConcurrentHashMap<>();
+        public static Map<Player, Set<Item>> curiosSetCache = new HashMap<>();
         public static Set<Item> getDistinctCuriosSet(Player player) {
             if (!curiosSetCache.containsKey(player)) {
                 Set<Item> set = new HashSet<>(getDistinctCuriosList(player)
@@ -1411,25 +1400,46 @@ public class Compute {
         }
 
         public static double attributeValue(Player player, Map<Item, Double> attributeMap, String attributeName) {
-            return getDistinctCuriosList(player).stream()
-                    .mapToDouble(stack -> {
-                        double value = 0;
-                        Item curiosItem = stack.getItem();
-                        if (attributeMap.containsKey(curiosItem)
-                                && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
-                            value += attributeMap.get(curiosItem);
+            if (attributeMap.equals(Utils.defencePenetration) || attributeMap.equals(Utils.manaPenetration)) {
+                double rate = 1;
+                for (ItemStack curioStack : getDistinctCuriosList(player)) {
+                    Item curiosItem = curioStack.getItem();
+                    if (attributeMap.containsKey(curiosItem)
+                            && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
+                        rate *= (1 - attributeMap.get(curiosItem));
+                    }
+                    CompoundTag data = curioStack.getOrCreateTagElement(Utils.MOD_ID);
+                    if (data.contains(attributeName)) {
+                        if (curiosItem instanceof RandomCurios) {
+                            rate *= (1 - data.getDouble(attributeName)
+                                    * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName));
+                        } else {
+                            rate *= (1 - data.getInt(attributeName));
                         }
-                        CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-                        if (data.contains(attributeName)) {
-                            if (curiosItem instanceof RandomCurios) {
-                                value += data.getDouble(attributeName)
-                                        * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
-                            } else {
-                                value += data.getInt(attributeName);
+                    }
+                }
+                return 1 - rate;
+            } else {
+                return getDistinctCuriosList(player).stream()
+                        .mapToDouble(stack -> {
+                            double value = 0;
+                            Item curiosItem = stack.getItem();
+                            if (attributeMap.containsKey(curiosItem)
+                                    && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
+                                value += attributeMap.get(curiosItem);
                             }
-                        }
-                        return value;
-                    }).sum();
+                            CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
+                            if (data.contains(attributeName)) {
+                                if (curiosItem instanceof RandomCurios) {
+                                    value += data.getDouble(attributeName)
+                                            * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
+                                } else {
+                                    value += data.getInt(attributeName);
+                                }
+                            }
+                            return value;
+                        }).sum();
+            }
         }
     }
 

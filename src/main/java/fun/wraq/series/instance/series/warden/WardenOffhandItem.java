@@ -1,6 +1,7 @@
 package fun.wraq.series.instance.series.warden;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -9,7 +10,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableAttributesModifier;
@@ -49,7 +49,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
         ComponentUtils.descriptionPassive(components, Te.s("远古帘幕", getMainStyle()));
         components.add(Te.s(" 每过3s，切换一次", "明暗效果", getMainStyle()));
         components.add(Te.s(" 明:", CustomStyle.styleOfSunIsland, "提供持续3s的"));
-        components.add(Te.s(" 1.", ComponentUtils.AttributeDescription.movementSpeed("40%")));
+        components.add(Te.s(" 1.", ComponentUtils.AttributeDescription.swiftness("10")));
         components.add(Te.s(" 2.", ComponentUtils.AttributeDescription.healAmplification("40%")));
         components.add(Te.s(" 3.", ComponentUtils.AttributeDescription.manaRecover("100")));
         components.add(Te.s(" 暗:", getMainStyle(), "在3s内对怪物造成的", "33%伤害", ChatFormatting.RED, "将被存储"));
@@ -59,14 +59,26 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
             components.add(Te.s(" 每次", "远古幕帘", getMainStyle(), "切换时，", "强化下次普攻", ChatFormatting.AQUA));
             components.add(Te.s(" 使下次普通命中时，吸收目标周围所有敌人",
                     ComponentUtils.AttributeDescription.attackDamage("")));
-            if (type.getString().equals(WraqOffHandItem.KNIFE) || type.getString().equals(WraqOffHandItem.SHIELD)) {
-                components.add(Te.s(" 1.", ChatFormatting.AQUA, "提供持续3s且持续衰减等同于吸收量的",
-                        ComponentUtils.AttributeDescription.attackDamage("50%")));
+            boolean isAttack = type.getString().equals(WraqOffHandItem.KNIFE)
+                    || type.getString().equals(WraqOffHandItem.SHIELD);
+            if (isAttack) {
+                components.add(Te.s(" 1.", ChatFormatting.AQUA, "提供持续3s等同于吸收量的",
+                        ComponentUtils.AttributeDescription.attackDamage("20%")));
             } else {
-                components.add(Te.s(" 1.", ChatFormatting.AQUA, "提供持续3s且持续衰减等同于吸收量的",
-                        ComponentUtils.AttributeDescription.manaDamage("100%")));
+                components.add(Te.s(" 1.", ChatFormatting.AQUA, "提供持续3s等同于吸收量的",
+                        ComponentUtils.AttributeDescription.manaDamage("40%")));
             }
-            components.add(Te.s(" 2.", ChatFormatting.AQUA, " 提供持续3s的", "等额护盾", CustomStyle.styleOfStone));
+            if (isAttack) {
+                components.add(Te.s(" 获得的攻击力不会超过基础攻击的50%.",
+                        ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                components.add(Te.s(" 2.", ChatFormatting.AQUA, " 提供持续3s的",
+                        "等额护盾", CustomStyle.styleOfStone));
+            } else {
+                components.add(Te.s(" 获得的魔法攻击不会超过基础攻击的50%.",
+                        ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                components.add(Te.s(" 2.", ChatFormatting.AQUA, " 提供持续3s的",
+                        "等额护盾", CustomStyle.styleOfStone));
+            }
         }
         return components;
     }
@@ -105,8 +117,8 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
             });
             map.clear();
 
-            StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                    "WardenOffHandMovementSpeed", 0.4, Tick.get() + 60);
+            StableAttributesModifier.addM(player, StableAttributesModifier.playerSwiftnessModifier,
+                    "WardenOffHandSwiftness", 10, Tick.get() + 60);
             StableAttributesModifier.addM(player, StableAttributesModifier.playerHealAmplifierModifier,
                     "WardenOffHandHealAmplifier", 0.4, Tick.get() + 60);
             StableAttributesModifier.addM(player, StableAttributesModifier.playerManaRecoverModifier,
@@ -140,12 +152,16 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
                             .mapToDouble(mob1 -> MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob1,
                                     MobSpawn.MobBaseAttributes.attackDamage))
                             .sum();
-                    ChangedAttributesModifier.addAttributeModifier(player,
+                    double upperLimit = finalIsAttackDamage ?
+                            PlayerAttributes.getBaseAttackDamage(player) * 0.5 :
+                            PlayerAttributes.getBaseManaDamage(player) * 0.5;
+                    double enhanceValue = Math.min(upperLimit, attackDamageSum * (finalIsAttackDamage ? 0.2 : 0.4));
+                    StableAttributesModifier.addM(player,
                             finalIsAttackDamage ?
-                                    ChangedAttributesModifier.exAttackDamage : ChangedAttributesModifier.exManaDamage,
-                            "darkMoonOffHandPassive", attackDamageSum * (finalIsAttackDamage ? 0.5 : 1),
-                            Tick.s(3), true);
-                    Shield.providePlayerShield(player, Tick.s(3), attackDamageSum);
+                                    StableAttributesModifier.playerAttackDamageModifier
+                                    : StableAttributesModifier.playerManaDamageModifier,
+                            "darkMoonOffHandPassive", enhanceValue, Tick.get() + Tick.s(3));
+                    Shield.providePlayerShield(player, Tick.s(3), enhanceValue);
                 }
             }));
             Compute.sendEffectLastTime(player, finalIcon, 0, true);

@@ -10,6 +10,7 @@ import fun.wraq.events.client.ParticleEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ManaTowerInstance extends NoTeamInstance {
 
     public static ManaTowerInstance getInstance() {
         if (instance == null) {
-            instance = new ManaTowerInstance(new Vec3(1511, 110, -535), 60, 60, new Vec3(1511, 110, -535),
+            instance = new ManaTowerInstance(new Vec3(1511, 110, -535), 40, 60, new Vec3(1511, 110, -535),
                     Te.s("炼魔塔(测试阶段)", style), 250);
         }
         return instance;
@@ -206,5 +208,13 @@ public class ManaTowerInstance extends NoTeamInstance {
             ParticleEvent.createSpinParticle(player, getFloorPlatformCenterPos(ManaTowerData.clientFloor - 1),
                     1.5, ModParticles.VOLCANO_TP.get(), 20);
         }
+    }
+
+    @Override
+    public @Nullable Component getExtraInfo() {
+        return Te.s("元素魔物的元素为:",
+                Element.nameMap.getOrDefault(ManaTowerEachFloorMob.getCurrentFloor3MobElementType(), "无"),
+                Element.styleMap.getOrDefault(ManaTowerEachFloorMob.getCurrentFloor3MobElementType(),
+                        CustomStyle.styleOfStone));
     }
 }

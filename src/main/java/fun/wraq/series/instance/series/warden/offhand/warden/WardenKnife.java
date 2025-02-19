@@ -19,7 +19,7 @@ public class WardenKnife extends WardenOffhandItem implements ForgeItem {
         Utils.critRate.put(this, 0.17);
         Utils.critDamage.put(this, 0.08);
         Utils.expUp.put(this, 0.88);
-        Utils.levelRequire.put(this, 225);
+        Utils.levelRequire.put(this, 215);
     }
 
     @Override

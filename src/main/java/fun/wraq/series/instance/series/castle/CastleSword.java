@@ -35,6 +35,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem, Enh
         Utils.defencePenetration0.put(this, 36d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.30d);
+        Utils.levelRequire.put(this, 180);
         this.tier = tier;
     }
 

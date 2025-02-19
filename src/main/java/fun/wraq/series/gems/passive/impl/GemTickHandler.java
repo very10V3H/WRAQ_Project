@@ -7,7 +7,7 @@ public interface GemTickHandler {
     void tick(Player player);
 
     static void handleTick(Player player) {
-        WraqGem.getPlayerAllEquipGems(player)
+        WraqGem.getPlayerDistinctEquipGemsSet(player)
                 .stream().filter(gem -> gem instanceof GemTickHandler)
                 .map(gem -> (GemTickHandler) gem)
                 .forEach(gem -> gem.tick(player));

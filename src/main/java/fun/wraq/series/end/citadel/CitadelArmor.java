@@ -39,7 +39,7 @@ public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttrib
             Utils.movementSpeedCommon.put(this, 0.16);
             Utils.maxHealth.put(this, 21000d);
         }
-        Utils.levelRequire.put(this, 220);
+        Utils.levelRequire.put(this, 215);
     }
 
     @Override

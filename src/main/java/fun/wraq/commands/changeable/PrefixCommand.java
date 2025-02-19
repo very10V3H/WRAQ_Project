@@ -53,6 +53,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import java.util.*;
 
@@ -323,6 +324,17 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         return 0;
     }
 
+    public static int getLevelId(Player player) {
+        if (player.level().dimension().equals(Level.OVERWORLD)) {
+            return 0;
+        } else if (player.level().dimension().equals(Level.NETHER)) {
+            return 1;
+        } else if (player.level().dimension().equals(Level.END)) {
+            return 2;
+        }
+        return 0;
+    }
+
     public static void handlePrefix(List<ServerPlayer> playerList) {
         for (ServerPlayer serverPlayer : playerList) {
             CompoundTag data = serverPlayer.getPersistentData();
@@ -333,16 +345,21 @@ public class PrefixCommand implements Command<CommandSourceStack> {
             PrefixInfo prefixInfo = new PrefixInfo(prefix, color, serverPlayer.experienceLevel);
             PrefixCommand.serverPrefixInfo.put(serverPlayer.getUUID(), prefixInfo);
         }
-
         List<UUID> currentPlayerUUIDList = new ArrayList<>();
-        playerList.forEach(serverPlayer -> currentPlayerUUIDList.add(serverPlayer.getUUID()));
+        List<PrefixS2CPacket.PlayerLocationInfo> playerLocationInfos = new ArrayList<>();
+        playerList.forEach(serverPlayer -> {
+            currentPlayerUUIDList.add(serverPlayer.getUUID());
+            playerLocationInfos
+                    .add(new PrefixS2CPacket.PlayerLocationInfo(serverPlayer.getUUID(),
+                            getLevelId(serverPlayer), serverPlayer.position().toVector3f()));
+        });
         List<PrefixS2CPacket.PrefixInfoWithUUID> prefixInfoToClient = new ArrayList<>();
         PrefixCommand.serverPrefixInfo.forEach((uuid, prefixInfo) -> {
             if (currentPlayerUUIDList.contains(uuid))
                 prefixInfoToClient.add(new PrefixS2CPacket.PrefixInfoWithUUID(uuid, prefixInfo));
         });
         for (ServerPlayer serverPlayer : playerList) {
-            ModNetworking.sendToClient(new PrefixS2CPacket(prefixInfoToClient), serverPlayer);
+            ModNetworking.sendToClient(new PrefixS2CPacket(prefixInfoToClient, playerLocationInfos), serverPlayer);
         }
     }
 

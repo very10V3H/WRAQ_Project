@@ -54,6 +54,7 @@ import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
 import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
@@ -165,6 +166,7 @@ public class ServerPlayerTickEvent {
             MissionV2.handlePlayerTick(player);
             SpringMobEvent.handleServerPlayerTick(player);
             MobSpawn.handlePlayerTick(player);
+            SwordNewSkillBase3_0.handleServerPlayerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

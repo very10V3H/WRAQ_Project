@@ -97,7 +97,7 @@ public class MansionInstance extends DailyEndlessInstance {
                 getPlayerXpLevel());
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(pillager, getPlayerXpLevel(),
                 getPlayerXpLevel() * 10, getPlayerXpLevel(), getPlayerXpLevel(), 0, 0,
-                getPlayerXpLevel(), getPlayerXpLevel(), 0, getPlayerXpLevel() * 100, 0.3);
+                getPlayerXpLevel(), getPlayerXpLevel(), 0, getPlayerXpLevel() * 20, 0.3);
         pillager.moveTo(pos);
         level.addFreshEntity(pillager);
         return pillager;
@@ -105,8 +105,8 @@ public class MansionInstance extends DailyEndlessInstance {
 
     @Override
     protected void reward(Player player) {
-        int count = getKillCount() * getPlayerXpLevel() / 400 + 8;
-        InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLD_COIN.get(), count * 3);
+        int count = getKillCount() * getPlayerXpLevel() / 400 + 10;
+        InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLD_COIN.get(), count * 2);
         InventoryOperation.giveItemStackWithMSG(player, ModItems.GEM_PIECE.get(), count);
     }
 
@@ -124,12 +124,12 @@ public class MansionInstance extends DailyEndlessInstance {
                 sendFormatMSG(player, Te.s("需要达到", Utils.getLevelDescription(75), "，才能开始挑战."));
                 return false;
             }
-            if (Reason.getPlayerReasonValue(player) < 20) {
+            if (Reason.getPlayerReasonValue(player) < 10) {
                 sendFormatMSG(player, Te.s("需要至少拥有",
-                        "20理智", CustomStyle.styleOfFlexible, "，才能开始挑战."));
+                        "10理智", CustomStyle.styleOfFlexible, "，才能开始挑战."));
                 return false;
             }
-            Reason.addOrCostPlayerReasonValue(player, -20);
+            Reason.addOrCostPlayerReasonValue(player, -10);
             return true;
         }
         return false;
@@ -140,7 +140,7 @@ public class MansionInstance extends DailyEndlessInstance {
         return List.of(
                 Te.s("奖励大量", ModItems.GOLD_COIN, "/", ModItems.GEM_PIECE),
                 Te.s("手持任意物品shift右击", ChatFormatting.AQUA, "消耗", ChatFormatting.RED,
-                        "20理智", CustomStyle.styleOfFlexible, "开始挑战"),
+                        "10理智", CustomStyle.styleOfFlexible, "开始挑战"),
                 Te.s("等级需求:", Utils.getLevelDescription(75))
         );
     }

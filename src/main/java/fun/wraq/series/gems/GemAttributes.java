@@ -14,11 +14,21 @@ import java.util.Map;
 public class GemAttributes {
 
     public static double getPlayerCurrentAllEquipGemsValue(Player player, Map<Item, Double> map) {
-        double value = 0;
-        for (ItemStack stack : InventoryOperation.getAllEquipSlotItems(player)) {
-            value += getGemsAttributeModifier(stack.getOrCreateTagElement(Utils.MOD_ID), map);
+        if (map.equals(Utils.defencePenetration) || map.equals(Utils.manaPenetration)) {
+            double rate = 1;
+            for (WraqGem gemItem : WraqGem.getPlayerAllEquipGems(player)) {
+                if (map.containsKey(gemItem)) {
+                    rate *= (1 - map.get(gemItem));
+                }
+            }
+            return 1 - rate;
+        } else {
+            double value = 0;
+            for (ItemStack stack : InventoryOperation.getAllEquipSlotItems(player)) {
+                value += getGemsAttributeModifier(stack.getOrCreateTagElement(Utils.MOD_ID), map);
+            }
+            return value;
         }
-        return value;
     }
 
     public static double getGemsAttributeModifier(ItemStack equip, Map<Item, Double> map) {

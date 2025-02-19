@@ -44,7 +44,7 @@ public class HarbingerInstance extends NewTeamInstance {
         if (instance == null) {
             instance = new HarbingerInstance(false, new Vec3(1913, -25, 1798),
                     Te.s("鹰眼工厂", CustomStyle.styleOfHarbinger),
-                    Te.s("鹰眼工厂", CustomStyle.styleOfHarbinger), 6, 230, 1, 8, 500,
+                    Te.s("鹰眼工厂", CustomStyle.styleOfHarbinger), 6, 225, 1, 8, 500,
                     Level.OVERWORLD, new Vec2(-90, 0));
         }
         return instance;

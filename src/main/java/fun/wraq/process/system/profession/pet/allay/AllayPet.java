@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 public class AllayPet {
     public Allay allay;
@@ -30,7 +29,7 @@ public class AllayPet {
         this.xpLevel = xpLevel;
     }
 
-    public static Set<AllayPet> allayPets = new CopyOnWriteArraySet<>();
+    public static Set<AllayPet> allayPets = new HashSet<>();
     public static Set<Allay> allays = new HashSet<>();
     public static Map<String, AllayPet> playerAllayPetMap = new HashMap<>();
     public static Map<String, Mob> playerIsAttackingMobMap = new HashMap<>();

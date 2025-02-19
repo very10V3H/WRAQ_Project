@@ -265,14 +265,16 @@ public class GemItems {
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.CastleBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 8));
                 add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 8));
-            }}, CustomStyle.styleOfCastle, Component.literal("暗黑蕴魔注能").withStyle(CustomStyle.styleOfCastle),
+            }}, CustomStyle.styleOfCastle, Component.literal("暗黑防具注能(仅可用于防具)")
+                    .withStyle(CustomStyle.styleOfCastleCrystal),
                     ComponentUtils.getSuffixOfCastle()));
 
     public static final RegistryObject<Item> castleWeaponGem = ITEMS.register("castle_weapon_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.CastleBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.defencePenetration, 0.1));
                 add(new WraqGem.AttributeMapValue(Utils.manaPenetration, 0.1));
-            }}, CustomStyle.styleOfCastle, Component.literal("暗黑蕴魔注能").withStyle(CustomStyle.styleOfCastle),
+            }}, CustomStyle.styleOfCastle, Component.literal("暗黑武器蕴能")
+                    .withStyle(CustomStyle.styleOfCastleCrystal),
                     ComponentUtils.getSuffixOfCastle()));
 
 /*    public static final RegistryObject<Item> castleArmorGemD = ITEMS.register("castle_armor_gem_d",

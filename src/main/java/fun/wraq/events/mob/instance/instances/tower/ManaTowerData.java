@@ -232,7 +232,7 @@ public class ManaTowerData {
                     Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE, "挑战纪录发生了变化!"));
             for (int i = 0; i < recordList.size(); i++) {
                 TimeRecord timeRecord = recordList.get(i);
-                if (oldList.contains(timeRecord)) {
+                if (oldList.contains(timeRecord) || refreshSelf) {
                     int oldIndex = oldList.indexOf(timeRecord);
                     Component sign;
                     if (oldIndex == i) {
@@ -242,15 +242,15 @@ public class ManaTowerData {
                     } else {
                         sign = Te.s("↓", ChatFormatting.RED);
                     }
-                    if (refreshSelf) {
+                    if (refreshSelf && timeRecord.playerName.equals(Name.get(player))) {
                         sign = Te.s("NR", ChatFormatting.GOLD);
                     }
                     Compute.broad(player.level(), Te.s(" ".repeat(8),
-                            (i + 1) + ".", timeRecord.playerName,
+                            (i + 1) + ".", CustomStyle.MANA_TOWER_STYLE, timeRecord.playerName,
                             " - ", getRecordTickDescription(timeRecord.usedTick), " ", sign));
                 } else {
                     Compute.broad(player.level(), Te.s(" ".repeat(8),
-                            (i + 1) + ".", timeRecord.playerName,
+                            (i + 1) + ".", CustomStyle.MANA_TOWER_STYLE, timeRecord.playerName,
                             " - ", getRecordTickDescription(timeRecord.usedTick), " ", "new", ChatFormatting.GOLD));
                 }
             }

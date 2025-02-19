@@ -202,6 +202,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         blockInfoList.forEach(blockInfo -> {
             level.setBlockAndUpdate(blockInfo.blockPos, blockInfo.blockState);
         });
+        blockInfoList.clear();
     }
 
     // 技能3 - 灾变神力 - 每当守卫的生命值减少10%，其就会回复其最大生命值9%的血量
@@ -217,12 +218,12 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         }
     }
 
-    // 技能4 - 恃强凌弱 被守卫攻击时，若生命值低于50%，则获得持续2s的眩晕 / 重伤
+    // 技能4 - 恃强凌弱 被守卫攻击时，若生命值低于40%，则获得持续1s的眩晕 / 重伤
     // 技能5 - 影切割 守卫生命值少于25%时，将直接斩杀附近生命值低于25%的玩家
     private static void playerWithstandDamageFromBoss(Player player, Mob mob) {
         if (MobSpawn.getMobOriginName(mob).equals(mobName)) {
-            if (player.getHealth() / player.getMaxHealth() < 0.5) {
-                SpecialEffectOnPlayer.addVertigoEffect(player, 40);
+            if (player.getHealth() / player.getMaxHealth() < 0.4) {
+                SpecialEffectOnPlayer.addVertigoEffect(player, Tick.s(1));
             }
             if (mob.getHealth() / mob.getMaxHealth() < 0.25 && player.getHealth() / mob.getMaxHealth() < 0.25) {
                 Damage.causeDirectDamageToPlayer(mob, player, player.getMaxHealth() * 4);

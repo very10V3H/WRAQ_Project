@@ -45,6 +45,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.monster.Evoker;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
@@ -57,6 +58,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
@@ -88,7 +90,7 @@ public class AttackEvent {
     }
 
     public static void module(Player player, double rate) {
-        List<Mob> mobList = getPlayerNormalAttackRangeMobList(player);
+        List<Mob> mobList = new ArrayList<>(getPlayerNormalAttackRangeMobList(player));
 
         AtomicReference<Mob> nearestMob = new AtomicReference<>();
         AtomicReference<Double> distance = new AtomicReference<>((double) 20);
@@ -98,6 +100,7 @@ public class AttackEvent {
                 distance.set((double) mob.distanceTo(player));
             }
         });
+        mobList.removeIf(mob -> mob instanceof Allay || mob instanceof Animal);
 
         if (nearestMob.get() != null) {
             boolean crit = AttackEvent.crit(player, nearestMob.get(), false);

@@ -19,7 +19,7 @@ public class DarkMoonBook extends WardenOffhandItem implements ForgeItem {
         Utils.maxMana.put(this, 97d);
         Utils.coolDownDecrease.put(this, 0.26);
         Utils.expUp.put(this, 1.08);
-        Utils.levelRequire.put(this, 225);
+        Utils.levelRequire.put(this, 220);
     }
 
     @Override

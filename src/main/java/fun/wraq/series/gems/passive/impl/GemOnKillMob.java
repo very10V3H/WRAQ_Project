@@ -8,7 +8,7 @@ public interface GemOnKillMob {
     void onKill(Player player, Mob mob);
 
     static void kill(Player player, Mob mob) {
-        WraqGem.getPlayerAllEquipGems(player)
+        WraqGem.getPlayerDistinctEquipGemsSet(player)
                 .stream().filter(gem -> gem instanceof GemOnKillMob)
                 .map(gem -> (GemOnKillMob) gem)
                 .forEach(gem -> gem.onKill(player, mob));

@@ -69,23 +69,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
 
-    public static Map<Player, Map<Map<Item, Double>, Double>> playerAttributeCache = new ConcurrentHashMap<>();
-    public static Map<Player, Map<Map<Item, Double>, Integer>> computeAttributeTick = new ConcurrentHashMap<>();
+    public static Map<Player, Map<Map<Item, Double>, Double>> playerAttributeCache = new HashMap<>();
+    public static Map<Player, Map<Map<Item, Double>, Integer>> computeAttributeTick = new HashMap<>();
 
     public static boolean canGetFromCache(Player player, Map<Item, Double> attribute) {
         if (player.getOffhandItem().getItem() instanceof ManageEquip) return true;
         // 初始化
         int tick = Tick.get();
         if (!playerAttributeCache.containsKey(player)) {
-            playerAttributeCache.put(player, new ConcurrentHashMap<>());
+            playerAttributeCache.put(player, new HashMap<>());
         }
         if (!computeAttributeTick.containsKey(player)) {
-            computeAttributeTick.put(player, new ConcurrentHashMap<>());
+            computeAttributeTick.put(player, new HashMap<>());
         }
         if (!computeAttributeTick.get(player).containsKey(attribute)) {
             computeAttributeTick.get(player).put(attribute, 0);
@@ -713,6 +712,7 @@ public class PlayerAttributes {
 
         swiftnessUp += Compute.PassiveEquip.getAttribute(player, Utils.swiftnessUp); // 器灵属性加成
         swiftnessUp += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExSwiftnessUp);
+        swiftnessUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerSwiftnessModifier);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -814,16 +814,17 @@ public class PlayerAttributes {
         if (Utils.MeteoriteAttackTimeMap.containsKey(player) && Utils.MeteoriteAttackTimeMap.get(player) > Tick.get()) {
             defenceRate *= (1 - 0.2);
         }
-
-        defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetrationModifier));
-
+        defenceRate *= (1 - StableAttributesModifier
+                .getModifierValue(player, StableAttributesModifier.playerDefencePenetrationModifier));
         double decreaseRate = 0;
         decreaseRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.defencePenetration);
-        if (decreaseRate > 0) defenceRate *= (1 - decreaseRate);
-
-        defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration, StringUtils.CuriosAttribute.defencePenetration)); // 新版饰品属性加成
-        defenceRate *= (1 - StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration));
-
+        if (decreaseRate > 0) {
+            defenceRate *= (1 - decreaseRate);
+        }
+        defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player,
+                Utils.defencePenetration, StringUtils.CuriosAttribute.defencePenetration)); // 新版饰品属性加成
+        defenceRate *= (1 - StableTierAttributeModifier
+                .getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration));
         // 请在上方添加
         writeToCache(player, Utils.defencePenetration, 1 - defenceRate);
         return 1 - defenceRate;
