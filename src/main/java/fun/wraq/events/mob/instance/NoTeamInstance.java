@@ -38,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public abstract class NoTeamInstance {
     public List<ServerBossEvent> bossInfoList = new ArrayList<>();
@@ -52,7 +53,7 @@ public abstract class NoTeamInstance {
     public final MutableComponent name;
     public boolean ready;
     public final int level;
-    public Set<Player> players = new HashSet<>();
+    public Set<Player> players = new CopyOnWriteArraySet<>();
     public int spawnTick = 0;
     public int clearTick = 0;
 
