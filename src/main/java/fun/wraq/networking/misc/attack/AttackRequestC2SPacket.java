@@ -1,5 +1,6 @@
 package fun.wraq.networking.misc.attack;
 
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.core.AttackEvent;
@@ -31,7 +32,6 @@ public class AttackRequestC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player == null) return;
-
             String name = player.getName().getString();
             double rate;
             String animation;
@@ -43,7 +43,7 @@ public class AttackRequestC2SPacket {
                 animation = DelayOperationWithAnimation.Animation.swordAttack2;
             }
             boolean success = DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                    animation, Tick.get() + 8, Tick.get() + 10, player
+                    animation, 8, 10, player, 1
             ) {
                 @Override
                 public void trig() {
@@ -57,7 +57,8 @@ public class AttackRequestC2SPacket {
             });
             if (success) {
                 if (rate == 0.8) {
-                    countExpiredTickMap.put(name, Tick.get() + 15);
+                    countExpiredTickMap.put(name,
+                            (int) (Tick.get() + 15 / (1 + PlayerAttributes.getAttackSpeedEnhanceRate(player))));
                 } else {
                     countExpiredTickMap.put(name, 0);
                 }

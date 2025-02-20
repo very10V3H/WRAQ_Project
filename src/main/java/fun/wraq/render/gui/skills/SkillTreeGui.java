@@ -749,10 +749,11 @@ public class SkillTreeGui extends Screen {
         if (x > this.width / 2 - 150 + OffsetX[index] - 1 && x < this.width / 2 - 150 + OffsetX[index] + 19
                 && y > this.height / 2 - 100 + OffsetY[index] - 1 && y < this.height / 2 - 100 + OffsetY[index] + 19) {
             List<Component> components = new ArrayList<>();
-            components.add(Component.literal("▲剑术专精 - 残暴").withStyle(CustomStyle.styleOfPower));
+            components.add(Component.literal("▲剑术专精 - 狂暴").withStyle(CustomStyle.styleOfPower));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPower, ChatFormatting.WHITE);
             components.add(Component.literal("手持近战武器时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.defencePenetration(String.valueOf(ClientUtils.SwordSkillPoint.PointCache[index] * 3))));
+                    append(ComponentUtils.AttributeDescription.getAttackSpeed(ClientUtils.SwordSkillPoint.PointCache[index] * 3 + "%")));
+            components.add(Te.s("攻击速度属性需达一定值才能有所体现", ChatFormatting.ITALIC, ChatFormatting.GRAY));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPower, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfPower));
             components.add(Component.literal(ClientUtils.SwordSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfPower));
@@ -978,10 +979,11 @@ public class SkillTreeGui extends Screen {
         if (x > this.width / 2 - 150 + OffsetX[index] - 1 + 86 && x < this.width / 2 - 150 + OffsetX[index] + 19 + 86
                 && y > this.height / 2 - 100 + OffsetY[index] - 1 && y < this.height / 2 - 100 + OffsetY[index] + 19) {
             List<Component> components = new ArrayList<>();
-            components.add(Component.literal("▲弓术专精 - 锻矢-材质").withStyle(CustomStyle.styleOfFlexible));
+            components.add(Component.literal("▲弓术专精 - 锻弦-柔韧").withStyle(CustomStyle.styleOfFlexible));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("手持弓时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.defencePenetration(String.valueOf(ClientUtils.BowSkillPoint.PointCache[index] * 3))));
+                    append(ComponentUtils.AttributeDescription.getAttackSpeed(ClientUtils.BowSkillPoint.PointCache[index] * 3 + "%")));
+            components.add(Te.s("攻击速度属性需达一定值才能有所体现", ChatFormatting.ITALIC, ChatFormatting.GRAY));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfFlexible));
             components.add(Component.literal(ClientUtils.BowSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfFlexible));

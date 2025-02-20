@@ -69,4 +69,5 @@ public class TraditionalTooltip implements ClientTooltipComponent {
     public static ResourceLocation windElement = new ResourceLocation(Utils.MOD_ID, "textures/hud/wind_element.png");
     public static ResourceLocation forge = new ResourceLocation(Utils.MOD_ID, "textures/hud/forge.png");
     public static ResourceLocation toughness = new ResourceLocation(Utils.MOD_ID, "textures/hud/toughness.png");
+    public static ResourceLocation attackSpeed = new ResourceLocation(Utils.MOD_ID, "textures/hud/attack_speed.png");
 }

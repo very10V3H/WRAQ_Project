@@ -177,7 +177,13 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDamage, Utils.percentManaDamageEnhance,
                 StringUtils.CuriosAttribute.percentManaDamageEnhance, "魔法攻击",
-                CustomStyle.styleOfMana, 1, true, itemStack, false, null, event.getTooltipElements());
+                CustomStyle.styleOfMana, 1, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackSpeed, Utils.attackSpeedEnhance,
+                "", "攻击速度",
+                CustomStyle.styleOfFlexible, 0, true, itemStack,
+                false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defence, Utils.xpLevelDefence,
                 StringUtils.CuriosAttribute.xpLevelDefence, "基础护甲", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
@@ -849,11 +855,13 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.stoneElement, WraqPickaxe.mineSpeed,
                 "EmptyTypeAttribute", "挖掘速度",
-                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 0, true, itemStack, false, null, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 0, true, itemStack,
+                false, null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.toughness, Utils.toughness,
                 StringUtils.CuriosAttribute.toughness, "韧性",
-                CustomStyle.styleOfEnd, 1, true, itemStack, false, null, event.getTooltipElements());
+                CustomStyle.styleOfEnd, 1, true, itemStack,
+                false, null, event.getTooltipElements());
 
         // 以下为新版宝石内容提示
         List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);

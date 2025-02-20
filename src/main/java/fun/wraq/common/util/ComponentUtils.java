@@ -166,6 +166,10 @@ public class ComponentUtils {
         public static Component manaDamageValue(String content) {
             return Component.literal(Utils.Emoji.Mana + " " + content + "魔法伤害").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
+
+        public static Component getAttackSpeed(String content) {
+            return Te.s(Utils.Emoji.AttackSpeed + " " + content + "攻击速度", CustomStyle.styleOfFlexible);
+        }
     }
 
     public static void suitDescription(List<Component> components) {

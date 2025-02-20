@@ -82,6 +82,7 @@ public class Utils {
     public static Map<Item, Double> luckyUp = new HashMap<>();
     public static Map<Item, Double> toughness = new HashMap<>();
     public static Map<Item, Double> percentHealthRecover = new HashMap<>();
+    public static Map<Item, Double> attackSpeedEnhance = new HashMap<>();
 
     public static Map<Item, Double> mainHandTag = new HashMap<>();
     public static Map<Item, Double> swordTag = new HashMap<>();

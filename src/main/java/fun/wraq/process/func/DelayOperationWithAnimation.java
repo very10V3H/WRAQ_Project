@@ -1,5 +1,6 @@
 package fun.wraq.process.func;
 
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
@@ -31,17 +32,38 @@ public abstract class DelayOperationWithAnimation {
     private final String animationId;
     private final int trigTick;
     private final int endTick;
+    private final float speed;
     private final Player trigPlayer;
     private boolean trigFlag = true;
+    public DelayOperationWithAnimation(String animationId, int trigTick, int endTick, float speed, Player trigPlayer) {
+        this.animationId = animationId;
+        this.trigTick = trigTick;
+        this.endTick = endTick;
+        this.speed = speed;
+        this.trigPlayer = trigPlayer;
+    }
+
     public DelayOperationWithAnimation(String animationId, int trigTick, int endTick, Player trigPlayer) {
         this.animationId = animationId;
         this.trigTick = trigTick;
         this.endTick = endTick;
+        this.speed = 1;
         this.trigPlayer = trigPlayer;
     }
 
     public DelayOperationWithAnimation(String animationId, int trigTick, Player trigPlayer) {
-        this(animationId, trigTick, trigTick, trigPlayer);
+        this(animationId, trigTick, trigTick, 1, trigPlayer);
+    }
+
+    public DelayOperationWithAnimation(String animationId, int trigTickDelta, int endTickDelta,
+                                       Player trigPlayer, double attackSpeedInfluenceRate) {
+        this(animationId,
+                (int) (Tick.get() + trigTickDelta
+                        / (1 + attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(trigPlayer))),
+                (int) (Tick.get() + endTickDelta
+                        / (1 + attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(trigPlayer))),
+                (float) (1 + attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(trigPlayer)),
+                trigPlayer);
     }
 
     public abstract void trig();
@@ -51,7 +73,7 @@ public abstract class DelayOperationWithAnimation {
                 .filter(p -> p.level().equals(trigPlayer.level()) && p.distanceTo(trigPlayer) <= 48)
                 .forEach(serverPlayer -> {
                     ModNetworking.sendToClient(
-                            new AnimationS2CPacket(trigPlayer.getId(), animationId, trigTick - Tick.get())
+                            new AnimationS2CPacket(trigPlayer.getId(), animationId, trigTick - Tick.get(), speed)
                             , serverPlayer);
         });
     }

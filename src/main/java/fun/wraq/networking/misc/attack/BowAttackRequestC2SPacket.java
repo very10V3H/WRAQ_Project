@@ -1,7 +1,6 @@
 package fun.wraq.networking.misc.attack;
 
 import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -28,9 +27,8 @@ public class BowAttackRequestC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             if (serverPlayer == null) return;
-
             DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                    DelayOperationWithAnimation.Animation.bowAttack, Tick.get() + 8, Tick.get() + 10, serverPlayer
+                    DelayOperationWithAnimation.Animation.bowAttack, 8, 10, serverPlayer, 1
             ) {
                 @Override
                 public void trig() {
