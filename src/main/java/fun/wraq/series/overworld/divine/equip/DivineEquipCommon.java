@@ -1,18 +1,29 @@
 package fun.wraq.series.overworld.divine.equip;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.core.AttackEvent;
+import fun.wraq.core.ManaAttackModule;
+import fun.wraq.core.bow.MyArrow;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +31,13 @@ import java.util.List;
 public interface DivineEquipCommon extends OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify {
 
     Style style = CustomStyle.DIVINE_STYLE;
-    static List<Component> getCommonDescription(ItemStack stack, double upperLimitRate, int maxCount) {
+
+    static List<Component> getCommonDescription(ItemStack stack, double upperLimitRate, int maxCount, boolean isAd) {
         List<Component> components = new ArrayList<>();
+        ComponentUtils.descriptionActive(components, Te.s("透体圣光", style));
+        components.add(Te.s(" 释放一道", "圣光", style));
+        components.add(Te.s(" 对路径的敌人造成一次", isAd ? "普攻伤害" : "法球伤害",
+                isAd ? CustomStyle.styleOfPower : CustomStyle.styleOfMana));
         ComponentUtils.descriptionPassive(components, Te.s("圣光", style));
         components.add(Te.s(" 将除", "当前共鸣", ChatFormatting.AQUA, "以外的元素", "以", "20%", style, "的效率"));
         components.add(Te.s(" 转化为", "当前元素", ChatFormatting.AQUA, "的", "归一化元素强度", style));
@@ -32,14 +48,34 @@ public interface DivineEquipCommon extends OnKillEffectEquip, InCuriosOrEquipSlo
         components.add(Te.s(" 1.", style,
                 ComponentUtils.AttributeDescription.getElementStrength(String.format("%.0f%%", upperLimitRate * 100))));
         components.add(Te.s(" 2.", style,
-                ComponentUtils.AttributeDescription.attackDamage(String.format("%.0f%%", upperLimitRate * 100))));
+                isAd ?
+                        ComponentUtils.AttributeDescription.attackDamage(String.format("%.0f%%", upperLimitRate * 100))
+                        : ComponentUtils.AttributeDescription.manaDamage(String.format("%.0f%%", upperLimitRate * 100))));
         components.add(Te.s(" 圣光充盈度:", style));
         components.add(Te.s(" ".repeat(4),
                 ComponentUtils.getProgressBar(20, getDivineCount(stack), maxCount, style)));
         return components;
     }
 
+    static void active(Player player, double distance) {
+        Vec3 finalPos = Compute.getPickLocationIgnoreBlock(player, distance);
+        ParticleProvider.createLineParticle(player.level(), (int) finalPos.distanceTo(player.getEyePosition()) * 5,
+                player.getEyePosition(), finalPos, ParticleTypes.END_ROD);
+        Item mainHandItem = player.getMainHandItem().getItem();
+        Compute.getPlayerRayMobList(player, 0.5, 0.5, distance).forEach(mob -> {
+            if (mainHandItem instanceof WraqSword) {
+                AttackEvent.attackToMonster(mob, player, 1, true,
+                        AttackEvent.crit(player, mob, false));
+            } else if (mainHandItem instanceof WraqBow) {
+                MyArrow.causeDamage(player, mob, 1);
+            } else if (mainHandItem instanceof WraqSceptre) {
+                ManaAttackModule.causeBaseAttack(player, mob, 1, true);
+            }
+        });
+    }
+
     String DIVINE_COUNT_DATA_KEY = "DivineCount";
+
     static int getDivineCount(ItemStack stack) {
         return stack.getOrCreateTagElement(Utils.MOD_ID).getInt(DIVINE_COUNT_DATA_KEY);
     }

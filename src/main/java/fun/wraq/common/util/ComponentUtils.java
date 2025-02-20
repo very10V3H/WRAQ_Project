@@ -348,6 +348,11 @@ public class ComponentUtils {
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);
     }
 
+    public static Component getSuffixOfDivine() {
+        return Component.literal("圣光岛")
+                .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.DIVINE_STYLE);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));

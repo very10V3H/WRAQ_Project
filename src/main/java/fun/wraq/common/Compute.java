@@ -2102,4 +2102,10 @@ public class Compute {
     public static CompoundTag getChallengeRecordData(Player player) {
         return getPlayerSpecificKeyCompoundTagData(player, CHALLENGE_RECORD_KEY);
     }
+
+    public static Vec3 getPickLocationIgnoreBlock(Player player, double distance) {
+        Vec3 eyePos = player.getEyePosition();
+        Vec3 shortPickPos = player.pick(0.5, 0, false).getLocation();
+        return eyePos.add(shortPickPos.subtract(eyePos).normalize().scale(distance));
+    }
 }

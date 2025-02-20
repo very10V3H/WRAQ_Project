@@ -2,6 +2,7 @@ package fun.wraq.process.system.element;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.element.*;
 import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
@@ -61,10 +62,10 @@ public class ElementValue {
         value += QiLingJudge(player, Element.LifeElementValue);
         value += Compute.CuriosAttribute.attributeValue(player, Element.LifeElementValue, LifeElementValue);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LifeElementValue);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.LifeElementValue);
         // 百分比分割线
         value *= LifeCurios0.playerLifeElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.life));
-
         return value;
     }
 
@@ -74,6 +75,7 @@ public class ElementValue {
         value += QiLingJudge(player, Element.WaterElementValue);
         value += Compute.CuriosAttribute.attributeValue(player, Element.WaterElementValue, WaterElementValue);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WaterElementValue);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.WaterElementValue);
         // 百分比分割线
         value *= WaterElementSword.PlayerWaterElementValueEnhance(player);
         value *= WaterCurios0.playerWaterElementValueEnhance(player);
@@ -88,6 +90,7 @@ public class ElementValue {
         value += Compute.CuriosAttribute.attributeValue(player, Element.FireElementValue, FireElementValue);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.FireElementValue);
         value += FireElementSword.FireElementValueEnhance(player);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.FireElementValue);
         // 百分比分割线
         double enhanceRate = 0;
         enhanceRate += RevenantGoldenHelmet.getFireElementValueEnhanceRate(player);
@@ -103,6 +106,7 @@ public class ElementValue {
         value += QiLingJudge(player, Element.StoneElementValue);
         value += Compute.CuriosAttribute.attributeValue(player, Element.StoneElementValue, StoneElementValue);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.StoneElementValue);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.StoneElementValue);
         // 百分比分割线
         value *= StoneCurios0.playerStoneElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.stone));
@@ -116,6 +120,7 @@ public class ElementValue {
         value += QiLingJudge(player, Element.IceElementValue);
         value += Compute.CuriosAttribute.attributeValue(player, Element.IceElementValue, IceElementValue);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.IceElementValue);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.IceElementValue);
         // 百分比分割线
         value *= IceCurios0.playerIceElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.ice));
@@ -129,6 +134,7 @@ public class ElementValue {
         value += QiLingJudge(player, Element.LightningElementValue);
         value += Compute.CuriosAttribute.attributeValue(player, Element.LightningElementValue, LightningElementValue);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LightningElementValue);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.LightningElementValue);
         // 百分比分割线
         value *= LightningCurios0.playerLightningElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.lightning));
@@ -142,6 +148,7 @@ public class ElementValue {
         value += QiLingJudge(player, Element.WindElementValue);
         value += Compute.CuriosAttribute.attributeValue(player, Element.WindElementValue, WindElementValue);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WindElementValue);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.WindElementValue);
         // 百分比分割线
         value *= WindCurios0.playerWindElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.wind));

@@ -74,6 +74,21 @@ public class Element {
     public static Map<Item, Double> LightningElementValue = new HashMap<>();
     public static Map<Item, Double> WindElementValue = new HashMap<>();
 
+    public static Map<String, Map<Item, Double>> elementValueMap = new HashMap<>();
+    public static Map<String, Map<Item, Double>> getElementValueMap() {
+        if (elementValueMap.isEmpty()) {
+            elementValueMap.put(life, LifeElementValue);
+            elementValueMap.put(water, WaterElementValue);
+            elementValueMap.put(fire, FireElementValue);
+            elementValueMap.put(stone, StoneElementValue);
+            elementValueMap.put(ice, IceElementValue);
+            elementValueMap.put(lightning, LightningElementValue);
+            elementValueMap.put(wind, WindElementValue);
+        }
+        return elementValueMap;
+    }
+
+
     public static WeakHashMap<Entity, Integer> lifeElementParticle = new WeakHashMap<>();
     public static WeakHashMap<Entity, Integer> waterElementParticle = new WeakHashMap<>();
     public static WeakHashMap<Entity, Integer> fireElementParticle = new WeakHashMap<>();

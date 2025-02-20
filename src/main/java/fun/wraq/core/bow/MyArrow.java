@@ -121,6 +121,11 @@ public class MyArrow extends AbstractArrow {
         super.tick();
     }
 
+    public static void causeDamage(Player player, Mob mob, double rate) {
+        MyArrow myArrow = new MyArrow(player, true, rate, false);
+        causeDamage(myArrow, mob, rate);
+    }
+
     public static void causeDamage(MyArrow myArrow, Entity entity, double rate) {
         if (myArrow.player == null) return;
         if (myArrow.myArrowHitBlockEntity != null) {
