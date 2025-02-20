@@ -170,6 +170,10 @@ public class ComponentUtils {
         public static Component getAttackSpeed(String content) {
             return Te.s(Utils.Emoji.AttackSpeed + " " + content + "攻击速度", CustomStyle.styleOfFlexible);
         }
+
+        public static Component getElementStrength(String content) {
+            return Te.s(Utils.Emoji.ELEMENT + " " + content + "元素强度", CustomStyle.styleOfWorld);
+        }
     }
 
     public static void suitDescription(List<Component> components) {
@@ -925,5 +929,10 @@ public class ComponentUtils {
 
     public static Component getRightAngleQuote(String content, Style style) {
         return Te.s("「" + content + "」", style);
+    }
+
+    public static Component getProgressBar(int length, double count, double maxCount, Style style) {
+        int num = (int) (count / maxCount * length);
+        return Te.s("|".repeat(num), style, "|".repeat(length - num), ChatFormatting.GRAY);
     }
 }

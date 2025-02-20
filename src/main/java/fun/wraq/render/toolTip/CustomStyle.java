@@ -85,6 +85,7 @@ public class CustomStyle {
     public static Style styleOfHarbinger = Style.EMPTY.withColor(TextColor.parseColor("#ff4e00"));
     public static Style MUSHROOM_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#e6c3ab"));
     public static Style MANA_TOWER_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#bb52ad"));
+    public static Style DIVINE_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#bb52ad"));
 
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {

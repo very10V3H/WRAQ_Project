@@ -1437,6 +1437,12 @@ public class PlayerAttributes {
         return rate;
     }
 
+    public static double getElementStrength(Player player) {
+        double rate = 0;
+        rate += computeAllEquipSlotBaseAttributeValue(player, Utils.elementStrength, false);
+        return rate;
+    }
+
     public static double handleArmorRandomAttribute(Player player, String attributeType) {
         double value = 0;
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);

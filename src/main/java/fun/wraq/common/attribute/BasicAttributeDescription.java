@@ -863,6 +863,11 @@ public class BasicAttributeDescription {
                 CustomStyle.styleOfEnd, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.element, Utils.elementStrength,
+                null, "元素强度",
+                CustomStyle.styleOfWorld, 0, true, itemStack,
+                false, null, event.getTooltipElements());
+
         // 以下为新版宝石内容提示
         List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);
         if (!gemList.isEmpty() || data.getInt("newSlot") > 0) {
