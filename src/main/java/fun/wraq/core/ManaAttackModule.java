@@ -11,6 +11,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectCurios;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
+import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -51,6 +52,12 @@ import java.util.Objects;
 import java.util.Random;
 
 public class ManaAttackModule {
+
+    public static void causeBaseAttack(Player player, Mob mob, double rate, boolean mainShoot) {
+        ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, rate);
+        BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaPenetration0(player), player.level(), manaArrow, mainShoot);
+    }
 
     public static void BasicAttack(Player player, Entity entity, double defencePenetration,
                                    double defencePenetration0, Level level, ManaArrow manaArrow, boolean mainShoot) {

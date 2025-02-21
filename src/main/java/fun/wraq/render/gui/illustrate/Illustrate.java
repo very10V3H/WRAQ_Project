@@ -2,6 +2,7 @@ package fun.wraq.render.gui.illustrate;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -224,10 +225,11 @@ public class Illustrate extends Screen {
                     itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                     if (!Screen.hasControlDown()
                             && (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)
-                            || Utils.offHandTag.containsKey(item))) {
+                            || Utils.offHandTag.containsKey(item) || item instanceof WraqCurios)) {
                         itemStack.getOrCreateTagElement(Utils.MOD_ID).putBoolean(DISPLAY_FLAG, true);
-                        if (!Utils.offHandTag.containsKey(item)) {
-                            ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
+                        if (!Utils.offHandTag.containsKey(item) && !(item instanceof WraqCurios)) {
+                            ForgeEquipUtils.setForgeQualityOnEquip(itemStack,
+                                    ClientUtils.clientPlayerTick / 20 % 13);
                         }
                         Compute.forgingHoverName(itemStack);
                     }

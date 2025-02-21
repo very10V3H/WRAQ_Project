@@ -422,12 +422,12 @@ public class ClientPlayerTickEvent {
         if (event.side.isClient() && event.player.equals(Minecraft.getInstance().player)) {
             Player player = event.player;
             Level level = player.level();
-
             for (ManaAttackParticle manaAttackParticle : ClientUtils.manaAttackParticleArrayList) {
-                ParticleProvider.BallParticle(manaAttackParticle.getPos(), level, 2 * (20 - manaAttackParticle.getTickTime()) / 20.0, Utils.ParticleStringToParticleMap.get(manaAttackParticle.getType()), 20);
+                ParticleProvider.BallParticle(manaAttackParticle.getPos(), level,
+                        2 * (20 - manaAttackParticle.getTickTime()) / 20.0,
+                        Utils.ParticleStringToParticleMap.get(manaAttackParticle.getType()), 20);
                 manaAttackParticle.setTickTime(Math.max(-1, manaAttackParticle.getTickTime() - 1));
             }
-
             ClientUtils.manaAttackParticleArrayList.removeIf(manaAttackParticle -> manaAttackParticle.getTickTime() == -1);
         }
     }

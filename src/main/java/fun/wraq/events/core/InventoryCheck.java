@@ -104,9 +104,13 @@ public class InventoryCheck {
             ItemStack offhand = player.getItemBySlot(EquipmentSlot.OFFHAND);
             ItemStack[] itemStacks = {helmet, chest, leggings, boots};
             for (ItemStack itemStack : itemStacks) {
-                if (Utils.armorTag.containsKey(itemStack.getItem())) addOwnerTagToItemStack(player, itemStack);
+                if (Utils.armorTag.containsKey(itemStack.getItem())) {
+                    removeOwnerTag(player, itemStack);
+                }
             }
-            if (Utils.offHandTag.containsKey(offhand.getItem())) addOwnerTagToItemStack(player, offhand);
+            if (Utils.offHandTag.containsKey(offhand.getItem())) {
+                removeOwnerTag(player, offhand);
+            }
         }
     }
 

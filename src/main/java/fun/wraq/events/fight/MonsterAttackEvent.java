@@ -32,6 +32,7 @@ import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.overworld.chapter1.mine.MinePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
 import net.minecraft.core.Holder;
@@ -155,6 +156,7 @@ public class MonsterAttackEvent {
             StarBottle.playerBattleTickMapRefresh(player);
             GemOnWithstandDamage.withStandDamage(player, monster, finalDamage);
             SpringSnakeInstance.onPlayerWithstandDamage(player, monster);
+            DivineUtils.onPlayerWithstandDamage(monster, player);
         }
         CitadelGuardianInstance.playerWithstandDamage(player, monster);
     }

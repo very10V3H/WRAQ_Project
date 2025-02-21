@@ -65,10 +65,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
@@ -851,11 +848,6 @@ public class PlayerAttributes {
 
         defencePenetration0 += computeAllEquipSlotBaseAttributeValue(player, Utils.defencePenetration0, false);
 
-        if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainhand))
-            defencePenetration0 += Compute.getSwordSkillLevel(data, 10) * 3;
-        if (Compute.getBowSkillLevel(data, 10) > 0 && Utils.bowTag.containsKey(mainhand))
-            defencePenetration0 += Compute.getBowSkillLevel(data, 10) * 3;
-
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
             defencePenetration0 +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.DefencePenetration0;
@@ -1429,6 +1421,26 @@ public class PlayerAttributes {
             value += powerAbilityPoint * 0.004;
         } // 能力
         return Math.min(0.5, value);
+    }
+
+    public static double getAttackSpeedEnhanceRate(Player player) {
+        double rate = 0;
+        rate += computeAllEquipSlotBaseAttributeValue(player, Utils.attackSpeedEnhance, false);
+        CompoundTag data = player.getPersistentData();
+        Item mainHandItem = player.getMainHandItem().getItem();
+        if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
+            rate += Compute.getSwordSkillLevel(data, 10) * 0.03;
+        }
+        if (Compute.getBowSkillLevel(data, 10) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
+            rate += Compute.getBowSkillLevel(data, 10) * 0.03;
+        }
+        return rate;
+    }
+
+    public static double getElementStrength(Player player) {
+        double rate = 0;
+        rate += computeAllEquipSlotBaseAttributeValue(player, Utils.elementStrength, false);
+        return rate;
     }
 
     public static double handleArmorRandomAttribute(Player player, String attributeType) {

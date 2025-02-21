@@ -1,5 +1,7 @@
 package fun.wraq.projectiles.mana;
 
+import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.util.StringUtils;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.process.func.damage.Damage;
 import net.minecraft.nbt.CompoundTag;
@@ -54,6 +56,11 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
         this.manaPenetration0 = manaPenetration0;
         this.particleType = particleType;
         this.manaArrowHitEntity = manaArrowHitEntity;
+    }
+
+    public ManaArrow(EntityType<? extends AbstractArrow> entityType, Player player, double rate) {
+        this(entityType, player, player.level(), rate, PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,

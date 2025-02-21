@@ -47,6 +47,7 @@ import fun.wraq.series.gems.passive.impl.GemOnKillMob;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
+import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
 import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -62,8 +63,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.RandomUtils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 public class Damage {
 
@@ -582,16 +584,21 @@ public class Damage {
         }
     }
 
-    public static Set<String> scornMobNames = Set.of(
-            ManaTowerEachFloorMob.FLOOR_3_MOB_NAME
-    );
+    public static Map<String, Double> scornValueMap = new HashMap<>() {{
+        put(ManaTowerEachFloorMob.FLOOR_3_MOB_NAME, 0.7);
+        put(DivineSentrySpawnController.mobName, 0.7);
+    }};
 
     public static double getAfterScornAdjustRate(Player player, Mob mob) {
-        if (scornMobNames.contains(MobSpawn.getMobOriginName(mob)) &&
-                (Element.getResonanceType(player) == null
-                        || ElementValue.getElementValueJudgeByType(player, Element.getResonanceType(player)) < 0.7)) {
+        String mobName = MobSpawn.getMobOriginName(mob);
+        if (scornValueMap.containsKey(mobName) &&
+                (Element.getResonanceType(player) == null || ElementValue
+                        .getElementValueJudgeByType(player, Element.getResonanceType(player))
+                        < scornValueMap.get(mobName))) {
             Compute.sendFormatMSG(player, Te.s("蔑视", CustomStyle.styleOfRed),
-                    Te.s(mob, "十分高傲，你当前的元素强度无法对其造成任何伤害."));
+                    Te.s(mob, "十分高傲，你当前的元素强度无法对其造成任何伤害.", "(需要"
+                            + String.format("%.0f%%", scornValueMap.get(mobName) * 100) + "任意元素强度)",
+                            CustomStyle.DIVINE_STYLE));
             return 0;
         }
         return 1;

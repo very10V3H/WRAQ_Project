@@ -1,7 +1,6 @@
 package fun.wraq.process.system.skill.skillv2.sword;
 
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -30,7 +29,7 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill {
         int skillLevel = SkillV2.getPlayerSkillLevelBySkillV2(player, this);
         Item mainHandItem = player.getMainHandItem().getItem();
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.samurai, Tick.get() + 8, player) {
+                DelayOperationWithAnimation.Animation.samurai, 8, 8, player, 1) {
             @Override
             public void trig() {
                 if (Utils.swordTag.containsKey(mainHandItem)) {
@@ -51,6 +50,8 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill {
                 getRateDescription(2, 0.1, level), CustomStyle.styleOfPower, "伤害。"));
         components.add(Te.s("必定暴击", CustomStyle.styleOfPower,
                 "且", ComponentUtils.getAttackEffectDescription()));
+        components.add(Te.s("施法前摇与后摇收益于",
+                ComponentUtils.AttributeDescription.getAttackSpeed("")));
         return components;
     }
 

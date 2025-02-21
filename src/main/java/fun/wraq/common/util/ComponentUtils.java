@@ -166,6 +166,14 @@ public class ComponentUtils {
         public static Component manaDamageValue(String content) {
             return Component.literal(Utils.Emoji.Mana + " " + content + "魔法伤害").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
+
+        public static Component getAttackSpeed(String content) {
+            return Te.s(Utils.Emoji.AttackSpeed + " " + content + "攻击速度", CustomStyle.styleOfFlexible);
+        }
+
+        public static Component getElementStrength(String content) {
+            return Te.s(Utils.Emoji.ELEMENT + " " + content + "元素强度", CustomStyle.styleOfWorld);
+        }
     }
 
     public static void suitDescription(List<Component> components) {
@@ -340,6 +348,11 @@ public class ComponentUtils {
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);
     }
 
+    public static Component getSuffixOfDivine() {
+        return Component.literal("圣光岛")
+                .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.DIVINE_STYLE);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));
@@ -443,6 +456,11 @@ public class ComponentUtils {
 
     public static void coolDownTimeDescription(List<Component> components, int seconds) {
         components.add(Component.literal(" 冷却时间:").withStyle(ChatFormatting.WHITE).
+                append(Component.literal(seconds + "s").withStyle(ChatFormatting.AQUA)));
+    }
+
+    public static void getStableCoolDownTimeDescription(List<Component> components, int seconds) {
+        components.add(Component.literal(" 固定冷却时间:").withStyle(ChatFormatting.WHITE).
                 append(Component.literal(seconds + "s").withStyle(ChatFormatting.AQUA)));
     }
 
@@ -921,5 +939,10 @@ public class ComponentUtils {
 
     public static Component getRightAngleQuote(String content, Style style) {
         return Te.s("「" + content + "」", style);
+    }
+
+    public static Component getProgressBar(int length, double count, double maxCount, Style style) {
+        int num = (int) (count / maxCount * length);
+        return Te.s("|".repeat(num), style, "|".repeat(length - num), ChatFormatting.GRAY);
     }
 }

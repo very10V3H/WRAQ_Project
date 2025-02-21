@@ -82,6 +82,8 @@ public class Utils {
     public static Map<Item, Double> luckyUp = new HashMap<>();
     public static Map<Item, Double> toughness = new HashMap<>();
     public static Map<Item, Double> percentHealthRecover = new HashMap<>();
+    public static Map<Item, Double> attackSpeedEnhance = new HashMap<>();
+    public static Map<Item, Double> elementStrength = new HashMap<>();
 
     public static Map<Item, Double> mainHandTag = new HashMap<>();
     public static Map<Item, Double> swordTag = new HashMap<>();
@@ -268,6 +270,7 @@ public class Utils {
         public static String Suit = "\uD83E\uDDE5";
         public static String AttackSpeed = "\uD83D\uDD2A";
         public static String Swiftness = "\uD83D\uDE80";
+        public static String ELEMENT = "⚛";
     }
 
     public static ArrayList<String> IpArrayList = new ArrayList<>();
@@ -536,6 +539,7 @@ public class Utils {
         add(CustomStyle.styleOfMoontain); // < 225
         add(CustomStyle.styleOfHarbinger); // < 250
         add(CustomStyle.MANA_TOWER_STYLE); // < 275
+        add(CustomStyle.DIVINE_STYLE); // < 300
     }};
 
     public static Style getLevelStyle(int level) {

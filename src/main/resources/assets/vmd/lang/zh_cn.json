@@ -1989,6 +1989,13 @@
   "item.vmd.mushroom_parasitism_gem": "菌菇寄生宝石",
   "item.vmd.mushroom_split_gem": "菌菇分生宝石",
 
+  "item.vmd.divine_sword_0": "初等圣光长剑",
+  "item.vmd.divine_bow_0": "初等圣光长弓",
+  "item.vmd.divine_sceptre_0": "初等圣光权杖",
+
+  "item.vmd.divine_soul": "圣光屑",
+  "item.vmd.divine_rune": "圣光石",
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
   "curios.identifier.uniform_curio": "因子",

@@ -24,14 +24,17 @@ public class IceArmor extends WraqArmor implements ForgeItem {
         if (type.equals(Type.HELMET)) {
             Utils.healthRecover.put(this, 40d);
             Utils.defence.put(this, 20d);
+            Utils.manaDefence.put(this, 10d);
         }
         if (type.equals(Type.CHESTPLATE)) {
             Utils.defence.put(this, 35d);
+            Utils.manaDefence.put(this, 15d);
             Utils.maxHealth.put(this, 5000d);
         }
         if (type.equals(Type.LEGGINGS)) {
             Utils.maxHealth.put(this, 10000d);
             Utils.defence.put(this, 20d);
+            Utils.manaDefence.put(this, 10d);
         }
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.1);

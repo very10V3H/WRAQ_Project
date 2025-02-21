@@ -2,7 +2,7 @@ package fun.wraq.process.system.skill.skillv2.bow;
 
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -24,7 +24,7 @@ public class BowNewSkillBase1_0 extends SkillV2BaseSkill {
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.bowNewSkillBase1_0, Tick.get() + 8, player
+                DelayOperationWithAnimation.Animation.bowNewSkillBase1_0, 8, 8, player, 1
         ) {
             @Override
             public void trig() {
@@ -43,6 +43,8 @@ public class BowNewSkillBase1_0 extends SkillV2BaseSkill {
                 getRateDescription(2, 0.1, level), CustomStyle.styleOfFlexible, "伤害的箭矢"));
         components.add(Te.s("这支箭矢", "不会下坠", CustomStyle.styleOfMoon,
                 "且", "必定暴击", CustomStyle.styleOfPower));
+        components.add(Te.s("施法前摇与后摇收益于",
+                ComponentUtils.AttributeDescription.getAttackSpeed("")));
         return components;
     }
 
