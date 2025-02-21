@@ -6,6 +6,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -397,6 +398,12 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1880, 147, -451), "地铁月影坡站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
         add(new MyWayPoint(new Vec3(1916, 151, -943), "地铁望山据点站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
         add(new MyWayPoint(new Vec3(1900, 158, -1648), "地铁北部高地站", colorMap.get(purple), CustomStyle.styleOfSakura, 0));
+        add(new MyWayPoint(DivineUtils.ToDivineIslandBoatPos, "圣光岛轮渡 - 往圣光岛",
+                colorMap.get(yellow), CustomStyle.DIVINE_STYLE, 0));
+        add(new MyWayPoint(DivineUtils.ToSunIslandBoatPos, "圣光岛轮渡 - 往旭升岛",
+                colorMap.get(yellow), CustomStyle.DIVINE_STYLE, 0));
+        add(new MyWayPoint(new Vec3(2280, 66, 844), "圣光岛南部边境",
+                colorMap.get(yellow), CustomStyle.DIVINE_STYLE, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{
@@ -449,7 +456,8 @@ public class MyWayPoint {
     }
 
     public static void sendAddPacketToClient(Player player, MyWayPoint myWayPoint) {
-        ModNetworking.sendToClient(new SpecificWayPointAddS2CPacket(myWayPoint.pos.toVector3f(), myWayPoint.name, myWayPoint.color, myWayPoint.type), (ServerPlayer) player);
+        ModNetworking.sendToClient(new SpecificWayPointAddS2CPacket(myWayPoint.pos.toVector3f(), myWayPoint.name,
+                myWayPoint.color, myWayPoint.type), (ServerPlayer) player);
     }
 
     public static void addWaypoint(MyWayPoint myWayPoint) {

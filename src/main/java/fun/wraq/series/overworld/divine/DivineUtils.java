@@ -2,11 +2,13 @@ package fun.wraq.series.overworld.divine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +50,8 @@ public class DivineUtils {
                 Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.005,
                         Te.s("被", "圣光", style, "辐照飞升"));
                 if (player.tickCount % 20 == 0) {
-
+                    sendMSG(player, Te.s("未达到", Utils.getLevelDescription(230),
+                            "无法承受", "圣光的辐照.", style));
                 }
             }
         }
@@ -66,5 +69,9 @@ public class DivineUtils {
             SpecialEffectOnPlayer.addHealingReduction(player, "DivineMobHealingReduction", 40);
             SpecialEffectOnPlayer.slowdownEffectProvide(player, 40, 0.8);
         }
+    }
+
+    public static void sendMSG(Player player, Component content) {
+        Compute.sendFormatMSG(player, Te.s("圣光岛", style), content);
     }
 }
