@@ -54,7 +54,7 @@ import java.util.Random;
 public class ManaAttackModule {
 
     public static void causeBaseAttack(Player player, Mob mob, double rate, boolean mainShoot) {
-        ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level(), rate);
+        ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, rate);
         BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), player.level(), manaArrow, mainShoot);
     }

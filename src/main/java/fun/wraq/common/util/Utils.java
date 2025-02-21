@@ -539,6 +539,7 @@ public class Utils {
         add(CustomStyle.styleOfMoontain); // < 225
         add(CustomStyle.styleOfHarbinger); // < 250
         add(CustomStyle.MANA_TOWER_STYLE); // < 275
+        add(CustomStyle.DIVINE_STYLE); // < 300
     }};
 
     public static Style getLevelStyle(int level) {

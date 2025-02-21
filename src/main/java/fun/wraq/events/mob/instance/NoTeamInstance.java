@@ -21,7 +21,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -226,16 +225,7 @@ public abstract class NoTeamInstance {
     }
 
     public void summonArmorStand(Level level, Vec3 offset, Component name) {
-        ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, level);
-        armorStand.setNoGravity(true);
-        armorStand.setCustomNameVisible(true);
-        armorStand.setCustomName(name);
-        armorStand.setInvulnerable(true);
-        armorStand.setInvisible(true);
-        armorStand.noPhysics = true;
-        armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
-        armorStand.moveTo(armorStandPos.add(offset).add(0.5, 0, 0.5));
-        level.addFreshEntity(armorStand);
+        Compute.summonArmorStand(level, armorStandPos.add(offset), name);
     }
 
     public void exReward(Player player) {

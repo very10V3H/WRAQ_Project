@@ -36,7 +36,9 @@ public abstract class WraqArmor extends ArmorItem {
     public WraqArmor(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
+        if (!(this instanceof RandomArmor)) {
+            Utils.armorList.add(this);
+        }
         if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }

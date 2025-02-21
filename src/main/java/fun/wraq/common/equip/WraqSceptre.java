@@ -77,7 +77,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
         if (Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
             ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level,
                     rate, PlayerAttributes.manaPenetration(player),
-                    PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.DamageMana);
+                    PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
             manaArrow.setSilent(true);
             manaArrow.setNoGravity(true);
             manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);

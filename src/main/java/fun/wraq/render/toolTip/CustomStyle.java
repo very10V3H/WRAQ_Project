@@ -85,7 +85,7 @@ public class CustomStyle {
     public static Style styleOfHarbinger = Style.EMPTY.withColor(TextColor.parseColor("#ff4e00"));
     public static Style MUSHROOM_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#e6c3ab"));
     public static Style MANA_TOWER_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#bb52ad"));
-    public static Style DIVINE_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#bb52ad"));
+    public static Style DIVINE_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#f9fcb0"));
 
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
@@ -759,5 +759,17 @@ public class CustomStyle {
 
     public static final Rarity MUSHROOM_ITALIC_RARITY = Rarity.create("mushroom_italic", style -> {
         return style.applyTo(CustomStyle.MUSHROOM_STYLE).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity DIVINE_RARITY = Rarity.create("divine", style -> {
+        return style.applyTo(CustomStyle.DIVINE_STYLE);
+    });
+
+    public static final Rarity DIVINE_BOLD_RARITY = Rarity.create("divine_bold", style -> {
+        return style.applyTo(CustomStyle.DIVINE_STYLE).withBold(true);
+    });
+
+    public static final Rarity DIVINE_ITALIC_RARITY = Rarity.create("divine_italic", style -> {
+        return style.applyTo(CustomStyle.DIVINE_STYLE).withBold(true).withItalic(true);
     });
 }

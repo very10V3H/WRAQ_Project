@@ -156,8 +156,8 @@ public class Element {
 
         double reactionElementValue = Math.min(passiveUnit.value, value);
 
-        double strongRate = 0.5;
-        double weakRate = -0.5;
+        double strongRate = 1 * reactionElementValue;
+        double weakRate = -1 * reactionElementValue;
 
         if (passiveUnit.type.equals(type)) {
             if (passiveUnit.value < value) entityElementUnit.put(passive, new Unit(type, value));
@@ -933,6 +933,10 @@ public class Element {
         put(wind, CustomStyle.styleOfWind);
     }};
 
+    public static Component getElementDescription(String type) {
+        return Te.s(nameMap.get(type), styleMap.get(type));
+    }
+
     @Nullable
     public static String getResonanceType(Player player) {
         return PlayerResonanceType.getOrDefault(player, null);
@@ -1145,5 +1149,19 @@ public class Element {
                 ModItems.WindElementPiece0.get(),
                 ModItems.LightningElementPiece0.get()
         );
+    }
+
+    private static final Map<String, Item> piece0ItemMap = new HashMap<>();
+    public static Map<String, Item> getPiece0ItemMap() {
+        if (piece0ItemMap.isEmpty()) {
+            piece0ItemMap.put(life, ModItems.LifeElementPiece0.get());
+            piece0ItemMap.put(water, ModItems.WaterElementPiece0.get());
+            piece0ItemMap.put(fire, ModItems.FireElementPiece0.get());
+            piece0ItemMap.put(stone, ModItems.StoneElementPiece0.get());
+            piece0ItemMap.put(ice, ModItems.IceElementPiece0.get());
+            piece0ItemMap.put(wind, ModItems.WindElementPiece0.get());
+            piece0ItemMap.put(lightning, ModItems.LightningElementPiece0.get());
+        }
+        return piece0ItemMap;
     }
 }

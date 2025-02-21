@@ -25,7 +25,6 @@ import fun.wraq.core.bow.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.events.mob.moontain.MoontainEntities;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
 import fun.wraq.networking.hud.DebuffTimeS2CPacket;
@@ -90,6 +89,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
@@ -1994,12 +1994,12 @@ public class Compute {
     }
 
     public static boolean isEntityInTwoPoint(Entity entity, Vec3 downPos, Vec3 upPos) {
-        return entity.getX() > MoontainEntities.commonDownPos.x
-                && entity.getY() > MoontainEntities.commonDownPos.y
-                && entity.getZ() > MoontainEntities.commonDownPos.z
-                && entity.getX() < MoontainEntities.commonUpPos.x
-                && entity.getY() < MoontainEntities.commonUpPos.y
-                && entity.getZ() < MoontainEntities.commonUpPos.z;
+        return entity.getX() > downPos.x
+                && entity.getY() > downPos.y
+                && entity.getZ() > downPos.z
+                && entity.getX() < upPos.x
+                && entity.getY() < upPos.y
+                && entity.getZ() < upPos.z;
     }
 
     public static void sendMotionPacketToPlayer(Player player, Vec3 vec3) {
@@ -2107,5 +2107,18 @@ public class Compute {
         Vec3 eyePos = player.getEyePosition();
         Vec3 shortPickPos = player.pick(0.5, 0, false).getLocation();
         return eyePos.add(shortPickPos.subtract(eyePos).normalize().scale(distance));
+    }
+
+    public static void summonArmorStand(Level level, Vec3 pos, Component name) {
+        ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, level);
+        armorStand.setNoGravity(true);
+        armorStand.setCustomNameVisible(true);
+        armorStand.setCustomName(name);
+        armorStand.setInvulnerable(true);
+        armorStand.setInvisible(true);
+        armorStand.noPhysics = true;
+        armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
+        armorStand.moveTo(pos);
+        level.addFreshEntity(armorStand);
     }
 }

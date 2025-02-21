@@ -5,6 +5,7 @@ import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.impl.Laser;
+import fun.wraq.common.equip.impl.PreventLeftClickShoot;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -82,10 +83,11 @@ public class ClientAttackEvent {
         if (Utils.swordTag.containsKey(item)) {
             ModNetworking.sendToServer(new AttackRequestC2SPacket());
         }
-        if (Utils.bowTag.containsKey(item)) {
+        if (Utils.bowTag.containsKey(item) && !(item instanceof PreventLeftClickShoot)) {
             ModNetworking.sendToServer(new BowAttackRequestC2SPacket());
         }
-        if (Utils.sceptreTag.containsKey(item) && !(item instanceof Laser)) {
+        if (Utils.sceptreTag.containsKey(item) && !(item instanceof Laser)
+                && !(item instanceof PreventLeftClickShoot)) {
             ModNetworking.sendToServer(new ManaAttackRequestC2SPacket());
         }
     }

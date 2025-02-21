@@ -3,7 +3,6 @@ package fun.wraq.series.overworld.divine.equip;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -19,11 +18,20 @@ public class DivineSword extends WraqSword implements DivineEquipCommon {
     private final double transformRate;
     private final double upperLimitRate;
     private final int maxCount;
-    public DivineSword(Properties properties, double transformRate, double upperLimitRate, int maxCount) {
+    private final double maxActiveDistance;
+    public DivineSword(Properties properties, double transformRate, double upperLimitRate, int maxCount,
+                       double maxActiveDistance) {
         super(properties);
         this.transformRate = transformRate;
         this.upperLimitRate = upperLimitRate;
         this.maxCount = maxCount;
+        this.maxActiveDistance = maxActiveDistance;
+        Utils.attackDamage.put(this, 3000d);
+        Utils.defencePenetration0.put(this, 60d);
+        Utils.healthSteal.put(this, 0.08);
+        Utils.critRate.put(this, 0.35);
+        Utils.levelRequire.put(this, 230);
+        DivineEquipCommon.weaponList.add(this);
     }
 
     @Override
@@ -47,11 +55,6 @@ public class DivineSword extends WraqSword implements DivineEquipCommon {
         ItemStack stack = player.getMainHandItem();
         int count = DivineEquipCommon.getDivineCount(stack);
         double rate = (double) count / maxCount;
-        if (Element.getResonanceType(player) != null) {
-            String resonanceType = Element.getResonanceType(player);
-            double value = DivineEquipCommon.getElementExceptOneElementValue(player, resonanceType);
-            attributes.add(new Attribute(Element.getElementValueMap().get(resonanceType), value * transformRate));
-        }
         attributes.addAll(List.of(
                 new Attribute(Utils.elementStrength, upperLimitRate * rate),
                 new Attribute(Utils.percentAttackDamageEnhance, upperLimitRate * rate)
@@ -63,5 +66,20 @@ public class DivineSword extends WraqSword implements DivineEquipCommon {
     public void onKill(Player player, Mob mob) {
         ItemStack stack = player.getMainHandItem();
         DivineEquipCommon.addDivineCount(stack);
+        DivineEquipCommon.onKill(player);
+    }
+
+    @Override
+    public void active(Player player) {
+        DivineEquipCommon.active(player, maxActiveDistance);
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
+    public double getTransformRate() {
+        return transformRate;
     }
 }

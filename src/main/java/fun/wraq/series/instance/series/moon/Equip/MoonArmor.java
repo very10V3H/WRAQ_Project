@@ -30,11 +30,13 @@ public class MoonArmor extends WraqArmor implements ForgeItem {
         if (type.equals(Type.LEGGINGS)) {
             Utils.maxHealth.put(this, 16000d);
             Utils.defence.put(this, 20d);
+            Utils.manaDefence.put(this, 10d);
         }
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.007);
             Utils.healthRecover.put(this, 50d);
             Utils.defence.put(this, 20d);
+            Utils.manaDefence.put(this, 10d);
         }
         Utils.levelRequire.put(this, 160);
     }

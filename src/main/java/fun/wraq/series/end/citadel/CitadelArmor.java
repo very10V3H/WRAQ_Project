@@ -26,14 +26,17 @@ public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttrib
             Utils.percentHealthRecover.put(this, 0.012);
             Utils.healthRecover.put(this, 140d);
             Utils.defence.put(this, 60d);
+            Utils.manaDefence.put(this, 30d);
         }
         if (type.equals(Type.CHESTPLATE)) {
             Utils.defence.put(this, 100d);
+            Utils.manaDefence.put(this, 50d);
             Utils.maxHealth.put(this, 21000d);
         }
         if (type.equals(Type.LEGGINGS)) {
             Utils.maxHealth.put(this, 42000d);
             Utils.defence.put(this, 60d);
+            Utils.manaDefence.put(this, 30d);
         }
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.16);

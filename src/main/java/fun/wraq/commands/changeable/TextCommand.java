@@ -403,6 +403,15 @@ public class TextCommand implements Command<CommandSourceStack> {
                 components.add(Component.literal("返回终末之地").withStyle(CustomStyle.styleOfEnd));
             }
 
+            if (name.equals("ToDivineIsland")) {
+                components.add(Te.s("前往", "圣光岛", CustomStyle.DIVINE_STYLE));
+                components.add(Te.s("等级需求:", Utils.getLevelDescription(230)));
+            }
+
+            if (name.equals("ToSunIsland")) {
+                components.add(Te.s("前往", "旭升岛", CustomStyle.styleOfSunIsland));
+            }
+
             ArmorStandSummon(components, player);
         }
         return 0;

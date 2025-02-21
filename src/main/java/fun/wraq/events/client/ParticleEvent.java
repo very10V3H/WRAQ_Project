@@ -1,5 +1,6 @@
 package fun.wraq.events.client;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -46,8 +47,21 @@ public class ParticleEvent {
             if (isInOverWorld && player.getX() > 2169 && player.getX() < 2333
                     && player.getZ() > 1325 && player.getZ() < 1488) {
                 for (int i = 0; i < 75; i++) {
-                    level.addParticle(ModParticles.LONG_ENTROPY.get(), player.getX() + random.nextInt(100) - 50,
-                            player.getY() + random.nextInt(100) - 50, player.getZ() + random.nextInt(100) - 50,
+                    level.addParticle(ModParticles.LONG_ENTROPY.get(),
+                            player.getX() + random.nextInt(100) - 50,
+                            player.getY() + random.nextInt(100) - 50,
+                            player.getZ() + random.nextInt(100) - 50,
+                            0, 0.5, 0);
+                }
+            }
+
+            if (isInOverWorld && Compute.isEntityInTwoPoint(player,
+                    new Vec3(2218, -100, 749), new Vec3(2348, 320, 875))) {
+                for (int i = 0; i < 75; i++) {
+                    level.addParticle(ParticleTypes.END_ROD,
+                            player.getX() + random.nextInt(100) - 50,
+                            player.getY() + random.nextInt(100) - 50,
+                            player.getZ() + random.nextInt(100) - 50,
                             0, 0.5, 0);
                 }
             }

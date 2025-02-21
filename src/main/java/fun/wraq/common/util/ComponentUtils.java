@@ -459,6 +459,11 @@ public class ComponentUtils {
                 append(Component.literal(seconds + "s").withStyle(ChatFormatting.AQUA)));
     }
 
+    public static void getStableCoolDownTimeDescription(List<Component> components, int seconds) {
+        components.add(Component.literal(" 固定冷却时间:").withStyle(ChatFormatting.WHITE).
+                append(Component.literal(seconds + "s").withStyle(ChatFormatting.AQUA)));
+    }
+
     public static Component getCooldownTimeDescription(int seconds) {
         return Component.literal(" 冷却时间:").withStyle(ChatFormatting.WHITE).
                 append(Component.literal(seconds + "s").withStyle(ChatFormatting.AQUA));

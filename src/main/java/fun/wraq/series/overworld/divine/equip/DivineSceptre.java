@@ -10,16 +10,28 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DivineSceptre extends WraqSceptre implements DivineEquipCommon {
 
+    private final double transformRate;
     private final double upperLimitRate;
     private final int maxCount;
-    public DivineSceptre(Properties properties, double upperLimitRate, int maxCount) {
+    private final double maxActiveDistance;
+    public DivineSceptre(Properties properties, double transformRate, double upperLimitRate, int maxCount,
+                         double maxActiveDistance) {
         super(properties);
+        this.transformRate = transformRate;
         this.upperLimitRate = upperLimitRate;
         this.maxCount = maxCount;
+        this.maxActiveDistance = maxActiveDistance;
+        Utils.manaDamage.put(this, 6000d);
+        Utils.manaRecover.put(this, 50d);
+        Utils.manaPenetration0.put(this, 70d);
+        Utils.coolDownDecrease.put(this, 0.3);
+        Utils.levelRequire.put(this, 230);
+        DivineEquipCommon.weaponList.add(this);
     }
 
     @Override
@@ -39,18 +51,35 @@ public class DivineSceptre extends WraqSceptre implements DivineEquipCommon {
 
     @Override
     public List<Attribute> getAttributes(Player player) {
+        List<Attribute> attributes = new ArrayList<>();
         ItemStack stack = player.getMainHandItem();
         int count = DivineEquipCommon.getDivineCount(stack);
         double rate = (double) count / maxCount;
-        return List.of(
+        attributes.addAll(List.of(
                 new Attribute(Utils.elementStrength, upperLimitRate * rate),
                 new Attribute(Utils.percentManaDamageEnhance, upperLimitRate * rate)
-        );
+        ));
+        return attributes;
     }
 
     @Override
     public void onKill(Player player, Mob mob) {
         ItemStack stack = player.getMainHandItem();
         DivineEquipCommon.addDivineCount(stack);
+        DivineEquipCommon.onKill(player);
+    }
+
+    @Override
+    public void active(Player player) {
+        DivineEquipCommon.active(player, maxActiveDistance);
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
+    public double getTransformRate() {
+        return transformRate;
     }
 }

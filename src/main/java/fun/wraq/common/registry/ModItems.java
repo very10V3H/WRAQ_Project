@@ -1868,7 +1868,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> ENHANCE_PURPLE_IRON_CHEST =
             ITEMS.register("enhance_purple_iron_chest",
-                    () -> new EnhancePurpleIronArmor(ModArmorMaterials.ENHANCE_PURPLE_IRON, ArmorItem.Type.CHESTPLATE,
+                    () -> new EnhancePurpleIronArmor(ModArmorMaterials.FANVER_IRON, ArmorItem.Type.CHESTPLATE,
                             new Item.Properties().rarity(CustomStyle.PurpleIronItalic)));
 
     public static final RegistryObject<Item> MobArmorIceHelmet = ITEMS.register("mob_armor_ice_helmet",

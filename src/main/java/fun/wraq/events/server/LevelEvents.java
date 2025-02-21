@@ -18,6 +18,7 @@ import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.mushroom.UnknownGem;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -91,6 +92,7 @@ public class LevelEvents {
         EffectOnMob.levelTick(event);
         RightClickActiveHandler.detectNearPlayer(event);
         clearFire(event); // 清理火焰
+        DivineUtils.handleServerLevelEvent(event);
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             PersistentRangeEffect.levelTick(event.level);

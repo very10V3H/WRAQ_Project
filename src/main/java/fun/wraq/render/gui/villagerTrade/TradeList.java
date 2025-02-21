@@ -3117,6 +3117,8 @@ public class TradeList {
                 new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.ADVANCED_PICKUP_UPGRADE.get(), 1);
         ItemStack inceptionUpgrade =
                 new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.INCEPTION_UPGRADE.get(), 1);
+        ItemStack constrainTaboo =
+                new ItemStack(ModItems.ConstrainTaboo.get(), 3);
         ItemStack fantasyMedal1 = new ItemStack(ModItems.FANTASY_MEDAL_1.get());
         ItemStack fantasyBracelet1 = new ItemStack(ModItems.FANTASY_BRACELET_1.get());
         ItemStack fantasyMedal2 = new ItemStack(ModItems.FANTASY_MEDAL_2.get());
@@ -3125,6 +3127,7 @@ public class TradeList {
                 roseGoldCoin, backSpawn, uDisk, backpackTicket, goldCoinLottery,
                 skinTemplate, stackUpgradeTier4, pickupUpgrade, inceptionUpgrade,
                 fantasyMedal1, fantasyBracelet1, fantasyMedal2, fantasyBracelet2,
+                constrainTaboo
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3171,6 +3174,9 @@ public class TradeList {
         ));
         tradeRecipeMap.put(fantasyBracelet2, List.of(
                 new ItemStack(ModItems.FANTASY_BRACELET_2.get(), 16)
+        ));
+        tradeRecipeMap.put(constrainTaboo, List.of(
+                new ItemStack(GemItems.moonAttackGemD.get(), 16)
         ));
     }
 

@@ -52,8 +52,8 @@ import fun.wraq.series.end.Recall;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -118,19 +118,16 @@ public class MobSpawn {
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(LakeDrownSpawnController.getInstance(overWorld));
         overWolrdList.add(MineSkeletonSpawnController.getInstance(overWorld));
-
         overWolrdList.add(SkyVexSpawnController.getInstance(overWorld));
         overWolrdList.add(SkySkeletonSpawnController.getInstance(overWorld));
         overWolrdList.add(FireLightSpawnController.getInstance(overWorld));
         overWolrdList.add(SearedSpiritSpawnController.getInstance(overWorld));
         overWolrdList.add(SearedSpirit2SpawnController.getInstance(overWorld));
         overWolrdList.add(EvokerSpawnController.getInstance(overWorld));
-
         overWolrdList.add(HuskSpawnController.getInstance(overWorld));
         overWolrdList.add(HuskEx0SpawnController.getInstance(overWorld));
         overWolrdList.add(HuskEx1SpawnController.getInstance(overWorld));
         overWolrdList.add(HuskEx2SpawnController.getInstance(overWorld));
-
         overWolrdList.add(LumberJackSpawnController.getInstance(overWorld));
         overWolrdList.add(DreadHoundSpawnController.getInstance(overWorld));
         overWolrdList.add(GuardianSpawnController.getInstance(overWorld));
@@ -139,37 +136,30 @@ public class MobSpawn {
         overWolrdList.add(WindSkeletonSpawnController.getInstance(overWorld));
         overWolrdList.add(SlimeSpawnController.getInstance(overWorld));
         overWolrdList.add(JorogumoSpawnController.getInstance(overWorld));
-
         overWolrdList.add(SnowStraySpawnController.getInstance(overWorld));
-
         overWolrdList.add(SakuraMobSpawnController.getInstance(overWorld));
         overWolrdList.add(SakuraMob2SpawnController.getInstance(overWorld));
         overWolrdList.add(EarthManaSpawnController.getInstance(overWorld));
         overWolrdList.add(BloodManaSpawnController.getInstance(overWorld));
         overWolrdList.add(PillagerSpawnController.getInstance(overWorld));
-
         overWolrdList.add(BeaconSpawnController.getInstance(overWorld));
         overWolrdList.add(BlazeSpawnController.getInstance(overWorld));
         overWolrdList.add(TreeSpawnController.getInstance(overWorld));
-
         overWolrdList.add(StarSpawnController.getInstance(overWorld));
         overWolrdList.add(BoneImpSpawnController.getInstance(overWorld));
         overWolrdList.add(TorturedSoulSpawnController.getInstance(overWorld));
-
         overWolrdList.add(MoontainCommon1SpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon2SpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon3SpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon1ExSpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon2ExSpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon3ExSpawnController.getInstance(overWorld));
-
         overWolrdList.add(MoontainChickenSpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainMinerSpawnController.getInstance(overWorld));
-
         overWolrdList.add(Ore2SpawnController.getInstance(overWorld));
         overWolrdList.add(Ore3SpawnController.getInstance(overWorld));
-
         overWolrdList.add(MushroomLinSpawnController.getInstance(overWorld));
+        overWolrdList.add(DivineSentrySpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();
@@ -637,24 +627,7 @@ public class MobSpawn {
         mob.getAttribute(Attributes.ARMOR).setBaseValue(0);
     }
 
-    public static final Style[] styles = {
-            Style.EMPTY.applyFormat(ChatFormatting.GREEN),
-            Style.EMPTY.applyFormat(ChatFormatting.BLUE), // 25 - 50
-            Style.EMPTY.applyFormat(ChatFormatting.RED), // 50 - 75
-            Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), // 75 - 100
-            CustomStyle.styleOfEntropy, // 125
-            CustomStyle.styleOfEntropy, // 150
-            CustomStyle.styleOfCastle, // 175
-            CustomStyle.styleOfPurpleIron, // 200
-            CustomStyle.styleOfMoon1, // 225
-            CustomStyle.styleOfWorld, // 250
-            CustomStyle.styleOfMoontain // 275
-    };
-
     public static Style getMobLevelStyle(int level) {
-        if (level / 25 < styles.length) {
-            return styles[level / 25];
-        }
-        return CustomStyle.styleOfSpring;
+        return Utils.getLevelStyle(level);
     }
 }

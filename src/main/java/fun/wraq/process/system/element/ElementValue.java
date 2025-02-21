@@ -9,6 +9,7 @@ import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.season.MySeason;
+import fun.wraq.series.overworld.divine.equip.DivineEquipCommon;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -39,6 +40,17 @@ public class ElementValue {
         return 0;
     }
 
+    public static double getCommonRate(Player player, Map<Item, Double> elementValueMap, String attributeName, String type) {
+        double value = 0;
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, elementValueMap, false);
+        value += QiLingJudge(player, elementValueMap);
+        value += Compute.CuriosAttribute.attributeValue(player, elementValueMap, attributeName);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), elementValueMap);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, elementValueMap);
+        value += DivineEquipCommon.getEnhanceElementValue(player, type);
+        return value;
+    }
+
     public static double QiLingJudge(Player player, Map<Item, Double> map) {
         double value = 0;
         Inventory inventory = player.getInventory();
@@ -58,11 +70,7 @@ public class ElementValue {
 
     public static double getPlayerLifeElementValue(Player player) {
         double value = 0;
-        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.LifeElementValue, false);
-        value += QiLingJudge(player, Element.LifeElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, Element.LifeElementValue, LifeElementValue);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LifeElementValue);
-        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.LifeElementValue);
+        value += getCommonRate(player, Element.LifeElementValue, LifeElementValue, Element.life);
         // 百分比分割线
         value *= LifeCurios0.playerLifeElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.life));
@@ -71,11 +79,7 @@ public class ElementValue {
 
     public static double getPlayerWaterElementValue(Player player) {
         double value = 0;
-        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.WaterElementValue, false);
-        value += QiLingJudge(player, Element.WaterElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, Element.WaterElementValue, WaterElementValue);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WaterElementValue);
-        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.WaterElementValue);
+        value += getCommonRate(player, Element.WaterElementValue, WaterElementValue, Element.water);
         // 百分比分割线
         value *= WaterElementSword.PlayerWaterElementValueEnhance(player);
         value *= WaterCurios0.playerWaterElementValueEnhance(player);
@@ -85,12 +89,8 @@ public class ElementValue {
 
     public static double getPlayerFireElementValue(Player player) {
         double value = 0;
-        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.FireElementValue, false);
-        value += QiLingJudge(player, Element.FireElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, Element.FireElementValue, FireElementValue);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.FireElementValue);
+        value += getCommonRate(player, Element.FireElementValue, FireElementValue, Element.fire);
         value += FireElementSword.FireElementValueEnhance(player);
-        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.FireElementValue);
         // 百分比分割线
         double enhanceRate = 0;
         enhanceRate += RevenantGoldenHelmet.getFireElementValueEnhanceRate(player);
@@ -102,11 +102,7 @@ public class ElementValue {
 
     public static double getPlayerStoneElementValue(Player player) {
         double value = 0;
-        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.StoneElementValue, false);
-        value += QiLingJudge(player, Element.StoneElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, Element.StoneElementValue, StoneElementValue);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.StoneElementValue);
-        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.StoneElementValue);
+        value += getCommonRate(player, Element.StoneElementValue, StoneElementValue, Element.stone);
         // 百分比分割线
         value *= StoneCurios0.playerStoneElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.stone));
@@ -116,11 +112,7 @@ public class ElementValue {
 
     public static double getPlayerIceElementValue(Player player) {
         double value = 0;
-        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.IceElementValue, false);
-        value += QiLingJudge(player, Element.IceElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, Element.IceElementValue, IceElementValue);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.IceElementValue);
-        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.IceElementValue);
+        value += getCommonRate(player, Element.IceElementValue, IceElementValue, Element.ice);
         // 百分比分割线
         value *= IceCurios0.playerIceElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.ice));
@@ -130,11 +122,7 @@ public class ElementValue {
 
     public static double getPlayerLightningElementValue(Player player) {
         double value = 0;
-        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.LifeElementValue, false);
-        value += QiLingJudge(player, Element.LightningElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, Element.LightningElementValue, LightningElementValue);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LightningElementValue);
-        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.LightningElementValue);
+        value += getCommonRate(player, Element.LightningElementValue, LightningElementValue, Element.lightning);
         // 百分比分割线
         value *= LightningCurios0.playerLightningElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.lightning));
@@ -144,11 +132,7 @@ public class ElementValue {
 
     public static double getPlayerWindElementValue(Player player) {
         double value = 0;
-        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.WindElementValue, false);
-        value += QiLingJudge(player, Element.WindElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, Element.WindElementValue, WindElementValue);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WindElementValue);
-        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Element.WindElementValue);
+        value += getCommonRate(player, Element.WindElementValue, WindElementValue, Element.wind);
         // 百分比分割线
         value *= WindCurios0.playerWindElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.wind));

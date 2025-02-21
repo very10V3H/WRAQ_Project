@@ -183,23 +183,20 @@ public class ManaTowerData {
                 }
             }
         } else {
-            if (recordList.size() < 5) {
+            if (recordList.size() < 8) {
                 recordList.add(new TimeRecord(Name.get(player), usedTick));
                 change = true;
             } else {
                 int longestTickInRecord = -1;
-                TimeRecord longestRecord = null;
                 for (TimeRecord record : recordList) {
                     if (record.usedTick > longestTickInRecord) {
                         longestTickInRecord = record.usedTick;
-                        longestRecord = record;
                     }
                 }
                 if (longestTickInRecord > usedTick) {
-                    recordList.remove(longestRecord);
-                    recordList.add(new TimeRecord(Name.get(player), usedTick));
                     change = true;
                 }
+                recordList.add(new TimeRecord(Name.get(player), usedTick));
             }
         }
         recordList.sort(new Comparator<TimeRecord>() {
@@ -230,7 +227,7 @@ public class ManaTowerData {
         if (change) {
             Compute.formatBroad(Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE),
                     Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE, "挑战纪录发生了变化!"));
-            for (int i = 0; i < recordList.size(); i++) {
+            for (int i = 0; i < Math.min(8, recordList.size()) ; i++) {
                 TimeRecord timeRecord = recordList.get(i);
                 if (oldList.contains(timeRecord) || refreshSelf) {
                     int oldIndex = oldList.indexOf(timeRecord);

@@ -28,11 +28,13 @@ public class StarArmor extends WraqArmor {
         if (type.equals(Type.LEGGINGS)) {
             Utils.maxHealth.put(this, 30000d);
             Utils.defence.put(this, 40d);
+            Utils.manaDefence.put(this, 20d);
         }
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.01);
             Utils.healthRecover.put(this, 120d);
             Utils.defence.put(this, 40d);
+            Utils.manaDefence.put(this, 20d);
         }
         Utils.levelRequire.put(this, 200);
     }

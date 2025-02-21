@@ -70,6 +70,7 @@ import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -135,6 +136,7 @@ public class VMD {
         AllayItems.ITEMS.register(modEvenBus);
         MushroomItems.ITEMS.register(modEvenBus);
         SmithItems.ITEMS.register(modEvenBus);
+        DivineIslandItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
