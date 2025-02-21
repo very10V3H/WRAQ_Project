@@ -1158,14 +1158,10 @@ public class PlayerAttributes {
         CompoundTag data = player.getPersistentData();
         double baseDefence = player.experienceLevel * 0.2;
         double exDefence = 0.0d;
-        Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
-        Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
-        Item chest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
-        Item helmet = player.getItemBySlot(EquipmentSlot.HEAD).getItem();
 
         // 计算线性等级强度装备数值
+        baseDefence += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDefence, true);
         baseDefence += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDefence, false);
-
         baseDefence += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDefence,
                 StringUtils.CuriosAttribute.xpLevelManaDefence) * player.experienceLevel;
 
