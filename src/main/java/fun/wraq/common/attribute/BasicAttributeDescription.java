@@ -214,7 +214,8 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.defence, Utils.percentDefenceEnhance,
                 StringUtils.CuriosAttribute.percentDefenceEnhance, "基础护甲",
-                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 1, true, itemStack, false, null, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 1, true, itemStack,
+                false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDefence, Utils.xpLevelManaDefence,
                 StringUtils.CuriosAttribute.xpLevelManaDefence, "魔法抗性", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
@@ -866,6 +867,12 @@ public class BasicAttributeDescription {
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.element, Utils.elementStrength,
                 null, "元素强度",
                 CustomStyle.styleOfWorld, 0, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index,
+                TraditionalTooltip.finalDamageEnhance, Utils.finalDamageEnhance,
+                StringUtils.CuriosAttribute.finalDamageEnhance, "最终伤害加成",
+                CustomStyle.styleOfDemon, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
         // 以下为新版宝石内容提示

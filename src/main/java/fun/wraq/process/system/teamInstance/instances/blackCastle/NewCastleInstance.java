@@ -187,7 +187,7 @@ public class NewCastleInstance extends NewTeamInstance {
             getRewardList().forEach(itemAndRate -> {
                 itemAndRate.sendWithMSG(player, 2);
             });
-            Compute.givePercentExpToPlayer(player, 0.04, PlayerAttributes.expUp(player), 180);
+            Compute.givePercentExpToPlayer(player, 0.8, PlayerAttributes.expUp(player), 180);
         } else {
             Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).

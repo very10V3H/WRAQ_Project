@@ -22,7 +22,7 @@ public class VersionCheckS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ModNetworking.sendToServer(new VersionC2SPacket("2.1.1b"));
+            ModNetworking.sendToServer(new VersionC2SPacket("2.1.1c"));
         });
         return true;
     }

@@ -182,13 +182,12 @@ public class VMD {
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
         PurpleIronCommon.destroyOnServerStop();
 
-        Connection connection = DataBase.getDatabaseConnection();
+        Connection connection = DataBase.createNewDatabaseConnection();
         Statement statement = connection.createStatement();
-
         TowerTimeRecord.writeToWorldRecordInfo();
-
         DataBase.writeWorldInfo(statement);
         statement.close();
+        connection.close();
 
         NoTeamInstanceModule.reset();
         NewTeamInstanceHandler.getInstances().forEach(NewTeamInstance::clear);
@@ -198,7 +197,6 @@ public class VMD {
         DBConnection.connection = null;
         LogUtils.getLogger().info("Database connection closed");
 
-        ThreadPools.clearFireExecutor.shutdown();
         ThreadPools.dataExecutor.shutdown();
     }
 

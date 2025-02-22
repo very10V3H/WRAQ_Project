@@ -906,7 +906,6 @@ public class StringUtils {
         public static String critDamage = "CuriosCritDamage";
         public static String expUp = "CuriosExpUp";
         public static String critRate = "CuriosCritRate";
-
         public static String healthSteal = "CuriosHealthSteal";
         public static String defencePenetration = "CuriosDefencePenetration";
         public static String movementSpeed = "CuriosMovementSpeed";
@@ -916,17 +915,14 @@ public class StringUtils {
         public static String manaHealthSteal = "CuriosManaHealthSteal";
         public static String LuckyUp = "CuriosLuckyUp";
         public static String manaDefence = "CuriosManaDefence";
-
         public static String commonMovementSpeed = "commonMovementSpeed";
         public static String toughness = "CuriosToughness";
-
         public static String percentAttackDamage = "percentAttackDamage";
         public static String percentDefenceEnhance = "percentDefenceEnhance";
         public static String percentMaxHealthEnhance = "percentMaxHealthEnhance";
         public static String percentManaDamageEnhance = "percentManaDamageEnhance";
         public static String percentManaDefenceEnhance = "percentManaDefenceEnhance";
         public static String percentHealthRecover = "percentHealthRecover";
-
         public static String xpLevelAttackDamage = "xpLevelAttackDamage";
         public static String xpLevelCritDamage = "xpLevelCritDamage";
         public static String xpLevelDefencePenetration0 = "xpLevelDefencePenetration0";
@@ -934,6 +930,7 @@ public class StringUtils {
         public static String xpLevelManaPenetration0 = "xpLevelManaPenetration0";
         public static String xpLevelDefence = "xpLevelDefence";
         public static String xpLevelManaDefence = "xpLevelManaDefence";
+        public static String finalDamageEnhance = "finalDamageEnhance";
     }
 
     public static String PlayerInstanceProgress = "PlayerInstanceProgress";

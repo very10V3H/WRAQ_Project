@@ -1,5 +1,6 @@
 package fun.wraq.process.system.endlessinstance.instance;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -85,7 +86,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
     public static List<ItemAndRate> getDropList() {
         if (dropList.isEmpty()) {
             dropList.addAll(List.of(
-                    new ItemAndRate(EndlessInstanceItems.MANA_PLAIN_PLANT.get(), 0.06)
+                    new ItemAndRate(EndlessInstanceItems.MANA_PLAIN_PLANT.get(), 0.03)
             ));
         }
         return dropList;
@@ -96,16 +97,21 @@ public class ManaPlainTemple extends DailyEndlessInstance {
         ItemStack stack = new ItemStack(ModItems.RevelationBook.get());
         stack.setCount(5 + Math.min(20, getKillCount() / 15));
         InventoryOperation.giveItemStackWithMSG(player, stack);
+        if (player.experienceLevel >= 180) {
+            Compute.givePercentExpToPlayer(player, getKillCount() / 10.0,
+                    0, player.experienceLevel, true,
+                    Te.s("高等级额外经验收益", CustomStyle.styleOfLucky));
+        }
     }
 
     @Override
     protected boolean onRightClickTrig(Player player) {
         if (player.isShiftKeyDown()) {
-            if (Reason.getPlayerReasonValue(player) < 20) {
+            if (Reason.getPlayerReasonValue(player) < 10) {
                 sendFormatMSG(player, Te.s("理智", CustomStyle.styleOfFlexible, "不足"));
                 return false;
             }
-            Reason.addOrCostPlayerReasonValue(player, -20);
+            Reason.addOrCostPlayerReasonValue(player, -10);
             return true;
         }
         return false;
@@ -114,7 +120,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
     @Override
     protected List<Component> getTrigConditionDescription() {
         return List.of(
-                Te.s("手持任意物品shift右击", ChatFormatting.AQUA, "消耗", ChatFormatting.RED, "20理智", "开始挑战")
+                Te.s("手持任意物品shift右击", ChatFormatting.AQUA, "消耗", ChatFormatting.RED, "10理智", "开始挑战")
         );
     }
 }

@@ -23,6 +23,10 @@ public class DataBase {
         return DBConnection.getDatabaseConnection();
     }
 
+    public static Connection createNewDatabaseConnection() throws SQLException {
+        return DBConnection.createDatabaseConnection();
+    }
+
     public static void CreatePlayerDataTable(Connection connection) throws SQLException {
         if (!containsTable("playerdata1")) {
             String sql = "create table playerdata1(name VARCHAR(100), " +

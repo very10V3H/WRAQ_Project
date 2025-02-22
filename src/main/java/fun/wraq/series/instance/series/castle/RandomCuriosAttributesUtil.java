@@ -26,34 +26,21 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.CuriosAttribute.critRate, 0.04);
         put(StringUtils.CuriosAttribute.healthSteal, 0.05);
         put(StringUtils.CuriosAttribute.defencePenetration, 0.05);
-        put(StringUtils.CuriosAttribute.movementSpeed, 0.1);
-        put(StringUtils.CuriosAttribute.commonMovementSpeed, 0.25);
+        put(StringUtils.CuriosAttribute.movementSpeed, 0.25);
+        put(StringUtils.CuriosAttribute.commonMovementSpeed, 0.1);
         put(StringUtils.CuriosAttribute.healthRecover, 50d);
         put(StringUtils.CuriosAttribute.percentHealthRecover, 0.05d);
         put(StringUtils.CuriosAttribute.healEffectUp, 0.1);
         put(StringUtils.CuriosAttribute.manaPenetration, 0.05);
         put(StringUtils.CuriosAttribute.manaHealthSteal, 0.05);
+        put(StringUtils.CuriosAttribute.finalDamageEnhance, 0.05);
     }};
 
     public static void randomAttributeProvide(ItemStack itemStack, int attributeNum, double rate, boolean distinct) {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = new ArrayList<>(attributeValueMap.keySet());
-        Set<Integer> set = new HashSet<>();
-        Random random = new Random();
-        for (int i = 0; i < attributeNum; i++) {
-            int randomIndex = random.nextInt(attributeList.size());
-            if (distinct) {
-                if (attributeNum > attributeList.size()) {
-                    return;
-                }
-                while (set.contains(randomIndex)) {
-                    randomIndex = random.nextInt(attributeList.size());
-                }
-                set.add(randomIndex);
-            }
-            String attribute = attributeList.get(randomIndex);
-            data.putDouble(attribute, data.getDouble(attribute) + random.nextDouble(0.25, 1) * rate);
-        }
+        attributeList.remove(StringUtils.CuriosAttribute.finalDamageEnhance);
+        provideRandomAttributeFromList(attributeNum, rate, distinct, data, attributeList);
     }
 
     public static void randomAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
@@ -74,22 +61,7 @@ public class RandomCuriosAttributesUtil {
                 StringUtils.CuriosAttribute.defencePenetration,
                 StringUtils.CuriosAttribute.manaPenetration
         );
-        Random random = new Random();
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < attributeNum; i++) {
-            int randomIndex = random.nextInt(attributeList.size());
-            if (distinct) {
-                if (attributeNum > attributeList.size()) {
-                    return;
-                }
-                while (set.contains(randomIndex)) {
-                    randomIndex = random.nextInt(attributeList.size());
-                }
-                set.add(randomIndex);
-            }
-            String attribute = attributeList.get(randomIndex);
-            data.putDouble(attribute, data.getDouble(attribute) + random.nextDouble(0.25, 1) * rate);
-        }
+        provideRandomAttributeFromList(attributeNum, rate, distinct, data, attributeList);
     }
 
     public static void randomAttackAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
@@ -108,22 +80,7 @@ public class RandomCuriosAttributesUtil {
             };
             addAll(List.of(strings));
         }};
-        Random random = new Random();
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < attributeNum; i++) {
-            int randomIndex = random.nextInt(attributeList.size());
-            if (distinct) {
-                if (attributeNum > attributeList.size()) {
-                    return;
-                }
-                while (set.contains(randomIndex)) {
-                    randomIndex = random.nextInt(attributeList.size());
-                }
-                set.add(randomIndex);
-            }
-            String attribute = attributeList.get(randomIndex);
-            data.putDouble(attribute, data.getDouble(attribute) + random.nextDouble(0.25, 1) * rate);
-        }
+        provideRandomAttributeFromList(attributeNum, rate, distinct, data, attributeList);
     }
 
     public static void randomDefenceAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
@@ -144,6 +101,11 @@ public class RandomCuriosAttributesUtil {
             };
             addAll(List.of(strings));
         }};
+        provideRandomAttributeFromList(attributeNum, rate, distinct, data, attributeList);
+    }
+
+    public static void provideRandomAttributeFromList(int attributeNum, double rate, boolean distinct,
+                                                      CompoundTag data, List<String> attributeList) {
         Random random = new Random();
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < attributeNum; i++) {
@@ -162,7 +124,21 @@ public class RandomCuriosAttributesUtil {
         }
     }
 
+    public static void provideRandomAttributeFromList(int attributeNum, double rate, boolean distinct,
+                                                      ItemStack itemStack, List<String> attributeList) {
+        provideRandomAttributeFromList(attributeNum, rate, distinct,
+                itemStack.getOrCreateTagElement(Utils.MOD_ID), attributeList);
+    }
+
     public static void randomFunctionAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
         randomFunctionAttributeProvide(itemStack, attributeNum, rate, false);
     }
+
+    public static void provideSingleAttribute(ItemStack itemStack, String attributeName,
+                                              double rate, double origin, double bound) {
+        Random random = new Random();
+        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+        data.putDouble(attributeName, random.nextDouble(origin, bound) * rate);
+    }
+
 }

@@ -10,7 +10,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.element.WardenInstance;
-import fun.wraq.events.server.LevelEvents;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -86,8 +86,6 @@ public class HarbingerInstance extends NewTeamInstance {
             }
         });
         setWallBlock(level, Blocks.BLACK_STAINED_GLASS);
-        // 清理鹰眼工厂火焰
-        LevelEvents.clearFireModule(level, new BlockPos(1897, -36, 1775), new BlockPos(1965, -3, 1889));
     }
 
     public List<Mob> blazes = new ArrayList<>();
@@ -95,8 +93,12 @@ public class HarbingerInstance extends NewTeamInstance {
     @Override
     public void handleTick(Level level) {
         for (ConditionSummonMob conditionSummonMob : mobList) {
+            Mob mob = conditionSummonMob.mob();
             if (MobSpawn.getMobOriginName(conditionSummonMob.mob()).equals(THE_HARBINGER_NAME)) {
-                boss = conditionSummonMob.mob();
+                boss = mob;
+            }
+            if (mob.isAlive()) {
+                Element.provideElement(mob, Element.fire, 5);
             }
         }
         if (stage == 1) {
@@ -307,6 +309,7 @@ public class HarbingerInstance extends NewTeamInstance {
     public List<ItemAndRate> getRewardList() {
         return List.of(
                 new ItemAndRate(HarbingerItems.HARBINGER_INGOT.get(), 1),
+                new ItemAndRate(HarbingerItems.HARBINGER_CURIO.get(), 0.02),
                 new ItemAndRate(HarbingerItems.HARBINGER_HEART.get(), 0.1),
                 new ItemAndRate(HarbingerItems.HARBINGER_ROD.get(), 0.01),
                 new ItemAndRate(HarbingerItems.HARBINGER_WEAPON_CORE.get(), 0.01),

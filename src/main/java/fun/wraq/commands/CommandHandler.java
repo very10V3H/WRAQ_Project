@@ -689,5 +689,12 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher74 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd74 = dispatcher74.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("removeRecords")
+                                .executes(RemoveManaTowerRecordCommand.instance)
+                )
+        );
     }
 }

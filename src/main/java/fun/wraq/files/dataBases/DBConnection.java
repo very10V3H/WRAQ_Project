@@ -26,4 +26,9 @@ public class DBConnection {
         }
         return connection;
     }
+
+    public static Connection createDatabaseConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/wraq",
+                "root", "123456");
+    }
 }

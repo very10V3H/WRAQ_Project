@@ -33,7 +33,7 @@ public class VpDataHandler {
     public static String tableName = "vpdata";
 
     public static void firstRead() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
+        Connection connection = DataBase.createNewDatabaseConnection();
         String sql = "select * from vpdata";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -46,11 +46,11 @@ public class VpDataHandler {
         }
         resultSet.close();
         statement.close();
-
+        connection.close();
     }
 
     public static void normalRead() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
+        Connection connection = DataBase.createNewDatabaseConnection();
         String sql = "select * from vpdata";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -75,11 +75,11 @@ public class VpDataHandler {
             }
         });
         statement.close();
-
+        connection.close();
     }
 
     public static void write() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
+        Connection connection = DataBase.createNewDatabaseConnection();
         Statement statement = connection.createStatement();
         playerVpData.forEach((name, vp) -> {
             try {
@@ -89,7 +89,7 @@ public class VpDataHandler {
             }
         });
         statement.close();
-
+        connection.close();
     }
 
     public static double getPlayerVp(String playerName) {

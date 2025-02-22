@@ -3,6 +3,8 @@ package fun.wraq.common.attribute;
 import fun.wraq.common.Compute;
 import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
+import fun.wraq.common.util.StringUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.events.mob.MobSpawn;
@@ -48,7 +50,6 @@ public class DamageInfluence {
         rate += getPlayerCommonDamageUpOrDown(player);
         return rate;
     }
-
     public static double getPlayerCommonDamageUpOrDown(Player player) {
         double rate = 0;
         rate += AttackEventModule.SwordSkill5DamageEnhance(player); // 双刃剑
@@ -126,6 +127,8 @@ public class DamageInfluence {
         rate += 0.5 * Compute.CuriosAttribute.getDistinctCuriosList(player)
                 .stream().filter(curios -> curios.getItem() instanceof WraqUniformCurios)
                 .count();
+        rate += Compute.CuriosAttribute
+                .attributeValue(player, Utils.finalDamageEnhance, StringUtils.CuriosAttribute.finalDamageEnhance);
         rate += DevilPowerCurio.finalDamageEnhanceRate(player);
         return rate;
     }

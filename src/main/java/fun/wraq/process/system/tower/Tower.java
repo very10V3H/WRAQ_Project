@@ -7,14 +7,12 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
-import fun.wraq.events.server.LevelEvents;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -254,10 +252,6 @@ public class Tower {
             return;
         }
 
-        // 清理本源回廊-III火焰
-        if (index == 2) {
-            LevelEvents.clearFireModule(serverPlayer.level(), new BlockPos(908, -29, -80), new BlockPos(1005, -13, 17));
-        }
         serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD),
                 tower.playerTpPos.x, tower.playerTpPos.y, tower.playerTpPos.z, 0, 0);
         tower.isChallenging = true;

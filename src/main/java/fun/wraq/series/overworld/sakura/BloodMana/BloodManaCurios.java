@@ -57,12 +57,18 @@ public class BloodManaCurios extends WraqCurios {
 
     public static void passive(Player player) {
         if (Compute.hasCurios(player, ModItems.BloodManaCurios.get())
-                || Compute.hasCurios(player, ModItems.EarthManaCurios.get())) {
+                || Compute.hasCurios(player, ModItems.EarthManaCurios.get())
+                || Compute.hasCurios(player, ModItems.DevilBloodManaCurios.get())
+                || Compute.hasCurios(player, ModItems.DevilEarthManaCurios.get())) {
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerHealthRecoverModifier,
-                    new StableAttributesModifier("manaCuriosPassiveHealthRecover", player.getMaxHealth() * 0.05, Tick.get() + 60));
-            if (Compute.hasCurios(player, ModItems.BloodManaCurios.get()))
+                    new StableAttributesModifier("manaCuriosPassiveHealthRecover",
+                            player.getMaxHealth() * 0.05, Tick.get() + 60));
+            if (Compute.hasCurios(player, ModItems.BloodManaCurios.get())
+                    || Compute.hasCurios(player, ModItems.DevilBloodManaCurios.get())) {
                 Compute.sendEffectLastTime(player, ModItems.BloodManaCurios.get(), 60);
-            else Compute.sendEffectLastTime(player, ModItems.EarthManaCurios.get(), 60);
+            } else {
+                Compute.sendEffectLastTime(player, ModItems.EarthManaCurios.get(), 60);
+            }
         }
     }
 }

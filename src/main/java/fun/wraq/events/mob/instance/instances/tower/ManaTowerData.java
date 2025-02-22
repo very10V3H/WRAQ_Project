@@ -40,6 +40,14 @@ public class ManaTowerData {
         return records;
     }
 
+    public static void removeRecords() {
+        WorldCommonData instance = WorldCommonData.getInstance(Tick.server.overworld());
+        instance.getDataList().removeIf(s -> s.startsWith(DATA_PREFIX));
+        instance.setDirty();
+        Compute.formatBroad(Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE),
+                Te.s("纪录已重置."));
+    }
+
     public static int clientStartTick = 0;
     public static int clientExpiredTick = 0;
     public static int clientFloor = 0;
@@ -162,7 +170,7 @@ public class ManaTowerData {
         int everTier = getRecordTier(everRecord);
         int tier = getRecordTier(usedTick);
         if (tier > everTier) {
-            Tower.givePlayerStar(player, tier - everTier, "炼魔塔每日奖励");
+            Tower.givePlayerStar(player, (tier - everTier) * 5, "炼魔塔每日奖励");
         }
     }
 

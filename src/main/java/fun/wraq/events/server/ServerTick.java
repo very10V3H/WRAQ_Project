@@ -83,12 +83,13 @@ public class ServerTick {
     }
 
     public static void dataIO() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
+        Connection connection = DataBase.createNewDatabaseConnection();
         Statement statement = connection.createStatement();
 
         VpDataHandler.normalRead();
         DataBase.writeWorldInfo(statement);
 
         statement.close();
+        connection.close();
     }
 }

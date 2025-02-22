@@ -4,6 +4,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.channel.SakuraIndustrySceptre;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.instance.series.harbinger.curio.HarbingerCurio;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerBow;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerSceptre;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerSword;
@@ -57,4 +58,7 @@ public class HarbingerItems {
 
     public static final RegistryObject<Item> SAKURA_INDUSTRY_SCEPTRE = ITEMS.register("sakura_industry_sceptre",
             () -> new SakuraIndustrySceptre(new Item.Properties().rarity(CustomStyle.SakuraItalic)));
+
+    public static final RegistryObject<Item> HARBINGER_CURIO = ITEMS.register("harbinger_curio",
+            () -> new HarbingerCurio(new Item.Properties().rarity(CustomStyle.HARBINGER_BOLD)));
 }

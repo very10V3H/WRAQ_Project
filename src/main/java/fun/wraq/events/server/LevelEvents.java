@@ -20,7 +20,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.mushroom.UnknownGem;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
@@ -36,7 +35,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -91,7 +89,6 @@ public class LevelEvents {
         NoTeamInstanceModule.tick(event); // 新副本
         EffectOnMob.levelTick(event);
         RightClickActiveHandler.detectNearPlayer(event);
-        clearFire(event); // 清理火焰
         DivineUtils.handleServerLevelEvent(event);
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
@@ -372,35 +369,5 @@ public class LevelEvents {
                 }
             }
         }
-    }
-
-    public static void clearFire(TickEvent.LevelTickEvent event) {
-        if (event.level.dimension().equals(Level.OVERWORLD)
-                && event.phase.equals(TickEvent.Phase.START) && event.side.isServer()
-                && Tick.get() % 6000 == 0) {
-            Level level = event.level;
-            // 清理城堡火焰
-            clearFireModule(level, new BlockPos(2189, 135, -1626), new BlockPos(2577, 217, -1271));
-            // 清理焰芒虫火焰
-            clearFireModule(level, new BlockPos(1219, 57, -21), new BlockPos(1338, 85, 147));
-        }
-    }
-
-    public static void clearFireModule(Level level, BlockPos posStart, BlockPos posEnd) {
-        ThreadPools.clearFireExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                for (int x = posStart.getX(); x <= posEnd.getX(); x ++) {
-                    for (int y = posStart.getY(); y <= posEnd.getY(); y ++) {
-                        for (int z = posStart.getZ(); z <= posEnd.getZ(); z++) {
-                            BlockPos blockPos = new BlockPos(x, y, z);
-                            if (level.getBlockState(blockPos).getBlock().equals(Blocks.FIRE)) {
-                                level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
-                            }
-                        }
-                    }
-                }
-            }
-        });
     }
 }

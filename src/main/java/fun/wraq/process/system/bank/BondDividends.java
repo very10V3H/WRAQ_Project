@@ -52,6 +52,11 @@ public class BondDividends {
     }
 
     public static void getDividends(Player player) {
+        if (!allowGetDividends(player)) {
+            sendMSG(player, Te.s("今天已经收取过分红了! 明天再来试试吧。"));
+            MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_NO);
+            return;
+        }
         Item bondItem = ModItems.BOND.get();
         Item specialBondItem = ModItems.SPECIAL_BOND.get();
         int count = InventoryOperation.itemStackCount(player, bondItem)

@@ -3176,7 +3176,7 @@ public class TradeList {
                 new ItemStack(ModItems.FANTASY_BRACELET_2.get(), 16)
         ));
         tradeRecipeMap.put(constrainTaboo, List.of(
-                new ItemStack(GemItems.moonAttackGemD.get(), 16)
+                new ItemStack(GemItems.moonAttackGemD.get(), 1)
         ));
     }
 
