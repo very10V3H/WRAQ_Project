@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.divine.equip;
+package fun.wraq.series.overworld.divine.equip.weapon;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
@@ -13,12 +13,11 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.bow.MyArrow;
-import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,7 +32,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public interface DivineEquipCommon extends OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify, ActiveItem {
+public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify, ActiveItem {
 
     double getTransformRate();
 
@@ -70,8 +69,7 @@ public interface DivineEquipCommon extends OnKillEffectEquip, InCuriosOrEquipSlo
 
     static void active(Player player, double distance) {
         Vec3 finalPos = Compute.getPickLocationIgnoreBlock(player, distance);
-        ParticleProvider.createLineParticle(player.level(), (int) finalPos.distanceTo(player.getEyePosition()) * 5,
-                player.getEyePosition(), finalPos, ParticleTypes.END_ROD);
+        DivineUtils.createDivineParticle(player, player.getEyePosition(), finalPos);
         Item mainHandItem = player.getMainHandItem().getItem();
         Set<Mob> mobs = Compute.getPlayerRayMobList(player, 0.5, 0.5, distance)
                 .stream().filter(LivingEntity::isAlive).collect(Collectors.toSet());
@@ -124,11 +122,11 @@ public interface DivineEquipCommon extends OnKillEffectEquip, InCuriosOrEquipSlo
 
     static double getEnhanceElementValue(Player player, String type) {
         Item mainHandItem = player.getMainHandItem().getItem();
-        if (mainHandItem instanceof DivineEquipCommon divineEquipCommon) {
+        if (mainHandItem instanceof DivineWeaponCommon divineWeaponCommon) {
             if (Element.getResonanceType(player) != null && Element.getResonanceType(player).equals(type)) {
                 String resonanceType = Element.getResonanceType(player);
-                double value = DivineEquipCommon.getElementExceptOneElementValue(player, resonanceType);
-                return value * divineEquipCommon.getTransformRate();
+                double value = DivineWeaponCommon.getElementExceptOneElementValue(player, resonanceType);
+                return value * divineWeaponCommon.getTransformRate();
             }
         }
         return 0;

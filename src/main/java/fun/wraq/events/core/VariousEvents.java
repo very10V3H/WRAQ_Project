@@ -13,6 +13,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
@@ -22,9 +23,12 @@ import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
+import fun.wraq.projectiles.mana.ManaArrow;
+import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -40,12 +44,14 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingConversionEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -140,6 +146,7 @@ public class VariousEvents {
             ModNetworking.sendToClient(new ExpGetResetS2CPacket(), serverPlayer);
             event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
+            DivineUtils.setHolyLightCount(player, 0);
         } else {
             ClientUtils.debuffTimes.clear();
         }
@@ -445,6 +452,17 @@ public class VariousEvents {
                         .toList());
                 Compute.CuriosAttribute.curiosSetCache.put(player, set);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void fixProjectileErrorDamageToPlayer(ProjectileImpactEvent event) {
+        Projectile projectile = event.getProjectile();
+        if (!(projectile instanceof MyArrow)
+                && !(projectile instanceof ManaArrow)
+                && !(projectile instanceof SwordAir)) {
+            event.setImpactResult(ProjectileImpactEvent.ImpactResult.STOP_AT_CURRENT);
+            projectile.remove(Entity.RemovalReason.KILLED);
         }
     }
 }

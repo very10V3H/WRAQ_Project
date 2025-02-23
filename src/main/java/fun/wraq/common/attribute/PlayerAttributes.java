@@ -53,6 +53,7 @@ import fun.wraq.series.overworld.chapter1.plain.PlainArmor;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoArmor;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeArmor;
 import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
@@ -1434,9 +1435,14 @@ public class PlayerAttributes {
     }
 
     public static double getElementStrength(Player player) {
+        double value = 0;
+        value += computeAllEquipSlotBaseAttributeValue(player, Utils.elementStrength, false);
+
         double rate = 0;
-        rate += computeAllEquipSlotBaseAttributeValue(player, Utils.elementStrength, false);
-        return rate;
+        rate -= DivineUtils.getPlayerElementStrengthDecreaseRate(player);
+
+        value *= (1 + rate);
+        return value;
     }
 
     public static double handleArmorRandomAttribute(Player player, String attributeType) {

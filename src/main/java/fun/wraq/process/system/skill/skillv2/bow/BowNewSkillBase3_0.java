@@ -42,6 +42,8 @@ public class BowNewSkillBase3_0 extends SkillV2BaseSkill {
         String lastSeconds = String.format("%.1f", 5 + level * 0.5);
         components.add(Te.s("向前突进，并获得持续", lastSeconds + "s", CustomStyle.styleOfFlexible,
                 "的箭矢穿透效果"));
+        components.add(Te.s("箭矢", CustomStyle.styleOfFlexible,
+                "每穿过一个敌人，会提升", "33%伤害", CustomStyle.styleOfPower));
         components.add(Te.s("箭矢", CustomStyle.styleOfFlexible, "造成",
                 "暴击", CustomStyle.styleOfPower, "将减少", "1s剩余冷却时间", CustomStyle.styleOfWorld));
         return components;

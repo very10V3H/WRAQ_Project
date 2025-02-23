@@ -13,6 +13,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
+import fun.wraq.process.system.reason.Reason;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.ChatFormatting;
@@ -129,6 +130,13 @@ public abstract class NoTeamInstance {
         return 1;
     }
 
+    private boolean checkReason(Player player) {
+        if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
+            return Reason.getPlayerReasonValue(player) >= getRewardNeedItemCount();
+        }
+        return false;
+    }
+
     public void rewardPlayers() {
         players.forEach(player -> {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
@@ -145,7 +153,8 @@ public abstract class NoTeamInstance {
                                     append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
                 } else {
                     if (InventoryOperation.checkItemRemoveIfHas(player,
-                            List.of(new ItemStack(getSummonAndRewardNeedItem(), getRewardNeedItemCount())))) {
+                            List.of(new ItemStack(getSummonAndRewardNeedItem(), getRewardNeedItemCount())))
+                            || checkReason(player)) {
                         List<ItemAndRate> rewardList = getRewardList();
                         rewardList.forEach(itemAndRate -> {
                             ItemStack copyStack = itemAndRate.getItemStack().copy();
@@ -175,11 +184,17 @@ public abstract class NoTeamInstance {
                         Compute.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
                         exReward(player);
                     } else {
-                        Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
-                                Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
-                                        append(getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName()).
-                                        append(Te.s(" * " + getRewardNeedItemCount(), ChatFormatting.AQUA)).
-                                        append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
+                        if (!checkReason(player)) {
+                            Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
+                                    Te.s("需要至少", getRewardNeedItemCount() + "理智", CustomStyle.styleOfFlexible,
+                                            "才能获取奖励."));
+                        } else {
+                            Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                                    Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
+                                            append(getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName()).
+                                            append(Te.s(" * " + getRewardNeedItemCount(), ChatFormatting.AQUA)).
+                                            append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
+                        }
                     }
                     MissionV2Helper.onChallengeFinished(player, name.getString());
                 }
@@ -207,11 +222,24 @@ public abstract class NoTeamInstance {
                     8, 8, 8));
             armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
             int tick = Tick.get();
+            int count = 2;
             if (tick > summonTick) {
-                summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
-                        getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName(), "右键以召唤", ChatFormatting.AQUA));
+                if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
+                    summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
+                            ModItems.notePaper.get(), "右键以召唤", ChatFormatting.AQUA));
+                } else {
+                    summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
+                            getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName(),
+                            "右键以召唤", ChatFormatting.AQUA));
+                }
+                if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
+                    summonArmorStand(level, new Vec3(0, -0.25 * count, 0),
+                            Te.s("获取奖励需要消耗",
+                                    getRewardNeedItemCount() + "理智", CustomStyle.styleOfFlexible));
+                    count ++;
+                }
                 if (getExtraInfo() != null) {
-                    summonArmorStand(level, new Vec3(0, -0.5, 0), getExtraInfo());
+                    summonArmorStand(level, new Vec3(0, -0.25 * count, 0), getExtraInfo());
                 }
             } else {
                 summonArmorStand(level, new Vec3(0, -0.25, 0), Component.literal("剩余:").withStyle(ChatFormatting.WHITE).

@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -77,13 +78,18 @@ public class SwordNewSkillFinal0 extends SkillV2FinalSkill {
         if (effectExpiredTickMap.getOrDefault(player, 0) > Tick.get()
                 && effectTierMap.containsKey(player)) {
             MySound.soundToNearPlayer(player, SoundEvents.PARROT_IMITATE_EVOKER);
+            SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 4);
+            if (skillV2 == null) {
+                return;
+            }
             SwordAir swordAir = new SwordAir(ModEntityType.SWORD_AIR.get(), player, player.level()) {
                 @Override
                 public void onHitEntity(Mob mob) {
                     if (player != null && !level().isClientSide) {
                         Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob,
-                                2 + effectTierMap.get(player) * 0.2
-                                        + (BrokenBlade.enhanceSwordSkillV2_4(player) ? 1 : 0));
+                                ((2 + effectTierMap.get(player) * 0.2
+                                        + (BrokenBlade.enhanceSwordSkillV2_4(player) ? 1 : 0)))
+                                        * (1 + skillV2.getEnhanceRate(player)));
                     }
                     super.onHitEntity(mob);
                 }

@@ -15,6 +15,7 @@ import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.overworld.divine.mob.DivineBunnyInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -83,6 +84,7 @@ public class NoTeamInstanceModule {
         add(WardenInstance.getInstance());
         add(MushroomInstance.getInstance());
         add(ManaTowerInstance.getInstance());
+        add(DivineBunnyInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{
@@ -188,7 +190,9 @@ public class NoTeamInstanceModule {
                                             "副本最大容纳玩家数(" + instance.getMaxPlayerNum() + ")"));
                             return;
                         }
-                        if (instance.getSummonAndRewardNeedItem().equals(item)
+                        boolean reasonJudge = instance.getSummonAndRewardNeedItem().equals(ModItems.REASON.get())
+                                && item.equals(ModItems.notePaper.get());
+                        if ((instance.getSummonAndRewardNeedItem().equals(item) || reasonJudge)
                                 && player.position().distanceTo(instance.pos) < 12
                                 && Tick.get() > instance.summonTick) {
                             instance.ready = true;

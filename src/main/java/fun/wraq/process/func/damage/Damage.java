@@ -47,6 +47,9 @@ import fun.wraq.series.gems.passive.impl.GemOnKillMob;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
+import fun.wraq.series.overworld.divine.DivineUtils;
+import fun.wraq.series.overworld.divine.mob.DivineBunnyInstance;
+import fun.wraq.series.overworld.divine.mob.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
 import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
 import net.minecraft.ChatFormatting;
@@ -459,7 +462,9 @@ public class Damage {
 
     public static void causeManaDamageToPlayer(Mob monster, Player player, double damage) {
         double manaDefence = PlayerAttributes.manaDefence(player);
-        damage *= defenceDamageDecreaseRate(manaDefence, 0, 0);
+        damage *= defenceDamageDecreaseRate(manaDefence,
+                MobSpawn.MobBaseAttributes.defencePenetration.get(MobSpawn.getMobOriginName(monster)),
+                MobSpawn.MobBaseAttributes.defencePenetration0.get(MobSpawn.getMobOriginName(monster)));
         MonsterAttackEvent.monsterAttack(monster, player, damage);
         BloodManaCurios.passive(player);
     }
@@ -566,6 +571,7 @@ public class Damage {
                     MobKillEntrustment.onKill(player, mob);
                     AllayPet.onKillMob(player, mob);
                     SwordNewSkillBase3_0.onKillMob(player);
+                    DivineUtils.onPlayerKillMob(player, mob);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }
@@ -587,6 +593,8 @@ public class Damage {
     public static Map<String, Double> scornValueMap = new HashMap<>() {{
         put(ManaTowerEachFloorMob.FLOOR_3_MOB_NAME, 0.7);
         put(DivineSentrySpawnController.mobName, 0.7);
+        put(DivineGolemSpawnController.mobName, 1d);
+        put(DivineBunnyInstance.mobName, 1.5);
     }};
 
     public static double getAfterScornAdjustRate(Player player, Mob mob) {

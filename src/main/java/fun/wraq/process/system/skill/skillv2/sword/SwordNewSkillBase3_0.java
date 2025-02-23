@@ -37,14 +37,16 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill {
             if (!lineAttackMobSetMap.containsKey(Name.get(player))) {
                 lineAttackMobSetMap.put(Name.get(player), new HashSet<>());
             }
-            int skillLevel = getProfessionSkillLevel(player, 0, 3, 0);
+            SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
+            int skillLevel = skillV2.getPlayerSkillLevel(player);
             Set<Mob> set = lineAttackMobSetMap.get(Name.get(player));
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,
                             player.getBoundingBox().expandTowards(player.getDeltaMovement()).inflate(1.0D))
                     .stream().toList();
             mobList.stream().filter(mob -> !set.contains(mob))
                     .forEach(mob -> {
-                        Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob, 2 + skillLevel * 0.15);
+                        Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob,
+                                (2 + skillLevel * 0.15) * (1 + skillV2.getEnhanceRate(player)));
                     });
             set.addAll(mobList);
         }
@@ -66,7 +68,8 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill {
                 Compute.getNearEntity(player, Mob.class, 6)
                         .stream().map(entity -> (Mob) entity)
                         .forEach(mob -> {
-                            Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob, 2 + skillLevel * 0.15);
+                            Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob,
+                                    (2 + skillLevel * 0.15) * (1 + getEnhanceRate(player)));
                         });
             }
         });

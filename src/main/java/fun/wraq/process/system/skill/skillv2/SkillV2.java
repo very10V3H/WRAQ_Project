@@ -7,6 +7,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseEquip;
 import fun.wraq.common.impl.onshoot.OnReleaseSkillCurios;
+import fun.wraq.common.impl.skillv2.EnhanceSkillRateEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -77,6 +78,10 @@ public abstract class SkillV2 {
 
     protected int getEachLevelExManaCost() {
         return 0;
+    }
+
+    public double getEnhanceRate(Player player) {
+        return EnhanceSkillRateEquip.getEnhanceRate(player, skillType);
     }
 
     public static int clientProfessionType = 0;

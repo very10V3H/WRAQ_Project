@@ -41,7 +41,8 @@ public class SwordNewSkillBase2_0 extends SkillV2BaseSkill {
                         .forEach(mob -> {
                             Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 20, mob));
                             Compute.addSlowDownEffect(mob, Tick.s(3), 2);
-                            Damage.causeAdDamageToMonsterWithCritJudge(player, mob, 2 + 0.1 * skillLevel);
+                            Damage.causeAdDamageToMonsterWithCritJudge(player, mob,
+                                    (2 + 0.1 * skillLevel) * (1 + getEnhanceRate(player)));
                             MySound.soundToNearPlayer(player.level(), mob.getEyePosition(), SoundEvents.ANVIL_LAND);
                         });
             }

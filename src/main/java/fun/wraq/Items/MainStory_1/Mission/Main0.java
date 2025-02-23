@@ -5,6 +5,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -56,6 +57,7 @@ public class Main0 extends Item {
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             player.sendSystemMessage(Te.s(Element.entityElementUnit.size()));
+            DivineUtils.addHolyLightCount(player, 10);
 /*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() instanceof BackpackItem) {

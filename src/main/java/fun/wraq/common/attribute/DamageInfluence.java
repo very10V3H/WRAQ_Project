@@ -30,6 +30,7 @@ import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter6.MoonNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarArmor;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sun.DevilPowerCurio;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
@@ -65,6 +66,7 @@ public class DamageInfluence {
         rate += StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerCommonDamageEnhance);
         rate += EnhancePurpleIronArmor.getCommonDamageEnhanceRate(player);
+        rate += DivineUtils.getPlayerExCommonDamageEnhanceRate(player);
         return rate;
     }
 
@@ -156,6 +158,7 @@ public class DamageInfluence {
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25);
         rate -= StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerWithstandDamageReduce);
+        rate += DivineUtils.getPlayerWithstandDamageExRate(player);
         return rate;
     }
 

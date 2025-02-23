@@ -48,7 +48,8 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
     protected void releaseOperation(Player player) {
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
-        double damage = ManaNewSkill.modifyDamage(player, 1 + skillLevel * 0.05);
+        double damage = ManaNewSkill.modifyDamage(player,
+                1 + skillLevel * 0.05) * (1 + getEnhanceRate(player));
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, Tick.get() + 8, player
         ) {

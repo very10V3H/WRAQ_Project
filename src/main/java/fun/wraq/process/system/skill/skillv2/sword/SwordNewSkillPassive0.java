@@ -30,7 +30,7 @@ public class SwordNewSkillPassive0 extends SkillV2PassiveSkill {
         SkillV2 skillV2 = SkillV2.getPlayerCurrentSkillByType(player, 0);
         if (skillV2 instanceof SwordNewSkillPassive0) {
             int skillLevel = SkillV2.getPlayerSkillLevelBySkillV2(player, skillV2);
-            return 0.3 + skillLevel * 0.05;
+            return (0.3 + skillLevel * 0.05) * (1 + skillV2.getEnhanceRate(player));
         }
         return 0;
     }

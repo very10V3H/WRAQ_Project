@@ -40,7 +40,8 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
     protected void releaseOperation(Player player) {
         countMap.put(player, 3);
         nextReleaseTickMap.put(player, Tick.get() + 3);
-        rateMap.put(player, ManaNewSkill.modifyDamage(player, 5 + getPlayerSkillLevel(player) * 0.5));
+        rateMap.put(player, ManaNewSkill.modifyDamage(player,
+                5 + getPlayerSkillLevel(player) * 0.5) * (1 + getEnhanceRate(player)));
         targetPosMap.put(player, WraqPower.getDefaultTargetPos(player));
     }
 

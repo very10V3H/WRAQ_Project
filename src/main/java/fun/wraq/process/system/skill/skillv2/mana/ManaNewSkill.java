@@ -20,7 +20,7 @@ public class ManaNewSkill {
 
     public static double modifyDamage(Player player, double originDamage) {
         if (ManaCurioTaboo.isActive(player)) {
-            return originDamage * 2;
+            return (originDamage * 2);
         }
         return originDamage;
     }

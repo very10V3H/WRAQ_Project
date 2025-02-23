@@ -9,7 +9,7 @@ import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.season.MySeason;
-import fun.wraq.series.overworld.divine.equip.DivineEquipCommon;
+import fun.wraq.series.overworld.divine.equip.weapon.DivineWeaponCommon;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -47,7 +47,7 @@ public class ElementValue {
         value += Compute.CuriosAttribute.attributeValue(player, elementValueMap, attributeName);
         value += mainHandEquipValue(player.getMainHandItem().getItem(), elementValueMap);
         value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, elementValueMap);
-        value += DivineEquipCommon.getEnhanceElementValue(player, type);
+        value += DivineWeaponCommon.getEnhanceElementValue(player, type);
         return value;
     }
 

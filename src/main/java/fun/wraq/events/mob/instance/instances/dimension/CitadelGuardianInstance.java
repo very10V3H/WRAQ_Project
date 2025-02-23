@@ -225,7 +225,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
             if (player.getHealth() / player.getMaxHealth() < 0.4) {
                 SpecialEffectOnPlayer.addVertigoEffect(player, Tick.s(1));
             }
-            if (mob.getHealth() / mob.getMaxHealth() < 0.25 && player.getHealth() / mob.getMaxHealth() < 0.25) {
+            if (mob.getHealth() / mob.getMaxHealth() < 0.25 && player.getHealth() / player.getMaxHealth() < 0.25) {
                 Damage.causeDirectDamageToPlayer(mob, player, player.getMaxHealth() * 4);
             }
         }

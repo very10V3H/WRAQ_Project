@@ -44,8 +44,8 @@ public class BowNewSkillBase2_0 extends SkillV2BaseSkill {
                 ParticleProvider.createRandomMoveParticle(myArrow, 1, 1, 24, ParticleTypes.LAVA);
                 myArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(myArrow.position(), 10, 10, 10))
                         .forEach(eachMob -> {
-                            Damage.causeRateAdDamageToMonsterWithCritJudge(player, eachMob, 3 + skillLevel * 0.15
-                                    + (FrameArrow.enhanceBowSkillV2_2(player) ? 1 : 0));
+                            Damage.causeRateAdDamageToMonsterWithCritJudge(player, eachMob, (3 + skillLevel * 0.15
+                                    + (FrameArrow.enhanceBowSkillV2_2(player) ? 1 : 0)) * (1 + getEnhanceRate(player)));
                         });
                 Compute.removeEffectLastTime(player, getTexture1Url());
             }

@@ -34,7 +34,8 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         boolean enhanced = TabooPaper.enhanceManaSkillV2_2(player);
-        double damage = ManaNewSkill.modifyDamage(player, 0.5 + 0.05 * skillLevel + (enhanced ? 0.2 : 0));
+        double damage = ManaNewSkill.modifyDamage(player,
+                (0.5 + 0.05 * skillLevel + (enhanced ? 0.2 : 0)) * (1 + getEnhanceRate(player)));
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.manaNewSkillBase2_0, Tick.get() + 8, player
         ) {

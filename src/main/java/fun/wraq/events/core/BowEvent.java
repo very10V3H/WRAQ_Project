@@ -5,6 +5,7 @@ import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.ManaAttackParticleS2CPacket;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
@@ -62,6 +63,10 @@ public class BowEvent {
                 if (myArrow.player != null) {
                     Player player = myArrow.player;
                     if (BowNewSkillBase3_0.effectExpiredTickMap.getOrDefault(player, 0) > Tick.get()) {
+                        SkillV2 skillV2 = SkillV2.getPlayerCurrentSkillByType(player, 3);
+                        if (skillV2 == null) {
+                            return;
+                        }
                         List<Mob> mobList = new ArrayList<>();
                         Vec3 vec = myArrow.getDeltaMovement().normalize();
                         for (int i = 0; i < 20; i++) {
@@ -77,7 +82,8 @@ public class BowEvent {
                                 causeDamageList.put(myArrow, new HashSet<>());
                             Set<Integer> causedList = causeDamageList.get(myArrow);
                             if (!causedList.contains(mob.getId())) {
-                                MyArrow.causeDamage(myArrow, mob, 1 + causedList.size() * 0.33);
+                                MyArrow.causeDamage(myArrow, mob,
+                                        1 + causedList.size() * 0.33 * (1 + skillV2.getEnhanceRate(player)));
                                 causedList.add(mob.getId());
                             }
                             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);

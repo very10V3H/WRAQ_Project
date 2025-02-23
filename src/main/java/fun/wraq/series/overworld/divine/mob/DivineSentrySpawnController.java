@@ -12,8 +12,6 @@ import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
@@ -52,8 +50,8 @@ public class DivineSentrySpawnController extends MobSpawnController {
 
     public DivineSentrySpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                        int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s(mobName, style), canSpawnPos, boundaryUpX, boundaryUpZ,
-                boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s(mobName, style), canSpawnPos, 1, boundaryUpX, boundaryUpZ,
+                boundaryDownX, boundaryDownZ, 16, level, 1, averageLevel);
     }
 
     @Override
@@ -69,7 +67,7 @@ public class DivineSentrySpawnController extends MobSpawnController {
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);
         mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-        mob.setItemSlot(EquipmentSlot.CHEST, DivineIslandItems.MOB_FANVER_DIAMOND_CHEST.get().getDefaultInstance());
+        mob.setItemSlot(EquipmentSlot.CHEST, DivineIslandItems.MOB_DIVINE_CHEST.get().getDefaultInstance());
         if (random.nextBoolean()) {
             mob.setItemSlot(EquipmentSlot.HEAD, DivineIslandItems.MOB_FANVER_IRON_HELMET.get().getDefaultInstance());
         } else {
@@ -85,8 +83,6 @@ public class DivineSentrySpawnController extends MobSpawnController {
     public void tick() {
         mobList.forEach(mob -> {
             DivineUtils.handleMobTick(mob);
-            mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 600));
-            mob.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 600));
         });
     }
 
@@ -95,7 +91,7 @@ public class DivineSentrySpawnController extends MobSpawnController {
         return List.of(
                 new ItemAndRate(DivineIslandItems.DIVINE_SOUL.get(), 0.08),
                 new ItemAndRate(ModItems.silverCoin.get(), 1),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06),
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065),
                 new ItemAndRate(Element.getPiece0ItemMap().get(DivineUtils.currentDayElement), 0.5)
         );
     }

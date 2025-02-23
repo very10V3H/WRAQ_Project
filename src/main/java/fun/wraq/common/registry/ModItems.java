@@ -3797,4 +3797,7 @@ public class ModItems {
                     Te.s("联合研院", CustomStyle.styleOfWorld, "发行的一种等价物"),
                     Te.s("主要通过完成", "委托任务", CustomStyle.styleOfWorld, "获得")
             )));
+
+    public static final RegistryObject<Item> REASON = ITEMS.register("reason",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold), false, true));
 }

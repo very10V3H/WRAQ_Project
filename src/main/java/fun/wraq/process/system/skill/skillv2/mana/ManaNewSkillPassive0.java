@@ -53,7 +53,8 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
                 Compute.getNearEntity(mob, Mob.class, 1)
                         .stream().map(entity -> (Mob) entity)
                         .forEach(eachMob -> {
-                            Damage.causeRateApDamageToMonster(player, eachMob, 0.5 + skillLevel * 0.05, false);
+                            Damage.causeRateApDamageToMonster(player, eachMob,
+                                    (0.5 + skillLevel * 0.05) * (1 + skillV2.getEnhanceRate(player)), false);
                         });
                 mobCountMap.compute(mob, (k, v) -> v == null ? 0 : v - 1);
                 int count = mobCountMap.get(mob);

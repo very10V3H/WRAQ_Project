@@ -194,9 +194,9 @@ public class MySeason {
 
     public static double playerTotalDamageRate() {
         if (currentSeason.contains(spring) || currentSeason.contains(autumn)) {
-            return 0.25;
+            return 0.15;
         }
-        return -0.25;
+        return -0.15;
     }
 
     public static void tick(TickEvent.LevelTickEvent event) {

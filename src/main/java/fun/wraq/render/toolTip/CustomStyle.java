@@ -86,6 +86,7 @@ public class CustomStyle {
     public static Style MUSHROOM_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#e6c3ab"));
     public static Style MANA_TOWER_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#bb52ad"));
     public static Style DIVINE_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#f9fcb0"));
+    public static Style GHASTLY_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#194126"));
 
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
@@ -764,12 +765,20 @@ public class CustomStyle {
     public static final Rarity DIVINE_RARITY = Rarity.create("divine", style -> {
         return style.applyTo(CustomStyle.DIVINE_STYLE);
     });
-
     public static final Rarity DIVINE_BOLD_RARITY = Rarity.create("divine_bold", style -> {
         return style.applyTo(CustomStyle.DIVINE_STYLE).withBold(true);
     });
-
     public static final Rarity DIVINE_ITALIC_RARITY = Rarity.create("divine_italic", style -> {
         return style.applyTo(CustomStyle.DIVINE_STYLE).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity GHASTLY_RARITY = Rarity.create("ghastly", style -> {
+        return style.applyTo(CustomStyle.GHASTLY_STYLE);
+    });
+    public static final Rarity GHASTLY_BOLD_RARITY = Rarity.create("ghastly_bold", style -> {
+        return style.applyTo(CustomStyle.GHASTLY_STYLE).withBold(true);
+    });
+    public static final Rarity GHASTLY_ITALIC_RARITY = Rarity.create("ghastly_italic", style -> {
+        return style.applyTo(CustomStyle.GHASTLY_STYLE).withBold(true).withItalic(true);
     });
 }

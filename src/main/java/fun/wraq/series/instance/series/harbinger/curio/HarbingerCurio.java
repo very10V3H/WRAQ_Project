@@ -1,5 +1,6 @@
 package fun.wraq.series.instance.series.harbinger.curio;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
@@ -12,6 +13,7 @@ import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
+import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -22,7 +24,7 @@ import org.apache.commons.lang3.RandomUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HarbingerCurio extends WraqCurios implements RandomCurios, OnWithStandDamageCurios {
+public class HarbingerCurio extends WraqCurios implements RandomCurios, OnWithStandDamageCurios, Decomposable {
 
     public HarbingerCurio(Properties properties) {
         super(properties);
@@ -90,5 +92,10 @@ public class HarbingerCurio extends WraqCurios implements RandomCurios, OnWithSt
                         "HarbingerCurioPenetrationEnhance", 0.12, Tick.get() + Tick.s(5), this);
             }
         }
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(HarbingerItems.HARBINGER_CURIO.get(), 5);
     }
 }

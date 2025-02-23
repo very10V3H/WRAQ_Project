@@ -52,7 +52,10 @@ import fun.wraq.series.end.Recall;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.divine.mob.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
+import fun.wraq.series.overworld.divine.mob.GhastlyCreeperSpawnController;
+import fun.wraq.series.overworld.divine.mob.GhastlyHuskSpawnController;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -160,6 +163,9 @@ public class MobSpawn {
         overWolrdList.add(Ore3SpawnController.getInstance(overWorld));
         overWolrdList.add(MushroomLinSpawnController.getInstance(overWorld));
         overWolrdList.add(DivineSentrySpawnController.getInstance(overWorld));
+        overWolrdList.add(DivineGolemSpawnController.getInstance(overWorld));
+        overWolrdList.add(GhastlyCreeperSpawnController.getInstance(overWorld));
+        overWolrdList.add(GhastlyHuskSpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();

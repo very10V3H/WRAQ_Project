@@ -1993,9 +1993,18 @@
   "item.vmd.divine_sword_0": "初等圣光长剑",
   "item.vmd.divine_bow_0": "初等圣光长弓",
   "item.vmd.divine_sceptre_0": "初等圣光权杖",
+  "item.vmd.divine_helmet_0": "初等圣光头盔",
+  "item.vmd.divine_chest_0": "初等圣光胸甲",
+  "item.vmd.divine_leggings_0": "初等圣光护腿",
+  "item.vmd.divine_boots_0": "初等圣光靴子",
 
   "item.vmd.divine_soul": "圣光屑",
   "item.vmd.divine_rune": "圣光石",
+  "item.vmd.divine_boss_soul": "圣光星",
+  "item.vmd.divine_knife": "班尼之牙",
+  "item.vmd.ghastly_soul": "瑕光颗粒",
+  "item.vmd.ghastly_rune": "瑕光聚锭",
+
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

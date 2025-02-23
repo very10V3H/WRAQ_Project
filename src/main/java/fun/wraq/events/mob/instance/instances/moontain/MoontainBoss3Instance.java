@@ -6,7 +6,6 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -246,7 +245,6 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         } else {
             ForgeEquipUtils.setForgeQualityOnEquip(stack, secureRandom.nextInt(2, 7));
         }
-        InventoryCheck.addOwnerTagToItemStack(player, stack);
         Compute.forgingHoverName(stack);
         MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
                 " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
@@ -260,7 +258,6 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         if (stack.getItem() instanceof MoontainCurios moontainCurios) {
             moontainCurios.setAttribute(stack);
         }
-        InventoryCheck.addOwnerTagToItemStack(player, stack);
         Compute.forgingHoverName(stack);
         MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
                 " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));

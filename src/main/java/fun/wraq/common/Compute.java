@@ -40,6 +40,7 @@ import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
+import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -226,8 +227,7 @@ public class Compute {
         double xp = xpBeforeUp + xpUp;
         if (data.contains("Xp")) {
             data.putDouble("Xp", data.getDouble("Xp") + xp);
-        }
-        else {
+        } else {
             data.putDouble("Xp", xp);
         }
         ModNetworking.sendToClient(new ExpGetS2CPacket(xp), (ServerPlayer) player);
@@ -388,7 +388,7 @@ public class Compute {
     }
 
     public static void sendBlankLine(Player player, int lines) {
-        for (int i = 0 ; i < lines ; i ++) {
+        for (int i = 0; i < lines; i++) {
             player.sendSystemMessage(Component.literal(""));
         }
     }
@@ -1054,7 +1054,7 @@ public class Compute {
 
     public static void summonValueItemEntity(Level level, Player player, Mob mob, Component component, int type) {
         if (Utils.valueItemEntity.size() > 100) {
-            for (int i = 0 ; i < 50 ; i ++) {
+            for (int i = 0; i < 50; i++) {
                 ItemEntityAndResetTime itemEntityAndResetTime = Utils.valueItemEntity.poll();
                 if (itemEntityAndResetTime != null) {
                     itemEntityAndResetTime.getItemEntity().remove(Entity.RemovalReason.KILLED);
@@ -1141,8 +1141,7 @@ public class Compute {
         ClientUtils.effectTimeLasts.removeIf(hudIcon -> hudIcon.url.equals("item/" + item.toString()));
         if (noTime) {
             ClientUtils.effectTimeLasts.add(new HudIcon("item/" + item, tick, tick, level, true));
-        }
-        else {
+        } else {
             ClientUtils.effectTimeLasts.add(new HudIcon("item/" + item, tick, tick, level));
         }
     }
@@ -1292,7 +1291,8 @@ public class Compute {
             }
         }
 
-        if (!Utils.playerLaserCoolDown.containsKey(Name.get(player))) Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
+        if (!Utils.playerLaserCoolDown.containsKey(Name.get(player)))
+            Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
         Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(Name.get(player));
 
         mobList.forEach(mob -> {
@@ -1358,6 +1358,7 @@ public class Compute {
     public static class CuriosAttribute {
 
         public static Map<Player, List<ItemStack>> curiosListCache = new HashMap<>();
+
         /**
          * 获取玩家去重饰品列表
          */
@@ -1367,7 +1368,7 @@ public class Compute {
                 CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
                     int size = iCuriosItemHandler.getEquippedCurios().getSlots();
                     Set<Item> curiosItemSet = new HashSet<>();
-                    for (int i = 0 ; i < size ; i ++) {
+                    for (int i = 0; i < size; i++) {
                         ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
                         if (stack.is(Items.AIR)) continue;
                         if (!curiosItemSet.contains(stack.getItem())) {
@@ -1388,7 +1389,7 @@ public class Compute {
             Set<Item> set = new HashSet<>();
             CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
                 int size = iCuriosItemHandler.getEquippedCurios().getSlots();
-                for (int i = 0 ; i < size ; i ++) {
+                for (int i = 0; i < size; i++) {
                     ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
                     set.add(stack.getItem());
                 }
@@ -1397,6 +1398,7 @@ public class Compute {
         }
 
         public static Map<Player, Set<Item>> curiosSetCache = new HashMap<>();
+
         public static Set<Item> getDistinctCuriosSet(Player player) {
             if (!curiosSetCache.containsKey(player)) {
                 Set<Item> set = new HashSet<>(getDistinctCuriosList(player)
@@ -1645,7 +1647,9 @@ public class Compute {
                         if (!(player.getMainHandItem().is(item) && player.getInventory().selected >= 3)) {
                             double computeValue = 0;
                             double baseValue = 0;
-                            baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map, player, false);
+                            baseValue += ForgeEquipUtils
+                                    .getTraditionalEquipBaseValue(equip, map, player,
+                                            map.equals(Utils.attackDamage) || map.equals(Utils.manaDamage));
                             computeValue += baseValue;
                             // 只有能被强化的属性才能用这个公式去计算数值
                             if (map.equals(Utils.attackDamage) || map.equals(Utils.manaDamage)) {
@@ -2037,6 +2041,7 @@ public class Compute {
     }
 
     private final String notePaperExpiredTime = "notePaperExpiredTime";
+
     public static boolean notePaperExpired(ItemStack stack) {
         return true;
     }
@@ -2068,7 +2073,7 @@ public class Compute {
 
     public static Set<Mob> getPlayerVisionConicalMobs(Player player, int maxDistance) {
         Set<Mob> mobSet = new HashSet<>();
-        for (int i = 0 ; i < maxDistance ; i ++) {
+        for (int i = 0; i < maxDistance; i++) {
             Vec3 pickPos = player.pick(i, 0, false).getLocation();
             int finalI = i;
             player.level().getEntitiesOfClass(Mob.class,
@@ -2111,6 +2116,7 @@ public class Compute {
     }
 
     public static final String CHALLENGE_RECORD_KEY = "ChallengeRecord";
+
     public static CompoundTag getChallengeRecordData(Player player) {
         return getPlayerSpecificKeyCompoundTagData(player, CHALLENGE_RECORD_KEY);
     }
@@ -2132,5 +2138,26 @@ public class Compute {
         armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
         armorStand.moveTo(pos);
         level.addFreshEntity(armorStand);
+    }
+
+    public interface MobCauseDamageToPlayer {
+        void causeDamage(Mob mob, Player player);
+    }
+
+    public static void createRangeEffectDot(Mob boss, Vec3 pos, double radius,
+                                            MobCauseDamageToPlayer cause, Style style,
+                                            int trigTick, int lastTick) {
+        // 造成伤害
+        PersistentRangeEffect.addEffect(boss, pos, radius, (effect -> {
+            Compute.getNearEntity(boss.level(), effect.center(), Player.class, radius)
+                    .stream().filter(e -> e instanceof Player)
+                    .map(e -> (Player) e)
+                    .forEach(eachPlayer -> {
+                        cause.causeDamage(boss, eachPlayer);
+                    });
+        }), trigTick, lastTick);
+
+        // 制造粒子
+        ParticleProvider.createSpaceEffectParticle(boss.level(), pos, radius, 100, style, lastTick);
     }
 }

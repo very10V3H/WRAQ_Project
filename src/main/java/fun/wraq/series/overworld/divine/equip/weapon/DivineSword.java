@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.divine.equip;
+package fun.wraq.series.overworld.divine.equip.weapon;
 
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.util.ComponentUtils;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DivineSword extends WraqSword implements DivineEquipCommon {
+public class DivineSword extends WraqSword implements DivineWeaponCommon {
 
     private final double transformRate;
     private final double upperLimitRate;
@@ -31,7 +31,7 @@ public class DivineSword extends WraqSword implements DivineEquipCommon {
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.35);
         Utils.levelRequire.put(this, 230);
-        DivineEquipCommon.weaponList.add(this);
+        DivineWeaponCommon.weaponList.add(this);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DivineSword extends WraqSword implements DivineEquipCommon {
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        return DivineEquipCommon.getCommonDescription(stack, upperLimitRate, maxCount, true);
+        return DivineWeaponCommon.getCommonDescription(stack, upperLimitRate, maxCount, true);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DivineSword extends WraqSword implements DivineEquipCommon {
     public List<Attribute> getAttributes(Player player) {
         List<Attribute> attributes = new ArrayList<>();
         ItemStack stack = player.getMainHandItem();
-        int count = DivineEquipCommon.getDivineCount(stack);
+        int count = DivineWeaponCommon.getDivineCount(stack);
         double rate = (double) count / maxCount;
         attributes.addAll(List.of(
                 new Attribute(Utils.elementStrength, upperLimitRate * rate),
@@ -65,13 +65,13 @@ public class DivineSword extends WraqSword implements DivineEquipCommon {
     @Override
     public void onKill(Player player, Mob mob) {
         ItemStack stack = player.getMainHandItem();
-        DivineEquipCommon.addDivineCount(stack);
-        DivineEquipCommon.onKill(player);
+        DivineWeaponCommon.addDivineCount(stack);
+        DivineWeaponCommon.onKill(player);
     }
 
     @Override
     public void active(Player player) {
-        DivineEquipCommon.active(player, maxActiveDistance);
+        DivineWeaponCommon.active(player, maxActiveDistance);
     }
 
     @Override

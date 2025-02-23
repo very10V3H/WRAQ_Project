@@ -7,7 +7,6 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -171,27 +170,15 @@ public class MushroomInstance extends NoTeamInstance {
     }
 
     public void skill1() {
-        Level level = boss.level();
         List<Player> playerList = players.stream().toList();
         if (playerList.isEmpty()) return;
         Player randomPlayer = playerList.get(RandomUtils.nextInt(0, playerList.size()));
-
-        // 造成伤害
-        PersistentRangeEffect.addEffect(boss, randomPlayer.position(), 5, (effect -> {
-            Compute.getNearEntity(boss.level(), effect.center(), Player.class, 5)
-                    .stream().filter(e -> e instanceof Player)
-                    .map(e -> (Player) randomPlayer).forEach(eachPlayer -> {
-                        Damage.causeManaDamageToPlayer(boss, eachPlayer, 10000, 0, 100);
-                    });
-        }), 5, 40);
-
-        // 制造粒子
-        ParticleProvider.createSpaceEffectParticle(level, randomPlayer.position(), 5, 100,
-                CustomStyle.MUSHROOM_STYLE, 40);
+        Compute.createRangeEffectDot(boss, randomPlayer.position(), 5, ((mob, player) -> {
+            Damage.causeManaDamageToPlayer(mob, player, 10000, 0, 100);
+        }), CustomStyle.MUSHROOM_STYLE, 5, 40);
     }
 
     public void skill2() {
-        Level level = boss.level();
         players.forEach(player -> {
             ParticleProvider.createBreakBlockParticle(player, Blocks.BROWN_MUSHROOM);
             SpecialEffectOnPlayer.addImprisonEffect(player, 40);
