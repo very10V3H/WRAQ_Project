@@ -156,8 +156,8 @@ public class Element {
 
         double reactionElementValue = Math.min(passiveUnit.value, value);
 
-        double strongRate = 1 * reactionElementValue;
-        double weakRate = -1 * reactionElementValue;
+        double strongRate = 0.2 * reactionElementValue;
+        double weakRate = -0.2 * reactionElementValue;
 
         if (passiveUnit.type.equals(type)) {
             if (passiveUnit.value < value) entityElementUnit.put(passive, new Unit(type, value));
