@@ -254,13 +254,13 @@ public class MySeason {
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("秋").withStyle(CustomStyle.styleOfGold)).
                 append(Component.literal("两个怡人的季节，玩家造成的伤害将会").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("提升25%").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("提升15%").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("，在").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("夏").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("冬").withStyle(CustomStyle.styleOfSnow)).
                 append(Component.literal("两个较为不舒适的季节，玩家造成的伤害将会").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("降低25%").withStyle(ChatFormatting.GREEN)));
+                append(Component.literal("降低15%").withStyle(ChatFormatting.GREEN)));
         MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
     }
 }
