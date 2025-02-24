@@ -6,6 +6,7 @@ import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
@@ -32,7 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify, ActiveItem {
+public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify, ActiveItem, ForgeItem {
 
     double getTransformRate();
 
@@ -59,9 +60,11 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
                 isAd ?
                         ComponentUtils.AttributeDescription.attackDamage(String.format("%.0f%%", upperLimitRate * 100))
                         : ComponentUtils.AttributeDescription.manaDamage(String.format("%.0f%%", upperLimitRate * 100))));
-        components.add(Te.s(" 圣光充盈度:", style));
+        components.add(Te.s(" 圣光充盈度:"
+                + String.format("%.0f%%", Math.min(getDivineCount(stack), maxCount) * 100.0 / maxCount), style));
         components.add(Te.s(" ".repeat(4),
                 ComponentUtils.getProgressBar(20, getDivineCount(stack), maxCount, style)));
+        components.add(Te.s(" 在收集", maxCount + "层圣光恩赐", style, "后达最大值"));
         return components;
     }
 

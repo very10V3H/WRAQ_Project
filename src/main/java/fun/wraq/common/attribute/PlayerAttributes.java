@@ -237,7 +237,6 @@ public class PlayerAttributes {
         // 器灵属性加成
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.attackDamage);
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.xpLevelAttackDamage) * player.experienceLevel;
-
         exDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExAttackDamage);
         exDamage += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExAttackDamage);
         exDamage += LifeElementSword.ExAttackDamage(player);
@@ -260,10 +259,12 @@ public class PlayerAttributes {
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance)
                 + Compute.CuriosAttribute.attributeValue(player, Utils.percentAttackDamageEnhance,
                 StringUtils.CuriosAttribute.percentAttackDamage);
+        exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentAttackDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.attackDamage);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentAttackDamageModifier);
         exRate += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerAttackDamageEnhance);
+        exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentAttackDamageEnhance);
 
         totalAttackDamage *= (1 + exRate);
 
@@ -634,6 +635,7 @@ public class PlayerAttributes {
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentDefenceEnhance,
                         StringUtils.CuriosAttribute.percentDefenceEnhance);
+        exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentDefenceEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.defence);
         totalDefence *= (1 + exRate);
@@ -823,6 +825,7 @@ public class PlayerAttributes {
                 Utils.defencePenetration, StringUtils.CuriosAttribute.defencePenetration)); // 新版饰品属性加成
         defenceRate *= (1 - StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration));
+        defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.defencePenetration));
         // 请在上方添加
         writeToCache(player, Utils.defencePenetration, 1 - defenceRate);
         return 1 - defenceRate;
@@ -963,6 +966,7 @@ public class PlayerAttributes {
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
                         StringUtils.CuriosAttribute.percentMaxHealthEnhance);
+        exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentMaxHealthEnhance);
         exRate += Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.maxHealth);
         maxHealth *= (1 + exRate);
@@ -1067,10 +1071,13 @@ public class PlayerAttributes {
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDamageEnhance,
                         StringUtils.CuriosAttribute.percentManaDamageEnhance);
+        exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentManaDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDamage);
         exRate += StableAttributesModifier
                 .getModifierValue(player, StableAttributesModifier.playerPercentManaDamageModifier);
+        exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentManaDamageEnhance);
+
         totalDamage *= (1 + exRate);
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
 
@@ -1304,6 +1311,7 @@ public class PlayerAttributes {
 
         defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration,
                 StringUtils.CuriosAttribute.manaPenetration)); // 新版饰品属性加成
+        defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration));
         defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
 
         // 请在上方添加
@@ -1437,10 +1445,11 @@ public class PlayerAttributes {
     public static double getElementStrength(Player player) {
         double value = 0;
         value += computeAllEquipSlotBaseAttributeValue(player, Utils.elementStrength, false);
+        value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.elementStrength);
 
+        // 以下是对最终属性数值进行调整，这个元素本身就是个百分比元素！
         double rate = 0;
         rate -= DivineUtils.getPlayerElementStrengthDecreaseRate(player);
-
         value *= (1 + rate);
         return value;
     }

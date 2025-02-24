@@ -1,9 +1,12 @@
 package fun.wraq.series.overworld.divine.equip.weapon;
 
 import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -54,7 +57,7 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
         List<Attribute> attributes = new ArrayList<>();
         ItemStack stack = player.getMainHandItem();
         int count = DivineWeaponCommon.getDivineCount(stack);
-        double rate = (double) count / maxCount;
+        double rate = Math.min(1, count * 1.0 / maxCount);
         attributes.addAll(List.of(
                 new Attribute(Utils.elementStrength, upperLimitRate * rate),
                 new Attribute(Utils.percentAttackDamageEnhance, upperLimitRate * rate)
@@ -81,5 +84,16 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
 
     public double getTransformRate() {
         return transformRate;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get(), 128),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
+                new ItemStack(ModItems.ReputationMedal.get(), 160),
+                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
+        );
     }
 }

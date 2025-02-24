@@ -86,7 +86,7 @@ public class CustomStyle {
     public static Style MUSHROOM_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#e6c3ab"));
     public static Style MANA_TOWER_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#bb52ad"));
     public static Style DIVINE_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#f9fcb0"));
-    public static Style GHASTLY_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#194126"));
+    public static Style GHASTLY_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#457c57"));
 
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {

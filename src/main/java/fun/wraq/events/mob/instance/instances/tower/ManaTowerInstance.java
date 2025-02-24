@@ -160,7 +160,7 @@ public class ManaTowerInstance extends NoTeamInstance {
     @Override
     public void exReward(Player player) {
         super.exReward(player);
-        ManaTowerData.onPlayerFinishedChallenge(player, Tick.get() - spawnTick);
+        ManaTowerData.onPlayerFinishedChallenge(player, Tick.get() - spawnTick - Tick.s(3));
         Compute.teleportPlayerToPos(player, FLOOR_1_PLATFORM_CENTER_POS);
     }
 

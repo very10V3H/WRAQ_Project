@@ -454,9 +454,7 @@ public class VMD {
                     ModItems.equipPiece10.get(), ModItems.equipPiece11.get(),
                     ModItems.equipPiece12.get(), ModItems.equipPiece13.get()
             };
-
             for (Item item : items) event.accept(item.getDefaultInstance());
-
             event.accept(ModItems.SpeIron.get().getDefaultInstance());
             event.accept(ModItems.ForgingStone0.get().getDefaultInstance());
             event.accept(ModItems.ForgingStone1.get().getDefaultInstance());
@@ -466,8 +464,8 @@ public class VMD {
             event.accept(ModItems.ForgeEnhance2.get().getDefaultInstance());
             event.accept(ModItems.ForgeEnhance3.get().getDefaultInstance());
             event.accept(ModItems.ForgeProtect.get().getDefaultInstance());
-
             event.accept(GemItems.DISMANTLE.get().getDefaultInstance());
+            event.accept(ModItems.FORGE_TEMPLATE.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.MONEYANDMISSION_TAB.getKey())) {
             event.accept(ModItems.pickUpgradePaper.get().getDefaultInstance());

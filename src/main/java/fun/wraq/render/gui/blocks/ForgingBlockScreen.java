@@ -13,6 +13,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.networking.CraftC2SPacket;
 import fun.wraq.process.system.forge.networking.DecomposeC2SPacket;
 import fun.wraq.process.system.forge.networking.QuickDecomposeC2SPacket;
+import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.overworld.forging.ForgingMaterial;
 import fun.wraq.series.overworld.forging.ForgingStone0;
@@ -140,6 +141,12 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("要提高锻造品质的装备").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("放置于左下").withStyle(ChatFormatting.WHITE)));
+        add(Te.s("8.剪切强化等级:", ChatFormatting.AQUA));
+        add(Te.s(" 将装备置于锻造台", "右上", CustomStyle.styleOfWorld));
+        add(Te.s(" 将", ModItems.FORGE_TEMPLATE, "置于锻造台", "右下", CustomStyle.styleOfWorld));
+        add(Te.s("9.粘贴强化等级", ChatFormatting.AQUA));
+        add(Te.s(" 将装备置于锻造台", "左上", CustomStyle.styleOfWorld));
+        add(Te.s(" 将", ModItems.FORGE_TEMPLATE, "置于锻造台", "左下", CustomStyle.styleOfWorld));
     }};
 
     @Override
@@ -156,10 +163,14 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
         int offsetX = -86;
         int offsetY = -92;
         if (lossRecipe > 0) {
-            guiGraphics.drawString(fontRenderer, Component.literal("这件物品不能被分解").withStyle(ChatFormatting.AQUA), X + offsetX, Y + offsetY, 0);
+            guiGraphics.drawString(fontRenderer,
+                    Component.literal("这件物品不能被分解").withStyle(ChatFormatting.AQUA),
+                    X + offsetX, Y + offsetY, 0);
         } else {
             if (doubleClick > 0) {
-                guiGraphics.drawString(fontRenderer, Component.literal("再次点击以分解物品").withStyle(ChatFormatting.AQUA), X + offsetX, Y + offsetY, 0);
+                guiGraphics.drawString(fontRenderer,
+                        Component.literal("再次点击以分解物品").withStyle(ChatFormatting.AQUA),
+                        X + offsetX, Y + offsetY, 0);
             } else {
                 guiGraphics.drawString(fontRenderer, Component.literal("光标移动至此处可查看简单文字教程").withStyle(ChatFormatting.WHITE), X + offsetX, Y + offsetY, 0);
                 if (mouseX > X + offsetX && mouseX < X + 56 && mouseY > Y + offsetY - 6 && mouseY < Y + offsetY + 12) {

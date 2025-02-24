@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
@@ -14,6 +15,7 @@ import fun.wraq.series.overworld.divine.mob.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,11 +70,20 @@ public class DivineUtils {
             } else if (player.position().distanceTo(ToSunIslandBoatPos) < 2) {
                 Compute.teleportPlayerToPos(player, InSunIslandBoatPos);
             }
-            if (player.experienceLevel < 230 && isInDivineIsland(player)) {
-                decreasePlayerHealth(player, player.getMaxHealth() * 0.005);
-                if (player.tickCount % 20 == 0) {
-                    sendMSG(player, Te.s("未达到", Utils.getLevelDescription(230),
-                            "无法承受", "圣光的辐照.", style));
+            if (isInDivineIsland(player)) {
+                if (player.experienceLevel < 230) {
+                    decreasePlayerHealth(player, player.getMaxHealth() * 0.005);
+                    if (player.tickCount % 20 == 0) {
+                        sendMSG(player, Te.s("未达到", Utils.getLevelDescription(230),
+                                "无法承受", "圣光的辐照.", style));
+                    }
+                }
+                if (player.isFallFlying()) {
+                    decreasePlayerHealth(player, player.getMaxHealth() * 0.005);
+                    if (player.tickCount % 20 == 0) {
+                        addHolyLightCount(player, 5);
+                        sendMSG(player, Te.s("在圣光岛飞行似乎会受到强烈的辐照!"));
+                    }
                 }
             }
         }
@@ -121,7 +133,7 @@ public class DivineUtils {
     public static void setHolyLightCount(Player player, int count) {
         holyLightCountMap.put(Name.get(player), count);
         if (holyLightCountMap.get(Name.get(player)) == 0) {
-            Compute.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE.get());
+            Compute.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get());
         }
     }
 
@@ -131,7 +143,7 @@ public class DivineUtils {
 
     public static void addHolyLightCount(Player player, int count) {
         holyLightCountMap.compute(Name.get(player), (k, v) -> v == null ? count : Math.min(1000, v + count));
-        Compute.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE.get(),
+        Compute.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get(),
                 holyLightCountMap.get(Name.get(player)), true);
     }
 
@@ -141,9 +153,9 @@ public class DivineUtils {
         }
         holyLightCountMap.compute(Name.get(player), (k, v) -> v == null ? 0 : Math.max(0, v - count));
         if (holyLightCountMap.get(Name.get(player)) == 0) {
-            Compute.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE.get());
+            Compute.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get());
         } else {
-            Compute.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE.get(),
+            Compute.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get(),
                     holyLightCountMap.get(Name.get(player)), true);
         }
     }
@@ -157,11 +169,18 @@ public class DivineUtils {
             if (GHASTLY_MOB_NAME_SET.contains(mobName)) {
                 decreaseHolyLightCount(player, 1);
             }
+            if (RandomUtils.nextDouble(0, 1) < 0.1) {
+                MySound.soundToPlayer(player, SoundEvents.BLAZE_SHOOT);
+                Compute.createRangeEffectDot(player.level(), player.position(), 4, (eachPlayer -> {
+                    Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1,
+                            Te.s("被", "圣光辐照", style, "飞升"));
+                }), style, Tick.get() + 20, 3, 40);
+            }
         }
     }
 
     public static void handleHolyLightTick(Player player) {
-        if (player.tickCount % 20 == 14 && !Compute.playerIsInBattle(player)) {
+        if (player.tickCount % 100 == 14 && !Compute.playerIsInBattle(player, Tick.s(60))) {
             if (getHolyLightCount(player) > 0) {
                 decreaseHolyLightCount(player, 10);
                 decreasePlayerHealth(player, player.getMaxHealth() * 0.1);

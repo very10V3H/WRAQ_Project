@@ -5,6 +5,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.Items.Forging.ForgeEnhancePaper;
 import fun.wraq.Items.Forging.ForgeProtect;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -534,7 +536,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
 
             blockEntity.itemStackHandler.setStackInSlot(2, productSlotStack);
             blockEntity.itemStackHandler.extractItem(0, 4, false);
-            if (player != null) MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
+            if (player != null) {
+                MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
+            }
         }
 
         if (hasRecipeOfEquipPieceForge(blockEntity)) {
@@ -556,6 +560,13 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             blockEntity.itemStackHandler.extractItem(0, 2, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
             if (player != null) MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
+        }
+
+        if (hasRecipeOfForgeTemplateGetForgeLevel(blockEntity)) {
+            craftOnForgeTemplateGetForgeLevel(blockEntity, player);
+        }
+        if (hasRecipeOfForgeTemplateSetForgeLevel(blockEntity)) {
+            craftOnForgeTemplateSetForgeLevel(blockEntity, player);
         }
     }
 
@@ -745,6 +756,66 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         int equipTier = ForgeEquipUtils.getForgeQualityOnEquip(equipStack);
         ItemStack productSlot = blockEntity.itemStackHandler.getStackInSlot(2);
         return canBeForged && pieceTier - equipTier == 1 && productSlot.getCount() == 0 && equipPieceStack.getCount() >= 2;
+    }
+
+    private static boolean hasRecipeOfForgeTemplateGetForgeLevel(ForgingBlockEntity blockEntity) {
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getSlots());
+        for (int i = 0; i < blockEntity.itemStackHandler.getSlots(); i++) {
+            inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
+        }
+        ItemStack equip = inventory.getItem(3);
+        Item equipItem = equip.getItem();
+        ItemStack forgeTemplate = inventory.getItem(4);
+        boolean materialTypeCorrect = forgeTemplate.getItem().equals(ModItems.FORGE_TEMPLATE.get())
+                && (equipItem instanceof WraqMainHandEquip || equipItem instanceof WraqArmor);
+        return materialTypeCorrect
+                && ForgeEquipUtils.getForgeLevel(forgeTemplate) == 0
+                && ForgeEquipUtils.getForgeLevel(equip) > 0
+                && canInsertItemIntoOutPutSlot(inventory);
+    }
+
+    private static boolean hasRecipeOfForgeTemplateSetForgeLevel(ForgingBlockEntity blockEntity) {
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getSlots());
+        for (int i = 0; i < blockEntity.itemStackHandler.getSlots(); i++) {
+            inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
+        }
+        ItemStack equip = inventory.getItem(0);
+        Item equipItem = equip.getItem();
+        ItemStack forgeTemplate = inventory.getItem(1);
+        boolean materialTypeCorrect = forgeTemplate.getItem().equals(ModItems.FORGE_TEMPLATE.get())
+                && (equipItem instanceof WraqMainHandEquip || equipItem instanceof WraqArmor);
+        int forgeTemplateForgeLevel = ForgeEquipUtils.getForgeLevel(forgeTemplate);
+        int equipForgeLevel = ForgeEquipUtils.getForgeLevel(equip);
+        return materialTypeCorrect
+                && forgeTemplateForgeLevel > 0
+                && forgeTemplateForgeLevel > equipForgeLevel
+                && canInsertItemIntoOutPutSlot(inventory);
+    }
+
+    private static void craftOnForgeTemplateGetForgeLevel(ForgingBlockEntity blockEntity, Player player) {
+        ItemStackHandler stackHandler = blockEntity.itemStackHandler;
+        ItemStack equip = stackHandler.getStackInSlot(3);
+        ItemStack forgeTemplate = stackHandler.getStackInSlot(4);
+        ForgeEquipUtils.setForgeLevel(forgeTemplate, ForgeEquipUtils.getForgeLevel(equip));
+        ForgeEquipUtils.setForgeLevel(equip, 0);
+        stackHandler.setStackInSlot(2, forgeTemplate);
+        stackHandler.setStackInSlot(4, Items.AIR.getDefaultInstance());
+        if (player != null) {
+            MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
+        }
+    }
+
+    private static void craftOnForgeTemplateSetForgeLevel(ForgingBlockEntity blockEntity, Player player) {
+        ItemStackHandler stackHandler = blockEntity.itemStackHandler;
+        ItemStack equip = stackHandler.getStackInSlot(0);
+        ItemStack forgeTemplate = stackHandler.getStackInSlot(1);
+        ForgeEquipUtils.setForgeLevel(equip, ForgeEquipUtils.getForgeLevel(forgeTemplate));
+        stackHandler.setStackInSlot(2, equip);
+        stackHandler.setStackInSlot(0, Items.AIR.getDefaultInstance());
+        stackHandler.setStackInSlot(1, Items.AIR.getDefaultInstance());
+        if (player != null) {
+            MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
+        }
     }
 
     private static boolean canInsertItemIntoOutPutSlot(SimpleContainer inventory) {

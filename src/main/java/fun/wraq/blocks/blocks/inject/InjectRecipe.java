@@ -7,6 +7,7 @@ import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -938,6 +939,16 @@ public class InjectRecipe {
 
         injectingRecipeMap.put(WardenItems.WARDEN_SOUL_INGOT.get(),
                 new InjectingRecipe(64, ModItems.REFINED_PIECE.get(), 16, WardenItems.WARDEN_HEART.get()));
+
+        injectingRecipeMap.put(ModItems.BlazeSword3.get(),
+                new InjectingRecipe(DivineIslandItems.GHASTLY_INGOT.get(), 64,
+                        DivineIslandItems.GHASTLY_SWORD.get()));
+        injectingRecipeMap.put(ModItems.BeaconBow3.get(),
+                new InjectingRecipe(DivineIslandItems.GHASTLY_INGOT.get(), 64,
+                        DivineIslandItems.GHASTLY_BOW.get()));
+        injectingRecipeMap.put(ModItems.TreeSceptre3.get(),
+                new InjectingRecipe(DivineIslandItems.GHASTLY_INGOT.get(), 64,
+                        DivineIslandItems.GHASTLY_SCEPTRE.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             Item material = itemInjectingRecipeEntry.getValue().material;

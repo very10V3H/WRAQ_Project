@@ -9,6 +9,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -50,6 +51,8 @@ public class ForgeEquipUtils {
     public static final Component XUNXI_VILLAGE_NAME = Te.s("薰曦村", CustomStyle.styleOfJacaranda);
     public static final Zone MOONTAIN_STRONG_HOLD = new Zone(1937, -898, 1889, -962);
     public static final Component MOONTAIN_STRONG_HOLD_NAME = Te.s("望山据点", CustomStyle.styleOfMoontain);
+    public static final Zone DIVINE_ISLAND = new Zone(2715, 931, 1973, 209);
+    public static final Component DIVINE_ISLAND_NAME = Te.s("圣光岛", CustomStyle.DIVINE_STYLE);
 
     public static final Map<Zone, Component> zoneNameMap = new HashMap<>() {{
         put(PLAIN_VILLAGE, PLAIN_VILLAGE_NAME);
@@ -63,6 +66,7 @@ public class ForgeEquipUtils {
         put(XUNNAN_VILLAGE, XUNNAN_VILLAGE_NAME);
         put(XUNXI_VILLAGE, XUNXI_VILLAGE_NAME);
         put(MOONTAIN_STRONG_HOLD, MOONTAIN_STRONG_HOLD_NAME);
+        put(DIVINE_ISLAND, DIVINE_ISLAND_NAME);
     }};
 
     public static void setZoneForgeItemListMap() {
@@ -290,6 +294,20 @@ public class ForgeEquipUtils {
             moontain_strong_hold.forEach(item -> add(item.getDefaultInstance()));
         }});
 
+        List<Item> divineIsland = List.of(
+                DivineIslandItems.DIVINE_SWORD_0.get(),
+                DivineIslandItems.DIVINE_BOW_0.get(),
+                DivineIslandItems.DIVINE_SCEPTRE_0.get(),
+                DivineIslandItems.DIVINE_HELMET_0.get(),
+                DivineIslandItems.DIVINE_CHEST_0.get(),
+                DivineIslandItems.DIVINE_LEGGINGS_0.get(),
+                DivineIslandItems.DIVINE_BOOTS_0.get()
+        );
+
+        zoneForgeItemListMap.put(DIVINE_ISLAND, new ArrayList<>() {{
+            divineIsland.forEach(item -> add(item.getDefaultInstance()));
+        }});
+
         zoneForgeItemListMap.forEach((zone, itemList) -> {
             Component zoneName = zoneNameMap.get(zone);
             itemList.forEach(stack -> {
@@ -452,5 +470,16 @@ public class ForgeEquipUtils {
         if (itemStack.getTagElement(Utils.MOD_ID) != null)
             return itemStack.getTagElement(Utils.MOD_ID).contains(itemTag);
         return false;
+    }
+
+    public static int getForgeLevel(ItemStack stack) {
+        if (stack.getTagElement(Utils.MOD_ID) != null) {
+            return stack.getOrCreateTagElement(Utils.MOD_ID).getInt("Forging");
+        }
+        return 0;
+    }
+
+    public static void setForgeLevel(ItemStack stack, int forgeLevel) {
+        stack.getOrCreateTagElement(Utils.MOD_ID).putInt("Forging", forgeLevel);
     }
 }

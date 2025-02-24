@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.divine.equip.armor;
 
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.impl.skillv2.EnhanceSkillRateEquip;
 import fun.wraq.common.util.ComponentUtils;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEquip {
+public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEquip, ForgeItem {
     Style style = CustomStyle.DIVINE_STYLE;
     static List<Component> getDescription(ItemStack stack, double maxRate) {
         List<Component> components = new ArrayList<>();

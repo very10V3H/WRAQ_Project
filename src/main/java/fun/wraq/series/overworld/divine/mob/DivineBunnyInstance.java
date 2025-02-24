@@ -9,7 +9,6 @@ import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -89,7 +88,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
         players.forEach(player -> {
             DivineUtils.createDivineParticle(player,
                     boss.getEyePosition(), player.getEyePosition().subtract(0, 1, 0));
-            Damage.causeManaDamageToPlayer(boss, player, player.getMaxHealth() * 0.1 * getDamageRate());
+            Damage.causeManaDamageToPlayer(boss, player, player.getMaxHealth() * 0.2 * getDamageRate());
         });
     }
 
@@ -130,8 +129,8 @@ public class DivineBunnyInstance extends NoTeamInstance {
 
     public List<ItemAndRate> getRewardList() {
         return List.of(
-                new ItemAndRate(DivineIslandItems.DIVINE_BOSS_SOUL.get(), 0.5),
-                new ItemAndRate(DivineIslandItems.DIVINE_KNIFE.get(), 0.01),
+/*                new ItemAndRate(DivineIslandItems.DIVINE_BOSS_SOUL.get(), 0.5),
+                new ItemAndRate(DivineIslandItems.DIVINE_KNIFE.get(), 0.01),*/
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1)
         );

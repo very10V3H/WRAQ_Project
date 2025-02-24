@@ -68,6 +68,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.enhanceForge.Pearl;
 import fun.wraq.process.system.forge.EquipPiece;
 import fun.wraq.process.system.forge.ForgeHammer;
+import fun.wraq.process.system.forge.ForgeTemplate;
 import fun.wraq.process.system.instance.MopUpPaper;
 import fun.wraq.process.system.instance.MopUpPaperLoot;
 import fun.wraq.process.system.lottery.NewLotteries;
@@ -895,6 +896,8 @@ public class ModItems {
             () -> new ForgingStone1(new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> ForgingStone2 = ITEMS.register("forgingstone2",
             () -> new ForgingStone2(new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> FORGE_TEMPLATE = ITEMS.register("forge_template",
+            () -> new ForgeTemplate(new Item.Properties().rarity(Rarity.EPIC).stacksTo(1)));
     public static final RegistryObject<Item> Ruby = ITEMS.register("ruby",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Nether)));
     public static final RegistryObject<Item> NetherQuartz = ITEMS.register("netherquartz",

@@ -31,6 +31,7 @@ import fun.wraq.series.newrunes.chapter6.MoonNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarArmor;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.overworld.divine.DivineUtils;
+import fun.wraq.series.overworld.divine.equip.boss.DivineKnife;
 import fun.wraq.series.overworld.sun.DevilPowerCurio;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
@@ -76,6 +77,7 @@ public class DamageInfluence {
         rate += getPlayerFinalDamageEnhance(player);
         rate += StableTierAttributeModifier
                 .getModifierValue(mob, StableTierAttributeModifier.monsterWithstandDamageEnhance);
+        rate += DivineKnife.getEnhanceMobWithstandDamage(mob);
         return rate;
     }
 

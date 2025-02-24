@@ -18,6 +18,7 @@ import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.resources.ResourceLocation;
@@ -67,6 +68,7 @@ public class TradeList {
         entrustmentStore();
 
         springEvent();
+        divineIsland();
 
         /* 1.0 */
 
@@ -475,7 +477,8 @@ public class TradeList {
                 ModItems.ForgeProtect.get().getDefaultInstance(),
                 ModItems.ForgeEnhance0.get().getDefaultInstance(),
                 ModItems.ForgeEnhance1.get().getDefaultInstance(),
-                GemItems.DISMANTLE.get().getDefaultInstance()
+                GemItems.DISMANTLE.get().getDefaultInstance(),
+                ModItems.FORGE_TEMPLATE.get().getDefaultInstance(),
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -542,6 +545,9 @@ public class TradeList {
                 case 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WORLD_SOUL_2.get(), 16));
                 }});
+                case 16 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
+                }});
             }
         }
     }
@@ -556,7 +562,8 @@ public class TradeList {
                 GemItems.DISMANTLE.get().getDefaultInstance(),
                 ModItems.SwordLottery.get().getDefaultInstance(),
                 ModItems.BowLottery.get().getDefaultInstance(),
-                ModItems.SceptreLottery.get().getDefaultInstance()
+                ModItems.SceptreLottery.get().getDefaultInstance(),
+                ModItems.FORGE_TEMPLATE.get().getDefaultInstance()
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -583,6 +590,9 @@ public class TradeList {
                 }});
                 case 6, 7, 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
+                }});
+                case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
                 }});
             }
         }
@@ -3200,5 +3210,30 @@ public class TradeList {
                 List.of(new ItemStack(SpecialEventItems.MONEY.get(), 10)));
         tradeRecipeMap.put(goldIngot,
                 List.of(new ItemStack(SpecialEventItems.SPRING_GOLD_COIN.get(), 5)));
+    }
+
+    public static void divineIsland() {
+        ItemStack divineRuneWeapon = new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get());
+        ItemStack divineRuneArmor = new ItemStack(DivineIslandItems.DIVINE_RUNE_ARMOR.get());
+        ItemStack ghastlyIngot = new ItemStack(DivineIslandItems.GHASTLY_INGOT.get());
+        ItemStack[] itemStacks = {
+                divineRuneWeapon, divineRuneArmor, ghastlyIngot
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("圣光贾人", "divineIsland",
+                CustomStyle.DIVINE_STYLE, VillagerType.SNOW, VillagerProfession.TOOLSMITH, contentList);
+        tradeRecipeMap.put(divineRuneWeapon,
+                List.of(new ItemStack(DivineIslandItems.DIVINE_SOUL.get(), 10),
+                        new ItemStack(DivineIslandItems.DIVINE_ARROW.get(), 30),
+                        new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 1)));
+        tradeRecipeMap.put(divineRuneArmor,
+                List.of(new ItemStack(DivineIslandItems.DIVINE_SOUL.get(), 10),
+                        new ItemStack(DivineIslandItems.DIVINE_GOLEM_SOUL.get(), 30),
+                        new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 1)));
+        tradeRecipeMap.put(ghastlyIngot,
+                List.of(new ItemStack(DivineIslandItems.GHASTLY_NUGGET.get(), 10),
+                        new ItemStack(DivineIslandItems.GHASTLY_SOUL.get(), 15),
+                        new ItemStack(DivineIslandItems.GHASTLY_GUN_POWDER.get(), 15)));
     }
 }

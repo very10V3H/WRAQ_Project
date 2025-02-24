@@ -1999,12 +1999,24 @@
   "item.vmd.divine_boots_0": "初等圣光靴子",
 
   "item.vmd.divine_soul": "圣光屑",
-  "item.vmd.divine_rune": "圣光石",
+  "item.vmd.divine_arrow": "圣光箭矢",
+  "item.vmd.divine_golem_soul": "圣光傀儡残骸",
+  "item.vmd.divine_rune_armor": "圣光石 - 球形",
+  "item.vmd.divine_rune_weapon": "圣光石 - 棱角",
+  "item.vmd.divine_crystal": "圣光结晶",
   "item.vmd.divine_boss_soul": "圣光星",
-  "item.vmd.divine_knife": "班尼之牙",
-  "item.vmd.ghastly_soul": "瑕光颗粒",
-  "item.vmd.ghastly_rune": "瑕光聚锭",
+  "item.vmd.ghastly_nugget": "瑕光颗粒",
+  "item.vmd.ghastly_gun_powder": "瑕光火药",
+  "item.vmd.ghastly_soul": "瑕光故魂",
+  "item.vmd.ghastly_ingot": "瑕光聚锭",
 
+  "item.vmd.ghastly_sword": "瑕光剑",
+  "item.vmd.ghastly_bow": "瑕光弦",
+  "item.vmd.ghastly_sceptre": "瑕光杖",
+
+  "item.vmd.divine_knife": "班尼之牙",
+
+  "item.vmd.forge_template": "强化刻板",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

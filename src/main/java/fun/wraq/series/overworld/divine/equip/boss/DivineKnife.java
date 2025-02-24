@@ -63,4 +63,8 @@ public class DivineKnife extends WraqSword implements OnHitEffectEquip {
                     8888, mobCountMap.get(mob), true);
         }
     }
+
+    public static double getEnhanceMobWithstandDamage(Mob mob) {
+        return mobCountMap.getOrDefault(mob, 0) * 0.08;
+    }
 }

@@ -353,6 +353,11 @@ public class ComponentUtils {
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.DIVINE_STYLE);
     }
 
+    public static Component getSuffixOfGhastly() {
+        return Component.literal("瑕光")
+                .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.GHASTLY_STYLE);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));
@@ -942,7 +947,7 @@ public class ComponentUtils {
     }
 
     public static Component getProgressBar(int length, double count, double maxCount, Style style) {
-        int num = (int) (count / maxCount * length);
+        int num = (int) (Math.min(count, maxCount) / maxCount * length);
         return Te.s("|".repeat(num), style, "|".repeat(length - num), ChatFormatting.GRAY);
     }
 }

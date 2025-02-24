@@ -402,8 +402,16 @@ public class MyWayPoint {
                 colorMap.get(yellow), CustomStyle.DIVINE_STYLE, 0));
         add(new MyWayPoint(DivineUtils.ToSunIslandBoatPos, "圣光岛轮渡 - 往旭升岛",
                 colorMap.get(yellow), CustomStyle.DIVINE_STYLE, 0));
-        add(new MyWayPoint(new Vec3(2280, 66, 844), "圣光岛南部边境",
+        add(new MyWayPoint(new Vec3(2280, 66, 844), "南部边境",
                 colorMap.get(yellow), CustomStyle.DIVINE_STYLE, 0));
+        add(new MyWayPoint(new Vec3(2325, 88, 761), "通港南路",
+                colorMap.get(yellow), CustomStyle.DIVINE_STYLE, 0));
+        add(new MyWayPoint(new Vec3(2356, 86, 687), "萨仁镇",
+                colorMap.get(blue), CustomStyle.DIVINE_STYLE, 0));
+        add(new MyWayPoint(new Vec3(2420, 67, 691), "瑕光树",
+                colorMap.get(darkGreen), CustomStyle.GHASTLY_STYLE, 0));
+        add(new MyWayPoint(new Vec3(2421, 85, 712), "瑕光古栈",
+                colorMap.get(darkGreen), CustomStyle.GHASTLY_STYLE, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

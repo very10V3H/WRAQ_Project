@@ -6,13 +6,14 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
@@ -45,73 +46,35 @@ public class TextCommand implements Command<CommandSourceStack> {
                 ));
                 put("toIceKnight", List.of(
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("冰霜骑士驻地").withStyle(CustomStyle.styleOfIce),
-                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
-                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
-                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                        Component.literal("冰霜骑士驻地").withStyle(CustomStyle.styleOfIce)
                 ));
                 put("toStarDream", List.of(
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon),
-                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
-                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
-                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                        Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon)
                 ));
                 put("toLightningIsland", List.of(
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("雷光灯塔").withStyle(CustomStyle.styleOfLightning),
-                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
-                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
-                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                        Component.literal("雷光灯塔").withStyle(CustomStyle.styleOfLightning)
                 ));
                 put("toEasternTower", List.of(
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk),
-                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
-                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
-                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                        Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk)
                 ));
                 put("toOriginalForest", List.of(
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("原始森林").withStyle(CustomStyle.styleOfForest),
-                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
-                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
-                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                        Component.literal("原始森林").withStyle(CustomStyle.styleOfForest)
                 ));
                 put("toMoontain", List.of(
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("望山据点").withStyle(CustomStyle.styleOfMoontain),
-                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
-                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
-                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                        Component.literal("望山据点").withStyle(CustomStyle.styleOfMoontain)
                 ));
                 put("toSakura", List.of(
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("绯樱村").withStyle(CustomStyle.styleOfSakura),
-                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
-                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
-                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                        Component.literal("绯樱村").withStyle(CustomStyle.styleOfSakura)
+                ));
+                put("toSunIsland", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("旭升岛").withStyle(CustomStyle.styleOfSunIsland)
                 ));
             }};
             if (nameToTextMap.containsKey(name)) {
@@ -266,139 +229,6 @@ public class TextCommand implements Command<CommandSourceStack> {
                 components.add(Component.literal("魔导师协会").withStyle(CustomStyle.styleOfMana));
             }
 
-            if (name.equals(StringUtils.TextType.LifeElement)) {
-                components.add(Component.literal("元素召唤").withStyle(CustomStyle.styleOfLife));
-                components.add(Component.literal("使用：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「生机元素碎片」").withStyle(CustomStyle.styleOfLife)));
-                components.add(Component.literal("尝试召唤：").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("原初生机元素").withStyle(CustomStyle.styleOfLife)));
-            }
-
-            if (name.equals(StringUtils.TextType.WaterElement)) {
-                components.add(Component.literal("元素召唤").withStyle(CustomStyle.styleOfWater));
-                components.add(Component.literal("使用：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「碧水元素碎片」").withStyle(CustomStyle.styleOfWater)));
-                components.add(Component.literal("尝试召唤：").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("原初碧水元素").withStyle(CustomStyle.styleOfWater)));
-            }
-
-            if (name.equals(StringUtils.TextType.FireElement)) {
-                components.add(Component.literal("元素召唤").withStyle(CustomStyle.styleOfFire));
-                components.add(Component.literal("使用：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「炽焰元素碎片」").withStyle(CustomStyle.styleOfFire)));
-                components.add(Component.literal("尝试召唤：").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("原初炽焰元素").withStyle(CustomStyle.styleOfFire)));
-            }
-
-            if (name.equals(StringUtils.TextType.StoneElement)) {
-                components.add(Component.literal("元素召唤").withStyle(CustomStyle.styleOfStone));
-                components.add(Component.literal("使用：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「层岩元素碎片」").withStyle(CustomStyle.styleOfStone)));
-                components.add(Component.literal("尝试召唤：").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("原初层岩元素").withStyle(CustomStyle.styleOfStone)));
-            }
-
-            if (name.equals(StringUtils.TextType.IceElement)) {
-                components.add(Component.literal("元素召唤").withStyle(CustomStyle.styleOfIce));
-                components.add(Component.literal("使用：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「凛冰元素碎片」").withStyle(CustomStyle.styleOfIce)));
-                components.add(Component.literal("尝试召唤：").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("原初凛冰元素").withStyle(CustomStyle.styleOfIce)));
-            }
-
-            if (name.equals(StringUtils.TextType.LightningElement)) {
-                components.add(Component.literal("元素召唤").withStyle(CustomStyle.styleOfLightning));
-                components.add(Component.literal("使用：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「怒雷元素碎片」").withStyle(CustomStyle.styleOfLightning)));
-                components.add(Component.literal("尝试召唤：").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("原初怒雷元素").withStyle(CustomStyle.styleOfLightning)));
-            }
-
-            if (name.equals(StringUtils.TextType.WindElement)) {
-                components.add(Component.literal("元素召唤").withStyle(CustomStyle.styleOfWind));
-                components.add(Component.literal("使用：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「澄风元素碎片」").withStyle(CustomStyle.styleOfWind)));
-                components.add(Component.literal("尝试召唤：").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("原初澄风元素").withStyle(CustomStyle.styleOfWind)));
-            }
-
-            if (name.equals(StringUtils.TextType.LifeElementResonance)) {
-                components.add(Component.literal("生机元素祭坛").withStyle(CustomStyle.styleOfLife));
-                components.add(Component.literal(" "));
-                components.add(Component.literal("右键以共鸣：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「生机元素」").withStyle(CustomStyle.styleOfLife)));
-
-                int levelRequire = 10;
-                components.add(Component.literal("等级需求:").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
-            }
-
-            if (name.equals(StringUtils.TextType.WaterElementResonance)) {
-                components.add(Component.literal("碧水元素祭坛").withStyle(CustomStyle.styleOfWater));
-                components.add(Component.literal(" "));
-                components.add(Component.literal("右键以共鸣：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「碧水元素」").withStyle(CustomStyle.styleOfWater)));
-
-                int levelRequire = 25;
-                components.add(Component.literal("等级需求:").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
-            }
-
-            if (name.equals(StringUtils.TextType.FireElementResonance)) {
-                components.add(Component.literal("炽焰元素祭坛").withStyle(CustomStyle.styleOfFire));
-                components.add(Component.literal(" "));
-                components.add(Component.literal("右键以共鸣：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「炽焰元素」").withStyle(CustomStyle.styleOfFire)));
-
-                int levelRequire = 32;
-                components.add(Component.literal("等级需求:").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
-            }
-
-            if (name.equals(StringUtils.TextType.StoneElementResonance)) {
-                components.add(Component.literal("层岩元素祭坛").withStyle(CustomStyle.styleOfStone));
-                components.add(Component.literal(" "));
-                components.add(Component.literal("右键以共鸣：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「层岩元素」").withStyle(CustomStyle.styleOfStone)));
-
-                int levelRequire = 40;
-                components.add(Component.literal("等级需求:").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
-            }
-
-            if (name.equals(StringUtils.TextType.IceElementResonance)) {
-                components.add(Component.literal("凛冰元素祭坛").withStyle(CustomStyle.styleOfIce));
-                components.add(Component.literal(" "));
-                components.add(Component.literal("右键以共鸣：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「凛冰元素」").withStyle(CustomStyle.styleOfIce)));
-
-                int levelRequire = 40;
-                components.add(Component.literal("等级需求:").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
-            }
-
-            if (name.equals(StringUtils.TextType.WindElementResonance)) {
-                components.add(Component.literal("澄风元素祭坛").withStyle(CustomStyle.styleOfWind));
-                components.add(Component.literal(" "));
-                components.add(Component.literal("右键以共鸣：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「澄风元素」").withStyle(CustomStyle.styleOfWind)));
-
-                int levelRequire = 70;
-                components.add(Component.literal("等级需求:").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
-            }
-
-            if (name.equals(StringUtils.TextType.LightningElementResonance)) {
-                components.add(Component.literal("怒雷元素祭坛").withStyle(CustomStyle.styleOfLightning));
-                components.add(Component.literal(" "));
-                components.add(Component.literal("右键以共鸣：").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal("「怒雷元素」").withStyle(CustomStyle.styleOfLightning)));
-
-                int levelRequire = 70;
-                components.add(Component.literal("等级需求:").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
-            }
-
             if (name.equals(StringUtils.TextType.BackEnd)) {
                 components.add(Component.literal("返回终末之地").withStyle(CustomStyle.styleOfEnd));
             }
@@ -410,6 +240,27 @@ public class TextCommand implements Command<CommandSourceStack> {
 
             if (name.equals("ToSunIsland")) {
                 components.add(Te.s("前往", "旭升岛", CustomStyle.styleOfSunIsland));
+            }
+
+            Style style = CustomStyle.DIVINE_STYLE;
+            Component divineName = Te.s("圣光岛", style);
+            Component countName = ComponentUtils.getRightAngleQuote("圣光辐照", style);
+            if (name.equals("SunIsland")) {
+                components.add(Te.s("在", divineName, "每击杀一只怪物，会获得一层", countName));
+                components.add(Te.s("至多叠加至", "1000层", style, "，每层", countName, "会使:"));
+                components.add(Te.s(" 1.", style, "受到的伤害提升", "1%", style));
+                components.add(Te.s(" 2.", style,
+                        ComponentUtils.AttributeDescription.getElementStrength(""), "减少", "0.1%", style));
+                components.add(Te.s(" 3.", style,
+                        ComponentUtils.getCommonDamageEnhance(""), "提升", "0.2%", style));
+                components.add(Te.s(" 受到怪物的伤害时，会减少5层", countName,
+                        "并损失", ComponentUtils.AttributeDescription.maxHealth("5%")));
+                components.add(Te.s(" 在脱离战斗60s后，每6s会减少10层", countName,
+                        "并损失", ComponentUtils.AttributeDescription.maxHealth("10%")));
+                components.add(Te.s(" 在", divineName, "击杀任意怪物，有", "10%", style, "触发", "圣光", style));
+                components.add(Te.s(" 在1s的延迟后，扣除一定范围内的玩家",
+                        ComponentUtils.AttributeDescription.health("")));
+                components.add(Te.s(" 在", divineName, "，使用鞘翅也将受到", "圣光", style, "的辐照"));
             }
 
             ArmorStandSummon(components, player);

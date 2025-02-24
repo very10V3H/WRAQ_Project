@@ -104,14 +104,10 @@ public class PlanMissionFinishedRequestC2SPacket {
                         ChatFormatting.RED,
                 };
 
-                Compute.formatBroad(serverPlayer.level(), Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                append(serverPlayer.getDisplayName()).
-                                append(Component.literal("在 ").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal(minuteDelta + "min").withStyle(chatFormattings[tier])).
-                                append(Component.literal(" 内完成了月卡任务，获得了: ").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal(level[tier]).withStyle(chatFormattings[tier])).
-                                append(Component.literal(" 评级！").withStyle(ChatFormatting.WHITE)));
+                Compute.sendFormatMSG(serverPlayer, Te.s("月卡任务", ChatFormatting.LIGHT_PURPLE),
+                        Te.s("你在 ", minuteDelta + "min", chatFormattings[tier],
+                                " 内完成了月卡任务，获得了: ", level[tier], chatFormattings[tier], " 评级!"));
+
 
                 PlanMission.planMissionAllowRequestTimeMap.remove(serverPlayer.getName().getString());
 

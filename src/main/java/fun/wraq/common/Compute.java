@@ -1642,7 +1642,8 @@ public class Compute {
                 Item item = equip.getItem();
                 if (!set.contains(item.getClass()) && Utils.passiveEquipTag.containsKey(item)
                         && map.containsKey(item)
-                        && (!Utils.levelRequire.containsKey(item) || Utils.levelRequire.get(item) <= player.experienceLevel)) {
+                        && (!Utils.levelRequire.containsKey(item)
+                        || Utils.levelRequire.get(item) <= player.experienceLevel)) {
                     if (item instanceof WraqMainHandOrPassiveEquip wraqMainHandOrPassiveEquip) {
                         if (!(player.getMainHandItem().is(item) && player.getInventory().selected >= 3)) {
                             double computeValue = 0;
@@ -1831,11 +1832,13 @@ public class Compute {
     }
 
     public static boolean playerIsInBattle(Player player) {
-        return StarBottle.playerLastBattleTick.containsKey(player) && StarBottle.playerLastBattleTick.get(player) + 100 > Tick.get();
+        return StarBottle.playerLastBattleTick.containsKey(player)
+                && StarBottle.playerLastBattleTick.get(player) + 100 > Tick.get();
     }
 
     public static boolean playerIsInBattle(Player player, int tick) {
-        return StarBottle.playerLastBattleTick.containsKey(player) && StarBottle.playerLastBattleTick.get(player) + tick > Tick.get();
+        return StarBottle.playerLastBattleTick.containsKey(player)
+                && StarBottle.playerLastBattleTick.get(player) + tick > Tick.get();
     }
 
 /*    public static String getItemStackString(ItemStack itemStack) {
@@ -2159,5 +2162,24 @@ public class Compute {
 
         // 制造粒子
         ParticleProvider.createSpaceEffectParticle(boss.level(), pos, radius, 100, style, lastTick);
+    }
+
+    public interface CauseDamageToPlayer {
+        void causeDamage(Player player);
+    }
+
+    public static void createRangeEffectDot(Level level, Vec3 pos, double radius,
+                                            CauseDamageToPlayer cause, Style style,
+                                            int startTick, int trigTick, int lastTick) {
+        // 造成伤害
+        PersistentRangeEffect.addEffect(level, pos, radius, (effect -> {
+            Compute.getNearEntity(level, effect.center(), Player.class, radius)
+                    .stream().filter(e -> e instanceof Player)
+                    .map(e -> (Player) e)
+                    .forEach(cause::causeDamage);
+        }), startTick, trigTick, startTick + lastTick);
+
+        // 制造粒子
+        ParticleProvider.createSpaceEffectParticle(level, pos, radius, 100, style, lastTick);
     }
 }

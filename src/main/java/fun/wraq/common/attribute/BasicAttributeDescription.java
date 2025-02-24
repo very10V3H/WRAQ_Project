@@ -14,6 +14,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.process.system.forge.ForgeTemplate;
 import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.render.toolTip.NewTooltip;
@@ -70,6 +71,9 @@ public class BasicAttributeDescription {
             Style style = styles[Math.min(3, Math.max(0, (forgeLevel - 1) / 8))];
 
             index++;
+            if (item instanceof ForgeTemplate) {
+                --index;
+            }
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(Component.literal(" 强化等级 ").withStyle(CustomStyle.styleOfPower).
                     append(Component.literal("" + forgeLevel).withStyle(style)), TraditionalTooltip.forge)));
         }

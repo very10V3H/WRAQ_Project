@@ -48,6 +48,7 @@ public class ElementValue {
         value += mainHandEquipValue(player.getMainHandItem().getItem(), elementValueMap);
         value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, elementValueMap);
         value += DivineWeaponCommon.getEnhanceElementValue(player, type);
+        value *= (1 + PlayerAttributes.getElementStrength(player));
         return value;
     }
 

@@ -98,14 +98,9 @@ public class ReputationMissionFinishedRequestC2SPacket {
                         ChatFormatting.RED,
                 };
 
-                Compute.formatBroad(serverPlayer.level(), Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
-                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                append(serverPlayer.getDisplayName()).
-                                append(Component.literal("在 ").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal(minuteDelta + "min").withStyle(chatFormattings[tier])).
-                                append(Component.literal(" 内完成了悬赏任务，获得了: ").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal(Level[tier]).withStyle(chatFormattings[tier])).
-                                append(Component.literal(" 评级！").withStyle(ChatFormatting.WHITE)));
+                Compute.sendFormatMSG(serverPlayer, Te.s("任务", CustomStyle.styleOfKaze),
+                        Te.s("你在 ", minuteDelta + "min", chatFormattings[tier],
+                                " 内完成了悬赏任务，获得了: ", Level[tier], chatFormattings[tier], " 评级!"));
 
                 Utils.playerReputationMissionAllowRequestTime.remove(serverPlayer.getName().getString());
                 if (Utils.playerReputationMissionPunishLevel.containsKey(serverPlayer.getName().getString()) && Utils.playerReputationMissionPunishLevel.get(serverPlayer.getName().getString()) > 0) {

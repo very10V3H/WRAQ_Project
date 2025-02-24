@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 32;
+    public static int rewardNum = 33;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -29,7 +29,9 @@ public class CompensateCommand implements Command<CommandSourceStack> {
             data.putBoolean(singleReward, true);
             if (player.experienceLevel >= 75) {
                 ItemStack itemStack = new ItemStack(ModItems.supplyBoxTier2.get(), 1);
+                ItemStack endCrystal = new ItemStack(ModItems.EndCrystal.get(), 8);
                 InventoryOperation.giveItemStackWithMSG(player, itemStack);
+                InventoryOperation.giveItemStackWithMSG(player, endCrystal);
             }
             Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                     Component.literal("你成功领取了补偿!").withStyle(ChatFormatting.AQUA));

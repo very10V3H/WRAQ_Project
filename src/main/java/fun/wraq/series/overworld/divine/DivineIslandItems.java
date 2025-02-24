@@ -6,6 +6,9 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import fun.wraq.series.overworld.divine.equip.armor.DivineArmor;
 import fun.wraq.series.overworld.divine.equip.boss.DivineKnife;
+import fun.wraq.series.overworld.divine.equip.passive.GhastlyBow;
+import fun.wraq.series.overworld.divine.equip.passive.GhastlySceptre;
+import fun.wraq.series.overworld.divine.equip.passive.GhastlySword;
 import fun.wraq.series.overworld.divine.equip.weapon.DivineBow;
 import fun.wraq.series.overworld.divine.equip.weapon.DivineSceptre;
 import fun.wraq.series.overworld.divine.equip.weapon.DivineSword;
@@ -22,8 +25,25 @@ public class DivineIslandItems {
 
     public static final RegistryObject<Item> DIVINE_SOUL = ITEMS.register("divine_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_RARITY)));
-    public static final RegistryObject<Item> DIVINE_RUNE = ITEMS.register("divine_rune",
+    public static final RegistryObject<Item> DIVINE_ARROW = ITEMS.register("divine_arrow",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_RARITY)));
+    public static final RegistryObject<Item> DIVINE_GOLEM_SOUL = ITEMS.register("divine_golem_soul",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_RARITY)));
+    public static final RegistryObject<Item> DIVINE_RUNE_ARMOR = ITEMS.register("divine_rune_armor",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY)));
+    public static final RegistryObject<Item> DIVINE_RUNE_WEAPON = ITEMS.register("divine_rune_weapon",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY)));
+    public static final RegistryObject<Item> DIVINE_CRYSTAL = ITEMS.register("divine_crystal",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY)));
+
+    public static final RegistryObject<Item> GHASTLY_NUGGET = ITEMS.register("ghastly_nugget",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GHASTLY_RARITY)));
+    public static final RegistryObject<Item> GHASTLY_GUN_POWDER = ITEMS.register("ghastly_gun_powder",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GHASTLY_RARITY)));
+    public static final RegistryObject<Item> GHASTLY_SOUL = ITEMS.register("ghastly_soul",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GHASTLY_RARITY)));
+    public static final RegistryObject<Item> GHASTLY_INGOT = ITEMS.register("ghastly_ingot",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GHASTLY_BOLD_RARITY)));
 
     public static final RegistryObject<Item> DIVINE_SWORD_0 = ITEMS.register("divine_sword_0",
             () -> new DivineSword(
@@ -34,6 +54,13 @@ public class DivineIslandItems {
     public static final RegistryObject<Item> DIVINE_SCEPTRE_0 = ITEMS.register("divine_sceptre_0",
             () -> new DivineSceptre(
                     new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.2, 0.2, 3000, 20));
+
+    public static final RegistryObject<Item> GHASTLY_SWORD = ITEMS.register("ghastly_sword",
+            () -> new GhastlySword(new Item.Properties().rarity(CustomStyle.GHASTLY_ITALIC_RARITY)));
+    public static final RegistryObject<Item> GHASTLY_BOW = ITEMS.register("ghastly_bow",
+            () -> new GhastlyBow(new Item.Properties().rarity(CustomStyle.GHASTLY_ITALIC_RARITY)));
+    public static final RegistryObject<Item> GHASTLY_SCEPTRE = ITEMS.register("ghastly_sceptre",
+            () -> new GhastlySceptre(new Item.Properties().rarity(CustomStyle.GHASTLY_ITALIC_RARITY)));
 
     public static final RegistryObject<Item> DIVINE_HELMET_0 = ITEMS.register("divine_helmet_0",
             () -> new DivineArmor(ModArmorMaterials.DIVINE, ArmorItem.Type.HELMET,
@@ -105,9 +132,4 @@ public class DivineIslandItems {
 
     public static final RegistryObject<Item> DIVINE_KNIFE = ITEMS.register("divine_knife",
             () -> new DivineKnife(new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY)));
-
-    public static final RegistryObject<Item> GHASTLY_SOUL = ITEMS.register("ghastly_soul",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GHASTLY_RARITY)));
-    public static final RegistryObject<Item> GHASTLY_RUNE = ITEMS.register("ghastly_rune",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GHASTLY_BOLD_RARITY)));
 }
