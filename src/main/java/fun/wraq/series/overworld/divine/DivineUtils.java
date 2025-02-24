@@ -55,7 +55,8 @@ public class DivineUtils {
     }
 
     public static boolean isInDivineIsland(Player player) {
-        return player.getX() > 2000 && player.getX() < 2730
+        return player.level().dimension().equals(Level.OVERWORLD)
+                && player.getX() > 2000 && player.getX() < 2730
                 && player.getZ() > 170 && player.getZ() < 920;
     }
 

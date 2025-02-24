@@ -1,12 +1,12 @@
 package fun.wraq.events.client;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.particles.ModParticles;
+import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleOptions;
@@ -55,8 +55,7 @@ public class ParticleEvent {
                 }
             }
 
-            if (isInOverWorld && Compute.isEntityInTwoPoint(player,
-                    new Vec3(2218, -100, 749), new Vec3(2348, 320, 875))) {
+            if (isInOverWorld && DivineUtils.isInDivineIsland(player)) {
                 for (int i = 0; i < 75; i++) {
                     level.addParticle(ParticleTypes.END_ROD,
                             player.getX() + random.nextInt(100) - 50,
