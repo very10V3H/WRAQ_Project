@@ -49,8 +49,6 @@ import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
-import fun.wraq.series.events.SpecialEventItems;
-import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.mob.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
@@ -368,10 +366,6 @@ public class MobSpawn {
     public static void drop(Mob mob, Player player) {
         int xpLevel = getMobXpLevel(mob);
 
-        if (RandomUtils.nextDouble(0, 1) < 0.01) {
-            InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.MONEY.get());
-            FireworkGun.summonFireWork(mob.level(), mob.getEyePosition());
-        }
         if (RandomUtils.nextInt(0, 10000) < 100) {
             InventoryOperation.giveItemStack(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }

@@ -115,9 +115,20 @@ public class MobInfoGui extends Screen {
                 guiGraphics.drawCenteredString(font, mobInfo.name, this.width / 2 - 100,
                         this.height / 2 - 73 + 32 * i,0);
                 guiGraphics.drawCenteredString(font, Te.s("「掉落物表」", ChatFormatting.AQUA),
-                        this.width / 2 , this.height / 2 - 73 + 32 * i,0);
+                        this.width / 2, this.height / 2 - 73 + 32 * i,0);
+                if (mobInfo.introduction != null) {
+                    guiGraphics.drawCenteredString(font, Te.s("「特殊机制」", ChatFormatting.RED),
+                            this.width / 2 + 100, this.height / 2 - 73 + 32 * i,0);
+                    if (x > this.width / 2 + 100 - 20 && x < this.width / 2 + 100 + 20
+                            && y > this.height / 2 - 73 + 32 * i - 4 && y < this.height / 2 - 73 + 32 * i + 8) {
+                        List<Component> description = new ArrayList<>();
+                        description.add(Te.s("特殊机制", ChatFormatting.RED));
+                        description.addAll(mobInfo.introduction);
+                        guiGraphics.renderComponentTooltip(fontRenderer, description, x, y);
+                    }
+                }
                 if (x > this.width / 2 - 20 && x < this.width / 2 + 20
-                        && y > this.height / 2 - 73 + 32 * i && y < this.height / 2 - 73 + 32 * i + 8) {
+                        && y > this.height / 2 - 73 + 32 * i - 4 && y < this.height / 2 - 73 + 32 * i + 8) {
                     List<Component> description = new ArrayList<>();
                     description.add(Te.s("掉落物及其概率:"));
                     mobInfo.dropList.forEach(itemAndRate -> {
@@ -156,48 +167,26 @@ public class MobInfoGui extends Screen {
         return false;
     }
 
-    public record MobInfo(Component name, int mobLevel, List<ItemAndRate> dropList) {}
+    public record MobInfo(Component name, int mobLevel, List<ItemAndRate> dropList, List<Component> introduction) {}
 
     public static List<MobInfo> mobInfoList = new ArrayList<>();
 
     public List<MobInfo> getMobInfoList() {
         if (mobInfoList.isEmpty()) {
-            NoTeamInstanceModule.noTeamInstancesOverworld.forEach(noTeamInstance -> {
+            NoTeamInstanceModule.getAllInstance().forEach(noTeamInstance -> {
                 mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
                         Te.s("Lv." + noTeamInstance.level + " ", Utils.levelStyleList.get(noTeamInstance.level / 25)),
-                        noTeamInstance.name), noTeamInstance.level, noTeamInstance.getRewardList()));
+                        noTeamInstance.name), noTeamInstance.level,
+                        noTeamInstance.getRewardList(), noTeamInstance.getIntroduction()));
             });
-            NoTeamInstanceModule.noTeamInstancesNether.forEach(noTeamInstance -> {
-                mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
-                        Te.s("Lv." + noTeamInstance.level + " ", Utils.levelStyleList.get(noTeamInstance.level / 25)),
-                        noTeamInstance.name), noTeamInstance.level, noTeamInstance.getRewardList()));
-            });
-            NoTeamInstanceModule.noTeamInstancesEnd.forEach(noTeamInstance -> {
-                mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
-                        Te.s("Lv." + noTeamInstance.level + " ", Utils.levelStyleList.get(noTeamInstance.level / 25)),
-                        noTeamInstance.name), noTeamInstance.level, noTeamInstance.getRewardList()));
-            });
-            if (MobSpawn.overWolrdList.isEmpty()) MobSpawn.setOverWorldList(Minecraft.getInstance().level);
-            MobSpawn.overWolrdList.forEach(mobSpawnController -> {
+            MobSpawn.getAllControllers(false).forEach(mobSpawnController -> {
                 mobInfoList.add(new MobInfo(Te.s("Lv." + mobSpawnController.averageLevel + " ",
                         Utils.levelStyleList.get(mobSpawnController.averageLevel / 25), mobSpawnController.mobName),
-                        mobSpawnController.averageLevel, mobSpawnController.getDropList()));
-            });
-            if (MobSpawn.netherList.isEmpty()) MobSpawn.setNetherList(Minecraft.getInstance().level);
-            MobSpawn.netherList.forEach(mobSpawnController -> {
-                mobInfoList.add(new MobInfo(Te.s("Lv." + mobSpawnController.averageLevel + " ",
-                        Utils.levelStyleList.get(mobSpawnController.averageLevel / 25), mobSpawnController.mobName), mobSpawnController.averageLevel,
-                        mobSpawnController.getDropList()));
-            });
-            if (MobSpawn.endList.isEmpty()) MobSpawn.setEndList(Minecraft.getInstance().level);
-            MobSpawn.endList.forEach(mobSpawnController -> {
-                mobInfoList.add(new MobInfo(Te.s("Lv." + mobSpawnController.averageLevel + " ",
-                        Utils.levelStyleList.get(mobSpawnController.averageLevel / 25), mobSpawnController.mobName), mobSpawnController.averageLevel,
-                        mobSpawnController.getDropList()));
+                        mobSpawnController.averageLevel, mobSpawnController.getDropList(), null));
             });
             NewTeamInstanceHandler.instances.forEach(newTeamInstance -> {
                 mobInfoList.add(new MobInfo(newTeamInstance.description, newTeamInstance.levelRequire,
-                        newTeamInstance.getRewardList()));
+                        newTeamInstance.getRewardList(), null));
             });
         }
         return mobInfoList;

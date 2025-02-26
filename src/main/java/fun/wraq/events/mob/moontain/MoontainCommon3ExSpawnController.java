@@ -64,7 +64,7 @@ public class MoontainCommon3ExSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(senorPumpkinEntity, xpLevel, 2600, 170,
-                170, 0.4, 5, 0.3, 70, 20,
+                170, 0.4, 3, 0.3, 70, 20,
                 450 * Math.pow(10, 4), 0.45);
 
         // 设置物品

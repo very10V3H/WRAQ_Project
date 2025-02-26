@@ -60,7 +60,7 @@ public class EndermiteSpawnController extends MobSpawnController {
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(endermite), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(endermite, 1200, 100, 100,
-                0.45, 5, 0.3, 30, 25,
+                0.45, 3, 0.3, 30, 25,
                 32 * Math.pow(10, 4), 0.4);
 
         // 设置物品

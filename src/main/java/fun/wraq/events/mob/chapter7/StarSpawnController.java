@@ -59,7 +59,8 @@ public class StarSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(vex), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, 2500, 180, 180, 0.4, 4, 0.3, 70, 20, 500 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, 2500, 180, 180, 0.4,
+                3, 0.3, 70, 20, 500 * Math.pow(10, 4), 0.35);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

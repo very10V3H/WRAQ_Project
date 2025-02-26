@@ -59,7 +59,7 @@ public class GhastlyCreeperSpawnController extends MobSpawnController {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
                 11000, 700, 700,
-                0.4, 5, 0.6, 500, 25,
+                0.4, 3, 0.6, 500, 25,
                 7000 * Math.pow(10, 4), 0.6);
         // 设置掉落
         List<ItemAndRate> list = getDropList();

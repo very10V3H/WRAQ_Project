@@ -336,4 +336,8 @@ public abstract class NoTeamInstance {
     public int getMaxPlayerNum() {
         return 4;
     }
+
+    public List<Component> getIntroduction() {
+        return null;
+    }
 }

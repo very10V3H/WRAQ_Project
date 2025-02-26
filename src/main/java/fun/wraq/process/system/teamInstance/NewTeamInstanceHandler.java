@@ -2,7 +2,6 @@ package fun.wraq.process.system.teamInstance;
 
 import fun.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
 import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
-import fun.wraq.process.system.teamInstance.instances.spring.SpringSnakeInstance;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +22,6 @@ public class NewTeamInstanceHandler {
         if (instances.isEmpty()) {
             instances.add(NewCastleInstance.getInstance());
             instances.add(HarbingerInstance.getInstance());
-            instances.add(SpringSnakeInstance.getInstance());
         }
         return instances;
     }

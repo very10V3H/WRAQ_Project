@@ -53,7 +53,7 @@ public class MoontainBoss1Instance extends NoTeamInstance {
         double maxHealth = 750 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 200);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 2800, 240, 240,
-                0.4, 5, 0.4, 70, 0,
+                0.4, 3, 0.4, 70, 0,
                 maxHealth, 0.45);
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);

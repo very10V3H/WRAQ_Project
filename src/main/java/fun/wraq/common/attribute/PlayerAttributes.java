@@ -554,7 +554,6 @@ public class PlayerAttributes {
 
         int tier = PlanPlayer.getPlayerTier(player);
         expUp += new double[]{0, 1, 2, 3}[tier];
-        expUp += 2; // 新春活动
 
         // 请在上方添加
         double exRate = 0;

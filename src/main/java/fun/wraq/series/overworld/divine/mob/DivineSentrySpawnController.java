@@ -62,7 +62,7 @@ public class DivineSentrySpawnController extends MobSpawnController {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
                 9000, 600, 600,
-                0.4, 5, 0.6, 400, 25,
+                0.4, 3, 0.6, 400, 25,
                 5000 * Math.pow(10, 4), 0.4);
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);

@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -171,7 +172,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 240);
         double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3800, 360, 360,
-                0.4, 5, 0.6, 175, 0,
+                0.4, 3, 0.6, 175, 0,
                 maxHealth, 0.45);
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);
@@ -289,5 +290,14 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "MoontainBoss3";
+    }
+
+    @Override
+    public List<Component> getIntroduction() {
+        List<Component> components = new ArrayList<>();
+        components.add(Te.s("1.", style, "每2s对周围玩家造成混合伤害，并施加炼狱之火。"));
+        components.add(Te.s("2.", style, "每5s对距离最近的玩家施加5s的40%重伤效果，并降低40%造成伤害。"));
+        components.add(Te.s("3.", style, "每当生命值为0%，阻止死亡，削减附近玩家双抗，至多5次。"));
+        return components;
     }
 }

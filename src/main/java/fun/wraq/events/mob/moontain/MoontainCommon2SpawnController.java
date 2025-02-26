@@ -66,7 +66,7 @@ public class MoontainCommon2SpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(felsteedEntity, xpLevel, 2000, 145,
-                145, 0.4, 4, 0.3, 55, 20,
+                145, 0.4, 3, 0.3, 55, 20,
                 300 * Math.pow(10, 4), 0.4);
 
         // 设置物品

@@ -44,6 +44,8 @@ public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPo
             Utils.movementSpeedCommon.put(this, 0.1);
             Utils.maxHealth.put(this, 2000d);
         }
+        Utils.manaDamage.put(this, 120d);
+        Utils.critDamage.put(this, 0.05);
         Utils.levelRequire.put(this, 80);
     }
 

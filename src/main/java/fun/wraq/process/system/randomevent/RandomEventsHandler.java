@@ -1,14 +1,12 @@
 package fun.wraq.process.system.randomevent;
 
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.randomevent.impl.dig.DigBlockEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.multi.CaveSpiderMultiMobEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.multi.VillageAttack;
-import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.randomevent.impl.urgent.UrgentEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
@@ -35,7 +33,6 @@ public class RandomEventsHandler {
         randomEvents.addAll(getKillMobEvents());
         randomEvents.addAll(getUrgentEvents());
         randomEvents.addAll(getDigBlockEvents());
-        randomEvents.add(getSpringMobEvent());
     }
 
     public static List<RandomEvent> getRandomEvents() {
@@ -229,28 +226,6 @@ public class RandomEventsHandler {
         return digBlockEvents;
     }
 
-    public static SpringMobEvent springMobEvent;
-
-    public static SpringMobEvent getSpringMobEvent() {
-        if (springMobEvent == null) {
-            springMobEvent = new SpringMobEvent(Level.OVERWORLD, new Vec3(1364, 79, 44),
-                    List.of(
-                            Te.s("年兽", CustomStyle.styleOfPower, "即将登场!")
-                    ),
-                    List.of(
-                            Te.s("年兽", CustomStyle.styleOfPower, "已出现在",
-                                    "炼魔平原", CustomStyle.styleOfMana, "速速前往驱赶!")
-                    ),
-                    List.of(
-                            Te.s("年兽", CustomStyle.styleOfPower, "被赶跑了!")
-                    ),
-                    List.of(
-                            Te.s("年兽", CustomStyle.styleOfPower, "被赶跑了!")
-                    ), Tick.server, List.of(), null);
-        }
-        return springMobEvent;
-    }
-
     public static RandomEvent nextTimeEvent;
 
     public static int status = -1;
@@ -261,32 +236,13 @@ public class RandomEventsHandler {
                 .forEach(RandomEvent::handleTick);
         Calendar calendar = Calendar.getInstance();
         int minute = calendar.get(Calendar.MINUTE);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        if ((minute == 14 || minute == 44) && status != 0) {
+        if ((minute == 59 || minute == 29) && status != 0) {
             ready();
             status = 0;
         }
-        if ((minute == 15 || minute == 45) && status != 1 && nextTimeEvent != null) {
+        if ((minute == 0 || minute == 30) && status != 1 && nextTimeEvent != null) {
             begin();
             status = 1;
-        }
-
-        if (status != 2 && (hour == 10 && minute == 29 || hour == 14 && minute == 59 || hour == 16 && minute == 59
-                || hour == 18 && minute == 59 || hour == 19 && minute == 59 || hour == 20 && minute == 59
-                || hour == 21 && minute == 59 || hour == 22 && minute == 59)) {
-            nextTimeEvent = getSpringMobEvent();
-            if (!nextTimeEvent.readyAnnouncement.isEmpty()) {
-                nextTimeEvent.readyAnnouncement.forEach(component -> {
-                    nextTimeEvent.broad(component);
-                });
-            }
-            status = 2;
-        }
-        if (nextTimeEvent != null && status != 3 && (hour == 10 && minute == 30 || hour == 15 && minute == 0 || hour == 17 && minute == 0
-                || hour == 19 && minute == 0 || hour == 20 && minute == 0 || hour == 21 && minute == 0
-                || hour == 22 && minute == 0 || hour == 23 && minute == 0)) {
-            nextTimeEvent.begin();
-            status = 3;
         }
     }
 

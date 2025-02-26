@@ -78,11 +78,15 @@ public class AncientEchoGem extends WraqPassiveGem implements GemWithstandDamage
         }
     }
 
+    public static void clear(Player player) {
+        withstandDamageSumMap.remove(player);
+        Compute.removeDebuffTime(player, "item/warden_matrix");
+    }
+
     @Override
     public void onKill(Player player, Mob mob) {
-        withstandDamageSumMap.remove(player);
         Compute.playerHeal(player, (player.getMaxHealth() - player.getHealth() * recoverHealthRate[tier]));
-        Compute.removeDebuffTime(player, "item/warden_matrix");
+        clear(player);
     }
 
     @Override

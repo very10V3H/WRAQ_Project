@@ -21,7 +21,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
         this.tier = tier;
     }
 
-    public static int lastDay = 41;
+    public static int lastDay = 31;
 
     public static List<Component> tier1Description = new ArrayList<>() {{
         add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).

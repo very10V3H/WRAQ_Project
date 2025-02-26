@@ -114,7 +114,7 @@ public class Reason {
             serverLastReasonRecoverHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             Tick.server.getPlayerList().getPlayers().forEach(serverPlayer -> {
                 try {
-                    addOrCostPlayerReasonValue(serverPlayer, getPlayerReasonRecoverPerHour(serverPlayer) * 2);
+                    addOrCostPlayerReasonValue(serverPlayer, getPlayerReasonRecoverPerHour(serverPlayer));
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }

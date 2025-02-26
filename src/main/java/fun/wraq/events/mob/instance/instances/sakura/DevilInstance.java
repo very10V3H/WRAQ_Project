@@ -79,7 +79,7 @@ public class DevilInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
         double maxHealth = 50 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1700, 120, 120,
-                0.4, 4, 0.25, 50, 0,
+                0.4, 3, 0.25, 50, 0,
                 maxHealth, 0.35);
         zombie.setHealth(zombie.getMaxHealth());
         zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorDevilHelmet.get().getDefaultInstance());

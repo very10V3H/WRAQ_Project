@@ -221,7 +221,7 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.setMobCustomName(entity, Te.s(THE_WATCHER_NAME, CustomStyle.styleOfHarbinger), 260);
         double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 5000, 360,
-                360, 0.4, 5, 0.6, 300, 25,
+                360, 0.4, 3, 0.6, 300, 25,
                 maxHealth, 0.5);
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(entity), List.of(
                 new ItemAndRate(HarbingerItems.RAW_IRON_NUGGET.get(), 0.2)
@@ -236,7 +236,7 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.setMobCustomName(entity, Te.s(THE_PROWLER_NAME, CustomStyle.styleOfHarbinger), 260);
         double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 7500, 480,
-                480, 0.4, 5, 0.6, 350, 25,
+                480, 0.4, 3, 0.6, 350, 25,
                 maxHealth, 0.35);
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(entity), List.of(
                 new ItemAndRate(HarbingerItems.RAW_IRON_INGOT.get(), 0.2)
@@ -251,7 +251,7 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.setMobCustomName(entity, Te.s(THE_HARBINGER_NAME, CustomStyle.styleOfHarbinger), 260);
         double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 9000, 600, 600, 0.4,
-                5, 0.6, 400, 25,
+                3, 0.6, 400, 25,
                 maxHealth, 0.35);
         entity.moveTo(pos);
         return entity;
@@ -263,7 +263,7 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.setMobCustomName(entity, Te.s(THE_BLAZE_NAME, CustomStyle.styleOfHarbinger), 260);
         double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 7500, 480,
-                480, 0.4, 5, 0.6, 350, 25,
+                480, 0.4, 3, 0.6, 350, 25,
                 maxHealth, 0.35);
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(entity), List.of(
                 new ItemAndRate(HarbingerItems.RAW_IRON_INGOT.get(), 0.5)

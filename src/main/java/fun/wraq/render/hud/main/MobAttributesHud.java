@@ -87,7 +87,7 @@ public class MobAttributesHud {
 
                 RenderSystem.setShaderTexture(0, CRIT_RATE);
                 guiGraphics.blit(CRIT_RATE, standardX, standardY + 30, 0, 0, 12, 12, 12, 12);
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.mobCritRate)).withStyle(CustomStyle.styleOfCritRate),
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.mobCritRate * 100)).withStyle(CustomStyle.styleOfCritRate),
                         standardX + 24, standardY + 33, 0);
 
                 RenderSystem.setShaderTexture(0, DEFENCE_PENETRATION);
@@ -102,12 +102,12 @@ public class MobAttributesHud {
 
                 RenderSystem.setShaderTexture(0, HEALTH_STEAL);
                 guiGraphics.blit(HEALTH_STEAL, standardX + 48, standardY + 20, 0, 0, 12, 12, 12, 12);
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.mobHealthSteal)).withStyle(CustomStyle.styleOfHealthSteal),
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.mobHealthSteal * 100)).withStyle(CustomStyle.styleOfHealthSteal),
                         standardX + 72, standardY + 23, 0);
 
                 RenderSystem.setShaderTexture(0, CRIT_DAMAGE);
                 guiGraphics.blit(CRIT_DAMAGE, standardX + 48, standardY + 30, 0, 0, 12, 12, 12, 12);
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.mobCritDamage)).withStyle(CustomStyle.styleOfCritDamage),
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.mobCritDamage * 100)).withStyle(CustomStyle.styleOfCritDamage),
                         standardX + 72, standardY + 33, 0);
 
                 Map<String, String> typeLocationMap = new HashMap<>() {{

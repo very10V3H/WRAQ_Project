@@ -66,7 +66,8 @@ public class TreeSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(evoker), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(evoker, 2000, 130, 160, 0.4, 4, 0.25, 55, 20, 300 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(evoker, 2000, 130, 160, 0.4,
+                3, 0.25, 55, 20, 300 * Math.pow(10, 4), 0.35);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),

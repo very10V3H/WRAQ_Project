@@ -36,7 +36,7 @@ public class AncientCityWardenSpawn {
                 MobSpawn.setMobCustomName(warden, Te.s("古城守卫", CustomStyle.styleOfWarden), 260);
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), 260);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, 5000, 360, 360, 0.4,
-                        5, 0.6, 300, 25,
+                        3, 0.6, 300, 25,
                         5000 * Math.pow(10, 4), 0.35);
                 set.add(warden);
             }

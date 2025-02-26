@@ -96,6 +96,6 @@ public class HarbingerCurio extends WraqCurios implements RandomCurios, OnWithSt
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(HarbingerItems.HARBINGER_CURIO.get(), 5);
+        return new ItemStack(HarbingerItems.HARBINGER_INGOT.get(), 4);
     }
 }

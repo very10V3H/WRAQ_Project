@@ -1319,21 +1319,12 @@ public class Compute {
         Vec3 PosVec = targetPos.subtract(startPos).normalize();
         double Distance = targetPos.distanceTo(startPos);
         ParticleProvider.createLineParticle(level, (int) Distance * 5, startPos, targetPos, particleOptions);
-        List<Mob> mobList = new ArrayList<>();
-        for (double i = 0; i < Distance; i += 0.5) {
-            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(PosVec.scale(i)),
-                    0.5, 0.5, 0.5));
-            for (Mob mob : mobList1) {
-                if (!mobList.contains(mob)) mobList.add(mob);
-            }
-        }
-
         if (!Utils.playerLaserCoolDown.containsKey(Name.get(player))) {
             Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
         }
         Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(Name.get(player));
 
-        mobList.forEach(mob -> {
+        getPlayerRayMobList(player, 0.5, 0.5, Distance).forEach(mob -> {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
                 laserCoolDownMap.put(mob, TickCount + tickCoolDown);
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,

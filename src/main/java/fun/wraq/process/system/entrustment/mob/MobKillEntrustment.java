@@ -18,7 +18,6 @@ import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
@@ -512,13 +511,10 @@ public class MobKillEntrustment {
                     Compute.giveReputation(player, entrustmentReputationReward * rankExReputationRewardRate,
                             Te.s("职级奖励", CustomStyle.styleOfWorld));
                 }
-                Compute.giveReputation(player, entrustmentReputationReward * 0.5,
-                        Te.s("新春活动", CustomStyle.styleOfSpring));
-                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.MONEY.get(), 2);
 
                 Compute.givePercentExpToPlayer(player,
                         0.05 * (1 + rate) * (1 + getExRateOfReputation(getPlayerReputation(player))),
-                        2, player.experienceLevel);
+                        0, player.experienceLevel);
 
                 incrementDailyFinishedTimes(player, 1);
                 incrementTotalFinishedTimes(player, 1);

@@ -67,7 +67,7 @@ public class Ore3SpawnController extends MobSpawnController {
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1500, 110, 110, 0.4,
-                4, 0.25, 50, 20, 100 * Math.pow(10, 4), 0.35);
+                3, 0.25, 50, 20, 100 * Math.pow(10, 4), 0.35);
 
         zombie.setBaby(true);
         // 设置物品

@@ -175,7 +175,7 @@ public class DivineUtils {
                 Compute.createRangeEffectDot(player.level(), player.position(), 4, (eachPlayer -> {
                     Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1,
                             Te.s("被", "圣光辐照", style, "飞升"));
-                }), style, Tick.get() + 20, 3, 40);
+                }), style, Tick.get() + 20, 6, 80);
             }
         }
     }

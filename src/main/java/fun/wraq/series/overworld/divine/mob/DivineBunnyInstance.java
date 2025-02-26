@@ -25,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DivineBunnyInstance extends NoTeamInstance {
@@ -71,7 +72,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(mob, Component.literal(mobName).withStyle(style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 15000, 800, 800, 0.4,
-                5, 0.6, 600, 25, MAX_HEALTH, 0.3);
+                3, 0.6, 600, 25, MAX_HEALTH, 0.3);
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         mobList.add(mob);
@@ -101,8 +102,8 @@ public class DivineBunnyInstance extends NoTeamInstance {
 
     private double getDamageRate() {
         int holyLightCount = (int) players.stream().mapToInt(DivineUtils::getHolyLightCount).count();
-        if (holyLightCount < 1000) {
-            return (1000 - holyLightCount) / 100.0;
+        if (holyLightCount < 100) {
+            return (100 - holyLightCount) / 100.0;
         }
         return 1;
     }
@@ -143,5 +144,14 @@ public class DivineBunnyInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "DivineBunny";
+    }
+
+    @Override
+    public List<Component> getIntroduction() {
+        List<Component> components = new ArrayList<>();
+        components.add(Te.s("1.", style, "每3s对周围所有玩家造成基于最大生命值的魔法伤害。"));
+        components.add(Te.s("2.", style, "每5s随机选定一名玩家，在其位置生成一片持续伤害区域。"));
+        components.add(Te.s("3.", style, "当玩家的圣光辐照层数小于100层，对玩家的伤害提升(100 - 层数)%。"));
+        return components;
     }
 }

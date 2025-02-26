@@ -61,7 +61,7 @@ public class GhastlyHuskSpawnController extends MobSpawnController {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
                 12000, 750, 750,
-                0.4, 5, 0.6, 550, 25,
+                0.4, 3, 0.6, 550, 25,
                 8000 * Math.pow(10, 4), 0.4);
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);

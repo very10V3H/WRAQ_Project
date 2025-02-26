@@ -22,6 +22,8 @@ import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
+import fun.wraq.series.instance.series.harbinger.curio.HarbingerCurio;
 import fun.wraq.series.overworld.forging.ForgingStone0;
 import fun.wraq.series.overworld.forging.ForgingStone1;
 import fun.wraq.series.overworld.forging.ForgingStone2;
@@ -837,6 +839,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         }
 
         if (equip.getItem() instanceof Decomposable decomposable) {
+            if (equip.getItem() instanceof HarbingerCurio) {
+                CompoundTag tag = equip.getOrCreateTagElement(Utils.MOD_ID);
+                if (RandomCuriosAttributesUtil.attributeValueMap.keySet().stream().noneMatch(tag::contains)) {
+                    return false;
+                }
+            }
             ItemStack stack = decomposable.getProduct();
             if (decomposable.getProduct().getCount() * equip.getCount() > 64) {
                 return false;

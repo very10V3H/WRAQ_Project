@@ -8,7 +8,6 @@ import fun.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -68,7 +67,7 @@ public class PlanMissionFinishedRequestC2SPacket {
                 long minuteDelta = timeDelta / (1000 * 60);
                 if (minuteDelta >= 25) minuteDelta = 25;
                 int tier = 5 - (int) (minuteDelta / 5);
-                Compute.givePercentExpToPlayer(serverPlayer, 0.04 * tier, 2, serverPlayer.experienceLevel);
+                Compute.givePercentExpToPlayer(serverPlayer, 0.04 * tier, 0, serverPlayer.experienceLevel);
                 double reputationReward = tier * ((double) serverPlayer.experienceLevel / 20);
                 Compute.giveReputation(serverPlayer, reputationReward,
                         Te.s("月卡任务", ChatFormatting.LIGHT_PURPLE));
@@ -77,9 +76,6 @@ public class PlanMissionFinishedRequestC2SPacket {
                     Compute.giveReputation(serverPlayer, reputationReward * rankExReputationRewardRate,
                             Te.s("职级奖励", CustomStyle.styleOfWorld));
                 }
-                Compute.giveReputation(serverPlayer, reputationReward * 0.5,
-                        Te.s("新春活动", CustomStyle.styleOfSpring));
-                InventoryOperation.giveItemStackWithMSG(serverPlayer, SpecialEventItems.MONEY.get(), 1);
 
                 if (serverPlayer.experienceLevel == Compute.expGetUpperLimit) {
                     Compute.giveReputation(serverPlayer, tier,

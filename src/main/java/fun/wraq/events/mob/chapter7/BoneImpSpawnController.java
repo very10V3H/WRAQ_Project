@@ -68,7 +68,7 @@ public class BoneImpSpawnController extends MobSpawnController {
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 2800, 190, 190,
-                0.4, 4, 0.3, 70, 20,
+                0.4, 3, 0.3, 70, 20,
                 400 * Math.pow(10, 4), 0.4);
 
         // 设置物品

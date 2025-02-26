@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MushroomInstance extends NoTeamInstance {
@@ -99,7 +100,7 @@ public class MushroomInstance extends NoTeamInstance {
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 3750, 340, 340, 0.4,
-                5, 0.55, 160, 25, MAX_HEALTH, 0.45);
+                3, 0.55, 160, 25, MAX_HEALTH, 0.45);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
@@ -195,5 +196,16 @@ public class MushroomInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "MushroomBoss";
+    }
+
+    @Override
+    public List<Component> getIntroduction() {
+        List<Component> components = new ArrayList<>();
+        components.add(Te.s("1.", style, "每秒对所有玩家造成混合伤害。"));
+        components.add(Te.s("2.", style, "每2s选定一个随机玩家，在其位置制造一片孢子区域；"));
+        components.add(Te.s(" 在区域内的玩家会持续受到魔法伤害。"));
+        components.add(Te.s("3.", style, "每10s对所有玩家造成持续2s的禁锢效果。"));
+        components.add(Te.s("4.", style, "免疫90%非真实伤害。"));
+        return components;
     }
 }

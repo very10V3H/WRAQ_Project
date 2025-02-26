@@ -43,6 +43,8 @@ public class NetherArmor extends WraqArmor implements OnHitEffectEquip, ForgeIte
             Utils.movementSpeedCommon.put(this, 0.1);
             Utils.maxHealth.put(this, 3000d);
         }
+        Utils.attackDamage.put(this, 60d);
+        Utils.critDamage.put(this, 0.05);
         Utils.levelRequire.put(this, 80);
     }
 

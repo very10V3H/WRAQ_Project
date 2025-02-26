@@ -66,7 +66,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.curios.EndCrystal;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
-import fun.wraq.series.events.spring2025.Spring2025BossBar;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import fun.wraq.series.instance.quiver.WraqQuiver;
@@ -163,7 +162,6 @@ public class ServerPlayerTickEvent {
             WraqQuiver.handleServerPlayerTick(player);
             WraqMixture.handleServerPlayerTick(player);
             ManaNewSkillFinal0.handleServerPlayerTickEvent(serverPlayer);
-            Spring2025BossBar.handleServerPlayerTick(serverPlayer);
             MissionV2.handlePlayerTick(player);
             SpringMobEvent.handleServerPlayerTick(player);
             MobSpawn.handlePlayerTick(player);

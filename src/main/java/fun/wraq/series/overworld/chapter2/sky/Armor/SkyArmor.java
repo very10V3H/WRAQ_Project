@@ -39,6 +39,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
             Utils.movementSpeedCommon.put(this, 0.15);
             Utils.maxHealth.put(this, 2000d);
         }
+        Utils.attackDamage.put(this, 50d);
         Utils.levelRequire.put(this, 72);
     }
 

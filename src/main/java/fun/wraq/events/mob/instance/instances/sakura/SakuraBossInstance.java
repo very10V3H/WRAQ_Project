@@ -53,7 +53,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraBoss), 150);
         double maxHealth = 100 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, 1500, 110, 110,
-                0.4, 4, 0.25, 50, 0,
+                0.4, 3, 0.25, 50, 0,
                 maxHealth, 0.35);
 
         sakuraBoss.setHealth(sakuraBoss.getMaxHealth());

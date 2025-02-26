@@ -28,6 +28,7 @@ import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -147,6 +148,7 @@ public class VariousEvents {
             event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
             DivineUtils.setHolyLightCount(player, 0);
+            AncientEchoGem.clear(player);
         } else {
             ClientUtils.debuffTimes.clear();
         }

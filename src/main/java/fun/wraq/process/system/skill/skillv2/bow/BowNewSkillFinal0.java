@@ -22,7 +22,7 @@ public class BowNewSkillFinal0 extends SkillV2FinalSkill {
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         WraqQuiver.batchAddExShoot(player,
-                getRate(skillLevel) * getEnhanceRate(player), getArrowCount(skillLevel));
+                getRate(skillLevel) * (1 + getEnhanceRate(player)), getArrowCount(skillLevel));
     }
 
     private double getRate(int level) {

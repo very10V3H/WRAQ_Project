@@ -83,7 +83,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), this.level);
         double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 5000, 480, 480,
-                0.4, 5, 0.6, 225, 25,
+                0.4, 3, 0.6, 225, 25,
                 maxHealth, 0.35);
         entity.setHealth(entity.getMaxHealth());
 
@@ -146,7 +146,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(entity, Component.literal(ENDER_MITE_NAME).withStyle(CustomStyle.styleOfEnd), 250);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 250);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 4000, 360, 240, 0.4,
-                5, 0.4, 120, 25, 500 * Math.pow(10, 4), 0.4);
+                3, 0.4, 120, 25, 500 * Math.pow(10, 4), 0.4);
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         summonMobList.add(entity);
@@ -157,7 +157,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(entity, Component.literal(SHULKER_NAME).withStyle(CustomStyle.styleOfEnd), 250);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 250);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 4000, 240, 360, 0.4,
-                5, 0.4, 120, 25, 1000 * Math.pow(10, 4), 0.4);
+                3, 0.4, 120, 25, 1000 * Math.pow(10, 4), 0.4);
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         summonMobList.add(entity);
@@ -240,5 +240,19 @@ public class CitadelGuardianInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "CitadelGuardian";
+    }
+
+    @Override
+    public List<Component> getIntroduction() {
+        List<Component> components = new ArrayList<>();
+        components.add(Te.s("1.", style, "每5秒召唤4只末影螨 + 1只潜影贝;"));
+        components.add(Te.s(" 被末影螨攻击会获得持续2s的致盲;"));
+        components.add(Te.s(" 被潜影贝攻击会获得持续3s的沉默。"));
+        components.add(Te.s("2.", style, "当守卫的生命值低于50%时，破坏脚下的方块;"));
+        components.add(Te.s(" 并给所有玩家施加5s的重伤/减速。"));
+        components.add(Te.s("3.灾变神力:", style, "每当守卫的生命值减少10%，回复其9%最大生命值的血量。"));
+        components.add(Te.s("4.恃强凌弱", style, "被守卫攻击时，若其生命值低于40%，则获得1s的眩晕/重伤。"));
+        components.add(Te.s("5.影切割", style, "守卫生命值低于25%时，将直接斩杀附近生命值低于25%的玩家。"));
+        return components;
     }
 }

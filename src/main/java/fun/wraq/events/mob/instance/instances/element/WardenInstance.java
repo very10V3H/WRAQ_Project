@@ -105,7 +105,7 @@ public class WardenInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), XP_LEVEL);
         double maxHealth = 5000 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, 6500, 600, 600, 0.4,
-                5, 0.6, 300, 25, maxHealth, 0.35);
+                3, 0.6, 300, 25, maxHealth, 0.35);
         warden.setHealth(warden.getMaxHealth());
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 12000L);
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
@@ -375,7 +375,7 @@ public class WardenInstance extends NoTeamInstance {
         return 1;
     }
 
-    // 玩家之间应当保持距离，过近的距离将会使范围伤害叠加，容易暴毙。有20%几率造成持续3s的致盲与沉默
+    // 玩家之间应当保持距离，过近的距离将会使范围伤害叠加，容易暴毙
     public void commonAttack() {
         if (Tick.get() % 20 == 0) {
             players.forEach(player -> {
@@ -430,5 +430,22 @@ public class WardenInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "Warden";
+    }
+
+    @Override
+    public List<Component> getIntroduction() {
+        List<Component> components = new ArrayList<>();
+        components.add(Te.s("1.灾变神力:", style, "减少90%受到的伤害。"));
+        components.add(Te.s("2.循声:", style, "对普通攻击、施法的玩家造成低额伤害。"));
+        components.add(Te.s("3.", style, "当坚守者附近没有玩家时，会牵引所有玩家至其身边；"));
+        components.add(Te.s(" 并击碎所有玩家100%双抗，施加重伤，持续10s。"));
+        components.add(Te.s("4.", style, "当坚守者的生命值达50%时，会生成幽匿尖啸体(会有路径点提示)；"));
+        components.add(Te.s(" 若在20s内未摧毁所有方块，坚守者将回复满生命值(至多触发一次)。"));
+        components.add(Te.s("5.", style, "当坚守者生命值低于50%时，会召唤蝙蝠骷髅骑士。"));
+        components.add(Te.s("6.", style, "对处在潜行状态的玩家，将免疫坚守50%伤害；"));
+        components.add(Te.s(" 对于穿戴有望山防具的玩家，坚守者将减少其造成的50%伤害。"));
+        components.add(Te.s("7.", style, "每秒对所有玩家造成混合伤害；"));
+        components.add(Te.s(" 玩家之间应保持距离，过近的距离将会使该伤害叠加。"));
+        return components;
     }
 }

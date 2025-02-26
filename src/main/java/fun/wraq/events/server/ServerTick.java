@@ -12,7 +12,6 @@ import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.vp.VpDataHandler;
-import fun.wraq.series.events.spring2025.Spring2025BossBar;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -48,7 +47,6 @@ public class ServerTick {
             Reason.serverTick();
             AllayPet.handleServerTick();
             SputteringDamage.handleServerTick();
-            Spring2025BossBar.handleServerTick();
             if (tickCount % 100 == 97) {
                 Element.handleServerTick();
             }

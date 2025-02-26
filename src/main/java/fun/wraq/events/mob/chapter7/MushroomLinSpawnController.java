@@ -70,7 +70,7 @@ public class MushroomLinSpawnController extends MobSpawnController {
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 3000, 200, 200,
-                0.4, 5, 0.3, 75, 25,
+                0.4, 3, 0.3, 75, 25,
                 500 * Math.pow(10, 4), 0.4);
 
         // 设置物品

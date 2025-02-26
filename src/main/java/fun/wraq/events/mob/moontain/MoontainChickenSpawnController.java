@@ -68,7 +68,7 @@ public class MoontainChickenSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(chicken, xpLevel, 0, 190,
-                190, 0.4, 5, 0.3, 65, 25,
+                190, 0.4, 3, 0.3, 65, 25,
                 400 * Math.pow(10, 4), 0.1);
 
         // 设置物品

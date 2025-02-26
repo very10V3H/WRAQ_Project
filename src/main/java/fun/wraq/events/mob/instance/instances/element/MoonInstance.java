@@ -37,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
@@ -83,7 +84,7 @@ public class MoonInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 160);
         double maxHealth = 350 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 130, 130,
-                0.4, 4, 0.25, 55, 0,
+                0.4, 3, 0.25, 55, 0,
                 maxHealth, 0.3);
         attackMob.setHealth(attackMob.getMaxHealth());
         attackMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonAttack.get().getDefaultInstance());
@@ -107,7 +108,7 @@ public class MoonInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 160);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 130, 130,
-                0.4, 4, 0.25, 55, 0,
+                0.4, 3, 0.25, 55, 0,
                 maxHealth, 0.3);
         manaMob.setHealth(manaMob.getMaxHealth());
         manaMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonMana.get().getDefaultInstance());
@@ -309,5 +310,16 @@ public class MoonInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "MoonBoss";
+    }
+
+    @Override
+    public List<Component> getIntroduction() {
+        List<Component> components = new ArrayList<>();
+        Style style = CustomStyle.styleOfMoon;
+        components.add(Te.s("1.阴晴圆缺:", style, "天镜/明镜分别对最高/最低生命值百分比的玩家造成一次魔法伤害。"));
+        components.add(Te.s("2.月食:", style, "当天镜/明镜的生命值差距大于50%时，对所有玩家造成高额伤害。"));
+        components.add(Te.s("3.月引:", style, "从尘月宫上跌落，会受到一定魔法伤害。"));
+        components.add(Te.s("4.", style, "对天/明境的攻击，若在一定距离(6格以内/以外)外对其造成的伤害降低50%"));
+        return components;
     }
 }
