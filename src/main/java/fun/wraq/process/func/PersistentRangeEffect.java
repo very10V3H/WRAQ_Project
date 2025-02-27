@@ -5,13 +5,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public record PersistentRangeEffect(Level level, Vec3 center, double radius, LivingEntity livingEntity,
                                     PersistentRangeEffectOperation operation, int startTick, int trigTick, int stopTick) {
 
-    public static List<PersistentRangeEffect> effectList = new ArrayList<>();
+    public static List<PersistentRangeEffect> effectList = new CopyOnWriteArrayList<>();
 
     public static void addEffect(LivingEntity livingEntity, Vec3 targetPos, double radius,
                                  PersistentRangeEffectOperation operation, int trigTick, int lastTick) {

@@ -144,6 +144,7 @@ public class MobKillEntrustment {
         if (currentFinishedTime == 20) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get()));
+            InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), 2));
             formatMSG(Te.s(player.getDisplayName(), "今日完成了", "20", ChatFormatting.LIGHT_PURPLE, "次",
                     "委托任务", CustomStyle.styleOfWorld));
         }
