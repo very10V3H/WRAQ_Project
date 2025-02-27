@@ -5,7 +5,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
@@ -40,8 +39,11 @@ public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMo
 
     @Override
     public void onKill(Player player, Mob mob) {
-        ItemAndRate.summonItemEntity(MushroomItems.PARASITISM_GEM_MUSHROOM.get().getDefaultInstance(),
-                mob.getEyePosition(), mob.level(), 20);
+/*        ItemAndRate.summonItemEntity(MushroomItems.PARASITISM_GEM_MUSHROOM.get().getDefaultInstance(),
+                mob.getEyePosition(), mob.level(), 20);*/
+        StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerMaxHealthExValue,
+                PASSIVE_TAG, player.experienceLevel * 50,
+                Tick.get() + Tick.s(30), 10, "item/brown_mushroom");
     }
 
     public static final String PASSIVE_TAG = "MushroomParasitismGemPassive";
