@@ -1235,14 +1235,15 @@ public class Compute {
         return false;
     }
 
-    public static void RepelMob(Player player, Vec3 StartPos, double range, double rate, double scaleLimit) {
+    public static void repelMob(Player player, Vec3 StartPos, double range, double rate, double scaleLimit) {
         List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,
                 AABB.ofSize(StartPos, 20, 20, 20));
         mobList.forEach(mob -> {
             Vec3 PosVec = mob.position().subtract(StartPos);
             if (PosVec.length() <= range) {
-                if (!MonsterCantBeMove(mob))
+                if (!MonsterCantBeMove(mob)) {
                     mob.setDeltaMovement(PosVec.normalize().scale(Math.min(scaleLimit, rate / PosVec.length())));
+                }
             }
         });
     }
@@ -1897,6 +1898,13 @@ public class Compute {
     public static List<? extends Entity> getNearEntity(Level level, Vec3 center, Class<? extends Entity> type, double distance) {
         List<? extends Entity> list = level.getEntitiesOfClass(type, AABB.ofSize(center, distance * 2, distance * 2, distance * 2));
         return list.stream().filter(e -> e.position().distanceTo(center) <= distance).toList();
+    }
+
+    public static List<Mob> getNearMob(Entity center, double distance) {
+        return getNearEntity(center, Mob.class, distance).stream()
+                .filter(entity -> entity instanceof Mob)
+                .map(entity -> (Mob) entity)
+                .toList();
     }
 
     public static void sendMobEffectHudToNearPlayer(Mob mob, Item icon, String tag, int lastTick, int level, boolean forever) {

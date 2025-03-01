@@ -1961,6 +1961,34 @@
   "item.vmd.special_bond": "联合研院特别发行债券",
   "item.vmd.golden_beans": "金豆",
 
+  "item.vmd.bunker_soul": "凝熔岩屑",
+  "item.vmd.bunker_rune": "凝熔岩锭",
+  "item.vmd.bunker_boss_soul": "流金",
+  "item.vmd.bunker_boss_rune": "固金之核",
+
+  "item.vmd.bunker_sword": "熔锋",
+  "item.vmd.bunker_bow": "熔弦",
+  "item.vmd.bunker_sceptre": "熔烛",
+
+  "item.vmd.bunker_shield": "鎏金手盾 - 隐月熔心",
+  "item.vmd.bunker_knife": "鎏金匕首 - 隐月熔心",
+  "item.vmd.bunker_book": "鎏金魔典 - 隐月熔心",
+
+  "item.vmd.bunker_curio_0": "熔融之心 - 白灼",
+  "item.vmd.bunker_curio_1": "熔融之心 - 炽热",
+
+  "item.vmd.bunker_attack_crest_0": "熔痕 - I",
+  "item.vmd.bunker_attack_crest_1": "熔痕 - II",
+  "item.vmd.bunker_attack_crest_2": "熔痕 - III",
+  "item.vmd.bunker_attack_crest_3": "熔痕 - IV",
+  "item.vmd.bunker_attack_crest_4": "熔痕 - V",
+
+  "item.vmd.bunker_mana_crest_0": "熔迹 - I",
+  "item.vmd.bunker_mana_crest_1": "熔迹 - II",
+  "item.vmd.bunker_mana_crest_2": "熔迹 - III",
+  "item.vmd.bunker_mana_crest_3": "熔迹 - IV",
+  "item.vmd.bunker_mana_crest_4": "熔迹 - V",
+
   "item.vmd.smith_book": "初等工匠学",
   "item.vmd.smith_stone": "匠人精钢",
   "item.vmd.smith_stone_hammer": "匠人石锤",

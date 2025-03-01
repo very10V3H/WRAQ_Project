@@ -16,6 +16,7 @@ import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.divine.mob.DivineBunnyInstance;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -48,6 +49,7 @@ public class NoTeamInstanceModule {
         public static final String enderGuardian = "allowRewardEnderGuardian";
         public static final String warden = "allowRewardWarden";
         public static final String harbinger = "allowRewardHarbinger";
+        public static final String bunker = "allowRewardBunker";
     }
 
     public static class AllowRewardCondition {
@@ -85,6 +87,7 @@ public class NoTeamInstanceModule {
         add(MushroomInstance.getInstance());
         add(ManaTowerInstance.getInstance());
         add(DivineBunnyInstance.getInstance());
+        add(BunkerInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{

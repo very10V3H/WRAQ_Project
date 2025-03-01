@@ -19,6 +19,7 @@ import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.resources.ResourceLocation;
@@ -69,6 +70,7 @@ public class TradeList {
 
         springEvent();
         divineIsland();
+        bunker();
 
         /* 1.0 */
 
@@ -3235,5 +3237,103 @@ public class TradeList {
                 List.of(new ItemStack(DivineIslandItems.GHASTLY_NUGGET.get(), 10),
                         new ItemStack(DivineIslandItems.GHASTLY_SOUL.get(), 15),
                         new ItemStack(DivineIslandItems.GHASTLY_GUN_POWDER.get(), 15)));
+    }
+
+    public static void bunker() {
+        ItemStack bunkerRune = new ItemStack(BunkerItems.BUNKER_RUNE.get());
+        ItemStack bunkerBossRune = new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get());
+
+        ItemStack bunkerAttackCrest0 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_0.get());
+        ItemStack bunkerAttackCrest1 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_1.get());
+        ItemStack bunkerAttackCrest1_E = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_1.get());
+        ItemStack bunkerAttackCrest2 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_2.get());
+        ItemStack bunkerAttackCrest2_E = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_2.get());
+        ItemStack bunkerAttackCrest3 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_3.get());
+        ItemStack bunkerAttackCrest3_E = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_3.get());
+        ItemStack bunkerAttackCrest4 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_4.get());
+        ItemStack bunkerAttackCrest4_E = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_4.get());
+
+        ItemStack bunkerManaCrest0 = new ItemStack(BunkerItems.BUNKER_MANA_CREST_0.get());
+        ItemStack bunkerManaCrest1 = new ItemStack(BunkerItems.BUNKER_MANA_CREST_1.get());
+        ItemStack bunkerManaCrest1_E = new ItemStack(BunkerItems.BUNKER_MANA_CREST_1.get());
+        ItemStack bunkerManaCrest2 = new ItemStack(BunkerItems.BUNKER_MANA_CREST_2.get());
+        ItemStack bunkerManaCrest2_E = new ItemStack(BunkerItems.BUNKER_MANA_CREST_2.get());
+        ItemStack bunkerManaCrest3 = new ItemStack(BunkerItems.BUNKER_MANA_CREST_3.get());
+        ItemStack bunkerManaCrest3_E = new ItemStack(BunkerItems.BUNKER_MANA_CREST_3.get());
+        ItemStack bunkerManaCrest4 = new ItemStack(BunkerItems.BUNKER_MANA_CREST_4.get());
+        ItemStack bunkerManaCrest4_E = new ItemStack(BunkerItems.BUNKER_MANA_CREST_4.get());
+        ItemStack[] itemStacks = {
+                bunkerRune, bunkerBossRune,
+                bunkerAttackCrest0,
+                bunkerAttackCrest1, bunkerAttackCrest1_E,
+                bunkerAttackCrest2, bunkerAttackCrest2_E,
+                bunkerAttackCrest3, bunkerAttackCrest3_E,
+                bunkerAttackCrest4, bunkerAttackCrest4_E,
+                bunkerManaCrest0,
+                bunkerManaCrest1, bunkerManaCrest1_E,
+                bunkerManaCrest2, bunkerManaCrest2_E,
+                bunkerManaCrest3, bunkerManaCrest3_E,
+                bunkerManaCrest4, bunkerManaCrest4_E,
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("禁忌工学者", "bunker",
+                CustomStyle.BUNKER_STYLE, VillagerType.SAVANNA, VillagerProfession.TOOLSMITH, contentList);
+        tradeRecipeMap.put(bunkerRune,
+                List.of(new ItemStack(BunkerItems.BUNKER_SOUL.get(), 30),
+                        new ItemStack(ModItems.NetherQuartz.get(), 8),
+                        new ItemStack(ModItems.Ruby.get(), 8)));
+        tradeRecipeMap.put(bunkerBossRune,
+                List.of(new ItemStack(BunkerItems.BUNKER_BOSS_SOUL.get(), 10),
+                        new ItemStack(ModItems.EarthManaRune.get(), 1),
+                        new ItemStack(ModItems.BloodManaRune.get(), 1)));
+
+        tradeRecipeMap.put(bunkerAttackCrest0,
+                List.of(new ItemStack(ModItems.VolcanoCrest0.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest1,
+                List.of(new ItemStack(ModItems.VolcanoCrest1.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest1_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_0.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest2,
+                List.of(new ItemStack(ModItems.VolcanoCrest2.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest2_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_1.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest3,
+                List.of(new ItemStack(ModItems.VolcanoCrest3.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest3_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_2.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest4,
+                List.of(new ItemStack(ModItems.VolcanoCrest4.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerAttackCrest4_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_3.get(), 4)));
+
+        tradeRecipeMap.put(bunkerManaCrest0,
+                List.of(new ItemStack(ModItems.ManaCrest0.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest1,
+                List.of(new ItemStack(ModItems.ManaCrest1.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest1_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_MANA_CREST_0.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest2,
+                List.of(new ItemStack(ModItems.ManaCrest2.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest2_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_MANA_CREST_1.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest3,
+                List.of(new ItemStack(ModItems.ManaCrest3.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest3_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_MANA_CREST_2.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest4,
+                List.of(new ItemStack(ModItems.ManaCrest4.get(), 4),
+                        new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
+        tradeRecipeMap.put(bunkerManaCrest4_E,
+                List.of(new ItemStack(BunkerItems.BUNKER_MANA_CREST_3.get(), 4)));
     }
 }

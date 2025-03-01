@@ -10,6 +10,7 @@ import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -53,6 +54,8 @@ public class ForgeEquipUtils {
     public static final Component MOONTAIN_STRONG_HOLD_NAME = Te.s("望山据点", CustomStyle.styleOfMoontain);
     public static final Zone DIVINE_ISLAND = new Zone(2715, 931, 1973, 209);
     public static final Component DIVINE_ISLAND_NAME = Te.s("圣光岛", CustomStyle.DIVINE_STYLE);
+    public static final Zone NORTH_VILLAGE = new Zone(1789, 1922, 1659, 1803);
+    public static final Component NORTH_VILLAGE_NAME = Te.s("北望村", CustomStyle.BUNKER_STYLE);
 
     public static final Map<Zone, Component> zoneNameMap = new HashMap<>() {{
         put(PLAIN_VILLAGE, PLAIN_VILLAGE_NAME);
@@ -67,6 +70,7 @@ public class ForgeEquipUtils {
         put(XUNXI_VILLAGE, XUNXI_VILLAGE_NAME);
         put(MOONTAIN_STRONG_HOLD, MOONTAIN_STRONG_HOLD_NAME);
         put(DIVINE_ISLAND, DIVINE_ISLAND_NAME);
+        put(NORTH_VILLAGE, NORTH_VILLAGE_NAME);
     }};
 
     public static void setZoneForgeItemListMap() {
@@ -246,7 +250,6 @@ public class ForgeEquipUtils {
                 C7Items.vdBow.get(),
                 C7Items.vdSceptre.get()
         );
-
         zoneForgeItemListMap.put(SKY_CITY, new ArrayList<>() {{
             sky.forEach(item -> add(item.getDefaultInstance()));
         }});
@@ -265,7 +268,6 @@ public class ForgeEquipUtils {
                 ModItems.MoonHelmet.get(),
                 ModItems.MoonLeggings.get()
         );
-
         zoneForgeItemListMap.put(XUNNAN_VILLAGE, new ArrayList<>() {{
             xunNan.forEach(item -> add(item.getDefaultInstance()));
         }});
@@ -276,7 +278,6 @@ public class ForgeEquipUtils {
                 ModItems.PurpleIronArmorLeggings.get(),
                 ModItems.PurpleIronArmorBoots.get()
         );
-
         zoneForgeItemListMap.put(XUNXI_VILLAGE, new ArrayList<>() {{
             xunXi.forEach(item -> add(item.getDefaultInstance()));
         }});
@@ -289,7 +290,6 @@ public class ForgeEquipUtils {
                 WardenItems.DARK_MOON_KNIFE.get(),
                 WardenItems.DARK_MOON_BOOK.get()
         );
-
         zoneForgeItemListMap.put(MOONTAIN_STRONG_HOLD, new ArrayList<>() {{
             moontain_strong_hold.forEach(item -> add(item.getDefaultInstance()));
         }});
@@ -303,9 +303,20 @@ public class ForgeEquipUtils {
                 DivineIslandItems.DIVINE_LEGGINGS_0.get(),
                 DivineIslandItems.DIVINE_BOOTS_0.get()
         );
-
         zoneForgeItemListMap.put(DIVINE_ISLAND, new ArrayList<>() {{
             divineIsland.forEach(item -> add(item.getDefaultInstance()));
+        }});
+
+        List<Item> northVillage = List.of(
+                BunkerItems.BUNKER_SWORD.get(),
+                BunkerItems.BUNKER_BOW.get(),
+                BunkerItems.BUNKER_SCEPTRE.get(),
+                BunkerItems.BUNKER_SHIELD.get(),
+                BunkerItems.BUNKER_KNIFE.get(),
+                BunkerItems.BUNKER_BOOK.get()
+        );
+        zoneForgeItemListMap.put(NORTH_VILLAGE, new ArrayList<>() {{
+            northVillage.forEach(item -> add(item.getDefaultInstance()));
         }});
 
         zoneForgeItemListMap.forEach((zone, itemList) -> {

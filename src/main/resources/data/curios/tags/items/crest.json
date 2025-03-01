@@ -39,6 +39,16 @@
     "vmd:mana_crest_1",
     "vmd:mana_crest_2",
     "vmd:mana_crest_3",
-    "vmd:mana_crest_4"
+    "vmd:mana_crest_4",
+    "vmd:bunker_mana_crest_0",
+    "vmd:bunker_mana_crest_1",
+    "vmd:bunker_mana_crest_2",
+    "vmd:bunker_mana_crest_3",
+    "vmd:bunker_mana_crest_4",
+    "vmd:bunker_attack_crest_0",
+    "vmd:bunker_attack_crest_1",
+    "vmd:bunker_attack_crest_2",
+    "vmd:bunker_attack_crest_3",
+    "vmd:bunker_attack_crest_4"
   ]
 }

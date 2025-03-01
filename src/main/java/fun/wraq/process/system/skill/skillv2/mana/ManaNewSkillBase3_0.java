@@ -14,8 +14,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -66,9 +64,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
                                     @Override
                                     public void onHit(ManaArrow manaArrow, Entity entity) {
                                         if (entity instanceof Mob mob) {
-                                            mob.addEffect(
-                                                    new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,
-                                                            20, 100, false, false, false));
+                                            Compute.addSlowDownEffect(mob, Tick.s(1), 2);
                                         }
                                     }
                                 });
@@ -84,7 +80,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
         components.add(Te.s("向前快速释放", "3枚法球", CustomStyle.styleOfMana));
         components.add(Te.s("每枚法球拥有",
                 getRateDescription(1, 0.05, level), CustomStyle.styleOfMana, "伤害"));
-        components.add(Te.s("法球将", "禁锢", CustomStyle.styleOfStone, "命中的敌人"));
+        components.add(Te.s("法球将", "减速", CustomStyle.styleOfStone, "命中的敌人"));
         components.add(Te.s("并获得持续3s的", "激化", CustomStyle.styleOfMana));
         components.add(Te.s("在持续时间内，普通攻击将会额外释放"));
         components.add(Te.s("1枚50%基础伤害", CustomStyle.styleOfMana, "法球"));

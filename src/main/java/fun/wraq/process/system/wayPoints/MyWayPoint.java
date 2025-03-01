@@ -412,6 +412,8 @@ public class MyWayPoint {
                 colorMap.get(darkGreen), CustomStyle.GHASTLY_STYLE, 0));
         add(new MyWayPoint(new Vec3(2421, 85, 712), "瑕光古栈",
                 colorMap.get(darkGreen), CustomStyle.GHASTLY_STYLE, 0));
+        add(new MyWayPoint(new Vec3(3841, -16, 1929), "熔岩地堡",
+                colorMap.get(red), CustomStyle.BUNKER_STYLE, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

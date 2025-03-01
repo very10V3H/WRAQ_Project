@@ -12,6 +12,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +38,7 @@ public class HarbingerBow extends WraqBow implements HarbingerMainHand, ActiveIt
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        return HarbingerMainHand.getCommonAdditionalComponents(stack);
+        return HarbingerMainHand.getCommonAdditionalComponents(stack, getMainStyle(), 1);
     }
 
     @Override
@@ -109,5 +110,10 @@ public class HarbingerBow extends WraqBow implements HarbingerMainHand, ActiveIt
                 new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
         );
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        HarbingerMainHand.onHit(mob, this);
     }
 }

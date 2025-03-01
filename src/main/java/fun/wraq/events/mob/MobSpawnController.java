@@ -3,6 +3,7 @@ package fun.wraq.events.mob;
 import fun.wraq.common.util.items.ItemAndRate;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -157,6 +158,14 @@ public abstract class MobSpawnController {
                         mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
                         this.mobList.add(mob);
                         this.level.addFreshEntity(mob);
+
+                        LivingEntity mounts = getMounts();
+                        if (mounts != null) {
+                            mounts.moveTo(mob.position());
+                            level.addFreshEntity(mounts);
+                            mob.startRiding(mounts);
+                            MobSpawn.mountsMap.put(mounts, mob);
+                        }
                     }
                 });
             }
@@ -167,6 +176,10 @@ public abstract class MobSpawnController {
             });
             mobList.clear();
         }
+    }
+
+    public LivingEntity getMounts() {
+        return null;
     }
 
     // 生成怪物

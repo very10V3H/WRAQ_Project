@@ -54,6 +54,9 @@ import fun.wraq.series.overworld.divine.mob.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
 import fun.wraq.series.overworld.divine.mob.GhastlyCreeperSpawnController;
 import fun.wraq.series.overworld.divine.mob.GhastlyHuskSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -61,6 +64,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -88,6 +92,17 @@ public class MobSpawn {
                     }
                     mobSpawnController.tick();
                 });
+                mountsMap.forEach((k, v) -> {
+                    if (v.isRemoved()) {
+                        if (k instanceof Mob) {
+                            k.kill();
+                        } else {
+                            k.remove(Entity.RemovalReason.KILLED);
+                        }
+                    }
+                });
+                mountsMap.entrySet()
+                        .removeIf(entry -> entry.getKey().isDeadOrDying() && entry.getValue().isDeadOrDying());
             }
 
             if (event.level.dimension().equals(Level.NETHER)) {
@@ -164,6 +179,9 @@ public class MobSpawn {
         overWolrdList.add(DivineGolemSpawnController.getInstance(overWorld));
         overWolrdList.add(GhastlyCreeperSpawnController.getInstance(overWorld));
         overWolrdList.add(GhastlyHuskSpawnController.getInstance(overWorld));
+        overWolrdList.add(BunkerBowMobSpawnController.getInstance(overWorld));
+        overWolrdList.add(BunkerAttackMobSpawnController.getInstance(overWorld));
+        overWolrdList.add(BunkerBlazeSpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();
@@ -630,4 +648,6 @@ public class MobSpawn {
     public static Style getMobLevelStyle(int level) {
         return Utils.getLevelStyle(level);
     }
+
+    public static Map<LivingEntity, Mob> mountsMap = new HashMap<>();
 }

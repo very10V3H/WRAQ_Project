@@ -358,6 +358,11 @@ public class ComponentUtils {
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.GHASTLY_STYLE);
     }
 
+    public static Component getSuffixOfBunker() {
+        return Component.literal("熔心")
+                .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.BUNKER_STYLE);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));

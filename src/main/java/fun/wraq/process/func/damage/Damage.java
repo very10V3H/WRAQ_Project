@@ -7,7 +7,9 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.BeforeCauseFinalDamageCurios;
 import fun.wraq.common.impl.damage.OnCauseFinalDamageCurios;
 import fun.wraq.common.impl.damage.OnCauseFinalDamageEquip;
@@ -44,6 +46,7 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
+import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
@@ -547,6 +550,7 @@ public class Damage {
             double finalDamage = damage;
             finalDamage *= getAfterScornAdjustRate(player, mob);
             finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
+            finalDamage *= HarbingerMainHand.onMobWithstand(mob, player);
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (!(mob instanceof Civil)) {
                 if (mob.getHealth() <= finalDamage && mob.isAlive()) {
@@ -597,16 +601,20 @@ public class Damage {
         put(DivineBunnyInstance.mobName, 1.5);
     }};
 
+    public static Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();
     public static double getAfterScornAdjustRate(Player player, Mob mob) {
         String mobName = MobSpawn.getMobOriginName(mob);
         if (scornValueMap.containsKey(mobName) &&
                 (Element.getResonanceType(player) == null || ElementValue
                         .getElementValueJudgeByType(player, Element.getResonanceType(player))
                         < scornValueMap.get(mobName))) {
-            Compute.sendFormatMSG(player, Te.s("蔑视", CustomStyle.styleOfRed),
-                    Te.s(mob, "十分高傲，你当前的元素强度无法对其造成任何伤害.", "(需要"
-                            + String.format("%.0f%%", scornValueMap.get(mobName) * 100) + "任意元素强度)",
-                            CustomStyle.DIVINE_STYLE));
+            if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.s(1));
+                Compute.sendFormatMSG(player, Te.s("蔑视", CustomStyle.styleOfRed),
+                        Te.s(mob, "十分高傲，你当前的元素强度无法对其造成任何伤害.", "(需要"
+                                        + String.format("%.0f%%", scornValueMap.get(mobName) * 100) + "任意元素强度)",
+                                CustomStyle.DIVINE_STYLE));
+            }
             return 0;
         }
         return 1;

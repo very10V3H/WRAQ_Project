@@ -4,26 +4,38 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.BeforeRemoveMaterialOnForge;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceCondition;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
+import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerInstance;
+import fun.wraq.series.overworld.sakura.bunker.weapon.main.BunkerMainHand;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
-public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge {
+public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnHitEffectEquip {
 
     Map<Player, Integer> countMap = new WeakHashMap<>();
     Map<Player, Integer> countExpiredTickMap = new WeakHashMap<>();
@@ -64,7 +76,9 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge {
         if (player.tickCount % 20 == 0) {
             if (isHandHeld(player) && Compute.playerIsInBattle(player)) {
                 ItemStack stack = player.getMainHandItem();
-                countMap.compute(player, (k, v) -> v == null ? 1 : Math.min(getMaxCount(stack), v + 1));
+                int countPerSecond = stack.getItem() instanceof BunkerMainHand ? 2 : 1;
+                countMap.compute(player, (k, v)
+                        -> v == null ? countPerSecond : Math.min(getMaxCount(stack), v + countPerSecond));
                 countExpiredTickMap.put(player, Tick.get() + Tick.s(30));
                 Compute.sendEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get(), Tick.s(30), countMap.get(player), true);
             }
@@ -82,7 +96,10 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge {
             List<Item> list = List.of(
                     HarbingerItems.HARBINGER_SWORD.get(),
                     HarbingerItems.HARBINGER_BOW.get(),
-                    HarbingerItems.HARBINGER_SCEPTRE.get()
+                    HarbingerItems.HARBINGER_SCEPTRE.get(),
+                    BunkerItems.BUNKER_SWORD.get(),
+                    BunkerItems.BUNKER_BOW.get(),
+                    BunkerItems.BUNKER_SCEPTRE.get()
             );
             if (player.isShiftKeyDown()) {
                 countMap.compute(player, (k, v) -> v == null ? 5 : Math.min(getMaxCount(stack), v * 2));
@@ -111,7 +128,7 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge {
 
     static double getAttackDamageRate(Player player) {
         Item item = player.getMainHandItem().getItem();
-        if (isHandHeld(player) && (item instanceof WraqSword || item instanceof WraqBow)) {
+        if ((item instanceof WraqSword || item instanceof WraqBow)) {
             return getDamageRate(player);
         }
         return 0;
@@ -119,35 +136,71 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge {
 
     static double getManaDamageRate(Player player) {
         Item item = player.getMainHandItem().getItem();
-        if (isHandHeld(player) && item instanceof WraqSceptre) {
+        if (item instanceof WraqSceptre) {
             return getDamageRate(player);
         }
         return 0;
     }
 
-    static List<Component> getCommonAdditionalComponents(ItemStack stack) {
+    String TAG = "HarbingerMainHandWeaponDefenceReduction";
+    Map<Mob, Integer> MOB_SMELT_EXPIRED_TICK_MAP = new HashMap<>();
+    static void onHit(Mob mob, Item icon) {
+        StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentDefenceModifier,
+                TAG, -0.25, Tick.get() + Tick.s(5), icon);
+        StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentManaDefenceModifier,
+                TAG, -0.25, Tick.get() + Tick.s(5), icon);
+        MOB_SMELT_EXPIRED_TICK_MAP.put(mob, Tick.get() + Tick.s(5));
+        MOB_SMELT_EXPIRED_TICK_MAP.entrySet().removeIf(entry -> entry.getKey().isDeadOrDying());
+        mob.setRemainingFireTicks(Tick.s(5));
+    }
+
+    Set<String> MOB_NAMES = Set.of(
+            BunkerAttackMobSpawnController.mobName,
+            BunkerBlazeSpawnController.mobName,
+            BunkerBowMobSpawnController.mobName,
+            BunkerInstance.mobName
+    );
+    Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();
+    static double onMobWithstand(Mob mob, Player player) {
+        if (MOB_NAMES.contains(MobSpawn.getMobOriginName(mob)) && !isInSmelt(mob)) {
+            if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.s(1));
+                Compute.sendFormatMSG(player, Te.s("熔心", CustomStyle.BUNKER_STYLE),
+                        Te.s(mob, "未处在", "熔融状态", CustomStyle.BUNKER_STYLE, "，你无法对其造成伤害."));
+            }
+            return 0;
+        }
+        return 1;
+    }
+    static boolean isInSmelt(Mob mob) {
+        return MOB_SMELT_EXPIRED_TICK_MAP.getOrDefault(mob, 0) > Tick.get();
+    }
+
+    static List<Component> getCommonAdditionalComponents(ItemStack stack, Style style, int countPerSecond) {
         List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Te.s("高温高压", CustomStyle.styleOfHarbinger));
-        components.add(Te.s(" 在", "战斗状态", CustomStyle.styleOfPower, "中，每秒获得1层",
-                "「匠」", CustomStyle.styleOfHarbinger));
-        components.add(Te.s(" 最多", String.valueOf(getMaxCount(stack)), CustomStyle.styleOfHarbinger,
+        ComponentUtils.descriptionPassive(components, Te.s("高温高压", style));
+        components.add(Te.s(" 在", "战斗状态", CustomStyle.styleOfPower, "中，每秒获得" + countPerSecond + "层",
+                "「匠」", style, "，持续30s"));
+        components.add(Te.s(" 最多", String.valueOf(getMaxCount(stack)), style,
                 "层，每层提供", Utils.attackDamage.containsKey(stack.getItem()) ?
                         ComponentUtils.AttributeDescription.attackDamage("1%总")
                         : ComponentUtils.AttributeDescription.manaDamage("1%总")));
-        components.add(Te.s("「匠」", CustomStyle.styleOfHarbinger, "持续30s"));
-        ComponentUtils.descriptionActive(components, Te.s("锤炼", CustomStyle.styleOfHarbinger));
-        components.add(Te.s(" 获得5层", "「匠」", CustomStyle.styleOfHarbinger));
+        ComponentUtils.descriptionPassive(components, Te.s("熔炼", style));
+        components.add(Te.s(" 普攻将使目标陷入", "熔融状态", style));
+        components.add(Te.s(" 使目标抗性削减", "25%", style, "，持续5s"));
+        ComponentUtils.descriptionActive(components, Te.s("锤炼", style));
+        components.add(Te.s(" 获得5层", "「匠」", style));
         ComponentUtils.coolDownTimeDescription(components, 10);
-        ComponentUtils.descriptionActive(components, Te.s("淬火", CustomStyle.styleOfHarbinger));
-        components.add(Te.s(" 按下shift释放，翻倍", "「匠」", CustomStyle.styleOfHarbinger, "的层数"));
+        ComponentUtils.descriptionActive(components, Te.s("淬火", style));
+        components.add(Te.s(" 按下shift释放，翻倍", "「匠」", style, "的层数"));
         ComponentUtils.coolDownTimeDescription(components, 30);
         components.add(Te.s(" 该主动效果的冷却时间不会被技能急速削减", ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        components.add(Te.s(" 且仅在战斗状态下能够使用", ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        ComponentUtils.descriptionPassive(components, Te.s("铸造", CustomStyle.styleOfHarbinger));
+        components.add(Te.s(" 未手持该武器时，也能触发增益", ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        ComponentUtils.descriptionPassive(components, Te.s("铸造", style));
         components.add(Te.s(" 可以使用",
                 HarbingerItems.HARBINGER_INGOT.get().getDefaultInstance().getDisplayName(), "来提升最大层数"));
-        components.add(Te.s(" 至多可提升至", "50", CustomStyle.styleOfHarbinger, "层"));
-        components.add(Te.s(" 铸造材料:", CustomStyle.styleOfHarbinger));
+        components.add(Te.s(" 至多可提升至", "50", style, "层"));
+        components.add(Te.s(" 铸造材料:", style));
         components.addAll(getMaterial(stack));
         return components;
     }
