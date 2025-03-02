@@ -33,8 +33,8 @@ public class Bank {
         double afterIncomeGB = currentGB + incomeValue;
         setGBValue(player, afterIncomeGB);
         sendMSG(player, Te.s(" + ", ChatFormatting.GREEN,
-                String.format("%.1f", incomeValue) + " GB", CustomStyle.styleOfGold,
-                " (", String.format("%.1f", afterIncomeGB), CustomStyle.styleOfGold, ")"));
+                String.format("%.2f", incomeValue) + " GB", CustomStyle.styleOfGold,
+                " (", String.format("%.2f", afterIncomeGB), CustomStyle.styleOfGold, ")"));
     }
 
     public static void expenseGB(Player player, double expenseValue) {
@@ -42,8 +42,8 @@ public class Bank {
         double afterIncomeGB = currentGB - expenseValue;
         setGBValue(player, afterIncomeGB);
         sendMSG(player, Te.s(" - ", ChatFormatting.RED,
-                String.format("%.1f", expenseValue) + " GB", CustomStyle.styleOfGold,
-                " (", String.format("%.1f", afterIncomeGB), CustomStyle.styleOfGold, ")"));
+                String.format("%.2f", expenseValue) + " GB", CustomStyle.styleOfGold,
+                " (", String.format("%.2f", afterIncomeGB), CustomStyle.styleOfGold, ")"));
     }
 
     public static void onPlayerInteractWithVillager(Player player) {
@@ -63,7 +63,7 @@ public class Bank {
 
     public static void tryToGetGoldenBeans(Player player) {
         sendMSG(player, Te.s("您的账户当前拥有",
-                String.format("%.1fGB", getGBValue(player)), CustomStyle.styleOfGold));
+                String.format("%.2fGB", getGBValue(player)), CustomStyle.styleOfGold));
         Compute.sendBlankLine(player, 3);
         player.sendSystemMessage(Te.s(" ".repeat(4), getGoldenBeansCommand(1),
                 " ".repeat(4), getGoldenBeansCommand(5),

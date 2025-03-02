@@ -7,7 +7,6 @@ import fun.wraq.Items.Forging.ForgeProtect;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
-import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -24,6 +23,7 @@ import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.harbinger.curio.HarbingerCurio;
+import fun.wraq.series.moontain.equip.MoontainEquip;
 import fun.wraq.series.overworld.forging.ForgingStone0;
 import fun.wraq.series.overworld.forging.ForgingStone1;
 import fun.wraq.series.overworld.forging.ForgingStone2;
@@ -753,7 +753,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         if (equipStack.getTagElement(Utils.MOD_ID) == null) return false;
         CompoundTag tag = equipStack.getTagElement(Utils.MOD_ID);
         boolean canBeForged = tag != null && tag.contains(ForgeEquipUtils.itemTag)
-                && !(equipStack.getItem() instanceof ExBaseAttributeValueEquip);
+                && !(equipStack.getItem() instanceof MoontainEquip);
 
         int equipTier = ForgeEquipUtils.getForgeQualityOnEquip(equipStack);
         ItemStack productSlot = blockEntity.itemStackHandler.getStackInSlot(2);

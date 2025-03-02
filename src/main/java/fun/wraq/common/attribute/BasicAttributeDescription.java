@@ -425,7 +425,8 @@ public class BasicAttributeDescription {
                 StringUtils.CuriosAttribute.xpLevelCritDamage, "暴击伤害", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
                 0, true, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
-        if (Utils.critDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.critDamage)
+        if (Utils.critDamage.containsKey(item)
+                || data.contains(StringUtils.CuriosAttribute.critDamage)
                 || data.contains(StringUtils.RandomAttribute.critDamage)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
                 if (itemStack.is(ModItems.SoulSword.get())) {

@@ -8,9 +8,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
-import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.ore.PickaxeItems;
-import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
@@ -84,9 +82,6 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, VdWeaponCom
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
         MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
-        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.WORLD.get());
-        ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.WORLD.get());
-        ParticleProvider.FaceCircleCreate(serverPlayer, 2, 0.25, 12, ModParticles.WORLD.get());
         return arrow;
     }
 

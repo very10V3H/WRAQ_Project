@@ -12,7 +12,6 @@ import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -62,11 +61,6 @@ public class SakuraBow extends WraqBow implements OnHitEffectEquip {
     @Override
     protected float getArrowSpeed() {
         return 4;
-    }
-
-    @Override
-    protected ShootParticle getShootParticle() {
-        return new ShootParticle(ParticleTypes.CHERRY_LEAVES, 2);
     }
 
     private static final Map<Player, Boolean> passiveMap = new WeakHashMap<>();

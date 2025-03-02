@@ -50,11 +50,17 @@ public interface ExBaseAttributeValueEquip {
     }
 
     static double getExBaseAttributeValue(ItemStack itemStack, Map<Item, Double> map) {
-        if (itemStack.getItem() instanceof ExBaseAttributeValueEquip equip && equip.getTagAndRateMap().containsKey(map)) {
+        if (itemStack.getItem() instanceof ExBaseAttributeValueEquip equip
+                && equip.getTagAndRateMap().containsKey(map)) {
             CompoundTag data = getStackExBaseAttributeData(itemStack);
             TagAndEachTierValue tagAndEachTierValue = equip.getTagAndRateMap().get(map);
             return tagAndEachTierValue.getValueByData(data);
         }
         return 0;
+    }
+
+    static boolean containThisAttribute(ItemStack itemStack, Map<Item, Double> map) {
+        return itemStack.getItem() instanceof ExBaseAttributeValueEquip equip
+                && equip.getTagAndRateMap().containsKey(map);
     }
 }

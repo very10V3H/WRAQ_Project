@@ -36,6 +36,12 @@ public class SakuraIndustrySceptre extends WraqMainHandEquip implements ActiveIt
         components.add(Te.s(" 在", "樱岛隐秘纬路", getMainStyle(), "中的", "节点方块", getMainStyle()));
         components.add(Te.s(" 上使用，可以", "穿行", getMainStyle(), "于节点之间"));
         ComponentUtils.coolDownTimeDescription(components, 2.5);
+        components.add(Te.s("目前可以前往的地点:"));
+        components.add(Te.s(" 北望村", CustomStyle.styleOfSunIsland));
+        components.add(Te.s(" 沙岸村", CustomStyle.styleOfHusk));
+        components.add(Te.s(" 鹰眼工厂", CustomStyle.styleOfHarbinger));
+        components.add(Te.s(" 绯樱村", CustomStyle.styleOfSakura));
+        components.add(Te.s(" 熔岩地堡", CustomStyle.BUNKER_STYLE));
         return components;
     }
 

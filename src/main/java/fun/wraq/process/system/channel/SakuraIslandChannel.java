@@ -24,7 +24,8 @@ public class SakuraIslandChannel {
             new Vec3(2404, -17, 1902), // 拐点 (北熔线 - 绯樱线)
             new Vec3(2404, -17, 1752), // 绯樱村经线底部
             new Vec3(2404, 180, 1752), // 绯樱村经线顶部
-            new Vec3(1752, -17, 1902) // 拐点 (金古线 - 北沉线)
+            new Vec3(1752, -17, 1902), // 拐点 (金古线 - 北沉线)
+            new Vec3(3841, -17, 1902) // 熔岩地堡
     );
 
     public static void onPlayerUse(Player player) {

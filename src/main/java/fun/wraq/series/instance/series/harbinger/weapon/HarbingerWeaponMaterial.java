@@ -38,7 +38,7 @@ public class HarbingerWeaponMaterial extends WraqItem implements Decomposable {
                     ComponentUtils.AttributeDescription.manaDamage(tier + "%")));
         } else if (itemStack.is(HarbingerItems.HARBINGER_SWORD_BLADE.get())) {
             components.add(Te.s(" 为", "长剑", CustomStyle.styleOfPower, "额外提供",
-                    ComponentUtils.AttributeDescription.critDamage(tier * 20 + "%")));
+                    ComponentUtils.AttributeDescription.critDamage(tier * 4 + "%")));
         } else if (itemStack.is(HarbingerItems.HARBINGER_STRING.get())) {
             components.add(Te.s(" 为", "长弓", CustomStyle.styleOfFlexible, "额外提供",
                     ComponentUtils.AttributeDescription.swiftness(String.valueOf(tier))));
@@ -48,7 +48,7 @@ public class HarbingerWeaponMaterial extends WraqItem implements Decomposable {
         }
         components.add(Te.s(" 可以在", "沙岸村", CustomStyle.styleOfSunIsland, "将品阶至多强化至",
                 "不可思议", CustomStyle.styleOfPower));
-        components.add(Te.s(" 强化坐标:", "(1867, 81, 1969)", CustomStyle.styleOfHarbinger));
+        components.add(Te.s(" 强化坐标:", "(1867, 81, 1696)", CustomStyle.styleOfHarbinger));
         super.appendHoverText(itemStack, level, components, tooltipFlag);
     }
 

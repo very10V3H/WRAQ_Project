@@ -11,6 +11,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Mob;
@@ -44,6 +45,7 @@ public class SwordNewSkillBase2_0 extends SkillV2BaseSkill {
                             Damage.causeAdDamageToMonsterWithCritJudge(player, mob,
                                     (2 + 0.1 * skillLevel) * (1 + getEnhanceRate(player)));
                             MySound.soundToNearPlayer(player.level(), mob.getEyePosition(), SoundEvents.ANVIL_LAND);
+                            mob.setTarget(player);
                         });
             }
         });
@@ -54,9 +56,9 @@ public class SwordNewSkillBase2_0 extends SkillV2BaseSkill {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("将自身周围8格内的所有敌人"));
         components.add(Te.s("牵引", CustomStyle.styleOfStone,
-                "至身前，并造成", "3s减速", CustomStyle.styleOfStone));
-        components.add(Te.s(
-                getRateDescription(2, 0.1, level), CustomStyle.styleOfPower, "伤害"));
+                "至身前，并造成", "3s减速", CustomStyle.styleOfStone, "与",
+                Te.s(getRateDescription(2, 0.1, level), CustomStyle.styleOfPower, "伤害")));
+        components.add(Te.s(" 这会将这些敌人的仇恨转移到自身", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         components.add(ComponentUtils.getCritDamageInfluenceDescription());
         return components;
     }

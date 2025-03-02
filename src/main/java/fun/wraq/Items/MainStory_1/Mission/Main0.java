@@ -1,11 +1,13 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.plan.PlanPlayer;
-import fun.wraq.process.system.element.Element;
-import fun.wraq.series.overworld.divine.DivineUtils;
+import fun.wraq.series.end.citadel.CitadelItems;
+import fun.wraq.series.instance.series.harbinger.HarbingerItems;
+import fun.wraq.series.instance.series.harbinger.weapon.HarbingerWeaponMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -50,14 +52,22 @@ public class Main0 extends Item {
     public static int index = 0;
     public static List<SoundEvent> soundEventList = new ArrayList<>();
 
+    public List<ItemAndRate> getRewardList() {
+        return List.of(
+                new ItemAndRate(CitadelItems.CITADEL_CURIO_0.get(), 0.01),
+                new ItemAndRate(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 0.05),
+                new ItemAndRate(CitadelItems.CITADEL_PIECE.get(), 0.2),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
+                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1)
+        );
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            player.sendSystemMessage(Te.s(Element.entityElementUnit.size()));
-            DivineUtils.addHolyLightCount(player, 10);
 /*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() instanceof BackpackItem) {
@@ -75,7 +85,7 @@ public class Main0 extends Item {
                 }
             }*/
 
-/*            ItemStack rod = HarbingerItems.HARBINGER_ROD.get().getDefaultInstance();
+            ItemStack rod = HarbingerItems.HARBINGER_ROD.get().getDefaultInstance();
             ItemStack core = HarbingerItems.HARBINGER_WEAPON_CORE.get().getDefaultInstance();
             ItemStack swordBlade = HarbingerItems.HARBINGER_SWORD_BLADE.get().getDefaultInstance();
             ItemStack string = HarbingerItems.HARBINGER_STRING.get().getDefaultInstance();
@@ -87,7 +97,7 @@ public class Main0 extends Item {
             HarbingerWeaponMaterial.setQualityTier(string, 5);
             HarbingerWeaponMaterial.setQualityTier(mirror, 5);
 
-            List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
+            List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);
         }
         
         if (!level.isClientSide && player.isShiftKeyDown()) {

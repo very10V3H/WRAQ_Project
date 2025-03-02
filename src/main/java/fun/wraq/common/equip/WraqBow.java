@@ -17,10 +17,8 @@ import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase2_0;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.quiver.WraqQuiver;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -87,11 +85,6 @@ public abstract class WraqBow extends WraqMainHandEquip {
         shoot(player, rate, mainShoot, false, false, myArrowHitBlock, myArrowHitBlockEntity);
     }
 
-    public record ShootParticle(ParticleOptions options, int times) {}
-    protected ShootParticle getShootParticle() {
-        return new ShootParticle(null, 0);
-    }
-
     protected float getArrowSpeed() {
         return 0;
     }
@@ -103,14 +96,6 @@ public abstract class WraqBow extends WraqMainHandEquip {
         arrow.setCritArrow(true);
         player.level().addFreshEntity(arrow);
         MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
-        if (getShootParticle() != null) {
-            for (int i = 0 ; i < getShootParticle().times ; i ++) {
-                ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1 + 0.5 * i, 0.75 - 0.25 * i, 20 - 4 * i,
-                        getShootParticle().options);
-            }
-        } else {
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WAX_OFF);
-        }
         return arrow;
     }
 

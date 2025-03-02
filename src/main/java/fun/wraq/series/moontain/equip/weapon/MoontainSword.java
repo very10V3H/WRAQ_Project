@@ -9,6 +9,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.moontain.equip.MoontainEquip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -20,7 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MoontainSword extends WraqSword implements ExBaseAttributeValueEquip, WraqMainHandOrPassiveEquip, Decomposable {
+public class MoontainSword extends WraqSword implements ExBaseAttributeValueEquip, WraqMainHandOrPassiveEquip,
+        Decomposable, MoontainEquip {
 
     public MoontainSword(Properties properties) {
         super(properties);

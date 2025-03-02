@@ -15,6 +15,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.bank.Bank;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -30,8 +31,6 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -436,11 +435,11 @@ public class MobKillEntrustment {
             new TimeAndTier(6, Te.s("A", ChatFormatting.GOLD), 1.8)
     );
 
-    public static void playerTryToSubmit(Player player) throws SQLException {
+    public static void playerTryToSubmit(Player player) {
         String name = player.getName().getString();
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             MobKillEntrustment entrustment = playerCurrentEntrustmentMap.get(name);
-            if (playerKillProcessMap.getOrDefault(name, 0) >= entrustment.targetCount) {
+            if (playerKillProcessMap.getOrDefault(name, 0) >= entrustment.targetCount || player.isCreative()) {
                 // reward 与 信息
 
                 int costTick = Tick.get() - entrustment.startServerTick;
@@ -512,7 +511,9 @@ public class MobKillEntrustment {
                     Compute.giveReputation(player, entrustmentReputationReward * rankExReputationRewardRate,
                             Te.s("职级奖励", CustomStyle.styleOfWorld));
                 }
-
+                if (getPlayerReputation(player) > 5) {
+                    Bank.incomeGB(player, getExRateOfReputation(getPlayerReputation(player)) * 0.5);
+                }
                 Compute.givePercentExpToPlayer(player,
                         0.05 * (1 + rate) * (1 + getExRateOfReputation(getPlayerReputation(player))),
                         0, player.experienceLevel);
@@ -575,11 +576,12 @@ public class MobKillEntrustment {
 
     public static final String VILLAGER_NAME = "联合研院秘书 - 贝尔";
 
-    public static void onPlayerInteractWithVillager(Player player) throws SQLException, ParseException {
+    public static void onPlayerInteractWithVillager(Player player) {
         String name = player.getName().getString();
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             MobKillEntrustment entrustment = playerCurrentEntrustmentMap.get(name);
-            if (playerKillProcessMap.getOrDefault(name, 0) >= entrustment.targetCount) {
+            if (playerKillProcessMap.getOrDefault(name, 0) >= entrustment.targetCount
+                    || player.isCreative()) {
                 playerTryToSubmit(player);
             } else {
                 sendMSG(player, Te.s("已经有一个正在进行的委托了，是否取消？"));

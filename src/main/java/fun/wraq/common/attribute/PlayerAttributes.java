@@ -447,7 +447,7 @@ public class PlayerAttributes {
         } // 能力
 
         if (Compute.getSwordSkillLevel(data, 9) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getSwordSkillLevel(data, 9) * 0.01;
+            movementSpeedUp += Compute.getSwordSkillLevel(data, 9) * 0.02;
         } // 剑舞（手持近战武器时，获得1%额外移动速度）
 
         if (Compute.getBowSkillLevel(data, 1) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
@@ -455,11 +455,11 @@ public class PlayerAttributes {
         } // 原野护符（持有弓时，获得1%的额外移动速度）
 
         if (Compute.getBowSkillLevel(data, 9) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.01;
+            movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.02;
         } // 猎手本能（手持弓时，获得1%额外移动速度）
 
         if (Compute.getManaSkillLevel(data, 9) > 0 && Utils.sceptreTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getManaSkillLevel(data, 9) * 0.01;
+            movementSpeedUp += Compute.getManaSkillLevel(data, 9) * 0.02;
         } // 法师（手持法杖时，获得1%额外移动速度）
 
         if (mainHandTag != null && mainHandTag.contains(StringUtils.ManaCore.ManaCore)

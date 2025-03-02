@@ -20,7 +20,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -81,8 +80,6 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
             ProjectileUtil.rotateTowardsMovement(manaArrow, 0);
             WraqSceptre.adjustOrb(manaArrow, player);
             level.addFreshEntity(manaArrow);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
             return manaArrow;
         }
         return null;

@@ -171,7 +171,7 @@ public abstract class NoTeamInstance {
                                 if (isEquip) {
                                     Compute.forgingHoverName(rewardStack);
                                 }
-                                Compute.sendFormatMSG(player, Te.s("领主级怪物", CustomStyle.styleOfRed),
+                                Compute.formatBroad(Te.s("领主级怪物", CustomStyle.styleOfRed),
                                         Te.s(player.getDisplayName(), "击败", name,
                                         "获得了", rewardStack));
                                 if (copyItem instanceof PurpleIronCommon) {

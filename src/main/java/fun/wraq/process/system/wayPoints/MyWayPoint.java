@@ -414,6 +414,19 @@ public class MyWayPoint {
                 colorMap.get(darkGreen), CustomStyle.GHASTLY_STYLE, 0));
         add(new MyWayPoint(new Vec3(3841, -16, 1929), "熔岩地堡",
                 colorMap.get(red), CustomStyle.BUNKER_STYLE, 0));
+        // 铁匠铺
+        add(new MyWayPoint(new Vec3(730, 85, 210), "平原村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(976, 232, 34), "天空城铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(1114, 83, 46), "雨林村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(1783, 76, 302), "旭升岛铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(2555, 122, -501), "火山村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(1303, 67, -1637), "北洋村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(1045, 77, -1282), "薰曦村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(1152, 74, -1059), "薰楠村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(882, 64, -409), "海岸村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(1731, 114, 1855), "北望村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(1931, 86, 1686), "沙岸村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        add(new MyWayPoint(new Vec3(2394, 179, 1728), "绯樱村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{
