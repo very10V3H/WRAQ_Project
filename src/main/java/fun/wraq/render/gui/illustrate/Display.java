@@ -1,11 +1,10 @@
 package fun.wraq.render.gui.illustrate;
 
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.customized.UniformItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
 import fun.wraq.series.events.SpecialEventItems;
-import fun.wraq.series.overworld.sun.SunIslandItems;
+import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -84,17 +83,9 @@ public class Display {
 
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
-            Item[] items = {
-                    UniformItems.ATTACK_CURIO_LX.get(),
-                    UniformItems.BOW_CURIO_LEI_YAN.get(),
-                    UniformItems.MANA_CURIO_TABOO.get(),
-                    SunIslandItems.TABOO_PAPER_CURIO.get(),
-                    ModItems.FANTASY_MEDAL_1.get(),
-                    ModItems.FANTASY_BRACELET_1.get(),
-                    ModItems.FANTASY_MEDAL_2.get(),
-                    ModItems.FANTASY_BRACELET_2.get()
-            };
-            newItemList.addAll(List.of(items));
+            for (RegistryObject<Item> registryObject : BunkerItems.ITEMS.getEntries()) {
+                newItemList.add(registryObject.get());
+            }
         }
         return newItemList;
     }
