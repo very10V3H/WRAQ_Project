@@ -672,6 +672,31 @@ public enum BonusChestInfo {
     DEVIL_ZONE_7(new BlockPos(2624, 189, 1742), 0, Util.SAKURA_ZONE_NUM),
     DEVIL_ZONE_8(new BlockPos(2628, 191, 1725), 1, Util.SAKURA_ZONE_NUM),
 
+    // 鹰眼工厂区域
+    HARBINGER_ZONE_0(new BlockPos(1905, -25, 1791), 1, Util.SAKURA_ZONE_NUM),
+    HARBINGER_ZONE_1(new BlockPos(1905, -25, 1805), 1, Util.SAKURA_ZONE_NUM),
+    HARBINGER_ZONE_2(new BlockPos(1929, -25, 1793), 2, Util.SAKURA_ZONE_NUM),
+    HARBINGER_ZONE_3(new BlockPos(1943, -25, 1792), 2, Util.SAKURA_ZONE_NUM),
+    HARBINGER_ZONE_4(new BlockPos(1954, -18, 1803), 3, Util.SAKURA_ZONE_NUM),
+    HARBINGER_ZONE_5(new BlockPos(1958, -24, 1796), 2, Util.SAKURA_ZONE_NUM),
+    HARBINGER_ZONE_6(new BlockPos(1916, -25, 1813), 1, Util.SAKURA_ZONE_NUM),
+    HARBINGER_ZONE_7(new BlockPos(1934, -11, 1797), 2, Util.SAKURA_ZONE_NUM),
+
+    // 熔岩地堡区域
+    BUNKER_ZONE_0(new BlockPos(3832, -14, 1939), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_1(new BlockPos(3850, -14, 1939), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_2(new BlockPos(3917, -8, 2003), 2, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_3(new BlockPos(3810, -7, 2032), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_4(new BlockPos(3810, -7, 2063), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_5(new BlockPos(3766, -7, 2063), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_6(new BlockPos(3755, -7, 2032), 2, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_7(new BlockPos(3738, -8, 2059), 2, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_8(new BlockPos(3841, -7, 2063), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_9(new BlockPos(3903, -7, 2063), 2, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_10(new BlockPos(3903, -7, 2032), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_11(new BlockPos(3872, -7, 2032), 1, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_12(new BlockPos(3841, -10, 2001), 3, Util.SAKURA_ZONE_NUM),
+    BUNKER_ZONE_13(new BlockPos(3841, 0, 1942), 3, Util.SAKURA_ZONE_NUM),
 
     // 下界区域
     NETHER_0(new BlockPos(565, 70, -624), 1, Util.NETHER_ZONE_NUM, 1),
