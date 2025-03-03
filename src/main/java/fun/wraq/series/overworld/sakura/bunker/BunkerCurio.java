@@ -45,6 +45,7 @@ public class BunkerCurio extends WraqCurios implements OnWithStandDamageCurios, 
             Utils.percentManaDefenceEnhance.put(this, 0.08);
             Element.FireElementValue.put(this, 0.8);
         }
+        Utils.levelRequire.put(this, 230);
     }
 
     @Override

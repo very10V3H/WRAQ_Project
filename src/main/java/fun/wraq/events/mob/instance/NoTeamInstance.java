@@ -141,7 +141,7 @@ public abstract class NoTeamInstance {
         players.forEach(player -> {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
                 int needLevel = (int) (level * 0.8);
-                if (!allowReward(player) && allowRewardCondition() != null) {
+                if (!player.isCreative() && !allowReward(player) && allowRewardCondition() != null) {
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             allowRewardCondition());
                     return;
@@ -155,6 +155,9 @@ public abstract class NoTeamInstance {
                     if (InventoryOperation.checkItemRemoveIfHas(player,
                             List.of(new ItemStack(getSummonAndRewardNeedItem(), getRewardNeedItemCount())))
                             || checkReason(player)) {
+                        if (checkReason(player)) {
+                            Reason.addOrCostPlayerReasonValue(player, -getRewardNeedItemCount());
+                        }
                         List<ItemAndRate> rewardList = getRewardList();
                         rewardList.forEach(itemAndRate -> {
                             ItemStack copyStack = itemAndRate.getItemStack().copy();

@@ -70,6 +70,6 @@ public class PurpleIronSword extends WraqPassiveEquip implements PurpleIronCommo
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.PurpleIronBud2.get(), 2);
+        return new ItemStack(ModItems.PURPLE_IRON_WEAPON_PIECE.get());
     }
 }

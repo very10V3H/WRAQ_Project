@@ -115,7 +115,7 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
     }
 
     @Override
-    public void onHit(Player player, Mob mob) {
+    public void onCauseFinalDamage(Player player, Mob mob, double damage) {
         HarbingerMainHand.onHit(mob, this);
     }
 }

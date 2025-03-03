@@ -114,7 +114,7 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
     }
 
     @Override
-    public void onHit(Player player, Mob mob) {
+    public void onCauseFinalDamage(Player player, Mob mob, double damage) {
         HarbingerMainHand.onHit(mob, this);
     }
 }

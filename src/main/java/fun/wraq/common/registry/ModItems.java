@@ -2403,48 +2403,40 @@ public class ModItems {
     public static final RegistryObject<Item> MobArmorPurpleIronKnightBoots = ITEMS.register("mob_armor_purple_knight_boots",
             () -> new HolyArmor(ModArmorMaterials.LakeMaterialBoots, ArmorItem.Type.BOOTS, StringUtils.MobName.NoAttribute));
 
+    public static final RegistryObject<Item> PURPLE_IRON_WEAPON_PIECE = ITEMS.register("purple_iron_weapon_piece",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PurpleIronItalic)));
+
     public static final RegistryObject<Item> PurpleIronBow = ITEMS.register("purple_iron_bow",
             () -> new PurpleIronBow(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 0));
-
     public static final RegistryObject<Item> PurpleIronBow1 = ITEMS.register("purple_iron_bow1",
             () -> new PurpleIronBow(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 1));
-
     public static final RegistryObject<Item> PurpleIronBow2 = ITEMS.register("purple_iron_bow2",
             () -> new PurpleIronBow(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 2));
-
     public static final RegistryObject<Item> PurpleIronBow3 = ITEMS.register("purple_iron_bow3",
             () -> new PurpleIronBow(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 3));
 
     public static final RegistryObject<Item> PurpleIronSword = ITEMS.register("purple_iron_sword",
             () -> new PurpleIronSword(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 0));
-
     public static final RegistryObject<Item> PurpleIronSword1 = ITEMS.register("purple_iron_sword1",
             () -> new PurpleIronSword(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 1));
-
     public static final RegistryObject<Item> PurpleIronSword2 = ITEMS.register("purple_iron_sword2",
             () -> new PurpleIronSword(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 2));
-
     public static final RegistryObject<Item> PurpleIronSword3 = ITEMS.register("purple_iron_sword3",
             () -> new PurpleIronSword(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 3));
 
     public static final RegistryObject<Item> PurpleIronSceptre = ITEMS.register("purple_iron_sceptre",
             () -> new PurpleIronSceptre(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 0));
-
     public static final RegistryObject<Item> PurpleIronSceptre1 = ITEMS.register("purple_iron_sceptre1",
             () -> new PurpleIronSceptre(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 1));
-
     public static final RegistryObject<Item> PurpleIronSceptre2 = ITEMS.register("purple_iron_sceptre2",
             () -> new PurpleIronSceptre(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 2));
-
     public static final RegistryObject<Item> PurpleIronSceptre3 = ITEMS.register("purple_iron_sceptre3",
             () -> new PurpleIronSceptre(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 3));
 
     public static final RegistryObject<Item> PurpleIronBud1 = ITEMS.register("purple_iron_bud1",
             () -> new Item(new Item.Properties().rarity(CustomStyle.PurpleIronBold)));
-
     public static final RegistryObject<Item> PurpleIronBud2 = ITEMS.register("purple_iron_bud2",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PurpleIronBold), true, true));
-
     public static final RegistryObject<Item> PurpleIronBud3 = ITEMS.register("purple_iron_bud3",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PurpleIronBold), true, true));
 

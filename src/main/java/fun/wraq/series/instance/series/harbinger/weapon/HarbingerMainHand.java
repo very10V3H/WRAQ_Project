@@ -7,8 +7,8 @@ import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.damage.OnCauseFinalDamageEquip;
 import fun.wraq.common.impl.display.BeforeRemoveMaterialOnForge;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
@@ -35,7 +35,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
-public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnHitEffectEquip {
+public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnCauseFinalDamageEquip {
 
     Map<Player, Integer> countMap = new WeakHashMap<>();
     Map<Player, Integer> countExpiredTickMap = new WeakHashMap<>();
@@ -164,9 +164,11 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnHitEff
     static double onMobWithstand(Mob mob, Player player) {
         if (MOB_NAMES.contains(MobSpawn.getMobOriginName(mob)) && !isInSmelt(mob)) {
             if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
-                nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.s(1));
-                Compute.sendFormatMSG(player, Te.s("熔心", CustomStyle.BUNKER_STYLE),
-                        Te.s(mob, "未处在", "熔融状态", CustomStyle.BUNKER_STYLE, "，你无法对其造成伤害."));
+                if (!isHandHeld(player)) {
+                    nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.s(1));
+                    Compute.sendFormatMSG(player, Te.s("熔心", CustomStyle.BUNKER_STYLE),
+                            Te.s(mob, "未处在", "熔融状态", CustomStyle.BUNKER_STYLE, "，你无法对其造成伤害."));
+                }
             }
             return 0;
         }
@@ -186,7 +188,7 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnHitEff
                         ComponentUtils.AttributeDescription.attackDamage("1%总")
                         : ComponentUtils.AttributeDescription.manaDamage("1%总")));
         ComponentUtils.descriptionPassive(components, Te.s("熔炼", style));
-        components.add(Te.s(" 普攻将使目标陷入", "熔融状态", style));
+        components.add(Te.s(" 造成伤害将使目标陷入", "熔融状态", style));
         components.add(Te.s(" 使目标抗性削减", "25%", style, "，持续5s"));
         ComponentUtils.descriptionActive(components, Te.s("锤炼", style));
         components.add(Te.s(" 获得5层", "「匠」", style));

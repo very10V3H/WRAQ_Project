@@ -315,6 +315,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1057, 226, 616), "梦灵刷怪点", colorMap.get(white), CustomStyle.styleOfMoon1, 0));
         add(new MyWayPoint(new Vec3(1088, 23, 892), "神殿守卫刷怪点", colorMap.get(blue), CustomStyle.styleOfSea, 0));
         add(new MyWayPoint(new Vec3(1039, 67, 1094), "海盗刷怪点", colorMap.get(blue), CustomStyle.styleOfSea, 0));
+        add(new MyWayPoint(new Vec3(1176, 67, 1153), "海盗刷怪点 - A", colorMap.get(blue), CustomStyle.styleOfSea, 0));
         add(new MyWayPoint(new Vec3(1743, 69, 1241), "雷光灯塔守卫刷怪点", colorMap.get(blue), CustomStyle.styleOfLightingIsland, 0));
         add(new MyWayPoint(new Vec3(2262, 71, 1408), "腥月血灵刷怪点", colorMap.get(red), CustomStyle.styleOfBloodMana, 0));
         add(new MyWayPoint(new Vec3(2388, 163, 1622), "地蕴蓝灵刷怪点", colorMap.get(purple), CustomStyle.styleOfJacaranda, 0));

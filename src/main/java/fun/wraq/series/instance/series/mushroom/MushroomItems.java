@@ -37,4 +37,7 @@ public class MushroomItems {
 
     public static final RegistryObject<Item> MUSHROOM_CURIO = ITEMS.register("mushroom_curio",
             () -> new MushroomCurio(new Item.Properties().rarity(CustomStyle.MUSHROOM_ITALIC_RARITY)));
+
+    public static final RegistryObject<Item> MUSHROOM_GEM_PIECE = ITEMS.register("mushroom_gem_piece",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY)));
 }

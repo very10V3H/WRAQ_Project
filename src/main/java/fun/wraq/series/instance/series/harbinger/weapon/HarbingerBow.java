@@ -113,8 +113,9 @@ public class HarbingerBow extends WraqBow implements HarbingerMainHand, ActiveIt
         );
     }
 
+
     @Override
-    public void onHit(Player player, Mob mob) {
+    public void onCauseFinalDamage(Player player, Mob mob, double damage) {
         HarbingerMainHand.onHit(mob, this);
     }
 }

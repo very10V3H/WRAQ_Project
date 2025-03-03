@@ -73,6 +73,7 @@ import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
+import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenAttackOffhand;
@@ -167,6 +168,7 @@ public class ServerPlayerTickEvent {
             MobSpawn.handlePlayerTick(player);
             SwordNewSkillBase3_0.handleServerPlayerTick(player);
             DivineUtils.handlePlayerTick(player);
+            PurpleIronCommon.handlePlayerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

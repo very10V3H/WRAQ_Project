@@ -158,6 +158,7 @@ public class MobSpawn {
         overWolrdList.add(EarthManaSpawnController.getInstance(overWorld));
         overWolrdList.add(BloodManaSpawnController.getInstance(overWorld));
         overWolrdList.add(PillagerSpawnController.getInstance(overWorld));
+        overWolrdList.add(Pillager2SpawnController.getInstance(overWorld));
         overWolrdList.add(BeaconSpawnController.getInstance(overWorld));
         overWolrdList.add(BlazeSpawnController.getInstance(overWorld));
         overWolrdList.add(TreeSpawnController.getInstance(overWorld));

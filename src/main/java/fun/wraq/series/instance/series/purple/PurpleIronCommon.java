@@ -21,11 +21,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public interface PurpleIronCommon {
     int getPassiveTier();
@@ -51,6 +49,7 @@ public interface PurpleIronCommon {
     }
 
     List<BlockInfo> blockInfoList = new ArrayList<>();
+    Set<BlockPos> blockPosSet = new HashSet<>();
 
     static void onHit(Player player, Mob mob, Item item) {
         if (nextAllowTrigTick.getOrDefault(player, 0) < Tick.get()) {
@@ -67,6 +66,7 @@ public interface PurpleIronCommon {
                 }
                 blockInfoList.add(new BlockInfo(blockPos, player, level,
                         Tick.get() + 600, ((PurpleIronCommon) item).getPassiveTier()));
+                blockPosSet.add(blockPos);
                 level.setBlockAndUpdate(blockPos, Blocks.AMETHYST_CLUSTER.defaultBlockState());
 
                 MySound.soundToNearPlayer(level, blockPos.getCenter(), SoundEvents.AMETHYST_CLUSTER_PLACE);
@@ -104,7 +104,28 @@ public interface PurpleIronCommon {
                         (ServerLevel) info.level, info.blockPos.getCenter(), 0.5, 20);
             }
         });
+        removeList.forEach(info -> {
+            blockPosSet.remove(info.blockPos);
+        });
         blockInfoList.removeAll(removeList);
+    }
+
+    static void handlePlayerTick(Player player) {
+        int radius = 5;
+        Level level = player.level();
+        for (int i = player.getBlockX() - radius; i <= player.getBlockX() + radius; i ++) {
+            for (int j = player.getBlockY() - radius; j <= player.getBlockY() + radius; j ++) {
+                for (int k = player.getBlockZ() - radius; k <= player.getBlockZ() + radius; k ++) {
+                    BlockPos blockPos = new BlockPos(i, j, k);
+                    if (!blockPosSet.contains(blockPos)) {
+                        BlockState blockState = level.getBlockState(blockPos);
+                        if (blockState.is(Blocks.AMETHYST_CLUSTER)) {
+                            level.destroyBlock(blockPos, false);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     static void destroyOnServerStop() {

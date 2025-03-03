@@ -25,27 +25,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PillagerSpawnController extends MobSpawnController {
+public class Pillager2SpawnController extends MobSpawnController {
 
     public static String mobName = "海盗";
-    private static PillagerSpawnController instance;
+    private static Pillager2SpawnController instance;
 
-    public static PillagerSpawnController getInstance(Level world) {
+    public static Pillager2SpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(1038, 67, 1083),
-                    new Vec3(1042, 67, 1089),
-                    new Vec3(1038, 67, 1097),
-                    new Vec3(1039, 64, 1083),
-                    new Vec3(1039, 64, 1094)
+                    new Vec3(1176, 70, 1140),
+                    new Vec3(1173, 67, 1149),
+                    new Vec3(1178, 67, 1153),
+                    new Vec3(1175, 68, 1160),
+                    new Vec3(1176, 64, 1155),
+                    new Vec3(1176, 63, 1147)
             );
-            instance = new PillagerSpawnController(spawnPos, 1205, 1179, 1014, 1048, world, 108);
+            instance = new Pillager2SpawnController(spawnPos, 1205, 1179, 1014, 1048, world, 108);
         }
         return instance;
     }
 
-    public PillagerSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
-                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+    public Pillager2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
         super(Te.s("海盗", CustomStyle.styleOfShip), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 

@@ -43,6 +43,6 @@ public class MushroomSputterGem extends WraqPassiveGem implements GemOnNormalAtt
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(), 6);
+        return new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 6);
     }
 }

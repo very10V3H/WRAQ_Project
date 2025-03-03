@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
@@ -47,6 +48,10 @@ public class BunkerInstance extends NoTeamInstance {
     @Override
     public void tickModule() {
         if (mobList.isEmpty()) return;
+
+        mobList.forEach(mob -> {
+            Element.provideElement(mob, Element.fire, 6);
+        });
     }
 
     @Override

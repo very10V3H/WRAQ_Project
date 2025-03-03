@@ -16,6 +16,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
+import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
@@ -71,6 +72,8 @@ public class TradeList {
         springEvent();
         divineIsland();
         bunker();
+        purpleIronWeapon();
+        mushroomGem();
 
         /* 1.0 */
 
@@ -3335,5 +3338,51 @@ public class TradeList {
                         new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 4)));
         tradeRecipeMap.put(bunkerManaCrest4_E,
                 List.of(new ItemStack(BunkerItems.BUNKER_MANA_CREST_3.get(), 4)));
+    }
+
+    public static void purpleIronWeapon() {
+        ItemStack purpleIronBud2 = new ItemStack(ModItems.PurpleIronBud2.get(), 2);
+        ItemStack purpleIronSword = new ItemStack(ModItems.PurpleIronSword.get());
+        ItemStack purpleIronBow = new ItemStack(ModItems.PurpleIronBow.get());
+        ItemStack purpleIronSceptre = new ItemStack(ModItems.PurpleIronSceptre.get());
+        ItemStack[] itemStacks = {
+                purpleIronBud2,
+                purpleIronSword, purpleIronBow, purpleIronSceptre
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("紫晶工匠", "purpleIronWeapon",
+                CustomStyle.styleOfPurpleIron, VillagerType.PLAINS, VillagerProfession.TOOLSMITH, contentList);
+        tradeRecipeMap.put(purpleIronBud2,
+                List.of(new ItemStack(ModItems.PURPLE_IRON_WEAPON_PIECE.get(), 1)));
+        tradeRecipeMap.put(purpleIronSword,
+                List.of(new ItemStack(ModItems.PURPLE_IRON_WEAPON_PIECE.get(), 2)));
+        tradeRecipeMap.put(purpleIronBow,
+                List.of(new ItemStack(ModItems.PURPLE_IRON_WEAPON_PIECE.get(), 2)));
+        tradeRecipeMap.put(purpleIronSceptre,
+                List.of(new ItemStack(ModItems.PURPLE_IRON_WEAPON_PIECE.get(), 2)));
+    }
+
+    public static void mushroomGem() {
+        ItemStack unknownMushroom = new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(), 6);
+        ItemStack sputterGem = new ItemStack(GemItems.MUSHROOM_SPUTTER_GEM.get());
+        ItemStack parasitismGem = new ItemStack(GemItems.MUSHROOM_PARASITISM_GEM.get());
+        ItemStack splitGem = new ItemStack(GemItems.MUSHROOM_SPLIT_GEM.get());
+        ItemStack[] itemStacks = {
+                unknownMushroom,
+                sputterGem, parasitismGem, splitGem
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("菌菇宝石商人", "mushroomGem",
+                CustomStyle.MUSHROOM_STYLE, VillagerType.JUNGLE, VillagerProfession.LIBRARIAN, contentList);
+        tradeRecipeMap.put(unknownMushroom,
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 1)));
+        tradeRecipeMap.put(sputterGem,
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 2)));
+        tradeRecipeMap.put(parasitismGem,
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 2)));
+        tradeRecipeMap.put(splitGem,
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 2)));
     }
 }
