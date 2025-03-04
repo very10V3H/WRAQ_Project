@@ -77,7 +77,7 @@ public class MineBow extends WraqBow implements OnHitEffectEquip {
         mobList.forEach(mob1 -> {
             if (mob1.distanceTo(mob) <= 4) {
                 Dot.addDotOnMob(mob1, new Dot(1, PlayerAttributes.attackDamage(player) * new double[]{0.1, 0.15, 0.2, 0.25}[tier],
-                        2, Tick.get() + 40, player.getName().getString(), true));
+                        2, Tick.get() + 40, player.getName().getString(), true, null));
             }
         });
     }

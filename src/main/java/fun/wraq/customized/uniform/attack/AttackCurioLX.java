@@ -48,7 +48,7 @@ public class AttackCurioLX extends WraqAttackUniformCurios implements OnHitEffec
     public void onHit(Player player, Mob mob) {
         if (player.getMainHandItem().getItem() instanceof WraqSword) {
             Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.08, 4,
-                    Tick.get() + Tick.s(2), Name.get(player), true));
+                    Tick.get() + Tick.s(2), Name.get(player), true, null));
         }
     }
 }

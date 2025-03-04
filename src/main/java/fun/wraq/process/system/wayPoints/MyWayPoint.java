@@ -428,6 +428,10 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1731, 114, 1855), "北望村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
         add(new MyWayPoint(new Vec3(1931, 86, 1686), "沙岸村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
         add(new MyWayPoint(new Vec3(2394, 179, 1728), "绯樱村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+        // 野怪
+        add(new MyWayPoint(new Vec3(3841, -9, 2001), "熔魂刷新点", colorMap.get(red), CustomStyle.BUNKER_STYLE, 0));
+        add(new MyWayPoint(new Vec3(1363, 78, 100), "熔岩之能刷新点", colorMap.get(red), CustomStyle.BUNKER_STYLE, 0));
+        add(new MyWayPoint(new Vec3(1376, 81, -272), "唤魔大师", colorMap.get(purple), CustomStyle.styleOfMana, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

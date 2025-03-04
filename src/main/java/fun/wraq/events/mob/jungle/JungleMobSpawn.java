@@ -1,0 +1,58 @@
+package fun.wraq.events.mob.jungle;
+
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.event.TickEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class JungleMobSpawn {
+    public static List<JungleMobSpawnController> overworldController = new ArrayList<>();
+
+    public static List<JungleMobSpawnController> getOverworldController() {
+        if (overworldController.isEmpty()) {
+            overworldController.add(BunkerGhastSpawnController.getInstance());
+            overworldController.add(BlazePowerSpawnController.getInstance());
+            overworldController.add(EvokerMasterSpawnController.getInstance());
+        }
+        return overworldController;
+    }
+
+    public static void handleLevelTick(TickEvent.LevelTickEvent event) {
+        if (event.side.isClient() || event.phase.equals(TickEvent.Phase.END)) {
+            return;
+        }
+        Level level = event.level;
+        if (level.dimension().equals(Level.OVERWORLD)) {
+            getOverworldController().forEach(controller -> {
+                controller.handleLevelTick(level);
+            });
+        }
+    }
+
+    public static void onMobWithstandDamage(Mob mob, Player player) {
+        getOverworldController().forEach(controller -> {
+            controller.onMobWithStandDamage(mob, player);
+        });
+    }
+
+    public static double modifyMobWithstandDamage(Mob mob, Player player) {
+        JungleMobSpawnController controller = getOverworldController()
+                .stream().filter(eachController -> {
+                    return eachController.mobs.contains(mob);
+                }).findAny().orElse(null);
+        if (controller != null) {
+            return controller.modifyMobWithstandDamage(mob, player);
+        }
+        return 1;
+    }
+
+    public static void removeAllMobs() {
+        getOverworldController().forEach(controller -> {
+            controller.mobs.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
+        });
+    }
+}

@@ -16,8 +16,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -76,14 +76,14 @@ public class BunkerAttackMobSpawnController extends MobSpawnController {
 
     @Override
     public LivingEntity getMounts() {
-        Phantom phantom = new Phantom(EntityType.PHANTOM, level);
+        Hoglin hoglin = new Hoglin(EntityType.HOGLIN, level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(phantom, Component.literal("地堡幻翼").withStyle(style), xpLevel,
-                7500, 500, 500,
-                0.4, 3, 0.5, 375, 25,
-                3500 * Math.pow(10, 4), 0.4);
-        return phantom;
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(hoglin, Te.s("地堡疣猪", style), xpLevel,
+                6500, 450, 450,
+                0.4, 3, 0.5, 350, 25,
+                2500 * Math.pow(10, 4), 0.4);
+        return hoglin;
     }
 
     @Override

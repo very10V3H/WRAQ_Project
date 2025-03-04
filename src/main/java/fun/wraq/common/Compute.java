@@ -114,6 +114,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.*;
 
@@ -1907,6 +1908,13 @@ public class Compute {
                 .toList();
     }
 
+    public static Set<Player> getNearPlayer(Level level, Vec3 center, double radius) {
+        return getNearEntity(level, center, Player.class, radius).stream()
+                .filter(entity -> entity instanceof Player)
+                .map(entity -> (Player) entity)
+                .collect(Collectors.toSet());
+    }
+
     public static void sendMobEffectHudToNearPlayer(Mob mob, Item icon, String tag, int lastTick, int level, boolean forever) {
         List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
         list.stream().filter(e -> e instanceof Player).forEach(p -> {
@@ -2140,6 +2148,13 @@ public class Compute {
         armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
         armorStand.moveTo(pos);
         level.addFreshEntity(armorStand);
+    }
+
+    public static void removeNearArmorStand(Level level, Vec3 pos, double radius) {
+        level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(pos, radius * 2, radius * 2, radius * 2))
+                .forEach(armorStand -> {
+                    armorStand.remove(Entity.RemovalReason.KILLED);
+                });
     }
 
     public interface MobCauseDamageToPlayer {

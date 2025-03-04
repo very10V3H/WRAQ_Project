@@ -8,12 +8,18 @@ import net.minecraftforge.event.TickEvent;
 
 import java.util.*;
 
-public record Dot(int type, double value, int frequency, int stopTick, String name, boolean computeCrit) {
+public record Dot(int type, double value, int frequency, int stopTick, String playerName,
+                  boolean computeCrit, String tag) {
     // type : 0 - ignoreDefence 1 - attack 2 - mana
     // parameter "computeCrit" can only be used in type 1 or 2
 
     public static void addDotOnMob(Mob mob, Dot dot) {
-        if (!mobDotList.containsKey(mob)) mobDotList.put(mob, new ArrayList<>());
+        if (!mobDotList.containsKey(mob)) {
+            mobDotList.put(mob, new ArrayList<>());
+        }
+        if (dot.tag != null) {
+            mobDotList.get(mob).removeIf(dot1 -> dot1.tag.equals(dot.tag));
+        }
         mobDotList.get(mob).add(dot);
     }
 
@@ -28,7 +34,7 @@ public record Dot(int type, double value, int frequency, int stopTick, String na
         mobDotList.forEach((mob, list) -> {
             if (mob.isDeadOrDying()) removeMobList.add(mob);
             list.forEach(dot -> {
-                ServerPlayer serverPlayer = event.getServer().getPlayerList().getPlayerByName(dot.name);
+                ServerPlayer serverPlayer = event.getServer().getPlayerList().getPlayerByName(dot.playerName);
                 if (tick >= dot.stopTick() || serverPlayer == null) {
                     removeDotList.add(dot);
                     return;

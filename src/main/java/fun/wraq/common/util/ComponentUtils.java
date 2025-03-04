@@ -128,7 +128,7 @@ public class ComponentUtils {
         }
 
         public static Component coolDown(String content) {
-            return Component.literal(Utils.Emoji.CoolDown + " " + content + "冷却时间").withStyle(ChatFormatting.AQUA);
+            return Component.literal(Utils.Emoji.CoolDown + " " + content + "技能急速").withStyle(ChatFormatting.AQUA);
         }
 
         public static Component healthSteal(String content) {

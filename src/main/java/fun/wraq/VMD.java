@@ -21,6 +21,7 @@ import fun.wraq.entities.entities.Scarecrow.Scarecrow;
 import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.events.mob.loot.*;
 import fun.wraq.events.server.ThreadPools;
 import fun.wraq.files.dataBases.DBConnection;
@@ -177,6 +178,7 @@ public class VMD {
         BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
         BlockEvent.netherMineReset(event.getServer().getLevel(Level.NETHER));
         MobSpawn.removeAllMob();
+        JungleMobSpawn.removeAllMobs();
         RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
         DailyEndlessInstanceEvent.onServerStop();
         AllayPet.onServerStop();

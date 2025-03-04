@@ -97,7 +97,7 @@ public class BloodManaArmor extends WraqArmor implements ForgeItem {
     public static void onAttackOrArrowHit(Player player, Mob mob) {
         if (SuitCount.getBloodManaSuitCount(player) > 0 && (player.getHealth() / player.getMaxHealth()) >= 0.7) {
             Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.1 * SuitCount.getBloodManaSuitCount(player),
-                    3, Tick.get() + 20, player.getName().getString(), true));
+                    3, Tick.get() + 20, player.getName().getString(), true, null));
         }
     }
 }
