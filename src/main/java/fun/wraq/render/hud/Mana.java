@@ -53,7 +53,9 @@ public class Mana {
             value *= manaCostRate;
             PowerLogic.playerLastTimeReleasePowerManaCost.put(player, value);
             if (SuitCount.getEarthManaSuitCount(player) > 0) {
-                Compute.playerHeal(player, value * SuitCount.getEarthManaSuitCount(player));
+                if (ManaSkillTree.getManaSkillTier(player, 13) == 0) {
+                    Compute.playerHeal(player, value * SuitCount.getEarthManaSuitCount(player));
+                }
             }
             OnCostManaEquip.costMana(player, value);
             data.putDouble("MANA", Math.max(currentValue + value, 0));

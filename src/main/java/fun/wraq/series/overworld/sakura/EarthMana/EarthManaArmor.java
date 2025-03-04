@@ -1,11 +1,12 @@
 package fun.wraq.series.overworld.sakura.EarthMana;
 
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -53,6 +54,7 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
                 append(ComponentUtils.AttributeDescription.manaValue("100%")).
                 append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.healValue("")));
+        components.add(Te.s(" 与法术专精 - 传世禁咒不兼容", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         ComponentUtils.descriptionPassive(components, Component.literal("新世唤魔复生").withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).

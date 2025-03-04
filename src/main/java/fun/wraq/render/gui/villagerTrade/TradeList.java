@@ -3377,12 +3377,12 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("菌菇宝石商人", "mushroomGem",
                 CustomStyle.MUSHROOM_STYLE, VillagerType.JUNGLE, VillagerProfession.LIBRARIAN, contentList);
         tradeRecipeMap.put(unknownMushroom,
-                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 1)));
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 6)));
         tradeRecipeMap.put(sputterGem,
-                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 2)));
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 12)));
         tradeRecipeMap.put(parasitismGem,
-                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 2)));
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 12)));
         tradeRecipeMap.put(splitGem,
-                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 2)));
+                List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 12)));
     }
 }
