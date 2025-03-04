@@ -28,7 +28,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,9 +53,10 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
         components.add(Te.s(" 将除", "当前共鸣", ChatFormatting.AQUA, "以外的元素", "以", "20%", style, "的效率"));
         components.add(Te.s(" 转化为", "当前元素", ChatFormatting.AQUA, "的", "归一化元素强度", style));
         ComponentUtils.descriptionPassive(components, Te.s("圣光恩赐", style));
-        components.add(Te.s(" 击杀怪物将会受", "圣光恩赐", style));
-        components.add(Te.s(" 圣光恩赐", style, "将存储在这件物品内"));
-        components.add(Te.s(" 恩赐", style, "至多为你提供:"));
+        Component countName = ComponentUtils.getRightAngleQuote("圣光恩赐", style);
+        components.add(Te.s(" 击杀怪物将会受", countName, style));
+        components.add(Te.s(" ", countName, "将存储在这件物品内"));
+        components.add(Te.s(" ", countName, "至多为你提供:"));
         components.add(Te.s(" 1.", style,
                 ComponentUtils.AttributeDescription.getElementStrength(String.format("%.0f%%", upperLimitRate * 100))));
         components.add(Te.s(" 2.", style,
@@ -64,7 +67,8 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
                 + String.format("%.0f%%", Math.min(getDivineCount(stack), maxCount) * 100.0 / maxCount), style));
         components.add(Te.s(" ".repeat(4),
                 ComponentUtils.getProgressBar(20, getDivineCount(stack), maxCount, style)));
-        components.add(Te.s(" 在收集", maxCount + "层圣光恩赐", style, "后达最大值"));
+        components.add(Te.s(" 在收集", maxCount + "层", style, countName, "后达最大值"));
+        components.add(Te.s(" ", countName, "每日将会清空", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         return components;
     }
 
@@ -94,6 +98,7 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
     }
 
     String DIVINE_COUNT_DATA_KEY = "DivineCount";
+    String DIVINE_COUNT_DATE_KEY = "DivineCountDate";
 
     static int getDivineCount(ItemStack stack) {
         return stack.getOrCreateTagElement(Utils.MOD_ID).getInt(DIVINE_COUNT_DATA_KEY);
@@ -103,8 +108,31 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
         stack.getOrCreateTagElement(Utils.MOD_ID).putInt(DIVINE_COUNT_DATA_KEY, divineCount);
     }
 
+    static Calendar getDivineCountDate(ItemStack stack) {
+        if (stack.getOrCreateTagElement(Utils.MOD_ID).contains(DIVINE_COUNT_DATE_KEY)) {
+            return null;
+        }
+        try {
+            return Compute.StringToCalendar(stack.getOrCreateTagElement(Utils.MOD_ID)
+                    .getString(DIVINE_COUNT_DATE_KEY));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static void setDivineCountDate(ItemStack stack, Calendar date) {
+        stack.getOrCreateTagElement(Utils.MOD_ID).putString(DIVINE_COUNT_DATE_KEY, Compute.CalendarToString(date));
+    }
+
     static void addDivineCount(ItemStack stack) {
         setDivineCount(stack, getDivineCount(stack) + 1);
+        if (getDivineCountDate(stack) == null) {
+            setDivineCountDate(stack, Calendar.getInstance());
+        }
+        if (getDivineCountDate(stack).get(Calendar.DATE) < Calendar.getInstance().get(Calendar.DATE)) {
+            setDivineCount(stack, 0);
+            setDivineCountDate(stack, Calendar.getInstance());
+        }
     }
 
     static double getElementExceptOneElementValue(Player player, String exceptElement) {

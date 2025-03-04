@@ -6,7 +6,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
-import fun.wraq.series.overworld.divine.DivineUtils;
+import fun.wraq.series.overworld.divine.equip.weapon.DivineWeaponCommon;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -19,9 +19,11 @@ import java.util.List;
 public class DivineArmor extends WraqArmor implements DivineArmorCommon {
 
     private final double maxRate;
-    public DivineArmor(ArmorMaterial armorMaterial, Type type, Properties properties, double maxRate) {
+    private final int maxCount;
+    public DivineArmor(ArmorMaterial armorMaterial, Type type, Properties properties, double maxRate, int maxCount) {
         super(armorMaterial, type, properties);
         this.maxRate = maxRate;
+        this.maxCount = maxCount;
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.015);
             Utils.healthRecover.put(this, 200d);
@@ -52,7 +54,7 @@ public class DivineArmor extends WraqArmor implements DivineArmorCommon {
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        return DivineArmorCommon.getDescription(stack, maxRate);
+        return DivineArmorCommon.getDescription(stack, maxRate, maxCount);
     }
 
     @Override
@@ -81,12 +83,25 @@ public class DivineArmor extends WraqArmor implements DivineArmorCommon {
 
     @Override
     public double getEnhanceRate(Player player) {
-        return DivineArmorCommon.getCommonEnhanceRate(player, maxRate);
+        ItemStack stack = null;
+        for (ItemStack armorStack : player.getArmorSlots()) {
+            if (armorStack.getItem().equals(this)) {
+                stack = armorStack;
+            }
+        }
+        if (stack == null) {
+            return 0;
+        }
+        return DivineArmorCommon.getCommonEnhanceRate(stack, maxRate, maxCount);
     }
 
     @Override
     public void onKill(Player player, Mob mob) {
-        DivineUtils.addHolyLightCount(player, 1);
+        player.getArmorSlots().forEach(stack -> {
+            if (stack.getItem() instanceof DivineArmor) {
+                DivineWeaponCommon.addDivineCount(stack);
+            }
+        });
     }
 
     @Override
