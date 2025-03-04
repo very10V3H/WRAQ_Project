@@ -48,6 +48,7 @@ public class OffShellC2SPacket {
             if (!playerName.equals(serverPlayer.getName().getString()) && !serverPlayer.isCreative()) {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("你不能下架不属于你的物品").withStyle(ChatFormatting.WHITE));
+                return;
             }
             MarketItemInfo marketItemInfo = new MarketItemInfo(playerName, itemStack, price, type);
             MarketItemInfo removeItemInfo = null;
