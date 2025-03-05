@@ -31,6 +31,9 @@ public class SellCommand implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayer();
+        if (player == null) {
+            return 0;
+        }
         int price = IntegerArgumentType.getInteger(context, "price");
         int type = IntegerArgumentType.getInteger(context, "type");
         if (price <= 0 || price > 10000000) {
@@ -62,6 +65,16 @@ public class SellCommand implements Command<CommandSourceStack> {
                     Component.literal("这件物品似乎不可以出售。"));
             return 0;
         }
+        double commission = computeCommission(player, price, type);
+        if (commission > 0) {
+            if (Compute.getCurrentVB(player) < commission) {
+                Compute.sendFormatMSG(player, Te.s("市场", ChatFormatting.GOLD),
+                        Te.s("你的余额无法支付高额的税费，上架被取消了。"));
+                return 0;
+            } else {
+                Compute.VBExpenseAndMSGSend(player, commission);
+            }
+        }
         MarketItemInfo marketItemInfo = new MarketItemInfo(player.getName().getString(), itemStack, price, type);
         Utils.marketItemInfos.add(marketItemInfo);
         player.setItemInHand(InteractionHand.MAIN_HAND, Items.AIR.getDefaultInstance());
@@ -72,11 +85,10 @@ public class SellCommand implements Command<CommandSourceStack> {
                         ChatFormatting.GOLD, " 的价格出售了 ", itemStack.getDisplayName()));
         LogUtils.getLogger().info("市场 {} 以 {} 出售了 {}", player.getName().getString(),
                 price + MarketInfo.getType(type), itemStack);
-        computeCommission(player, price, type);
         return 0;
     }
 
-    public static void computeCommission(ServerPlayer player, int price, int type) {
+    public static double computeCommission(ServerPlayer player, int price, int type) {
         if (!(player.level().dimension().equals(Level.OVERWORLD)
                 && player.position().distanceTo(MyWayPoint.VillageWayPoint.SUN_RISE_ISLAND.pos) < 100)) {
             Compute.sendFormatMSG(player, Te.s("市场", ChatFormatting.GOLD),
@@ -88,8 +100,9 @@ public class SellCommand implements Command<CommandSourceStack> {
             } else {
                 commissionCharge += price * 0.1;
             }
-            Compute.VBExpenseAndMSGSend(player, commissionCharge);
+            return commissionCharge;
         }
+        return 0;
     }
 
     public boolean isAllowedSold(Item item) {

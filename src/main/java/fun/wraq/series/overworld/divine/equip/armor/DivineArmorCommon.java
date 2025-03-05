@@ -34,13 +34,14 @@ public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEq
             case BOOTS -> skill = Te.s("基础技能 - 3", ChatFormatting.AQUA);
             default -> skill = Te.s("");
         }
-        components.add(Te.s(" ", skill,
+        components.add(Te.s(" ", skill, "的",
                 String.format("%.0f%%", maxRate * 100) + "增幅", style));
+        int count = DivineWeaponCommon.getDivineCount(stack);
         components.add(Te.s(" 圣光充盈度:"
                 + String.format("%.0f%%",
-                Math.min(DivineWeaponCommon.getDivineCount(stack), maxCount) * 100.0 / maxCount), style));
+                Math.min(count, maxCount) * 100.0 / maxCount), style, "(" + count + ")", ChatFormatting.GRAY));
         components.add(Te.s(" ".repeat(4),
-                ComponentUtils.getProgressBar(20, DivineWeaponCommon.getDivineCount(stack), maxCount, style)));
+                ComponentUtils.getProgressBar(20, count, maxCount, style)));
         components.add(Te.s(" 在收集", maxCount + "层", style, countName, "后达最大值"));
         components.add(Te.s(" ", countName, "每日将会清空", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         return components;

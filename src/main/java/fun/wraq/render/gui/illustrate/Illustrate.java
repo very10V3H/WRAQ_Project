@@ -178,6 +178,11 @@ public class Illustrate extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
+        int textureWidth = 300;
+        int textureHeight = 200;
+
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
         int xOffset = -28;
         switch (type) {
             case 0 -> sameModule(Utils.weaponList, guiGraphics, x, y, xOffset);
@@ -202,11 +207,6 @@ public class Illustrate extends Screen {
             case 19 -> sameModule(Display.getNewItemList(), guiGraphics, x, y, xOffset);
         }
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
         super.render(p_96310_, x, y, v);
     }
 

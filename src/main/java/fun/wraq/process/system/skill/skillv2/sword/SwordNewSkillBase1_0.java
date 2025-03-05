@@ -37,7 +37,7 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill {
                     MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                     AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
                         AttackEvent.attackToMonster(mob, player,
-                                (2 + skillLevel * 0.1) * (1 + getEnhanceRate(player)), true, true);
+                                (2.5 + skillLevel * 0.15) * (1 + getEnhanceRate(player)), true, true);
                     });
                 }
             }

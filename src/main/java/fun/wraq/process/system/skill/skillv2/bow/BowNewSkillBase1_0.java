@@ -30,7 +30,7 @@ public class BowNewSkillBase1_0 extends SkillV2BaseSkill {
             public void trig() {
                 Item item = player.getMainHandItem().getItem();
                 if (item instanceof WraqBow wraqBow) {
-                    wraqBow.shoot(player, (2 + skillLevel * 0.1) * (1 + getEnhanceRate(player)),
+                    wraqBow.shoot(player, (2.5 + skillLevel * 0.15) * (1 + getEnhanceRate(player)),
                             true, true, true);
                 }
             }

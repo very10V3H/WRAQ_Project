@@ -552,7 +552,7 @@ public class Compute {
         }
     }
 
-    public static double CurrentVB(Player player) {
+    public static double getCurrentVB(Player player) {
         return player.getPersistentData().getDouble("VB");
     }
 
@@ -2194,6 +2194,7 @@ public class Compute {
         }), startTick, trigTick, startTick + lastTick);
 
         // 制造粒子
-        ParticleProvider.createSpaceEffectParticle(level, pos, radius, 100, style, lastTick);
+        ParticleProvider.createSpaceEffectParticle(level, pos, radius,
+                100, style, lastTick + (startTick - Tick.get()));
     }
 }

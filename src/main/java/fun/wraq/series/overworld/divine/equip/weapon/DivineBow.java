@@ -45,7 +45,7 @@ public class DivineBow extends WraqBow implements DivineWeaponCommon, PreventLef
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        return DivineWeaponCommon.getCommonDescription(stack, upperLimitRate, maxCount, true);
+        return DivineWeaponCommon.getCommonDescription(stack, upperLimitRate, maxCount, true, maxActiveDistance);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DivineBow extends WraqBow implements DivineWeaponCommon, PreventLef
     public void onKill(Player player, Mob mob) {
         ItemStack stack = player.getMainHandItem();
         DivineWeaponCommon.addDivineCount(stack);
-        DivineWeaponCommon.onKill(player);
+        DivineWeaponCommon.onKillMob(player, mob);
     }
 
     @Override

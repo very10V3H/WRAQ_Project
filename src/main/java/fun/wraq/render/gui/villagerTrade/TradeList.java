@@ -3287,7 +3287,7 @@ public class TradeList {
                         new ItemStack(ModItems.NetherQuartz.get(), 8),
                         new ItemStack(ModItems.Ruby.get(), 8)));
         tradeRecipeMap.put(bunkerBossRune,
-                List.of(new ItemStack(BunkerItems.BUNKER_BOSS_SOUL.get(), 10),
+                List.of(new ItemStack(BunkerItems.BUNKER_BOSS_SOUL.get(), 15),
                         new ItemStack(ModItems.EarthManaRune.get(), 1),
                         new ItemStack(ModItems.BloodManaRune.get(), 1)));
 

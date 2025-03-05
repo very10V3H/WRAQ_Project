@@ -102,6 +102,7 @@ public class DivineArmor extends WraqArmor implements DivineArmorCommon {
                 DivineWeaponCommon.addDivineCount(stack);
             }
         });
+        DivineWeaponCommon.onKillMob(player, mob);
     }
 
     @Override

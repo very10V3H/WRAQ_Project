@@ -36,7 +36,7 @@ public class PayCommand implements Command<CommandSourceStack> {
                         Component.literal("玩家似乎不在线。。。").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
-            if (Compute.CurrentVB(player) >= num) {
+            if (Compute.getCurrentVB(player) >= num) {
 
                 Compute.sendFormatMSG(target, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                         Component.literal("你收到一笔来自 ").withStyle(ChatFormatting.WHITE).

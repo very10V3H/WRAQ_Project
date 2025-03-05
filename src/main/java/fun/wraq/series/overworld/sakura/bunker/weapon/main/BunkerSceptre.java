@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.sakura.bunker.weapon.main;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
@@ -15,6 +16,8 @@ public class BunkerSceptre extends HarbingerSceptre implements BunkerMainHand {
 
     public BunkerSceptre(Properties properties) {
         super(properties);
+        Utils.manaDamage.put(this, 5600d);
+        Utils.manaPenetration0.put(this, 60d);
     }
 
     @Override

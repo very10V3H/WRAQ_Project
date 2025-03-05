@@ -14,13 +14,16 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.bow.MyArrow;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -41,12 +44,14 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
 
     Style style = CustomStyle.DIVINE_STYLE;
 
-    static List<Component> getCommonDescription(ItemStack stack, double upperLimitRate, int maxCount, boolean isAd) {
+    static List<Component> getCommonDescription(ItemStack stack, double upperLimitRate, int maxCount, boolean isAd,
+                                                double maxActiveDistance) {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionActive(components, Te.s("透体圣光", style));
         components.add(Te.s(" 释放一道", "圣光", style));
         components.add(Te.s(" 对路径的敌人造成一次", isAd ? "普攻伤害" : "法球伤害",
                 isAd ? CustomStyle.styleOfPower : CustomStyle.styleOfMana));
+        components.add(Te.s(" 长度可及:", String.format("%.0f", maxActiveDistance), style));
         ComponentUtils.getStableCoolDownTimeDescription(components, 2);
         components.add(Te.s(" 圣光", CustomStyle.DIVINE_STYLE, "若击杀怪物，则", "无冷却时间", ChatFormatting.AQUA));
         ComponentUtils.descriptionPassive(components, Te.s("神圣之力", style));
@@ -63,10 +68,12 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
                 isAd ?
                         ComponentUtils.AttributeDescription.attackDamage(String.format("%.0f%%", upperLimitRate * 100))
                         : ComponentUtils.AttributeDescription.manaDamage(String.format("%.0f%%", upperLimitRate * 100))));
+        int count = getDivineCount(stack);
         components.add(Te.s(" 圣光充盈度:"
-                + String.format("%.0f%%", Math.min(getDivineCount(stack), maxCount) * 100.0 / maxCount), style));
+                + String.format("%.0f%%", Math.min(count, maxCount) * 100.0 / maxCount), style,
+                "(" + count + ")", ChatFormatting.GRAY));
         components.add(Te.s(" ".repeat(4),
-                ComponentUtils.getProgressBar(20, getDivineCount(stack), maxCount, style)));
+                ComponentUtils.getProgressBar(20, count, maxCount, style)));
         components.add(Te.s(" 在收集", maxCount + "层", style, countName, "后达最大值"));
         components.add(Te.s(" ", countName, "每日将会清空", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         return components;
@@ -145,10 +152,9 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
         return value;
     }
 
-    static void onKill(Player player) {
-        weaponList.forEach(item -> {
-            player.getCooldowns().removeCooldown(item);
-        });
+    static void onKillMob(Player player, Mob mob) {
+        ParticleProvider.createBallDisperseParticle(ParticleTypes.END_ROD, (ServerLevel) player.level(),
+                mob.getEyePosition(),0.25, 6);
     }
 
     static double getEnhanceElementValue(Player player, String type) {

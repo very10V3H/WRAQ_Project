@@ -1164,4 +1164,32 @@ public class Element {
         }
         return piece0ItemMap;
     }
+
+    private static final Map<String, Item> piece1ItemMap = new HashMap<>();
+    public static Map<String, Item> getPiece1ItemMap() {
+        if (piece1ItemMap.isEmpty()) {
+            piece1ItemMap.put(life, ModItems.LifeElementPiece1.get());
+            piece1ItemMap.put(water, ModItems.WaterElementPiece1.get());
+            piece1ItemMap.put(fire, ModItems.FireElementPiece1.get());
+            piece1ItemMap.put(stone, ModItems.StoneElementPiece1.get());
+            piece1ItemMap.put(ice, ModItems.IceElementPiece1.get());
+            piece1ItemMap.put(wind, ModItems.WindElementPiece1.get());
+            piece1ItemMap.put(lightning, ModItems.LightningElementPiece1.get());
+        }
+        return piece0ItemMap;
+    }
+
+    private static final Map<String, Item> piece2ItemMap = new HashMap<>();
+    public static Map<String, Item> getPiece2ItemMap() {
+        if (piece2ItemMap.isEmpty()) {
+            piece2ItemMap.put(life, ModItems.LifeElementPiece2.get());
+            piece2ItemMap.put(water, ModItems.WaterElementPiece2.get());
+            piece2ItemMap.put(fire, ModItems.FireElementPiece2.get());
+            piece2ItemMap.put(stone, ModItems.StoneElementPiece2.get());
+            piece2ItemMap.put(ice, ModItems.IceElementPiece2.get());
+            piece2ItemMap.put(wind, ModItems.WindElementPiece2.get());
+            piece2ItemMap.put(lightning, ModItems.LightningElementPiece2.get());
+        }
+        return piece0ItemMap;
+    }
 }
