@@ -30,10 +30,11 @@ public class ManaSkillTree {
             return false;
         }
         int tier = getManaSkillTier(player, 13);
+        double maxMana = Mana.getPlayerMaxManaNum(player);
         if (tier > 0 && player.getHealth() > player.getMaxHealth() * 0.75
-                && Mana.getPlayerCurrentManaNum(player) < Mana.getPlayerMaxManaNum(player)) {
-            double recoverValue = Math.min(
-                    Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player), value * 0.01 * tier);
+                && Mana.getPlayerCurrentManaNum(player) < maxMana) {
+            double recoverValue = Math.min(maxMana - Mana.getPlayerCurrentManaNum(player),
+                    value / player.getMaxHealth() * maxMana * tier / 5);
             Mana.addOrCostPlayerMana(player, recoverValue);
             if (!near5secondsRecoverValue.containsKey(Name.get(player))) {
                 near5secondsRecoverValue.put(Name.get(player), new ArrayDeque<>());

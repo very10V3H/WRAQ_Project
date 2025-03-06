@@ -1,18 +1,24 @@
 package fun.wraq.series.overworld.divine.equip.weapon;
 
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.PreventLeftClickShoot;
+import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +42,21 @@ public class DivineSceptre extends WraqSceptre implements DivineWeaponCommon, Pr
         Utils.coolDownDecrease.put(this, 0.3);
         Utils.levelRequire.put(this, 230);
         DivineWeaponCommon.weaponList.add(this);
+    }
+
+    @Override
+    protected ManaArrow summonManaArrow(Player player, double rate) {
+        Level level = player.level();
+        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, level,
+                rate, PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Snow);
+        newArrow.setSilent(true);
+        newArrow.setNoGravity(true);
+        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 3, 1);
+        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
+        level.addFreshEntity(newArrow);
+        return newArrow;
     }
 
     @Override

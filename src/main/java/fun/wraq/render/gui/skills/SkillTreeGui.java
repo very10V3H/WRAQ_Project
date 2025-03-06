@@ -41,7 +41,6 @@ public class SkillTreeGui extends Screen {
         if (this.showPauseMenu) {
             this.showSkillGui();
         }
-
     }
 
     private void showSkillGui() {
@@ -1262,8 +1261,8 @@ public class SkillTreeGui extends Screen {
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Te.s(" 当你拥有高于", ComponentUtils.AttributeDescription.health("75%"), "时，",
                     "若", ComponentUtils.AttributeDescription.manaValue(""), "未达100%"));
-            components.add(Te.s(" 则回复的", ComponentUtils.AttributeDescription
-                            .health(ClientUtils.ManaSkillPoint.PointCache[index] + "%"), "转化为回复的",
+            components.add(Te.s(" 则根据回复的生命值百分比的", ComponentUtils.AttributeDescription
+                            .health(ClientUtils.ManaSkillPoint.PointCache[index] * 20 + "%"), "回复同样百分比的",
                     ComponentUtils.AttributeDescription.manaValue("")));
             components.add(Te.s(" buff栏会显示其最近5s为你回复的法力值总额", ChatFormatting.GRAY, ChatFormatting.ITALIC));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);

@@ -5,7 +5,6 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.uniform.UnCommonUniform;
-import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.ore.PickaxeItems;
@@ -14,6 +13,7 @@ import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
+import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
@@ -22,7 +22,6 @@ import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
-import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
@@ -2757,24 +2756,6 @@ public class TradeList {
     }
 
     public static void elementMaster() {
-        ItemStack rainbowPowder = new ItemStack(ModItems.RainbowPowder.get());
-        ItemStack rainbowCrystal = new ItemStack(ModItems.RainbowCrystal.get());
-
-        List<ItemStack> piece0 = List.of(new ItemStack(ModItems.LifeElementPiece0.get()),
-                new ItemStack(ModItems.WaterElementPiece0.get()),
-                new ItemStack(ModItems.StoneElementPiece0.get()),
-                new ItemStack(ModItems.FireElementPiece0.get()),
-                new ItemStack(ModItems.IceElementPiece0.get()),
-                new ItemStack(ModItems.WindElementPiece0.get()),
-                new ItemStack(ModItems.LightningElementPiece0.get()));
-
-        List<ItemStack> piece0_64 = List.of(new ItemStack(ModItems.LifeElementPiece0.get(), 64),
-                new ItemStack(ModItems.WaterElementPiece0.get(), 64),
-                new ItemStack(ModItems.StoneElementPiece0.get(), 64),
-                new ItemStack(ModItems.FireElementPiece0.get(), 64),
-                new ItemStack(ModItems.IceElementPiece0.get(), 64),
-                new ItemStack(ModItems.WindElementPiece0.get(), 64),
-                new ItemStack(ModItems.LightningElementPiece0.get(), 64));
 
         List<ItemStack> piece1 = List.of(new ItemStack(ModItems.LifeElementPiece1.get()),
                 new ItemStack(ModItems.WaterElementPiece1.get()),
@@ -2791,8 +2772,6 @@ public class TradeList {
                 new ItemStack(ModItems.IceElementPiece2.get()),
                 new ItemStack(ModItems.WindElementPiece2.get()),
                 new ItemStack(ModItems.LightningElementPiece2.get()));
-
-        ItemStack weakPiece0_64 = new ItemStack(ElementItems.weakPiece0.get(), 64);
 
         List<ItemStack> crystal = List.of(new ItemStack(ModItems.LifeCrystal0.get()),
                 new ItemStack(ModItems.WaterCrystal0.get()),
@@ -2826,57 +2805,12 @@ public class TradeList {
                 new ItemStack(ModItems.IceHolyStone2.get()),
                 new ItemStack(ModItems.WindHolyStone2.get()),
                 new ItemStack(ModItems.LightningHolyStone2.get()));
-
-        List<ItemStack> weakPiece0_64List = new ArrayList<>() {{
-            for (int i = 0; i < 7; i++) add(new ItemStack(ElementItems.weakPiece0.get(), 64));
-        }};
         List<ItemStack> contentList = new ArrayList<>() {{
-            add(rainbowPowder);
-            add(rainbowCrystal);
-            addAll(piece1);
-            addAll(weakPiece0_64List);
-            addAll(piece0_64);
-            addAll(piece2);
             addAll(crystal);
             addAll(holyStone);
         }};
         MyVillagerData.setMyVillagerData("元素大师", "elementMaster", CustomStyle.styleOfWorld, VillagerType.SNOW,
                 VillagerProfession.LIBRARIAN, contentList);
-
-        tradeRecipeMap.put(rainbowPowder, new ArrayList<>() {{
-            for (ItemStack itemStack : piece0) {
-                add(new ItemStack(itemStack.getItem(), 7));
-            }
-        }});
-
-        tradeRecipeMap.put(rainbowCrystal, List.of(new ItemStack(ModItems.RainbowPowder.get(), 49),
-                new ItemStack(ModItems.COMPLETE_GEM.get(), 7)));
-
-        for (int i = 0; i < piece1.size(); i++) {
-            ItemStack itemPiece0 = piece0.get(i);
-            ItemStack itemPiece1 = piece1.get(i);
-            tradeRecipeMap.put(itemPiece1, List.of(new ItemStack(itemPiece0.getItem(), 64),
-                    rainbowPowder));
-        }
-
-        for (int i = 0; i < weakPiece0_64List.size(); i++) {
-            ItemStack weakPiece0_64Item = weakPiece0_64List.get(i);
-            ItemStack piece0Item = piece0_64.get(i);
-            tradeRecipeMap.put(weakPiece0_64Item, List.of(piece0Item,
-                    rainbowPowder));
-        }
-
-        for (ItemStack piece0Item : piece0_64) {
-            tradeRecipeMap.put(piece0Item, List.of(weakPiece0_64,
-                    new ItemStack(piece0Item.getItem())));
-        }
-
-        for (int i = 0; i < piece2.size(); i++) {
-            ItemStack itemPiece1 = piece1.get(i);
-            ItemStack itemPiece2 = piece2.get(i);
-            tradeRecipeMap.put(itemPiece2, List.of(new ItemStack(itemPiece1.getItem(), 64),
-                    rainbowCrystal));
-        }
 
         for (int i = 0; i < crystal.size(); i++) {
             ItemStack itemCrystal = crystal.get(i);

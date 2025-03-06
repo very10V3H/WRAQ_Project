@@ -41,7 +41,7 @@ public class BowNewSkillBase1_0 extends SkillV2BaseSkill {
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("向前方射出一支",
-                getRateDescription(2, 0.1, level), CustomStyle.styleOfFlexible, "伤害的箭矢"));
+                getRateDescription(2.5, 0.15, level), CustomStyle.styleOfFlexible, "伤害的箭矢"));
         components.add(Te.s("这支箭矢", "不会下坠", CustomStyle.styleOfMoon,
                 "且", "必定暴击", CustomStyle.styleOfPower));
         components.add(Te.s("施法前摇与后摇收益于",

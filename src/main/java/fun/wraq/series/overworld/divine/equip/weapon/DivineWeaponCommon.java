@@ -116,7 +116,7 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
     }
 
     static Calendar getDivineCountDate(ItemStack stack) {
-        if (stack.getOrCreateTagElement(Utils.MOD_ID).contains(DIVINE_COUNT_DATE_KEY)) {
+        if (!stack.getOrCreateTagElement(Utils.MOD_ID).contains(DIVINE_COUNT_DATE_KEY)) {
             return null;
         }
         try {
@@ -136,7 +136,7 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
         if (getDivineCountDate(stack) == null) {
             setDivineCountDate(stack, Calendar.getInstance());
         }
-        if (getDivineCountDate(stack).get(Calendar.DATE) < Calendar.getInstance().get(Calendar.DATE)) {
+        if (getDivineCountDate(stack).get(Calendar.DATE) != Calendar.getInstance().get(Calendar.DATE)) {
             setDivineCount(stack, 0);
             setDivineCountDate(stack, Calendar.getInstance());
         }

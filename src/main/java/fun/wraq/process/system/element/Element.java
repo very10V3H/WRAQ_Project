@@ -1146,8 +1146,8 @@ public class Element {
                 ModItems.FireElementPiece0.get(),
                 ModItems.StoneElementPiece0.get(),
                 ModItems.IceElementPiece0.get(),
-                ModItems.WindElementPiece0.get(),
-                ModItems.LightningElementPiece0.get()
+                ModItems.LightningElementPiece0.get(),
+                ModItems.WindElementPiece0.get()
         );
     }
 
@@ -1176,7 +1176,21 @@ public class Element {
             piece1ItemMap.put(wind, ModItems.WindElementPiece1.get());
             piece1ItemMap.put(lightning, ModItems.LightningElementPiece1.get());
         }
-        return piece0ItemMap;
+        return piece1ItemMap;
+    }
+
+    private static final Map<Item, String> piece1ToElementMap = new HashMap<>();
+    public static Map<Item, String> getPiece1ToElementMap() {
+        if (piece1ToElementMap.isEmpty()) {
+            piece1ToElementMap.put(ModItems.LifeElementPiece1.get(), life);
+            piece1ToElementMap.put(ModItems.WaterElementPiece1.get(), water);
+            piece1ToElementMap.put(ModItems.FireElementPiece1.get(), fire);
+            piece1ToElementMap.put(ModItems.StoneElementPiece1.get(), stone);
+            piece1ToElementMap.put(ModItems.IceElementPiece1.get(), ice);
+            piece1ToElementMap.put(ModItems.WindElementPiece1.get(), wind);
+            piece1ToElementMap.put(ModItems.LightningElementPiece1.get(), lightning);
+        }
+        return piece1ToElementMap;
     }
 
     private static final Map<String, Item> piece2ItemMap = new HashMap<>();
@@ -1190,6 +1204,20 @@ public class Element {
             piece2ItemMap.put(wind, ModItems.WindElementPiece2.get());
             piece2ItemMap.put(lightning, ModItems.LightningElementPiece2.get());
         }
-        return piece0ItemMap;
+        return piece2ItemMap;
+    }
+
+    private static final Map<Item, String> piece2ToElementMap = new HashMap<>();
+    public static Map<Item, String> getPiece2ToElementMap() {
+        if (piece2ToElementMap.isEmpty()) {
+            piece2ToElementMap.put(ModItems.LifeElementPiece2.get(), life);
+            piece2ToElementMap.put(ModItems.WaterElementPiece2.get(), water);
+            piece2ToElementMap.put(ModItems.FireElementPiece2.get(), fire);
+            piece2ToElementMap.put(ModItems.StoneElementPiece2.get(), stone);
+            piece2ToElementMap.put(ModItems.IceElementPiece2.get(), ice);
+            piece2ToElementMap.put(ModItems.WindElementPiece2.get(), wind);
+            piece2ToElementMap.put(ModItems.LightningElementPiece2.get(), lightning);
+        }
+        return piece2ToElementMap;
     }
 }

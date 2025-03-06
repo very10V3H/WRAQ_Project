@@ -11,15 +11,12 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
-import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -118,7 +115,6 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         myArrow.setCritArrow(true);
         player.level().addFreshEntity(myArrow);
         MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
-        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WAX_OFF);
     }
 
     public static double ExIgnoreDefenceDamage(Player player) {

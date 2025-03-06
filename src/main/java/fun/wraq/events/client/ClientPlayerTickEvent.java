@@ -2,6 +2,7 @@ package fun.wraq.events.client;
 
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.Items.MainStory_1.Mission.Main0;
+import fun.wraq.Items.Money.U_Disk;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
@@ -25,6 +26,9 @@ import fun.wraq.networking.unSorted.UdiskWorldSoulC2SPacket;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.element.networking.ElementPieceC2SPacket;
+import fun.wraq.process.system.element.piece.ElementPieceGui;
+import fun.wraq.process.system.element.piece.ElementPieceRecipe;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
 import fun.wraq.process.system.forge.ForgeScreen;
@@ -228,15 +232,41 @@ public class ClientPlayerTickEvent {
 
             if (event.player.tickCount % 20 == 0) {
                 Inventory inventory = event.player.getInventory();
-                if (!(Minecraft.getInstance().screen instanceof TradeScreen)
-                        && InventoryOperation.checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1)) {
-                    if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
-                            || InventoryOperation.checkPlayerHasItem(inventory, ModItems.GOLD_COIN.get(), 1)
-                            || InventoryOperation.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
-                        ModNetworking.sendToServer(new AllCurrencyC2SPacket(false));
+                boolean hasUDisk = InventoryOperation
+                        .checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1);
+                Screen screen = Minecraft.getInstance().screen;
+                if (hasUDisk) {
+                    if (!(screen instanceof TradeScreen)) {
+                        if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
+                                || InventoryOperation.checkPlayerHasItem(inventory, ModItems.GOLD_COIN.get(), 1)
+                                || InventoryOperation.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
+                            ModNetworking.sendToServer(new AllCurrencyC2SPacket(false));
+                        }
+                        if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WORLD_SOUL_1.get(), 64)) {
+                            ModNetworking.sendToServer(new UdiskWorldSoulC2SPacket());
+                        }
                     }
-                    if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WORLD_SOUL_1.get(), 64))
-                        ModNetworking.sendToServer(new UdiskWorldSoulC2SPacket());
+                    if (!(screen instanceof ElementPieceGui)) {
+                        boolean open = false;
+                        for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
+                            ItemStack stack = inventory.getItem(i);
+                            Item item = stack.getItem();
+                            if (item instanceof U_Disk) {
+                                open = U_Disk.getElementCollectionStatus(stack);
+                                break;
+                            }
+                        }
+                        if (open) {
+                            for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
+                                ItemStack stack = inventory.getItem(i);
+                                Item item = stack.getItem();
+                                if (ElementPieceRecipe.getItemSet().contains(item)) {
+                                    ModNetworking.sendToServer(new ElementPieceC2SPacket("convert", -1, -1));
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -286,6 +316,7 @@ public class ClientPlayerTickEvent {
                     case 4 -> mc.setScreen(new ForgeScreen());
                     case 5 -> mc.setScreen(new SmeltRecipeScreen());
                     case 6 -> mc.setScreen(new EndlessCoreScreen());
+                    case 7 -> mc.setScreen(new ElementPieceGui());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

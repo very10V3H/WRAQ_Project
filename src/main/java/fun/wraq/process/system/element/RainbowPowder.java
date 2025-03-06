@@ -1,6 +1,5 @@
 package fun.wraq.process.system.element;
 
-import fun.wraq.process.system.element.Color;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -66,5 +65,20 @@ public class RainbowPowder extends Item {
                 append(Component.literal("镜").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(3).getRGB()))).withStyle(ChatFormatting.BOLD)).
                 append(Component.literal("碎").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(4).getRGB()))).withStyle(ChatFormatting.BOLD)).
                 append(Component.literal("片").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(5).getRGB()))).withStyle(ChatFormatting.BOLD));
+    }
+
+    public static Component rainbowName(String s) {
+        for (int i = 0; i < colorList.size(); i++) {
+            fun.wraq.process.system.element.Color color = colorList.get(i);
+            if (color.Add()) {
+                colorList.set(i, new Color(color.targetRGB, colorMap.get(color.targetRGB), 100));
+            }
+        }
+        return Component.literal(String.valueOf(s.charAt(0))).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(0).getRGB()))).withStyle(ChatFormatting.BOLD).
+                append(Component.literal(String.valueOf(s.charAt(1))).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(1).getRGB()))).withStyle(ChatFormatting.BOLD)).
+                append(Component.literal(String.valueOf(s.charAt(2))).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(2).getRGB()))).withStyle(ChatFormatting.BOLD)).
+                append(Component.literal(String.valueOf(s.charAt(3))).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(3).getRGB()))).withStyle(ChatFormatting.BOLD)).
+                append(Component.literal(String.valueOf(s.charAt(4))).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(4).getRGB()))).withStyle(ChatFormatting.BOLD)).
+                append(Component.literal(String.valueOf(s.charAt(5))).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(5).getRGB()))).withStyle(ChatFormatting.BOLD));
     }
 }
