@@ -55,6 +55,7 @@ import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeArmor;
 import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
+import fun.wraq.series.overworld.sun.TabooPaper;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -1147,6 +1148,7 @@ public class PlayerAttributes {
         manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.manaRecover, StringUtils.CuriosAttribute.manaRecover); // 新版饰品属性加成
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
         manaRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaRecover);
+        manaRecover += TabooPaper.getExManaRecoverValue(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1388,14 +1390,9 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             maxMana +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.MaxMana;
-
         maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
-
         maxMana += Compute.PassiveEquip.getAttribute(player, Utils.maxMana); // 器灵属性加成
-
         maxMana += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxMana);
-
-        maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
         maxMana += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.maxMana);
         // 请在上方添加
         double exRate = 0;
@@ -1430,6 +1427,7 @@ public class PlayerAttributes {
     public static double getAttackSpeedEnhanceRate(Player player) {
         double rate = 0;
         rate += computeAllEquipSlotBaseAttributeValue(player, Utils.attackSpeedEnhance, false);
+        rate += Compute.CuriosAttribute.attributeValue(player, Utils.attackSpeedEnhance, null);
         CompoundTag data = player.getPersistentData();
         Item mainHandItem = player.getMainHandItem().getItem();
         if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainHandItem)) {

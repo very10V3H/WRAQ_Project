@@ -16,7 +16,6 @@ public class BunkerKnife extends DarkMoonKnife {
     public BunkerKnife(Properties properties, Component type) {
         super(properties, type);
         Utils.percentAttackDamageEnhance.put(this, 0.05d);
-        Utils.attackDamage.put(this, 0d);
         Utils.defencePenetration.put(this, 0.08);
         Utils.critRate.put(this, 0.2);
         Utils.critDamage.put(this, 0.15);

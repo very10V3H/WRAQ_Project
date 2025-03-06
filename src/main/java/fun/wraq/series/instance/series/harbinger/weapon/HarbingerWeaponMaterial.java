@@ -73,7 +73,7 @@ public class HarbingerWeaponMaterial extends WraqItem implements Decomposable {
     }
 
     public static final EnhanceCondition enhanceCondition = (stack -> {
-        return stack.getItem() instanceof HarbingerWeaponMaterial && getQualityTier(stack) < 10;
+        return stack.getItem() instanceof HarbingerWeaponMaterial && getQualityTier(stack) < 9;
     });
 
     public static final EnhanceOperation enhanceOperation = (stack -> {

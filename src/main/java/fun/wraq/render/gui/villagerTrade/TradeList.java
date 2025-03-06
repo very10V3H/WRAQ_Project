@@ -4,6 +4,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.customized.composites.CompositesItems;
 import fun.wraq.customized.uniform.UnCommonUniform;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
@@ -2756,6 +2757,7 @@ public class TradeList {
     }
 
     public static void elementMaster() {
+        ItemStack UDisk = new ItemStack(ModItems.U_Disk.get());
 
         List<ItemStack> piece1 = List.of(new ItemStack(ModItems.LifeElementPiece1.get()),
                 new ItemStack(ModItems.WaterElementPiece1.get()),
@@ -2806,12 +2808,15 @@ public class TradeList {
                 new ItemStack(ModItems.WindHolyStone2.get()),
                 new ItemStack(ModItems.LightningHolyStone2.get()));
         List<ItemStack> contentList = new ArrayList<>() {{
+            add(UDisk);
             addAll(crystal);
             addAll(holyStone);
         }};
         MyVillagerData.setMyVillagerData("元素大师", "elementMaster", CustomStyle.styleOfWorld, VillagerType.SNOW,
                 VillagerProfession.LIBRARIAN, contentList);
-
+        tradeRecipeMap.put(UDisk, List.of(
+                new ItemStack(ModItems.GOLD_COIN.get(), 64)
+        ));
         for (int i = 0; i < crystal.size(); i++) {
             ItemStack itemCrystal = crystal.get(i);
             ItemStack itemPiece1 = piece1.get(i);
@@ -3027,9 +3032,10 @@ public class TradeList {
         ItemStack revelationHeart = new ItemStack(ModItems.REVELATION_HEART.get());
         ItemStack goldenCoinBag = new ItemStack(ModItems.GoldCoinBag.get(), 3);
         ItemStack gemPiece = new ItemStack(ModItems.GEM_PIECE.get(), 12);
+        ItemStack speedComposites = new ItemStack(CompositesItems.SPEED_COMPOSITES.get());
         ItemStack[] itemStacks = {
                 allaySpawner, allayNugget, smithBook, smithStone,
-                revelationHeart, goldenCoinBag, gemPiece
+                revelationHeart, goldenCoinBag, gemPiece, speedComposites
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3051,6 +3057,11 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 1)));
         tradeRecipeMap.put(gemPiece,
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 1)));
+
+        tradeRecipeMap.put(speedComposites,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 500),
+                        new ItemStack(ModItems.MILLION_MONEY.get(), 5),
+                        new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get(), 100)));
     }
 
     public static void goldCoinStore() {

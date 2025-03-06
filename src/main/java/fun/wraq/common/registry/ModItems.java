@@ -2891,6 +2891,12 @@ public class ModItems {
                     Te.s("有一些", "特殊的用途", CustomStyle.styleOfSakura)
             )));
 
+    public static final RegistryObject<Item> MILLION_MONEY = ITEMS.register("million_money",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, false, List.of(
+                    Te.s("在", "联合银行职员", CustomStyle.styleOfGold, "处兑换"),
+                    Te.s("价值1,000,000VB", CustomStyle.styleOfGold)
+            )));
+
     public static final RegistryObject<Item> MobArmorLabourDay1 = ITEMS.register("mob_armor_labour_day1",
             () -> new MobArmor(ModArmorMaterials.BasicArmor1, ArmorItem.Type.HELMET, StringUtils.MobName.LabourDay1));
 

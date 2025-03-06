@@ -16,7 +16,6 @@ public class BunkerShield extends DarkMoonShield {
     public BunkerShield(Properties properties, Component type) {
         super(properties, type);
         Utils.percentAttackDamageEnhance.put(this, 0.05d);
-        Utils.attackDamage.put(this, 0d);
         Utils.percentMaxHealthEnhance.put(this, 0.05d);
         Utils.critDamage.put(this, 0.12);
         Utils.expUp.put(this, 1.28);

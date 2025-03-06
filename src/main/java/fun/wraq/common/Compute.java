@@ -1411,13 +1411,15 @@ public class Compute {
                             && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
                         rate *= (1 - attributeMap.get(curiosItem));
                     }
-                    CompoundTag data = curioStack.getOrCreateTagElement(Utils.MOD_ID);
-                    if (data.contains(attributeName)) {
-                        if (curiosItem instanceof RandomCurios) {
-                            rate *= (1 - data.getDouble(attributeName)
-                                    * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName));
-                        } else {
-                            rate *= (1 - data.getInt(attributeName));
+                    if (attributeName != null) {
+                        CompoundTag data = curioStack.getOrCreateTagElement(Utils.MOD_ID);
+                        if (data.contains(attributeName)) {
+                            if (curiosItem instanceof RandomCurios) {
+                                rate *= (1 - data.getDouble(attributeName)
+                                        * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName));
+                            } else {
+                                rate *= (1 - data.getInt(attributeName));
+                            }
                         }
                     }
                 }
@@ -1431,13 +1433,15 @@ public class Compute {
                                     && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
                                 value += attributeMap.get(curiosItem);
                             }
-                            CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-                            if (data.contains(attributeName)) {
-                                if (curiosItem instanceof RandomCurios) {
-                                    value += data.getDouble(attributeName)
-                                            * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
-                                } else {
-                                    value += data.getInt(attributeName);
+                            if (attributeName != null) {
+                                CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
+                                if (data.contains(attributeName)) {
+                                    if (curiosItem instanceof RandomCurios) {
+                                        value += data.getDouble(attributeName)
+                                                * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
+                                    } else {
+                                        value += data.getInt(attributeName);
+                                    }
                                 }
                             }
                             return value;

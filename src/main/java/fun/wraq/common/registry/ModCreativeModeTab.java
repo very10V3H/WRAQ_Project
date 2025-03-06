@@ -2,6 +2,7 @@ package fun.wraq.common.registry;
 
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.customized.composites.CompositesItems;
 import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
@@ -73,8 +74,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get().asItem())).title(Component.literal("无尽熵增")).build());
     public static RegistryObject<CreativeModeTab> PROFESSION = CREATIVE_MODE_TAB.register("profession", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(AllayItems.ALLAY_SPAWNER.get().asItem())).title(Component.literal("副职业")).build());
-
-
+    public static RegistryObject<CreativeModeTab> COMPOSITES = CREATIVE_MODE_TAB.register("composites", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(CompositesItems.SPEED_COMPOSITES.get())).title(Component.literal("能晶")).build());
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);

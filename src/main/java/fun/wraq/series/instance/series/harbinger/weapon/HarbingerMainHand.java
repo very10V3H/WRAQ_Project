@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -71,6 +72,16 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnCauseF
     String CRIT_DAMAGE = "HARBINGER_CRIT_DAMAGE";
     String SWIFTNESS = "HARBINGER_SWIFTNESS";
     String MANA_RECOVER = "HARBINGER_MANA_RECOVER";
+
+    List<String> ATTRIBUTES = List.of(
+            ATTACK_DAMAGE,
+            MANA_DAMAGE,
+            PERCENT_ATTACK_DAMAGE,
+            PERCENT_MANA_DAMAGE,
+            CRIT_DAMAGE,
+            SWIFTNESS,
+            MANA_RECOVER
+    );
 
     static void tick(Player player) {
         if (player.tickCount % 20 == 0) {
@@ -251,6 +262,29 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnCauseF
             }
         });
         return components;
+    }
+
+    static void fix(Player player) {
+        ItemStack stack = player.getMainHandItem();
+        if (stack.getItem() instanceof HarbingerMainHand) {
+            CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID).getCompound(MATERIAL_LIST_KEY);
+            if (!data.contains("FIXED")) {
+                data.putInt("FIXED", 1);
+                getStringToItemMap().forEach((k, v) -> {
+                    if (data.contains(k) && data.getInt(k) > 9) {
+                        data.putInt(k, 9);
+                        Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                                Te.s(v, "的错误品质已被修复"));
+                    }
+                });
+                CompoundTag data1 = ExBaseAttributeValueEquip.getStackExBaseAttributeData(stack);
+                ATTRIBUTES.forEach(s -> {
+                    if (data1.getInt(s) > 9) {
+                        data1.putInt(s, 9);
+                    }
+                });
+            }
+        }
     }
 
     static void addMaterial(ItemStack weapon, ItemStack material) {

@@ -34,7 +34,7 @@ public class ManaSkillTree {
         if (tier > 0 && player.getHealth() > player.getMaxHealth() * 0.75
                 && Mana.getPlayerCurrentManaNum(player) < maxMana) {
             double recoverValue = Math.min(maxMana - Mana.getPlayerCurrentManaNum(player),
-                    value / player.getMaxHealth() * maxMana * tier / 5);
+                    value / player.getMaxHealth() * maxMana * tier * 0.1);
             Mana.addOrCostPlayerMana(player, recoverValue);
             if (!near5secondsRecoverValue.containsKey(Name.get(player))) {
                 near5secondsRecoverValue.put(Name.get(player), new ArrayDeque<>());

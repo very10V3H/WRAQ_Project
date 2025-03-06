@@ -27,11 +27,11 @@ public class BowNewSkillFinal0 extends SkillV2FinalSkill {
 
     private double getRate(int level) {
         if (level < 3) {
-            return 0.4;
+            return 0.7;
         } else if (level < 5) {
-            return 0.6;
-        } else if (level < 8) {
             return 0.8;
+        } else if (level < 8) {
+            return 0.9;
         } else {
             return 1;
         }

@@ -5,6 +5,7 @@ import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -35,6 +36,9 @@ public class TabooPaper extends WraqCurios {
         components.add(Te.s(" 使", "法术 - 撕裂", CustomStyle.styleOfMana, ":"));
         components.add(Te.s( " 1.", hoverMainStyle(), "每次伤害 ", "+20%", CustomStyle.styleOfMana));
         components.add(Te.s(" 2.", hoverMainStyle(), "持续时间 ", "+1s", ChatFormatting.AQUA));
+        ComponentUtils.descriptionPassive(components, Te.s("禁忌改造", hoverMainStyle()));
+        components.add(Te.s(" 每秒回复",
+                ComponentUtils.AttributeDescription.manaValue("4%已损失法力值")));
         return components;
     }
 
@@ -50,5 +54,10 @@ public class TabooPaper extends WraqCurios {
 
     public static boolean enhanceManaSkillV2_2(Player player) {
         return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.TABOO_PAPER_CURIO.get());
+    }
+
+    public static double getExManaRecoverValue(Player player) {
+        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.TABOO_PAPER_CURIO.get()) ?
+                (Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player)) * 0.04 : 0;
     }
 }

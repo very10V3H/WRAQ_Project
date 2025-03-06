@@ -16,7 +16,6 @@ public class BunkerBook extends DarkMoonBook {
     public BunkerBook(Properties properties, Component type) {
         super(properties, type);
         Utils.percentManaDamageEnhance.put(this, 0.05);
-        Utils.manaDamage.put(this, 0d);
         Utils.manaPenetration.put(this, 0.08);
         Utils.coolDownDecrease.put(this, 0.3);
         Utils.maxMana.put(this, 120d);

@@ -1,6 +1,5 @@
 package fun.wraq.process.func.damage;
 
-import com.mojang.logging.LogUtils;
 import fun.wraq.commands.stable.players.DebugCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
@@ -327,6 +326,7 @@ public class Damage {
 
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
+        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
 
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
@@ -339,10 +339,10 @@ public class Damage {
                 Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
             }
         }
-        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
 
         beforeCauseDamage(player, monster, totalDamage);
         causeDirectDamageToMob(player, monster, totalDamage);
+        Compute.playerHeal(player, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.1 * 0.33);
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
@@ -558,8 +558,6 @@ public class Damage {
                 if (mob.getHealth() <= finalDamage && mob.isAlive()) {
                     // 怪物死亡技艺
                     MobDeadModule.deadModule(mob);
-                    LogUtils.getLogger().info("{} {} {}", player.getName().getString(),
-                            Utils.LogTypes.killed, mob.getName().getString());
                     mob.kill();
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                     CompoundTag data = player.getPersistentData();
