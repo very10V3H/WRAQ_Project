@@ -30,7 +30,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         double damage = ManaNewSkill.modifyDamage(player,
-                2 + skillLevel * 0.15) * (1 + getEnhanceRate(player));
+                2.5 + skillLevel * 0.25) * (1 + getEnhanceRate(player));
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, Tick.get() + 8, player
         ) {
@@ -55,7 +55,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("对前方矩形范围的敌人造成",
-                getRateDescription(2, 0.15, level), CustomStyle.styleOfMana, "伤害"));
+                getRateDescription(2.5, 0.25, level), CustomStyle.styleOfMana, "伤害"));
         components.add(Te.s("并额外施加2层", " 渗", CustomStyle.styleOfMana));
         return components;
     }

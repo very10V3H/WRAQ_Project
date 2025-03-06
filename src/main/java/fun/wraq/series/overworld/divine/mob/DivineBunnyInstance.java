@@ -104,7 +104,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
     private double getDamageRate() {
         int holyLightCount = (int) players.stream().mapToInt(DivineUtils::getHolyLightCount).count();
         if (holyLightCount < 100) {
-            return (100 - holyLightCount) / 100.0;
+            return 1 + (100 - holyLightCount) / 100.0;
         }
         return 1;
     }

@@ -6,11 +6,10 @@ import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.impl.skillv2.EnhanceSkillRateEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.divine.DivineUtils;
+import fun.wraq.series.overworld.divine.equip.weapon.DivineWeaponCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 
@@ -19,11 +18,13 @@ import java.util.List;
 
 public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEquip, ForgeItem {
     Style style = CustomStyle.DIVINE_STYLE;
-    static List<Component> getDescription(ItemStack stack, double maxRate) {
+    static List<Component> getDescription(ItemStack stack, double maxRate, int maxCount) {
         List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Te.s("圣光辐照", style));
-        Component countName = ComponentUtils.getRightAngleQuote("圣光辐照", style);
-        components.add(Te.s(" 击杀一名怪物，获得一层", countName));
+        ComponentUtils.descriptionPassive(components, Te.s("圣光恩赐", style));
+        Component countName = ComponentUtils.getRightAngleQuote("圣光恩赐", style);
+        components.add(Te.s(" 击杀怪物将会受", countName, style));
+        components.add(Te.s(" ", countName, style, "将存储在这件物品内"));
+        components.add(Te.s(" ", countName, style, "至多为你提供:"));
         Component skill;
         ArmorItem item = (ArmorItem) stack.getItem();
         switch (item.getType()) {
@@ -33,13 +34,20 @@ public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEq
             case BOOTS -> skill = Te.s("基础技能 - 3", ChatFormatting.AQUA);
             default -> skill = Te.s("");
         }
-        components.add(Te.s(" ", countName, "会为", skill, "至多提供",
+        components.add(Te.s(" ", skill, "的",
                 String.format("%.0f%%", maxRate * 100) + "增幅", style));
-        components.add(Te.s(" ", countName, "至多叠加至", "1000层", style));
+        int count = DivineWeaponCommon.getDivineCount(stack);
+        components.add(Te.s(" 圣光充盈度:"
+                + String.format("%.0f%%",
+                Math.min(count, maxCount) * 100.0 / maxCount), style, "(" + count + ")", ChatFormatting.GRAY));
+        components.add(Te.s(" ".repeat(4),
+                ComponentUtils.getProgressBar(20, count, maxCount, style)));
+        components.add(Te.s(" 在收集", maxCount + "层", style, countName, "后达最大值"));
+        components.add(Te.s(" ", countName, "每日将会清空", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         return components;
     }
 
-    static double getCommonEnhanceRate(Player player, double maxRate) {
-        return DivineUtils.getHolyLightCount(player) / 1000.0 * maxRate;
+    static double getCommonEnhanceRate(ItemStack stack, double maxRate, int maxCount) {
+        return DivineWeaponCommon.getDivineCount(stack) * 1.0 / maxCount * maxRate;
     }
 }

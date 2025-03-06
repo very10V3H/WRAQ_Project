@@ -7,6 +7,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -187,6 +188,11 @@ public class MobInfoGui extends Screen {
             NewTeamInstanceHandler.instances.forEach(newTeamInstance -> {
                 mobInfoList.add(new MobInfo(newTeamInstance.description, newTeamInstance.levelRequire,
                         newTeamInstance.getRewardList(), null));
+            });
+            JungleMobSpawn.getOverworldController().forEach(controller -> {
+                mobInfoList.add(new MobInfo(Te.s("Lv." + controller.mobXpLevel + " ",
+                        Utils.levelStyleList.get(controller.mobXpLevel / 25), controller.name),
+                        controller.mobXpLevel, controller.getRewardItemList(), null));
             });
         }
         return mobInfoList;

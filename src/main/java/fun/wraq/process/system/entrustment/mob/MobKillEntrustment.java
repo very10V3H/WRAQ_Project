@@ -360,8 +360,7 @@ public class MobKillEntrustment {
         Random random = new Random();
         MobSpawnController controller = controllers.get(random.nextInt(controllers.size()));
         MobKillEntrustment entrustment =
-                new MobKillEntrustment(controller.mobName, random.nextInt(80, 160), Tick.get());
-        // 原先 96 192 因春节活动调整为 80 160
+                new MobKillEntrustment(controller.mobName, random.nextInt(96, 192), Tick.get());
         playerCurrentEntrustmentMap.put(name, entrustment);
         for (int i = 0 ; i < 5 ; i ++) {
             player.sendSystemMessage(Component.literal(""));

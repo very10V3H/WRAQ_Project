@@ -38,6 +38,7 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
         }
         if (type.equals(Type.LEGGINGS)) {
             Utils.maxHealth.put(this, 36000d);
+            Utils.defence.put(this, 40d);
             Utils.manaDefence.put(this, 20d);
         }
         if (type.equals(Type.BOOTS)) {

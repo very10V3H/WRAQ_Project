@@ -171,27 +171,34 @@ public class BuffHud {
 
         int yOffset = 0;
 
-        for (HudIcon hudIcon : ClientUtils.effectTimeLasts) {
+        for (int i = 0; i < ClientUtils.effectTimeLasts.size(); i++) {
+            HudIcon hudIcon = ClientUtils.effectTimeLasts.get(i);
+            int xOffset0 = i / 6 * (-96);
+            int yOffset0 = i / 6 * -16;
             guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/" + hudIcon.url + ".png"),
-                    x + XXOffset + count * 16, y - 60 + yOffset, 0, 0, 16, 16, 16, 16);
+                    x + XXOffset + xOffset0 + count * 16, y - 60 + yOffset + yOffset0,
+                    0, 0, 16, 16, 16, 16);
             int Time = (int) Math.ceil(hudIcon.lastTick * 12.0f / hudIcon.maxTick);
             if (hudIcon.forever) Time = 12;
             guiGraphics.blit(ClientUtils.CdResourceLocation[Time],
-                    x + XXOffset + count * 16, y - 60 + yOffset, 0, 0, 16, 16, 16, 16);
+                    x + XXOffset + xOffset0 + count * 16, y - 60 + yOffset + yOffset0,
+                    0, 0, 16, 16, 16, 16);
             if (hudIcon.level > 0) {
                 guiGraphics.drawCenteredString(fontRenderer,
                         Te.s(Compute.getSimplifiedNumberDescription(hudIcon.level)),
-                        x + XXOffset + count * 16 + 11, y - 52 + yOffset, 10);
+                        x + XXOffset + xOffset0 + count * 16 + 11, y - 52 + yOffset + yOffset0, 10);
             }
             if (hudIcon.lastTick > 0 && hudIcon.level == 0 && !hudIcon.forever) {
                 guiGraphics.drawCenteredString(fontRenderer,
                         Component.literal(hudIcon.lastTick >= 20 ? String.format("%.0f", hudIcon.lastTick / 20d)
                                 : String.format("%.1f", hudIcon.lastTick / 20d)).withStyle(ChatFormatting.WHITE),
-                        x + XXOffset + count * 16 + 11, y - 52 + yOffset, 10);
+                        x + XXOffset + xOffset0 + count * 16 + 11, y - 52 + yOffset + yOffset0, 10);
             }
             count++;
         }
-
+        if (ClientUtils.effectTimeLasts.size() > 6) {
+            count -= (ClientUtils.effectTimeLasts.size() - 6);
+        }
         count++;
 
         for (HudIcon hudIcon : ClientUtils.coolDownTimes) {

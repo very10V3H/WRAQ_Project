@@ -70,7 +70,7 @@ public class WraqItem extends Item implements UsageOrGetWayDescriptionItem {
     }
 
     @Override
-    public boolean isFoil(ItemStack p_41453_) {
+    public boolean isFoil(ItemStack stack) {
         return isFoiled;
     }
 

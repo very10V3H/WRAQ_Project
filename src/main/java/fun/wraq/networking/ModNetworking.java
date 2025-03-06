@@ -66,9 +66,7 @@ import fun.wraq.process.func.rank.network.RankChangeS2CPacket;
 import fun.wraq.process.func.rank.network.RankDataS2CPacket;
 import fun.wraq.process.func.security.mac.network.MacC2SPacket;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
-import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
-import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
-import fun.wraq.process.system.element.networking.ResonanceC2SPacket;
+import fun.wraq.process.system.element.networking.*;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentInfoS2CPacket;
 import fun.wraq.process.system.forge.networking.*;
@@ -1332,6 +1330,16 @@ public class ModNetworking {
                 .decoder(ManaTowerS2CPacket::new)
                 .encoder(ManaTowerS2CPacket::toBytes)
                 .consumerMainThread(ManaTowerS2CPacket::handle)
+                .add();
+        net.messageBuilder(ElementPieceS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ElementPieceS2CPacket::new)
+                .encoder(ElementPieceS2CPacket::toBytes)
+                .consumerMainThread(ElementPieceS2CPacket::handle)
+                .add();
+        net.messageBuilder(ElementPieceC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ElementPieceC2SPacket::new)
+                .encoder(ElementPieceC2SPacket::toBytes)
+                .consumerMainThread(ElementPieceC2SPacket::handle)
                 .add();
     }
 

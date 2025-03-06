@@ -18,7 +18,7 @@ public class VolcanoCrest extends WraqCurios implements RepeatableCurios {
 
     public VolcanoCrest(Properties p_41383_, int Level) {
         super(p_41383_, 16);
-        Utils.attackDamage.put(this, new double[]{20, 40, 60, 80, 160}[Level]);
+        Utils.attackDamage.put(this, new double[]{25, 50, 75, 100, 250}[Level]);
     }
 
     @Override

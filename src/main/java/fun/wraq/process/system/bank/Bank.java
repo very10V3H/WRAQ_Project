@@ -56,7 +56,11 @@ public class Bank {
                 " ".repeat(4),
                 Te.c(Te.s("「取出金豆」", CustomStyle.styleOfGold),
                         "/vmd bank tryToGetGoldenBeans",
-                        Te.s("点击以尝试取出金豆"))));
+                        Te.s("点击以尝试取出金豆")),
+                " ".repeat(4),
+                Te.c(Te.s("「购买百万大钞」", CustomStyle.styleOfGold),
+                        "/vmd bank tryToGetMillionMoney",
+                        Te.s("点击以尝试购买百万大钞"))));
         Compute.sendBlankLine(player, 4);
         MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
     }

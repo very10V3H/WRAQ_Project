@@ -91,7 +91,7 @@ public class TradeBuyRequestC2SPacket {
             boolean needToTransform = false;
             // 若无足够的货币 检测背包中货币总和 + 当前账户vb数是否大于需求数
             if (!playerHasEnoughMoney) {
-                int playerCurrentTotalVb = (int) (playerInventoryCurrencyVBCount(serverPlayer) + Compute.CurrentVB(serverPlayer));
+                int playerCurrentTotalVb = (int) (playerInventoryCurrencyVBCount(serverPlayer) + Compute.getCurrentVB(serverPlayer));
                 if (playerCurrentTotalVb >= requireVBCount) {
                     playerHasEnoughMoney = true;
                     needToTransform = true;

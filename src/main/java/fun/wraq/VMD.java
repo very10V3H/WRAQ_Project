@@ -13,6 +13,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.*;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.customized.composites.CompositesItems;
 import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.entities.entities.MainBoss.MainBoss;
@@ -21,6 +22,7 @@ import fun.wraq.entities.entities.Scarecrow.Scarecrow;
 import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.events.mob.loot.*;
 import fun.wraq.events.server.ThreadPools;
 import fun.wraq.files.dataBases.DBConnection;
@@ -139,6 +141,7 @@ public class VMD {
         SmithItems.ITEMS.register(modEvenBus);
         BunkerItems.ITEMS.register(modEvenBus);
         DivineIslandItems.ITEMS.register(modEvenBus);
+        CompositesItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -177,6 +180,7 @@ public class VMD {
         BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
         BlockEvent.netherMineReset(event.getServer().getLevel(Level.NETHER));
         MobSpawn.removeAllMob();
+        JungleMobSpawn.removeAllMobs();
         RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
         DailyEndlessInstanceEvent.onServerStop();
         AllayPet.onServerStop();
@@ -473,7 +477,6 @@ public class VMD {
             event.accept(ModItems.pickUpgradePaper.get().getDefaultInstance());
             event.accept(ModItems.skinTemplatePaper.get().getDefaultInstance());
             event.accept(ModItems.stackUpgradePaper.get().getDefaultInstance());
-
             event.accept(ModItems.GEM_PIECE.get().getDefaultInstance());
             event.accept(ModItems.ROSE_GOLD_COIN.get().getDefaultInstance());
             event.accept(ModItems.GOLD_COIN.get().getDefaultInstance());
@@ -527,7 +530,7 @@ public class VMD {
                     ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
                     ModItems.goldCoinLottery.get(), ModItems.GOLDEN_BEANS.get(),
-                    ModItems.BOND.get(), ModItems.SPECIAL_BOND.get()
+                    ModItems.BOND.get(), ModItems.SPECIAL_BOND.get(), ModItems.MILLION_MONEY.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }

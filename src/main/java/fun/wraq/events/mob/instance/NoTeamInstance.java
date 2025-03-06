@@ -187,10 +187,10 @@ public abstract class NoTeamInstance {
                         Compute.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
                         exReward(player);
                     } else {
-                        if (!checkReason(player)) {
+                        if (getSummonAndRewardNeedItem().equals(ModItems.notePaper.get()) && !checkReason(player)) {
                             Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
-                                    Te.s("需要至少", getRewardNeedItemCount() + "理智", CustomStyle.styleOfFlexible,
-                                            "才能获取奖励."));
+                                    Te.s("需要至少", getRewardNeedItemCount() + "理智",
+                                            CustomStyle.styleOfFlexible, "才能获取奖励."));
                         } else {
                             Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                     Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).

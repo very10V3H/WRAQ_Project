@@ -1,13 +1,12 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.series.end.citadel.CitadelItems;
-import fun.wraq.series.instance.series.harbinger.HarbingerItems;
-import fun.wraq.series.instance.series.harbinger.weapon.HarbingerWeaponMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -85,19 +84,8 @@ public class Main0 extends Item {
                 }
             }*/
 
-            ItemStack rod = HarbingerItems.HARBINGER_ROD.get().getDefaultInstance();
-            ItemStack core = HarbingerItems.HARBINGER_WEAPON_CORE.get().getDefaultInstance();
-            ItemStack swordBlade = HarbingerItems.HARBINGER_SWORD_BLADE.get().getDefaultInstance();
-            ItemStack string = HarbingerItems.HARBINGER_STRING.get().getDefaultInstance();
-            ItemStack mirror = HarbingerItems.HARBINGER_MIRROR.get().getDefaultInstance();
-
-            HarbingerWeaponMaterial.setQualityTier(rod, 5);
-            HarbingerWeaponMaterial.setQualityTier(core, 5);
-            HarbingerWeaponMaterial.setQualityTier(swordBlade, 5);
-            HarbingerWeaponMaterial.setQualityTier(string, 5);
-            HarbingerWeaponMaterial.setQualityTier(mirror, 5);
-
-            List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);
+            Compute.sendCoolDownTime(player, ModItems.GOLD_COIN.get(), 100);
+            Compute.sendDebuffTime(player, ModItems.GOLD_COIN.get(), 100, 0);
         }
         
         if (!level.isClientSide && player.isShiftKeyDown()) {

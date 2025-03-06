@@ -114,6 +114,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.*;
 
@@ -551,7 +552,7 @@ public class Compute {
         }
     }
 
-    public static double CurrentVB(Player player) {
+    public static double getCurrentVB(Player player) {
         return player.getPersistentData().getDouble("VB");
     }
 
@@ -1410,13 +1411,15 @@ public class Compute {
                             && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
                         rate *= (1 - attributeMap.get(curiosItem));
                     }
-                    CompoundTag data = curioStack.getOrCreateTagElement(Utils.MOD_ID);
-                    if (data.contains(attributeName)) {
-                        if (curiosItem instanceof RandomCurios) {
-                            rate *= (1 - data.getDouble(attributeName)
-                                    * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName));
-                        } else {
-                            rate *= (1 - data.getInt(attributeName));
+                    if (attributeName != null) {
+                        CompoundTag data = curioStack.getOrCreateTagElement(Utils.MOD_ID);
+                        if (data.contains(attributeName)) {
+                            if (curiosItem instanceof RandomCurios) {
+                                rate *= (1 - data.getDouble(attributeName)
+                                        * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName));
+                            } else {
+                                rate *= (1 - data.getInt(attributeName));
+                            }
                         }
                     }
                 }
@@ -1430,13 +1433,15 @@ public class Compute {
                                     && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
                                 value += attributeMap.get(curiosItem);
                             }
-                            CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-                            if (data.contains(attributeName)) {
-                                if (curiosItem instanceof RandomCurios) {
-                                    value += data.getDouble(attributeName)
-                                            * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
-                                } else {
-                                    value += data.getInt(attributeName);
+                            if (attributeName != null) {
+                                CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
+                                if (data.contains(attributeName)) {
+                                    if (curiosItem instanceof RandomCurios) {
+                                        value += data.getDouble(attributeName)
+                                                * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
+                                    } else {
+                                        value += data.getInt(attributeName);
+                                    }
                                 }
                             }
                             return value;
@@ -1907,6 +1912,13 @@ public class Compute {
                 .toList();
     }
 
+    public static Set<Player> getNearPlayer(Level level, Vec3 center, double radius) {
+        return getNearEntity(level, center, Player.class, radius).stream()
+                .filter(entity -> entity instanceof Player)
+                .map(entity -> (Player) entity)
+                .collect(Collectors.toSet());
+    }
+
     public static void sendMobEffectHudToNearPlayer(Mob mob, Item icon, String tag, int lastTick, int level, boolean forever) {
         List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
         list.stream().filter(e -> e instanceof Player).forEach(p -> {
@@ -2142,6 +2154,13 @@ public class Compute {
         level.addFreshEntity(armorStand);
     }
 
+    public static void removeNearArmorStand(Level level, Vec3 pos, double radius) {
+        level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(pos, radius * 2, radius * 2, radius * 2))
+                .forEach(armorStand -> {
+                    armorStand.remove(Entity.RemovalReason.KILLED);
+                });
+    }
+
     public interface MobCauseDamageToPlayer {
         void causeDamage(Mob mob, Player player);
     }
@@ -2179,6 +2198,7 @@ public class Compute {
         }), startTick, trigTick, startTick + lastTick);
 
         // 制造粒子
-        ParticleProvider.createSpaceEffectParticle(level, pos, radius, 100, style, lastTick);
+        ParticleProvider.createSpaceEffectParticle(level, pos, radius,
+                100, style, lastTick + (startTick - Tick.get()));
     }
 }

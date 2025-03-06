@@ -93,10 +93,11 @@ public class BunkerCurio extends WraqCurios implements OnWithStandDamageCurios, 
                 eachMob.addEffect(new MobEffectInstance(ModEffect.EFFECTSTUN.get(), 20));
             });
             StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
-                    "BunkerCurioCommonDamageEnhance", 0.25, Tick.get() + Tick.s(10), this);
+                    "BunkerCurioCommonDamageEnhance", 0.25,
+                    Tick.get() + Tick.s(10), "item/bunker_curio");
             ParticleProvider.createBallDisperseParticle(ParticleTypes.FLAME, (ServerLevel) player.level(),
                     player.position(),6, 100);
-            MySound.soundToPlayer(player, SoundEvents.FIRE_AMBIENT);
+            MySound.soundToPlayer(player, SoundEvents.BLAZE_SHOOT);
         }
     }
 

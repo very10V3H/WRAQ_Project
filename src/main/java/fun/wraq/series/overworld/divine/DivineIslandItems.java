@@ -64,16 +64,16 @@ public class DivineIslandItems {
 
     public static final RegistryObject<Item> DIVINE_HELMET_0 = ITEMS.register("divine_helmet_0",
             () -> new DivineArmor(ModArmorMaterials.DIVINE, ArmorItem.Type.HELMET,
-                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.15));
+                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.3, 3000));
     public static final RegistryObject<Item> DIVINE_CHEST_0 = ITEMS.register("divine_chest_0",
             () -> new DivineArmor(ModArmorMaterials.DIVINE, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.15));
+                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.3, 3000));
     public static final RegistryObject<Item> DIVINE_LEGGINGS_0 = ITEMS.register("divine_leggings_0",
             () -> new DivineArmor(ModArmorMaterials.DIVINE, ArmorItem.Type.LEGGINGS,
-                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.15));
+                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.3, 3000));
     public static final RegistryObject<Item> DIVINE_BOOTS_0 = ITEMS.register("divine_boots_0",
             () -> new DivineArmor(ModArmorMaterials.DIVINE, ArmorItem.Type.BOOTS,
-                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.15));
+                    new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 0.3, 3000));
 
     public static final RegistryObject<Item> MOB_FANVER_DIAMOND_HELMET = ITEMS.register("fanver_diamond_helmet",
             () -> new ArmorItem(ModArmorMaterials.FANVER_DIAMOND, ArmorItem.Type.HELMET,

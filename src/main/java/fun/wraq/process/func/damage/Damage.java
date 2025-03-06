@@ -1,6 +1,5 @@
 package fun.wraq.process.func.damage;
 
-import com.mojang.logging.LogUtils;
 import fun.wraq.commands.stable.players.DebugCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
@@ -30,6 +29,7 @@ import fun.wraq.events.mob.instance.instances.element.MoonInstance;
 import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerEachFloorMob;
+import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
@@ -326,6 +326,7 @@ public class Damage {
 
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
+        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
 
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
@@ -338,10 +339,10 @@ public class Damage {
                 Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
             }
         }
-        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
 
         beforeCauseDamage(player, monster, totalDamage);
         causeDirectDamageToMob(player, monster, totalDamage);
+        Compute.playerHeal(player, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.1 * 0.33);
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
@@ -551,13 +552,12 @@ public class Damage {
             finalDamage *= getAfterScornAdjustRate(player, mob);
             finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
             finalDamage *= HarbingerMainHand.onMobWithstand(mob, player);
+            finalDamage *= JungleMobSpawn.modifyMobWithstandDamage(mob, player);
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (!(mob instanceof Civil)) {
                 if (mob.getHealth() <= finalDamage && mob.isAlive()) {
                     // 怪物死亡技艺
                     MobDeadModule.deadModule(mob);
-                    LogUtils.getLogger().info("{} {} {}", player.getName().getString(),
-                            Utils.LogTypes.killed, mob.getName().getString());
                     mob.kill();
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                     CompoundTag data = player.getPersistentData();
@@ -591,6 +591,7 @@ public class Damage {
             Element.ElementParticleProvider(mob);
             GemOnCauseDamage.causeDamage(player, mob, damage);
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
+            JungleMobSpawn.onMobWithstandDamage(mob, player);
         }
     }
 

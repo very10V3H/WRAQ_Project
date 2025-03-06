@@ -14,6 +14,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.system.element.ElementRoulette;
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
+import fun.wraq.process.system.element.piece.ElementPieceGui;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
@@ -183,7 +184,8 @@ public class KeyInput {
                 || screen instanceof ForgeScreen || screen instanceof TowerScreen
                 || screen instanceof ElementRoulette || screen instanceof VpStoreScreen
                 || screen instanceof SmeltRecipeScreen || screen instanceof SmeltProgressScreen
-                || screen instanceof SingleItemChangeScreen || screen instanceof SkillV2Screen;
+                || screen instanceof SingleItemChangeScreen || screen instanceof SkillV2Screen
+                || screen instanceof ElementPieceGui;
     }
 
     @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

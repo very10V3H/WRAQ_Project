@@ -81,7 +81,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
         double defenceValue = PlayerAttributes.defence(player) + MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence);
         double rate = 2 - Damage.defenceDamageDecreaseRate(defenceValue, 0, 0);
         int tick = Tick.get();
-        Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.2 * rate, 3, tick + 20, player.getName().getString(), true));
+        Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.2 * rate, 3, tick + 20, player.getName().getString(), true, null));
         Compute.sendMobEffectHudToNearPlayer(mob, ModItems.Ruby.get(), "NetherShieldDot", 20, 0, false);
     }
 }

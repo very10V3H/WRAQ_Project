@@ -44,7 +44,7 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        return DivineWeaponCommon.getCommonDescription(stack, upperLimitRate, maxCount, true);
+        return DivineWeaponCommon.getCommonDescription(stack, upperLimitRate, maxCount, true, maxActiveDistance);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
     public void onKill(Player player, Mob mob) {
         ItemStack stack = player.getMainHandItem();
         DivineWeaponCommon.addDivineCount(stack);
-        DivineWeaponCommon.onKill(player);
+        DivineWeaponCommon.onKillMob(player, mob);
     }
 
     @Override

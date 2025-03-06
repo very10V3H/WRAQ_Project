@@ -35,7 +35,12 @@ public class ClientAttackEvent {
             Player player = event.getEntity();
             Item item = player.getMainHandItem().getItem();
             if (Utils.bowTag.containsKey(item) || Utils.sceptreTag.containsKey(item)) {
-                leftClick(player);
+                if (Utils.bowTag.containsKey(item)) {
+                    ModNetworking.sendToServer(new BowAttackRequestC2SPacket());
+                }
+                if (Utils.sceptreTag.containsKey(item) && !(item instanceof Laser)) {
+                    ModNetworking.sendToServer(new ManaAttackRequestC2SPacket());
+                }
             }
         }
     }

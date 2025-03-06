@@ -169,6 +169,7 @@ public class ServerPlayerTickEvent {
             SwordNewSkillBase3_0.handleServerPlayerTick(player);
             DivineUtils.handlePlayerTick(player);
             PurpleIronCommon.handlePlayerTick(player);
+            HarbingerMainHand.fix(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

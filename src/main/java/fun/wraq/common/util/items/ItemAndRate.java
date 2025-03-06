@@ -96,7 +96,7 @@ public class ItemAndRate {
     }
 
     public boolean send(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
-        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
@@ -120,7 +120,7 @@ public class ItemAndRate {
     }
 
     public ItemStack sendWithMSG(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
-        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
