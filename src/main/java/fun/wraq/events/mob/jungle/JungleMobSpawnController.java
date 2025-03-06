@@ -42,10 +42,6 @@ public abstract class JungleMobSpawnController {
     }
 
     public void handleLevelTick(Level level) {
-        if (getNearbyPlayers(level).isEmpty() && players.isEmpty()) {
-            reset();
-            return;
-        }
         if (mobs.isEmpty()) {
             if (Tick.get() % 20 == 0) {
                 if (Tick.get() > lastSpawnTick + refreshInterval) {
@@ -62,8 +58,12 @@ public abstract class JungleMobSpawnController {
             }
         } else {
             if (mobs.stream().allMatch(LivingEntity::isDeadOrDying)) {
-                players.forEach(this::tryToReward);
-                reset();
+                if (getNearbyPlayers(level).isEmpty() && players.isEmpty()) {
+                    reset();
+                } else {
+                    players.forEach(this::tryToReward);
+                    reset();
+                }
             }
         }
     }
