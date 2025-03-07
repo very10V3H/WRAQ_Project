@@ -33,7 +33,6 @@ import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
-import fun.wraq.series.instance.series.moon.MoonCurios;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -88,7 +87,6 @@ public class ManaAttackModule {
             trueDamage += ManaSKill6(data, player, damage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
             trueDamage += SeaCore(player, monster); // 救赎魔核
             trueDamage += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
-            trueDamage += MoonCurios.Passive(player, monster); // 朔望馈赠
             trueDamage += CastleManaArmor.ExIgnoreDefenceDamage(player);
 
             if (Compute.getManaSkillLevel(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.8) {

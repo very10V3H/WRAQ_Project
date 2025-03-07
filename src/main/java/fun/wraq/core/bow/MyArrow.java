@@ -24,7 +24,6 @@ import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
-import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
 import net.minecraft.ChatFormatting;
@@ -172,7 +171,6 @@ public class MyArrow extends AbstractArrow {
 
             trueDamage += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
             trueDamage += AttackEventModule.SeaSword(player, monster); //灵魂救赎者主动
-            trueDamage += MoonCurios.Passive(player, monster); // 朔望馈赠
             trueDamage += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
 
             damageEnhance += AttackEventModule.BowSkill3(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）

@@ -859,13 +859,15 @@ public class Compute {
 
     public static void playerItemUseWithRecord(Player player) {
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-        LogUtils.getLogger().info("{} {} {}", player.getName().getString(), Utils.LogTypes.itemUsed, itemStack);
+        LogUtils.getLogger().info("{} {} {}", player.getName().getString(),
+                Utils.LogTypes.itemUsed, itemStack.getItem());
         itemStack.shrink(1);
     }
 
     public static void PlayerItemUseOffHandWithRecord(Player player) {
         ItemStack itemStack = player.getItemInHand(InteractionHand.OFF_HAND);
-        LogUtils.getLogger().info("{} {} {}", player.getName().getString(), Utils.LogTypes.itemUsed, itemStack);
+        LogUtils.getLogger().info("{} {} {}", player.getName().getString(),
+                Utils.LogTypes.itemUsed, itemStack.getItem());
         itemStack.shrink(1);
     }
 

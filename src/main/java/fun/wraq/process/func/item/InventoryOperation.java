@@ -1,6 +1,5 @@
 package fun.wraq.process.func.item;
 
-import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
@@ -90,8 +89,6 @@ public class InventoryOperation {
         int num = removeNum;
         if (!checkPlayerHasItem(inventory, item, removeNum)) return false;
         else {
-            LogUtils.getLogger().info("{} {} {} {}", inventory.player.getName().getString(),
-                    Utils.LogTypes.cost, item.toString(), removeNum);
             for (int i = 0; i < inventory.getContainerSize(); i++) {
                 if (inventory.getItem(i).is(item)) {
                     ItemStack itemStack = inventory.getItem(i);

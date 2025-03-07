@@ -42,6 +42,7 @@ import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.instance.series.moon.Equip.MoonBook;
 import fun.wraq.series.instance.series.moon.Equip.MoonKnife;
 import fun.wraq.series.instance.series.moon.Equip.MoonShield;
+import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
@@ -384,6 +385,7 @@ public class PlayerAttributes {
         critDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExCritDamage);
         critDamage += AttackCurios1.playerCritDamageUp(player);
         critDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCritDamageModifier);
+        critDamage += MoonCurios.getCritDamage(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -826,6 +828,7 @@ public class PlayerAttributes {
         defenceRate *= (1 - StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration));
         defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.defencePenetration));
+        defenceRate *= (1 - MoonCurios.getDefencePenetration(player));
         // 请在上方添加
         writeToCache(player, Utils.defencePenetration, 1 - defenceRate);
         return 1 - defenceRate;

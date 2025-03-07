@@ -1,7 +1,9 @@
 package fun.wraq.Items.Forging;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.BeforeRemoveMaterialOnForge;
@@ -221,6 +223,7 @@ public class WraqForge extends Item {
                 Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
             }
 
+            LogUtils.getLogger().info("锻造 {} 锻造了 {}", Name.get(player), productItemStack);
             InventoryOperation.giveItemStack(player, productItemStack);
             Guide.trigV2(player, Guide.StageV2.FIRST_FORGE);
             if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {

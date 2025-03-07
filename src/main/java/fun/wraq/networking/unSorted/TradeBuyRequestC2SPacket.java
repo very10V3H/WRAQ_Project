@@ -1,6 +1,8 @@
 package fun.wraq.networking.unSorted;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
@@ -153,6 +155,7 @@ public class TradeBuyRequestC2SPacket {
                     ForgeEquipUtils.setForgeQualityOnEquip(product, 4);
                 }
 
+                LogUtils.getLogger().info("村民 {} 购买了 {} 出售的 {} ", Name.get(serverPlayer), name, product);
                 InventoryOperation.giveItemStack(serverPlayer, product);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {
