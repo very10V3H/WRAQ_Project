@@ -43,7 +43,7 @@ public abstract class JungleMobSpawnController {
     }
 
     public void handleLevelTick(Level level) {
-        if (getNearbyPlayers(level).isEmpty() && !mobs.isEmpty()) {
+        if (getNearbyPlayers(level).isEmpty()) {
             clear();
             return;
         }
