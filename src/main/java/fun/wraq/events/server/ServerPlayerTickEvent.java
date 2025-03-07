@@ -36,6 +36,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.plan.PlanPlayer;
+import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.border.WorldBorder;
 import fun.wraq.process.system.element.Element;
@@ -170,6 +171,7 @@ public class ServerPlayerTickEvent {
             DivineUtils.handlePlayerTick(player);
             PurpleIronCommon.handlePlayerTick(player);
             HarbingerMainHand.fix(player);
+            Security.fixDuplicatedBackpack(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

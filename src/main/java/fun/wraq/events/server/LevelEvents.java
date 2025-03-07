@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Gather;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.process.func.EffectOnMob;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.PersistentRangeEffect;
@@ -90,7 +91,7 @@ public class LevelEvents {
         EffectOnMob.levelTick(event);
         RightClickActiveHandler.detectNearPlayer(event);
         DivineUtils.handleServerLevelEvent(event);
-        /*JungleMobSpawn.handleLevelTick(event);*/
+        JungleMobSpawn.handleLevelTick(event);
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             PersistentRangeEffect.levelTick(event.level);

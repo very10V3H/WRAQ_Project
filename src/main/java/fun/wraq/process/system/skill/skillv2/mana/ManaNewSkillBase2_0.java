@@ -49,7 +49,7 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                                 .stream().map(mob -> (Mob) mob)
                                 .forEach(mob -> {
                                     Damage.causeRateApDamageWithElement(player, mob, damage, true);
-                                    Compute.addSlowDownEffect(mob, Tick.s(1), 1);
+                                    Compute.addSlowDownEffect(mob, Tick.s(1), 2);
                                 });
                         ParticleProvider.dustParticle(player, effect.center(),
                                 6, 120, Element.getManaSkillParticleStyle(player).getColor().getValue());

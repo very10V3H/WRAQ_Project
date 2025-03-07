@@ -7,6 +7,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -42,6 +43,10 @@ public abstract class JungleMobSpawnController {
     }
 
     public void handleLevelTick(Level level) {
+        if (getNearbyPlayers(level).isEmpty() && !mobs.isEmpty()) {
+            clear();
+            return;
+        }
         if (mobs.isEmpty()) {
             if (Tick.get() % 20 == 0) {
                 if (Tick.get() > lastSpawnTick + refreshInterval) {
@@ -58,12 +63,8 @@ public abstract class JungleMobSpawnController {
             }
         } else {
             if (mobs.stream().allMatch(LivingEntity::isDeadOrDying)) {
-                if (getNearbyPlayers(level).isEmpty() && players.isEmpty()) {
-                    reset();
-                } else {
-                    players.forEach(this::tryToReward);
-                    reset();
-                }
+                players.forEach(this::tryToReward);
+                reset();
             }
         }
     }
@@ -80,12 +81,21 @@ public abstract class JungleMobSpawnController {
 
     public void reset() {
         lastSpawnTick = Tick.get();
+        clear();
+    }
+
+    public void clear() {
         players.clear();
+        mobs.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobs.clear();
     }
 
     public Set<Player> getNearbyPlayers(Level level) {
-        return Compute.getNearPlayer(level, descriptionPos, detectionRadius);
+        Set<Player> playerSet = new HashSet<>(Compute.getNearPlayer(level, descriptionPos, detectionRadius));
+        mobs.forEach(mob -> {
+            playerSet.addAll(Compute.getNearPlayer(level, mob.position(), detectionRadius));
+        });
+        return playerSet;
     }
 
     public double modifyMobWithstandDamage(Mob mob, Player player) {
@@ -93,7 +103,9 @@ public abstract class JungleMobSpawnController {
     }
 
     public abstract void tryToReward(Player player);
+
     public abstract void spawnMob(Level level);
+
     public abstract List<ItemAndRate> getRewardItemList();
 
     public void sendMSG(Player player, Component content) {

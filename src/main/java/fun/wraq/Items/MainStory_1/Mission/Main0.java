@@ -1,6 +1,6 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -18,10 +18,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.p3pp3rf1y.sophisticatedbackpacks.backpack.BackpackItem;
+import net.p3pp3rf1y.sophisticatedbackpacks.backpack.wrapper.BackpackWrapper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Main0 extends Item {
 
@@ -61,33 +62,41 @@ public class Main0 extends Item {
         );
     }
 
+    public static Set<UUID> uuidSet = new HashSet<>();
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-/*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
+            uuidSet.clear();
+            for (int i = 0; i < player.getInventory().getMaxStackSize(); i++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() instanceof BackpackItem) {
                     BackpackWrapper backpackWrapper = new BackpackWrapper(stack);
-                    backpackWrapper.getInventoryHandler().setStackInSlot(0, Items.IRON_INGOT.getDefaultInstance());
+                    UUID uuid = backpackWrapper.getContentsUuid().orElse(null);
+                    if (uuid != null) {
+                        if (uuidSet.contains(uuid)) {
+                            stack.shrink(1);
+                            player.sendSystemMessage(Te.s("bug"));
+                        }
+                        uuidSet.add(uuid);
+                    }
+/*                    backpackWrapper.getInventoryHandler().setStackInSlot(0, Items.IRON_INGOT.getDefaultInstance());
                     backpackWrapper.refreshInventoryForInputOutput();
 
-                    ItemStack newBackPack = new ItemStack(ModItems.NETHERITE_BACKPACK.get());
+                    ItemStack newBackPack = new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.NETHERITE_BACKPACK.get());
                     BackpackWrapper newBackpackWrapper = new BackpackWrapper(newBackPack);
                     backpackWrapper.getUpgradeHandler().copyTo(newBackpackWrapper.getUpgradeHandler());
-                    for (int j = 0 ; j < backpackWrapper.getInventoryHandler().getSlots() ; j ++) {
+                    for (int j = 0; j < backpackWrapper.getInventoryHandler().getSlots(); j++) {
                         newBackpackWrapper.getInventoryHandler().setSlotStack(j, new ItemStack(Items.IRON_INGOT, 128));
                     }
-                    player.getInventory().setItem(i, newBackPack);
+                    player.getInventory().setItem(i, newBackPack);*/
                 }
-            }*/
-
-            Compute.sendCoolDownTime(player, ModItems.GOLD_COIN.get(), 100);
-            Compute.sendDebuffTime(player, ModItems.GOLD_COIN.get(), 100, 0);
+            }
         }
-        
+
         if (!level.isClientSide && player.isShiftKeyDown()) {
             data.remove(PlanPlayer.PLAN_DATA_KEY);
             data.remove(MobSpawn.KILL_COUNT_DATA_KEY);
@@ -108,7 +117,7 @@ public class Main0 extends Item {
         if (player.tickCount % 30 == 0 && index < soundEventList.size()) {
             player.playSound(soundEventList.get(index));
             player.sendSystemMessage(Component.literal("" + soundEventList.get(index).getLocation()));
-            index ++;
+            index++;
         }
     }
 }
