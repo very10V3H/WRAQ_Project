@@ -17,10 +17,10 @@ import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.ManaArrowHitEntity;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -68,21 +68,31 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
         shootManaArrow(player, rate, mainShoot, true, null);
     }
 
+    protected EntityType<ManaArrow> getArrowType() {
+        return ModEntityType.NEW_ARROW.get();
+    }
+
+    protected String getParticleType() {
+        return StringUtils.ParticleTypes.EVOKER;
+    }
+
+    protected float getManaArrowSpeed() {
+        return 3;
+    }
+
     protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
-        if (Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
-            ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level,
-                    rate, PlayerAttributes.manaPenetration(player),
-                    PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
-            manaArrow.setSilent(true);
-            manaArrow.setNoGravity(true);
-            manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-            ProjectileUtil.rotateTowardsMovement(manaArrow, 0);
-            WraqSceptre.adjustOrb(manaArrow, player);
-            level.addFreshEntity(manaArrow);
-            return manaArrow;
-        }
-        return null;
+        ManaArrow manaArrow = new ManaArrow(getArrowType(), player, level, rate,
+                PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
+                getParticleType());
+        manaArrow.setSilent(true);
+        manaArrow.setNoGravity(true);
+        manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
+                getManaArrowSpeed() + PlayerAttributes.getManaArrowExFlySpeed(player), 1.0f);
+        ProjectileUtil.rotateTowardsMovement(manaArrow, 0);
+        WraqSceptre.adjustOrb(manaArrow, player);
+        level.addFreshEntity(manaArrow);
+        return manaArrow;
     }
 
     public static void adjustOrb(AbstractArrow arrow, Player player) {

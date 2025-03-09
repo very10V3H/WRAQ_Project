@@ -1,11 +1,8 @@
 package fun.wraq.series.worldsoul;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.registry.ModEntityType;
-import fun.wraq.common.registry.ModSounds;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -17,8 +14,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -37,26 +34,14 @@ public class SoulSceptre extends WraqSceptre {
         Utils.levelRequire.put(this, 260);
     }
 
-    public static final int ManaCost = 20;
+    @Override
+    protected EntityType<ManaArrow> getArrowType() {
+        return ModEntityType.NEW_ARROW_WORLD.get();
+    }
 
     @Override
-    protected ManaArrow summonManaArrow(Player player, double rate) {
-        Level level = player.level();
-        double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));
-        if (Compute.playerManaCost(player, (int) ManaCost)) {
-            ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
-                    rate, PlayerAttributes.manaPenetration(player),
-                    PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
-            newArrow.setSilent(true);
-            newArrow.setNoGravity(true);
-            newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-            ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-            WraqSceptre.adjustOrb(newArrow, player);
-            level.addFreshEntity(newArrow);
-            MySound.soundToNearPlayer(player, ModSounds.Mana.get());
-            return newArrow;
-        }
-        return null;
+    protected String getParticleType() {
+        return StringUtils.ParticleTypes.Sky;
     }
 
     @Override

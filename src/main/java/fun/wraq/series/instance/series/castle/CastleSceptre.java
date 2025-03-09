@@ -1,7 +1,6 @@
 package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
@@ -21,12 +20,11 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,18 +44,13 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem,
     }
 
     @Override
-    protected ManaArrow summonManaArrow(Player player, double rate) {
-        Level level = player.level();
-        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, level,
-                rate, PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
-        newArrow.setSilent(true);
-        newArrow.setNoGravity(true);
-        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 3, 1);
-        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-        WraqSceptre.adjustOrb(newArrow, player);
-        level.addFreshEntity(newArrow);
-        return newArrow;
+    protected EntityType<ManaArrow> getArrowType() {
+        return ModEntityType.NEW_ARROW_SNOW.get();
+    }
+
+    @Override
+    protected String getParticleType() {
+        return StringUtils.ParticleTypes.Sea;
     }
 
     @Override

@@ -1,13 +1,10 @@
 package fun.wraq.series.overworld.chapter7.vd;
 
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.registry.ModSounds;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -18,10 +15,9 @@ import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,19 +75,13 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, VdW
     }
 
     @Override
-    protected ManaArrow summonManaArrow(Player player, double rate) {
-        Level level = player.level();
-        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
-                rate, PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
-        newArrow.setSilent(true);
-        newArrow.setNoGravity(true);
-        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-        WraqSceptre.adjustOrb(newArrow, player);
-        level.addFreshEntity(newArrow);
-        MySound.soundToNearPlayer(player, ModSounds.Mana.get());
-        return newArrow;
+    protected EntityType<ManaArrow> getArrowType() {
+        return ModEntityType.NEW_ARROW_WORLD.get();
+    }
+
+    @Override
+    protected String getParticleType() {
+        return StringUtils.ParticleTypes.Sky;
     }
 
     @Override

@@ -5,10 +5,8 @@ import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.particles.ModParticles;
@@ -16,8 +14,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -62,17 +58,6 @@ public class FireElementBow extends WraqBow implements ActiveItem {
         if (mob.getRemainingFireTicks() == 0) {
             list.add(new FireElementSword.IgniteMob(mob.getId(), Tick.get() + 60));
         }
-    }
-
-    @Override
-    protected MyArrow summonArrow(Player serverPlayer, double rate) {
-        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
-        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5f, 1.0f);
-        arrow.setCritArrow(true);
-        WraqBow.adjustArrow(arrow, serverPlayer);
-        serverPlayer.level().addFreshEntity(arrow);
-        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
-        return arrow;
     }
 
     @Override

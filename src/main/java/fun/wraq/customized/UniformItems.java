@@ -85,4 +85,13 @@ public class UniformItems {
 
     public static final RegistryObject<Item> uniformPiece = ITEMS.register("uniform_piece",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
+
+    public static final RegistryObject<Item> ATTACK_CURIOS_3 = ITEMS.register("attack_curios_3",
+            () -> new AttackCurios3(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> BOW_CURIOS_3 = ITEMS.register("bow_curios_3",
+            () -> new BowCurios3(new Item.Properties().rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> MANA_CURIOS_3 = ITEMS.register("mana_curios_3",
+            () -> new ManaCurios3(new Item.Properties().rarity(CustomStyle.EvokerBold)));
 }

@@ -16,6 +16,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.attack.AttackCurios1;
+import fun.wraq.customized.uniform.attack.AttackCurios3;
 import fun.wraq.events.fight.HurtEvent;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.events.modules.HurtEventModule;
@@ -84,7 +85,9 @@ public class AttackEvent {
     }
 
     public static List<Mob> getPlayerNormalAttackRangeMobList(Player player) {
-        return Compute.getPlayerRayMobList(player, 0.25, 1.25, 4 + PlayerAttributes.attackRangeUp(player))
+        double rangeEnhanceRate = AttackCurios3.getAttackRangeEnhanceRate(player);
+        return Compute.getPlayerRayMobList(player, 0.25, 1.25 * (1 + rangeEnhanceRate),
+                        (4 + PlayerAttributes.attackRangeUp(player)) * (1 + rangeEnhanceRate))
                 .stream().filter(LivingEntity::isAlive).toList();
     }
 

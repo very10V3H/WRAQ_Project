@@ -15,8 +15,10 @@ import fun.wraq.customized.uniform.attack.AttackCurios1;
 import fun.wraq.customized.uniform.attack.AttackCurios2;
 import fun.wraq.customized.uniform.bow.BowCurios0;
 import fun.wraq.customized.uniform.bow.BowCurios2;
+import fun.wraq.customized.uniform.bow.BowCurios3;
 import fun.wraq.customized.uniform.mana.ManaCurios0;
 import fun.wraq.customized.uniform.mana.ManaCurios2;
+import fun.wraq.customized.uniform.mana.ManaCurios3;
 import fun.wraq.events.mob.loot.C5LootItems;
 import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.StableAttributesModifier;
@@ -1452,6 +1454,18 @@ public class PlayerAttributes {
         double rate = 0;
         rate -= DivineUtils.getPlayerElementStrengthDecreaseRate(player);
         value *= (1 + rate);
+        return value;
+    }
+
+    public static float getArrowExFlySpeed(Player player) {
+        float value = 0;
+        value += BowCurios3.getArrowExFlySpeed(player);
+        return value;
+    }
+
+    public static float getManaArrowExFlySpeed(Player player) {
+        float value = 0;
+        value += ManaCurios3.getManaArrowExFlySpeed(player);
         return value;
     }
 

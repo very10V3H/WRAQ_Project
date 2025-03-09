@@ -1,6 +1,7 @@
 package fun.wraq.common.equip;
 
 import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
@@ -86,14 +87,19 @@ public abstract class WraqBow extends WraqMainHandEquip {
     }
 
     protected float getArrowSpeed() {
-        return 0;
+        return 3;
+    }
+
+    protected boolean hasGravity() {
+        return true;
     }
 
     protected MyArrow summonArrow(Player player, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, player.level(), player, true, rate);
         arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
-                getArrowSpeed() == 0 ? 3F : getArrowSpeed(), 1.0f);
+                getArrowSpeed() + PlayerAttributes.getArrowExFlySpeed(player), 1.0f);
         arrow.setCritArrow(true);
+        arrow.setNoGravity(hasGravity());
         player.level().addFreshEntity(arrow);
         MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
         return arrow;

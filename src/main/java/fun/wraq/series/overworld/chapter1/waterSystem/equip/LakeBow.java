@@ -3,18 +3,14 @@ package fun.wraq.series.overworld.chapter1.waterSystem.equip;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -67,16 +63,5 @@ public class LakeBow extends WraqBow implements OnHitEffectEquip {
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfChapterI();
-    }
-
-    @Override
-    protected MyArrow summonArrow(Player serverPlayer, double rate) {
-        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
-        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4F, 1.0f);
-        arrow.setCritArrow(true);
-        WraqBow.adjustArrow(arrow, serverPlayer);
-        serverPlayer.level().addFreshEntity(arrow);
-        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
-        return arrow;
     }
 }

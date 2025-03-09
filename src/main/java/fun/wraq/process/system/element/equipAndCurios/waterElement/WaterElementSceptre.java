@@ -17,12 +17,11 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -48,18 +47,13 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
     }
 
     @Override
-    public ManaArrow summonManaArrow(Player player, double rate) {
-        Level level = player.level();
-        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SEA.get(), player, level,
-                rate, PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.WaterElement1TickParticle);
-        newArrow.setSilent(true);
-        newArrow.setNoGravity(true);
-        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 3, 1);
-        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-        WraqSceptre.adjustOrb(newArrow, player);
-        level.addFreshEntity(newArrow);
-        return newArrow;
+    protected EntityType<ManaArrow> getArrowType() {
+        return ModEntityType.NEW_ARROW_SEA.get();
+    }
+
+    @Override
+    protected String getParticleType() {
+        return StringUtils.ParticleTypes.WaterElement1TickParticle;
     }
 
     @Override

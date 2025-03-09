@@ -58,11 +58,6 @@ public class SakuraBow extends WraqBow implements OnHitEffectEquip {
         return ComponentUtils.getSuffixOfSakura();
     }
 
-    @Override
-    protected float getArrowSpeed() {
-        return 4;
-    }
-
     private static final Map<Player, Boolean> passiveMap = new WeakHashMap<>();
     @Override
     public void onHit(Player player, Mob mob) {
