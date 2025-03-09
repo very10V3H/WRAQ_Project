@@ -11,7 +11,8 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.divine.mob.*;
+import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
+import fun.wraq.series.overworld.divine.mob.common.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -126,6 +127,11 @@ public class DivineUtils {
 
     public static void createDivineParticle(Player player, Vec3 startPos, Vec3 finalPos) {
         ParticleProvider.createLineParticle(player.level(), (int) finalPos.distanceTo(startPos) * 5, startPos,
+                finalPos, ParticleTypes.END_ROD);
+    }
+
+    public static void createDivineParticle(Level level, Vec3 startPos, Vec3 finalPos) {
+        ParticleProvider.createLineParticle(level, (int) finalPos.distanceTo(startPos) * 5, startPos,
                 finalPos, ParticleTypes.END_ROD);
     }
 

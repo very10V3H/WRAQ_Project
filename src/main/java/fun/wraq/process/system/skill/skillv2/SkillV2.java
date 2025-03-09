@@ -23,6 +23,7 @@ import fun.wraq.process.system.skill.skillv2.network.SkillV2LeftCooldownS2CPacke
 import fun.wraq.process.system.skill.skillv2.sword.*;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.gems.passive.impl.GemEnhanceSkillRate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -81,7 +82,10 @@ public abstract class SkillV2 {
     }
 
     public double getEnhanceRate(Player player) {
-        return EnhanceSkillRateEquip.getEnhanceRate(player, skillType);
+        double enhanceRate = 0;
+        enhanceRate += EnhanceSkillRateEquip.getEnhanceRate(player, skillType);
+        enhanceRate += GemEnhanceSkillRate.getEnhanceRate(player, skillType);
+        return enhanceRate;
     }
 
     public static int clientProfessionType = 0;
@@ -588,6 +592,15 @@ public abstract class SkillV2 {
         switch (skillType) {
             case 0 -> {
                 return Te.s("被动技能", ChatFormatting.GREEN);
+            }
+            case 1 -> {
+                return Te.s("基础技能 - I", ChatFormatting.AQUA);
+            }
+            case 2 -> {
+                return Te.s("基础技能 - II", ChatFormatting.AQUA);
+            }
+            case 3 -> {
+                return Te.s("基础技能 - III", ChatFormatting.AQUA);
             }
             case 4 -> {
                 return Te.s("终极技能", ChatFormatting.LIGHT_PURPLE);

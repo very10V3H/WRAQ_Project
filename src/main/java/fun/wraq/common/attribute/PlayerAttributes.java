@@ -1446,6 +1446,7 @@ public class PlayerAttributes {
         double value = 0;
         value += computeAllEquipSlotBaseAttributeValue(player, Utils.elementStrength, false);
         value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.elementStrength);
+        value += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.elementStrength);
 
         // 以下是对最终属性数值进行调整，这个元素本身就是个百分比元素！
         double rate = 0;

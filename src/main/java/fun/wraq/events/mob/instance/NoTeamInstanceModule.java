@@ -15,7 +15,7 @@ import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
-import fun.wraq.series.overworld.divine.mob.DivineBunnyInstance;
+import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

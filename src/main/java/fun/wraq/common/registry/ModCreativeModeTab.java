@@ -1,5 +1,6 @@
 package fun.wraq.common.registry;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.composites.CompositesItems;
@@ -10,6 +11,7 @@ import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -76,6 +78,10 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(AllayItems.ALLAY_SPAWNER.get().asItem())).title(Component.literal("副职业")).build());
     public static RegistryObject<CreativeModeTab> COMPOSITES = CREATIVE_MODE_TAB.register("composites", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(CompositesItems.SPEED_COMPOSITES.get())).title(Component.literal("能晶")).build());
+    public static RegistryObject<CreativeModeTab> DIVINE_ISLAND = CREATIVE_MODE_TAB.register("divine_island", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(DivineIslandItems.DIVINE_SWORD_0.get()))
+                    .title(Te.s("圣光岛")).build());
+
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);

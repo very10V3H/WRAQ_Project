@@ -316,7 +316,7 @@ public class Element {
             if (passiveUnit.type.equals(life)) {
                 SummonReactionTypeItem(passive, Component.literal("氮化").withStyle(CustomStyle.styleOfLife));
                 LifeAndLightning(passive, reactionElementValue);
-                return 1 + strongRate;
+                return 1 + weakRate;
             }
             if (passiveUnit.type.equals(water)) {
                 SummonReactionTypeItem(passive, Component.literal("感电").withStyle(CustomStyle.styleOfLightning));
@@ -325,7 +325,7 @@ public class Element {
             if (passiveUnit.type.equals(fire)) {
                 SummonReactionTypeItem(passive, Component.literal("爆裂").withStyle(CustomStyle.styleOfFire));
                 FireAndLightning(active, passive, reactionElementValue, damage, isAd);
-                return 1 + weakRate;
+                return 1 + strongRate;
             }
             if (passiveUnit.type.equals(stone)) {
                 SummonReactionTypeItem(passive, Component.literal("接地").withStyle(CustomStyle.styleOfLightning));

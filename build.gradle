@@ -136,6 +136,10 @@ repositories {
     // }
 
     maven {
+        url 'https://lss233.littleservice.cn/repositories/minecraft/'
+    }
+
+    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -240,7 +244,7 @@ dependencies {
 
 jarJar.enable()
 reobf {
-    jarJar { }
+    jarJar {}
 }
 
 tasks.jarJar.finalizedBy('reobfJarJar')

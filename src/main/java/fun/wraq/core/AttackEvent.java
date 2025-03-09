@@ -30,7 +30,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
-import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.nether.equip.attack.sword.ManaSword;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
 import fun.wraq.series.overworld.sakura.SakuraMob.SakuraSword;
@@ -114,7 +113,7 @@ public class AttackEvent {
             mobList.forEach(mob -> {
                 if (mob != nearestMob.get()) {
                     AttackEvent.attackToMonster(mob, player,
-                            rate * SwordNewSkillPassive0.exTargetsDamageRate(player),
+                            rate * Math.min(1, SwordNewSkillPassive0.exTargetsDamageRate(player)),
                             false, crit);
                 }
             });

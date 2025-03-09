@@ -1,5 +1,7 @@
 package fun.wraq.events.mob.jungle;
 
+import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob0SpawnController;
+import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob1SpawnController;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +19,8 @@ public class JungleMobSpawn {
             overworldController.add(BunkerGhastSpawnController.getInstance());
             overworldController.add(BlazePowerSpawnController.getInstance());
             overworldController.add(EvokerMasterSpawnController.getInstance());
+            overworldController.add(DivineJungleMob0SpawnController.getInstance());
+            overworldController.add(DivineJungleMob1SpawnController.getInstance());
         }
         return overworldController;
     }

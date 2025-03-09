@@ -1,9 +1,12 @@
 package fun.wraq.series.overworld.divine;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModArmorMaterials;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.overworld.divine.equip.armor.DivineArmor;
 import fun.wraq.series.overworld.divine.equip.boss.DivineKnife;
 import fun.wraq.series.overworld.divine.equip.passive.GhastlyBow;
@@ -12,12 +15,15 @@ import fun.wraq.series.overworld.divine.equip.passive.GhastlySword;
 import fun.wraq.series.overworld.divine.equip.weapon.DivineBow;
 import fun.wraq.series.overworld.divine.equip.weapon.DivineSceptre;
 import fun.wraq.series.overworld.divine.equip.weapon.DivineSword;
+import fun.wraq.series.overworld.divine.gem.DivineGem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class DivineIslandItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -132,4 +138,139 @@ public class DivineIslandItems {
 
     public static final RegistryObject<Item> DIVINE_KNIFE = ITEMS.register("divine_knife",
             () -> new DivineKnife(new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY)));
+
+    public static final RegistryObject<Item> DIVINE_GEM_PIECE_0 = ITEMS.register("divine_gem_piece_0",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY)));
+    public static final RegistryObject<Item> DIVINE_GEM_PIECE_1 = ITEMS.register("divine_gem_piece_1",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY)));
+    public static final RegistryObject<Item> DIVINE_GEM_PIECE_2 = ITEMS.register("divine_gem_piece_2",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY)));
+    public static final RegistryObject<Item> DIVINE_GEM_PIECE_3 = ITEMS.register("divine_gem_piece_3",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY)));
+
+
+    public static final RegistryObject<Item> DIVINE_GEM_PASSIVE_TIER_0 =
+            ITEMS.register("divine_gem_passive_tier_0",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.05)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 0, 0.09));
+    public static final RegistryObject<Item> DIVINE_GEM_PASSIVE_TIER_1 =
+            ITEMS.register("divine_gem_passive_tier_1",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.1)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 0, 0.18));
+    public static final RegistryObject<Item> DIVINE_GEM_PASSIVE_TIER_2 =
+            ITEMS.register("divine_gem_passive_tier_2",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.15)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 0, 0.27));
+    public static final RegistryObject<Item> DIVINE_GEM_PASSIVE_TIER_3 =
+            ITEMS.register("divine_gem_passive_tier_3",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.2)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 0, 0.36));
+
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_1_TIER_0 =
+            ITEMS.register("divine_gem_base_1_tier_0",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.05)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 1, 0.09));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_1_TIER_1 =
+            ITEMS.register("divine_gem_base_1_tier_1",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.1)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 1, 0.18));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_1_TIER_2 =
+            ITEMS.register("divine_gem_base_1_tier_2",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.15)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 1, 0.27));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_1_TIER_3 =
+            ITEMS.register("divine_gem_base_1_tier_3",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.2)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 1, 0.36));
+
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_2_TIER_0 =
+            ITEMS.register("divine_gem_base_2_tier_0",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.05)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 2, 0.09));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_2_TIER_1 =
+            ITEMS.register("divine_gem_base_2_tier_1",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.1)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 2, 0.18));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_2_TIER_2 =
+            ITEMS.register("divine_gem_base_2_tier_2",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.15)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 2, 0.27));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_2_TIER_3 =
+            ITEMS.register("divine_gem_base_2_tier_3",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.2)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 2, 0.36));
+
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_3_TIER_0 =
+            ITEMS.register("divine_gem_base_3_tier_0",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.05)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 3, 0.09));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_3_TIER_1 =
+            ITEMS.register("divine_gem_base_3_tier_1",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.1)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 3, 0.18));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_3_TIER_2 =
+            ITEMS.register("divine_gem_base_3_tier_2",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.15)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 3, 0.27));
+    public static final RegistryObject<Item> DIVINE_GEM_BASE_3_TIER_3 =
+            ITEMS.register("divine_gem_base_3_tier_3",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.2)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 3, 0.36));
+
+    public static final RegistryObject<Item> DIVINE_GEM_FINAL_TIER_0 =
+            ITEMS.register("divine_gem_final_tier_0",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.05)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 4, 0.09));
+    public static final RegistryObject<Item> DIVINE_GEM_FINAL_TIER_1 =
+            ITEMS.register("divine_gem_final_tier_1",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.1)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 4, 0.18));
+    public static final RegistryObject<Item> DIVINE_GEM_FINAL_TIER_2 =
+            ITEMS.register("divine_gem_final_tier_2",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.15)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 4, 0.27));
+    public static final RegistryObject<Item> DIVINE_GEM_FINAL_TIER_3 =
+            ITEMS.register("divine_gem_final_tier_3",
+                    () -> new DivineGem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY),
+                            List.of(new WraqGem.AttributeMapValue(Utils.elementStrength, 0.2)),
+                            CustomStyle.DIVINE_STYLE, Te.s("圣光普照", CustomStyle.DIVINE_STYLE),
+                            ComponentUtils.getSuffixOfDivine(), 4, 0.36));
 }

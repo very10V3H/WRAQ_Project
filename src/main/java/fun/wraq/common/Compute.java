@@ -206,7 +206,7 @@ public class Compute {
                 .append(defaultName));
     }
 
-    public static int levelUpperLimit = 260;
+    public static int levelUpperLimit = 300;
     public static int expGetUpperLimit = 125;
 
     public static double getCurrentXpLevelUpNeedXpPoint(int xpLevel) {

@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.divine.mob;
+package fun.wraq.series.overworld.divine.mob.common;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;

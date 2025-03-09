@@ -992,6 +992,8 @@ public class BasicAttributeDescription {
                 Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f", false, TraditionalTooltip.manaDefence));
         put(System.identityHashCode(WraqPickaxe.mineSpeed), new ToolTipParameter("挖掘速度",
                 Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, TraditionalTooltip.stoneElement));
+        put(System.identityHashCode(Utils.elementStrength), new ToolTipParameter("元素强度",
+                CustomStyle.styleOfWorld, "%.0f%%", true, TraditionalTooltip.element));
     }};
 
     // 新的属性描述模板，仅需按照参数进行配置即可，但是需要注意的是，仅接受不能被强化增幅的属性。

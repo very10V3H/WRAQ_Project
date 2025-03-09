@@ -51,7 +51,6 @@ public abstract class JungleMobSpawnController {
             if (Tick.get() % 20 == 0) {
                 if (Tick.get() > lastSpawnTick + refreshInterval) {
                     spawnMob(level);
-                    lastSpawnTick = Tick.get();
                     removeNearArmorStand(level);
                 } else {
                     removeNearArmorStand(level);
@@ -65,6 +64,9 @@ public abstract class JungleMobSpawnController {
             if (mobs.stream().allMatch(LivingEntity::isDeadOrDying)) {
                 players.forEach(this::tryToReward);
                 reset();
+            } else {
+                mobs.stream().filter(LivingEntity::isAlive)
+                        .forEach(this::handleMobTick);
             }
         }
     }
@@ -100,6 +102,10 @@ public abstract class JungleMobSpawnController {
 
     public double modifyMobWithstandDamage(Mob mob, Player player) {
         return 1;
+    }
+
+    public void handleMobTick(Mob mob) {
+
     }
 
     public abstract void tryToReward(Player player);

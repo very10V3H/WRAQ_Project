@@ -50,10 +50,10 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.newrunes.NewRuneItems;
-import fun.wraq.series.overworld.divine.mob.DivineGolemSpawnController;
-import fun.wraq.series.overworld.divine.mob.DivineSentrySpawnController;
-import fun.wraq.series.overworld.divine.mob.GhastlyCreeperSpawnController;
-import fun.wraq.series.overworld.divine.mob.GhastlyHuskSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
+import fun.wraq.series.overworld.divine.mob.common.GhastlyCreeperSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.GhastlyHuskSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
@@ -67,6 +67,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -94,7 +95,9 @@ public class MobSpawn {
                 });
                 mountsMap.forEach((k, v) -> {
                     if (v.isRemoved()) {
-                        if (k instanceof Mob) {
+                        if (k instanceof Animal) {
+                            k.setHealth(0);
+                        } else if (k instanceof Mob) {
                             k.kill();
                         } else {
                             k.remove(Entity.RemovalReason.KILLED);

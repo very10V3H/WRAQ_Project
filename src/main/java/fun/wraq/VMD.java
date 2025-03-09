@@ -674,6 +674,18 @@ public class VMD {
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);
         }
+        if (event.getTabKey().equals(ModCreativeModeTab.COMPOSITES.getKey())) {
+            CompositesItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.DIVINE_ISLAND.getKey())) {
+            DivineIslandItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
     }
 }
 

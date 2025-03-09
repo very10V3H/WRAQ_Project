@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.divine.mob;
+package fun.wraq.series.overworld.divine.mob.boss;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
