@@ -10,6 +10,7 @@ import fun.wraq.series.overworld.divine.equip.weapon.DivineWeaponCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 
@@ -20,6 +21,9 @@ public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEq
     Style style = CustomStyle.DIVINE_STYLE;
     static List<Component> getDescription(ItemStack stack, double maxRate, int maxCount) {
         List<Component> components = new ArrayList<>();
+        ComponentUtils.descriptionPassive(components, Te.s("光域置换", style));
+        components.add(Te.s(" 你可以在", "战斗状态下", CustomStyle.styleOfRed,
+                "切换", "共鸣元素", CustomStyle.styleOfWorld));
         ComponentUtils.descriptionPassive(components, Te.s("圣光恩赐", style));
         Component countName = ComponentUtils.getRightAngleQuote("圣光恩赐", style);
         components.add(Te.s(" 击杀怪物将会受", countName, style));
@@ -49,5 +53,14 @@ public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEq
 
     static double getCommonEnhanceRate(ItemStack stack, double maxRate, int maxCount) {
         return DivineWeaponCommon.getDivineCount(stack) * 1.0 / maxCount * maxRate;
+    }
+
+    static boolean isWearingDivineArmor(Player player) {
+        for (ItemStack stack : player.getArmorSlots()) {
+            if (stack.getItem() instanceof DivineArmorCommon) {
+                return true;
+            }
+        }
+        return false;
     }
 }

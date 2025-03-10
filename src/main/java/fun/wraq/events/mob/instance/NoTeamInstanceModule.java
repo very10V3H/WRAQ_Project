@@ -15,6 +15,7 @@ import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.overworld.divine.mob.boss.DivineBalanceInstance;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerInstance;
 import net.minecraft.nbt.CompoundTag;
@@ -50,6 +51,7 @@ public class NoTeamInstanceModule {
         public static final String warden = "allowRewardWarden";
         public static final String harbinger = "allowRewardHarbinger";
         public static final String bunker = "allowRewardBunker";
+        public static final String divine = "allowRewardDivine";
     }
 
     public static class AllowRewardCondition {
@@ -88,6 +90,7 @@ public class NoTeamInstanceModule {
         add(ManaTowerInstance.getInstance());
         add(DivineBunnyInstance.getInstance());
         add(BunkerInstance.getInstance());
+        add(DivineBalanceInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{

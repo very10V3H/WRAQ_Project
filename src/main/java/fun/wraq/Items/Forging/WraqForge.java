@@ -21,6 +21,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.profession.smith.SmithHammer;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -180,6 +181,8 @@ public class WraqForge extends Item {
                     ModItems.MoonBelt.get());
             Set<Item> castleEquips = Set.of(ModItems.CASTLE_SWORD.get(),
                     ModItems.CASTLE_BOW.get(), ModItems.CASTLE_SCEPTRE.get());
+            Set<Item> divineWeapons = Set.of(DivineIslandItems.DIVINE_SWORD_0.get(),
+                    DivineIslandItems.DIVINE_BOW_0.get(), DivineIslandItems.DIVINE_SCEPTRE_0.get());
             if (iceKnightEquips.contains(item)) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss, true);
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil, true);
@@ -189,6 +192,9 @@ public class WraqForge extends Item {
             }
             if (castleEquips.contains(item)) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss, true);
+            }
+            if (divineWeapons.contains(item)) {
+                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.divine, true);
             }
 
             // 引导触发

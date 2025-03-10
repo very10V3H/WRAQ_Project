@@ -2084,6 +2084,17 @@
   "item.vmd.bow_curios_3": "因子 - 游侠 - IV",
   "item.vmd.mana_curios_3": "因子 - 梅林 - IV",
 
+  "item.vmd.divine_balance_star": "均衡圣光星",
+
+  "item.vmd.divine_sword_1": "均衡圣光长剑",
+  "item.vmd.divine_bow_1": "均衡圣光长弓",
+  "item.vmd.divine_sceptre_1": "均衡圣光权杖",
+  "item.vmd.divine_helmet_1": "均衡圣光头盔",
+  "item.vmd.divine_chest_1": "均衡圣光胸甲",
+  "item.vmd.divine_leggings_1": "均衡圣光护腿",
+  "item.vmd.divine_boots_1": "均衡圣光靴子",
+
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
   "curios.identifier.uniform_curio": "因子",

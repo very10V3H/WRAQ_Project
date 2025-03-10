@@ -1,12 +1,9 @@
 package fun.wraq.series.overworld.divine.equip.weapon;
 
 import fun.wraq.common.equip.WraqSword;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -22,18 +19,19 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
     private final double upperLimitRate;
     private final int maxCount;
     private final double maxActiveDistance;
-    public DivineSword(Properties properties, double transformRate, double upperLimitRate, int maxCount,
-                       double maxActiveDistance) {
+    private final int tier;
+    public DivineSword(Properties properties, int tier) {
         super(properties);
-        this.transformRate = transformRate;
-        this.upperLimitRate = upperLimitRate;
-        this.maxCount = maxCount;
-        this.maxActiveDistance = maxActiveDistance;
-        Utils.attackDamage.put(this, 3000d);
-        Utils.defencePenetration0.put(this, 60d);
+        this.tier = tier;
+        this.transformRate = new double[]{0.2, 0.5, 0.8}[tier];
+        this.upperLimitRate = new double[]{0.2, 0.5, 0.8}[tier];
+        this.maxCount = new int[]{3000, 5000, 8000}[tier];
+        this.maxActiveDistance = new double[]{20, 32, 48}[tier];
+        Utils.attackDamage.put(this, new double[]{3000, 3500, 4000}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{60, 70, 80}[tier]);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.35);
-        Utils.levelRequire.put(this, 230);
+        Utils.levelRequire.put(this, new int[]{230, 240, 250}[tier]);
         DivineWeaponCommon.weaponList.add(this);
     }
 
@@ -88,12 +86,11 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return List.of(
-                new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get(), 128),
-                new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
-                new ItemStack(ModItems.ReputationMedal.get(), 160),
-                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
-                new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
-        );
+        return DivineWeaponCommon.getForgeRecipe(tier, this);
+    }
+
+    @Override
+    public void onCauseFinalDamage(Player player, Mob mob, double damage) {
+        DivineWeaponCommon.onCauseDamageCommon(player, mob);
     }
 }

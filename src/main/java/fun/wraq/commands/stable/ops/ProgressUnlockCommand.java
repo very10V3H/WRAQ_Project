@@ -38,7 +38,7 @@ public class ProgressUnlockCommand implements Command<CommandSourceStack> {
                     NoTeamInstanceModule.AllowRewardKey.sakuraBoss, NoTeamInstanceModule.AllowRewardKey.blackCastle,
                     NoTeamInstanceModule.AllowRewardKey.moontainBoss, NoTeamInstanceModule.AllowRewardKey.enderGuardian,
                     NoTeamInstanceModule.AllowRewardKey.warden, NoTeamInstanceModule.AllowRewardKey.harbinger,
-                    NoTeamInstanceModule.AllowRewardKey.bunker);
+                    NoTeamInstanceModule.AllowRewardKey.bunker, NoTeamInstanceModule.AllowRewardKey.divine);
             tags.forEach(s -> {
                 NoTeamInstanceModule.putPlayerAllowReward(target, s, true);
             });

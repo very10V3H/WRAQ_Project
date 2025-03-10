@@ -74,6 +74,7 @@ public class TradeList {
         bunker();
         purpleIronWeapon();
         mushroomGem();
+        divineGem();
 
         /* 1.0 */
 
@@ -3329,5 +3330,25 @@ public class TradeList {
                 List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 12)));
         tradeRecipeMap.put(splitGem,
                 List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 12)));
+    }
+
+    public static void divineGem() {
+        ItemStack divineGemPassiveTier0 = new ItemStack(DivineIslandItems.DIVINE_GEM_PASSIVE_TIER_0.get());
+        ItemStack divineGemBase1Tier0 = new ItemStack(DivineIslandItems.DIVINE_GEM_BASE_1_TIER_0.get());
+        ItemStack[] itemStacks = {
+                divineGemPassiveTier0, divineGemBase1Tier0
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("纯粹光珠制作师", "divineGem",
+                CustomStyle.DIVINE_STYLE, VillagerType.SNOW, VillagerProfession.LIBRARIAN, contentList);
+        tradeRecipeMap.put(divineGemPassiveTier0,
+                List.of(new ItemStack(DivineIslandItems.DIVINE_GEM_PIECE_0.get(), 90),
+                        new ItemStack(DivineIslandItems.DIVINE_BOSS_SOUL.get(), 90),
+                        new ItemStack(ModItems.RainbowCrystal.get(), 4)));
+        tradeRecipeMap.put(divineGemBase1Tier0,
+                List.of(new ItemStack(DivineIslandItems.DIVINE_GEM_PIECE_1.get(), 90),
+                        new ItemStack(DivineIslandItems.DIVINE_BOSS_SOUL.get(), 90),
+                        new ItemStack(ModItems.RainbowCrystal.get(), 4)));
     }
 }

@@ -11,8 +11,12 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.mob.boss.DivineBalanceInstance;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
-import fun.wraq.series.overworld.divine.mob.common.*;
+import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
+import fun.wraq.series.overworld.divine.mob.common.GhastlyCreeperSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.GhastlyHuskSpawnController;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -21,6 +25,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -95,7 +100,15 @@ public class DivineUtils {
     public static void handleMobTick(Mob mob) {
         Element.provideElement(mob, currentDayElement, 6);
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 600));
-        mob.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 600));
+        if (manifestExpiredTickMap.getOrDefault(mob, 0) > Tick.get()) {
+            mob.removeEffect(MobEffects.INVISIBILITY);
+        } else {
+            mob.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 600));
+        }
+    }
+
+    public static void provideElementToMob(Mob mob) {
+        Element.provideElement(mob, currentDayElement, 6);
     }
 
     public final static Set<String> MOB_NAME_SET = new HashSet<>() {{
@@ -213,5 +226,32 @@ public class DivineUtils {
 
     public static double getPlayerExCommonDamageEnhanceRate(Player player) {
         return isInDivineIsland(player) ? getHolyLightCount(player) * 0.002 : 0;
+    }
+
+    public static Map<Mob, Integer> manifestExpiredTickMap = new HashMap<>();
+
+    public static void addManifestOnMob(Mob mob, int lastTick, Item icon) {
+        manifestExpiredTickMap.entrySet().removeIf(entry -> entry.getKey().isDeadOrDying());
+        manifestExpiredTickMap.put(mob, Tick.get() + lastTick);
+        Compute.sendMobEffectHudToNearPlayer(mob, icon, "DivineManifest", lastTick, 0, false);
+    }
+
+    public static Set<String> manifestControlMobs = new HashSet<>() {{
+        add(DivineBalanceInstance.mobName);
+    }};
+
+    public static Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();
+
+    public static double getManifestMobDamageModifyRate(Player player, Mob mob) {
+        if (manifestControlMobs.contains(MobSpawn.getMobOriginName(mob))
+                && manifestExpiredTickMap.getOrDefault(mob, 0) < Tick.get()) {
+            if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.s(1));
+                sendMSG(player, Te.s("这个怪物隐蔽于", "未知光域", style,
+                        "，需要使用", "圣光武器", style, "将其", "剥离", style, "才能造成伤害。"));
+            }
+            return 0;
+        }
+        return 1;
     }
 }

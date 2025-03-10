@@ -553,6 +553,7 @@ public class Damage {
             finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
             finalDamage *= HarbingerMainHand.onMobWithstand(mob, player);
             finalDamage *= JungleMobSpawn.modifyMobWithstandDamage(mob, player);
+            finalDamage *= DivineUtils.getManifestMobDamageModifyRate(player, mob);
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (!(mob instanceof Civil)) {
                 if (mob.getHealth() <= finalDamage && mob.isAlive()) {

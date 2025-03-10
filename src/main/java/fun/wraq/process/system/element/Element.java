@@ -22,6 +22,7 @@ import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementS
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.equip.armor.DivineArmorCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -947,7 +948,7 @@ public class Element {
     }
 
     public static void resonance(Player player, String type) {
-        if (Compute.playerIsInBattle(player)) {
+        if (Compute.playerIsInBattle(player) && !DivineArmorCommon.isWearingDivineArmor(player)) {
             Compute.sendFormatMSG(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("请脱离战斗状态后重试").withStyle(ChatFormatting.WHITE));
             return;

@@ -6,9 +6,12 @@ import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.damage.OnCauseFinalDamageEquip;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
@@ -17,7 +20,9 @@ import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -38,7 +43,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify, ActiveItem, ForgeItem {
+public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify, ActiveItem,
+        ForgeItem, OnCauseFinalDamageEquip {
 
     double getTransformRate();
 
@@ -54,6 +60,8 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
         components.add(Te.s(" 长度可及:", String.format("%.0f", maxActiveDistance), style));
         ComponentUtils.getStableCoolDownTimeDescription(components, 2);
         components.add(Te.s(" 圣光", CustomStyle.DIVINE_STYLE, "若击杀怪物，则", "无冷却时间", ChatFormatting.AQUA));
+        ComponentUtils.descriptionPassive(components, Te.s("光域剥离", style));
+        components.add(Te.s(" 手持该武器对怪物造成伤害，会使其", "显形", style));
         ComponentUtils.descriptionPassive(components, Te.s("神圣之力", style));
         components.add(Te.s(" 将除", "当前共鸣", ChatFormatting.AQUA, "以外的元素", "以", "20%", style, "的效率"));
         components.add(Te.s(" 转化为", "当前元素", ChatFormatting.AQUA, "的", "归一化元素强度", style));
@@ -167,5 +175,33 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
             }
         }
         return 0;
+    }
+
+    static void onCauseDamageCommon(Player player, Mob mob) {
+        Item item = player.getMainHandItem().getItem();
+        if (item instanceof DivineWeaponCommon) {
+            DivineUtils.addManifestOnMob(mob, Tick.s(10), item);
+        }
+    }
+
+    static List<ItemStack> getForgeRecipe(int tier, Item item) {
+        switch (tier) {
+            case 1 -> {
+                return List.of(
+                        new ItemStack(item, 1),
+                        new ItemStack(DivineIslandItems.DIVINE_BALANCE_STAR.get(), 999),
+                        new ItemStack(ModItems.RainbowCrystal.get(), 999)
+                );
+            }
+            default -> {
+                return List.of(
+                        new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get(), 128),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
+                        new ItemStack(ModItems.ReputationMedal.get(), 160),
+                        new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
+                        new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
+                );
+            }
+        }
     }
 }
