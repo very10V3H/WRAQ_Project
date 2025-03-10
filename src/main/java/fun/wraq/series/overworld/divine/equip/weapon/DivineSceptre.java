@@ -8,6 +8,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
@@ -101,7 +102,7 @@ public class DivineSceptre extends WraqSceptre implements DivineWeaponCommon, Pr
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return DivineWeaponCommon.getForgeRecipe(tier, this);
+        return DivineWeaponCommon.getForgeRecipe(tier, DivineIslandItems.DIVINE_SCEPTRE_0.get());
     }
 
     @Override

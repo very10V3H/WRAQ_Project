@@ -44,7 +44,7 @@ public class DivineBalanceInstance extends NoTeamInstance {
 
     public static DivineBalanceInstance getInstance() {
         if (instance == null) {
-            instance = new DivineBalanceInstance(new Vec3(2489, 95, 615), 24, 60,
+            instance = new DivineBalanceInstance(new Vec3(2489, 95, 615), 32, 60,
                     new Vec3(2489, 95, 615), Te.s(mobName, style));
         }
         return instance;

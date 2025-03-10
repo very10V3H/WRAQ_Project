@@ -4,6 +4,7 @@ import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -86,7 +87,7 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return DivineWeaponCommon.getForgeRecipe(tier, this);
+        return DivineWeaponCommon.getForgeRecipe(tier, DivineIslandItems.DIVINE_SWORD_0.get());
     }
 
     @Override

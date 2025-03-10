@@ -5,6 +5,7 @@ import fun.wraq.common.equip.impl.PreventLeftClickShoot;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -87,7 +88,7 @@ public class DivineBow extends WraqBow implements DivineWeaponCommon, PreventLef
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return DivineWeaponCommon.getForgeRecipe(tier, this);
+        return DivineWeaponCommon.getForgeRecipe(tier, DivineIslandItems.DIVINE_BOW_0.get());
     }
 
     @Override

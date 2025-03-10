@@ -41,7 +41,7 @@ public class DivineJungleMob0SpawnController extends JungleMobSpawnController {
     public static DivineJungleMob0SpawnController getInstance() {
         if (instance == null) {
             instance = new DivineJungleMob0SpawnController(Te.s(MOB_NAME, STYLE), new Vec3(2435, 89, 647),
-                    new Vec3(2453, 111, 663), new Vec3(2414, 72, 625), XP_LEVEL, 24, Tick.min(3));
+                    new Vec3(2453, 111, 663), new Vec3(2414, 72, 625), XP_LEVEL, 32, Tick.min(3));
         }
         return instance;
     }

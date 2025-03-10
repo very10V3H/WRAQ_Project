@@ -25,7 +25,7 @@ public class BowCurios3 extends WraqBowUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = CustomStyle.styleOfFlexible;
-        ComponentUtils.descriptionPassive(components, Te.s("穿云御风"));
+        ComponentUtils.descriptionPassive(components, Te.s("穿云御风", style));
         components.add(Te.s(" 箭矢速度", CustomStyle.styleOfFlexible, "+50%", CustomStyle.styleOfKaze));
         components.add(Component.literal(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。").withStyle(style));
         return components;

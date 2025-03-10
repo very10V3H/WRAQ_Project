@@ -176,12 +176,13 @@ public class MobInfoGui extends Screen {
         if (mobInfoList.isEmpty()) {
             NoTeamInstanceModule.getAllInstance().forEach(noTeamInstance -> {
                 mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
-                        Utils.getLevelDescription(noTeamInstance.level),
+                        Utils.getLevelDescription(noTeamInstance.level), " ",
                         noTeamInstance.name), noTeamInstance.level,
                         noTeamInstance.getRewardList(), noTeamInstance.getIntroduction()));
             });
             MobSpawn.getAllControllers(false).forEach(mobSpawnController -> {
-                mobInfoList.add(new MobInfo(Utils.getLevelDescription(mobSpawnController.averageLevel),
+                mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(mobSpawnController.averageLevel),
+                        " ", mobSpawnController.mobName),
                         mobSpawnController.averageLevel, mobSpawnController.getDropList(), null));
             });
             NewTeamInstanceHandler.instances.forEach(newTeamInstance -> {
@@ -189,7 +190,8 @@ public class MobInfoGui extends Screen {
                         newTeamInstance.getRewardList(), null));
             });
             JungleMobSpawn.getOverworldController().forEach(controller -> {
-                mobInfoList.add(new MobInfo(Utils.getLevelDescription(controller.mobXpLevel),
+                mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(controller.mobXpLevel),
+                        " ", controller.name),
                         controller.mobXpLevel, controller.getRewardItemList(), null));
             });
         }
