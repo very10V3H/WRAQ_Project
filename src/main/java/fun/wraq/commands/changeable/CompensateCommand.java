@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 36;
+    public static int rewardNum = 37;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override

@@ -504,12 +504,8 @@ public class Compute {
         double ExpUp = PlayerAttributes.expUp(player);
         if (random.nextDouble() < LevelRate[Level]) {
             if (data.contains(InventoryCheck.owner)) {
-                Compute.sendFormatMSG(player, Component.literal("酿造").withStyle(CustomStyle.styleOfBrew), Component.literal("你的酿造经验为你节省了这次酿造的材料消耗并为你提供了经验值。"));
-                Compute.formatBroad(player.level(), Component.literal("酿造").withStyle(CustomStyle.styleOfBrew),
-                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                append(player.getDisplayName()).
-                                append(Component.literal(" 完成了一次 ").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal("完美酿造").withStyle(CustomStyle.styleOfBrew)));
+                Compute.sendFormatMSG(player, Component.literal("酿造").withStyle(CustomStyle.styleOfBrew),
+                        Component.literal("你的酿造经验为你节省了这次酿造的材料消耗并为你提供了经验值。"));
                 Compute.givePercentExpToPlayer(player, 0.02, ExpUp, player.experienceLevel);
             }
             return true;

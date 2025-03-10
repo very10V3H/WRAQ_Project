@@ -928,6 +928,8 @@ public class PlayerAttributes {
         // 最大生命值百分比生命回复
         healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, false)
                 * player.getMaxHealth();
+        healthRecover += StableAttributesModifier.getModifierValue(player,
+                StableAttributesModifier.playerPercentHealthRecoverModifier) * player.getMaxHealth();
 
         // 请在上方添加
         double exRate = 0;
@@ -1011,6 +1013,7 @@ public class PlayerAttributes {
                 StringUtils.CuriosAttribute.xpLevelManaDamage) * player.experienceLevel;
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.xpLevelManaDamage) * player.experienceLevel;
         exDamage += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaDamage);
+        exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDamageModifier);
 
         if (player.getEffect(ModEffects.MANADAMAGEUP.get()) != null && player.getEffect(ModEffects.MANADAMAGEUP.get()).getAmplifier() == 0)
             exDamage += baseDamage * 0.25 + 25;

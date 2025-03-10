@@ -67,14 +67,13 @@ public class EnhanceNormalAttackModifier {
 
     public static void onHitEffect(Player player, Mob mob, int type) {
         List<EnhanceNormalAttackModifier> list = getModifierList(player);
-        list.removeIf(modifier -> {
+        list.forEach(modifier -> {
             if (modifier.type == type) {
                 if (modifier.enhanceNormalAttack != null) {
                     modifier.enhanceNormalAttack.hit(player, mob);
                 }
-                return true;
             }
-            return false;
         });
+        list.removeIf(modifier -> modifier.type == type);
     }
 }

@@ -2,9 +2,11 @@ package fun.wraq.series.instance.series.mushroom.gem;
 
 import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
@@ -12,14 +14,16 @@ import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMob, Decomposable {
+
     public MushroomParasitismGem(Properties properties, List<AttributeMapValue> attributeMapValues, Style hoverStyle, Component oneLineDescription, Component suffix) {
         super(properties, attributeMapValues, hoverStyle, oneLineDescription, suffix);
     }
@@ -37,13 +41,32 @@ public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMo
         return components;
     }
 
+    public static Map<String, Queue<ItemEntity>> itemEntityMap = new HashMap<>();
+
     @Override
     public void onKill(Player player, Mob mob) {
-/*        ItemAndRate.summonItemEntity(MushroomItems.PARASITISM_GEM_MUSHROOM.get().getDefaultInstance(),
-                mob.getEyePosition(), mob.level(), 20);*/
-        StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerMaxHealthExValue,
-                PASSIVE_TAG, player.experienceLevel * 50,
-                Tick.get() + Tick.s(30), 10, "item/brown_mushroom");
+        if (!itemEntityMap.containsKey(Name.get(player))) {
+            itemEntityMap.put(Name.get(player), new ArrayDeque<>());
+        }
+        Queue<ItemEntity> queue = itemEntityMap.get(Name.get(player));
+        queue.removeIf(Entity::isRemoved);
+        if (queue.size() > 15) {
+            queue.poll().remove(Entity.RemovalReason.KILLED);
+        }
+        ItemEntity itemEntity = ItemAndRate
+                .summonItemEntity(MushroomItems.PARASITISM_GEM_MUSHROOM.get().getDefaultInstance(),
+                        mob.getEyePosition(), mob.level(), 20);
+        queue.add(itemEntity);
+    }
+
+    public static void clearItemEntity() {
+        itemEntityMap.forEach((name, queue) -> {
+            queue.forEach(itemEntity -> {
+                if (itemEntity != null && !itemEntity.isRemoved()) {
+                    itemEntity.remove(Entity.RemovalReason.KILLED);
+                }
+            });
+        });
     }
 
     public static final String PASSIVE_TAG = "MushroomParasitismGemPassive";

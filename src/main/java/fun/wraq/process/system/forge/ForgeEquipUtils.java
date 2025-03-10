@@ -301,7 +301,14 @@ public class ForgeEquipUtils {
                 DivineIslandItems.DIVINE_HELMET_0.get(),
                 DivineIslandItems.DIVINE_CHEST_0.get(),
                 DivineIslandItems.DIVINE_LEGGINGS_0.get(),
-                DivineIslandItems.DIVINE_BOOTS_0.get()
+                DivineIslandItems.DIVINE_BOOTS_0.get(),
+                DivineIslandItems.DIVINE_SWORD_1.get(),
+                DivineIslandItems.DIVINE_BOW_1.get(),
+                DivineIslandItems.DIVINE_SCEPTRE_1.get(),
+                DivineIslandItems.DIVINE_HELMET_1.get(),
+                DivineIslandItems.DIVINE_CHEST_1.get(),
+                DivineIslandItems.DIVINE_LEGGINGS_1.get(),
+                DivineIslandItems.DIVINE_BOOTS_1.get()
         );
         zoneForgeItemListMap.put(DIVINE_ISLAND, new ArrayList<>() {{
             divineIsland.forEach(item -> add(item.getDefaultInstance()));

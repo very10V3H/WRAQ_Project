@@ -67,6 +67,7 @@ import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
@@ -187,6 +188,7 @@ public class VMD {
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
         PurpleIronCommon.destroyOnServerStop();
+        MushroomParasitismGem.clearItemEntity();
 
         Connection connection = DataBase.createNewDatabaseConnection();
         Statement statement = connection.createStatement();

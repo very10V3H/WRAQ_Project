@@ -74,26 +74,6 @@ public class AttackEventModule {
         }
     }
 
-    public static double BlackForest(Player player, Mob monster) {
-        if (Utils.BlackForestSwordActiveMap.containsKey(player)) {
-            double ExRate = monster.getHealth() * Utils.BlackForestSwordActiveMap.get(player) / monster.getMaxHealth();
-            Utils.BlackForestSwordActiveMap.remove(player);
-            Compute.sendEffectLastTime(player, ModItems.huskSword0.get().getDefaultInstance(), 0);
-            return PlayerAttributes.attackDamage(player) * (1 + ExRate);
-        }
-        return 0;
-    }
-
-    public static double SeaSword(Player player, Mob monster) {
-        if (Utils.SeaSwordActiveMap.containsKey(player)) {
-            double ExRate = (1 - (monster.getHealth() / monster.getMaxHealth())) * Utils.SeaSwordActiveMap.get(player);
-            Utils.SeaSwordActiveMap.remove(player);
-            Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 0);
-            return PlayerAttributes.attackDamage(player) * (1 + ExRate);
-        }
-        return 0;
-    }
-
     public static double ToPlayerBlackForest(CompoundTag data, Player player) {
         if (data.contains("BlackForestSword0") && data.getBoolean("BlackForestSword0"))
             return player.getHealth() * 0.09f;

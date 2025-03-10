@@ -48,6 +48,25 @@ public class ManaTowerData {
                 Te.s("纪录已重置."));
     }
 
+    public static void showRecords() {
+        List<TimeRecord> recordList = getRecords();
+        recordList.sort(new Comparator<TimeRecord>() {
+            @Override
+            public int compare(TimeRecord o1, TimeRecord o2) {
+                return o1.usedTick - o2.usedTick;
+            }
+        });
+        Compute.formatBroad(Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE),
+                Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE, "挑战纪录如下:"));
+        for (int i = 0; i < Math.min(8, recordList.size()); i++) {
+            TimeRecord timeRecord = recordList.get(i);
+            Compute.broad(Tick.server.overworld(), Te.s(" ".repeat(8),
+                    (i + 1) + ".", CustomStyle.MANA_TOWER_STYLE, timeRecord.playerName,
+                    " - ", getRecordTickDescription(timeRecord.usedTick)));
+
+        }
+    }
+
     public static int clientStartTick = 0;
     public static int clientExpiredTick = 0;
     public static int clientFloor = 0;
@@ -235,7 +254,7 @@ public class ManaTowerData {
         if (change) {
             Compute.formatBroad(Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE),
                     Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE, "挑战纪录发生了变化!"));
-            for (int i = 0; i < Math.min(8, recordList.size()) ; i++) {
+            for (int i = 0; i < Math.min(8, recordList.size()); i++) {
                 TimeRecord timeRecord = recordList.get(i);
                 if (oldList.contains(timeRecord) || refreshSelf) {
                     int oldIndex = oldList.indexOf(timeRecord);

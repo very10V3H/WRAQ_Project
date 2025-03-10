@@ -25,6 +25,8 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
+import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
+import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -166,11 +168,11 @@ public class MyArrow extends AbstractArrow {
             AttackEventModule.SnowArmorEffect(player, monster); //冰川增幅
 
             exDamage += AttackEventModule.BowSkill12(data, player, baseDamage); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
-            exDamage += AttackEventModule.BlackForest(player, monster); // 灵魂收割者主动
+            exDamage += HuskSword.getHuskSwordExDamage(player, monster); // 灵魂收割者主动
             exDamage += TabooSwiftArmor.ExDamage(player);
 
             trueDamage += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
-            trueDamage += AttackEventModule.SeaSword(player, monster); //灵魂救赎者主动
+            trueDamage += SeaSword.getSeaSwordExDamage(player, monster); //灵魂救赎者主动
             trueDamage += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
 
             damageEnhance += AttackEventModule.BowSkill3(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
@@ -257,6 +259,9 @@ public class MyArrow extends AbstractArrow {
             AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
             AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
             Compute.ChargingModule(data, player);
+            SeaSword.checkSeaSwordEffect(player, monster);
+            HuskSword.checkHuskSwordEffect(player, monster);
+
             if (shootByPlayer) {
                 CastleBow.onNormalAttack(player, monster, damage);
                 Compute.AdditionEffects(player, monster, damage + trueDamage, 0);

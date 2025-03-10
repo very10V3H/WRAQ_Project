@@ -142,19 +142,19 @@ public class ItemAndRate {
         return copyStack;
     }
 
-    public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level) {
-        summonItemEntity(itemStack, pos, level, 8);
+    public static ItemEntity summonItemEntity(ItemStack itemStack, Vec3 pos, Level level) {
+        return summonItemEntity(itemStack, pos, level, 8);
     }
 
-    public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay) {
-        summonItemEntity(itemStack, pos, level, pickUpDelay, true);
+    public static ItemEntity summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay) {
+        return summonItemEntity(itemStack, pos, level, pickUpDelay, true);
     }
 
-    public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, boolean delta) {
-        summonItemEntity(itemStack, pos, level, 8, delta);
+    public static ItemEntity summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, boolean delta) {
+        return summonItemEntity(itemStack, pos, level, 8, delta);
     }
 
-    public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay, boolean delta) {
+    public static ItemEntity summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay, boolean delta) {
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
         itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         itemEntity.setItem(itemStack);
@@ -165,6 +165,7 @@ public class ItemAndRate {
             itemEntity.setDeltaMovement(rand.nextDouble(0.2) - 0.1, 0.2, rand.nextDouble(0.2) - 0.1);
         }
         level.addFreshEntity(itemEntity);
+        return itemEntity;
     }
 
     public double getRate() {

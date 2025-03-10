@@ -96,7 +96,7 @@ public class BunkerCurio extends WraqCurios implements OnWithStandDamageCurios, 
                     "BunkerCurioCommonDamageEnhance", 0.25,
                     Tick.get() + Tick.s(10), "item/bunker_curio");
             ParticleProvider.createBallDisperseParticle(ParticleTypes.FLAME, (ServerLevel) player.level(),
-                    player.position(),6, 100);
+                    player.position(),0.6, 36);
             MySound.soundToPlayer(player, SoundEvents.BLAZE_SHOOT);
         }
     }

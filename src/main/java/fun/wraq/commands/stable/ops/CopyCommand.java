@@ -57,6 +57,10 @@ public class CopyCommand implements Command<CommandSourceStack> {
                 CuriosApi.getCuriosInventory(player).ifPresent(inv1 -> {
                     for (int i = 0 ; i < inv.getEquippedCurios().getSlots() ; i ++) {
                         ItemStack itemStack = inv.getEquippedCurios().getStackInSlot(i).copy();
+                        if (itemStack.getItem() instanceof BackpackItem) {
+                            player.sendSystemMessage(Component.literal("跳过了一个背包物品"));
+                            continue;
+                        }
                         if (InventoryCheck.containOwnerTag(itemStack)) InventoryCheck.removeOwnerTagDirect(itemStack);
                         inv1.getEquippedCurios().setStackInSlot(i, itemStack);
                     }

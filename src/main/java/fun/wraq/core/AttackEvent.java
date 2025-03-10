@@ -32,6 +32,8 @@ import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
 import fun.wraq.series.nether.equip.attack.sword.ManaSword;
+import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
+import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
 import fun.wraq.series.overworld.sakura.SakuraMob.SakuraSword;
 import net.minecraft.ChatFormatting;
@@ -169,11 +171,11 @@ public class AttackEvent {
         AttackEventModule.MineSwordAndSnowSwordSlowDownForce(equip, monster);
         AttackEventModule.SnowArmorEffect(player, monster); //冰川增幅
 
-        exDamage += AttackEventModule.BlackForest(player, monster); // 灵魂收割者主动
+        exDamage += HuskSword.getHuskSwordExDamage(player, monster); // 灵魂收割者主动
         exDamage += AttackEventModule.SwordSkill12(data, player, baseDamage); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
         exDamage += AttackEventModule.SoulSwordActive(player); // 本源具象
 
-        trueDamage += AttackEventModule.SeaSword(player, monster); //灵魂救赎者主动
+        trueDamage += SeaSword.getSeaSwordExDamage(player, monster); //灵魂救赎者主动
         trueDamage += AttackEventModule.SwordSkill0(data, baseDamage); //剑术热诚（获得1%额外真实伤害）
         trueDamage += AttackEventModule.SwordSkill13(data, player, baseDamage); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
         trueDamage += AttackEventModule.SwordSkill14(data, player, baseDamage, monster); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
@@ -284,6 +286,8 @@ public class AttackEvent {
         CastleSword.onNormalAttack(player, monster, damage);
         Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
         WraqBlade.onAttackHitEachTarget(player);
+        SeaSword.checkSeaSwordEffect(player, monster);
+        HuskSword.checkHuskSwordEffect(player, monster);
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));

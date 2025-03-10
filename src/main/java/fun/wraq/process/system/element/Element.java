@@ -28,8 +28,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -979,18 +977,19 @@ public class Element {
                 Component.literal("共鸣").withStyle(CustomStyle.styleOfMoon).
                         append(Component.literal("类型已变更为 ").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(nameMap.get(type))).withStyle(styleMap.get(type)));
-        ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                new ClientboundSetTitleTextPacket(Component.literal(nameMap.get(type)).withStyle(styleMap.get(type)));
-        ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket =
-                new ClientboundSetSubtitleTextPacket(Component.literal(componentMap.get(type)).withStyle(styleMap.get(type)));
-        ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket);
-        ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket);
+        if (Compute.playerIsInBattle(player)) {
+            Compute.setPlayerShortTitleAndSubTitle(player, Te.s(nameMap.get(type), styleMap.get(type)),
+                    Te.s(componentMap.get(type), styleMap.get(type)));
+        } else {
+            Compute.setPlayerTitleAndSubTitle(player, Te.s(nameMap.get(type), styleMap.get(type)),
+                    Te.s(componentMap.get(type), styleMap.get(type)));
+        }
     }
 
     public static WeakHashMap<Player, String> PowerResonanceElementCoverTypeMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> PowerResonanceElementCoverTickMap = new WeakHashMap<>();
 
-    public static void PowerResonanc(Player player, String type, int lastTick) {
+    public static void PowerResonance(Player player, String type, int lastTick) {
         PowerResonanceElementCoverTypeMap.put(player, type);
         PowerResonanceElementCoverTickMap.put(player, Tick.get() + lastTick);
     }

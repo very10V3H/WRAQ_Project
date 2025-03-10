@@ -2,19 +2,19 @@ package fun.wraq.series.overworld.chapter2.blackForest;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -53,7 +53,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
                 append(Component.literal("额外物理伤害").withStyle(CustomStyle.styleOfHusk)));
         components.add(Component.literal("倍率随目标当前生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("若目标死亡，则获得自身").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.maxHealth(rate >= 3 ? "40%" : "25%")).
+                append(ComponentUtils.AttributeDescription.maxHealth(rate >= 3 ? "18%" : "10%")).
                 append(Component.literal("的护盾,持续10s。").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 3);
         ComponentUtils.manaCostDescription(components, 20);
@@ -67,15 +67,11 @@ public class HuskSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        CompoundTag data = player.getPersistentData();
         player.getCooldowns().addCooldown(ModItems.huskSword0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.huskSword1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.huskSword2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.huskSword3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         Compute.playerItemCoolDown(player, ModItems.BlackForestSword4.get(), 3);
-        data.putBoolean("BlackForestSword4", false);
-        data.putBoolean("BlackForestSword3", false);
-        data.putBoolean("BlackForestSword0", false);
         if (tier == 4) Utils.BlackForestSwordActiveMap.put(player, 3);
         else if (tier == 3) Utils.BlackForestSwordActiveMap.put(player, 2);
         else Utils.BlackForestSwordActiveMap.put(player, 1);
@@ -86,5 +82,27 @@ public class HuskSword extends WraqSword implements ActiveItem {
     @Override
     public double manaCost(Player player) {
         return 20;
+    }
+
+    public static double getHuskSwordExDamage(Player player, Mob monster) {
+        if (Utils.BlackForestSwordActiveMap.containsKey(player)) {
+            double ExRate = monster.getHealth() * Utils.BlackForestSwordActiveMap.get(player) / monster.getMaxHealth();
+            return PlayerAttributes.attackDamage(player) * (1 + ExRate);
+        }
+        return 0;
+    }
+
+    public static void checkHuskSwordEffect(Player player, Mob mob) {
+        if (Utils.BlackForestSwordActiveMap.containsKey(player)) {
+            if (mob.isDeadOrDying()) {
+                if (Utils.BlackForestSwordActiveMap.get(player) >= 3) {
+                    Compute.playerHeal(player, player.getMaxHealth() * 0.2);
+                } else {
+                    Compute.playerHeal(player, player.getMaxHealth() * 0.1);
+                }
+            }
+            Utils.BlackForestSwordActiveMap.remove(player);
+            Compute.removeEffectLastTime(player, ModItems.huskSword0.get());
+        }
     }
 }

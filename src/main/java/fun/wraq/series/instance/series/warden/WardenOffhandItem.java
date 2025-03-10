@@ -99,7 +99,6 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
             Map<Mob, Double> map = targetIntervalDamageMap.get(player);
             double storedDamage = damage * 0.33;
             map.compute(mob, (k, v) -> v == null ? storedDamage : v + storedDamage);
-            ;
         }
     }
 

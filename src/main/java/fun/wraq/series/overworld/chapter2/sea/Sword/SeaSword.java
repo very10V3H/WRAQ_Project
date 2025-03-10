@@ -2,19 +2,19 @@ package fun.wraq.series.overworld.chapter2.sea.Sword;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -52,9 +52,8 @@ public class SeaSword extends WraqSword implements ActiveItem {
         components.add(Component.literal("基于目标已损失生命值造成至多" + (rate * 100) + "%").withStyle(CustomStyle.styleOfSea).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal("倍率随目标已损失生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-        components.add(Component.literal("若目标死亡，则获得自身").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.maxHealth(tier >= 3 ? "40%" : "25%")).
-                append(Component.literal("的生命回复。").withStyle(ChatFormatting.WHITE)));
+        components.add(Component.literal("若目标死亡，则回复").withStyle(ChatFormatting.WHITE).
+                append(ComponentUtils.AttributeDescription.maxHealth(tier >= 3 ? "18%" : "10%")));
         ComponentUtils.coolDownTimeDescription(components, 3);
         ComponentUtils.manaCostDescription(components, 20);
         return components;
@@ -67,15 +66,11 @@ public class SeaSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        CompoundTag data = player.getPersistentData();
         player.getCooldowns().addCooldown(ModItems.SeaSword0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.SeaSword1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.SeaSword2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.SeaSword3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
         Compute.playerItemCoolDown(player, ModItems.SeaSword4.get(), 3);
-        data.putBoolean("SeaSword4", false);
-        data.putBoolean("SeaSword3", false);
-        data.putBoolean("SeaSword0", false);
         if (tier == 4) Utils.SeaSwordActiveMap.put(player, 3);
         else if (tier == 3) Utils.SeaSwordActiveMap.put(player, 2);
         else Utils.SeaSwordActiveMap.put(player, 1);
@@ -86,5 +81,27 @@ public class SeaSword extends WraqSword implements ActiveItem {
     @Override
     public double manaCost(Player player) {
         return 20;
+    }
+
+    public static double getSeaSwordExDamage(Player player, Mob monster) {
+        if (Utils.SeaSwordActiveMap.containsKey(player)) {
+            double ExRate = (1 - (monster.getHealth() / monster.getMaxHealth())) * Utils.SeaSwordActiveMap.get(player);
+            return PlayerAttributes.attackDamage(player) * (1 + ExRate);
+        }
+        return 0;
+    }
+
+    public static void checkSeaSwordEffect(Player player, Mob mob) {
+        if (Utils.SeaSwordActiveMap.containsKey(player)) {
+            if (mob.isDeadOrDying()) {
+                if (Utils.SeaSwordActiveMap.get(player) >= 3) {
+                    Compute.playerHeal(player, player.getMaxHealth() * 0.2);
+                } else {
+                    Compute.playerHeal(player, player.getMaxHealth() * 0.1);
+                }
+            }
+            Utils.SeaSwordActiveMap.remove(player);
+            Compute.removeEffectLastTime(player, ModItems.SeaSword0.get());
+        }
     }
 }
