@@ -11,7 +11,6 @@ import fun.wraq.common.impl.damage.OnCauseFinalDamageEquip;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
@@ -20,9 +19,7 @@ import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
-import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -181,27 +178,6 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
         Item item = player.getMainHandItem().getItem();
         if (item instanceof DivineWeaponCommon) {
             DivineUtils.addManifestOnMob(mob, Tick.s(10), item);
-        }
-    }
-
-    static List<ItemStack> getForgeRecipe(int tier, Item item) {
-        switch (tier) {
-            case 1 -> {
-                return List.of(
-                        new ItemStack(item, 1),
-                        new ItemStack(DivineIslandItems.DIVINE_BALANCE_STAR.get(), 999),
-                        new ItemStack(ModItems.RainbowCrystal.get(), 999)
-                );
-            }
-            default -> {
-                return List.of(
-                        new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get(), 128),
-                        new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
-                        new ItemStack(ModItems.ReputationMedal.get(), 160),
-                        new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
-                        new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
-                );
-            }
         }
     }
 }

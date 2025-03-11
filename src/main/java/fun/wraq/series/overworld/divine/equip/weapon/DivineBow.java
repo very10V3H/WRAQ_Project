@@ -2,8 +2,10 @@ package fun.wraq.series.overworld.divine.equip.weapon;
 
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.impl.PreventLeftClickShoot;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.network.chat.Component;
@@ -88,7 +90,20 @@ public class DivineBow extends WraqBow implements DivineWeaponCommon, PreventLef
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return DivineWeaponCommon.getForgeRecipe(tier, DivineIslandItems.DIVINE_BOW_0.get());
+        if (tier == 1) {
+            return List.of(
+                    new ItemStack(DivineIslandItems.DIVINE_BOW_0.get(), 1),
+                    new ItemStack(DivineIslandItems.DIVINE_BALANCE_STAR.get(), 999),
+                    new ItemStack(ModItems.RainbowCrystal.get(), 999)
+            );
+        }
+        return List.of(
+                new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get(), 128),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
+                new ItemStack(ModItems.ReputationMedal.get(), 160),
+                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
+        );
     }
 
     @Override
