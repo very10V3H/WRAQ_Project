@@ -736,6 +736,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         int materialTier = ForgeEquipUtils.getEquipPieceTier(equipPiece);
         boolean hasNextTierAndCountIsEnough = equipPieceStack.getCount() >= 4
                 && materialTier < ForgeEquipUtils.getEquipPieceList().size() - 1;
+        if (materialTier >= ForgeEquipUtils.getEquipPieceList().size() - 1) {
+            return false;
+        }
         Item nextTirePiece = ForgeEquipUtils.getEquipPiece(materialTier + 1);
         boolean canInsertIntoProductSlot = (product.is(nextTirePiece) || product.is(Items.AIR)) && product.getCount() < 64;
         return hasNextTierAndCountIsEnough && canInsertIntoProductSlot && equipPiece0Stack.is(ModItems.equipPiece0.get());
