@@ -242,7 +242,13 @@ public class SmeltProgressScreen extends Screen {
         if (smeltRecipe == null || finishedTime == null) {
             return false;
         }
-        String differenceFormatText = Compute.getDifferenceFormatText(finishedTime, Calendar.getInstance());
+        String differenceFormatText = null;
+        try {
+            differenceFormatText
+                    = Compute.getDifferenceFormatText(finishedTime, Compute.StringToCalendar(ClientUtils.serverTime));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         return differenceFormatText.equals("00:00:00");
     }
 
