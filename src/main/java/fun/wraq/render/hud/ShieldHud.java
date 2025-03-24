@@ -1,8 +1,8 @@
 package fun.wraq.render.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.render.hud.ClientShieldData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,7 +22,7 @@ public class ShieldHud {
         int x = width / 2;
         int y = height;
 
-        if (ClientShieldData.get() > 0) {
+        if (ClientShieldData.get() > 0 && ClientUtils.isInBattle) {
             GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -38,8 +38,6 @@ public class ShieldHud {
                 }
             }
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.valueOf(ClientShieldData.getValue())), x - 107, y - 49, 11184810);
-            /*        fontRenderer.drawShadow(poseStack,"test",208,208,27850);*/
-
         }
     });
 }

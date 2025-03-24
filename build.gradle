@@ -196,7 +196,6 @@ dependencies {
     implementation fg.deobf("curse.maven:create-328085:5838779")
     implementation fg.deobf("curse.maven:armourers-workshop-229523:5243770")
     implementation fg.deobf("curse.maven:sophisticated-core-618298:4643717")
-    implementation fg.deobf("curse.maven:neat-238372:4580940")
     implementation fg.deobf("curse.maven:xaeros-world-map-317780:5073804")
     implementation fg.deobf("curse.maven:xaeros-minimap-263420:5060708")
     implementation fg.deobf("curse.maven:citadel-331936:5143956")
@@ -238,6 +237,7 @@ dependencies {
     implementation fg.deobf("curse.maven:modern-ui-352491:5229575")
     implementation fg.deobf("curse.maven:modernfix-790626:5288164")
     implementation fg.deobf("curse.maven:bendy-lib-623373:4550371")
+    implementation fg.deobf("curse.maven:asteorbar-959237:6335990")
 }
 
 dependencies {
