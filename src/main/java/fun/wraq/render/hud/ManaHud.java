@@ -1,7 +1,6 @@
 package fun.wraq.render.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.client.Minecraft;
@@ -12,7 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-public class manaHud {
+public class ManaHud {
     private static final ResourceLocation FILLED_MANA = new ResourceLocation(Utils.MOD_ID,
             "textures/mana/filled_mana.png");
     private static final ResourceLocation EMPTY_MANA = new ResourceLocation(Utils.MOD_ID,
@@ -113,6 +112,7 @@ public class manaHud {
 /*
             guiGraphics.drawCenteredString(fontRenderer,Component.literal(String.valueOf(ClientManaData.getValue())),x+107,y-49,16733695);
 */
+/*
             float maxHealth = mc.player.getMaxHealth();
             float currentHealth = mc.player.getHealth();
 
@@ -129,6 +129,7 @@ public class manaHud {
 
             guiGraphics.drawCenteredString(fontRenderer,
                     Te.s(String.format("%.0f", currentHealth), CustomStyle.styleOfNewHealth), x - 104, y - 39, 0);
+*/
 
 
 /*            if (ClientUtils.MissionIndex < 100) {

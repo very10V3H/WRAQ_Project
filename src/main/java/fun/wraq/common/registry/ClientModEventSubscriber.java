@@ -14,7 +14,7 @@ import fun.wraq.process.system.skill.skillv2.SkillV2Hud;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import fun.wraq.render.hud.main.*;
 import fun.wraq.render.hud.ShieldHud;
-import fun.wraq.render.hud.manaHud;
+import fun.wraq.render.hud.ManaHud;
 import fun.wraq.render.particles.*;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
@@ -162,7 +162,7 @@ public class ClientModEventSubscriber {
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         MinecraftForge.EVENT_BUS.addListener(ClientModEventSubscriber::Disabled);
-        event.registerBelowAll("mana", manaHud.HUD_MANA);
+        event.registerBelowAll("mana", ManaHud.HUD_MANA);
         event.registerBelowAll("shield", ShieldHud.HUD_SHIELD);
 
         // 玩家主操作界面HUD
@@ -181,7 +181,7 @@ public class ClientModEventSubscriber {
     }
 
     private static final List<ResourceLocation> overlays = List.of(VanillaGuiOverlay.ARMOR_LEVEL.id(),
-            VanillaGuiOverlay.PLAYER_HEALTH.id(), VanillaGuiOverlay.MOUNT_HEALTH.id());
+            VanillaGuiOverlay.MOUNT_HEALTH.id());
 
     public static void Disabled(RenderGuiOverlayEvent event) {
         NamedGuiOverlay overlay = event.getOverlay();

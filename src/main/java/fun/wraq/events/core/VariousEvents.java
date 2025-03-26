@@ -68,7 +68,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.event.CurioChangeEvent;
 import top.theillusivec4.curios.api.event.CurioEquipEvent;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Mod.EventBusSubscriber
@@ -218,10 +217,6 @@ public class VariousEvents {
     @SubscribeEvent
     public static void Chat1(ClientChatReceivedEvent event) {
         if (!event.isSystem()) {
-            Calendar calendar = Calendar.getInstance();
-            Date time = calendar.getTime();
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-            String showTime = format.format(time);
             String MSG = event.getMessage().getString();
             boolean FindFirstIndexFlag = false;
             int FirstIndex = 0;
@@ -252,7 +247,6 @@ public class VariousEvents {
                     break;
                 }
             }
-            String xpLevel = Name.substring(FirstLvIndex + 1, SecondLvIndex);
             int xp = Integer.parseInt(Name.substring(FirstLvIndex + 4, SecondLvIndex));
             if (SecondPrefixIndex == 0) return;
             String playerName = Name.substring(SecondLvIndex + 1);
@@ -284,7 +278,7 @@ public class VariousEvents {
                     locationInfo = Te.s("终界", CustomStyle.styleOfEnd);
                 }
             }
-            event.setMessage(Te.s("[" + showTime + "]", CustomStyle.styleOfStone,
+            event.setMessage(Te.s(
                     "|", CustomStyle.styleOfStone, ChatFormatting.BOLD,
                     locationInfo, "|", CustomStyle.styleOfStone, ChatFormatting.BOLD,
                     rankPrefix,
