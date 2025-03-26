@@ -18,7 +18,7 @@ public record Dot(int type, double value, int frequency, int stopTick, String pl
             mobDotList.put(mob, new ArrayList<>());
         }
         if (dot.tag != null) {
-            mobDotList.get(mob).removeIf(dot1 -> dot1.tag.equals(dot.tag));
+            mobDotList.get(mob).removeIf(dot1 -> dot.tag.equals(dot1.tag));
         }
         mobDotList.get(mob).add(dot);
     }
