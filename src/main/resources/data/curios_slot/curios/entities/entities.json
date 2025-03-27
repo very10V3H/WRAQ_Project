@@ -10,13 +10,13 @@
     "bracelet",
     "charm",
     "curio",
-	"example",
     "hands",
     "crest",
     "necklace",
     "ring",
     "rune",
     "head",
-    "uniform_curio"
+    "uniform_curio",
+    "holy"
   ]
 }

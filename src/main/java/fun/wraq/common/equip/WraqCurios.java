@@ -16,12 +16,14 @@ import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -135,5 +137,11 @@ public abstract class WraqCurios extends Item implements ICurioItem {
             tick(player);
         }
         ICurioItem.super.curioTick(slotContext, stack);
+    }
+
+    @SuppressWarnings("ALL")
+    public static void shrinkOtherModSlot(ServerPlayer serverPlayer) {
+        CuriosApi.getSlotHelper().shrinkSlotType("feet", 1, serverPlayer);
+        CuriosApi.getSlotHelper().shrinkSlotType("mask", 1, serverPlayer);
     }
 }

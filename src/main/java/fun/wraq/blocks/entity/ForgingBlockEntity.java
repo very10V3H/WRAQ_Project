@@ -841,7 +841,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             return true;
         }
 
-        if (equip.getItem() instanceof Decomposable decomposable) {
+        if (equip.getItem() instanceof Decomposable decomposable && !decomposable.getProduct().is(Items.AIR)) {
             if (equip.getItem() instanceof HarbingerCurio) {
                 CompoundTag tag = equip.getOrCreateTagElement(Utils.MOD_ID);
                 if (RandomCuriosAttributesUtil.attributeValueMap.keySet().stream().noneMatch(tag::contains)) {

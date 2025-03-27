@@ -22,6 +22,8 @@ import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.mobEffects.ModEffects;
+import fun.wraq.series.events.labourDay.LabourDayIronHoe;
+import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.purple.EnhancePurpleIronArmor;
@@ -34,8 +36,6 @@ import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.divine.equip.boss.DivineKnife;
 import fun.wraq.series.overworld.sun.DevilPowerCurio;
-import fun.wraq.series.events.labourDay.LabourDayIronHoe;
-import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 
@@ -70,6 +70,8 @@ public class DamageInfluence {
         rate += EnhancePurpleIronArmor.getCommonDamageEnhanceRate(player);
         rate += DivineUtils.getPlayerExCommonDamageEnhanceRate(player);
         rate += MoonCurios.getExCommonDamageEnhance(player);
+        rate += Compute.CuriosAttribute
+                .attributeValue(player, Utils.commonDamageEnhance, StringUtils.CuriosAttribute.commonDamageEnhance);
         return rate;
     }
 
@@ -90,6 +92,8 @@ public class DamageInfluence {
         rate += LabourDayIronPickaxe.playerAttackDamageEnhance(player);
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.ATTACK_DAMAGE_ENHANCE.get(), 0.35, 0.5);
+        rate += Compute.CuriosAttribute
+                .attributeValue(player, Utils.attackDamageEnhance, StringUtils.CuriosAttribute.attackDamageEnhance);
         return rate;
     }
 
@@ -106,7 +110,8 @@ public class DamageInfluence {
         rate += LabourDayIronHoe.playerManaDamageEnhance(player);
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.MANA_DAMAGE_ENHANCE.get(), 0.35, 0.5);
-
+        rate += Compute.CuriosAttribute
+                .attributeValue(player, Utils.manaDamageEnhance, StringUtils.CuriosAttribute.manaDamageEnhance);
         return rate;
     }
 

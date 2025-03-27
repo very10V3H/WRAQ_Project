@@ -19,7 +19,9 @@ public class LogCharm extends WraqCurios {
         double[] manaDefence = {2, 3, 4, 6, 8, 12, 15};
         Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.defence.put(this, defence[serial]);
+        Utils.percentDefenceEnhance.put(this, defence[serial] * 0.01);
         Utils.manaDefence.put(this, manaDefence[serial]);
+        Utils.percentManaDefenceEnhance.put(this, manaDefence[serial] * 0.01);
     }
 
     @Override

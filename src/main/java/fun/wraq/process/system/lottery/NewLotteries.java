@@ -35,9 +35,12 @@ public class NewLotteries extends Item {
     public static Map<Item, Integer> getRewardSerial = new HashMap<>();
 
     public static void setGetRewardSerial() {
-        getRewardSerial.put(ModItems.SwordLottery.get(), 2);
-        getRewardSerial.put(ModItems.BowLottery.get(), 2);
-        getRewardSerial.put(ModItems.SceptreLottery.get(), 2);
+        getRewardSerial.put(ModItems.SWORD_LOTTERY.get(), 2);
+        getRewardSerial.put(ModItems.BOW_LOTTERY.get(), 2);
+        getRewardSerial.put(ModItems.SCEPTRE_LOTTERY.get(), 2);
+        getRewardSerial.put(ModItems.SWORD_LOTTERY_1.get(), 2);
+        getRewardSerial.put(ModItems.BOW_LOTTERY_1.get(), 2);
+        getRewardSerial.put(ModItems.SCEPTRE_LOTTERY_1.get(), 2);
     }
 
     public static Map<Item, Integer> getGetRewardSerial() {
@@ -48,26 +51,34 @@ public class NewLotteries extends Item {
     public static Map<Item, Integer> guaranteeTimes = new HashMap<>();
 
     public static void setGuaranteeTimes() {
-        guaranteeTimes.put(ModItems.SwordLottery.get(), 90);
-        guaranteeTimes.put(ModItems.BowLottery.get(), 90);
-        guaranteeTimes.put(ModItems.SceptreLottery.get(), 90);
+        guaranteeTimes.put(ModItems.SWORD_LOTTERY.get(), 90);
+        guaranteeTimes.put(ModItems.BOW_LOTTERY.get(), 90);
+        guaranteeTimes.put(ModItems.SCEPTRE_LOTTERY.get(), 90);
+        guaranteeTimes.put(ModItems.SWORD_LOTTERY_1.get(), 90);
+        guaranteeTimes.put(ModItems.BOW_LOTTERY_1.get(), 90);
+        guaranteeTimes.put(ModItems.SCEPTRE_LOTTERY_1.get(), 90);
     }
 
     public static Map<Item, Double> guaranteeRange = new HashMap<>();
 
     public static void setGuaranteeRange() {
-        guaranteeRange.put(ModItems.SwordLottery.get(), 0.01);
-        guaranteeRange.put(ModItems.BowLottery.get(), 0.01);
-        guaranteeRange.put(ModItems.SceptreLottery.get(), 0.01);
+        guaranteeRange.put(ModItems.SWORD_LOTTERY.get(), 0.01);
+        guaranteeRange.put(ModItems.BOW_LOTTERY.get(), 0.01);
+        guaranteeRange.put(ModItems.SCEPTRE_LOTTERY.get(), 0.01);
+        guaranteeRange.put(ModItems.SWORD_LOTTERY_1.get(), 0.01);
+        guaranteeRange.put(ModItems.BOW_LOTTERY_1.get(), 0.01);
+        guaranteeRange.put(ModItems.SCEPTRE_LOTTERY_1.get(), 0.01);
     }
 
     public record Loot(ItemStack itemStack, double rate) {
     }
 
-    private final List<Loot> loots;
+    protected final List<Loot> loots;
+    protected final Item KEY;
+    protected final Item followItem;
 
-    public NewLotteries(Properties p_41383_, List<Loot> loots) {
-        super(p_41383_);
+    public NewLotteries(Properties properties, List<Loot> loots, Item key, Item followItem) {
+        super(properties);
         this.loots = loots;
 
         // 调整未满100%概率
@@ -76,6 +87,16 @@ public class NewLotteries extends Item {
         loots.set(loots.size() - 1, new Loot(loots.get(loots.size() - 1).itemStack, 1 - frontRate));
 
         lotteryItems.add(this);
+        this.KEY = key;
+        this.followItem = followItem;
+    }
+
+    public NewLotteries(Properties properties, List<Loot> loots, Item key) {
+        this(properties, loots, key, null);
+    }
+
+    public NewLotteries(Properties properties, List<Loot> loots) {
+        this(properties, loots, null, null);
     }
 
     private int lootSerialNum(double range) {
@@ -92,6 +113,9 @@ public class NewLotteries extends Item {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level p_41422_, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal(""));
+        if (KEY != null) {
+            components.add(Te.s(" 开启需要消耗一个", KEY));
+        }
         components.add(Component.literal(" 可能获得的奖励有:").withStyle(ChatFormatting.GOLD));
         Item item = itemStack.getItem();
         if (getRewardSerial.isEmpty()) setGetRewardSerial();
@@ -110,10 +134,14 @@ public class NewLotteries extends Item {
             components.add(Component.literal(""));
             components.add(Component.literal(" 第" + guaranteeTimes.get(item) + "次必定抽取极品奖励").withStyle(ChatFormatting.GOLD));
         }
-        if (guaranteeTimes.containsKey(item) && clientRewardTimes.containsKey(this.toString())) {
-            int times = clientRewardTimes.get(this.toString());
+        String itemString = this.toString();
+        if (followItem != null) {
+            itemString = followItem.toString();
+        }
+        if (guaranteeTimes.containsKey(item) && clientRewardTimes.containsKey(itemString)) {
+            int times = clientRewardTimes.get(itemString);
             components.add(Te.s(" 距离上次获得极品，你已经开启了 ", CustomStyle.styleOfStone,
-                    String.valueOf(clientRewardTimes.get(this.toString())), CustomStyle.styleOfWorld,
+                    String.valueOf(clientRewardTimes.get(itemString)), CustomStyle.styleOfWorld,
                     " 次", CustomStyle.styleOfStone));
             double rate = 0.01 / (1 - times * 0.005);
             if (times + 1 == guaranteeTimes.get(this)) {
@@ -121,6 +149,9 @@ public class NewLotteries extends Item {
             }
             components.add(Te.s(" 下一次抽取极品的概率估计: ", CustomStyle.styleOfStone,
                     String.format("%.2f%%", rate * 100), CustomStyle.styleOfGold));
+            if (followItem != null) {
+                components.add(Te.s(" 这个补给包与", followItem, "共享抽取累计", CustomStyle.styleOfStone));
+            }
         }
         super.appendHoverText(itemStack, p_41422_, components, flag);
     }
@@ -128,7 +159,16 @@ public class NewLotteries extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
-            singleUse(player);
+            if (KEY != null) {
+                if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(KEY)))) {
+                    singleUse(player);
+                } else {
+                    Compute.sendFormatMSG(player, Te.s("奖励箱", ChatFormatting.GOLD),
+                            Te.s("开启此奖励箱需要消耗一个", KEY));
+                }
+            } else {
+                singleUse(player);
+            }
         }
         return super.use(level, player, interactionHand);
     }
@@ -136,6 +176,9 @@ public class NewLotteries extends Item {
     public void singleUse(Player player) {
         ItemStack mainHandStack = player.getMainHandItem();
         Item lottery = mainHandStack.getItem();
+        if (followItem != null) {
+            lottery = followItem;
+        }
 
         if (getRewardSerial.isEmpty()) setGetRewardSerial();
         if (guaranteeTimes.isEmpty()) setGuaranteeTimes();
@@ -151,7 +194,7 @@ public class NewLotteries extends Item {
 
         int times = 0;
         if (recordFlag) {
-            times = addPlayerRewardTimes(player, mainHandStack.getItem());
+            times = addPlayerRewardTimes(player, lottery);
             Compute.sendFormatMSG(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("这是第").withStyle(ChatFormatting.WHITE).
                             append(Component.literal("" + times).withStyle(ChatFormatting.LIGHT_PURPLE)).
@@ -210,12 +253,20 @@ public class NewLotteries extends Item {
         return item.toString();
     }
 
-    public static String getItemOpenTimesString(Item item) {
-        return item.toString() + "_openTimes";
+    public static String getItemOpenTimesKey(String s) {
+        return s + "_openTimes";
     }
 
-    public static String getItemWinTimesString(Item item) {
-        return item.toString() + "_winTimes";
+    public static String getItemOpenTimesKey(Item item) {
+        return getItemOpenTimesKey(item.toString());
+    }
+
+    public static String getItemWinTimesKey(String s) {
+        return s + "_winTimes";
+    }
+
+    public static String getItemWinTimesKey(Item item) {
+        return getItemWinTimesKey(item.toString());
     }
 
     public static int addPlayerRewardTimes(Player player, Item item) {
@@ -242,12 +293,12 @@ public class NewLotteries extends Item {
     }
 
     public static void setPlayerOpenLotteryTimes(Player player, Item item, int times) {
-        PlanPlayer.getLotteryData(player).putInt(getItemOpenTimesString(item), times);
+        PlanPlayer.getLotteryData(player).putInt(getItemOpenTimesKey(item), times);
         sendLotteryRewardTimes(player);
     }
 
     public static int getPlayerOpenLotteryTimes(Player player, Item item) {
-        return PlanPlayer.getLotteryData(player).getInt(getItemOpenTimesString(item));
+        return PlanPlayer.getLotteryData(player).getInt(getItemOpenTimesKey(item));
     }
 
     public static int addPlayerLotteryWinTimes(Player player, Item item) {
@@ -258,12 +309,12 @@ public class NewLotteries extends Item {
     }
 
     public static void setPlayerLotteryWinTimes(Player player, Item item, int times) {
-        PlanPlayer.getLotteryData(player).putInt(getItemWinTimesString(item), times);
+        PlanPlayer.getLotteryData(player).putInt(getItemWinTimesKey(item), times);
         sendLotteryRewardTimes(player);
     }
 
     public static int getPlayerLotteryWinTimes(Player player, Item item) {
-        return PlanPlayer.getLotteryData(player).getInt(getItemWinTimesString(item));
+        return PlanPlayer.getLotteryData(player).getInt(getItemWinTimesKey(item));
     }
 
     public static void sendLotteryRewardTimes(Player player) {

@@ -3,6 +3,7 @@ package fun.wraq.events.server;
 import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -343,6 +344,8 @@ public class LoginInEvent {
                     }
                 }
             }
+
+            WraqCurios.shrinkOtherModSlot(serverPlayer);
         }
     }
 

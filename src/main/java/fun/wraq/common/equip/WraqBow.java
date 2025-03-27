@@ -9,8 +9,10 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.core.bow.MyArrowHitBlock;
+import fun.wraq.customized.uniform.bow.BowCurios5;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.BowSkillTree;
@@ -18,6 +20,7 @@ import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase2_0;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.quiver.WraqQuiver;
+import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -25,6 +28,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -55,6 +59,9 @@ public abstract class WraqBow extends WraqMainHandEquip {
         }
         if (myArrowHitBlockEntity != null) {
             myArrow.myArrowHitBlockEntity = myArrowHitBlockEntity;
+        }
+        if (BowCurios5.isOn(player)) {
+            noGravity = true;
         }
         myArrow.setNoGravity(noGravity);
         if (mainShoot) {
@@ -128,5 +135,23 @@ public abstract class WraqBow extends WraqMainHandEquip {
             ParticleProvider.createLineParticle(player.level(), (int) NearestMob.distanceTo(player),
                     player.pick(0.5, 0, false).getLocation(), NearestMob.position().add(0, 1, 0), ParticleTypes.SNOWFLAKE);
         }
+    }
+
+    public static void playShootAnimationAndHandleTrig(Player player) {
+        DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
+                DelayOperationWithAnimation.Animation.bowAttack, 8, 10, player, 1
+        ) {
+            @Override
+            public void trig() {
+                CastleSwiftArmor.NormalAttack(player);
+                Item bow = player.getMainHandItem().getItem();
+                if (!Utils.bowTag.containsKey(bow)) {
+                    return;
+                }
+                if (bow instanceof WraqBow wraqBow) {
+                    wraqBow.shoot(player, 1, true);
+                }
+            }
+        });
     }
 }

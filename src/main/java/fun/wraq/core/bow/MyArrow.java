@@ -12,6 +12,7 @@ import fun.wraq.common.impl.onhit.*;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.bow.BowCurios0;
+import fun.wraq.customized.uniform.bow.BowCurios5;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
@@ -153,6 +154,7 @@ public class MyArrow extends AbstractArrow {
             if (shootByPlayer) {
                 rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 1);
                 rate += BowCurios0.BaseDamageEnhance(player);
+                rate += BowCurios5.getExArrowDamageRate(player, monster);
             }
 
             rate += StableTierAttributeModifier
@@ -253,7 +255,7 @@ public class MyArrow extends AbstractArrow {
             else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
 
             // Health steal
-            Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
+            Compute.healByHealthSteal(player, monster, damage);
 
             AttackEventModule.BowSkill3Attack(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）

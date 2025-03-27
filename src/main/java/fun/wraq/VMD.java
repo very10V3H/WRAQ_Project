@@ -62,6 +62,8 @@ import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
+import fun.wraq.series.holy.HolyItems;
+import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
@@ -143,6 +145,8 @@ public class VMD {
         BunkerItems.ITEMS.register(modEvenBus);
         DivineIslandItems.ITEMS.register(modEvenBus);
         CompositesItems.ITEMS.register(modEvenBus);
+        HolyItems.ITEMS.register(modEvenBus);
+        IceHolyItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -520,9 +524,12 @@ public class VMD {
             event.accept(ModItems.LotteryStar.get().getDefaultInstance());
             event.accept(ModItems.LotteryPrefix.get().getDefaultInstance());
 
-            event.accept(ModItems.SwordLottery.get().getDefaultInstance());
-            event.accept(ModItems.BowLottery.get().getDefaultInstance());
-            event.accept(ModItems.SceptreLottery.get().getDefaultInstance());
+            event.accept(ModItems.SWORD_LOTTERY.get().getDefaultInstance());
+            event.accept(ModItems.BOW_LOTTERY.get().getDefaultInstance());
+            event.accept(ModItems.SCEPTRE_LOTTERY.get().getDefaultInstance());
+            event.accept(ModItems.SWORD_LOTTERY_1.get().getDefaultInstance());
+            event.accept(ModItems.BOW_LOTTERY_1.get().getDefaultInstance());
+            event.accept(ModItems.SCEPTRE_LOTTERY_1.get().getDefaultInstance());
 
             event.accept(ModItems.notePaper.get().getDefaultInstance());
             Item[] items = {
@@ -684,6 +691,16 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.DIVINE_ISLAND.getKey())) {
             DivineIslandItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.HOLY.getKey())) {
+            HolyItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+            IceHolyItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

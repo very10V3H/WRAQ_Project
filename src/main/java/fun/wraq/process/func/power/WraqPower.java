@@ -103,11 +103,15 @@ public abstract class WraqPower extends Item implements ActiveItem {
     }
 
     public static Vec3 getDefaultTargetPos(Player player) {
+        return getDefaultTargetPos(player, 15);
+    }
+
+    public static Vec3 getDefaultTargetPos(Player player, double maxDistance) {
         Mob mob = Compute.detectPlayerPickMob(player);
         if (mob != null) {
             return mob.position();
         }
-        return player.pick(15, 0, false).getLocation();
+        return player.pick(maxDistance, 0, false).getLocation();
     }
 
     protected void produceDefaultDustParticle(Player player, Style style) {

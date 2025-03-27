@@ -9,6 +9,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
@@ -81,6 +82,9 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> DIVINE_ISLAND = CREATIVE_MODE_TAB.register("wraq_divine_island", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(DivineIslandItems.DIVINE_SWORD_0.get()))
                     .title(Te.s("维瑞阿契 | 圣光岛")).build());
+    public static RegistryObject<CreativeModeTab> HOLY = CREATIVE_MODE_TAB.register("wraq_holy", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(IceHolyItems.SWORD_ATTACK_0.get()))
+                    .title(Te.s("维瑞阿契 | 圣器")).build());
 
 
     public static void register(IEventBus eventBus) {

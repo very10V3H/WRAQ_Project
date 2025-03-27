@@ -3,6 +3,7 @@ package fun.wraq.process.system.skill.skillv2.mana;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.customized.uniform.mana.ManaCurios5;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
@@ -57,12 +58,14 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
             ParticleProvider.createSingleParticleToNearPlayer(player, player.level(), pos,
                     ParticleTypes.EXPLOSION_EMITTER);
             ParticleProvider.createRandomMoveParticle(player, pos, 1, 1, 6, ParticleTypes.ASH);
-            ParticleProvider.dustParticle(player, pos, 6, 40,
+            ParticleProvider.dustParticle(player, pos, 6 * (1 + ManaCurios5.getExSkillRangeRate(player)), 40,
                     Element.getManaSkillParticleStyle(player).getColor().getValue());
-            player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 10, 10, 10))
+            double radius = 10 * (1 + ManaCurios5.getExSkillRangeRate(player));
+            player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, radius, radius, radius))
                     .forEach(eachMob -> {
                         Damage.causeRateApDamageWithElement(player, eachMob,
-                                rateMap.getOrDefault(player, 0d), true);
+                                rateMap.getOrDefault(player, 0d)
+                                        * (1 + ManaCurios5.getExBaseDamageRate(player, eachMob)), true);
                     });
             Element.giveResonanceElement(player);
         }

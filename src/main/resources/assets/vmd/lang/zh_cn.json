@@ -1453,6 +1453,9 @@
   "item.vmd.sword_lottery": "『剑术』补给包",
   "item.vmd.bow_lottery": "『弓术』补给包",
   "item.vmd.sceptre_lottery": "『法术』补给包",
+  "item.vmd.sword_lottery_1": "『剑术』补给包 - 1",
+  "item.vmd.bow_lottery_1": "『弓术』补给包 - 1",
+  "item.vmd.sceptre_lottery_1": "『法术』补给包 - 1",
 
   "item.vmd.mop_up_paper_loot": "随机扫荡券 - 获取券",
 
@@ -2053,6 +2056,40 @@
 
   "item.vmd.speed_composites": "能晶 - 急速",
 
+  "item.vmd.ice_holy_sword_attack_0": "璀璨霜刃",
+  "item.vmd.ice_holy_sword_attack_1": "超凡霜刃",
+  "item.vmd.ice_holy_sword_attack_2": "傲世霜刃",
+  "item.vmd.ice_holy_sword_attack_3": "神圣霜刃",
+  "item.vmd.ice_holy_sword_mana_0": "璀璨霜刃",
+  "item.vmd.ice_holy_sword_mana_1": "超凡霜刃",
+  "item.vmd.ice_holy_sword_mana_2": "傲世霜刃",
+  "item.vmd.ice_holy_sword_mana_3": "神圣霜刃",
+  "item.vmd.ice_holy_sceptre_0": "璀璨霜杖",
+  "item.vmd.ice_holy_sceptre_1": "超凡霜杖",
+  "item.vmd.ice_holy_sceptre_2": "傲世霜杖",
+  "item.vmd.ice_holy_sceptre_3": "神圣霜杖",
+  "item.vmd.ice_holy_rune_0": "璀璨霜玉",
+  "item.vmd.ice_holy_rune_1": "超凡霜玉",
+  "item.vmd.ice_holy_rune_2": "傲世霜玉",
+  "item.vmd.ice_holy_rune_3": "神圣霜玉",
+  "item.vmd.ice_holy_crest_0": "璀璨冰纹章",
+  "item.vmd.ice_holy_crest_1": "超凡冰纹章",
+  "item.vmd.ice_holy_crest_2": "傲世冰纹章",
+  "item.vmd.ice_holy_crest_3": "神圣冰纹章",
+  "item.vmd.ice_holy_piece_0": "璀璨冰圣器碎片",
+  "item.vmd.ice_holy_piece_1": "超凡冰圣器碎片",
+  "item.vmd.ice_holy_piece_2": "傲世冰圣器碎片",
+  "item.vmd.ice_holy_piece_3": "神圣冰圣器碎片",
+
+  "item.vmd.ice_holy_chest": "冰元素圣器箱",
+  "item.vmd.holy_chest_key": "圣器箱钥匙",
+
+  "item.vmd.ice_holy_piece_chest_0": "璀璨冰圣器箱",
+  "item.vmd.ice_holy_piece_chest_1": "超凡冰圣器箱",
+  "item.vmd.ice_holy_piece_chest_2": "傲世冰圣器箱",
+  "item.vmd.ice_holy_piece_chest_3": "神圣冰圣器箱",
+
+
   "item.vmd.divine_gem_passive_tier_0": "纯粹之光珠 - Phase 0",
   "item.vmd.divine_gem_passive_tier_1": "纯粹之光珠 - Phase 1",
   "item.vmd.divine_gem_passive_tier_2": "纯粹之光珠 - Phase 2",
@@ -2094,10 +2131,18 @@
   "item.vmd.divine_leggings_1": "均衡圣光护腿",
   "item.vmd.divine_boots_1": "均衡圣光靴子",
 
+  "item.vmd.attack_curios_4": "因子 - 暴君 - V",
+  "item.vmd.bow_curios_4": "因子 - 游侠 - V",
+  "item.vmd.mana_curios_4": "因子 - 梅林 - V",
+
+  "item.vmd.attack_curios_5": "因子 - 暴君 - VI",
+  "item.vmd.bow_curios_5": "因子 - 游侠 - VI",
+  "item.vmd.mana_curios_5": "因子 - 梅林 - VI",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
   "curios.identifier.uniform_curio": "因子",
+  "curios.identifier.holy": "圣器",
 
   "item.vmd.water_bottle": "天然水",
 

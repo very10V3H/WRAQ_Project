@@ -73,4 +73,10 @@ public class TraditionalTooltip implements ClientTooltipComponent {
     public static ResourceLocation element = new ResourceLocation(Utils.MOD_ID, "textures/hud/element.png");
     public static ResourceLocation finalDamageEnhance
             = new ResourceLocation(Utils.MOD_ID, "textures/hud/final_damage_enhance.png");
+    public static ResourceLocation attackDamageEnhance
+            = new ResourceLocation(Utils.MOD_ID, "textures/hud/attack_damage_enhance.png");
+    public static ResourceLocation manaDamageEnhance
+            = new ResourceLocation(Utils.MOD_ID, "textures/hud/mana_damage_enhance.png");
+    public static ResourceLocation commonDamageEnhance
+            = new ResourceLocation(Utils.MOD_ID, "textures/hud/common_damage_enhance.png");
 }

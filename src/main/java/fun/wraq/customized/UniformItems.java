@@ -94,4 +94,22 @@ public class UniformItems {
 
     public static final RegistryObject<Item> MANA_CURIOS_3 = ITEMS.register("mana_curios_3",
             () -> new ManaCurios3(new Item.Properties().rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> ATTACK_CURIOS_4 = ITEMS.register("attack_curios_4",
+            () -> new AttackCurios4(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> BOW_CURIOS_4 = ITEMS.register("bow_curios_4",
+            () -> new BowCurios4(new Item.Properties().rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> MANA_CURIOS_4 = ITEMS.register("mana_curios_4",
+            () -> new ManaCurios4(new Item.Properties().rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> ATTACK_CURIOS_5 = ITEMS.register("attack_curios_5",
+            () -> new AttackCurios5(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> BOW_CURIOS_5 = ITEMS.register("bow_curios_5",
+            () -> new BowCurios5(new Item.Properties().rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> MANA_CURIOS_5 = ITEMS.register("mana_curios_5",
+            () -> new ManaCurios5(new Item.Properties().rarity(CustomStyle.EvokerBold)));
 }

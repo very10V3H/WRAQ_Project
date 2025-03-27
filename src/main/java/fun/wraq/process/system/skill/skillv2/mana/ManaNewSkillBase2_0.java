@@ -3,6 +3,7 @@ package fun.wraq.process.system.skill.skillv2.mana;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.customized.uniform.mana.ManaCurios5;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.PersistentRangeEffectOperation;
@@ -41,23 +42,28 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
         ) {
             @Override
             public void trig() {
-                Vec3 targetPos = WraqPower.getDefaultTargetPos(player);
-                PersistentRangeEffect.addEffect(player, targetPos, 6, new PersistentRangeEffectOperation() {
+                Vec3 targetPos = WraqPower
+                        .getDefaultTargetPos(player, 15 * (1 + ManaCurios5.getExSkillRangeRate(player)));
+                double radius = 6;
+                radius *= (1 + ManaCurios5.getExSkillRangeRate(player));
+                double finalRadius = radius;
+                PersistentRangeEffect.addEffect(player, targetPos, radius, new PersistentRangeEffectOperation() {
                     @Override
                     public void operation(PersistentRangeEffect effect) {
-                        Compute.getNearEntity(effect.level(), effect.center(), Mob.class, 6)
+                        Compute.getNearEntity(effect.level(), effect.center(), Mob.class, finalRadius)
                                 .stream().map(mob -> (Mob) mob)
                                 .forEach(mob -> {
-                                    Damage.causeRateApDamageWithElement(player, mob, damage, true);
+                                    Damage.causeRateApDamageWithElement(player, mob,
+                                            damage * (1 + ManaCurios5.getExBaseDamageRate(player, mob)), true);
                                     Compute.addSlowDownEffect(mob, Tick.s(1), 2);
                                 });
                         ParticleProvider.dustParticle(player, effect.center(),
-                                6, 120, Element.getManaSkillParticleStyle(player).getColor().getValue());
+                                finalRadius, 120, Element.getManaSkillParticleStyle(player).getColor().getValue());
                         Element.giveResonanceElement(player);
                     }
                 }, 10, Tick.s(3 + (enhanced ? 1 : 0)));
                 ParticleProvider.createLastVerticalCircleParticles(player,
-                        targetPos.add(0, 0.5, 0), 6, 100,
+                        targetPos.add(0, 0.5, 0), radius, 100,
                         ModParticles.EVOKER.get(), Tick.s(3 + (enhanced ? 1 : 0)));
             }
         });

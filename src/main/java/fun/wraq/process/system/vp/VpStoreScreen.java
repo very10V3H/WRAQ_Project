@@ -157,7 +157,7 @@ public class VpStoreScreen extends Screen {
 
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2, this.height / 2 - 20 + 105, 0);
 
-        if (PlanPlayer.clientPlanTier > 0 && !(this.width / 4 < 150 && x > this.width / 2 - 150 && x < this.width / 2)) {
+        if (PlanPlayer.clientPlanTier > 0 && !(x > this.width / 2 - 150 && x < this.width / 2)) {
             List<Component> components = new ArrayList<>();
             components.add(SimpleTierPaper.getTierTitle(PlanPlayer.clientPlanTier));
             components.addAll(SimpleTierPaper.getTierDescription(PlanPlayer.clientPlanTier));

@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.mana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.WraqUniformCurios;
 import net.minecraft.ChatFormatting;
@@ -31,7 +32,7 @@ public class ManaCurios0 extends WraqManaUniformCurios {
         Compute.DescriptionPassive(components, Component.literal("法术调幅").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamage("35%总")));
-        components.add(Component.literal(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。").withStyle(style));
+        components.add(Te.s(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。", style));
         return components;
     }
 

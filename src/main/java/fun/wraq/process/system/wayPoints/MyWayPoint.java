@@ -415,6 +415,8 @@ public class MyWayPoint {
                 colorMap.get(darkGreen), CustomStyle.GHASTLY_STYLE, 0));
         add(new MyWayPoint(new Vec3(3841, -16, 1929), "熔岩地堡",
                 colorMap.get(red), CustomStyle.BUNKER_STYLE, 0));
+        add(new MyWayPoint(new Vec3(2076, 222, 1973), "霜冻洞窟",
+                colorMap.get(aqua), CustomStyle.styleOfIce, 0));
         // 铁匠铺
         add(new MyWayPoint(new Vec3(730, 85, 210), "平原村铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
         add(new MyWayPoint(new Vec3(976, 232, 34), "天空城铁匠铺", colorMap.get(gray), CustomStyle.styleOfStone, 0));
@@ -446,7 +448,7 @@ public class MyWayPoint {
         Player player = Minecraft.getInstance().player;
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START) && event.player.equals(player)) {
             int tickCount = event.player.tickCount;
-            if (tickCount == 400) {
+            if (tickCount == 200) {
                 if (player.level().dimension().equals(Level.OVERWORLD)) {
                     overworldPointList.forEach(myWayPoint -> removeWaypointByName(myWayPoint.name));
                     netherPointList.forEach(myWayPoint -> removeWaypointByName(myWayPoint.name));

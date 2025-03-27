@@ -187,7 +187,7 @@ public abstract class NoTeamInstance {
                         Compute.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
                         exReward(player);
                     } else {
-                        if (getSummonAndRewardNeedItem().equals(ModItems.notePaper.get()) && !checkReason(player)) {
+                        if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get()) && !checkReason(player)) {
                             Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
                                     Te.s("需要至少", getRewardNeedItemCount() + "理智",
                                             CustomStyle.styleOfFlexible, "才能获取奖励."));

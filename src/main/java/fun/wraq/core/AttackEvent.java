@@ -17,6 +17,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.attack.AttackCurios1;
 import fun.wraq.customized.uniform.attack.AttackCurios3;
+import fun.wraq.customized.uniform.attack.AttackCurios4;
 import fun.wraq.events.fight.HurtEvent;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.events.modules.HurtEventModule;
@@ -146,6 +147,7 @@ public class AttackEvent {
 
         if (mainAttack) {
             rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 0);
+            rate += AttackCurios4.getAttackDamageRate(player, monster);
         }
 
         double baseDamage = PlayerAttributes.attackDamage(player) * rate;
@@ -263,7 +265,7 @@ public class AttackEvent {
         Damage.beforeCauseDamage(player, monster, damage + trueDamage);
         Damage.causeDirectDamageToMob(player, monster, damage + trueDamage);
         // Health steal
-        Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
+        Compute.healByHealthSteal(player, monster, damage);
         // Display
         if (crit)
             Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);

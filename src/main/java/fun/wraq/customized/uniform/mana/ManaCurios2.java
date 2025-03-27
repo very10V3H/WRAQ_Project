@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.mana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.WraqUniformCurios;
@@ -30,7 +31,7 @@ public class ManaCurios2 extends WraqManaUniformCurios {
                 append(Component.literal("没有其他玩家").withStyle(style)).
                 append(Component.literal("时，为你提供").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamage("50%总")));
-        components.add(Component.literal(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。").withStyle(style));
+        components.add(Te.s(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。", style));
         return components;
     }
 

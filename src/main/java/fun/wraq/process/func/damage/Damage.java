@@ -18,6 +18,7 @@ import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.mana.ManaCurios1;
+import fun.wraq.customized.uniform.mana.ManaCurios4;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobDeadModule;
@@ -549,6 +550,9 @@ public class Damage {
             damage *= NoTeamInstanceModule.onMobWithstandDamageRate(player, mob);
 
             double finalDamage = damage;
+            if (finalDamage == 0) {
+                Compute.damageActionBarPacketSend(player, 0, 0, false, false);
+            }
             finalDamage *= getAfterScornAdjustRate(player, mob);
             finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
             finalDamage *= HarbingerMainHand.onMobWithstand(mob, player);
@@ -593,6 +597,7 @@ public class Damage {
             GemOnCauseDamage.causeDamage(player, mob, damage);
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
             JungleMobSpawn.onMobWithstandDamage(mob, player);
+            ManaCurios4.onCauseDamage(player);
         }
     }
 

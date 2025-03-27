@@ -931,6 +931,9 @@ public class StringUtils {
         public static String xpLevelDefence = "xpLevelDefence";
         public static String xpLevelManaDefence = "xpLevelManaDefence";
         public static String finalDamageEnhance = "finalDamageEnhance";
+        public static String attackDamageEnhance = "attackDamageEnhance";
+        public static String manaDamageEnhance = "manaDamageEnhance";
+        public static String commonDamageEnhance = "commonDamageEnhance";
     }
 
     public static String PlayerInstanceProgress = "PlayerInstanceProgress";

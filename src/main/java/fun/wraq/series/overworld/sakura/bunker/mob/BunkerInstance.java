@@ -7,8 +7,8 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
+import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.network.chat.Component;
@@ -86,12 +86,12 @@ public class BunkerInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return MobSpawn.getPlayerKillCount(player, HarbingerInstance.getInstance().description.getString()) >= 20;
+        return NoTeamInstanceModule.getFinalRewardCondition(player);
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Te.s("需要通关", "20次", STYLE, "鹰眼工厂", CustomStyle.styleOfHarbinger, "，方能获取奖励。");
+        return NoTeamInstanceModule.getFinalAllowRewardCondition();
     }
 
     public List<ItemAndRate> getRewardList() {

@@ -9,14 +9,17 @@ import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.customized.uniform.mana.ManaCurios4;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillBase3_0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.ManaArrowHitEntity;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -25,6 +28,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
@@ -59,6 +63,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                 OnShootManaArrowCurios.shoot(player);
                 OnShootManaArrowPassiveEquip.shoot(player);
                 ManaNewSkillBase3_0.onShoot(player);
+                ManaCurios4.onShoot(player);
             }
             MySound.soundToNearPlayer(player, SoundEvents.PARROT_IMITATE_EVOKER);
         }
@@ -118,5 +123,21 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
             ParticleProvider.createLineParticle(player.level(), (int) NearestMob.distanceTo(player),
                     player.pick(0.5, 0, false).getLocation(), NearestMob.position().add(0, 1, 0), ParticleTypes.SNOWFLAKE);
         }
+    }
+
+    public static void playShootAnimationAndHandleTrig(Player player) {
+        DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
+                DelayOperationWithAnimation.Animation.manaAttack, 8, 10, player, 1
+        ) {
+            @Override
+            public void trig() {
+                CastleManaArmor.NormalAttack(player);
+                Item sceptre = player.getMainHandItem().getItem();
+                if (!Utils.sceptreTag.containsKey(sceptre)) return;
+                if (sceptre instanceof WraqSceptre wraqSceptre) {
+                    wraqSceptre.shootManaArrow(player, 1, true);
+                }
+            }
+        });
     }
 }

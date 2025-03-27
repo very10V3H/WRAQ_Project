@@ -796,6 +796,45 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.luckyUp)));
         }
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.stoneElement, WraqPickaxe.mineSpeed,
+                "EmptyTypeAttribute", "挖掘速度",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 0, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.toughness, Utils.toughness,
+                StringUtils.CuriosAttribute.toughness, "韧性",
+                CustomStyle.styleOfEnd, 1, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.element, Utils.elementStrength,
+                null, "元素强度",
+                CustomStyle.styleOfWorld, 0, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index,
+                TraditionalTooltip.finalDamageEnhance, Utils.finalDamageEnhance,
+                StringUtils.CuriosAttribute.finalDamageEnhance, "最终伤害加成",
+                CustomStyle.styleOfDemon, 1, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index,
+                TraditionalTooltip.attackDamageEnhance, Utils.attackDamageEnhance,
+                StringUtils.CuriosAttribute.attackDamageEnhance, "物理伤害加成",
+                CustomStyle.styleOfPower, 1, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index,
+                TraditionalTooltip.manaDamageEnhance, Utils.manaDamageEnhance,
+                StringUtils.CuriosAttribute.manaDamageEnhance, "魔法伤害加成",
+                CustomStyle.styleOfMana, 1, true, itemStack,
+                false, null, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index,
+                TraditionalTooltip.commonDamageEnhance, Utils.commonDamageEnhance,
+                StringUtils.CuriosAttribute.commonDamageEnhance, "普通伤害加成",
+                CustomStyle.styleOfMoon, 1, true, itemStack,
+                false, null, event.getTooltipElements());
+
         if (Element.LifeElementValue.containsKey(item)) {
             double value = Element.LifeElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
@@ -858,27 +897,6 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.windElement)));
         }
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.stoneElement, WraqPickaxe.mineSpeed,
-                "EmptyTypeAttribute", "挖掘速度",
-                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 0, true, itemStack,
-                false, null, event.getTooltipElements());
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.toughness, Utils.toughness,
-                StringUtils.CuriosAttribute.toughness, "韧性",
-                CustomStyle.styleOfEnd, 1, true, itemStack,
-                false, null, event.getTooltipElements());
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.element, Utils.elementStrength,
-                null, "元素强度",
-                CustomStyle.styleOfWorld, 0, true, itemStack,
-                false, null, event.getTooltipElements());
-
-        index = newAttributeCommonDescriptionTemplate(index,
-                TraditionalTooltip.finalDamageEnhance, Utils.finalDamageEnhance,
-                StringUtils.CuriosAttribute.finalDamageEnhance, "最终伤害加成",
-                CustomStyle.styleOfDemon, 1, true, itemStack,
-                false, null, event.getTooltipElements());
 
         // 以下为新版宝石内容提示
         List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);

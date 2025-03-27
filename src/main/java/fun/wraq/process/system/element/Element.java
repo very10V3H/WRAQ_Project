@@ -169,206 +169,145 @@ public class Element {
 
         if (type.equals(life)) {
             if (passiveUnit.type.equals(water)) {
-                SummonReactionTypeItem(passive, Component.literal("滋养").withStyle(CustomStyle.styleOfLife));
-                LifeAndWaterReaction(passive, reactionElementValue);
                 return 1 + strongRate;
             }
             if (passiveUnit.type.equals(fire)) {
-                SummonReactionTypeItem(passive, Component.literal("燃料").withStyle(CustomStyle.styleOfFire));
                 return 1 + (weakRate * LifeAndFire(reactionElementValue));
             }
             if (passiveUnit.type.equals(stone)) {
-                SummonReactionTypeItem(passive, Component.literal("汲取").withStyle(CustomStyle.styleOfLife));
-                LifeAndStone(active, reactionElementValue);
                 return 1 + strongRate;
             }
             if (passiveUnit.type.equals(ice)) {
-                SummonReactionTypeItem(passive, Component.literal("霜冻").withStyle(CustomStyle.styleOfLife));
-                LifeAndIce(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(lightning)) {
-                SummonReactionTypeItem(passive, Component.literal("氮化").withStyle(CustomStyle.styleOfLightning));
-                LifeAndLightning(passive, reactionElementValue);
                 return 1 + strongRate;
             }
             if (passiveUnit.type.equals(wind)) {
-                SummonReactionTypeItem(passive, Component.literal("断裂").withStyle(CustomStyle.styleOfWind));
-                LifeAndWind(passive, reactionElementValue);
                 return 1 + weakRate;
             }
         }
         if (type.equals(water)) {
             WaterElementSword.Passive(active);
             if (passiveUnit.type.equals(life)) {
-                SummonReactionTypeItem(passive, Component.literal("滋养").withStyle(CustomStyle.styleOfLife));
-                LifeAndWaterReaction(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(fire)) {
-                SummonReactionTypeItem(passive, Component.literal("蒸发").withStyle(CustomStyle.styleOfWater));
                 return 1 + (WaterAndFire(reactionElementValue) * strongRate);
             }
             if (passiveUnit.type.equals(stone)) {
-                SummonReactionTypeItem(passive, Component.literal("泥化").withStyle(CustomStyle.styleOfHusk));
                 WaterAndStone(passive, reactionElementValue);
             }
             if (passiveUnit.type.equals(ice)) {
-                SummonReactionTypeItem(passive, Component.literal("冰水").withStyle(CustomStyle.styleOfIce));
                 WaterAndIce(passive, reactionElementValue);
             }
             if (passiveUnit.type.equals(lightning)) {
-                SummonReactionTypeItem(passive, Component.literal("感电").withStyle(CustomStyle.styleOfLightning));
                 WaterAndLightning(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(wind)) {
-                SummonReactionTypeItem(passive, Component.literal("风浪").withStyle(CustomStyle.styleOfWater));
                 WaterAndWind(passive, reactionElementValue);
                 return 1 + strongRate;
             }
         }
         if (type.equals(fire)) {
             if (passiveUnit.type.equals(life)) {
-                SummonReactionTypeItem(passive, Component.literal("燃料").withStyle(CustomStyle.styleOfPower));
                 return 1 + (LifeAndFire(reactionElementValue) * strongRate);
             }
             if (passiveUnit.type.equals(water)) {
-                SummonReactionTypeItem(passive, Component.literal("蒸发").withStyle(CustomStyle.styleOfWater));
                 return 1 + (WaterAndFire(reactionElementValue) * weakRate);
             }
             if (passiveUnit.type.equals(stone)) {
-                SummonReactionTypeItem(passive, Component.literal("灰化").withStyle(CustomStyle.styleOfHusk));
                 return 1 + (FireAndStone(reactionElementValue) * weakRate);
             }
             if (passiveUnit.type.equals(ice)) {
-                SummonReactionTypeItem(passive, Component.literal("融化").withStyle(CustomStyle.styleOfFire));
                 return 1 + (FireAndIce(reactionElementValue) * strongRate);
             }
             if (passiveUnit.type.equals(lightning)) {
-                SummonReactionTypeItem(passive, Component.literal("爆裂").withStyle(CustomStyle.styleOfFire));
-                FireAndLightning(active, passive, reactionElementValue, damage, isAd);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(wind)) {
-                SummonReactionTypeItem(passive, Component.literal("旺盛").withStyle(CustomStyle.styleOfFire));
-                FireAndWind(passive, reactionElementValue);
                 return 1 + strongRate;
             }
         }
         if (type.equals(stone)) {
             if (passiveUnit.type.equals(life)) {
-                SummonReactionTypeItem(passive, Component.literal("汲取").withStyle(CustomStyle.styleOfLife));
-                LifeAndStone(active, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(water)) {
-                SummonReactionTypeItem(passive, Component.literal("泥化").withStyle(CustomStyle.styleOfHusk));
-                WaterAndStone(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(fire)) {
-                SummonReactionTypeItem(passive, Component.literal("灰化").withStyle(ChatFormatting.GRAY));
                 return 1 + (FireAndStone(reactionElementValue) * strongRate);
             }
             if (passiveUnit.type.equals(ice)) {
-                SummonReactionTypeItem(passive, Component.literal("冻土").withStyle(CustomStyle.styleOfIce));
-                StoneAndIce(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(lightning)) {
-                SummonReactionTypeItem(passive, Component.literal("接地").withStyle(CustomStyle.styleOfLightning));
-                StoneAndLightning(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(wind)) {
-                SummonReactionTypeItem(passive, Component.literal("风化").withStyle(CustomStyle.styleOfWind));
-                StoneAndWind(passive, reactionElementValue);
                 return 1 + strongRate;
             }
         }
         if (type.equals(ice)) {
             if (passiveUnit.type.equals(life)) {
-                SummonReactionTypeItem(passive, Component.literal("霜冻").withStyle(CustomStyle.styleOfIce));
-                LifeAndIce(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(water)) {
-                SummonReactionTypeItem(passive, Component.literal("冰水").withStyle(CustomStyle.styleOfIce));
-                WaterAndIce(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(fire)) {
-                SummonReactionTypeItem(passive, Component.literal("融化").withStyle(CustomStyle.styleOfFire));
                 return 1 + (FireAndIce(reactionElementValue) * weakRate);
             }
             if (passiveUnit.type.equals(stone)) {
-                SummonReactionTypeItem(passive, Component.literal("冻土").withStyle(CustomStyle.styleOfIce));
-                StoneAndIce(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(lightning)) {
-                SummonReactionTypeItem(passive, Component.literal("超导").withStyle(CustomStyle.styleOfLightning));
-                IceAndLightning(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(wind)) {
-                SummonReactionTypeItem(passive, Component.literal("风寒").withStyle(CustomStyle.styleOfWind));
-                IceAndWind(passive, reactionElementValue);
+
             }
         }
         if (type.equals(lightning)) {
             if (passiveUnit.type.equals(life)) {
-                SummonReactionTypeItem(passive, Component.literal("氮化").withStyle(CustomStyle.styleOfLife));
-                LifeAndLightning(passive, reactionElementValue);
+
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(water)) {
-                SummonReactionTypeItem(passive, Component.literal("感电").withStyle(CustomStyle.styleOfLightning));
-                WaterAndLightning(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(fire)) {
-                SummonReactionTypeItem(passive, Component.literal("爆裂").withStyle(CustomStyle.styleOfFire));
-                FireAndLightning(active, passive, reactionElementValue, damage, isAd);
                 return 1 + strongRate;
             }
             if (passiveUnit.type.equals(stone)) {
-                SummonReactionTypeItem(passive, Component.literal("接地").withStyle(CustomStyle.styleOfLightning));
-                StoneAndLightning(passive, reactionElementValue);
                 return 1 + strongRate;
             }
             if (passiveUnit.type.equals(ice)) {
-                SummonReactionTypeItem(passive, Component.literal("超导").withStyle(CustomStyle.styleOfLightning));
-                IceAndLightning(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(wind)) {
-                SummonReactionTypeItem(passive, Component.literal("灾难").withStyle(CustomStyle.styleOfLightning));
-                LightningAndWind(active, passive, reactionElementValue, damage, isAd);
                 return 1 + weakRate;
             }
         }
         if (type.equals(wind)) {
             if (passiveUnit.type.equals(life)) {
-                SummonReactionTypeItem(passive, Component.literal("断裂").withStyle(CustomStyle.styleOfLife));
-                LifeAndWind(passive, reactionElementValue);
                 return 1 + strongRate;
             }
             if (passiveUnit.type.equals(water)) {
-                SummonReactionTypeItem(passive, Component.literal("风浪").withStyle(CustomStyle.styleOfWater));
-                WaterAndWind(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(fire)) {
-                SummonReactionTypeItem(passive, Component.literal("旺盛").withStyle(CustomStyle.styleOfFire));
-                FireAndWind(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(stone)) {
-                SummonReactionTypeItem(passive, Component.literal("风化").withStyle(CustomStyle.styleOfWind));
-                StoneAndWind(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(ice)) {
-                SummonReactionTypeItem(passive, Component.literal("风寒").withStyle(CustomStyle.styleOfIce));
-                IceAndWind(passive, reactionElementValue);
+
             }
             if (passiveUnit.type.equals(lightning)) {
-                SummonReactionTypeItem(passive, Component.literal("灾难").withStyle(CustomStyle.styleOfLightning));
-                LightningAndWind(active, passive, reactionElementValue, damage, isAd);
                 return 1 + strongRate;
             }
         }

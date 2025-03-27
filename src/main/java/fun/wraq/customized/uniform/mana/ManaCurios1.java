@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.mana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -30,7 +31,7 @@ public class ManaCurios1 extends WraqManaUniformCurios {
                 append(Component.literal("魔法伤害").withStyle(style)).
                 append(Component.literal("将获得").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("35%额外真实伤害").withStyle(CustomStyle.styleOfSea)));
-        components.add(Component.literal(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。").withStyle(style));
+        components.add(Te.s(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。", style));
         return components;
     }
 

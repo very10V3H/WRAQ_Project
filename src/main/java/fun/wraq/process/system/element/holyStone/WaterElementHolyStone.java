@@ -18,9 +18,9 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FireHolyStone extends Item implements ICurioItem {
+public class WaterElementHolyStone extends Item implements ICurioItem {
 
-    public FireHolyStone(Properties p_41383_, int type) {
+    public WaterElementHolyStone(Properties p_41383_, int type) {
         super(p_41383_);
         Utils.curiosList.add(this);
         switch (type) {
@@ -28,14 +28,14 @@ public class FireHolyStone extends Item implements ICurioItem {
             case 1 -> Utils.swiftnessUp.put(this, 1.5);
             case 2 -> Utils.manaDamage.put(this, 400d);
         }
-        Element.FireElementValue.put(this, 0.7);
+        Element.WaterElementValue.put(this, 0.7);
         Utils.levelRequire.put(this, 200);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
-        Style style = CustomStyle.styleOfFire;
+        Style style = CustomStyle.styleOfWater;
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         Compute.LevelRequire(components, 200);

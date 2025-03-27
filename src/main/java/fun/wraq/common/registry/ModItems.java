@@ -2781,67 +2781,67 @@ public class ModItems {
             () -> new RainbowCrystal(new Item.Properties()));
 
     public static final RegistryObject<Item> LifeHolyStone0 = ITEMS.register("life_holy_stone_0",
-            () -> new LifeHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 0));
+            () -> new LifeElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 0));
 
     public static final RegistryObject<Item> LifeHolyStone1 = ITEMS.register("life_holy_stone_1",
-            () -> new LifeHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 1));
+            () -> new LifeElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 1));
 
     public static final RegistryObject<Item> LifeHolyStone2 = ITEMS.register("life_holy_stone_2",
-            () -> new LifeHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 2));
+            () -> new LifeElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 2));
 
     public static final RegistryObject<Item> WaterHolyStone0 = ITEMS.register("water_holy_stone_0",
-            () -> new WaterHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 0));
+            () -> new WaterElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 0));
 
     public static final RegistryObject<Item> WaterHolyStone1 = ITEMS.register("water_holy_stone_1",
-            () -> new WaterHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 1));
+            () -> new WaterElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 1));
 
     public static final RegistryObject<Item> WaterHolyStone2 = ITEMS.register("water_holy_stone_2",
-            () -> new WaterHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 2));
+            () -> new WaterElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 2));
 
     public static final RegistryObject<Item> FireHolyStone0 = ITEMS.register("fire_holy_stone_0",
-            () -> new FireHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 0));
+            () -> new FireElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 0));
 
     public static final RegistryObject<Item> FireHolyStone1 = ITEMS.register("fire_holy_stone_1",
-            () -> new FireHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 1));
+            () -> new FireElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 1));
 
     public static final RegistryObject<Item> FireHolyStone2 = ITEMS.register("fire_holy_stone_2",
-            () -> new FireHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 2));
+            () -> new FireElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 2));
 
     public static final RegistryObject<Item> StoneHolyStone0 = ITEMS.register("stone_holy_stone_0",
-            () -> new StoneHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 0));
+            () -> new StoneElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 0));
 
     public static final RegistryObject<Item> StoneHolyStone1 = ITEMS.register("stone_holy_stone_1",
-            () -> new StoneHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 1));
+            () -> new StoneElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 1));
 
     public static final RegistryObject<Item> StoneHolyStone2 = ITEMS.register("stone_holy_stone_2",
-            () -> new StoneHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 2));
+            () -> new StoneElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 2));
 
     public static final RegistryObject<Item> IceHolyStone0 = ITEMS.register("ice_holy_stone_0",
-            () -> new IceHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 0));
+            () -> new IceElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 0));
 
     public static final RegistryObject<Item> IceHolyStone1 = ITEMS.register("ice_holy_stone_1",
-            () -> new IceHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 1));
+            () -> new IceElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 1));
 
     public static final RegistryObject<Item> IceHolyStone2 = ITEMS.register("ice_holy_stone_2",
-            () -> new IceHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 2));
+            () -> new IceElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 2));
 
     public static final RegistryObject<Item> LightningHolyStone0 = ITEMS.register("lightning_holy_stone_0",
-            () -> new LightningHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 0));
+            () -> new LightningElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 0));
 
     public static final RegistryObject<Item> LightningHolyStone1 = ITEMS.register("lightning_holy_stone_1",
-            () -> new LightningHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 1));
+            () -> new LightningElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 1));
 
     public static final RegistryObject<Item> LightningHolyStone2 = ITEMS.register("lightning_holy_stone_2",
-            () -> new LightningHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 2));
+            () -> new LightningElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 2));
 
     public static final RegistryObject<Item> WindHolyStone0 = ITEMS.register("wind_holy_stone_0",
-            () -> new WindHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 0));
+            () -> new WindElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 0));
 
     public static final RegistryObject<Item> WindHolyStone1 = ITEMS.register("wind_holy_stone_1",
-            () -> new WindHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 1));
+            () -> new WindElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 1));
 
     public static final RegistryObject<Item> WindHolyStone2 = ITEMS.register("wind_holy_stone_2",
-            () -> new WindHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 2));
+            () -> new WindElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 2));
 
     public static final RegistryObject<Item> LifeElementSword = ITEMS.register("life_element_sword",
             () -> new LifeElementSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.LifeItalic)));
@@ -2995,11 +2995,11 @@ public class ModItems {
     public static final RegistryObject<Item> MopUpPaperLoot = ITEMS.register("mop_up_paper_loot",
             () -> new MopUpPaperLoot(new Item.Properties().rarity(CustomStyle.RedBold)));
 
-    public static final RegistryObject<Item> SwordLottery = ITEMS.register("sword_lottery",
+    public static final RegistryObject<Item> SWORD_LOTTERY = ITEMS.register("sword_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_3.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_4.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3016,11 +3016,32 @@ public class ModItems {
                 addAll(loots);
             }}));
 
-    public static final RegistryObject<Item> BowLottery = ITEMS.register("bow_lottery",
+    public static final RegistryObject<Item> SWORD_LOTTERY_1 = ITEMS.register("sword_lottery_1",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_5.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
+                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
+/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
+                        new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}, null, SWORD_LOTTERY.get()));
+
+    public static final RegistryObject<Item> BOW_LOTTERY = ITEMS.register("bow_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_3.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_4.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3037,11 +3058,32 @@ public class ModItems {
                 addAll(loots);
             }}));
 
-    public static final RegistryObject<Item> SceptreLottery = ITEMS.register("sceptre_lottery",
+    public static final RegistryObject<Item> BOW_LOTTERY_1 = ITEMS.register("bow_lottery_1",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_5.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
+                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
+/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
+                        new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}, null, BOW_LOTTERY.get()));
+
+    public static final RegistryObject<Item> SCEPTRE_LOTTERY = ITEMS.register("sceptre_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_3.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_4.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3057,6 +3099,27 @@ public class ModItems {
                 );
                 addAll(loots);
             }}));
+
+    public static final RegistryObject<Item> SCEPTRE_LOTTERY_1 = ITEMS.register("sceptre_lottery_1",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_5.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
+                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
+/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
+                        new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}, null, SCEPTRE_LOTTERY.get()));
 
     public static final RegistryObject<Item> WaterBottle = ITEMS.register("water_bottle",
             () -> new Item(new Item.Properties().rarity(CustomStyle.Water)));

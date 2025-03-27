@@ -12,6 +12,7 @@ import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.element.PlainInstance;
+import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
@@ -217,7 +218,8 @@ public class MissionV2Helper {
             getDailyMissionData(player).putString(DAILY_CHALLENGE_NAME_DATA_KEY, PlainInstance.mobName);
         } else {
             List<NoTeamInstance> list = NoTeamInstanceModule.getAllInstance()
-                    .stream().filter(noTeamInstance -> noTeamInstance.level <= xpLevel)
+                    .stream().filter(noTeamInstance -> noTeamInstance.level <= xpLevel
+                            && !noTeamInstance.equals(ManaTowerInstance.getInstance()))
                     .toList();
             getDailyMissionData(player).putString(DAILY_CHALLENGE_NAME_DATA_KEY,
                     list.get(RandomUtils.nextInt(0, list.size())).name.getString());

@@ -13,12 +13,14 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.attack.AttackCurios0;
 import fun.wraq.customized.uniform.attack.AttackCurios1;
 import fun.wraq.customized.uniform.attack.AttackCurios2;
+import fun.wraq.customized.uniform.attack.AttackCurios5;
 import fun.wraq.customized.uniform.bow.BowCurios0;
 import fun.wraq.customized.uniform.bow.BowCurios2;
 import fun.wraq.customized.uniform.bow.BowCurios3;
 import fun.wraq.customized.uniform.mana.ManaCurios0;
 import fun.wraq.customized.uniform.mana.ManaCurios2;
 import fun.wraq.customized.uniform.mana.ManaCurios3;
+import fun.wraq.customized.uniform.mana.ManaCurios4;
 import fun.wraq.events.mob.loot.C5LootItems;
 import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.StableAttributesModifier;
@@ -269,6 +271,7 @@ public class PlayerAttributes {
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentAttackDamageModifier);
         exRate += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerAttackDamageEnhance);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentAttackDamageEnhance);
+        exRate += AttackCurios5.getExPercentAttackDamage(player);
 
         totalAttackDamage *= (1 + exRate);
 
@@ -388,6 +391,7 @@ public class PlayerAttributes {
         critDamage += AttackCurios1.playerCritDamageUp(player);
         critDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCritDamageModifier);
         critDamage += MoonCurios.getCritDamage(player);
+        critDamage += AttackCurios5.getExCritDamage(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1068,6 +1072,7 @@ public class PlayerAttributes {
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exManaDamage);
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
+        exDamage += ManaCurios4.getExManaDamage(player);
         // 请在上方添加
         double totalDamage = baseDamage + exDamage;
         double exRate = 0;
@@ -1085,6 +1090,7 @@ public class PlayerAttributes {
         exRate += StableAttributesModifier
                 .getModifierValue(player, StableAttributesModifier.playerPercentManaDamageModifier);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentManaDamageEnhance);
+        exRate += ManaCurios4.getExManaDamageRate(player);
 
         totalDamage *= (1 + exRate);
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
@@ -1322,6 +1328,7 @@ public class PlayerAttributes {
                 StringUtils.CuriosAttribute.manaPenetration)); // 新版饰品属性加成
         defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration));
         defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
+        defenceRate *= (1 - ManaCurios4.getExManaPenetrationRate(player));
 
         // 请在上方添加
         writeToCache(player, Utils.manaPenetration, 1 - defenceRate);
@@ -1367,6 +1374,7 @@ public class PlayerAttributes {
 
         manaPenetration0 += StableAttributesModifier.getModifierValue(player,
                 StableAttributesModifier.playerManaPenetration0Modifier);
+        manaPenetration0 += ManaCurios4.getExManaPenetration0(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);

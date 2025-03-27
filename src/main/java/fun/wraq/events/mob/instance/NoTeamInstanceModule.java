@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
 import fun.wraq.events.mob.instance.instances.element.*;
@@ -13,11 +14,14 @@ import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
 import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
+import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBalanceInstance;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerInstance;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -61,6 +65,14 @@ public class NoTeamInstanceModule {
                 "1件", "暗黑城堡武器", CustomStyle.styleOfCastle, "，方能获取奖励。");
     }
 
+    public static boolean getFinalRewardCondition(Player player) {
+        return MobSpawn.getPlayerKillCount(player, HarbingerInstance.getInstance().description.getString()) >= 20;
+    }
+
+    public static Component getFinalAllowRewardCondition() {
+        return Te.s("需要通关", "20次", ChatFormatting.AQUA, "鹰眼工厂", CustomStyle.styleOfHarbinger, "，方能获取奖励。");
+    }
+
     public static boolean getPlayerAllowReward(Player player, String tag) {
         return getPlayerAllowRewardTag(player).getBoolean(tag);
     }
@@ -91,6 +103,7 @@ public class NoTeamInstanceModule {
         add(DivineBunnyInstance.getInstance());
         add(BunkerInstance.getInstance());
         add(DivineBalanceInstance.getInstance());
+        add(FrostInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{

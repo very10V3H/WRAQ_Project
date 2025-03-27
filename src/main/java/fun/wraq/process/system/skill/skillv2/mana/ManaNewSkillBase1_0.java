@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.customized.uniform.mana.ManaCurios5;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -37,13 +38,18 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
             @Override
             public void trig() {
                 MySound.soundToNearPlayer(player.level(), player.getEyePosition(), SoundEvents.EVOKER_CAST_SPELL);
-                Vec3 pickLocation = player.pick(20, 0, false).getLocation();
+                double maxDistance = 20;
+                maxDistance *= (1 + ManaCurios5.getExSkillRangeRate(player));
+                double range = 3;
+                range *= (1 + ManaCurios5.getExSkillRangeRate(player));
+                Vec3 pickLocation = player.pick(maxDistance, 0, false).getLocation();
                 Vec3 eyePosition = player.getEyePosition();
                 ParticleProvider.createLineSpaceDustParticle(player.level(),
-                        (int) pickLocation.distanceTo(eyePosition) * 20, eyePosition, pickLocation,
-                        3, Element.getManaSkillParticleStyle(player));
-                Compute.getPlayerRayMobList(player, 1, 3, 20).forEach(mob -> {
-                    Damage.causeRateApDamageWithElement(player, mob, damage, true);
+                        (int) (pickLocation.distanceTo(eyePosition) * maxDistance), eyePosition, pickLocation,
+                        range, Element.getManaSkillParticleStyle(player));
+                Compute.getPlayerRayMobList(player, 1, range, maxDistance).forEach(mob -> {
+                    Damage.causeRateApDamageWithElement(player, mob,
+                            damage * (1 + ManaCurios5.getExBaseDamageRate(player, mob)), true);
                     ManaNewSkillPassive0.addCount(player, mob, 2);
                 });
                 Element.giveResonanceElement(player);

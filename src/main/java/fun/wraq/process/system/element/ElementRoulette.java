@@ -1,11 +1,8 @@
 package fun.wraq.process.system.element;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.datafixers.util.Pair;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.networking.ResonanceC2SPacket;
 import fun.wraq.process.system.season.MySeason;
 import net.minecraft.ChatFormatting;
@@ -19,7 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -211,29 +207,6 @@ public class ElementRoulette extends Screen {
             elementEffectContents.addAll(MySeason.getElementEffectContent(MySeason.clientSeason));
         }
         guiGraphics.renderComponentTooltip(fontRenderer, elementEffectContents, 0, 28);
-
-        if (!StringUtils.isBlank(type)) {
-            List<Component> elementReactions = new ArrayList<>();
-            elementReactions.add(Te.m(fun.wraq.process.system.element.Element.nameMap.get(type), fun.wraq.process.system.element.Element.styleMap.get(type)).
-                    append(Te.m("参与的反应:")));
-            for (String element : fun.wraq.process.system.element.Element.elementList) {
-                if (!element.equals(type)) {
-                    Pair<Component, Component> pair = fun.wraq.process.system.element.Element.ReactionDescription.getReactionPair(new Pair<>(type, element));
-                    elementReactions.add(Te.m(fun.wraq.process.system.element.Element.shortNameMap.get(type), fun.wraq.process.system.element.Element.styleMap.get(type)).
-                            append(Te.m(" + ")).
-                            append(Te.m(fun.wraq.process.system.element.Element.shortNameMap.get(element), Element.styleMap.get(element))).
-                            append(Te.m(" = ")).
-                            append(pair.getFirst()).
-                            append(Te.m(" - ")).
-                            append(pair.getSecond()));
-                }
-            }
-            if (y < this.height / 2 && this.width < 500) {
-                guiGraphics.renderComponentTooltip(fontRenderer, elementReactions, this.width, this.height);
-            } else {
-                guiGraphics.renderComponentTooltip(fontRenderer, elementReactions, this.width, 28);
-            }
-        }
     }
 
     @Override

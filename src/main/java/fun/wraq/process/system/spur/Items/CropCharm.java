@@ -19,6 +19,7 @@ public class CropCharm extends WraqCurios {
         double[] healthRecover = {5, 10, 20, 35, 55, 80, 110};
         Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.maxHealth.put(this, maxHealth[serial]);
+        Utils.percentMaxHealthEnhance.put(this, new double[]{1, 2, 3, 4, 6, 9, 13}[serial] * 0.01);
         Utils.healthRecover.put(this, healthRecover[serial]);
     }
 

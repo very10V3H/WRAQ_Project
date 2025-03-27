@@ -22,8 +22,10 @@ import fun.wraq.common.util.struct.ItemEntityAndResetTime;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.bow.MyArrow;
+import fun.wraq.customized.uniform.attack.AttackCurios5;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
@@ -64,6 +66,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
@@ -818,6 +821,7 @@ public class Compute {
         if (num < 0) return;
         double healNum = num * (PlayerAttributes.getHealingAmplification(player));
         if (ManaSkillTree.onHealthRecover(player, healNum)) return;
+        if (AttackCurios5.onHealHealthRecover(player, healNum)) return;
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
         LifeElementSword.StoreToList(player, healNum);
         player.heal((float) healNum);
@@ -830,9 +834,12 @@ public class Compute {
         mob.heal((float) healNum);
     }
 
-    public static void healByHealthSteal(Player player, double num) {
-        double rate = 1;
-        playerHeal(player, num * rate * 0.1);
+    public static void healByHealthSteal(Player player, Mob mob, double damage) {
+        double rate = PlayerAttributes.healthSteal(player);
+        if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)) {
+            rate = Math.max(0, rate - 0.2);
+        }
+        playerHeal(player, damage * rate * 0.1);
     }
 
     public static int SuitItemVision(Player player, Item item, EquipmentSlot equipmentSlot, List<Component> components, Style MainStyle) {

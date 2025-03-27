@@ -1,6 +1,7 @@
 package fun.wraq.process.system.skill.skillv2.bow;
 
 import fun.wraq.common.fast.Te;
+import fun.wraq.customized.uniform.bow.BowCurios4;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -22,7 +23,8 @@ public class BowNewSkillFinal0 extends SkillV2FinalSkill {
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         WraqQuiver.batchAddExShoot(player,
-                getRate(skillLevel) * (1 + getEnhanceRate(player)), getArrowCount(skillLevel));
+                getRate(skillLevel) * (1 + getEnhanceRate(player)),
+                getArrowCount(skillLevel) + BowCurios4.getExArrowCount(player));
     }
 
     private double getRate(int level) {

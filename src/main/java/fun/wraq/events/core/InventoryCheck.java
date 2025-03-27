@@ -11,6 +11,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -159,9 +160,12 @@ public class InventoryCheck {
                 ModItems.WORLD_SOUL_5.get(),
                 ModItems.notePaper.get(),
                 ModItems.BrewingNote.get(),
-                ModItems.SwordLottery.get(),
-                ModItems.BowLottery.get(),
-                ModItems.SceptreLottery.get(),
+                ModItems.SWORD_LOTTERY.get(),
+                ModItems.BOW_LOTTERY.get(),
+                ModItems.SCEPTRE_LOTTERY.get(),
+                ModItems.SWORD_LOTTERY_1.get(),
+                ModItems.BOW_LOTTERY_1.get(),
+                ModItems.SCEPTRE_LOTTERY_1.get(),
                 ModItems.ID_Card.get(),
                 ModItems.MopUpPaperLoot.get(),
                 ModItems.CastleMopUpPaper.get(),
@@ -190,7 +194,8 @@ public class InventoryCheck {
                 ModItems.SPECIAL_BOND.get(),
                 SpecialEventItems.SOUVENIRS_2024.get(),
                 SpecialEventItems.RED_ENVELOPE.get(),
-                SpecialEventItems.BIG_RED_ENVELOPE.get()
+                SpecialEventItems.BIG_RED_ENVELOPE.get(),
+                IceHolyItems.CHEST.get()
         ));
         UniformItems.ITEMS.getEntries()
                 .stream()

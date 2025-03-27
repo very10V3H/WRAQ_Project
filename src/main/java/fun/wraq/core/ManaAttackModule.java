@@ -150,7 +150,7 @@ public class ManaAttackModule {
             Damage.beforeCauseDamage(player, monster, damage + trueDamage);
             Damage.causeDirectDamageToMob(player, monster, damage + trueDamage);
             // health steal
-            Compute.healByHealthSteal(player, damage * healthSteal);
+            Compute.healByHealthSteal(player, monster, damage);
 
             // display
             if (isCrit)

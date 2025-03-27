@@ -16,6 +16,8 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
+import fun.wraq.series.holy.HolyItems;
+import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
@@ -75,6 +77,8 @@ public class TradeList {
         purpleIronWeapon();
         mushroomGem();
         divineGem();
+
+        iceHoly();
 
         /* 1.0 */
 
@@ -566,9 +570,12 @@ public class TradeList {
                 ModItems.SoulSceptre.get().getDefaultInstance(),
                 ModItems.SkillReset.get().getDefaultInstance(),
                 GemItems.DISMANTLE.get().getDefaultInstance(),
-                ModItems.SwordLottery.get().getDefaultInstance(),
-                ModItems.BowLottery.get().getDefaultInstance(),
-                ModItems.SceptreLottery.get().getDefaultInstance(),
+                ModItems.SWORD_LOTTERY.get().getDefaultInstance(),
+                ModItems.SWORD_LOTTERY_1.get().getDefaultInstance(),
+                ModItems.BOW_LOTTERY.get().getDefaultInstance(),
+                ModItems.BOW_LOTTERY_1.get().getDefaultInstance(),
+                ModItems.SCEPTRE_LOTTERY.get().getDefaultInstance(),
+                ModItems.SCEPTRE_LOTTERY_1.get().getDefaultInstance(),
                 ModItems.FORGE_TEMPLATE.get().getDefaultInstance()
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -594,10 +601,10 @@ public class TradeList {
                 case 4, 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WORLD_SOUL_2.get(), 16));
                 }});
-                case 6, 7, 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 6, 7, 8, 9, 10, 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
                 }});
-                case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
                 }});
             }
@@ -3034,9 +3041,10 @@ public class TradeList {
         ItemStack goldenCoinBag = new ItemStack(ModItems.GoldCoinBag.get(), 3);
         ItemStack gemPiece = new ItemStack(ModItems.GEM_PIECE.get(), 12);
         ItemStack speedComposites = new ItemStack(CompositesItems.SPEED_COMPOSITES.get());
+        ItemStack holyChestKey = new ItemStack(HolyItems.HOLY_CHEST_KEY.get());
         ItemStack[] itemStacks = {
                 allaySpawner, allayNugget, smithBook, smithStone,
-                revelationHeart, goldenCoinBag, gemPiece, speedComposites
+                revelationHeart, goldenCoinBag, gemPiece, speedComposites, holyChestKey
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3063,6 +3071,9 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 500),
                         new ItemStack(ModItems.MILLION_MONEY.get(), 5),
                         new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get(), 100)));
+
+        tradeRecipeMap.put(holyChestKey,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
     }
 
     public static void goldCoinStore() {
@@ -3350,5 +3361,32 @@ public class TradeList {
                 List.of(new ItemStack(DivineIslandItems.DIVINE_GEM_PIECE_1.get(), 90),
                         new ItemStack(DivineIslandItems.DIVINE_BOSS_SOUL.get(), 90),
                         new ItemStack(ModItems.RainbowCrystal.get(), 4)));
+    }
+
+    public static void iceHoly() {
+        ItemStack holyChestKey = new ItemStack(HolyItems.HOLY_CHEST_KEY.get());
+        ItemStack iceHolyPieceChest0 = new ItemStack(IceHolyItems.PIECE_CHEST_0.get());
+        ItemStack iceHolyPieceChest1 = new ItemStack(IceHolyItems.PIECE_CHEST_1.get());
+        ItemStack iceHolyPieceChest2 = new ItemStack(IceHolyItems.PIECE_CHEST_2.get());
+        ItemStack iceHolyPieceChest3 = new ItemStack(IceHolyItems.PIECE_CHEST_3.get());
+        ItemStack[] itemStacks = {
+                holyChestKey,
+                iceHolyPieceChest0, iceHolyPieceChest1,
+                iceHolyPieceChest2, iceHolyPieceChest3
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("冰霜信徒", "iceHoly",
+                CustomStyle.DIVINE_STYLE, VillagerType.SNOW, VillagerProfession.FLETCHER, contentList);
+        tradeRecipeMap.put(holyChestKey,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
+        tradeRecipeMap.put(iceHolyPieceChest0,
+                List.of(new ItemStack(IceHolyItems.PIECE_0.get(), 10)));
+        tradeRecipeMap.put(iceHolyPieceChest1,
+                List.of(new ItemStack(IceHolyItems.PIECE_1.get(), 10)));
+        tradeRecipeMap.put(iceHolyPieceChest2,
+                List.of(new ItemStack(IceHolyItems.PIECE_2.get(), 10)));
+        tradeRecipeMap.put(iceHolyPieceChest3,
+                List.of(new ItemStack(IceHolyItems.PIECE_3.get(), 10)));
     }
 }
