@@ -4,7 +4,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
 import fun.wraq.series.events.SpecialEventItems;
-import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
+import fun.wraq.series.holy.ice.IceHolyItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -83,7 +83,7 @@ public class Display {
 
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
-            for (RegistryObject<Item> registryObject : BunkerItems.ITEMS.getEntries()) {
+            for (RegistryObject<Item> registryObject : IceHolyItems.ITEMS.getEntries()) {
                 newItemList.add(registryObject.get());
             }
         }
