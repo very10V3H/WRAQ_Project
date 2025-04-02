@@ -82,7 +82,7 @@ public class MoonInstance extends NoTeamInstance {
         Style style = CustomStyle.styleOfMoon;
         MobSpawn.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 160);
-        double maxHealth = 350 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        double maxHealth = 200 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 130, 130,
                 0.4, 3, 0.25, 55, 0,
                 maxHealth, 0.3);

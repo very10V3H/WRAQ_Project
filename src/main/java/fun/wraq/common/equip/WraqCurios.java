@@ -35,7 +35,9 @@ public abstract class WraqCurios extends Item implements ICurioItem {
 
     public WraqCurios(Properties properties) {
         super(properties.stacksTo(1));
-        Utils.curiosList.add(this);
+        if (!(this instanceof Souvenirs)) {
+            Utils.curiosList.add(this);
+        }
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }
@@ -46,7 +48,9 @@ public abstract class WraqCurios extends Item implements ICurioItem {
 
     public WraqCurios(Properties properties, int maxSlotSize) {
         super(properties.stacksTo(maxSlotSize));
-        Utils.curiosList.add(this);
+        if (!(this instanceof Souvenirs)) {
+            Utils.curiosList.add(this);
+        }
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }

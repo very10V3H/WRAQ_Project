@@ -15,6 +15,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.HudIcon;
@@ -43,12 +44,14 @@ import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.PersistentRangeEffect;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.power.PowerLogic;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Color;
 import fun.wraq.process.system.element.Element;
@@ -56,7 +59,6 @@ import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
@@ -66,6 +68,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.events.qingMing.QingMingCommonRing;
 import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
@@ -119,7 +122,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.acos;
 
 
 public class Compute {
@@ -817,13 +821,22 @@ public class Compute {
         }
     }
 
+    public static Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();
     public static void playerHeal(Player player, double num) {
         if (num < 0) return;
         double healNum = num * (PlayerAttributes.getHealingAmplification(player));
-        if (ManaSkillTree.onHealthRecover(player, healNum)) return;
         if (AttackCurios5.onHealHealthRecover(player, healNum)) return;
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
         LifeElementSword.StoreToList(player, healNum);
+        if (healNum > player.getMaxHealth() * 0.1) {
+            healNum = Math.min(healNum, player.getMaxHealth() * 0.1);
+            if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                sendFormatMSG(player, Te.s("治疗承受", CustomStyle.styleOfHealth),
+                        Te.s("单次生命偷取的数额将不会超过",
+                                ComponentUtils.AttributeDescription.maxHealth("5%")));
+                nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.min(10));
+            }
+        }
         player.heal((float) healNum);
     }
 
@@ -1806,7 +1819,9 @@ public class Compute {
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.EX_HARVEST.get(), 0.15, 0.25);
         rate += HoursExHarvestPotion.getHoursExHarvestPotionEnhanceRate(player);
-        /*eachTierValue += SummerEvent.exHarvest(player);*/
+        rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerExHarvestModifier);
+        rate += QingMingCommonRing.getExHarvest(player);
+        rate += RankData.getExHarvestRate(player);
         return rate;
     }
 

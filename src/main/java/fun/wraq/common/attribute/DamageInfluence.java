@@ -24,6 +24,8 @@ import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.holy.ice.curio.IceHolyRune;
+import fun.wraq.series.holy.ice.curio.IceHolySword;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.purple.EnhancePurpleIronArmor;
@@ -53,6 +55,7 @@ public class DamageInfluence {
         rate += getPlayerCommonDamageUpOrDown(player);
         return rate;
     }
+
     public static double getPlayerCommonDamageUpOrDown(Player player) {
         double rate = 0;
         rate += AttackEventModule.SwordSkill5DamageEnhance(player); // 双刃剑
@@ -71,7 +74,7 @@ public class DamageInfluence {
         rate += DivineUtils.getPlayerExCommonDamageEnhanceRate(player);
         rate += MoonCurios.getExCommonDamageEnhance(player);
         rate += Compute.CuriosAttribute
-                .attributeValue(player, Utils.commonDamageEnhance, StringUtils.CuriosAttribute.commonDamageEnhance);
+                .attributeValue(player, Utils.commonDamageEnhance, StringUtils.RandomCuriosAttribute.commonDamageEnhance);
         return rate;
     }
 
@@ -93,7 +96,7 @@ public class DamageInfluence {
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.ATTACK_DAMAGE_ENHANCE.get(), 0.35, 0.5);
         rate += Compute.CuriosAttribute
-                .attributeValue(player, Utils.attackDamageEnhance, StringUtils.CuriosAttribute.attackDamageEnhance);
+                .attributeValue(player, Utils.attackDamageEnhance, StringUtils.RandomCuriosAttribute.attackDamageEnhance);
         return rate;
     }
 
@@ -111,7 +114,7 @@ public class DamageInfluence {
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.MANA_DAMAGE_ENHANCE.get(), 0.35, 0.5);
         rate += Compute.CuriosAttribute
-                .attributeValue(player, Utils.manaDamageEnhance, StringUtils.CuriosAttribute.manaDamageEnhance);
+                .attributeValue(player, Utils.manaDamageEnhance, StringUtils.RandomCuriosAttribute.manaDamageEnhance);
         return rate;
     }
 
@@ -139,7 +142,7 @@ public class DamageInfluence {
                 .stream().filter(curios -> curios.getItem() instanceof WraqUniformCurios)
                 .count();
         rate += Compute.CuriosAttribute
-                .attributeValue(player, Utils.finalDamageEnhance, StringUtils.CuriosAttribute.finalDamageEnhance);
+                .attributeValue(player, Utils.finalDamageEnhance, StringUtils.RandomCuriosAttribute.finalDamageEnhance);
         rate += DevilPowerCurio.finalDamageEnhanceRate(player);
         return rate;
     }
@@ -168,6 +171,7 @@ public class DamageInfluence {
         rate -= StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerWithstandDamageReduce);
         rate += DivineUtils.getPlayerWithstandDamageExRate(player);
+        rate -= IceHolyRune.getExDamageDecreaseRate(player);
         return rate;
     }
 
@@ -176,6 +180,7 @@ public class DamageInfluence {
         rate += VdWeaponCommon.normalAttackRateEnhance(player);
         rate += VolcanoNewRune.attackEnhance(player);
         rate += EnhanceNormalAttackModifier.onHitDamageEnhance(player, type);
+        rate += IceHolySword.getExAttackBaseDamageRate(player);
         return rate;
     }
 

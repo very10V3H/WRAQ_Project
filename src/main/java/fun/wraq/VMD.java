@@ -305,9 +305,6 @@ public class VMD {
             SpecialEventItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
 
             Item[] items = {
-                    ModItems.QingTuan.get(), ModItems.QingMingPrefix.get(), ModItems.QingMingGem.get(),
-                    ModItems.QingMingForgePaper.get(),
-                    ModItems.QingMingAttackRing.get(), ModItems.QingMingBowRing.get(), ModItems.QingMingManaRing.get(),
                     ModItems.OldSilverCoin.get(), ModItems.OldGoldCoin.get(),
                     ModItems.LabourDayForgePaper.get(), ModItems.LabourDayIronPickaxe.get(), ModItems.LabourDayIronHoe.get(),
                     ModItems.LabourDayLottery.get(), ModItems.LabourDayPrefix.get(), ModItems.LabourDayGem.get()

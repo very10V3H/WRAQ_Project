@@ -84,6 +84,6 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
 
     @Override
     protected int getEachLevelExManaCost() {
-        return 40;
+        return 30;
     }
 }

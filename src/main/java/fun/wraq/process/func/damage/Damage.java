@@ -47,6 +47,7 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
+import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
@@ -496,6 +497,9 @@ public class Damage {
     }
 
     public static void causeDirectDamageToPlayer(Mob mob, Player player, double damage) {
+        if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)) {
+            damage = Math.min(300000, damage);
+        }
         if (damage >= player.getHealth()) {
             Compute.playerDeadModule(player);
             Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),

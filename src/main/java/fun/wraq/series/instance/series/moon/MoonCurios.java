@@ -8,6 +8,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.ChatFormatting;
@@ -32,6 +33,7 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
     public MoonCurios(Properties p_41383_) {
         super(p_41383_);
         Utils.curiosList.add(this);
+        Display.souvenirsList.add(this);
     }
 
     @Override
@@ -51,6 +53,7 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" - 以此致敬维瑞阿契的开拓者 - " + data.getString(StringUtils.MoonCuriosPlayerName)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.AQUA));
+        components.add(ComponentUtils.getSuffixOfSouvenirs());
         super.appendHoverText(stack, level, components, flag);
     }
 
@@ -112,9 +115,9 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
             data.putString(StringUtils.MoonCuriosPlayerName, player.getName().getString());
         }
         playerXpLevel = data.getInt(StringUtils.MoonCuriosXpLevel);
-        data.putInt(StringUtils.CuriosAttribute.attackDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
-        data.putInt(StringUtils.CuriosAttribute.manaDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
-        data.putInt(StringUtils.CuriosAttribute.defence, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
-        data.putInt(StringUtils.CuriosAttribute.maxHealth, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomCuriosAttribute.attackDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomCuriosAttribute.manaDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomCuriosAttribute.defence, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomCuriosAttribute.maxHealth, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
     }
 }

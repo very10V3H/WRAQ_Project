@@ -49,6 +49,8 @@ import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
+import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
@@ -389,12 +391,15 @@ public class MobSpawn {
         int xpLevel = getMobXpLevel(mob);
 
         if (RandomUtils.nextInt(0, 10000) < 100) {
-            InventoryOperation.giveItemStack(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
+            ItemAndRate.send(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }
         if (RandomUtils.nextDouble(0, 1) < AllaySkills.getExGemPieceRate((ServerPlayer) player)) {
-            InventoryOperation.giveItemStack(player, ModItems.GEM_PIECE.get());
+            ItemAndRate.send(player, ModItems.GEM_PIECE.get().getDefaultInstance());
             AllayPet.sendMSG(player,
                     Te.s(AllayPetPlayerData.getAllayName(player), "给你带来了一个", ModItems.GEM_PIECE));
+        }
+        if (QingTuan.isInActivityDate() && RandomUtils.nextInt(0, 10000) < 25) {
+            ItemAndRate.send(player, SpecialEventItems.QING_TUAN.get().getDefaultInstance());
         }
 
         recall(mob, player);
@@ -432,7 +437,8 @@ public class MobSpawn {
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
             if (Compute.hasCurios(player, NewRuneItems.endNewRune.get())) {
-                InventoryOperation.giveItemStack(player, new ItemStack(ModItems.WORLD_SOUL_1.get()));
+                ItemAndRate itemAndRate = new ItemAndRate(ModItems.WORLD_SOUL_1.get(), 1);
+                itemAndRate.send(player, 1);
             } else {
                 ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WORLD_SOUL_1.get()), player);
             }

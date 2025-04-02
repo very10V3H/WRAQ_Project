@@ -3,22 +3,19 @@ package fun.wraq.series.instance.series.castle;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -110,11 +107,9 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
     }
 
     public static void ExAttack(Player player, double rate) {
-        MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, rate);
-        myArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3F, 1.0f);
-        myArrow.setCritArrow(true);
-        player.level().addFreshEntity(myArrow);
-        MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
+        if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
+            wraqBow.shoot(player, rate, false);
+        }
     }
 
     public static double ExIgnoreDefenceDamage(Player player) {

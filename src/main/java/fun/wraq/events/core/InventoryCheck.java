@@ -195,7 +195,8 @@ public class InventoryCheck {
                 SpecialEventItems.SOUVENIRS_2024.get(),
                 SpecialEventItems.RED_ENVELOPE.get(),
                 SpecialEventItems.BIG_RED_ENVELOPE.get(),
-                IceHolyItems.CHEST.get()
+                IceHolyItems.CHEST.get(),
+                SpecialEventItems.QING_MING_REBORN_CHEST.get()
         ));
         UniformItems.ITEMS.getEntries()
                 .stream()

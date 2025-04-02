@@ -30,7 +30,6 @@ public class QingMingPrefix extends Item {
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }
 
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide) {

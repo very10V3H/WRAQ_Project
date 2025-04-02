@@ -16,6 +16,7 @@ import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -212,9 +213,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             ItemStack forgePaper = blockEntity.itemStackHandler.getStackInSlot(3);
             CompoundTag data = equip.getTagElement(Utils.MOD_ID);
 
-            if (forgePaper.is(ModItems.QingMingForgePaper.get())) data.putBoolean(StringUtils.QingMingForgePaper, true);
-            if (forgePaper.is(ModItems.LabourDayForgePaper.get()))
+            if (forgePaper.is(SpecialEventItems.QING_MING_FORGE_PAPER.get())) {
+                data.putBoolean(StringUtils.QingMingForgePaper, true);
+            }
+            if (forgePaper.is(ModItems.LabourDayForgePaper.get())) {
                 data.putBoolean(StringUtils.LabourDayForgePaper, true);
+            }
 
             Compute.forgingHoverName(equip);
             if (player != null) {
@@ -230,6 +234,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
             blockEntity.itemStackHandler.extractItem(3, 1, false);
             blockEntity.itemStackHandler.extractItem(4, 1, false);
+            if (player != null) {
+                MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
+            }
         } // 清符
 
         if (hasRecipeOfCastleArmor(blockEntity)) {
@@ -297,7 +304,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             blockEntity.itemStackHandler.setStackInSlot(2, sword);
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
-            if (player != null) MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
+            if (player != null) {
+                MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
+            }
         }
 
         // 开孔
@@ -712,8 +721,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         if (equip.getTagElement(Utils.MOD_ID) != null) data = equip.getTagElement(Utils.MOD_ID);
         else return false;
 
-        boolean canUseQingMingForgePaper = !data.contains(StringUtils.QingMingForgePaper) && blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.QingMingForgePaper.get());
-        boolean canUseLabourDayForgePaper = !data.contains(StringUtils.LabourDayForgePaper) && blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.LabourDayForgePaper.get());
+        boolean canUseQingMingForgePaper
+                = !data.contains(StringUtils.QingMingForgePaper)
+                && blockEntity.itemStackHandler.getStackInSlot(3).is(SpecialEventItems.QING_MING_FORGE_PAPER.get());
+        boolean canUseLabourDayForgePaper
+                = !data.contains(StringUtils.LabourDayForgePaper)
+                && blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.LabourDayForgePaper.get());
 
         boolean hasEquipCanBeForged = (Utils.mainHandTag.containsKey(equip.getItem()) ||
                 Utils.armorTag.containsKey(equip.getItem()));

@@ -1,6 +1,7 @@
 package fun.wraq.process.system.lottery;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.core.InventoryCheck;
@@ -9,6 +10,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,6 +21,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.security.SecureRandom;
@@ -76,8 +79,10 @@ public class NewLotteries extends Item {
     protected final List<Loot> loots;
     protected final Item KEY;
     protected final Item followItem;
+    protected final boolean isFoiled;
+    protected List<Component> description;
 
-    public NewLotteries(Properties properties, List<Loot> loots, Item key, Item followItem) {
+    public NewLotteries(Properties properties, List<Loot> loots, Item key, Item followItem, boolean isFoiled) {
         super(properties);
         this.loots = loots;
 
@@ -89,14 +94,20 @@ public class NewLotteries extends Item {
         lotteryItems.add(this);
         this.KEY = key;
         this.followItem = followItem;
+        this.isFoiled = isFoiled;
     }
 
     public NewLotteries(Properties properties, List<Loot> loots, Item key) {
-        this(properties, loots, key, null);
+        this(properties, loots, key, null, false);
     }
 
     public NewLotteries(Properties properties, List<Loot> loots) {
-        this(properties, loots, null, null);
+        this(properties, loots, null, null, false);
+    }
+
+    public NewLotteries(Properties properties, List<Loot> loots, boolean isFoiled, List<Component> description) {
+        this(properties, loots, null, null, isFoiled);
+        this.description = description;
     }
 
     private int lootSerialNum(double range) {
@@ -153,6 +164,10 @@ public class NewLotteries extends Item {
                 components.add(Te.s(" 这个补给包与", followItem, "共享抽取累计", CustomStyle.styleOfStone));
             }
         }
+        if (description != null) {
+            components.add(Te.s(" 获取方式:", ChatFormatting.AQUA));
+            components.addAll(description);
+        }
         super.appendHoverText(itemStack, p_41422_, components, flag);
     }
 
@@ -171,6 +186,11 @@ public class NewLotteries extends Item {
             }
         }
         return super.use(level, player, interactionHand);
+    }
+
+    @Override
+    public boolean isFoil(@NotNull ItemStack stack) {
+        return isFoiled;
     }
 
     public void singleUse(Player player) {
@@ -224,21 +244,25 @@ public class NewLotteries extends Item {
         // 提供奖励
         Loot loot = loots.get(serialNum);
         ItemStack itemStack = loot.itemStack;
-        if (loot.rate <= 0.05) {
+        ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
+        if (reward.getItem() instanceof RandomCurios randomCurios) {
+            randomCurios.setAttribute(reward);
+        }
+        if (loot.rate <= 0.05 || (this.equals(SpecialEventItems.QING_MING_QING_TUAN_CHEST.get())
+                || this.equals(SpecialEventItems.QING_MING_REBORN_CHEST.get())) && loot.rate <= 0.1) {
             Compute.formatBroad(player.level(), Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(player.getDisplayName()).
                             append(Component.literal(" 通过 ").withStyle(ChatFormatting.WHITE)).
                             append(this.getDefaultInstance().getDisplayName()).
                             append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
-                            append(itemStack.getDisplayName()).
-                            append(Component.literal(" *" + itemStack.getCount()).withStyle(ChatFormatting.AQUA)).
+                            append(reward.getDisplayName()).
+                            append(Component.literal(" *" + reward.getCount()).withStyle(ChatFormatting.AQUA)).
                             append(Component.literal(guaranteeRange.containsKey(lottery) ? " (" + times + ")" : "").withStyle(ChatFormatting.GRAY)));
         }
-
-        ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
-        if (InventoryCheck.getBoundingList().contains(reward.getItem()))
+        if (InventoryCheck.getBoundingList().contains(reward.getItem())) {
             InventoryCheck.addOwnerTagToItemStack(player, reward); // 为部分物品添加绑定tag
+        }
         InventoryOperation.giveItemStack(player, reward);
     }
 

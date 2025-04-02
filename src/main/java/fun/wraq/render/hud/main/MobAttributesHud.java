@@ -34,7 +34,7 @@ public class MobAttributesHud {
         // livingEntity attribute
         if (ClientUtils.mobAttribute != null) {
             int count = 0;
-            int offsetX = 32;
+            int offsetX = 34;
             int offsetY = -8;
             if (ClientUtils.clientMobEffectMap.containsKey(ClientUtils.mobAttribute)) {
                 List<ClientUtils.Effect> effectList = ClientUtils.clientMobEffectMap.get(ClientUtils.mobAttribute);
@@ -128,13 +128,16 @@ public class MobAttributesHud {
                     put(Element.lightning, CustomStyle.styleOfLightning);
                     put(Element.wind, CustomStyle.styleOfWind);
                 }};
-                if (typeLocationMap.containsKey(ClientUtils.mobElementType))
-                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/hud/" + typeLocationMap.get(ClientUtils.mobElementType) + ".png"), standardX, standardY + 40, 0, 0, 12, 12, 12, 12);
-                if (ClientUtils.mobElementValue > 0)
+                if (typeLocationMap.containsKey(ClientUtils.mobElementType)) {
+                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/hud/" + typeLocationMap.get(ClientUtils.mobElementType) + ".png"),
+                            standardX, standardY + 40, 0, 0, 12, 12, 12, 12);
+                }
+                if (ClientUtils.mobElementValue > 0) {
                     guiGraphics.drawCenteredString(fontRenderer,
                             Component.literal(String.format("%.0f%%", ClientUtils.mobElementValue * 100))
                                     .withStyle(typeStyleMap.get(ClientUtils.mobElementType)),
-                            standardX + 20, standardY + 43, 0);
+                            standardX + 22, standardY + 43, 0);
+                }
             }
         }
     });

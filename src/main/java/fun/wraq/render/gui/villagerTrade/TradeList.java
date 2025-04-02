@@ -132,7 +132,6 @@ public class TradeList {
         Parkour();
         castle();
         SkyGemStore();
-        QingMing();
         Food();
         RoseGoldStore();
         LabourDayStore();
@@ -1931,40 +1930,6 @@ public class TradeList {
         }
     }
 
-    public static void QingMing() {
-
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.QingMingPrefix.get(), 1),
-                new ItemStack(ModItems.QingMingGem.get(), 1),
-                new ItemStack(ModItems.QingMingForgePaper.get(), 1),
-                new ItemStack(ModItems.QingMingAttackRing.get(), 1),
-                new ItemStack(ModItems.QingMingBowRing.get(), 1),
-                new ItemStack(ModItems.QingMingManaRing.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.QingMing, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.QingTuan.get(), 32));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.QingTuan.get(), 64));
-                    add(new ItemStack(ModItems.QingTuan.get(), 32));
-                }});
-                default -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.QingTuan.get(), 64));
-                    add(new ItemStack(ModItems.QingTuan.get(), 64));
-                    add(new ItemStack(ModItems.QingTuan.get(), 64));
-                    add(new ItemStack(ModItems.QingTuan.get(), 64));
-                }});
-            }
-        }
-    }
-
     public static void Food() {
         ItemStack[] itemStacks = {
                 new ItemStack(Items.COOKIE, 64),
@@ -3137,7 +3102,7 @@ public class TradeList {
                 new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)
         ));
         tradeRecipeMap.put(fantasyBracelet1, List.of(
-                new ItemStack(ModItems.FANTASY_MEDAL.get(), 16),
+                new ItemStack(ModItems.FANTASY_BRACELET.get(), 16),
                 new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
                 new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)
         ));

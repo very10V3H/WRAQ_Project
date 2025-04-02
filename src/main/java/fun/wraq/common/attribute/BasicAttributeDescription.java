@@ -74,16 +74,18 @@ public class BasicAttributeDescription {
             if (item instanceof ForgeTemplate) {
                 --index;
             }
-            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(Component.literal(" 强化等级 ").withStyle(CustomStyle.styleOfPower).
-                    append(Component.literal("" + forgeLevel).withStyle(style)), TraditionalTooltip.forge)));
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(
+                    Te.s(" 强化等级 ", CustomStyle.styleOfPower, "" + forgeLevel, style,
+                            data.contains(StringUtils.QingMingForgePaper) ? "「清符+1」" : "", CustomStyle.styleOfLife),
+                    TraditionalTooltip.forge)));
         }
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.attackDamage, Utils.xpLevelAttackDamage,
-                StringUtils.CuriosAttribute.xpLevelAttackDamage, "物理攻击", Style.EMPTY.applyFormat(ChatFormatting.AQUA),
+                StringUtils.RandomCuriosAttribute.xpLevelAttackDamage, "物理攻击", Style.EMPTY.applyFormat(ChatFormatting.AQUA),
                 1, false, itemStack, event.getTooltipElements(), localPlayer, true, Style.EMPTY.applyFormat(ChatFormatting.YELLOW));
 
         if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.attackDamage)
-                || data.contains(StringUtils.CuriosAttribute.attackDamage)) {
+                || data.contains(StringUtils.RandomCuriosAttribute.attackDamage)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
                 if (itemStack.is(ModItems.SoulSword.get())) {
                     int ForgeTime = data.getInt(StringUtils.SoulEquipForge);
@@ -109,12 +111,12 @@ public class BasicAttributeDescription {
                 }
             } else {
                 double baseDamage;
-                if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.attackDamage)) {
+                if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.attackDamage)) {
                     if (Utils.attackDamage.containsKey(item))
                         baseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.attackDamage);
                     else if (item instanceof RandomCurios)
-                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.attackDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.attackDamage);
-                    else baseDamage = data.getInt(StringUtils.CuriosAttribute.attackDamage);
+                        baseDamage = data.getDouble(StringUtils.RandomCuriosAttribute.attackDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.attackDamage);
+                    else baseDamage = data.getInt(StringUtils.RandomCuriosAttribute.attackDamage);
                 } else
                     baseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.attackDamage);
 
@@ -125,7 +127,7 @@ public class BasicAttributeDescription {
 
                     handleExBaseAttributeValue(itemStack, mutableComponent, Utils.attackDamage);
                     handleForge(data, baseDamage, mutableComponent);
-                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.attackDamage, mutableComponent);
+                    handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.attackDamage, mutableComponent);
 
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
@@ -134,15 +136,15 @@ public class BasicAttributeDescription {
         }
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackDamage, Utils.percentAttackDamageEnhance,
-                StringUtils.CuriosAttribute.percentAttackDamage, "物理攻击",
+                StringUtils.RandomCuriosAttribute.percentAttackDamage, "物理攻击",
                 Style.EMPTY.applyFormat(ChatFormatting.AQUA), 1, true, itemStack, false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDamage, Utils.xpLevelManaDamage,
-                StringUtils.CuriosAttribute.xpLevelManaDamage, "魔法攻击", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE),
+                StringUtils.RandomCuriosAttribute.xpLevelManaDamage, "魔法攻击", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE),
                 1, false, itemStack, event.getTooltipElements(), localPlayer, true, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE));
 
         if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.manaDamage)
-                || data.contains(StringUtils.CuriosAttribute.manaDamage)) {
+                || data.contains(StringUtils.RandomCuriosAttribute.manaDamage)) {
             if (itemStack.is(ModItems.SoulSceptre.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                 MutableComponent mutableComponent = Component.literal("");
@@ -155,12 +157,12 @@ public class BasicAttributeDescription {
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDamage)));
             } else {
                 double baseDamage;
-                if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaDamage)) {
+                if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaDamage)) {
                     if (Utils.manaDamage.containsKey(item))
                         baseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.manaDamage);
                     else if (item instanceof RandomCurios)
-                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.manaDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaDamage);
-                    else baseDamage = data.getInt(StringUtils.CuriosAttribute.manaDamage);
+                        baseDamage = data.getDouble(StringUtils.RandomCuriosAttribute.manaDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.manaDamage);
+                    else baseDamage = data.getInt(StringUtils.RandomCuriosAttribute.manaDamage);
                 } else
                     baseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaDamage);
 
@@ -171,7 +173,7 @@ public class BasicAttributeDescription {
 
                     handleExBaseAttributeValue(itemStack, mutableComponent, Utils.manaDamage);
                     handleForge(data, baseDamage, mutableComponent);
-                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaDamage, mutableComponent);
+                    handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaDamage, mutableComponent);
 
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDamage)));
@@ -180,7 +182,7 @@ public class BasicAttributeDescription {
         }
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDamage, Utils.percentManaDamageEnhance,
-                StringUtils.CuriosAttribute.percentManaDamageEnhance, "魔法攻击",
+                StringUtils.RandomCuriosAttribute.percentManaDamageEnhance, "魔法攻击",
                 CustomStyle.styleOfMana, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
@@ -190,18 +192,18 @@ public class BasicAttributeDescription {
                 false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defence, Utils.xpLevelDefence,
-                StringUtils.CuriosAttribute.xpLevelDefence, "基础护甲", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
+                StringUtils.RandomCuriosAttribute.xpLevelDefence, "基础护甲", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
                 1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.defence.containsKey(item) || data.contains(StringUtils.RandomAttribute.defence)
-                || data.contains(StringUtils.CuriosAttribute.defence)) {
+                || data.contains(StringUtils.RandomCuriosAttribute.defence)) {
             double defence;
-            if (Utils.defence.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defence)) {
+            if (Utils.defence.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.defence)) {
                 if (Utils.defence.containsKey(item))
                     defence = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.defence);
                 else if (item instanceof RandomCurios)
-                    defence = data.getDouble(StringUtils.CuriosAttribute.defence) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.defence);
-                else defence = data.getInt(StringUtils.CuriosAttribute.defence);
+                    defence = data.getDouble(StringUtils.RandomCuriosAttribute.defence) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.defence);
+                else defence = data.getInt(StringUtils.RandomCuriosAttribute.defence);
             } else defence = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.defence);
 
             MutableComponent mutableComponent = Component.literal("");
@@ -210,51 +212,51 @@ public class BasicAttributeDescription {
 
             handleExBaseAttributeValue(itemStack, mutableComponent, Utils.defence);
             handleForge(data, defence, mutableComponent);
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defence, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.defence, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defence)));
         }
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.defence, Utils.percentDefenceEnhance,
-                StringUtils.CuriosAttribute.percentDefenceEnhance, "基础护甲",
+                StringUtils.RandomCuriosAttribute.percentDefenceEnhance, "基础护甲",
                 Style.EMPTY.applyFormat(ChatFormatting.GRAY), 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDefence, Utils.xpLevelManaDefence,
-                StringUtils.CuriosAttribute.xpLevelManaDefence, "魔法抗性", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
+                StringUtils.RandomCuriosAttribute.xpLevelManaDefence, "魔法抗性", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
                 1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
-        if (Utils.manaDefence.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaDefence)) {
+        if (Utils.manaDefence.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaDefence)) {
             double manaDefence = 0;
             if (Utils.manaDefence.containsKey(item))
                 manaDefence = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.manaDefence);
             else if (item instanceof RandomCurios)
-                manaDefence = data.getDouble(StringUtils.CuriosAttribute.manaDefence) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaDefence);
+                manaDefence = data.getDouble(StringUtils.RandomCuriosAttribute.manaDefence) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.manaDefence);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 魔法抗性").withStyle(ChatFormatting.BLUE).
                     append(Component.literal("+" + getDecimal(manaDefence, 1)).withStyle(ChatFormatting.WHITE)));
 
             handleForge(data, manaDefence, mutableComponent);
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaDefence, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaDefence, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDefence)));
         }
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDefence, Utils.percentManaDefenceEnhance,
-                StringUtils.CuriosAttribute.percentManaDefenceEnhance, "魔法抗性",
+                StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance, "魔法抗性",
                 Style.EMPTY.applyFormat(ChatFormatting.BLUE), 1, true, itemStack, false, null, event.getTooltipElements());
 
         if (Utils.maxHealth.containsKey(item) || data.contains(StringUtils.RandomAttribute.maxHealth)
-                || data.contains(StringUtils.CuriosAttribute.maxHealth)) {
+                || data.contains(StringUtils.RandomCuriosAttribute.maxHealth)) {
             double maxHealth;
-            if (Utils.maxHealth.containsKey(item) || data.contains(StringUtils.CuriosAttribute.maxHealth)) {
+            if (Utils.maxHealth.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.maxHealth)) {
                 if (Utils.maxHealth.containsKey(item))
                     maxHealth = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.maxHealth);
                 else if (item instanceof RandomCurios)
-                    maxHealth = data.getDouble(StringUtils.CuriosAttribute.maxHealth) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.maxHealth);
+                    maxHealth = data.getDouble(StringUtils.RandomCuriosAttribute.maxHealth) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.maxHealth);
                 else
                     maxHealth = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.maxHealth);
             } else
@@ -284,40 +286,40 @@ public class BasicAttributeDescription {
                         withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.RED));
             }
 
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.maxHealth, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.maxHealth, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.maxHealth)));
         }
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.maxHealth, Utils.percentMaxHealthEnhance,
-                StringUtils.CuriosAttribute.percentMaxHealthEnhance, "最大生命值",
+                StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance, "最大生命值",
                 Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, true, itemStack, false,
                 null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.healthRecover,
-                StringUtils.CuriosAttribute.healthRecover, "生命回复",
+                StringUtils.RandomCuriosAttribute.healthRecover, "生命回复",
                 Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, false, itemStack, true,
                 CustomStyle.styleOfLife, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.percentHealthRecover,
-                StringUtils.CuriosAttribute.percentHealthRecover, "生命回复",
+                StringUtils.RandomCuriosAttribute.percentHealthRecover, "生命回复",
                 Style.EMPTY.applyFormat(ChatFormatting.GREEN), 2, true, itemStack, false,
                 CustomStyle.styleOfLife, event.getTooltipElements());
 
-        if (Utils.defencePenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defencePenetration)) {
+        if (Utils.defencePenetration.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.defencePenetration)) {
 
             double DefencePenetration;
             if (Utils.defencePenetration.containsKey(item)) DefencePenetration = Utils.defencePenetration.get(item);
             else if (item instanceof RandomCurios)
-                DefencePenetration = data.getDouble(StringUtils.CuriosAttribute.defencePenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.defencePenetration);
-            else DefencePenetration = data.getInt(StringUtils.CuriosAttribute.defencePenetration);
+                DefencePenetration = data.getDouble(StringUtils.RandomCuriosAttribute.defencePenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.defencePenetration);
+            else DefencePenetration = data.getInt(StringUtils.RandomCuriosAttribute.defencePenetration);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
                     append(Component.literal("+" + String.format("%.0f%%", DefencePenetration * 100)).withStyle(ChatFormatting.WHITE)));
 
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defencePenetration, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.defencePenetration, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration)));
@@ -325,10 +327,10 @@ public class BasicAttributeDescription {
         }
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defencePenetration0, Utils.xpLevelDefencePenetration0,
-                StringUtils.CuriosAttribute.xpLevelDefencePenetration0, "护甲穿透", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
+                StringUtils.RandomCuriosAttribute.xpLevelDefencePenetration0, "护甲穿透", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
                 1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
-        if (Utils.defencePenetration0.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defencePenetration0)
+        if (Utils.defencePenetration0.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.defencePenetration0)
                 || data.contains(StringUtils.RandomAttribute.defencePenetration0)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
                 if (itemStack.is(ModItems.SoulSword.get())) {
@@ -358,8 +360,8 @@ public class BasicAttributeDescription {
                 if (Utils.defencePenetration0.containsKey(item))
                     defencePenetration0 = Utils.defencePenetration0.get(item);
                 else if (item instanceof RandomCurios)
-                    defencePenetration0 = data.getDouble(StringUtils.CuriosAttribute.defencePenetration0) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.defencePenetration0);
-                else defencePenetration0 = data.getInt(StringUtils.CuriosAttribute.defencePenetration0);
+                    defencePenetration0 = data.getDouble(StringUtils.RandomCuriosAttribute.defencePenetration0) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.defencePenetration0);
+                else defencePenetration0 = data.getInt(StringUtils.RandomCuriosAttribute.defencePenetration0);
                 if (data.contains(StringUtils.RandomAttribute.defencePenetration0))
                     defencePenetration0 += data.getDouble(StringUtils.RandomAttribute.defencePenetration0);
 
@@ -369,7 +371,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+" + getDecimal(defencePenetration0, 1))
                                     .withStyle(ChatFormatting.WHITE)));
 
-                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defencePenetration0, mutableComponent);
+                    handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.defencePenetration0, mutableComponent);
 
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration0)));
@@ -377,7 +379,7 @@ public class BasicAttributeDescription {
             }
         }
 
-        if (Utils.critRate.containsKey(item) || data.contains(StringUtils.CuriosAttribute.critRate)
+        if (Utils.critRate.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.critRate)
                 || data.contains(StringUtils.RandomAttribute.critRate)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
                 if (itemStack.is(ModItems.SoulSword.get())) {
@@ -406,15 +408,15 @@ public class BasicAttributeDescription {
                 double critRate;
                 if (Utils.critRate.containsKey(item)) critRate = Utils.critRate.get(item);
                 else if (item instanceof RandomCurios)
-                    critRate = data.getDouble(StringUtils.CuriosAttribute.critRate) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.critRate);
-                else critRate = data.getInt(StringUtils.CuriosAttribute.critRate);
+                    critRate = data.getDouble(StringUtils.RandomCuriosAttribute.critRate) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.critRate);
+                else critRate = data.getInt(StringUtils.RandomCuriosAttribute.critRate);
                 if (data.contains(StringUtils.RandomAttribute.critRate))
                     critRate += data.getDouble(StringUtils.RandomAttribute.critRate);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
                         append(Component.literal("+" + String.format("%.1f%%", critRate * 100)).withStyle(ChatFormatting.WHITE)));
 
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.critRate, mutableComponent);
+                handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.critRate, mutableComponent);
 
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critRate)));
@@ -422,11 +424,11 @@ public class BasicAttributeDescription {
         }
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.critDamage, Utils.xpLevelCritDamage,
-                StringUtils.CuriosAttribute.xpLevelCritDamage, "暴击伤害", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
+                StringUtils.RandomCuriosAttribute.xpLevelCritDamage, "暴击伤害", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
                 0, true, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.critDamage.containsKey(item)
-                || data.contains(StringUtils.CuriosAttribute.critDamage)
+                || data.contains(StringUtils.RandomCuriosAttribute.critDamage)
                 || data.contains(StringUtils.RandomAttribute.critDamage)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
                 if (itemStack.is(ModItems.SoulSword.get())) {
@@ -456,9 +458,9 @@ public class BasicAttributeDescription {
                 if (Utils.critDamage.containsKey(item)) critDamage =
                         ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.critDamage, null, false);
                 else if (item instanceof RandomCurios)
-                    critDamage = data.getDouble(StringUtils.CuriosAttribute.critDamage)
-                            * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.critDamage);
-                else critDamage = data.getInt(StringUtils.CuriosAttribute.critDamage);
+                    critDamage = data.getDouble(StringUtils.RandomCuriosAttribute.critDamage)
+                            * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.critDamage);
+                else critDamage = data.getInt(StringUtils.RandomCuriosAttribute.critDamage);
                 if (data.contains(StringUtils.RandomAttribute.critDamage))
                     critDamage += data.getDouble(StringUtils.RandomAttribute.critDamage);
                 MutableComponent mutableComponent = Component.literal("");
@@ -466,14 +468,14 @@ public class BasicAttributeDescription {
                         append(Component.literal("+" + String.format("%.0f%%", critDamage * 100)).withStyle(ChatFormatting.WHITE)));
 
                 handleExBaseAttributeValue(itemStack, mutableComponent, Utils.critDamage, 0, true);
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.critDamage, mutableComponent);
+                handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.critDamage, mutableComponent);
 
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critDamage)));
             }
         }
 
-        if (Utils.healthSteal.containsKey(item) || data.contains(StringUtils.CuriosAttribute.healthSteal)
+        if (Utils.healthSteal.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.healthSteal)
                 || data.contains(StringUtils.RandomAttribute.healthSteal)) {
             if (itemStack.is(ModItems.SoulSword.get())) {
                 if (itemStack.is(ModItems.SoulSword.get())) {
@@ -491,15 +493,15 @@ public class BasicAttributeDescription {
                 double healSteal;
                 if (Utils.healthSteal.containsKey(item)) healSteal = Utils.healthSteal.get(item);
                 else if (item instanceof RandomCurios)
-                    healSteal = data.getDouble(StringUtils.CuriosAttribute.healthSteal) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.healthSteal);
-                else healSteal = data.getInt(StringUtils.CuriosAttribute.healthSteal);
+                    healSteal = data.getDouble(StringUtils.RandomCuriosAttribute.healthSteal) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.healthSteal);
+                else healSteal = data.getInt(StringUtils.RandomCuriosAttribute.healthSteal);
                 if (data.contains(StringUtils.RandomAttribute.healthSteal))
                     healSteal += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.healthSteal);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 生命偷取").withStyle(ChatFormatting.RED).
                         append(Component.literal("+" + String.format("%.0f‰", healSteal * 100)).withStyle(ChatFormatting.WHITE)));
 
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.healthSteal, mutableComponent);
+                handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.healthSteal, mutableComponent);
 
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthSteal)));
@@ -528,8 +530,8 @@ public class BasicAttributeDescription {
             }
         }
 
-        if (Utils.maxMana.containsKey(item) || data.contains(StringUtils.CuriosAttribute.maxMana)
-                || data.contains(StringUtils.CuriosAttribute.maxMana)) {
+        if (Utils.maxMana.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.maxMana)
+                || data.contains(StringUtils.RandomCuriosAttribute.maxMana)) {
             if (itemStack.is(ModItems.SoulSceptre.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                 MutableComponent mutableComponent = Component.literal("");
@@ -543,7 +545,7 @@ public class BasicAttributeDescription {
                 double maxMana = 0;
                 if (Utils.maxMana.containsKey(item)) maxMana = Utils.maxMana.get(item);
                 else if (item instanceof RandomCurios)
-                    maxMana = data.getDouble(StringUtils.CuriosAttribute.maxMana) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.maxMana);
+                    maxMana = data.getDouble(StringUtils.RandomCuriosAttribute.maxMana) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.maxMana);
                 if (data.contains(StringUtils.RandomAttribute.maxMana))
                     maxMana = data.getDouble(StringUtils.RandomAttribute.maxMana);
 
@@ -551,35 +553,35 @@ public class BasicAttributeDescription {
                 mutableComponent.append(Component.literal(" 最大法力值").withStyle(ChatFormatting.LIGHT_PURPLE).
                         append(Component.literal("+" + String.format("%.0f", maxMana)).withStyle(ChatFormatting.WHITE)));
 
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.maxMana, mutableComponent);
+                handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.maxMana, mutableComponent);
 
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.maxMana)));
             }
         }
 
-        if (Utils.manaPenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaPenetration)) {
+        if (Utils.manaPenetration.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaPenetration)) {
             double ManaPenetration;
             if (Utils.manaPenetration.containsKey(item)) ManaPenetration = Utils.manaPenetration.get(item);
             else if (item instanceof RandomCurios)
-                ManaPenetration = data.getDouble(StringUtils.CuriosAttribute.manaPenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaPenetration);
-            else ManaPenetration = data.getInt(StringUtils.CuriosAttribute.manaPenetration);
+                ManaPenetration = data.getDouble(StringUtils.RandomCuriosAttribute.manaPenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.manaPenetration);
+            else ManaPenetration = data.getInt(StringUtils.RandomCuriosAttribute.manaPenetration);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
                     append(Component.literal("+" + String.format("%.0f%%", ManaPenetration * 100)).withStyle(ChatFormatting.WHITE)));
 
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaPenetration, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaPenetration, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration)));
         }
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaPenetration0, Utils.xpLevelManaPenetration0,
-                StringUtils.CuriosAttribute.xpLevelManaPenetration0, "魔法穿透", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
+                StringUtils.RandomCuriosAttribute.xpLevelManaPenetration0, "魔法穿透", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
                 1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
-        if (Utils.manaPenetration0.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaPenetration0)
+        if (Utils.manaPenetration0.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaPenetration0)
                 || data.contains(StringUtils.RandomAttribute.manaPenetration0)) {
             if (itemStack.is(ModItems.SoulSceptre.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
@@ -595,8 +597,8 @@ public class BasicAttributeDescription {
                 double manaPenetration0;
                 if (Utils.manaPenetration0.containsKey(item)) manaPenetration0 = Utils.manaPenetration0.get(item);
                 else if (item instanceof RandomCurios)
-                    manaPenetration0 = data.getDouble(StringUtils.CuriosAttribute.manaPenetration0) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaPenetration0);
-                else manaPenetration0 = data.getInt(StringUtils.CuriosAttribute.manaPenetration0);
+                    manaPenetration0 = data.getDouble(StringUtils.RandomCuriosAttribute.manaPenetration0) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.manaPenetration0);
+                else manaPenetration0 = data.getInt(StringUtils.RandomCuriosAttribute.manaPenetration0);
                 if (data.contains(StringUtils.RandomAttribute.manaPenetration0))
                     manaPenetration0 += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaPenetration0);
 
@@ -605,7 +607,7 @@ public class BasicAttributeDescription {
                     mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
                             append(Component.literal("+" + getDecimal(manaPenetration0, 1)).withStyle(ChatFormatting.WHITE)));
 
-                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaPenetration0, mutableComponent);
+                    handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaPenetration0, mutableComponent);
 
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration0)));
@@ -613,7 +615,7 @@ public class BasicAttributeDescription {
             }
         }
 
-        if (Utils.manaRecover.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaRecover)
+        if (Utils.manaRecover.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaRecover)
                 || data.contains(StringUtils.RandomAttribute.manaRecover)) {
             if (itemStack.is(ModItems.SoulSceptre.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
@@ -629,8 +631,8 @@ public class BasicAttributeDescription {
                 double manaRecover;
                 if (Utils.manaRecover.containsKey(item)) manaRecover = Utils.manaRecover.get(item);
                 else if (item instanceof RandomCurios)
-                    manaRecover = data.getDouble(StringUtils.CuriosAttribute.manaRecover) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaRecover);
-                else manaRecover = data.getInt(StringUtils.CuriosAttribute.manaRecover);
+                    manaRecover = data.getDouble(StringUtils.RandomCuriosAttribute.manaRecover) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.manaRecover);
+                else manaRecover = data.getInt(StringUtils.RandomCuriosAttribute.manaRecover);
                 if (data.contains(StringUtils.RandomAttribute.manaRecover))
                     manaRecover += data.getDouble(StringUtils.RandomAttribute.manaRecover);
 
@@ -638,20 +640,20 @@ public class BasicAttributeDescription {
                 mutableComponent.append(Component.literal(" 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
                         append(Component.literal("+" + String.format("%.0f", manaRecover)).withStyle(ChatFormatting.WHITE)));
 
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaRecover, mutableComponent);
+                handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaRecover, mutableComponent);
 
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaRecover)));
             }
         }
 
-        if (Utils.coolDownDecrease.containsKey(item) || data.contains(StringUtils.CuriosAttribute.coolDown)
+        if (Utils.coolDownDecrease.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.coolDown)
                 || data.contains(StringUtils.RandomAttribute.coolDown)) {
             double coolDown;
             if (Utils.coolDownDecrease.containsKey(item)) coolDown = Utils.coolDownDecrease.get(item);
             else if (item instanceof RandomCurios)
-                coolDown = data.getDouble(StringUtils.CuriosAttribute.coolDown) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.coolDown);
-            else coolDown = data.getInt(StringUtils.CuriosAttribute.coolDown);
+                coolDown = data.getDouble(StringUtils.RandomCuriosAttribute.coolDown) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.coolDown);
+            else coolDown = data.getInt(StringUtils.RandomCuriosAttribute.coolDown);
             if (data.contains(StringUtils.RandomAttribute.coolDown))
                 coolDown = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.coolDown);
 
@@ -659,17 +661,17 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 技能急速").withStyle(ChatFormatting.AQUA).
                     append(Component.literal(" " + String.format("%.0f", coolDown * 100)).withStyle(ChatFormatting.WHITE)));
 
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.coolDown, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.coolDown, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.releaseSpeed)));
         }
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.movementSpeed, Utils.movementSpeedCommon,
-                StringUtils.CuriosAttribute.commonMovementSpeed, "移动速度",
+                StringUtils.RandomCuriosAttribute.commonMovementSpeed, "移动速度",
                 Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack, true, CustomStyle.styleOfFlexible, event.getTooltipElements());
 
-        if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.CuriosAttribute.movementSpeed)
+        if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.movementSpeed)
                 || data.contains(StringUtils.RandomAttribute.movementSpeedWithoutBattle)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())
                     || itemStack.is(ModItems.SoulSceptre.get())) {
@@ -711,8 +713,8 @@ public class BasicAttributeDescription {
                 if (Utils.movementSpeedWithoutBattle.containsKey(item))
                     MovementSpeed = Utils.movementSpeedWithoutBattle.get(item);
                 else if (item instanceof RandomCurios)
-                    MovementSpeed = data.getDouble(StringUtils.CuriosAttribute.movementSpeed) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.movementSpeed);
-                else MovementSpeed = data.getInt(StringUtils.CuriosAttribute.movementSpeed);
+                    MovementSpeed = data.getDouble(StringUtils.RandomCuriosAttribute.movementSpeed) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.movementSpeed);
+                else MovementSpeed = data.getInt(StringUtils.RandomCuriosAttribute.movementSpeed);
                 if (data.contains(StringUtils.RandomAttribute.movementSpeedWithoutBattle))
                     MovementSpeed += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.movementSpeedWithoutBattle);
 
@@ -729,65 +731,65 @@ public class BasicAttributeDescription {
 
                 }
 
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.movementSpeed, mutableComponent);
+                handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.movementSpeed, mutableComponent);
 
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
             }
         }
-        if (Utils.expUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.expUp)) {
+        if (Utils.expUp.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.expUp)) {
             double ExpUp;
             if (item instanceof RandomCurios)
-                ExpUp = data.getDouble(StringUtils.CuriosAttribute.expUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.expUp);
+                ExpUp = data.getDouble(StringUtils.RandomCuriosAttribute.expUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.expUp);
             else ExpUp = Utils.expUp.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 经验加成").withStyle(ChatFormatting.LIGHT_PURPLE).
                     append(Component.literal("+" + String.format("%.0f%%", ExpUp * 100)).withStyle(ChatFormatting.WHITE)));
 
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.expUp, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.expUp, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.expUp)));
         }
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.swiftnessUp,
-                Utils.swiftnessUp, StringUtils.CuriosAttribute.swiftnessUp, "迅捷加成",
+                Utils.swiftnessUp, StringUtils.RandomCuriosAttribute.swiftnessUp, "迅捷加成",
                 CustomStyle.styleOfFlexible, 1, false, itemStack, false, null, event.getTooltipElements());
-        if (Utils.manaHealthSteal.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaHealthSteal)) {
+        if (Utils.manaHealthSteal.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaHealthSteal)) {
             double ManaHealSteal;
             if (Utils.manaHealthSteal.containsKey(item)) ManaHealSteal = Utils.manaHealthSteal.get(item);
             else if (item instanceof RandomCurios)
-                ManaHealSteal = data.getDouble(StringUtils.CuriosAttribute.manaHealthSteal) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaHealthSteal);
-            else ManaHealSteal = data.getInt(StringUtils.CuriosAttribute.manaHealthSteal);
+                ManaHealSteal = data.getDouble(StringUtils.RandomCuriosAttribute.manaHealthSteal) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.manaHealthSteal);
+            else ManaHealSteal = data.getInt(StringUtils.RandomCuriosAttribute.manaHealthSteal);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 法术吸血").withStyle(CustomStyle.styleOfBloodMana).
                     append(Component.literal("+" + String.format("%.0f‰", ManaHealSteal * 100)).withStyle(ChatFormatting.WHITE)));
 
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaHealthSteal, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaHealthSteal, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaHealthSteal)));
         }
-        if (Utils.healingAmplification.containsKey(item) || data.contains(StringUtils.CuriosAttribute.healEffectUp)) {
+        if (Utils.healingAmplification.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.healEffectUp)) {
             double HealEffectUp;
             if (Utils.healingAmplification.containsKey(item)) HealEffectUp = Utils.healingAmplification.get(item);
             else if (item instanceof RandomCurios)
-                HealEffectUp = data.getDouble(StringUtils.CuriosAttribute.healEffectUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.healEffectUp);
-            else HealEffectUp = data.getInt(StringUtils.CuriosAttribute.healEffectUp);
+                HealEffectUp = data.getDouble(StringUtils.RandomCuriosAttribute.healEffectUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.healEffectUp);
+            else HealEffectUp = data.getInt(StringUtils.RandomCuriosAttribute.healEffectUp);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 治疗强度").withStyle(CustomStyle.styleOfHealth).
                     append(Component.literal("+" + String.format("%.0f%%", HealEffectUp * 100)).withStyle(ChatFormatting.WHITE)));
 
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.healEffectUp, mutableComponent);
+            handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.healEffectUp, mutableComponent);
 
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthStrength)));
         }
-        if (Utils.luckyUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.LuckyUp)) {
+        if (Utils.luckyUp.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.LuckyUp)) {
             double LuckyUp;
             if (Utils.luckyUp.containsKey(item)) LuckyUp = Utils.luckyUp.get(item);
-            else LuckyUp = data.getInt(StringUtils.CuriosAttribute.LuckyUp);
+            else LuckyUp = data.getInt(StringUtils.RandomCuriosAttribute.LuckyUp);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 幸运加成").withStyle(ChatFormatting.LIGHT_PURPLE).
@@ -802,7 +804,7 @@ public class BasicAttributeDescription {
                 false, null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.toughness, Utils.toughness,
-                StringUtils.CuriosAttribute.toughness, "韧性",
+                StringUtils.RandomCuriosAttribute.toughness, "韧性",
                 CustomStyle.styleOfEnd, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
@@ -813,25 +815,25 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index,
                 TraditionalTooltip.finalDamageEnhance, Utils.finalDamageEnhance,
-                StringUtils.CuriosAttribute.finalDamageEnhance, "最终伤害加成",
+                StringUtils.RandomCuriosAttribute.finalDamageEnhance, "最终伤害加成",
                 CustomStyle.styleOfDemon, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index,
                 TraditionalTooltip.attackDamageEnhance, Utils.attackDamageEnhance,
-                StringUtils.CuriosAttribute.attackDamageEnhance, "物理伤害加成",
+                StringUtils.RandomCuriosAttribute.attackDamageEnhance, "物理伤害加成",
                 CustomStyle.styleOfPower, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index,
                 TraditionalTooltip.manaDamageEnhance, Utils.manaDamageEnhance,
-                StringUtils.CuriosAttribute.manaDamageEnhance, "魔法伤害加成",
+                StringUtils.RandomCuriosAttribute.manaDamageEnhance, "魔法伤害加成",
                 CustomStyle.styleOfMana, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index,
                 TraditionalTooltip.commonDamageEnhance, Utils.commonDamageEnhance,
-                StringUtils.CuriosAttribute.commonDamageEnhance, "普通伤害加成",
+                StringUtils.RandomCuriosAttribute.commonDamageEnhance, "普通伤害加成",
                 CustomStyle.styleOfMoon, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
@@ -1165,15 +1167,16 @@ public class BasicAttributeDescription {
         Item curios = equip.getItem();
         if (curios instanceof RandomCurios randomCurios) {
             CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
+            double rate = data.getDouble(attributeType);
+            if (rate == 0) {
+                return;
+            }
             double fullRate = randomCurios.fullRate();
             double fullRateGetByTag = RandomCurios.getFullRateByTag(equip);
             if (fullRateGetByTag != 0) {
                 fullRate = fullRateGetByTag;
             }
-
-            double rate = data.getDouble(attributeType);
             double percent = rate / fullRate;
-
             Style[] styles = new Style[]{CustomStyle.styleOfPlain, CustomStyle.styleOfWater,
                     CustomStyle.styleOfVolcano, CustomStyle.styleOfPower, Style.EMPTY.applyFormat(ChatFormatting.RED)};
             mutableComponent.append(Te.m(" [").

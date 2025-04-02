@@ -158,7 +158,9 @@ public class PrefixCommand implements Command<CommandSourceStack> {
 
     public static boolean activePrefix(Player player, String tag) {
         CompoundTag data = player.getPersistentData();
-        if (!data.contains(simpleFlagPrefixDataKey)) data.put(simpleFlagPrefixDataKey, new CompoundTag());
+        if (!data.contains(simpleFlagPrefixDataKey)) {
+            data.put(simpleFlagPrefixDataKey, new CompoundTag());
+        }
         CompoundTag prefixData = data.getCompound(simpleFlagPrefixDataKey);
         if (prefixData.contains(tag)) return false;
         prefixData.putBoolean(tag, true);
@@ -298,27 +300,6 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
                 append(Te.s(RankData.rankNameMap.get(RankData.getCurrentRank(player)),
                         RankData.rankStyleMap.get(RankData.getCurrentRank(player)))));
-
-/*        if (data.contains(StringUtils.DragonPrefix)) {
-            count++;
-            player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("龙行龘龘").withStyle(CustomStyle.styleOfSpring)));
-        }
-        if (data.contains(StringUtils.XiangLiPrefix)) {
-            count++;
-            player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("理塘王").withStyle(CustomStyle.styleOfField)));
-        }
-        if (data.contains(StringUtils.LotteryPrefix)) {
-            count++;
-            player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("赌神").withStyle(ChatFormatting.GOLD)));
-        }
-        if (data.contains(StringUtils.QingMingPrefix)) {
-            count++;
-            player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("雨纷纷").withStyle(CustomStyle.styleOfHealth)));
-        }*/
         Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                 Component.literal("使用/vmd prefix [编号]来激活称号").withStyle(ChatFormatting.WHITE));
         return 0;

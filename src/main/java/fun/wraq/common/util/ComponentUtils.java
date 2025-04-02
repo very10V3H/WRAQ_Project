@@ -610,6 +610,10 @@ public class ComponentUtils {
         return Te.m(value + "法球攻击增幅", CustomStyle.styleOfMana);
     }
 
+    public static Component getResistance(String value) {
+        return Te.m(value + "抗性提升", CustomStyle.styleOfStone);
+    }
+
     public static void emojiDescriptionBaseAttackDamage(List<Component> components, double BaseDamage) {
         components.add(Component.literal(Utils.Emoji.Sword + " 基础攻击").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" " + String.format("%.0f", BaseDamage)).withStyle(ChatFormatting.WHITE)));

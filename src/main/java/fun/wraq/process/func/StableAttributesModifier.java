@@ -44,6 +44,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> playerToughnessModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerManaPenetrationModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerSwiftnessModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerExHarvestModifier = new HashMap<>();
 
     public static Map<LivingEntity, List<StableAttributesModifier>> mobDefenceModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentDefenceModifier = new HashMap<>();

@@ -15,6 +15,7 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.bow.*;
 import fun.wraq.process.system.skill.skillv2.mana.*;
 import fun.wraq.process.system.skill.skillv2.network.SkillV2CooldownS2CPacket;
@@ -24,6 +25,7 @@ import fun.wraq.process.system.skill.skillv2.sword.*;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemEnhanceSkillRate;
+import fun.wraq.series.holy.ice.curio.IceHolySceptre;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -85,6 +87,8 @@ public abstract class SkillV2 {
         double enhanceRate = 0;
         enhanceRate += EnhanceSkillRateEquip.getEnhanceRate(player, skillType);
         enhanceRate += GemEnhanceSkillRate.getEnhanceRate(player, skillType);
+        enhanceRate += ManaSkillTree.getManaSkill13ExSkillRate(player, professionType);
+        enhanceRate += IceHolySceptre.getExSkillDamageRate(player);
         return enhanceRate;
     }
 
@@ -142,13 +146,13 @@ public abstract class SkillV2 {
             manaSkillV2.add(new ManaNewSkillPassive0(Te.s("解析", style),
                     0, 0, 2, 0, 0));
             manaSkillV2.add(new ManaNewSkillBase1_0(Te.s("崩碎", style),
-                    Tick.s(3), 60, 2, 1, 0));
+                    Tick.s(3), 40, 2, 1, 0));
             manaSkillV2.add(new ManaNewSkillBase2_0(Te.s("撕裂", style),
-                    Tick.s(8), 100, 2, 2, 0));
+                    Tick.s(8), 50, 2, 2, 0));
             manaSkillV2.add(new ManaNewSkillBase3_0(Te.s("激化", style),
                     Tick.s(12), 80, 2, 3, 0));
             manaSkillV2.add(new ManaNewSkillFinal0(Te.s("爆裂", style),
-                    Tick.s(30), 200, 2, 4, 0));
+                    Tick.s(30), 100, 2, 4, 0));
         }
         return manaSkillV2;
     }
@@ -497,9 +501,14 @@ public abstract class SkillV2 {
         }
         Map<SkillV2, Integer> skillV2AllowReleaseTickMap = playerSkillV2AllowReleaseTickMap.get(name);
         int skillLevel = getPlayerSkillLevel(player);
+        double manaCostValue = manaCost + skillLevel * getEachLevelExManaCost();
+        if (professionType == 2) {
+            manaCostValue = ManaNewSkill.modifyManaCost(player, manaCostValue);
+        }
         if (canRelease(player)
                 && skillV2AllowReleaseTickMap.getOrDefault(this, 0) <= Tick.get()
-                && Mana.getPlayerCurrentManaNum(player) >= (manaCost + skillLevel * getEachLevelExManaCost())) {
+                && Mana.getPlayerCurrentManaNum(player) > manaCostValue) {
+            Mana.addOrCostPlayerMana(player, -manaCostValue);
             int cooldownAfterModify = cooldownTick;
             if (professionType == 2) {
                 cooldownAfterModify = ManaNewSkill.modifyCooldown(player, cooldownTick);
@@ -511,11 +520,6 @@ public abstract class SkillV2 {
             skillV2AllowReleaseTickMap.put(this, Tick.get() + afterDecreaseCooldownTick);
             ModNetworking.sendToClient(new SkillV2CooldownS2CPacket(skillType, afterDecreaseCooldownTick,
                     afterDecreaseCooldownTick), player);
-            int manaCostAfterModify = manaCost + skillLevel * getEachLevelExManaCost();
-            if (professionType == 2) {
-                manaCostAfterModify = ManaNewSkill.modifyManaCost(player, manaCostAfterModify);
-            }
-            Mana.addOrCostPlayerMana(player, -manaCostAfterModify);
             releaseOperation(player);
             if (professionType == 2) {
                 PowerLogic.playerReleasePower(player);

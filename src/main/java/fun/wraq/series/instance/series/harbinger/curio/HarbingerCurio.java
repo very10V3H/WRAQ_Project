@@ -62,17 +62,17 @@ public class HarbingerCurio extends WraqCurios implements RandomCurios, OnWithSt
             if (RandomUtils.nextBoolean()) {
                 RandomCuriosAttributesUtil
                         .provideRandomAttributeFromList(2, 3, true, stack, List.of(
-                                StringUtils.CuriosAttribute.defencePenetration,
-                                StringUtils.CuriosAttribute.defencePenetration0,
-                                StringUtils.CuriosAttribute.manaPenetration,
-                                StringUtils.CuriosAttribute.manaPenetration0
+                                StringUtils.RandomCuriosAttribute.defencePenetration,
+                                StringUtils.RandomCuriosAttribute.defencePenetration0,
+                                StringUtils.RandomCuriosAttribute.manaPenetration,
+                                StringUtils.RandomCuriosAttribute.manaPenetration0
                         ));
             } else {
                 RandomCuriosAttributesUtil.randomAttackAttributeProvide(stack, 2, 3, true);
             }
         } else {
             RandomCuriosAttributesUtil.provideSingleAttribute(stack,
-                    StringUtils.CuriosAttribute.finalDamageEnhance, 3, 0.5, 1);
+                    StringUtils.RandomCuriosAttribute.finalDamageEnhance, 3, 0.5, 1);
         }
     }
 

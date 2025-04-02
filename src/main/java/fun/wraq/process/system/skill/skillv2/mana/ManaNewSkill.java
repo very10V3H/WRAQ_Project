@@ -1,6 +1,7 @@
 package fun.wraq.process.system.skill.skillv2.mana;
 
 import fun.wraq.customized.uniform.mana.ManaCurioTaboo;
+import fun.wraq.process.system.skill.ManaSkillTree;
 import net.minecraft.world.entity.player.Player;
 
 public class ManaNewSkill {
@@ -11,11 +12,13 @@ public class ManaNewSkill {
         return originCooldown;
     }
 
-    public static int modifyManaCost(Player player, int originManaCost) {
+    public static double modifyManaCost(Player player, double originManaCost) {
         if (ManaCurioTaboo.isActive(player)) {
             return 0;
         }
-        return originManaCost;
+        double exManaCostRate = 0;
+        exManaCostRate += ManaSkillTree.getManaSkill13ExManaCostRate(player, 2);
+        return originManaCost * (1 + exManaCostRate);
     }
 
     public static double modifyDamage(Player player, double originDamage) {

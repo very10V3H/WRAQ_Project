@@ -1,6 +1,7 @@
 package fun.wraq.series.events;
 
 import fun.wraq.commands.changeable.PrefixPaperItem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.lottery.NewLotteries;
@@ -10,6 +11,7 @@ import fun.wraq.series.events.midautumn.MidAutumnBow;
 import fun.wraq.series.events.midautumn.MidAutumnSceptre;
 import fun.wraq.series.events.midautumn.MidAutumnSword;
 import fun.wraq.series.events.midautumn.MoonFeather;
+import fun.wraq.series.events.qingMing.*;
 import fun.wraq.series.events.spring2024.FireCracker;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.events.spring2024.Spring2024Scale;
@@ -17,6 +19,7 @@ import fun.wraq.series.events.spring2025.curios.*;
 import fun.wraq.series.events.summer.SummerCuriosOrEquip2024;
 import fun.wraq.series.events.train.TrainSouvenirs;
 import fun.wraq.series.events.year2024.Souvenirs2024;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -25,6 +28,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpecialEventItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
@@ -206,4 +210,48 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> SCALE_2025_3 = ITEMS.register("spring_scale_2025_3",
             () -> new Spring2025Scale(new Item.Properties().rarity(CustomStyle.SpringBold), 3));
+
+    public static final RegistryObject<Item> QING_TUAN = ITEMS.register("qing_tuan",
+            () -> new QingTuan(new Item.Properties().rarity(CustomStyle.ForestBold)));
+
+    public static final RegistryObject<Item> QING_MING_PREFIX_PAPER_1 = ITEMS.register("qing_ming_prefix_paper_1",
+            () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.LifeBold),
+                    QingTuan.PREFIX_1, "雨纷纷", CustomStyle.styleOfLife));
+    public static final RegistryObject<Item> QING_MING_PREFIX_PAPER_2 = ITEMS.register("qing_ming_prefix_paper_2",
+            () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.LifeBold),
+                    QingTuan.PREFIX_2, "欲断魂", CustomStyle.styleOfLife));
+
+    public static final RegistryObject<Item> QING_MING_COMMON_RING = ITEMS.register("qing_ming_common_ring",
+            () -> new QingMingCommonRing(new Item.Properties().rarity(CustomStyle.LifeBold).stacksTo(1)));
+    public static final RegistryObject<Item> QING_MING_ATTACK_RING = ITEMS.register("qing_ming_attack_ring",
+            () -> new QingMingAttackRing(new Item.Properties().rarity(CustomStyle.LifeBold).stacksTo(1)));
+    public static final RegistryObject<Item> QING_MING_DEFENCE_RING = ITEMS.register("qing_ming_defence_ring",
+            () -> new QingMingDefenceRing(new Item.Properties().rarity(CustomStyle.LifeBold).stacksTo(1)));
+
+    public static final RegistryObject<Item> QING_MING_FORGE_PAPER = ITEMS.register("qing_ming_forge_paper",
+            () -> new QingMingForgePaper(new Item.Properties().rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> QING_MING_REBORN_CHEST = ITEMS.register("qing_ming_reborn_chest",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.LifeBold), new ArrayList<>() {{
+                add(new NewLotteries.Loot(new ItemStack(QING_MING_COMMON_RING.get()), 0.025));
+                add(new NewLotteries.Loot(new ItemStack(QING_MING_PREFIX_PAPER_1.get()), 0.025));
+                add(new NewLotteries.Loot(new ItemStack(QING_TUAN.get(), 4), 0.05));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.WORLD_SOUL_5.get(), 5), 0.9));
+            }}, true, List.of(
+                    Te.s(" 在", "清明活动", CustomStyle.styleOfLife, "期间", "(4.2-4.7)", ChatFormatting.AQUA),
+                    Te.s(" 每日第", "5/10/15/20", CustomStyle.styleOfLife, "次完成",
+                            "委托任务", ChatFormatting.AQUA, "可获得", "2个此物品")
+            )));
+
+    public static final RegistryObject<Item> QING_MING_QING_TUAN_CHEST = ITEMS.register("qing_ming_qing_tuan_chest",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.LifeBold), new ArrayList<>() {{
+                add(new NewLotteries.Loot(new ItemStack(QING_MING_FORGE_PAPER.get()), 0.01));
+                add(new NewLotteries.Loot(new ItemStack(QING_MING_ATTACK_RING.get()), 0.0125));
+                add(new NewLotteries.Loot(new ItemStack(QING_MING_DEFENCE_RING.get()), 0.0125));
+                add(new NewLotteries.Loot(new ItemStack(QING_MING_PREFIX_PAPER_2.get()), 0.015));
+                add(new NewLotteries.Loot(new ItemStack(QING_TUAN.get(), 2), 0.95));
+            }}, false, List.of(
+                    Te.s(" 在", "清明活动", CustomStyle.styleOfLife, "期间", "(4.2-4.7)", ChatFormatting.AQUA),
+                    Te.s(" 完成", "委托任务", ChatFormatting.AQUA, "即可获得", "1个此物品")
+            )));
 }

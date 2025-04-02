@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "vmd:item/qingming_ring"
+    "layer0": "vmd:item/qing_ming_defence_ring"
   }
 }

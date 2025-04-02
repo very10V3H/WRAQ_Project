@@ -10,36 +10,50 @@ import java.util.*;
 public class RandomCuriosAttributesUtil {
 
     public static Map<String, Double> attributeValueMap = new HashMap<>() {{
-        put(StringUtils.CuriosAttribute.attackDamage, 200d);
-        put(StringUtils.CuriosAttribute.manaDamage, 400d);
-        put(StringUtils.CuriosAttribute.maxHealth, 800d);
-        put(StringUtils.CuriosAttribute.defence, 36d);
-        put(StringUtils.CuriosAttribute.manaDefence, 48d);
-        put(StringUtils.CuriosAttribute.defencePenetration0, 20d);
-        put(StringUtils.CuriosAttribute.manaPenetration0, 20d);
-        put(StringUtils.CuriosAttribute.coolDown, 0.15);
-        put(StringUtils.CuriosAttribute.manaRecover, 15d);
-        put(StringUtils.CuriosAttribute.maxMana, 50d);
-        put(StringUtils.CuriosAttribute.swiftnessUp, 0.8);
-        put(StringUtils.CuriosAttribute.critDamage, 0.06);
-        put(StringUtils.CuriosAttribute.expUp, 0.3);
-        put(StringUtils.CuriosAttribute.critRate, 0.04);
-        put(StringUtils.CuriosAttribute.healthSteal, 0.05);
-        put(StringUtils.CuriosAttribute.defencePenetration, 0.05);
-        put(StringUtils.CuriosAttribute.movementSpeed, 0.25);
-        put(StringUtils.CuriosAttribute.commonMovementSpeed, 0.1);
-        put(StringUtils.CuriosAttribute.healthRecover, 50d);
-        put(StringUtils.CuriosAttribute.percentHealthRecover, 0.05d);
-        put(StringUtils.CuriosAttribute.healEffectUp, 0.1);
-        put(StringUtils.CuriosAttribute.manaPenetration, 0.05);
-        put(StringUtils.CuriosAttribute.manaHealthSteal, 0.05);
-        put(StringUtils.CuriosAttribute.finalDamageEnhance, 0.05);
+        put(StringUtils.RandomCuriosAttribute.attackDamage, 200d);
+        put(StringUtils.RandomCuriosAttribute.manaDamage, 400d);
+        put(StringUtils.RandomCuriosAttribute.maxHealth, 800d);
+        put(StringUtils.RandomCuriosAttribute.defence, 36d);
+        put(StringUtils.RandomCuriosAttribute.manaDefence, 48d);
+        put(StringUtils.RandomCuriosAttribute.defencePenetration0, 20d);
+        put(StringUtils.RandomCuriosAttribute.manaPenetration0, 20d);
+        put(StringUtils.RandomCuriosAttribute.coolDown, 0.15);
+        put(StringUtils.RandomCuriosAttribute.manaRecover, 15d);
+        put(StringUtils.RandomCuriosAttribute.maxMana, 50d);
+        put(StringUtils.RandomCuriosAttribute.swiftnessUp, 0.8);
+        put(StringUtils.RandomCuriosAttribute.critDamage, 0.06);
+        put(StringUtils.RandomCuriosAttribute.expUp, 0.3);
+        put(StringUtils.RandomCuriosAttribute.critRate, 0.04);
+        put(StringUtils.RandomCuriosAttribute.healthSteal, 0.05);
+        put(StringUtils.RandomCuriosAttribute.defencePenetration, 0.05);
+        put(StringUtils.RandomCuriosAttribute.movementSpeed, 0.25);
+        put(StringUtils.RandomCuriosAttribute.commonMovementSpeed, 0.1);
+        put(StringUtils.RandomCuriosAttribute.healthRecover, 50d);
+        put(StringUtils.RandomCuriosAttribute.percentHealthRecover, 0.05d);
+        put(StringUtils.RandomCuriosAttribute.healEffectUp, 0.1);
+        put(StringUtils.RandomCuriosAttribute.manaPenetration, 0.05);
+        put(StringUtils.RandomCuriosAttribute.manaHealthSteal, 0.05);
+
+        // 以下是特殊类型的属性，为确保其不会在寻常全属性随机饰品中出现，需要在特殊属性表中添加说明
+        put(StringUtils.RandomCuriosAttribute.finalDamageEnhance, 0.05);
+        put(StringUtils.RandomCuriosAttribute.percentAttackDamage, 0.05);
+        put(StringUtils.RandomCuriosAttribute.percentManaDamageEnhance, 0.05);
+        put(StringUtils.RandomCuriosAttribute.percentDefenceEnhance, 0.05);
+        put(StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance, 0.05);
     }};
+
+    public static List<String> specialAttributes = List.of(
+            StringUtils.RandomCuriosAttribute.finalDamageEnhance,
+            StringUtils.RandomCuriosAttribute.percentAttackDamage,
+            StringUtils.RandomCuriosAttribute.percentManaDamageEnhance,
+            StringUtils.RandomCuriosAttribute.percentDefenceEnhance,
+            StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance
+    );
 
     public static void randomAttributeProvide(ItemStack itemStack, int attributeNum, double rate, boolean distinct) {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = new ArrayList<>(attributeValueMap.keySet());
-        attributeList.remove(StringUtils.CuriosAttribute.finalDamageEnhance);
+        attributeList.removeAll(specialAttributes);
         provideRandomAttributeFromList(attributeNum, rate, distinct, data, attributeList);
     }
 
@@ -50,16 +64,16 @@ public class RandomCuriosAttributesUtil {
     public static void randomAttackAttributeProvide(ItemStack itemStack, int attributeNum, double rate, boolean distinct) {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = List.of(
-                StringUtils.CuriosAttribute.attackDamage,
-                StringUtils.CuriosAttribute.manaDamage,
-                StringUtils.CuriosAttribute.defencePenetration0,
-                StringUtils.CuriosAttribute.manaPenetration0,
-                StringUtils.CuriosAttribute.critRate,
-                StringUtils.CuriosAttribute.critDamage,
-                StringUtils.CuriosAttribute.healthSteal,
-                StringUtils.CuriosAttribute.manaHealthSteal,
-                StringUtils.CuriosAttribute.defencePenetration,
-                StringUtils.CuriosAttribute.manaPenetration
+                StringUtils.RandomCuriosAttribute.attackDamage,
+                StringUtils.RandomCuriosAttribute.manaDamage,
+                StringUtils.RandomCuriosAttribute.defencePenetration0,
+                StringUtils.RandomCuriosAttribute.manaPenetration0,
+                StringUtils.RandomCuriosAttribute.critRate,
+                StringUtils.RandomCuriosAttribute.critDamage,
+                StringUtils.RandomCuriosAttribute.healthSteal,
+                StringUtils.RandomCuriosAttribute.manaHealthSteal,
+                StringUtils.RandomCuriosAttribute.defencePenetration,
+                StringUtils.RandomCuriosAttribute.manaPenetration
         );
         provideRandomAttributeFromList(attributeNum, rate, distinct, data, attributeList);
     }
@@ -72,11 +86,11 @@ public class RandomCuriosAttributesUtil {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = new ArrayList<>() {{
             String[] strings = {
-                    StringUtils.CuriosAttribute.maxHealth,
-                    StringUtils.CuriosAttribute.defence,
-                    StringUtils.CuriosAttribute.manaDefence,
-                    StringUtils.CuriosAttribute.healthRecover,
-                    StringUtils.CuriosAttribute.healEffectUp
+                    StringUtils.RandomCuriosAttribute.maxHealth,
+                    StringUtils.RandomCuriosAttribute.defence,
+                    StringUtils.RandomCuriosAttribute.manaDefence,
+                    StringUtils.RandomCuriosAttribute.healthRecover,
+                    StringUtils.RandomCuriosAttribute.healEffectUp
             };
             addAll(List.of(strings));
         }};
@@ -91,13 +105,13 @@ public class RandomCuriosAttributesUtil {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = new ArrayList<>() {{
             String[] strings = {
-                    StringUtils.CuriosAttribute.coolDown,
-                    StringUtils.CuriosAttribute.manaRecover,
-                    StringUtils.CuriosAttribute.maxMana,
-                    StringUtils.CuriosAttribute.swiftnessUp,
-                    StringUtils.CuriosAttribute.expUp,
-                    StringUtils.CuriosAttribute.movementSpeed,
-                    StringUtils.CuriosAttribute.commonMovementSpeed
+                    StringUtils.RandomCuriosAttribute.coolDown,
+                    StringUtils.RandomCuriosAttribute.manaRecover,
+                    StringUtils.RandomCuriosAttribute.maxMana,
+                    StringUtils.RandomCuriosAttribute.swiftnessUp,
+                    StringUtils.RandomCuriosAttribute.expUp,
+                    StringUtils.RandomCuriosAttribute.movementSpeed,
+                    StringUtils.RandomCuriosAttribute.commonMovementSpeed
             };
             addAll(List.of(strings));
         }};

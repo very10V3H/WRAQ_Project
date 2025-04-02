@@ -38,6 +38,7 @@ import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemAttributes;
+import fun.wraq.series.holy.ice.curio.IceHolyCrest;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -236,9 +237,9 @@ public class PlayerAttributes {
         exDamage += baseAttackDamage * EarthPower.PlayerDamageEnhance(player);
 
         // 新版饰品属性加成
-        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.CuriosAttribute.attackDamage);
+        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.RandomCuriosAttribute.attackDamage);
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelAttackDamage,
-                StringUtils.CuriosAttribute.xpLevelAttackDamage) * player.experienceLevel;
+                StringUtils.RandomCuriosAttribute.xpLevelAttackDamage) * player.experienceLevel;
 
         // 器灵属性加成
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.attackDamage);
@@ -264,7 +265,7 @@ public class PlayerAttributes {
         exRate += HarbingerMainHand.getAttackDamageRate(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance)
                 + Compute.CuriosAttribute.attributeValue(player, Utils.percentAttackDamageEnhance,
-                StringUtils.CuriosAttribute.percentAttackDamage);
+                StringUtils.RandomCuriosAttribute.percentAttackDamage);
         exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentAttackDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.attackDamage);
@@ -325,7 +326,7 @@ public class PlayerAttributes {
             critRate +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.CritRate;
 
-        critRate += Compute.CuriosAttribute.attributeValue(player, Utils.critRate, StringUtils.CuriosAttribute.critRate); // 新版饰品属性加成
+        critRate += Compute.CuriosAttribute.attributeValue(player, Utils.critRate, StringUtils.RandomCuriosAttribute.critRate); // 新版饰品属性加成
 
         critRate += AttackCurios2.playerCritRateUp(player);
         critRate += BowCurios2.playerCritRateUp(player);
@@ -356,7 +357,7 @@ public class PlayerAttributes {
         // 计算线性等级强度装备数值
         critDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelCritDamage, false);
         critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelCritDamage,
-                StringUtils.CuriosAttribute.xpLevelCritDamage) * player.experienceLevel;
+                StringUtils.RandomCuriosAttribute.xpLevelCritDamage) * player.experienceLevel;
         critDamage += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.critDamage);
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 0)
             critDamage += 0.1;
@@ -384,7 +385,7 @@ public class PlayerAttributes {
             critDamage += data.getDouble("HealthStealAfterCompute") * 1;
         } // 猎魔者小刀
 
-        critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.CuriosAttribute.critDamage); // 新版饰品属性加成
+        critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.RandomCuriosAttribute.critDamage); // 新版饰品属性加成
 
         critDamage += Compute.PassiveEquip.getAttribute(player, Utils.critDamage); // 器灵属性加成
         critDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExCritDamage);
@@ -482,7 +483,7 @@ public class PlayerAttributes {
         }
 
         movementSpeedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedCommon,
-                StringUtils.CuriosAttribute.commonMovementSpeed); // 新版饰品属性加成
+                StringUtils.RandomCuriosAttribute.commonMovementSpeed); // 新版饰品属性加成
 
         movementSpeedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedCommon);
 
@@ -530,7 +531,7 @@ public class PlayerAttributes {
                 stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.MovementSpeed;
 
         speedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedWithoutBattle,
-                StringUtils.CuriosAttribute.movementSpeed); // 新版饰品属性加成
+                StringUtils.RandomCuriosAttribute.movementSpeed); // 新版饰品属性加成
         speedUp += Compute.PassiveEquip.getAttribute(player, Utils.movementSpeedWithoutBattle); // 器灵属性加成
         speedUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMovementSpeedWithoutBattleModifier);
 
@@ -557,7 +558,7 @@ public class PlayerAttributes {
 
         expUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.expUp);
 
-        expUp += Compute.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.CuriosAttribute.expUp); // 新版饰品属性加成
+        expUp += Compute.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.RandomCuriosAttribute.expUp); // 新版饰品属性加成
 
         expUp += Compute.PassiveEquip.getAttribute(player, Utils.expUp); // 器灵属性加成
 
@@ -591,7 +592,7 @@ public class PlayerAttributes {
         baseDefence += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelDefence, false);
 
         baseDefence += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelDefence,
-                StringUtils.CuriosAttribute.xpLevelDefence) * player.experienceLevel;
+                StringUtils.RandomCuriosAttribute.xpLevelDefence) * player.experienceLevel;
 
         // 以下为额外护甲
         if (SuitCount.getForestSuitCount(player) >= 2) exDefence += baseDefence * 0.25;
@@ -623,7 +624,7 @@ public class PlayerAttributes {
             exDefence += Utils.SnowShieldPlayerEffectMap.get(player);
         } // 玉山圆盾
 
-        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.CuriosAttribute.defence); // 新版饰品属性加成
+        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.RandomCuriosAttribute.defence); // 新版饰品属性加成
 
         exDefence += Compute.PassiveEquip.getAttribute(player, Utils.defence); // 器灵属性加成
 
@@ -642,10 +643,11 @@ public class PlayerAttributes {
         exRate += MineShield.defenceEnhance(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentDefenceEnhance,
-                        StringUtils.CuriosAttribute.percentDefenceEnhance);
+                        StringUtils.RandomCuriosAttribute.percentDefenceEnhance);
         exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentDefenceEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.defence);
+        exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentDefenceEnhance);
         totalDefence *= (1 + exRate);
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceDecreaseModifier);
         totalDefence = Math.max(0, totalDefence);
@@ -681,7 +683,7 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.MineMonsterEffect) >= tick) healEffectUp -= 0.8;
 
         healEffectUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.healingAmplification);
-        healEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healingAmplification, StringUtils.CuriosAttribute.healEffectUp); // 新版饰品属性加成
+        healEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healingAmplification, StringUtils.RandomCuriosAttribute.healEffectUp); // 新版饰品属性加成
         healEffectUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealAmplifierModifier);
 
         writeToCache(player, Utils.healingAmplification, healEffectUp * (1 - healEffectDecrease(player)));
@@ -716,7 +718,7 @@ public class PlayerAttributes {
             if (BowSkill > Math.max(SwordSkill, ManaSkill)) swiftnessUp += Utils.SpringScaleEffect.get(player) + 1;
         } //年兽鳞片
 
-        swiftnessUp += Compute.CuriosAttribute.attributeValue(player, Utils.swiftnessUp, StringUtils.CuriosAttribute.swiftnessUp); // 新版饰品属性加成
+        swiftnessUp += Compute.CuriosAttribute.attributeValue(player, Utils.swiftnessUp, StringUtils.RandomCuriosAttribute.swiftnessUp); // 新版饰品属性加成
 
         swiftnessUp += Compute.PassiveEquip.getAttribute(player, Utils.swiftnessUp); // 器灵属性加成
         swiftnessUp += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExSwiftnessUp);
@@ -778,7 +780,7 @@ public class PlayerAttributes {
 
         releaseSpeed += EarthPower.PlayerCoolDownEnhance(player); // 地蕴法术
 
-        releaseSpeed += Compute.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.CuriosAttribute.coolDown); // 新版饰品属性加成
+        releaseSpeed += Compute.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.RandomCuriosAttribute.coolDown); // 新版饰品属性加成
         releaseSpeed += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExCoolDownDecrease);
         releaseSpeed += LakeArmor.exCooldown(player);
 
@@ -830,11 +832,12 @@ public class PlayerAttributes {
             defenceRate *= (1 - decreaseRate);
         }
         defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player,
-                Utils.defencePenetration, StringUtils.CuriosAttribute.defencePenetration)); // 新版饰品属性加成
+                Utils.defencePenetration, StringUtils.RandomCuriosAttribute.defencePenetration)); // 新版饰品属性加成
         defenceRate *= (1 - StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration));
         defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.defencePenetration));
         defenceRate *= (1 - MoonCurios.getDefencePenetration(player));
+        defenceRate *= (1 - IceHolyCrest.getExDefencePenetration(player));
         // 请在上方添加
         writeToCache(player, Utils.defencePenetration, 1 - defenceRate);
         return 1 - defenceRate;
@@ -854,7 +857,7 @@ public class PlayerAttributes {
         defencePenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.defencePenetration0);
         defencePenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelDefencePenetration0, false);
         defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelDefencePenetration0,
-                StringUtils.CuriosAttribute.xpLevelDefencePenetration0) * player.experienceLevel;
+                StringUtils.RandomCuriosAttribute.xpLevelDefencePenetration0) * player.experienceLevel;
 
         // 器灵属性加成
         defencePenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.defencePenetration0);
@@ -875,7 +878,7 @@ public class PlayerAttributes {
         }
 
         defencePenetration0 += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.defencePenetration0);
-        defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration0, StringUtils.CuriosAttribute.defencePenetration0); // 新版饰品属性加成
+        defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration0, StringUtils.RandomCuriosAttribute.defencePenetration0); // 新版饰品属性加成
 
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
         defencePenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defencePenetration0);
@@ -922,7 +925,7 @@ public class PlayerAttributes {
         }
 
         healthRecover += Compute.CuriosAttribute
-                .attributeValue(player, Utils.healthRecover, StringUtils.CuriosAttribute.healthRecover); // 新版饰品属性加成
+                .attributeValue(player, Utils.healthRecover, StringUtils.RandomCuriosAttribute.healthRecover); // 新版饰品属性加成
         healthRecover += PlainNewRune.playerHealthRecover(player);
         healthRecover += ForestNewRune.playerHealthRecoverUp(player);
 
@@ -962,7 +965,7 @@ public class PlayerAttributes {
             maxHealth += vitalityAbilityPoint * 40;
         }
 
-        maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth, StringUtils.CuriosAttribute.maxHealth); // 新版饰品属性加成
+        maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth, StringUtils.RandomCuriosAttribute.maxHealth); // 新版饰品属性加成
 
         maxHealth += Compute.PassiveEquip.getAttribute(player, Utils.maxHealth); // 器灵属性加成
         maxHealth += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExMaxHealth);
@@ -976,7 +979,7 @@ public class PlayerAttributes {
         exRate += Compute.playerFantasyAttributeEnhance(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
-                        StringUtils.CuriosAttribute.percentMaxHealthEnhance);
+                        StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance);
         exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentMaxHealthEnhance);
         exRate += Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.maxHealth);
@@ -1014,7 +1017,7 @@ public class PlayerAttributes {
         baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaDamage);
         baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDamage,
-                StringUtils.CuriosAttribute.xpLevelManaDamage) * player.experienceLevel;
+                StringUtils.RandomCuriosAttribute.xpLevelManaDamage) * player.experienceLevel;
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.xpLevelManaDamage) * player.experienceLevel;
         exDamage += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaDamage);
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDamageModifier);
@@ -1062,7 +1065,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDamage += 1600;
 
         exDamage += baseDamage * EarthPower.PlayerDamageEnhance(player);
-        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.manaDamage, StringUtils.CuriosAttribute.manaDamage); // 新版饰品属性加成
+        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.manaDamage, StringUtils.RandomCuriosAttribute.manaDamage); // 新版饰品属性加成
 
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.manaDamage); // 器灵属性加成
         exDamage += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDamage);
@@ -1083,7 +1086,7 @@ public class PlayerAttributes {
         exRate += HarbingerMainHand.getManaDamageRate(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDamageEnhance,
-                        StringUtils.CuriosAttribute.percentManaDamageEnhance);
+                        StringUtils.RandomCuriosAttribute.percentManaDamageEnhance);
         exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentManaDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDamage);
@@ -1116,7 +1119,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player))
             manaHealSteal += 0.05;
 
-        manaHealSteal += Compute.CuriosAttribute.attributeValue(player, Utils.manaHealthSteal, StringUtils.CuriosAttribute.manaHealthSteal); // 新版饰品属性加成
+        manaHealSteal += Compute.CuriosAttribute.attributeValue(player, Utils.manaHealthSteal, StringUtils.RandomCuriosAttribute.manaHealthSteal); // 新版饰品属性加成
         //请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1159,7 +1162,7 @@ public class PlayerAttributes {
             manaRecover +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaRecover;
 
-        manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.manaRecover, StringUtils.CuriosAttribute.manaRecover); // 新版饰品属性加成
+        manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.manaRecover, StringUtils.RandomCuriosAttribute.manaRecover); // 新版饰品属性加成
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
         manaRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaRecover);
         manaRecover += TabooPaper.getExManaRecoverValue(player);
@@ -1186,7 +1189,7 @@ public class PlayerAttributes {
         baseDefence += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDefence, true);
         baseDefence += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDefence, false);
         baseDefence += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDefence,
-                StringUtils.CuriosAttribute.xpLevelManaDefence) * player.experienceLevel;
+                StringUtils.RandomCuriosAttribute.xpLevelManaDefence) * player.experienceLevel;
 
         // 以下为额外魔法抗性
         if (SuitCount.getForestSuitCount(player) >= 4) {
@@ -1207,7 +1210,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDefence += 4;
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) exDefence += 4;
 
-        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.CuriosAttribute.manaDefence); // 新版饰品属性加成
+        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.RandomCuriosAttribute.manaDefence); // 新版饰品属性加成
         exDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExManaDefence);
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDefence);
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
@@ -1222,9 +1225,10 @@ public class PlayerAttributes {
         exRate += MineShield.defenceEnhance(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDefenceEnhance,
-                        StringUtils.CuriosAttribute.percentManaDefenceEnhance);
+                        StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDefence);
+        exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentManaDefenceEnhance);
         totalDefence *= (1 + exRate);
 
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDefenceDecreaseModifier);
@@ -1273,7 +1277,7 @@ public class PlayerAttributes {
 
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) healthSteal += 0.05;
 
-        healthSteal += Compute.CuriosAttribute.attributeValue(player, Utils.healthSteal, StringUtils.CuriosAttribute.healthSteal); // 新版饰品属性加成
+        healthSteal += Compute.CuriosAttribute.attributeValue(player, Utils.healthSteal, StringUtils.RandomCuriosAttribute.healthSteal); // 新版饰品属性加成
 
         // 请在上方添加
 
@@ -1325,7 +1329,7 @@ public class PlayerAttributes {
         if (decreaseRate > 0) defenceRate *= (1 - decreaseRate);
 
         defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration,
-                StringUtils.CuriosAttribute.manaPenetration)); // 新版饰品属性加成
+                StringUtils.RandomCuriosAttribute.manaPenetration)); // 新版饰品属性加成
         defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration));
         defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
         defenceRate *= (1 - ManaCurios4.getExManaPenetrationRate(player));
@@ -1351,7 +1355,7 @@ public class PlayerAttributes {
         manaPenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaPenetration0);
         manaPenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaPenetration0, false);
         manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaPenetration0,
-                StringUtils.CuriosAttribute.xpLevelManaPenetration0) * player.experienceLevel;
+                StringUtils.RandomCuriosAttribute.xpLevelManaPenetration0) * player.experienceLevel;
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             manaPenetration0 +=
@@ -1365,7 +1369,7 @@ public class PlayerAttributes {
         if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 10;
 
         manaPenetration0 += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaPenetration0);
-        manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.CuriosAttribute.manaPenetration0); // 新版饰品属性加成
+        manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.RandomCuriosAttribute.manaPenetration0); // 新版饰品属性加成
         manaPenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaPenetration0);
         if (Utils.sceptreTag.containsKey(mainhand)) {
@@ -1406,7 +1410,7 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             maxMana +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.MaxMana;
-        maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
+        maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.RandomCuriosAttribute.maxMana); // 新版饰品属性加成
         maxMana += Compute.PassiveEquip.getAttribute(player, Utils.maxMana); // 器灵属性加成
         maxMana += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxMana);
         maxMana += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.maxMana);

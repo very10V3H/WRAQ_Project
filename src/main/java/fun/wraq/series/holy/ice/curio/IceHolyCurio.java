@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.holy.HolyCurio;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -17,7 +18,7 @@ import net.minecraft.world.item.Rarity;
 
 import java.util.List;
 
-public abstract class IceHolyCurio extends WraqCurios implements Decomposable {
+public abstract class IceHolyCurio extends WraqCurios implements Decomposable, HolyCurio {
 
     public static List<Rarity> rarities = List.of(Rarity.COMMON, Rarity.UNCOMMON, Rarity.RARE, Rarity.EPIC);
     private final int tier;
@@ -49,5 +50,10 @@ public abstract class IceHolyCurio extends WraqCurios implements Decomposable {
             return new ItemStack(Items.AIR);
         }
         return new ItemStack(items.get(tier));
+    }
+
+    @Override
+    public String getElement() {
+        return Element.ice;
     }
 }

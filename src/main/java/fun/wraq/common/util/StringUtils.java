@@ -892,7 +892,7 @@ public class StringUtils {
     public static String MoonCuriosXpLevel = "MoonCuriosXpLevel";
     public static String MoonCuriosPlayerName = "MoonCuriosPlayerName";
 
-    public static class CuriosAttribute {
+    public static class RandomCuriosAttribute {
         public static String attackDamage = "CuriosAttackDamage";
         public static String manaDamage = "CuriosManaDamage";
         public static String maxHealth = "MaxHealth";

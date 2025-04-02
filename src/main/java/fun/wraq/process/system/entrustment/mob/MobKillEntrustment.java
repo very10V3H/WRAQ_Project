@@ -19,6 +19,8 @@ import fun.wraq.process.system.bank.Bank;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.qingMing.QingTuan;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
@@ -123,6 +125,9 @@ public class MobKillEntrustment {
         int currentFinishedTime = getDailyFinishedTimes(player);
         if (currentFinishedTime == 5) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 2));
+            if (QingTuan.isInActivityDate()) {
+                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
+            }
             Tower.givePlayerStar(player, 5, "委托任务每日进度奖励");
             formatMSG(Te.s(player.getDisplayName(), "今日完成了", "5", ChatFormatting.GREEN, "次",
                     "委托任务", CustomStyle.styleOfWorld));
@@ -131,11 +136,17 @@ public class MobKillEntrustment {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.BOND.get()));
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), 2));
+            if (QingTuan.isInActivityDate()) {
+                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
+            }
             formatMSG(Te.s(player.getDisplayName(), "今日完成了", "10", ChatFormatting.YELLOW, "次",
                     "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 15) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
+            if (QingTuan.isInActivityDate()) {
+                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
+            }
             Tower.givePlayerStar(player, 5, "委托任务每日进度奖励");
             formatMSG(Te.s(player.getDisplayName(), "今日完成了", "15", ChatFormatting.LIGHT_PURPLE, "次",
                     "委托任务", CustomStyle.styleOfWorld));
@@ -144,10 +155,16 @@ public class MobKillEntrustment {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get()));
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), 2));
+            if (QingTuan.isInActivityDate()) {
+                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
+            }
             formatMSG(Te.s(player.getDisplayName(), "今日完成了", "20", ChatFormatting.LIGHT_PURPLE, "次",
                     "委托任务", CustomStyle.styleOfWorld));
         }
         incrementWeeklyFinishedTimes(player, increment);
+        if (QingTuan.isInActivityDate()) {
+            InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_QING_TUAN_CHEST.get(), 1);
+        }
     }
 
     private static void sendAcceptOrBondStoreMSG(Player player) {

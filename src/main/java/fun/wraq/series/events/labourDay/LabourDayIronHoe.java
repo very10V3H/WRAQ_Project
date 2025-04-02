@@ -1,7 +1,8 @@
 package fun.wraq.series.events.labourDay;
 
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -20,7 +21,7 @@ public class LabourDayIronHoe extends Item {
 
     public LabourDayIronHoe(Properties p_41383_) {
         super(p_41383_);
-        Utils.curiosList.add(this);
+        Display.souvenirsList.add(this);
     }
 
     @Override
@@ -33,6 +34,7 @@ public class LabourDayIronHoe extends Item {
         components.add(Component.literal(" 2. ").withStyle(ChatFormatting.AQUA).
                 append(Component.literal("10%额外产出").withStyle(ChatFormatting.GOLD)));
         components.add(Component.literal(" - 额外产出包含：怪物掉落、采矿、砍伐、采收、钓鱼").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+        components.add(ComponentUtils.getSuffixOfSouvenirs());
         super.appendHoverText(itemStack, level, components, tooltipFlag);
     }
 

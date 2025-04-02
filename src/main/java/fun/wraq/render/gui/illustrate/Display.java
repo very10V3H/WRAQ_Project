@@ -41,7 +41,6 @@ public class Display {
             souvenirsList.addAll(List.of(
                     SpecialEventItems.SCALE_0.get(),
                     ModItems.LabourDayIronPickaxe.get(),
-                    ModItems.QingMingGem.get(),
                     SpecialEventItems.SUMMER_CURIOS5.get(),
                     SpecialEventItems.MOON_FEATHER_0.get(),
                     SpecialEventItems.TRAIN_SOUVENIRS.get(),
@@ -83,6 +82,17 @@ public class Display {
 
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
+            newItemList.addAll(List.of(
+                    SpecialEventItems.QING_TUAN.get(),
+                    SpecialEventItems.QING_MING_COMMON_RING.get(),
+                    SpecialEventItems.QING_MING_ATTACK_RING.get(),
+                    SpecialEventItems.QING_MING_DEFENCE_RING.get(),
+                    SpecialEventItems.QING_MING_REBORN_CHEST.get(),
+                    SpecialEventItems.QING_MING_QING_TUAN_CHEST.get(),
+                    SpecialEventItems.QING_MING_PREFIX_PAPER_1.get(),
+                    SpecialEventItems.QING_MING_PREFIX_PAPER_2.get(),
+                    SpecialEventItems.QING_MING_FORGE_PAPER.get()
+            ));
             for (RegistryObject<Item> registryObject : IceHolyItems.ITEMS.getEntries()) {
                 newItemList.add(registryObject.get());
             }

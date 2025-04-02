@@ -41,11 +41,11 @@
     "vmd:boss2_defence_ring1",
     "vmd:boss2_defence_ring2",
     "vmd:boss2_defence_ring3",
-    "vmd:qingming_attack_ring",
-    "vmd:qingming_bow_ring",
-    "vmd:qingming_mana_ring",
     "vmd:end_curios",
     "vmd:end_curios1",
-    "vmd:moontain_ring"
+    "vmd:moontain_ring",
+    "vmd:qing_ming_attack_ring",
+    "vmd:qing_ming_common_ring",
+    "vmd:qing_ming_defence_ring"
   ]
 }

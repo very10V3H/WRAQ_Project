@@ -115,6 +115,12 @@ public class ItemAndRate {
         return true;
     }
 
+    public static void send(Player player, ItemStack itemStack) {
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
+        dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+        summonItemEntity(dropItemStack, player.getEyePosition(), player.level(), 0);
+    }
+
     public ItemStack sendWithMSG(Player player, double num) {
         return sendWithMSG(player, num, null);
     }

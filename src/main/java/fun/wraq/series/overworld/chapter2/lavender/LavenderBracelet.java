@@ -111,11 +111,11 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         if (item instanceof LavenderBracelet) {
             List<String> tag = List.of(
-                    StringUtils.CuriosAttribute.maxHealth,
-                    StringUtils.CuriosAttribute.defence,
-                    StringUtils.CuriosAttribute.manaDefence,
-                    StringUtils.CuriosAttribute.healthRecover,
-                    StringUtils.CuriosAttribute.healEffectUp);
+                    StringUtils.RandomCuriosAttribute.maxHealth,
+                    StringUtils.RandomCuriosAttribute.defence,
+                    StringUtils.RandomCuriosAttribute.manaDefence,
+                    StringUtils.RandomCuriosAttribute.healthRecover,
+                    StringUtils.RandomCuriosAttribute.healEffectUp);
             int count = 0;
             for (String s : tag) {
                 if (data.contains(s)) {

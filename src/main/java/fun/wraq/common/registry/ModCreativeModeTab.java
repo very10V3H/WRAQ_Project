@@ -9,6 +9,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.moontain.MoontainItems;
@@ -56,7 +57,7 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> CUSTOMIZED = CREATIVE_MODE_TAB.register("wraq_customized", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(UniformItems.AttackCurios0.get())).title(Component.literal("维瑞阿契 | 制式")).build());
     public static RegistryObject<CreativeModeTab> SPECIAL_FESTIVAL = CREATIVE_MODE_TAB.register("wraq_special_festival", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.QingTuan.get())).title(Component.literal("维瑞阿契 | 节庆活动")).build());
+            CreativeModeTab.builder().icon(() -> new ItemStack(SpecialEventItems.QING_TUAN.get())).title(Component.literal("维瑞阿契 | 节庆活动")).build());
     public static RegistryObject<CreativeModeTab> ELEMENT = CREATIVE_MODE_TAB.register("wraq_elememt", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.LifeElementPiece2.get())).title(Component.literal("维瑞阿契 | 元素")).build());
     public static RegistryObject<CreativeModeTab> LOOT_EQUIP = CREATIVE_MODE_TAB.register("wraq_loot_equip", () ->

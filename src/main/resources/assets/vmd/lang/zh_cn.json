@@ -1244,13 +1244,6 @@
   "item.vmd.star_star": "远空之星",
   "item.vmd.star_bottle_forge_draw": "星星瓶锻造图",
 
-  "item.vmd.qingming_prefix": "称号 - 雨纷纷",
-  "item.vmd.qingming_gem": "翠绿宝珠",
-  "item.vmd.qingming_forge_paper": "清符",
-  "item.vmd.qingming_attack_ring": "踏青戒",
-  "item.vmd.qingming_bow_ring": "行清戒",
-  "item.vmd.qingming_mana_ring": "三月戒",
-
   "item.vmd.life_element_piece0": "微型生机元素碎片",
   "item.vmd.life_element_piece1": "小型生机元素碎片",
   "item.vmd.life_element_piece2": "中型生机元素碎片",
@@ -2138,6 +2131,15 @@
   "item.vmd.attack_curios_5": "因子 - 暴君 - VI",
   "item.vmd.bow_curios_5": "因子 - 游侠 - VI",
   "item.vmd.mana_curios_5": "因子 - 梅林 - VI",
+
+  "item.vmd.qing_ming_prefix_paper_1": "称号「雨纷纷」",
+  "item.vmd.qing_ming_prefix_paper_2": "称号「欲断魂」",
+  "item.vmd.qing_ming_forge_paper": "清符",
+  "item.vmd.qing_ming_common_ring": "踏青戒",
+  "item.vmd.qing_ming_attack_ring": "行清戒",
+  "item.vmd.qing_ming_defence_ring": "三月戒",
+  "item.vmd.qing_ming_reborn_chest": "清明往生包",
+  "item.vmd.qing_ming_qing_tuan_chest": "清明青团包",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

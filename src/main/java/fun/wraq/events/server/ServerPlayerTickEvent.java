@@ -154,7 +154,6 @@ public class ServerPlayerTickEvent {
             GemTickHandler.handleTick(player);
             HarbingerMainHand.tick(player);
             MyWayPoint.zoneTick(player);
-            ManaSkillTree.manaSkill13Tick(player);
             Civil.handleTick(player);
             Reason.tip(player);
             ModNetworking.sendToClient(new ServerTickS2CPacket(Tick.get()), serverPlayer);

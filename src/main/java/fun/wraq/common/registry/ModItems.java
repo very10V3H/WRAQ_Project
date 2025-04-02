@@ -2470,9 +2470,6 @@ public class ModItems {
     public static final RegistryObject<Item> QiFuCurios1Passive3 = ITEMS.register("qifu_curios1_passive3",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 
-    public static final RegistryObject<Item> QingTuan = ITEMS.register("qing_tuan",
-            () -> new QingTuan(new Item.Properties().rarity(CustomStyle.ForestBold)));
-
     public static final RegistryObject<Item> AnimatedItem = ITEMS.register("animated_item",
             () -> new AnimatedItem(new Item.Properties()));
 
@@ -2502,24 +2499,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> LifeFruit = ITEMS.register("life_fruit",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Life)));
-
-    public static final RegistryObject<Item> QingMingPrefix = ITEMS.register("qingming_prefix",
-            () -> new QingMingPrefix(new Item.Properties().rarity(Rarity.EPIC)));
-
-    public static final RegistryObject<Item> QingMingGem = ITEMS.register("qingming_gem",
-            () -> new QingMingGem(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
-    public static final RegistryObject<Item> QingMingForgePaper = ITEMS.register("qingming_forge_paper",
-            () -> new QingMingForgePaper(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
-    public static final RegistryObject<Item> QingMingAttackRing = ITEMS.register("qingming_attack_ring",
-            () -> new QingMingAttackRing(new Item.Properties().rarity(CustomStyle.LifeBold).stacksTo(1)));
-
-    public static final RegistryObject<Item> QingMingBowRing = ITEMS.register("qingming_bow_ring",
-            () -> new QingMingBowRing(new Item.Properties().rarity(CustomStyle.LifeBold).stacksTo(1)));
-
-    public static final RegistryObject<Item> QingMingManaRing = ITEMS.register("qingming_mana_ring",
-            () -> new QingMingManaRing(new Item.Properties().rarity(CustomStyle.LifeBold).stacksTo(1)));
 
     public static final RegistryObject<Item> LifeElementPiece0 = ITEMS.register("life_element_piece0",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Life)));
@@ -3035,7 +3014,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
                 addAll(loots);
-            }}, null, SWORD_LOTTERY.get()));
+            }}, null, SWORD_LOTTERY.get(), false));
 
     public static final RegistryObject<Item> BOW_LOTTERY = ITEMS.register("bow_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
@@ -3077,7 +3056,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
                 addAll(loots);
-            }}, null, BOW_LOTTERY.get()));
+            }}, null, BOW_LOTTERY.get(), false));
 
     public static final RegistryObject<Item> SCEPTRE_LOTTERY = ITEMS.register("sceptre_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
@@ -3119,7 +3098,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
                 addAll(loots);
-            }}, null, SCEPTRE_LOTTERY.get()));
+            }}, null, SCEPTRE_LOTTERY.get(), false));
 
     public static final RegistryObject<Item> WaterBottle = ITEMS.register("water_bottle",
             () -> new Item(new Item.Properties().rarity(CustomStyle.Water)));

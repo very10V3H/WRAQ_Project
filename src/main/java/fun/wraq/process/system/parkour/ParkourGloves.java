@@ -2,6 +2,7 @@ package fun.wraq.process.system.parkour;
 
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -24,7 +25,7 @@ public class ParkourGloves extends Item implements ICurioItem {
         Utils.coolDownDecrease.put(this, 0.15);
         Utils.critDamage.put(this, 0.05);
         Utils.expUp.put(this, 0.5);
-        Utils.curiosList.add(this);
+        Display.souvenirsList.add(this);
     }
 
     @Override
@@ -35,6 +36,7 @@ public class ParkourGloves extends Item implements ICurioItem {
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" 给予跑酷高手或坚持不懈者的嘉奖").withStyle(CustomStyle.styleOfFlexible));
+        components.add(ComponentUtils.getSuffixOfSouvenirs());
         super.appendHoverText(stack, level, components, flag);
     }
 

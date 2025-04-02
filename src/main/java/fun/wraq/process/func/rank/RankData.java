@@ -239,4 +239,9 @@ public class RankData {
         }
         return 0;
     }
+
+    // 额外产出
+    public static double getExHarvestRate(Player player) {
+        return getRankSerial(player) * 0.02;
+    }
 }
