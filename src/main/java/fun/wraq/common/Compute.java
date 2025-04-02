@@ -821,22 +821,12 @@ public class Compute {
         }
     }
 
-    public static Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();
     public static void playerHeal(Player player, double num) {
         if (num < 0) return;
         double healNum = num * (PlayerAttributes.getHealingAmplification(player));
         if (AttackCurios5.onHealHealthRecover(player, healNum)) return;
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
         LifeElementSword.StoreToList(player, healNum);
-        if (healNum > player.getMaxHealth() * 0.1) {
-            healNum = Math.min(healNum, player.getMaxHealth() * 0.1);
-            if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
-                sendFormatMSG(player, Te.s("治疗承受", CustomStyle.styleOfHealth),
-                        Te.s("单次生命偷取的数额将不会超过",
-                                ComponentUtils.AttributeDescription.maxHealth("5%")));
-                nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.min(10));
-            }
-        }
         player.heal((float) healNum);
     }
 
@@ -847,12 +837,23 @@ public class Compute {
         mob.heal((float) healNum);
     }
 
+    public static Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();
     public static void healByHealthSteal(Player player, Mob mob, double damage) {
         double rate = PlayerAttributes.healthSteal(player);
         if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)) {
             rate = Math.max(0, rate - 0.2);
         }
-        playerHeal(player, damage * rate * 0.1);
+        double healNum = damage * rate * 0.1;
+        if (healNum > player.getMaxHealth() * 0.05) {
+            healNum = Math.min(healNum, player.getMaxHealth() * 0.05);
+            if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                sendFormatMSG(player, Te.s("治疗承受", CustomStyle.styleOfHealth),
+                        Te.s("单次生命偷取的数额将不会超过",
+                                ComponentUtils.AttributeDescription.maxHealth("5%")));
+                nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.min(10));
+            }
+        }
+        playerHeal(player, healNum);
     }
 
     public static int SuitItemVision(Player player, Item item, EquipmentSlot equipmentSlot, List<Component> components, Style MainStyle) {
