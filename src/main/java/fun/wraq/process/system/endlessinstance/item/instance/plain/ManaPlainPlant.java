@@ -6,16 +6,15 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.TickItem;
 import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class ManaPlainPlant extends WraqItem {
+public class ManaPlainPlant extends WraqItem implements TickItem {
     public ManaPlainPlant(Properties properties) {
         super(properties, true, false,
                 List.of(
@@ -29,15 +28,12 @@ public class ManaPlainPlant extends WraqItem {
     }
 
     @Override
-    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
-        Item item = stack.getItem();
-        if (!level.isClientSide && !player.getCooldowns().isOnCooldown(item)
-                && player.getHealth() / player.getMaxHealth() < 0.25) {
+    public void handleTick(Player player, ItemStack stack) {
+        if (!player.getCooldowns().isOnCooldown(this) && player.getHealth() / player.getMaxHealth() < 0.25) {
             stack.shrink(1);
             player.getCooldowns().addCooldown(this, Tick.s(10));
             Compute.playerHeal(player, player.getMaxHealth() * 0.5);
             Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * 0.25);
         }
-        super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
     }
 }

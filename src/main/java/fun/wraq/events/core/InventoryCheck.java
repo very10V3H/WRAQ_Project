@@ -10,6 +10,7 @@ import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
+import fun.wraq.series.TickItem;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
@@ -49,6 +50,9 @@ public class InventoryCheck {
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 ItemStack itemStack = inventory.getItem(i);
                 Item item = itemStack.getItem();
+                if (item instanceof TickItem tickItem) {
+                    tickItem.handleTick(player, itemStack);
+                }
                 if (item.toString().contains("schedule")) {
                     if (!serverPlayer.getName().getString().equals("Dev")
                             && !serverPlayer.getName().getString().equals("very_H")) {
