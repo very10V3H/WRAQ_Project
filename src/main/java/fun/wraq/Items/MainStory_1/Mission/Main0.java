@@ -4,8 +4,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.series.end.citadel.CitadelItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -98,8 +96,7 @@ public class Main0 extends Item {
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            data.remove(PlanPlayer.PLAN_DATA_KEY);
-            data.remove(MobSpawn.KILL_COUNT_DATA_KEY);
+            player.sendSystemMessage(Te.s(Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {

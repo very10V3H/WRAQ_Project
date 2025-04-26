@@ -4,6 +4,11 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.ClientUtils;
+import fun.wraq.customized.uniform.attack.WraqAttackUniformCurios;
+import fun.wraq.customized.uniform.bow.WraqBowUniformCurios;
+import fun.wraq.customized.uniform.element.WraqElementUniformCurios;
+import fun.wraq.customized.uniform.mana.WraqManaUniformCurios;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -25,10 +30,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.util.*;
 
 public class NewLotteries extends Item {
 
@@ -76,7 +79,7 @@ public class NewLotteries extends Item {
     public record Loot(ItemStack itemStack, double rate) {
     }
 
-    protected final List<Loot> loots;
+    protected List<Loot> loots;
     protected final Item KEY;
     protected final Item followItem;
     protected final boolean isFoiled;
@@ -144,6 +147,16 @@ public class NewLotteries extends Item {
         if (guaranteeTimes.containsKey(item)) {
             components.add(Component.literal(""));
             components.add(Component.literal(" 第" + guaranteeTimes.get(item) + "次必定抽取极品奖励").withStyle(ChatFormatting.GOLD));
+        }
+        if (getUniformLotteryItems().contains(this)) {
+            int date = 0;
+            try {
+                date = Compute.StringToCalendar(ClientUtils.serverTime).get(Calendar.DAY_OF_YEAR);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            components.add(Te.s(" 距离下次极品轮换还有 ", ChatFormatting.GOLD,
+                    (date / 7 + 1) * 7 - date + " 天", ChatFormatting.AQUA));
         }
         String itemString = this.toString();
         if (followItem != null) {
@@ -264,6 +277,55 @@ public class NewLotteries extends Item {
             InventoryCheck.addOwnerTagToItemStack(player, reward); // 为部分物品添加绑定tag
         }
         InventoryOperation.giveItemStack(player, reward);
+    }
+
+    public void setLoots(List<Loot> loots) {
+        this.loots = loots;
+    }
+
+    public static List<Loot> getCurrentDateLotteryLoots(int date, int indexOffset, List<Item> curioList) {
+        List<Loot> lootList = new ArrayList<>();
+        int index = (date / 7 * 2 + indexOffset) % curioList.size();
+        Item curio = curioList.get(index);
+        index = (date / 7) % WraqElementUniformCurios.ELEMENT_CURIOS.size();
+        Item elementCurio = WraqElementUniformCurios.ELEMENT_CURIOS.get(index);
+        lootList.add(new Loot(curio.getDefaultInstance(), 0.005));
+        lootList.add(new Loot(elementCurio.getDefaultInstance(), 0.005));
+        lootList.add(new Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2));
+        lootList.add(new Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2));
+        lootList.add(new Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1));
+        lootList.add(new Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1));
+        lootList.add(new Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1));
+        return lootList;
+    }
+
+    public static List<Item> getUniformLotteryItems() {
+        return List.of(
+                ModItems.SWORD_LOTTERY.get(), ModItems.SWORD_LOTTERY_1.get(),
+                ModItems.BOW_LOTTERY.get(), ModItems.BOW_LOTTERY_1.get(),
+                ModItems.SCEPTRE_LOTTERY.get(), ModItems.SCEPTRE_LOTTERY_1.get()
+        );
+    }
+
+    public static int lastSetLootsDate = -1;
+    public static void setCurrentLotteryLoots(int date) {
+        if (lastSetLootsDate != date) {
+            lastSetLootsDate = date;
+            List<Item> lotteries = getUniformLotteryItems();
+            for (int i = 0; i < lotteries.size(); i++) {
+                NewLotteries item = (NewLotteries) lotteries.get(i);
+                if (i <= 1) {
+                    item.setLoots(getCurrentDateLotteryLoots(date,
+                            i % 2, WraqAttackUniformCurios.ATTACK_CURIOS));
+                } else if (i <= 3) {
+                    item.setLoots(getCurrentDateLotteryLoots(date,
+                            i % 2, WraqBowUniformCurios.BOW_CURIOS));
+                } else {
+                    item.setLoots(getCurrentDateLotteryLoots(date,
+                            i % 2, WraqManaUniformCurios.MANA_CURIOS));
+                }
+            }
+        }
     }
 
     public static Map<String, Map<String, Integer>> playerLotteryData = new HashMap<>();

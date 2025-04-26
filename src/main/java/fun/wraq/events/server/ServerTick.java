@@ -7,6 +7,7 @@ import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.func.damage.SputteringDamage;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
@@ -22,6 +23,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +67,8 @@ public class ServerTick {
                     }
                 });
             }
+
+            NewLotteries.setCurrentLotteryLoots(Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
         }
     }
 
