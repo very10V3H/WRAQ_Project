@@ -274,7 +274,7 @@ public class InjectRecipe {
                         ModItems.HUSK_RUNE.get()));
 
         injectingRecipeMap.put(ModItems.LightningSoul.get(),
-                new InjectingRecipe(64, ModItems.SpeIron.get(), 1,
+                new InjectingRecipe(64, PickaxeItems.TINKER_IRON.get(), 1,
                         ModItems.LightningRune.get()));
 
         injectingRecipeMap.put(ModItems.KazeSword3.get(),

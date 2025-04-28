@@ -87,7 +87,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
         boolean InSkyFlag = false;
         for (Mob mob : MobList1) {
             if (mob.getPosition(0).distanceTo(player.getPosition(0)) < 8) {
-                if (Compute.onSky(mob) && !mob.isInWater()) {
+                if (Compute.isOnSky(mob) && !mob.isInWater()) {
                     InSkyFlag = true;
                     break;
                 }
@@ -96,7 +96,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
         if (!InSkyFlag) {
             for (Player player1 : PlayerList1) {
                 if (player1.getPosition(0).distanceTo(player.getPosition(0)) < 8) {
-                    if (Compute.onSky(player1) && !player1.isInWater() && player1 != player) {
+                    if (Compute.isOnSky(player1) && !player1.isInWater() && player1 != player) {
                         InSkyFlag = true;
                         break;
                     }
@@ -118,7 +118,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
             double MobDamageCount = 0;
             for (Mob mob : MobList1) {
                 if (mob.getPosition(0).distanceTo(player.getPosition(0)) < 8) {
-                    if (Compute.onSky(mob) && !mob.isInWater()) {
+                    if (Compute.isOnSky(mob) && !mob.isInWater()) {
                         mob.setDeltaMovement(0, -1, 0);
                         ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 1, 16, ParticleTypes.ENCHANTED_HIT, 0);
                         ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
@@ -130,7 +130,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
             double PlayerDamageCount = 0;
             for (Player player1 : PlayerList1) {
                 if (player1.getPosition(0).distanceTo(player.getPosition(0)) < 8) {
-                    if (Compute.onSky(player1) && !player1.isInWater() && player1 != player) {
+                    if (Compute.isOnSky(player1) && !player1.isInWater() && player1 != player) {
                         ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket = new ClientboundSetEntityMotionPacket(player1.getId(), new Vec3(0, 1, 0));
                         for (ServerPlayer serverPlayer : playerList) {
                             serverPlayer.connection.send(clientboundSetEntityMotionPacket);

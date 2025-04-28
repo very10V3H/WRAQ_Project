@@ -7,8 +7,11 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.WorldCommonData;
 import fun.wraq.events.mob.instance.instances.tower.network.ManaTowerS2CPacket;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,8 +22,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ManaTowerData {
-    // 形如ManaTowerRecord#Dev#2400
-    public record TimeRecord(String playerName, int usedTick) {
+    // 形如ManaTowerRecord#Dev#2400#0
+    public record TimeRecord(String playerName, int usedTick, int count) {
     }
 
     public static List<TimeRecord> records;
@@ -62,8 +65,10 @@ public class ManaTowerData {
             TimeRecord timeRecord = recordList.get(i);
             Compute.broad(Tick.server.overworld(), Te.s(" ".repeat(8),
                     (i + 1) + ".", CustomStyle.MANA_TOWER_STYLE, timeRecord.playerName,
-                    " - ", getRecordTickDescription(timeRecord.usedTick)));
-
+                    " - ", getRecordTickDescription(timeRecord.usedTick), " ",
+                    "[", ChatFormatting.AQUA,
+                    timeRecord.count, CustomStyle.MANA_TOWER_STYLE,
+                    "]", ChatFormatting.AQUA));
         }
     }
 
@@ -77,11 +82,15 @@ public class ManaTowerData {
 
     public static TimeRecord getRecord(String data) {
         String[] split = data.split("#");
-        return new TimeRecord(split[1], Integer.parseInt(split[2]));
+        int count = 0;
+        if (split.length > 3) {
+            count = Integer.parseInt(split[3]);
+        }
+        return new TimeRecord(split[1], Integer.parseInt(split[2]), count);
     }
 
     public static String getData(TimeRecord record) {
-        return DATA_PREFIX + "#" + record.playerName + "#" + record.usedTick;
+        return DATA_PREFIX + "#" + record.playerName + "#" + record.usedTick + "#" + record.count;
     }
 
     public static void writeToData() {
@@ -184,12 +193,48 @@ public class ManaTowerData {
                 getRecordTimeDescription(getRecordTier(tick)), ")", CustomStyle.styleOfMoon);
     }
 
+    public static final String MANA_TOWER_PIECE_GET_COUNT_KEY = "ManaTowerPieceGetCount";
+    public static int getPlayerManaTowerPieceGetCount(Player player) {
+        return Compute.getChallengeRecordData(player).getInt(MANA_TOWER_PIECE_GET_COUNT_KEY);
+    }
+
+    public static void incrementPlayerManaTowerPieceGetCount(Player player) {
+        Compute.getChallengeRecordData(player).putInt(MANA_TOWER_PIECE_GET_COUNT_KEY,
+                getPlayerManaTowerPieceGetCount(player) + 1);
+    }
+
+    public static final String MANA_TOWER_PIECE_DAILY_GET_FLAG_KEY = "ManaTowerPieceDailyGetFlag";
+    public static boolean getManaTowerPieceDailyGetFlag(Player player) {
+        return Compute.getChallengeRecordData(player).getBoolean(MANA_TOWER_PIECE_DAILY_GET_FLAG_KEY);
+    }
+
+    public static void setManaTowerPieceDailyGetFlag(Player player, boolean value) {
+        Compute.getChallengeRecordData(player).putBoolean(MANA_TOWER_PIECE_DAILY_GET_FLAG_KEY, value);
+    }
+
     public static void onFinishedReward(Player player, int usedTick) {
         int everRecord = getPlayerManaTowerDailyRecord(player);
         int everTier = getRecordTier(everRecord);
         int tier = getRecordTier(usedTick);
         if (tier > everTier) {
-            Tower.givePlayerStar(player, (tier - everTier) * 5, "炼魔塔每日奖励");
+            if (PlanPlayer.getPlayerTier(player) >= 1) {
+                Tower.givePlayerStar(player, (tier - everTier) * 10, "炼魔塔每日奖励");
+                PlanPlayer.sendDoubleStarTip(player);
+            } else {
+                Tower.givePlayerStar(player, (tier - everTier) * 5, "炼魔塔每日奖励");
+            }
+        }
+        if (tier >= 7 && !getManaTowerPieceDailyGetFlag(player)) {
+            setManaTowerPieceDailyGetFlag(player, true);
+            InventoryOperation.giveItemStackWithMSG(player, ManaTowerItems.PIECE.get());
+            incrementPlayerManaTowerPieceGetCount(player);
+        } else {
+            if (!getManaTowerPieceDailyGetFlag(player)) {
+                sendMSG(player, Te.s("在", "90s(A)", ChatFormatting.RED,
+                        "内通关可获取", ManaTowerItems.PIECE.get()));
+            } else {
+                sendMSG(player, Te.s("明日方能再次获取", ManaTowerItems.PIECE.get()));
+            }
         }
     }
 
@@ -204,14 +249,15 @@ public class ManaTowerData {
             if (timeRecord != null) {
                 if (timeRecord.usedTick > usedTick) {
                     recordList.remove(timeRecord);
-                    recordList.add(new TimeRecord(Name.get(player), usedTick));
+                    recordList.add(new TimeRecord(Name.get(player), usedTick,
+                            getPlayerManaTowerPieceGetCount(player)));
                     change = true;
                     refreshSelf = true;
                 }
             }
         } else {
             if (recordList.size() < 8) {
-                recordList.add(new TimeRecord(Name.get(player), usedTick));
+                recordList.add(new TimeRecord(Name.get(player), usedTick, getPlayerManaTowerPieceGetCount(player)));
                 change = true;
             } else {
                 int longestTickInRecord = -1;
@@ -223,7 +269,7 @@ public class ManaTowerData {
                 if (longestTickInRecord > usedTick) {
                     change = true;
                 }
-                recordList.add(new TimeRecord(Name.get(player), usedTick));
+                recordList.add(new TimeRecord(Name.get(player), usedTick, getPlayerManaTowerPieceGetCount(player)));
             }
         }
         recordList.sort(new Comparator<TimeRecord>() {
@@ -240,7 +286,6 @@ public class ManaTowerData {
             setPlayerManaTowerDailyRecord(player, usedTick);
             sendMSG(player, Te.s("你刷新了今天的纪录:", getRecordTickDescription(everUsedTick),
                     " -> ", getRecordTickDescription(usedTick)));
-
         }
         int historyRecord = getPlayerManaTowerRecord(player);
         if (historyRecord == -1 || historyRecord > usedTick) {
@@ -271,11 +316,17 @@ public class ManaTowerData {
                     }
                     Compute.broad(player.level(), Te.s(" ".repeat(8),
                             (i + 1) + ".", CustomStyle.MANA_TOWER_STYLE, timeRecord.playerName,
-                            " - ", getRecordTickDescription(timeRecord.usedTick), " ", sign));
+                            " - ", getRecordTickDescription(timeRecord.usedTick), " ",
+                            "[", ChatFormatting.AQUA,
+                            timeRecord.count, CustomStyle.MANA_TOWER_STYLE,
+                            "]", ChatFormatting.AQUA, sign));
                 } else {
                     Compute.broad(player.level(), Te.s(" ".repeat(8),
                             (i + 1) + ".", CustomStyle.MANA_TOWER_STYLE, timeRecord.playerName,
-                            " - ", getRecordTickDescription(timeRecord.usedTick), " ", "new", ChatFormatting.GOLD));
+                            " - ", getRecordTickDescription(timeRecord.usedTick), " ",
+                            "[", ChatFormatting.AQUA,
+                            timeRecord.count, CustomStyle.MANA_TOWER_STYLE,
+                            "]", ChatFormatting.AQUA, "new", ChatFormatting.GOLD));
                 }
             }
         }

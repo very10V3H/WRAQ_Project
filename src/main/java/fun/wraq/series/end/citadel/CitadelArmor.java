@@ -66,7 +66,7 @@ public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttrib
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         if (!player.isShiftKeyDown()) {
             return List.of();
         }

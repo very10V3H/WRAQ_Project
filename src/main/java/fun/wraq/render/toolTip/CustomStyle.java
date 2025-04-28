@@ -88,6 +88,8 @@ public class CustomStyle {
     public static Style DIVINE_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#f9fcb0"));
     public static Style GHASTLY_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#457c57"));
     public static Style BUNKER_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#fc9300"));
+    public static Style ORCHARD_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#fc9300"));
+    public static Style PRIMEVAL_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#fc9300"));
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
         return style.applyFormat(ChatFormatting.GRAY).withItalic(true).withBold(true);
@@ -790,5 +792,35 @@ public class CustomStyle {
     });
     public static final Rarity BUNKER_ITALIC_RARITY = Rarity.create("bunker_italic", style -> {
         return style.applyTo(CustomStyle.BUNKER_STYLE).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity ORCHARD_RARITY = Rarity.create("orchard", style -> {
+        return style.applyTo(CustomStyle.ORCHARD_STYLE);
+    });
+    public static final Rarity ORCHARD_BOLD_RARITY = Rarity.create("orchard_bold", style -> {
+        return style.applyTo(CustomStyle.ORCHARD_STYLE).withBold(true);
+    });
+    public static final Rarity ORCHARD_ITALIC_RARITY = Rarity.create("orchard_italic", style -> {
+        return style.applyTo(CustomStyle.ORCHARD_STYLE).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity PRIMEVAL_RARITY = Rarity.create("primeval", style -> {
+        return style.applyTo(CustomStyle.PRIMEVAL_STYLE);
+    });
+    public static final Rarity PRIMEVAL_BOLD_RARITY = Rarity.create("primeval_bold", style -> {
+        return style.applyTo(CustomStyle.PRIMEVAL_STYLE).withBold(true);
+    });
+    public static final Rarity PRIMEVAL_ITALIC_RARITY = Rarity.create("primeval_italic", style -> {
+        return style.applyTo(CustomStyle.PRIMEVAL_STYLE).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity MANA_TOWER_RARITY = Rarity.create("mana_tower", style -> {
+        return style.applyTo(CustomStyle.MANA_TOWER_STYLE);
+    });
+    public static final Rarity MANA_TOWER_BOLD_RARITY = Rarity.create("mana_tower_bold", style -> {
+        return style.applyTo(CustomStyle.MANA_TOWER_STYLE).withBold(true);
+    });
+    public static final Rarity MANA_TOWER_ITALIC_RARITY = Rarity.create("mana_tower_italic", style -> {
+        return style.applyTo(CustomStyle.MANA_TOWER_STYLE).withBold(true).withItalic(true);
     });
 }

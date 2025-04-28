@@ -54,9 +54,8 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         List<Attribute> attributes = new ArrayList<>();
-        ItemStack stack = player.getMainHandItem();
         int count = DivineWeaponCommon.getDivineCount(stack);
         double rate = Math.min(1, count * 1.0 / maxCount);
         attributes.addAll(List.of(

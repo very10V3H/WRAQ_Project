@@ -62,7 +62,7 @@ public class QingMingDefenceRing extends WraqCurios implements OnWithStandDamage
     }
 
     @Override
-    public List<InCuriosOrEquipSlotAttributesModify.Attribute> getAttributes(Player player) {
+    public List<InCuriosOrEquipSlotAttributesModify.Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(
                 new InCuriosOrEquipSlotAttributesModify.Attribute(Utils.percentDefenceEnhance,
                         countMap.getOrDefault(Name.get(player), 0) / 10d * 0.1),

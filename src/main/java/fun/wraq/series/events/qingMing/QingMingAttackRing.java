@@ -63,7 +63,7 @@ public class QingMingAttackRing extends WraqCurios implements OnKillEffectCurios
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(
                 new Attribute(Utils.percentAttackDamageEnhance,
                         countMap.getOrDefault(Name.get(player), 0) / 10d * 0.05),
@@ -75,7 +75,7 @@ public class QingMingAttackRing extends WraqCurios implements OnKillEffectCurios
     public static Map<String, Integer> countMap = new HashMap<>();
     public static Map<String, Integer> countExpiredTickMap = new HashMap<>();
     @Override
-    public void onKill(Player player, Mob mob) {
+    public void onKill(Player player, Mob mob, ItemStack stack) {
         if (countExpiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
             countMap.put(Name.get(player), 1);
         } else {

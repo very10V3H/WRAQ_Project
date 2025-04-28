@@ -3,14 +3,14 @@ package fun.wraq.common.impl.onkill;
 import fun.wraq.common.Compute;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public interface OnKillEffectCurios {
-    void onKill(Player player, Mob mob);
+    void onKill(Player player, Mob mob, ItemStack stack);
 
     static void kill(Player player, Mob mob) {
         Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .filter(stack -> stack.getItem() instanceof OnKillEffectCurios)
-                .map(stack -> (OnKillEffectCurios) stack.getItem())
-                .forEach(curios -> curios.onKill(player, mob));
+                .forEach(stack -> ((OnKillEffectCurios) stack.getItem()).onKill(player, mob, stack));
     }
 }

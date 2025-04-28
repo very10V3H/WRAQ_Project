@@ -2882,38 +2882,6 @@ public class ModItems {
     public static final RegistryObject<Item> MobArmorLabourDay2 = ITEMS.register("mob_armor_labour_day2",
             () -> new MobArmor(ModArmorMaterials.BasicArmor2, ArmorItem.Type.HELMET, StringUtils.MobName.LabourDay2));
 
-    public static final RegistryObject<Item> OldSilverCoin = ITEMS.register("old_silver_coin",
-            () -> new OldCoin(new Item.Properties().rarity(CustomStyle.Mine)));
-
-    public static final RegistryObject<Item> OldGoldCoin = ITEMS.register("old_gold_coin",
-            () -> new OldCoin(new Item.Properties().rarity(CustomStyle.Gold)));
-
-    public static final RegistryObject<Item> LabourDayForgePaper = ITEMS.register("labour_day_forge_paper",
-            () -> new LabourDayForgePaper(new Item.Properties().rarity(CustomStyle.GoldBold)));
-
-    public static final RegistryObject<Item> LabourDayIronHoe = ITEMS.register("labour_day_iron_hoe",
-            () -> new LabourDayIronHoe(new Item.Properties().rarity(CustomStyle.GoldBold)));
-
-    public static final RegistryObject<Item> LabourDayIronPickaxe = ITEMS.register("labour_day_iron_pickaxe",
-            () -> new LabourDayIronPickaxe(new Item.Properties().rarity(CustomStyle.GoldBold)));
-
-    public static final RegistryObject<Item> LabourDayPrefix = ITEMS.register("labour_day_prefix",
-            () -> new LabourDayPrefix(new Item.Properties().rarity(CustomStyle.GoldBold)));
-
-    public static final RegistryObject<Item> LabourDayGem = ITEMS.register("labour_day_gem",
-            () -> new LabourDayGem(new Item.Properties().rarity(CustomStyle.GoldBold)));
-
-    public static final RegistryObject<Item> LabourDayLottery = ITEMS.register("labour_day_lottery",
-            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.GoldBold), new ArrayList<>() {{
-                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayIronPickaxe.get()), 0.01));
-                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayIronHoe.get()), 0.01));
-                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayForgePaper.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayGem.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayPrefix.get()), 0.04));
-                add(new NewLotteries.Loot(new ItemStack(ModItems.OldGoldCoin.get()), 0.45));
-                add(new NewLotteries.Loot(new ItemStack(ModItems.OldSilverCoin.get()), 0.45));
-            }}));
-
     public static final RegistryObject<Item> CastleMopUpPaper = ITEMS.register("castle_mop_up_paper",
             () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Castle));
 

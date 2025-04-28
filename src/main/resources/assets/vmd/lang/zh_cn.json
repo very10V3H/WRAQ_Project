@@ -2082,7 +2082,6 @@
   "item.vmd.ice_holy_piece_chest_2": "傲世冰圣器箱",
   "item.vmd.ice_holy_piece_chest_3": "神圣冰圣器箱",
 
-
   "item.vmd.divine_gem_passive_tier_0": "纯粹之光珠 - Phase 0",
   "item.vmd.divine_gem_passive_tier_1": "纯粹之光珠 - Phase 1",
   "item.vmd.divine_gem_passive_tier_2": "纯粹之光珠 - Phase 2",
@@ -2155,6 +2154,27 @@
   "item.vmd.pearl5": "本源珍珠 - V",
   "item.vmd.pearl6": "本源珍珠 - VI",
   "item.vmd.world_forge_stone": "本源宝石",
+
+  "item.vmd.stone_spider_piece": "石岸碎石",
+  "item.vmd.stone_spider_rune": "石岸石",
+  "item.vmd.stone_spider_knife_0": "锯齿石刀",
+  "item.vmd.stone_spider_knife_1": "锯齿石刀¹",
+  "item.vmd.stone_spider_knife_2": "锯齿石刀²",
+  "item.vmd.stone_spider_knife_3": "锯齿石刀³",
+  "item.vmd.stone_spider_gem_attack_0": "锯齿宝石 - 尖锐I",
+  "item.vmd.stone_spider_gem_attack_1": "锯齿宝石 - 尖锐II",
+  "item.vmd.stone_spider_gem_attack_2": "锯齿宝石 - 尖锐III",
+  "item.vmd.stone_spider_gem_mana_0": "锯齿宝石 - 浸酸I",
+  "item.vmd.stone_spider_gem_mana_1": "锯齿宝石 - 浸酸II",
+  "item.vmd.stone_spider_gem_mana_2": "锯齿宝石 - 浸酸III",
+
+  "item.vmd.labour_day_uniform_curio": "因子 - 劳动",
+
+  "item.vmd.mana_tower_piece": "原界之痕",
+  "item.vmd.mana_tower_rune": "原界玉泽",
+
+  "item.vmd.nan_hai": "原界 - 南海",
+  "item.vmd.tong_tian": "原界 - 通天",
 
   "item.vmd.splasher": "膨热剂",
 

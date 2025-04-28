@@ -5,6 +5,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
+import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.uniform.attack.WraqAttackUniformCurios;
 import fun.wraq.customized.uniform.bow.WraqBowUniformCurios;
 import fun.wraq.customized.uniform.element.WraqElementUniformCurios;
@@ -16,6 +17,7 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -289,6 +291,9 @@ public class NewLotteries extends Item {
         Item curio = curioList.get(index);
         index = (date / 7) % WraqElementUniformCurios.ELEMENT_CURIOS.size();
         Item elementCurio = WraqElementUniformCurios.ELEMENT_CURIOS.get(index);
+        if (LabourDayOldCoin.isInActivityDate()) {
+            elementCurio = UniformItems.LABOUR_DAY_UNIFORM_CURIO.get();
+        }
         lootList.add(new Loot(curio.getDefaultInstance(), 0.005));
         lootList.add(new Loot(elementCurio.getDefaultInstance(), 0.005));
         lootList.add(new Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2));

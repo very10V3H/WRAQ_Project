@@ -79,7 +79,7 @@ public class ShipSceptre extends WraqSceptre implements InCuriosOrEquipSlotAttri
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(new Attribute(Utils.manaPenetration0, Math.min(40, waterBlockCount.getOrDefault(player, 0) / 10d)));
     }
 }

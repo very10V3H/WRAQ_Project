@@ -363,6 +363,14 @@ public class ComponentUtils {
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.BUNKER_STYLE);
     }
 
+    public static Component getSuffixOfStoneSpider() {
+        return Te.s("石岸", ChatFormatting.ITALIC, CustomStyle.styleOfStone);
+    }
+
+    public static Component getSuffixOfManaTower() {
+        return Te.s("原界", ChatFormatting.ITALIC, CustomStyle.MANA_TOWER_STYLE);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));

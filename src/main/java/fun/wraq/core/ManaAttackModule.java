@@ -124,7 +124,7 @@ public class ManaAttackModule {
             damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             // defence compute
-            damage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
+            damage *= Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0);
             // total damage
             damage *= DamageInfluence.getPlayerTotalDamageRate(player);
             trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
@@ -198,8 +198,10 @@ public class ManaAttackModule {
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-                player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
+                        + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+                player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : "
+                        + Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
                 player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));

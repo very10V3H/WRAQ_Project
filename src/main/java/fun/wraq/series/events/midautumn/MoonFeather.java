@@ -47,7 +47,7 @@ public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillE
     }
 
     @Override
-    public void onKill(Player player, Mob mob) {
+    public void onKill(Player player, Mob mob, ItemStack stack) {
         if (mob.getEffect(MobEffects.LEVITATION) != null) {
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
                     new StableAttributesModifier("moonFeatherPassiveEffect", 0.15, Tick.get() + 200));

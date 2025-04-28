@@ -20,6 +20,7 @@ import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -123,6 +124,7 @@ public class MobKillEntrustment {
                 "/vmd entrustment queryWeekly", Te.s("点击以查看每周进度奖励", ChatFormatting.LIGHT_PURPLE))));
         sendAcceptOrBondStoreMSG(player);
         int currentFinishedTime = getDailyFinishedTimes(player);
+        LabourDayOldCoin.onFinishMobKillEntrustment(player, currentFinishedTime);
         if (currentFinishedTime == 5) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 2));
             if (QingTuan.isInActivityDate()) {

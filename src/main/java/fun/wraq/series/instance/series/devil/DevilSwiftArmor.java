@@ -62,7 +62,7 @@ public class DevilSwiftArmor extends WraqArmor implements OnKillEffectEquip, InC
     public static Map<Player, Queue<Double>> recentKillEntityAttackDamage = new HashMap<>();
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         Queue<Double> q = recentKillEntityAttackDamage.getOrDefault(player, new ArrayDeque<>());
         return List.of(new Attribute(Utils.attackDamage,
                 Math.min(PlayerAttributes.getBaseAttackDamage(player) * 0.35,

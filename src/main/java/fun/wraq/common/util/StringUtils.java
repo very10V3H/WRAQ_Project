@@ -962,9 +962,6 @@ public class StringUtils {
 
     public static String ClientLimit = "WraqClientLimit";
 
-    public static String QingMingForgePaper = "QingMingForgePaper";
-    public static String LabourDayForgePaper = "LabourDayForgePaper";
-
     public static String MovementSpeedRate = "MovementSpeedRate";
 
     public static String OriginElementGetTimes = "OriginElementGetTimes";

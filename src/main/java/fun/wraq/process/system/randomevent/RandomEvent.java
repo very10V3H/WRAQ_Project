@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -144,7 +145,12 @@ public abstract class RandomEvent {
         int times = RandomEventData.getWorldSoul5DailyGetTimes(player);
         Component component = ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName();
         if (RandomEventData.getWorldSoul5DailyGetTimes(player) < 4) {
-            Tower.givePlayerStar(player, 6, "随机事件");
+            if (PlanPlayer.getPlayerTier(player) >= 1) {
+                Tower.givePlayerStar(player, 12, "随机事件");
+                PlanPlayer.sendDoubleStarTip(player);
+            } else {
+                Tower.givePlayerStar(player, 6, "随机事件");
+            }
             RandomEventData.incrementWorldSoul5DailyGetTimes(player);
             ++times;
             if (times > 0) {

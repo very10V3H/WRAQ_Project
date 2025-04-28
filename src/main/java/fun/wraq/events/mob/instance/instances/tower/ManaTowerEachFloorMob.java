@@ -16,7 +16,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -35,14 +36,19 @@ public class ManaTowerEachFloorMob {
             new Vec3(1511, 109, -518),
             new Vec3(1494, 109, -535)
     );
-    public static Mob spawnFloor1Mob(Level level, Vec3 pos) {
+
+    public static double getBaseMaxHealth(int count) {
+        return BASE_MAX_HEALTH * (1 + count * 0.1);
+    }
+
+    public static Mob spawnFloor1Mob(Level level, Vec3 pos, int count) {
         Zombie mob = new Zombie(EntityType.ZOMBIE, level);
         mob.setBaby(true);
         MobSpawn.MobBaseAttributes
                 .setMobBaseAttributes(mob, Te.s(FLOOR_1_MOB_NAME, style), MOB_XP_LEVEL,
                         4000, 300, 300, 0.4, 5,
                         0.5, 250, 25,
-                        BASE_MAX_HEALTH, 0.4);
+                        getBaseMaxHealth(count), 0.4);
         setUniformArmor(mob);
         mob.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.STONE_SWORD));
         mob.moveTo(pos);
@@ -61,13 +67,13 @@ public class ManaTowerEachFloorMob {
             new Vec3(1493, 135, -535),
             new Vec3(1498, 135, -548)
     );
-    public static Mob spawnFloor2Mob(Level level, Vec3 pos) {
+    public static Mob spawnFloor2Mob(Level level, Vec3 pos, int count) {
         Stray mob = new Stray(EntityType.STRAY, level);
         MobSpawn.MobBaseAttributes
                 .setMobBaseAttributes(mob, Te.s(FLOOR_2_MOB_NAME, style), MOB_XP_LEVEL,
                         4000, 300, 300, 0.4, 5,
                         0.5, 250, 25,
-                        BASE_MAX_HEALTH, 0.4);
+                        getBaseMaxHealth(count), 0.4);
         setUniformArmor(mob);
         mob.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.BOW));
         mob.moveTo(pos);
@@ -82,13 +88,13 @@ public class ManaTowerEachFloorMob {
             new Vec3(1511, 158, -526),
             new Vec3(1502, 158, -535)
     );
-    public static Mob spawnFloor3Mob(Level level, Vec3 pos) {
+    public static Mob spawnFloor3Mob(Level level, Vec3 pos, int count) {
         TorturedSoul mob = new TorturedSoul(AquamiraeEntities.TORTURED_SOUL.get(), level);
         MobSpawn.MobBaseAttributes
                 .setMobBaseAttributes(mob, Te.s(FLOOR_3_MOB_NAME, style), MOB_XP_LEVEL,
                         4000, 300, 300, 0.4, 5,
                         0.5, 250, 25,
-                        BASE_MAX_HEALTH, 0.4);
+                        getBaseMaxHealth(count), 0.4);
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         return mob;
@@ -105,13 +111,13 @@ public class ManaTowerEachFloorMob {
 
     public static final String FLOOR_4_MOB_NAME = "浸魔诡使";
     public static Vec3 FLOOR_4_MOB_POS = new Vec3(1511, 188, -540);
-    public static Mob spawnFloor4Mob(Level level, Vec3 pos) {
+    public static Mob spawnFloor4Mob(Level level, Vec3 pos, int count) {
         ZombieBruiserEntity mob = new ZombieBruiserEntity(BornInChaosV1ModEntities.ZOMBIE_BRUISER.get(), level);
         MobSpawn.MobBaseAttributes
                 .setMobBaseAttributes(mob, Te.s(FLOOR_4_MOB_NAME, style), MOB_XP_LEVEL,
                         15000, 300, 300, 0.4, 5,
                         0.5, 250, 25,
-                        BASE_MAX_HEALTH * 2, 0.4);
+                        getBaseMaxHealth(count) * 2, 0.4);
         setUniformArmor(mob);
         mob.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.GOLDEN_SWORD));
         mob.moveTo(pos);
@@ -121,13 +127,13 @@ public class ManaTowerEachFloorMob {
 
     public static final String FLOOR_5_MOB_NAME = "突变魔兽";
     public static Vec3 FLOOR_5_MOB_POS = new Vec3(1511, 218, -540);
-    public static Mob spawnFloor5Mob(Level level, Vec3 pos) {
+    public static Mob spawnFloor5Mob(Level level, Vec3 pos, int count) {
         Ender_Golem_Entity mob = new Ender_Golem_Entity(ModEntities.ENDER_GOLEM.get(), level);
         MobSpawn.MobBaseAttributes
                 .setMobBaseAttributes(mob, Te.s(FLOOR_5_MOB_NAME, style), MOB_XP_LEVEL,
                         4000, 400, 400, 0.4, 5,
                         0.5, 250, 25,
-                        BASE_MAX_HEALTH * 20, 0.4);
+                        getBaseMaxHealth(count) * 20, 0.4);
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         return mob;

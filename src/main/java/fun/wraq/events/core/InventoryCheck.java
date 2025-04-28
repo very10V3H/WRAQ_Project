@@ -14,6 +14,7 @@ import fun.wraq.series.TickItem;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
+import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -200,7 +201,12 @@ public class InventoryCheck {
                 SpecialEventItems.RED_ENVELOPE.get(),
                 SpecialEventItems.BIG_RED_ENVELOPE.get(),
                 IceHolyItems.CHEST.get(),
-                SpecialEventItems.QING_MING_REBORN_CHEST.get()
+                SpecialEventItems.QING_MING_REBORN_CHEST.get(),
+                SpecialEventItems.OldSilverCoin.get(),
+                SpecialEventItems.OldGoldCoin.get(),
+                SpecialEventItems.LabourDayIronHoe.get(),
+                SpecialEventItems.LabourDayIronPickaxe.get(),
+                SpecialEventItems.LabourDayLottery.get()
         ));
         UniformItems.ITEMS.getEntries()
                 .stream()
@@ -211,6 +217,10 @@ public class InventoryCheck {
                 .map(entry -> entry.get().asItem())
                 .forEach(item -> boundingList.add(item));
         AllayItems.ITEMS.getEntries()
+                .stream()
+                .map(entry -> entry.get().asItem())
+                .forEach(item -> boundingList.add(item));
+        ManaTowerItems.ITEMS.getEntries()
                 .stream()
                 .map(entry -> entry.get().asItem())
                 .forEach(item -> boundingList.add(item));

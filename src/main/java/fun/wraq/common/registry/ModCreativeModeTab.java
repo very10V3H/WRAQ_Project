@@ -14,6 +14,8 @@ import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -86,6 +88,13 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> HOLY = CREATIVE_MODE_TAB.register("wraq_holy", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(IceHolyItems.SWORD_ATTACK_0.get()))
                     .title(Te.s("维瑞阿契 | 圣器")).build());
+    public static RegistryObject<CreativeModeTab> NEW_AREA = CREATIVE_MODE_TAB.register("wraq_new_area", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_0.get()))
+                    .title(Te.s("维瑞阿契 | 新区域")).build());
+    public static RegistryObject<CreativeModeTab> MANA_TOWER = CREATIVE_MODE_TAB.register("wraq_mana_tower", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(ManaTowerItems.NAN_HAI.get()))
+                    .title(Te.s("维瑞阿契 | 炼魔塔")).build());
+
 
 
     public static void register(IEventBus eventBus) {

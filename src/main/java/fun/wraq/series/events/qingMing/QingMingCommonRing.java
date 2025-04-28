@@ -60,7 +60,7 @@ public class QingMingCommonRing extends WraqCurios implements OnKillEffectCurios
     public static Map<String, Integer> passiveExpireTickMap = new HashMap<>();
     public static final String TEXTURE_URL = "qing_ming_common_ring_1";
     @Override
-    public void onKill(Player player, Mob mob) {
+    public void onKill(Player player, Mob mob, ItemStack stack) {
         killCountMap.compute(Name.get(player), (k, v) -> v == null ? 1 : Math.min(50, v + 1));
         int count = killCountMap.get(Name.get(player));
         if (count >= 50) {

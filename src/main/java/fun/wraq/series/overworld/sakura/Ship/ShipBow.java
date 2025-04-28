@@ -49,7 +49,7 @@ public class ShipBow extends WraqBow implements InCuriosOrEquipSlotAttributesMod
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(new Attribute(Utils.defencePenetration0, 5 * Math.min(4, Compute.getNearEntity(player, Player.class, 6)
                 .stream().filter(entity -> entity.distanceTo(player) <= 6).count())));
     }

@@ -310,7 +310,7 @@ public class RandomEventsHandler {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerCritRateModifier,
                             "RandomElementEvent", 0.2, Tick.get() + Tick.min(15),
                             ModItems.IceElement.get());
-                    sendElementMSG(player, Te.s("凌冽冰气，催肤刺骨", CustomStyle.styleOfIce,
+                    sendElementMSG(player, Te.s("凌冽冰气，摧肤刺骨", CustomStyle.styleOfIce,
                             " - 获得持续15min的", ComponentUtils.AttributeDescription.critRate("20%")));
                 });
             }

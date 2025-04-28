@@ -56,6 +56,7 @@ import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
+import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
 import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -136,7 +137,7 @@ public class Damage {
         damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
 
         baseDamage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-        baseDamage *= defenceDamageDecreaseRate(MobAttributes.defence(monster),
+        baseDamage *= defenceDamageDecreaseRate(player, monster, MobAttributes.defence(monster),
                 PlayerAttributes.defencePenetration(player),
                 PlayerAttributes.defencePenetration0(player));
 
@@ -171,7 +172,7 @@ public class Damage {
 
         damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         damage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-        damage *= defenceDamageDecreaseRate(MobAttributes.defence(monster),
+        damage *= defenceDamageDecreaseRate(player, monster, MobAttributes.defence(monster),
                 PlayerAttributes.defencePenetration(player),
                 PlayerAttributes.defencePenetration0(player));
 
@@ -185,7 +186,8 @@ public class Damage {
 
     public static double causeAttackDamageToMonster_AdDamage_Direct(Player player, Mob monster, double damage, boolean computeDefenceOrEnhance) {
         if (computeDefenceOrEnhance) {
-            damage *= defenceDamageDecreaseRate(MobAttributes.defence(monster), PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
+            damage *= defenceDamageDecreaseRate(player, monster, MobAttributes.defence(monster),
+                    PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
             damage *= (1 + DamageInfluence.getPlayerAttackDamageEnhance(player, monster));
         }
 
@@ -196,7 +198,8 @@ public class Damage {
     }
 
     public static double causeAttackDamageToMonsterOnlyComputeDefence(Player player, Mob mob, double damage) {
-        damage *= defenceDamageDecreaseRate(MobAttributes.defence(mob), PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
+        damage *= defenceDamageDecreaseRate(player, mob, MobAttributes.defence(mob),
+                PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
         Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
@@ -205,7 +208,8 @@ public class Damage {
 
     public static double causeManaDamageToMonster_ApDamage_Direct(Player player, Mob monster, double damage, boolean computeDefenceOrEnhance) {
         if (computeDefenceOrEnhance) {
-            damage *= defenceDamageDecreaseRate(MobAttributes.manaDefence(monster), PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
+            damage *= defenceDamageDecreaseRate(player, monster, MobAttributes.manaDefence(monster),
+                    PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
             damage *= (1 + DamageInfluence.getPlayerManaDamageEnhance(player));
         }
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
@@ -237,7 +241,7 @@ public class Damage {
         double exDamage = 0;
 
         double defenceDamageDecreaseRate =
-                Damage.defenceDamageDecreaseRate(MobAttributes.manaDefence(monster),
+                Damage.defenceDamageDecreaseRate(player, monster, MobAttributes.manaDefence(monster),
                         PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
 
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
@@ -312,8 +316,10 @@ public class Damage {
             player.sendSystemMessage(Component.literal("BaseDamage : " + baseDamage));
             player.sendSystemMessage(Component.literal("ExDamage : " + ExDamage));
         }
-        baseDamage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
-        ExDamage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
+        baseDamage *= Damage.defenceDamageDecreaseRate(player, monster,
+                defence, defencePenetration, defencePenetration0);
+        ExDamage *= Damage.defenceDamageDecreaseRate(player, monster,
+                defence, defencePenetration, defencePenetration0);
         double totalDamage = (baseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
 
         // 元素
@@ -355,8 +361,10 @@ public class Damage {
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : " + Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
+                    + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : "
+                    + Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
             player.sendSystemMessage(Component.literal("totalDamage : " + totalDamage));
@@ -382,7 +390,7 @@ public class Damage {
 
         damage += ExDamage;
 
-        damage *= Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        damage *= Damage.defenceDamageDecreaseRate(player, monster, Defence, BreakDefence, BreakDefence0);
 
         double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
@@ -413,7 +421,7 @@ public class Damage {
         }
 
         damage += ExDamage;
-        damage *= Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        damage *= Damage.defenceDamageDecreaseRate(player, monster, Defence, BreakDefence, BreakDefence0);
 
         double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         // 元素
@@ -444,8 +452,10 @@ public class Damage {
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : " + Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0)));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
+                    + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : "
+                    + Damage.defenceDamageDecreaseRate(player, monster, Defence, BreakDefence, BreakDefence0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
             player.sendSystemMessage(Component.literal("totalDamage : " + totalDamage));
@@ -646,7 +656,18 @@ public class Damage {
     // 对 怪物对玩家的伤害 或 玩家受到怪物伤害，只需在MonsterAttack修改
     // 对于玩家对怪物造成的伤害增益，需分为不同类型的伤害值进行计算。即需前往每个类型进行修改。其中，有RateAd/ApDamage可用。
 
-    public static double defenceDamageDecreaseRate(double defence, double defencePenetration, double defencePenetration0) {
+    public static double defenceDamageDecreaseRate(Player player, Mob mob, double defence,
+                                                   double defencePenetration, double defencePenetration0) {
+        double defenceAfterCompute = Math.max(0, defence * (1 - defencePenetration) - defencePenetration0);
+        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ManaTowerItems.NAN_HAI.get())
+                && mob.getHealth() / mob.getMaxHealth() < 0.4) {
+            defenceAfterCompute = 0;
+        }
+        return (100 / (100 + defenceAfterCompute));
+    }
+
+    public static double defenceDamageDecreaseRate(double defence,
+                                                   double defencePenetration, double defencePenetration0) {
         double defenceAfterCompute = Math.max(0, defence * (1 - defencePenetration) - defencePenetration0);
         return (100 / (100 + defenceAfterCompute));
     }

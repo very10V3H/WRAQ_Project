@@ -40,7 +40,6 @@ public class Display {
         if (souvenirsList.isEmpty()) {
             souvenirsList.addAll(List.of(
                     SpecialEventItems.SCALE_0.get(),
-                    ModItems.LabourDayIronPickaxe.get(),
                     SpecialEventItems.SUMMER_CURIOS5.get(),
                     SpecialEventItems.MOON_FEATHER_0.get(),
                     SpecialEventItems.TRAIN_SOUVENIRS.get(),

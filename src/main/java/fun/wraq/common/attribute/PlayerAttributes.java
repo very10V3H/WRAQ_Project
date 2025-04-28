@@ -37,6 +37,7 @@ import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.holy.ice.curio.IceHolyCrest;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -564,6 +565,7 @@ public class PlayerAttributes {
 
         int tier = PlanPlayer.getPlayerTier(player);
         expUp += new double[]{0, 1, 2, 3}[tier];
+        expUp += LabourDayOldCoin.getExExpUp();
 
         // 请在上方添加
         double exRate = 0;
@@ -1464,7 +1466,6 @@ public class PlayerAttributes {
         value += computeAllEquipSlotBaseAttributeValue(player, Utils.elementStrength, false);
         value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.elementStrength);
         value += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.elementStrength);
-
         // 以下是对最终属性数值进行调整，这个元素本身就是个百分比元素！
         double rate = 0;
         rate -= DivineUtils.getPlayerElementStrengthDecreaseRate(player);

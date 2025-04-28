@@ -22,7 +22,7 @@ import fun.wraq.events.mob.chapter3_nether.WitherSkeletonSpawnController;
 import fun.wraq.events.mob.chapter4_end.EnderManSpawnController;
 import fun.wraq.events.mob.chapter4_end.EndermiteSpawnController;
 import fun.wraq.events.mob.chapter4_end.ShulkerSpawnController;
-import fun.wraq.events.mob.chapter5.*;
+import fun.wraq.events.mob.chapter5.origin.*;
 import fun.wraq.events.mob.chapter6_castle.BeaconSpawnController;
 import fun.wraq.events.mob.chapter6_castle.BlazeSpawnController;
 import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
@@ -50,12 +50,14 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
 import fun.wraq.series.overworld.divine.mob.common.GhastlyCreeperSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.GhastlyHuskSpawnController;
+import fun.wraq.series.overworld.newarea.stone.StoneSpiderSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
@@ -188,6 +190,7 @@ public class MobSpawn {
         overWolrdList.add(BunkerBowMobSpawnController.getInstance(overWorld));
         overWolrdList.add(BunkerAttackMobSpawnController.getInstance(overWorld));
         overWolrdList.add(BunkerBlazeSpawnController.getInstance(overWorld));
+        overWolrdList.add(StoneSpiderSpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();
@@ -401,6 +404,7 @@ public class MobSpawn {
         if (QingTuan.isInActivityDate() && RandomUtils.nextInt(0, 10000) < 25) {
             ItemAndRate.send(player, SpecialEventItems.QING_TUAN.get().getDefaultInstance());
         }
+        LabourDayOldCoin.onPlayerKillMob(player);
 
         recall(mob, player);
         if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) return;

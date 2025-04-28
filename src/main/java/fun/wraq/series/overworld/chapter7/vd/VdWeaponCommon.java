@@ -49,7 +49,7 @@ public interface VdWeaponCommon {
         components.add(Component.literal(" 清空周围敌人的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("研习值").withStyle(style)).
                 append(Component.literal("，每层对敌人造成").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.maxHealth("2.5%")).
+                append(ComponentUtils.AttributeDescription.health("6%当前")).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         ComponentUtils.manaCostDescription(components, 100);
         ComponentUtils.coolDownTimeDescription(components, 15);
@@ -156,7 +156,7 @@ public interface VdWeaponCommon {
                 if (mobHashSet.contains(mob)) {
                     removeSet.add(mob);
                     if (mob.isAlive()) {
-                        Damage.causeTrueDamageToMonster(player, mob, mob.getMaxHealth() * 0.025 * countMap.get(mob));
+                        Damage.causeTrueDamageToMonster(player, mob, mob.getHealth() * 0.06 * countMap.get(mob));
                         Compute.removeMobEffectHudToNearPlayer(mob, C7Items.vdSword.get(), "vdCount");
                         if (mob.getHealth() < mob.getMaxHealth() * 0.025 * countMap.get(mob)) {
                             player.getCooldowns().removeCooldown(item);
@@ -166,7 +166,8 @@ public interface VdWeaponCommon {
                 }
             });
             countOnMobs.removeIf(countOnMob -> removeSet.contains(countOnMob.mob));
-            ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfWorld.getColor().getValue());
+            ParticleProvider.dustParticle(player, player.getEyePosition(),
+                    6, 36, CustomStyle.styleOfWorld.getColor().getValue());
         }
     }
 }

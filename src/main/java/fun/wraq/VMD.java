@@ -76,6 +76,8 @@ import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -147,6 +149,8 @@ public class VMD {
         CompositesItems.ITEMS.register(modEvenBus);
         HolyItems.ITEMS.register(modEvenBus);
         IceHolyItems.ITEMS.register(modEvenBus);
+        NewAreaItems.ITEMS.register(modEvenBus);
+        ManaTowerItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -303,15 +307,6 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.SPECIAL_FESTIVAL.getKey())) {
             SpecialEventItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
-
-            Item[] items = {
-                    ModItems.OldSilverCoin.get(), ModItems.OldGoldCoin.get(),
-                    ModItems.LabourDayForgePaper.get(), ModItems.LabourDayIronPickaxe.get(), ModItems.LabourDayIronHoe.get(),
-                    ModItems.LabourDayLottery.get(), ModItems.LabourDayPrefix.get(), ModItems.LabourDayGem.get()
-            };
-            for (Item item : items) {
-                event.accept(item);
-            }
         }
         if (event.getTabKey().equals(ModCreativeModeTab.WEAPON_TAB.getKey())) {
             for (Item item : Utils.weaponList) event.accept(item.getDefaultInstance());
@@ -541,12 +536,11 @@ public class VMD {
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.CURIOS_AND_GEMS.getKey())) {
-
-            for (Item item : Utils.curiosList) event.accept(item.getDefaultInstance());
-
-            for (Object o : GemItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
+            for (Item item : Utils.curiosList) {
+                event.accept(item.getDefaultInstance());
+            }
+            for (Item item : Display.gemList) {
+                event.accept(item.getDefaultInstance());
             }
         }
 
@@ -698,6 +692,18 @@ public class VMD {
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);
             IceHolyItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.NEW_AREA.getKey())) {
+            NewAreaItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.MANA_TOWER.getKey())) {
+            ManaTowerItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

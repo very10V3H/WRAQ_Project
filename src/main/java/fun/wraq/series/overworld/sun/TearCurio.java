@@ -74,7 +74,7 @@ public class TearCurio extends WraqCurios implements OnReleaseSkillCurios, InCur
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(
                 new Attribute(Utils.maxMana, countMap.getOrDefault(player, 0))
         );

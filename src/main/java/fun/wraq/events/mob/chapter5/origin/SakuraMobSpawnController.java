@@ -1,8 +1,10 @@
-package fun.wraq.events.mob.chapter5;
+package fun.wraq.events.mob.chapter5.origin;
 
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.entities.entities.SakuraMob.SakuraMob;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.events.mob.loot.C5LootItems;
@@ -11,10 +13,8 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -24,55 +24,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BloodManaSpawnController extends MobSpawnController {
+public class SakuraMobSpawnController extends MobSpawnController {
 
-    public static String mobName = "腥月血灵";
-    private static BloodManaSpawnController instance;
+    public static String mobName = "樱灵";
+    private static SakuraMobSpawnController instance;
 
-    public static BloodManaSpawnController getInstance(Level world) {
+    public static SakuraMobSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(2204, 65, 1444),
-                    new Vec3(2209, 67, 1427),
-                    new Vec3(2221, 65, 1457),
-                    new Vec3(2228, 70, 1417),
-                    new Vec3(2238, 71, 1434),
-                    new Vec3(2250, 67, 1453),
-                    new Vec3(2254, 71, 1408),
-                    new Vec3(2267, 71, 1423),
-                    new Vec3(2272, 66, 1450),
-                    new Vec3(2272, 72, 1394),
-                    new Vec3(2289, 69, 1383),
-                    new Vec3(2286, 69, 1405),
-                    new Vec3(2307, 65, 1396),
-                    new Vec3(2295, 65, 1422)
+                    new Vec3(2090, 119, 1726),
+                    new Vec3(2096, 122, 1740),
+                    new Vec3(2097, 117, 1710),
+                    new Vec3(2112, 120, 1720),
+                    new Vec3(2119, 127, 1741),
+                    new Vec3(2118, 131, 1753),
+                    new Vec3(2133, 123, 1714),
+                    new Vec3(2136, 131, 1741),
+                    new Vec3(2151, 131, 1726),
+                    new Vec3(2149, 128, 1709),
+                    new Vec3(2156, 125, 1699)
             );
-            instance = new BloodManaSpawnController(spawnPos, 2326, 1480, 2162, 1322, world, 116);
+            instance = new SakuraMobSpawnController(spawnPos, 2173, 1761, 2069, 1675, world, 132);
         }
         return instance;
     }
 
-    public BloodManaSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+    public SakuraMobSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("腥月血灵", CustomStyle.styleOfBloodMana), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("樱灵", CustomStyle.styleOfSakura), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
     public Mob mobItemAndAttributeSet() {
-        Zombie zombie = new Zombie(EntityType.ZOMBIE, this.level);
+        SakuraMob sakuraMob = new SakuraMob(ModEntityType.SakuraMob.get(), this.level);
 
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
 
         // 设置颜色与名称
-        Style style = CustomStyle.styleOfBloodMana;
-        MobSpawn.setMobCustomName(zombie, Component.literal("腥月血灵").withStyle(style), xpLevel);
-        zombie.setBaby(true);
+        Style style = CustomStyle.styleOfSakura;
+        MobSpawn.setMobCustomName(sakuraMob, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 700, 65, 65, 0.4,
-                3, 0.25, 10, 20, 100000, 0.35);
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraMob), xpLevel);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraMob, 0, 85, 85, 0.4,
+                3, 0.25, 10, 20, 300000, 0.1);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
@@ -83,37 +79,37 @@ public class BloodManaSpawnController extends MobSpawnController {
             CompoundTag tag1 = new CompoundTag();
             tag1.putInt("color", style.getColor().getValue());
             tag.put("display", tag1);
-            zombie.setItemSlot(equipmentSlots[i], itemStacks[i]);
+            sakuraMob.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
 
         // 设置掉落
         List<ItemAndRate> list = getDropList();
 
         // 添加至掉落物列表
-        MobSpawn.dropList.put(MobSpawn.getMobOriginName(zombie), list);
-        return zombie;
+        MobSpawn.dropList.put(MobSpawn.getMobOriginName(sakuraMob), list);
+        return sakuraMob;
     }
 
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 3);
+            Element.provideElement(mob, Element.life, 3);
         });
     }
 
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.BloodManaSoul.get(), 0.8));
+            add(new ItemAndRate(ModItems.SakuraPetal.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.615));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.03));
-            add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.3));
-            add(new ItemAndRate(C5LootItems.bloodManaBoots.get(), 0.005));
+            add(new ItemAndRate(ModItems.LifeElementPiece0.get(), 0.3));
+            add(new ItemAndRate(C5LootItems.sakuraChest.get(), 0.005));
         }};
     }
 
     @Override
     public String getKillCountDataKey() {
-        return "BloodMana";
+        return "SakuraMob";
     }
 }

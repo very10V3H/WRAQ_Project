@@ -57,6 +57,7 @@ import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
 import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -346,6 +347,7 @@ public class LoginInEvent {
             }
 
             WraqCurios.shrinkOtherModSlot(serverPlayer);
+            LabourDayOldCoin.onPlayerLoginTips(player);
         }
     }
 
@@ -511,6 +513,8 @@ public class LoginInEvent {
         SmithPlayerData.setDailyReward(player, true);
         MissionV2Helper.onResetDailyContent(player);
         ManaTowerData.resetDailyRecord(player);
+        LabourDayOldCoin.refreshSilverCoinGetCount(player);
+        ManaTowerData.setManaTowerPieceDailyGetFlag(player, false);
     }
 
     public static void refreshWeeklyContent(Player player) {

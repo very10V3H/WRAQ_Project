@@ -1,6 +1,7 @@
 package fun.wraq.process.system.vp;
 
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
@@ -45,6 +46,11 @@ public class VpStore {
             priceMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 15);
             priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 15);
             priceMap.put(ModItems.SENIOR_SUPPLY.get(), 45);
+        }
+        if (LabourDayOldCoin.isInActivityDate()) {
+            priceMap.put(ModItems.simpleTier1Paper.get(), 54);
+            priceMap.put(ModItems.simpleTier2Paper.get(), 134);
+            priceMap.put(ModItems.simpleTier3Paper.get(), 238);
         }
         return priceMap;
     }

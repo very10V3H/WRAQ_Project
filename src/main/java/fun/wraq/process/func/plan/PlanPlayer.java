@@ -8,6 +8,7 @@ import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -231,5 +232,13 @@ public class PlanPlayer {
         if (getPlayerTier(serverPlayer) != 0) {
             serverPlayer.getFoodData().setFoodLevel(20);
         }
+    }
+
+    public static void sendFormatMSG(Player player, Component content) {
+        Compute.sendFormatMSG(player, Te.s("计划", CustomStyle.styleOfWorld), content);
+    }
+
+    public static void sendDoubleStarTip(Player player) {
+        sendFormatMSG(player, Te.s("计划已为你提供", "双倍聚星奖励", CustomStyle.styleOfWorld));
     }
 }

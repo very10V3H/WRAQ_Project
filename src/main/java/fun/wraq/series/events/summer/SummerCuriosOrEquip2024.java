@@ -103,7 +103,7 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         double rate = getRate(player);
         return List.of(
                 new Attribute(Utils.attackDamage, exAttackDamage[tier] * rate),

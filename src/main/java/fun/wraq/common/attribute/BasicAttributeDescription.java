@@ -19,6 +19,7 @@ import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
+import fun.wraq.series.events.ForgePaper;
 import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
@@ -61,22 +62,25 @@ public class BasicAttributeDescription {
 
         if (data.contains(StringUtils.ForgeLevel)) {
             int forgeLevel = data.getInt(StringUtils.ForgeLevel);
-
-            if (data.contains(StringUtils.QingMingForgePaper)) ++forgeLevel;
-            if (data.contains(StringUtils.LabourDayForgePaper)) ++forgeLevel;
-
+            for (ForgePaper forgePaper : ForgePaper.forgePapers) {
+                if (data.contains(forgePaper.getTag())) {
+                    ++forgeLevel;
+                }
+            }
             Style[] styles = {CustomStyle.styleOfMine, CustomStyle.styleOfGold,
                     Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), CustomStyle.styleOfWorld};
-
             Style style = styles[Math.min(3, Math.max(0, (forgeLevel - 1) / 8))];
-
             index++;
             if (item instanceof ForgeTemplate) {
                 --index;
             }
-            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(
-                    Te.s(" 强化等级 ", CustomStyle.styleOfPower, "" + forgeLevel, style,
-                            data.contains(StringUtils.QingMingForgePaper) ? "「清符+1」" : "", CustomStyle.styleOfLife),
+            MutableComponent component = Te.s(" 强化等级 ", CustomStyle.styleOfPower, "" + forgeLevel, style);
+            for (ForgePaper forgePaper : ForgePaper.forgePapers) {
+                if (data.contains(forgePaper.getTag())) {
+                    component.append(forgePaper.getExForgeLevelDescription());
+                }
+            }
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(component,
                     TraditionalTooltip.forge)));
         }
 

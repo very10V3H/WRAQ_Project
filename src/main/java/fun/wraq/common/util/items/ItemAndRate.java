@@ -115,6 +115,10 @@ public class ItemAndRate {
         return true;
     }
 
+    public static void send(Player player, Item item) {
+        send(player, item.getDefaultInstance());
+    }
+
     public static void send(Player player, ItemStack itemStack) {
         ItemStack dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);

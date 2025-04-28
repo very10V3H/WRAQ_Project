@@ -86,7 +86,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(new Attribute(Utils.manaPenetration0, -getStoredTotalValue(player) * 0.04));
     }
 

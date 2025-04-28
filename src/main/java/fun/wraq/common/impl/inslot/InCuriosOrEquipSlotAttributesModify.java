@@ -14,7 +14,7 @@ public interface InCuriosOrEquipSlotAttributesModify {
 
     record Attribute(Map<Item, Double> baseAttributeMap, double attributeValue) {}
 
-    List<Attribute> getAttributes(Player player);
+    List<Attribute> getAttributes(Player player, ItemStack stack);
 
     static double getAttributes(Player player, Map<Item, Double> baseAttributeMap) {
         double value = 0;
@@ -24,7 +24,7 @@ public interface InCuriosOrEquipSlotAttributesModify {
                 continue;
             }
             if (item instanceof InCuriosOrEquipSlotAttributesModify curios) {
-                for (Attribute attribute : curios.getAttributes(player)) {
+                for (Attribute attribute : curios.getAttributes(player, stack)) {
                     if (baseAttributeMap.equals(attribute.baseAttributeMap)) {
                         value += attribute.attributeValue;
                     }
@@ -36,7 +36,7 @@ public interface InCuriosOrEquipSlotAttributesModify {
                 continue;
             }
             if (equip.getItem() instanceof InCuriosOrEquipSlotAttributesModify item) {
-                for (Attribute attribute : item.getAttributes(player)) {
+                for (Attribute attribute : item.getAttributes(player, equip)) {
                     if (baseAttributeMap.equals(attribute.baseAttributeMap)) {
                         value += attribute.attributeValue;
                     }

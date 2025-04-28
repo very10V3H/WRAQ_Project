@@ -34,7 +34,7 @@ public class ManaTowerInstance extends NoTeamInstance {
     public static ManaTowerInstance getInstance() {
         if (instance == null) {
             instance = new ManaTowerInstance(new Vec3(1511, 110, -535), 40, 60, new Vec3(1511, 110, -535),
-                    Te.s("炼魔塔(测试阶段)", style), 250);
+                    Te.s("炼魔塔", style), 250);
         }
         return instance;
     }
@@ -63,22 +63,24 @@ public class ManaTowerInstance extends NoTeamInstance {
         if (!anyMobAlive()) {
             if (!containMob(ManaTowerEachFloorMob.FLOOR_2_MOB_NAME)) {
                 ManaTowerEachFloorMob.FLOOR_2_MOB_POS.forEach(pos -> {
-                    mobList.add(ManaTowerEachFloorMob.spawnFloor2Mob(overworld, pos));
+                    mobList.add(ManaTowerEachFloorMob.spawnFloor2Mob(overworld, pos, getManaTowerPieceGetCount()));
                 });
                 setTitle(Te.s("前往魔塔中心", style), Te.s("传送至2层，清理剩余怪物"));
                 currentFloor = 2;
             } else if (!containMob(ManaTowerEachFloorMob.FLOOR_3_MOB_NAME)) {
                 ManaTowerEachFloorMob.FLOOR_3_MOB_POS.forEach(pos -> {
-                    mobList.add(ManaTowerEachFloorMob.spawnFloor3Mob(overworld, pos));
+                    mobList.add(ManaTowerEachFloorMob.spawnFloor3Mob(overworld, pos, getManaTowerPieceGetCount()));
                 });
                 setTitle(Te.s("前往魔塔中心", style), Te.s("传送至3层，清理剩余怪物"));
                 currentFloor = 3;
             } else if (!containMob(ManaTowerEachFloorMob.FLOOR_4_MOB_NAME)) {
-                mobList.add(ManaTowerEachFloorMob.spawnFloor4Mob(overworld, ManaTowerEachFloorMob.FLOOR_4_MOB_POS));
+                mobList.add(ManaTowerEachFloorMob.spawnFloor4Mob(overworld,
+                        ManaTowerEachFloorMob.FLOOR_4_MOB_POS, getManaTowerPieceGetCount()));
                 setTitle(Te.s("前往魔塔中心", style), Te.s("传送至4层，清理剩余怪物"));
                 currentFloor = 4;
             } else if (!containMob(ManaTowerEachFloorMob.FLOOR_5_MOB_NAME)) {
-                mobList.add(ManaTowerEachFloorMob.spawnFloor5Mob(overworld, ManaTowerEachFloorMob.FLOOR_5_MOB_POS));
+                mobList.add(ManaTowerEachFloorMob.spawnFloor5Mob(overworld,
+                        ManaTowerEachFloorMob.FLOOR_5_MOB_POS, getManaTowerPieceGetCount()));
                 setTitle(Te.s("前往魔塔中心", style), Te.s("传送至5层，清理剩余怪物"));
                 currentFloor = 5;
             }
@@ -117,13 +119,21 @@ public class ManaTowerInstance extends NoTeamInstance {
         return mobList.stream().anyMatch(mob -> mobName.equals(MobSpawn.getMobOriginName(mob)));
     }
 
+    public int getManaTowerPieceGetCount() {
+        return players.stream()
+                .mapToInt(ManaTowerData::getPlayerManaTowerPieceGetCount)
+                .sum();
+    }
+
     @Override
     public void summonModule(Level level) {
         ManaTowerEachFloorMob.FLOOR_1_MOB_POS.forEach(pos -> {
             Utils.fourPosOffset.forEach(offset -> {
-                mobList.add(ManaTowerEachFloorMob.spawnFloor1Mob(level, pos.add(offset)));
+                mobList.add(ManaTowerEachFloorMob.spawnFloor1Mob(level, pos.add(offset), getManaTowerPieceGetCount()));
             });
-            setTitle(Te.s("炼魔试炼", style), Te.s("尽全力清理怪物!"));
+            setTitle(Te.s("炼魔试炼", style),
+                    Te.s("尽全力清理怪物!",
+                            "(原界亲和度:" + getManaTowerPieceGetCount() + ")", CustomStyle.MANA_TOWER_STYLE));
         });
         currentFloor = 1;
         players.forEach(player -> {

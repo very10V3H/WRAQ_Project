@@ -65,9 +65,11 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.ForgePaper;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingMingCommonRing;
 import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.blade.WraqBlade;
@@ -652,7 +654,7 @@ public class Compute {
             ModNetworking.sendToClient(new BowSkill12S2CPacket(8), (ServerPlayer) player);
     }
 
-    public static Boolean onSky(LivingEntity entity) {
+    public static Boolean isOnSky(LivingEntity entity) {
         int X = entity.getBlockX();
         int Y = entity.getBlockY();
         int Z = entity.getBlockZ();
@@ -735,9 +737,11 @@ public class Compute {
 
     public static double forgingValue(CompoundTag data, double baseValue) {
         int forgingLevel = data.getInt("Forging");
-        if (data.contains(StringUtils.QingMingForgePaper)) ++forgingLevel;
-        if (data.contains(StringUtils.LabourDayForgePaper)) ++forgingLevel;
-
+        for (ForgePaper forgePaper : ForgePaper.forgePapers) {
+            if (data.contains(forgePaper.getTag())) {
+                ++forgingLevel;
+            }
+        }
         if (forgingLevel <= 10) {
             return baseValue * 0.04 * forgingLevel;
         } else if (forgingLevel <= 20) {
@@ -1823,6 +1827,7 @@ public class Compute {
         rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerExHarvestModifier);
         rate += QingMingCommonRing.getExHarvest(player);
         rate += RankData.getExHarvestRate(player);
+        rate += LabourDayOldCoin.getExHarvest();
         return rate;
     }
 
@@ -2221,5 +2226,10 @@ public class Compute {
         // 制造粒子
         ParticleProvider.createSpaceEffectParticle(level, pos, radius,
                 100, style, lastTick + (startTick - Tick.get()));
+    }
+
+    public static final String TEMP_TAG_KEY = "tempTagKey";
+    public static CompoundTag getTempTag(Player player) {
+        return getPlayerSpecificKeyCompoundTagData(player, TEMP_TAG_KEY);
     }
 }

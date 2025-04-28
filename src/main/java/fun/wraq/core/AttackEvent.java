@@ -63,7 +63,6 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber
@@ -234,7 +233,8 @@ public class AttackEvent {
         damageBeforeDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         // Defence compute
-        damage = damageBeforeDefence * Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
+        damage = damageBeforeDefence * Damage.defenceDamageDecreaseRate(player, monster,
+                defence, defencePenetration, defencePenetration0);
         // total damage
         damage *= DamageInfluence.getPlayerTotalDamageRate(player);
         trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
@@ -294,68 +294,15 @@ public class AttackEvent {
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
-            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
+                    + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : "
+                    + Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
             player.sendSystemMessage(Component.literal("MonsterControl : " + DamageInfluence.getMonsterControlDamageEffect(player, monster)));
             player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
             player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
         }
-    }
-
-    public static void AttackToPlayer(Player player, Player hurter, CompoundTag data, Item equip, double Rate) {
-        double Defence = PlayerAttributes.defence(hurter);
-        double BaseDamage = PlayerAttributes.attackDamage(player) * Rate;
-        double BreakDefence = PlayerAttributes.defencePenetration(player);
-        double CriticalHitRate = PlayerAttributes.critRate(player);
-        double CHitDamage = PlayerAttributes.critDamage(player);
-        double BreakDefence0 = PlayerAttributes.defencePenetration0(player);
-        Random r = new Random();
-        double RanNum = r.nextDouble(1.00d);
-        if (Defence == 0) Defence = hurter.getAttribute(Attributes.ARMOR).getValue();
-        double damage;
-        double ExDamage = 0;
-        double ExDamageIgnoreDefence = 0;
-        double DamageEnhance = 0;
-        double DamageBeforeDefence = 0;
-
-        ExDamage += AttackEventModule.ToPlayerBlackForest(data, hurter);
-        ExDamage += AttackEventModule.ToPlayerForestRune3(data, hurter);
-        ExDamage += AttackEventModule.SwordSkill12(data, player, BaseDamage); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
-        ExDamageIgnoreDefence += AttackEventModule.ToPlayerSeaSword(data, hurter);
-        ExDamageIgnoreDefence += AttackEventModule.ToPlayerVolcanoRune2(data, hurter);
-        ExDamageIgnoreDefence += AttackEventModule.SwordSkill0(data, BaseDamage); //剑术热诚（获得1%额外真实伤害）
-        ExDamageIgnoreDefence += AttackEventModule.SwordSkill13(data, player, BaseDamage); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-        ExDamageIgnoreDefence += AttackEventModule.SwordSkill14(data, player, BaseDamage, hurter); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
-
-        DamageEnhance += AttackEventModule.SwordSkill3(data, player, hurter); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
-        DamageEnhance += Compute.getSwordSkillLevel(data, 4) * 0.03; // 双刃剑（额外造成3%的伤害，额外受到1.5%的伤害）
-
-        if (RanNum < CriticalHitRate && Rate >= 0.8) { // 暴击
-            DamageBeforeDefence += (BaseDamage * (1.0d + CHitDamage) + ExDamage);
-            data.putBoolean(StringUtils.DamageTypes.Crit, true);
-            AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
-            AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-
-            AttackEventModule.ToPlayerBlackForestGet2(data, hurter, CHitDamage, BreakDefence0, BreakDefence, Defence);
-        } else { //非暴击
-            DamageBeforeDefence += BaseDamage + ExDamage;
-            data.putBoolean(StringUtils.DamageTypes.Crit, false);
-            AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
-            AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-            AttackEventModule.ToPlayerBlackForestGet4(data, hurter, CHitDamage, BreakDefence0, BreakDefence, Defence);
-        }
-
-        DamageBeforeDefence *= (1 + DamageEnhance);
-        ExDamageIgnoreDefence *= (1 + DamageEnhance);
-
-        DamageBeforeDefence -= SakuraSword.SakuraDemonSword(player, DamageBeforeDefence);
-        ExDamageIgnoreDefence += SakuraSword.SakuraDemonSword(player, DamageBeforeDefence);
-        // 妖刀伤害影响
-
-        damage = DamageBeforeDefence * Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
-        data.putDouble(StringUtils.DamageTypes.ToPlayerDamage, (damage + ExDamageIgnoreDefence) * 0.1f);
-        Damage.causeDirectDamageToPlayer(player, hurter, (damage + ExDamageIgnoreDefence) * 0.1f);
     }
 }

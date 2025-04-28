@@ -23,6 +23,8 @@ import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.resources.ResourceLocation;
@@ -80,6 +82,10 @@ public class TradeList {
 
         iceHoly();
 
+        stoneSpider();
+
+        labourDay();
+
         /* 1.0 */
 
         Snow();
@@ -134,7 +140,6 @@ public class TradeList {
         SkyGemStore();
         Food();
         RoseGoldStore();
-        LabourDayStore();
         BackPack();
         Pearl();
     }
@@ -575,7 +580,10 @@ public class TradeList {
                 ModItems.BOW_LOTTERY_1.get().getDefaultInstance(),
                 ModItems.SCEPTRE_LOTTERY.get().getDefaultInstance(),
                 ModItems.SCEPTRE_LOTTERY_1.get().getDefaultInstance(),
-                ModItems.FORGE_TEMPLATE.get().getDefaultInstance()
+                ModItems.FORGE_TEMPLATE.get().getDefaultInstance(),
+                ManaTowerItems.RUNE.get().getDefaultInstance(),
+                ManaTowerItems.NAN_HAI.get().getDefaultInstance(),
+                ManaTowerItems.TONG_TIAN.get().getDefaultInstance()
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -605,6 +613,24 @@ public class TradeList {
                 }});
                 case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
+                }});
+                case 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 100));
+                    add(new ItemStack(ManaTowerItems.PIECE.get()));
+                }});
+                case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ManaTowerItems.RUNE.get(), 14));
+                    add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
+                    add(new ItemStack(ModItems.SeaRune.get(), 16));
+                    add(new ItemStack(ModItems.ShipPiece.get(), 512));
+                    add(new ItemStack(ModItems.LightningRune.get(), 16));
+                }});
+                case 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ManaTowerItems.RUNE.get(), 14));
+                    add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
+                    add(new ItemStack(ModItems.SkyRune.get(), 16));
+                    add(new ItemStack(ModItems.MoonCompleteGem.get(), 8));
+                    add(new ItemStack(ModItems.StarStar.get(), 16));
                 }});
             }
         }
@@ -2035,55 +2061,6 @@ public class TradeList {
         }
     }
 
-    public static void LabourDayStore() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.LabourDayIronPickaxe.get(), 1),
-                new ItemStack(ModItems.LabourDayIronHoe.get(), 1),
-                new ItemStack(ModItems.LabourDayForgePaper.get(), 1),
-                new ItemStack(ModItems.LabourDayGem.get(), 1),
-                new ItemStack(ModItems.LabourDayLottery.get(), 1),
-                new ItemStack(ModItems.LabourDayPrefix.get(), 1),
-                new ItemStack(ModItems.OldGoldCoin.get(), 3),
-                new ItemStack(ModItems.OldGoldCoin.get(), 6)
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.LabourDayStore, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0, 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.OldGoldCoin.get(), 64));
-                }});
-
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.OldSilverCoin.get(), 256));
-                }});
-
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.OldSilverCoin.get(), 32));
-                    add(new ItemStack(ModItems.OldSilverCoin.get(), 64));
-                }});
-
-                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.OldGoldCoin.get(), 1));
-                }});
-
-                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.OldSilverCoin.get(), 32));
-                }});
-
-                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LabourDayPrefix.get(), 1));
-                }});
-
-                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LabourDayGem.get(), 1));
-                }});
-            }
-        }
-    }
-
     public static String id = "sophisticatedbackpacks";
     public static Item netheriteBackPack = ForgeRegistries.ITEMS.getValue(new ResourceLocation(id, "netherite_backpack"));
 
@@ -3353,5 +3330,68 @@ public class TradeList {
                 List.of(new ItemStack(IceHolyItems.PIECE_2.get(), 10)));
         tradeRecipeMap.put(iceHolyPieceChest3,
                 List.of(new ItemStack(IceHolyItems.PIECE_3.get(), 10)));
+    }
+
+    public static void stoneSpider() {
+        ItemStack stoneSpiderKnife1 = new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_1.get());
+        ItemStack stoneSpiderKnife2 = new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_2.get());
+        ItemStack stoneSpiderKnife3 = new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_3.get());
+        ItemStack stoneSpiderGemAttack1 = new ItemStack(NewAreaItems.STONE_SPIDER_GEM_ATTACK_1.get());
+        ItemStack stoneSpiderGemAttack2 = new ItemStack(NewAreaItems.STONE_SPIDER_GEM_ATTACK_2.get());
+        ItemStack stoneSpiderGemMana1 = new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_1.get());
+        ItemStack stoneSpiderGemMana2 = new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_2.get());
+        ItemStack[] itemStacks = {
+                stoneSpiderKnife1, stoneSpiderKnife2, stoneSpiderKnife3,
+                stoneSpiderGemAttack1, stoneSpiderGemAttack2,
+                stoneSpiderGemMana1, stoneSpiderGemMana2
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("石岸蜘蛛兑换", "stoneSpider",
+                CustomStyle.styleOfStone, VillagerType.PLAINS, VillagerProfession.WEAPONSMITH, contentList);
+        tradeRecipeMap.put(stoneSpiderKnife1,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_0.get(), 1),
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+        tradeRecipeMap.put(stoneSpiderKnife2,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_1.get(), 1),
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+        tradeRecipeMap.put(stoneSpiderKnife3,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_2.get(), 1),
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+        tradeRecipeMap.put(stoneSpiderGemAttack1,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_ATTACK_0.get(), 1),
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+        tradeRecipeMap.put(stoneSpiderGemAttack2,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_ATTACK_1.get(), 1),
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+        tradeRecipeMap.put(stoneSpiderGemMana1,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_0.get(), 1),
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+        tradeRecipeMap.put(stoneSpiderGemMana2,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_1.get(), 1),
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+    }
+
+    public static void labourDay() {
+        ItemStack labourDayGoldCoin = new ItemStack(SpecialEventItems.OldGoldCoin.get());
+        ItemStack labourDayLottery = new ItemStack(SpecialEventItems.LabourDayLottery.get());
+        ItemStack labourDayIronHoe = new ItemStack(SpecialEventItems.LabourDayIronHoe.get());
+        ItemStack labourDayIronPickAxe = new ItemStack(SpecialEventItems.LabourDayIronPickaxe.get());
+        ItemStack[] itemStacks = {
+                labourDayGoldCoin, labourDayLottery,
+                labourDayIronHoe, labourDayIronPickAxe
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("劳动节兑换", "labourDay",
+                CustomStyle.styleOfGold, VillagerType.PLAINS, VillagerProfession.FARMER, contentList);
+        tradeRecipeMap.put(labourDayGoldCoin,
+                List.of(new ItemStack(SpecialEventItems.OldSilverCoin.get(), 64)));
+        tradeRecipeMap.put(labourDayLottery,
+                List.of(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 1)));
+        tradeRecipeMap.put(labourDayIronHoe,
+                List.of(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 28)));
+        tradeRecipeMap.put(labourDayIronPickAxe,
+                List.of(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 28)));
     }
 }

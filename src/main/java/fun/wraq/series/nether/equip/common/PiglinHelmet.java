@@ -71,7 +71,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEqui
     }
 
     @Override
-    public List<Attribute> getAttributes(Player player) {
+    public List<Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(new Attribute(Utils.defence, Math.min(50, new double[]{3, 5, 8, 10}[tier] * Compute.getNearEntity(player, Mob.class, 8).size())));
     }
 }

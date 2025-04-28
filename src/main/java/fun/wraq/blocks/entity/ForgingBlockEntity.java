@@ -9,14 +9,13 @@ import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.ForgePaper;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -212,14 +211,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(4);
             ItemStack forgePaper = blockEntity.itemStackHandler.getStackInSlot(3);
             CompoundTag data = equip.getTagElement(Utils.MOD_ID);
-
-            if (forgePaper.is(SpecialEventItems.QING_MING_FORGE_PAPER.get())) {
-                data.putBoolean(StringUtils.QingMingForgePaper, true);
+            if (forgePaper.getItem() instanceof ForgePaper forgePaperItem) {
+                data.putBoolean(forgePaperItem.getTag(), true);
             }
-            if (forgePaper.is(ModItems.LabourDayForgePaper.get())) {
-                data.putBoolean(StringUtils.LabourDayForgePaper, true);
-            }
-
             Compute.forgingHoverName(equip);
             if (player != null) {
                 Compute.formatBroad(player.level(), Component.literal("突破").withStyle(CustomStyle.styleOfPower),
@@ -230,7 +224,6 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
                                 append(Component.literal(" 增幅了 ").withStyle(CustomStyle.styleOfPower)).
                                 append(equip.getDisplayName()));
             }
-
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
             blockEntity.itemStackHandler.extractItem(3, 1, false);
             blockEntity.itemStackHandler.extractItem(4, 1, false);
@@ -717,21 +710,19 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
         }
         ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(4);
+        ItemStack forgePaperStack = blockEntity.itemStackHandler.getStackInSlot(3);
         CompoundTag data = null;
         if (equip.getTagElement(Utils.MOD_ID) != null) data = equip.getTagElement(Utils.MOD_ID);
         else return false;
-
-        boolean canUseQingMingForgePaper
-                = !data.contains(StringUtils.QingMingForgePaper)
-                && blockEntity.itemStackHandler.getStackInSlot(3).is(SpecialEventItems.QING_MING_FORGE_PAPER.get());
-        boolean canUseLabourDayForgePaper
-                = !data.contains(StringUtils.LabourDayForgePaper)
-                && blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.LabourDayForgePaper.get());
-
+        boolean isForgePaperAndCanUse = false;
+        for (ForgePaper forgePaper : ForgePaper.forgePapers) {
+            if (forgePaperStack.is(forgePaper) && !data.contains(forgePaper.getTag())) {
+                isForgePaperAndCanUse = true;
+            }
+        }
         boolean hasEquipCanBeForged = (Utils.mainHandTag.containsKey(equip.getItem()) ||
                 Utils.armorTag.containsKey(equip.getItem()));
-
-        return (canUseQingMingForgePaper || canUseLabourDayForgePaper) && data.contains("Forging")
+        return isForgePaperAndCanUse && data.contains("Forging")
                 && canInsertItemIntoOutPutSlot(inventory) && hasEquipCanBeForged &&
                 inventory.getItem(2).isEmpty() && !Compute.IsSoulEquip(equip);
     }

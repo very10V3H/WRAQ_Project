@@ -9,6 +9,7 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -65,7 +66,7 @@ public class Reason {
         CompoundTag data = player.getPersistentData();
         int reasonValue = getPlayerReasonValue(player);
         int maxReasonValue = getPlayerReasonUpperLimit(player);
-        if (reasonValue > maxReasonValue && value > 0) return;
+        if (reasonValue >= maxReasonValue && value > 0) return;
         if (reasonValue + value < 0) return;
         reasonValue += value;
         if (value < 0) {
@@ -114,7 +115,9 @@ public class Reason {
             serverLastReasonRecoverHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             Tick.server.getPlayerList().getPlayers().forEach(serverPlayer -> {
                 try {
-                    addOrCostPlayerReasonValue(serverPlayer, getPlayerReasonRecoverPerHour(serverPlayer));
+                    addOrCostPlayerReasonValue(serverPlayer,
+                            (int) (getPlayerReasonRecoverPerHour(serverPlayer)
+                                    * (1 + LabourDayOldCoin.getExReasonRecoverRate())));
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
