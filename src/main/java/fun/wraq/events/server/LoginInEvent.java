@@ -41,6 +41,7 @@ import fun.wraq.process.system.bank.BondDividends;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
+import fun.wraq.process.system.estate.EstatePlayerData;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.parkour.Parkour;
@@ -348,6 +349,7 @@ public class LoginInEvent {
 
             WraqCurios.shrinkOtherModSlot(serverPlayer);
             LabourDayOldCoin.onPlayerLoginTips(player);
+            EstatePlayerData.onLogin(player);
         }
     }
 

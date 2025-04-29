@@ -206,7 +206,8 @@ public class InventoryCheck {
                 SpecialEventItems.OldGoldCoin.get(),
                 SpecialEventItems.LabourDayIronHoe.get(),
                 SpecialEventItems.LabourDayIronPickaxe.get(),
-                SpecialEventItems.LabourDayLottery.get()
+                SpecialEventItems.LabourDayLottery.get(),
+                ModItems.ESTATE_KEY.get()
         ));
         UniformItems.ITEMS.getEntries()
                 .stream()

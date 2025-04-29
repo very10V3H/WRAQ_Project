@@ -136,10 +136,6 @@ repositories {
     // }
 
     maven {
-        url 'https://lss233.littleservice.cn/repositories/minecraft/'
-    }
-
-    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -225,6 +221,12 @@ dependencies {
     implementation fg.deobf("curse.maven:create-steam-n-rails-688231:5840017")
     implementation fg.deobf("curse.maven:ice-and-fire-dragons-264231:5633453")
     implementation fg.deobf("curse.maven:mowzies-mobs-250498:6224182")
+    implementation fg.deobf("curse.maven:embellishcraft-317094:5826539")
+    implementation fg.deobf("curse.maven:mrcrayfish-furniture-mod-55438:4602980")
+    implementation fg.deobf("curse.maven:farmers-delight-398521:6154802")
+    implementation fg.deobf("curse.maven:mapper-base-367442:5826535")
+    implementation fg.deobf("curse.maven:another-furniture-610492:4815124")
+    implementation fg.deobf("curse.maven:openblocks-elevator-250832:4837768")
     // client :
     implementation fg.deobf("curse.maven:iceberg-520110:4953572")
     implementation fg.deobf("curse.maven:prism-lib-638111:4650325")

@@ -13,6 +13,8 @@ import fun.wraq.process.system.bank.BankOperationCommand;
 import fun.wraq.process.system.bank.GetGoldenBeansCommand;
 import fun.wraq.process.system.bonuschest.BonusInfoCommand;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
+import fun.wraq.process.system.estate.ClearEstateByPlayerIdCommand;
+import fun.wraq.process.system.estate.ClearEstateCommand;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -701,6 +703,24 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("showRecords")
                                 .executes(ShowManaTowerRecordCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher76 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd76 = dispatcher76.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("clearEstate").then(
+                                Commands.argument("player", GameProfileArgument.gameProfile())
+                                        .executes(ClearEstateCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher77 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd77 = dispatcher77.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("clearEstateById").then(
+                                Commands.argument("playerId", StringArgumentType.string())
+                                        .executes(ClearEstateByPlayerIdCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
     }

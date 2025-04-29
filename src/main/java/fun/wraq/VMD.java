@@ -531,7 +531,8 @@ public class VMD {
                     ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
                     ModItems.goldCoinLottery.get(), ModItems.GOLDEN_BEANS.get(),
-                    ModItems.BOND.get(), ModItems.SPECIAL_BOND.get(), ModItems.MILLION_MONEY.get()
+                    ModItems.BOND.get(), ModItems.SPECIAL_BOND.get(), ModItems.MILLION_MONEY.get(),
+                    ModItems.ESTATE_KEY.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }

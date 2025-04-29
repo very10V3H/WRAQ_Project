@@ -20,6 +20,7 @@ import fun.wraq.networking.unSorted.BlockLimit;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
+import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.profession.smith.SmithHammer;
@@ -75,8 +76,20 @@ public class BlockEvent {
         BlockPos blockPos = event.getHitVec().getBlockPos();
         Block block = level.getBlockState(blockPos).getBlock();
         if (!player.isCreative() &&
-                (block.toString().contains("lamp")
-                        || block.toString().contains("sign"))) {
+                (block.toString().contains("lamp"))) {
+            event.setCanceled(true);
+        }
+        if (!player.isCreative() && block instanceof SignBlock) {
+            if (!EstateUtil.canEditSingBlock(player, blockPos)) {
+                event.setCanceled(true);
+            }
+        }
+        // 房产右键判断
+        if (!level.isClientSide && event.getHand().equals(InteractionHand.MAIN_HAND)) {
+            EstateUtil.onPlayerRightClickInfoSignBlock(player, blockPos);
+            event.setCanceled(!EstateUtil.canPlayerRightClickDoor(player, blockPos));
+        }
+        if (level.isClientSide && block instanceof DoorBlock) {
             event.setCanceled(true);
         }
     }

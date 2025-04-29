@@ -66,6 +66,7 @@ import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementS
 import fun.wraq.process.system.element.holyStone.*;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.enhanceForge.Pearl;
+import fun.wraq.process.system.estate.EstateKey;
 import fun.wraq.process.system.forge.EquipPiece;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.forge.ForgeTemplate;
@@ -3811,4 +3812,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> REASON = ITEMS.register("reason",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold), false, true));
+
+    public static final RegistryObject<Item> ESTATE_KEY = ITEMS.register("estate_key",
+            () -> new EstateKey(new Item.Properties().rarity(CustomStyle.GoldBold)));
 }
