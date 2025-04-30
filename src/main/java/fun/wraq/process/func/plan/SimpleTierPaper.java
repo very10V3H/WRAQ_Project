@@ -63,13 +63,10 @@ public class SimpleTierPaper extends SimpleFoiledItem {
         add(Component.literal("11. 持续" + lastDay + "天").withStyle(CustomStyle.styleOfWorld));
     }};
     public static List<Component> tier2Description = new ArrayList<>() {{
-        add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).
-                append(Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld)).
-                append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("每日任务").withStyle(CustomStyle.styleOfWorld)).
-                append(Component.literal("提供的").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName()).
-                append(Component.literal("翻倍").withStyle(CustomStyle.styleOfMoon)));
+        add(Te.s("1. ", CustomStyle.styleOfWorld, "本源回廊", CustomStyle.styleOfWorld,
+                "/", "每日任务", CustomStyle.styleOfWorld,
+                "/", "随机事件", CustomStyle.styleOfFlexible,
+                "/", "炼魔塔", "的", ModItems.WORLD_SOUL_5.get(), "翻倍", CustomStyle.styleOfGold));
         add(Component.literal("2. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("+30%额外产出").withStyle(ChatFormatting.GOLD)));
         add(Component.literal("3. ").withStyle(CustomStyle.styleOfWorld).
@@ -103,13 +100,10 @@ public class SimpleTierPaper extends SimpleFoiledItem {
         add(Component.literal("11. 持续" + lastDay + "天").withStyle(CustomStyle.styleOfWorld));
     }};
     public static List<Component> tier3Description = new ArrayList<>() {{
-        add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).
-                append(Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld)).
-                append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("每日任务").withStyle(CustomStyle.styleOfWorld)).
-                append(Component.literal("提供的").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName()).
-                append(Component.literal("翻倍").withStyle(CustomStyle.styleOfMoon)));
+        add(Te.s("1. ", CustomStyle.styleOfWorld, "本源回廊", CustomStyle.styleOfWorld,
+                "/", "每日任务", CustomStyle.styleOfWorld,
+                "/", "随机事件", CustomStyle.styleOfFlexible,
+                "/", "炼魔塔", "的", ModItems.WORLD_SOUL_5.get(), "翻倍", CustomStyle.styleOfGold));
         add(Component.literal("2. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("+50%额外产出").withStyle(ChatFormatting.GOLD)));
         add(Component.literal("3. ").withStyle(CustomStyle.styleOfWorld).

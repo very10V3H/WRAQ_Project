@@ -41,8 +41,8 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
     @Override
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Te.s());
-        components.add(Te.s(" 每日击杀", "10000", ChatFormatting.RED, "只怪物，将为你提供:"));
+        ComponentUtils.descriptionPassive(components, Te.s("光荣劳动", hoverMainStyle()));
+        components.add(Te.s(" 每日击杀", "5000", ChatFormatting.RED, "只怪物，将为你提供:"));
         components.add(Te.s( " 1.", hoverMainStyle(),
                 ModItems.WORLD_SOUL_5.get(), " * 10", ChatFormatting.AQUA));
         components.add(Te.s( " 2.", hoverMainStyle(), "10000VB", CustomStyle.styleOfGold));
@@ -53,7 +53,7 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
         components.add(Te.s(" 今天的击杀数额为:", getCount(stack), ChatFormatting.RED));
         components.add(Te.s(" 当前 ", ChatFormatting.AQUA,
                 ComponentUtils.AttributeDescription.getElementStrength(
-                        String.format("+%.0f%%", Math.min(10000, getCount(stack)) / 10000d * 0.75))));
+                        String.format("+%.0f%%", Math.min(5000, getCount(stack)) / 5000d * 0.75))));
         return components;
     }
 
@@ -64,7 +64,7 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
 
     @Override
     public Component getFirstPassiveName() {
-        return Te.s("", hoverMainStyle());
+        return Te.s("最后的斗争", hoverMainStyle());
     }
 
     public static String COUNT_DATA_KEY = "Count";
@@ -107,7 +107,7 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
     @Override
     public void onKill(Player player, Mob mob, ItemStack stack) {
         addCount(stack);
-        if (getCount(stack) == 10000) {
+        if (getCount(stack) == 5000) {
             MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
             InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), 10);
             Compute.VBIncomeAndMSGSend(player, 10000);
@@ -123,6 +123,6 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
 
     @Override
     public List<Attribute> getAttributes(Player player, ItemStack stack) {
-        return List.of(new Attribute(Utils.elementStrength, Math.min(10000, getCount(stack)) / 10000d * 0.75));
+        return List.of(new Attribute(Utils.elementStrength, Math.min(5000, getCount(stack)) / 5000d * 0.75));
     }
 }

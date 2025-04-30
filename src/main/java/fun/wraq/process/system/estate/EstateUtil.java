@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.entity.SignText;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -150,11 +151,20 @@ public class EstateUtil {
     }
 
     public static void resetSignBlockText(EstateInfo estateInfo) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
         EstateUtil.setSignBlockText(Tick.server.overworld(), estateInfo.infoSignBlockPos,
                 estateInfo.estateName,
                 Te.s(estateInfo.floorInfo, ChatFormatting.BLACK),
                 Te.s("售卖中", ChatFormatting.BLACK),
-                Te.s(String.format("%.0fVB", estateInfo.price), ChatFormatting.BLACK));
+                Te.s(decimalFormat.format(estateInfo.price) + "VB", ChatFormatting.BLACK));
+    }
+
+    public static void resetAllSignBlockText() {
+        for (EstateInfo estateInfo : EstateInfo.values()) {
+            if (EstateServerData.getEstateServerData(estateInfo.ordinal()) == null) {
+                resetSignBlockText(estateInfo);
+            }
+        }
     }
 
     public static boolean canEditSingBlock(Player player, BlockPos blockPos) {

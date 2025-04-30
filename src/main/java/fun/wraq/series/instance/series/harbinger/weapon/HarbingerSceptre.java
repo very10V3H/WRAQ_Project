@@ -70,7 +70,7 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
     @Override
     public Map<Map<Item, Double>, TagAndEachTierValue> getTagAndRateMap() {
         return Map.of(
-                Utils.manaDamage, new TagAndEachTierValue(HarbingerMainHand.MANA_DAMAGE, 100),
+                Utils.manaDamage, new TagAndEachTierValue(HarbingerMainHand.MANA_DAMAGE, 200),
                 Utils.percentManaDamageEnhance, new TagAndEachTierValue(HarbingerMainHand.PERCENT_MANA_DAMAGE, 0.01),
                 Utils.manaRecover, new TagAndEachTierValue(HarbingerMainHand.MANA_RECOVER, 10)
         );

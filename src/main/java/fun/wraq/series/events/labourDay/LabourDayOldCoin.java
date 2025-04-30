@@ -48,7 +48,7 @@ public class LabourDayOldCoin extends WraqItem {
 
     public static final String GET_OLD_SILVER_COIN_COUNT_KEY = "GetOldSilverCoinCount";
     public static void onPlayerKillMob(Player player) {
-        if (isInActivityDate() && RandomUtils.nextInt(0, 10000) < 250) {
+        if (isInActivityDate() && RandomUtils.nextInt(0, 10000) < 1000) {
             int count = Compute.getTempTag(player).getInt(GET_OLD_SILVER_COIN_COUNT_KEY);
             if (count < 512) {
                 if (count > 500) {
@@ -90,16 +90,18 @@ public class LabourDayOldCoin extends WraqItem {
 
     public static void onPlayerLoginTips(Player player) {
         if (isInActivityDate()) {
-            Compute.sendFormatMSG(player, Te.s("节庆活动", CustomStyle.styleOfGold),
+            Compute.sendFormatMSG(player, Te.s("劳动节", CustomStyle.styleOfGold),
                     Te.s("劳动节活动", CustomStyle.styleOfGold, "进行中!"));
-            Compute.sendFormatMSG(player, Te.s("节庆活动", CustomStyle.styleOfGold),
+            Compute.sendFormatMSG(player, Te.s("劳动节", CustomStyle.styleOfGold),
                     Te.s(" 1. ", CustomStyle.styleOfGold, "翻倍经验加成", ChatFormatting.LIGHT_PURPLE));
-            Compute.sendFormatMSG(player, Te.s("节庆活动", CustomStyle.styleOfGold),
+            Compute.sendFormatMSG(player, Te.s("劳动节", CustomStyle.styleOfGold),
                     Te.s(" 2. ", CustomStyle.styleOfGold, "双倍理智回复", CustomStyle.styleOfFlexible));
-            Compute.sendFormatMSG(player, Te.s("节庆活动", CustomStyle.styleOfGold),
+            Compute.sendFormatMSG(player, Te.s("劳动节", CustomStyle.styleOfGold),
                     Te.s(" 3. ", CustomStyle.styleOfGold, "+25%额外产出", CustomStyle.styleOfGold));
-            Compute.sendFormatMSG(player, Te.s("节庆活动", CustomStyle.styleOfGold),
+            Compute.sendFormatMSG(player, Te.s("劳动节", CustomStyle.styleOfGold),
                     Te.s(" 4. ", CustomStyle.styleOfGold, "-20%月卡价格", CustomStyle.styleOfWorld));
+            Compute.sendFormatMSG(player, Te.s("劳动节", CustomStyle.styleOfGold),
+                    Te.s("击杀怪物/完成委托可以获取活动物品来兑换礼包!"));
         }
     }
 

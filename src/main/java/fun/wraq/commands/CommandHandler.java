@@ -15,6 +15,7 @@ import fun.wraq.process.system.bonuschest.BonusInfoCommand;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
 import fun.wraq.process.system.estate.ClearEstateByPlayerIdCommand;
 import fun.wraq.process.system.estate.ClearEstateCommand;
+import fun.wraq.process.system.estate.ResetEstateSignBlockTextCommand;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -721,6 +722,13 @@ public class CommandHandler {
                                 Commands.argument("playerId", StringArgumentType.string())
                                         .executes(ClearEstateByPlayerIdCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher78 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd78 = dispatcher78.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("resetEstateSignBlockText")
+                                .executes(ResetEstateSignBlockTextCommand.instance)
                 )
         );
     }
