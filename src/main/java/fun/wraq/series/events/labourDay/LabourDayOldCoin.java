@@ -56,7 +56,6 @@ public class LabourDayOldCoin extends WraqItem {
                             Te.s("今日还可获取", (512 - count) + "个", SpecialEventItems.OldSilverCoin.get()));
                 }
                 ItemAndRate.send(player, SpecialEventItems.OldSilverCoin.get());
-                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.OldSilverCoin.get());
                 Compute.getTempTag(player).putInt(GET_OLD_SILVER_COIN_COUNT_KEY, count + 1);
             }
         }
