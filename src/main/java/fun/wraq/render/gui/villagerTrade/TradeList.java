@@ -3414,11 +3414,11 @@ public class TradeList {
         tradeRecipeMap.put(tpPass3Day,
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 400)));
         tradeRecipeMap.put(goldCoin16,
-                List.of(new ItemStack(ModItems.TP_PASS_1DAY.get(), 8)));
+                List.of(new ItemStack(ModItems.TP_PASS_1DAY.get(), 1)));
         tradeRecipeMap.put(goldCoin26,
-                List.of(new ItemStack(ModItems.TP_PASS_2DAY.get(), 8)));
+                List.of(new ItemStack(ModItems.TP_PASS_2DAY.get(), 1)));
         tradeRecipeMap.put(goldCoin40,
-                List.of(new ItemStack(ModItems.TP_PASS_3DAY.get(), 8)));
+                List.of(new ItemStack(ModItems.TP_PASS_3DAY.get(), 1)));
     }
 
     public static void mopUpPaper() {
