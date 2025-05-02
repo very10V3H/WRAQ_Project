@@ -15,8 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import java.util.Collection;
 
 
-public class ClearEstateCommand implements Command<CommandSourceStack> {
-    public static ClearEstateCommand instance = new ClearEstateCommand();
+public class ClearRealEstateCommand implements Command<CommandSourceStack> {
+    public static ClearRealEstateCommand instance = new ClearRealEstateCommand();
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
@@ -29,7 +29,7 @@ public class ClearEstateCommand implements Command<CommandSourceStack> {
                         Component.literal("玩家似乎不在线。。。").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
-            EstateUtil.removeEstate(target);
+            EstateUtil.removeRealEstate(target);
         }
         return 0;
     }

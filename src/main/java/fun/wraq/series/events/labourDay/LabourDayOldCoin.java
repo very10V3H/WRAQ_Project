@@ -104,11 +104,11 @@ public class LabourDayOldCoin extends WraqItem {
         }
     }
 
-    // 活动在5.6日00:00自动关闭（无需重启）
+    // 活动在5.8日00:00自动关闭（无需重启）
     public static boolean isInActivityDate() {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.YEAR) == 2025
-                && ((calendar.get(Calendar.MONTH) == Calendar.MAY && calendar.get(Calendar.DAY_OF_MONTH) <= 5)
+                && ((calendar.get(Calendar.MONTH) == Calendar.MAY && calendar.get(Calendar.DAY_OF_MONTH) <= 7)
                 || (calendar.get(Calendar.MONTH) == Calendar.APRIL && calendar.get(Calendar.DAY_OF_MONTH) >= 28));
     }
 }

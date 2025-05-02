@@ -14,10 +14,15 @@ import java.util.List;
 
 public class NanHai extends WraqCurios {
 
-    public NanHai(Properties properties) {
+    public NanHai(Properties properties, boolean isAttack) {
         super(properties);
-        Utils.defencePenetration.put(this, 0.1);
-        Utils.defencePenetration0.put(this, 20d);
+        if (isAttack) {
+            Utils.defencePenetration.put(this, 0.1);
+            Utils.defencePenetration0.put(this, 20d);
+        } else {
+            Utils.manaPenetration.put(this, 0.1);
+            Utils.manaPenetration0.put(this, 20d);
+        }
     }
 
     @Override

@@ -8,6 +8,8 @@ import fun.wraq.customized.composites.CompositesItems;
 import fun.wraq.customized.uniform.UnCommonUniform;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
+import fun.wraq.process.system.instance.MopUpPaper;
+import fun.wraq.process.system.instance.MopUpPaperItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
@@ -50,47 +52,39 @@ public class TradeList {
         forestForgeHammer();
         riverTool();
         mineTool();
-
         volcanoTool();
         volcanoForgeHammer();
         snowTool();
         snowForgeHammer();
         skyTool();
-
         mineCharm();
         seaCharm();
         cropCharm();
         logCharm();
-
         elementMaster();
         runeMaster();
-
         summerEvent();
         endlessCoreStore();
         forgeHammer();
         sunCurio();
-
         allay();
         entrustmentStore();
-
         springEvent();
         divineIsland();
         bunker();
         purpleIronWeapon();
         mushroomGem();
         divineGem();
-
         iceHoly();
-
         stoneSpider();
-
         labourDay();
+        gateWay();
+        mopUpPaper();
 
         /* 1.0 */
 
         Snow();
         Evoker();
-
         Wither();
         Piglin();
         Skeleton();
@@ -104,7 +98,6 @@ public class TradeList {
         SoulToGoldCoin();
         BossCore();
         BossItem();
-
         PlainRune();
         ForestRune();
         VolcanoRune();
@@ -112,7 +105,6 @@ public class TradeList {
         SnowRune();
         NetherRune();
         LakeRune();
-
         NetherBow();
         NetherSwordModel();
         NetherWeapon();
@@ -582,7 +574,8 @@ public class TradeList {
                 ModItems.SCEPTRE_LOTTERY_1.get().getDefaultInstance(),
                 ModItems.FORGE_TEMPLATE.get().getDefaultInstance(),
                 ManaTowerItems.RUNE.get().getDefaultInstance(),
-                ManaTowerItems.NAN_HAI.get().getDefaultInstance(),
+                ManaTowerItems.NAN_HAI_A.get().getDefaultInstance(),
+                ManaTowerItems.NAN_HAI_M.get().getDefaultInstance(),
                 ManaTowerItems.TONG_TIAN.get().getDefaultInstance()
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -618,14 +611,14 @@ public class TradeList {
                     add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 100));
                     add(new ItemStack(ManaTowerItems.PIECE.get()));
                 }});
-                case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 14, 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ManaTowerItems.RUNE.get(), 14));
                     add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
                     add(new ItemStack(ModItems.SeaRune.get(), 16));
                     add(new ItemStack(ModItems.ShipPiece.get(), 512));
                     add(new ItemStack(ModItems.LightningRune.get(), 16));
                 }});
-                case 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 16 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ManaTowerItems.RUNE.get(), 14));
                     add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
                     add(new ItemStack(ModItems.SkyRune.get(), 16));
@@ -3393,5 +3386,62 @@ public class TradeList {
                 List.of(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 28)));
         tradeRecipeMap.put(labourDayIronPickAxe,
                 List.of(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 28)));
+    }
+
+    public static void gateWay() {
+        ItemStack tpTicket = new ItemStack(ModItems.TP_TICKET.get());
+        ItemStack tpPass1Day = new ItemStack(ModItems.TP_PASS_1DAY.get());
+        ItemStack tpPass2Day = new ItemStack(ModItems.TP_PASS_2DAY.get());
+        ItemStack tpPass3Day = new ItemStack(ModItems.TP_PASS_3DAY.get());
+        ItemStack goldCoin16 = new ItemStack(ModItems.GOLD_COIN.get(), 16);
+        ItemStack goldCoin26 = new ItemStack(ModItems.GOLD_COIN.get(), 26);
+        ItemStack goldCoin40 = new ItemStack(ModItems.GOLD_COIN.get(), 40);
+        ItemStack[] itemStacks = {
+                tpTicket, tpPass1Day,
+                tpPass2Day, tpPass3Day,
+                goldCoin16, goldCoin26, goldCoin40
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("传送中枢票务员", "gateWay",
+                CustomStyle.styleOfEnd, VillagerType.SNOW, VillagerProfession.LIBRARIAN, contentList);
+        tradeRecipeMap.put(tpTicket,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 8)));
+        tradeRecipeMap.put(tpPass1Day,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 160)));
+        tradeRecipeMap.put(tpPass2Day,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 260)));
+        tradeRecipeMap.put(tpPass3Day,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 400)));
+        tradeRecipeMap.put(goldCoin16,
+                List.of(new ItemStack(ModItems.TP_PASS_1DAY.get(), 8)));
+        tradeRecipeMap.put(goldCoin26,
+                List.of(new ItemStack(ModItems.TP_PASS_2DAY.get(), 8)));
+        tradeRecipeMap.put(goldCoin40,
+                List.of(new ItemStack(ModItems.TP_PASS_3DAY.get(), 8)));
+    }
+
+    public static void mopUpPaper() {
+        List<ItemStack> stacks = MopUpPaperItems.ITEMS.getEntries()
+                .stream()
+                .map(entry -> new ItemStack(entry.get(), 2)).toList();
+        MyVillagerData.setMyVillagerData("S级怪物猎人", "mopUpPaper",
+                CustomStyle.styleOfEnd, VillagerType.SAVANNA, VillagerProfession.ARMORER, stacks);
+        for (ItemStack stack : stacks) {
+            MopUpPaper mopUpPaper = (MopUpPaper) stack.getItem();
+            if (mopUpPaper.noTeamInstance != null) {
+                tradeRecipeMap.put(stack, new ArrayList<>() {{
+                    add(new ItemStack(ModItems.GOLD_COIN.get(),
+                            mopUpPaper.noTeamInstance.getRewardNeedItemCount() * 8));
+                    add(new ItemStack(ModItems.notePaper.get(),
+                            mopUpPaper.noTeamInstance.getRewardNeedItemCount() * 3));
+                }});
+            } else {
+                tradeRecipeMap.put(stack, new ArrayList<>() {{
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 16));
+                    add(new ItemStack(ModItems.notePaper.get(), 6));
+                }});
+            }
+        }
     }
 }

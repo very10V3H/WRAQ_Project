@@ -135,7 +135,7 @@ public class MobKillEntrustment {
                     "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 10) {
-            InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
+            InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 2));
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.BOND.get()));
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), 2));
             if (QingTuan.isInActivityDate()) {
@@ -195,7 +195,7 @@ public class MobKillEntrustment {
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 5), "5 ", ChatFormatting.GREEN,
                 " -> ", ModItems.TP_TICKET, " * 2", " + ", ModItems.WORLD_SOUL_5, " * 5"));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 10), "10", ChatFormatting.YELLOW,
-                " -> ", ModItems.TP_TICKET, " * 3", " + ", ModItems.BOND, " * 1", " + ", ModItems.GOLDEN_BEANS, " * 2"));
+                " -> ", ModItems.TP_TICKET, " * 2", " + ", ModItems.BOND, " * 1", " + ", ModItems.GOLDEN_BEANS, " * 2"));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 15), "15", ChatFormatting.LIGHT_PURPLE,
                 " -> ", ModItems.TP_TICKET, " * 3", " + ", ModItems.WORLD_SOUL_5, " * 5"));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 20), "20", ChatFormatting.RED,
@@ -459,7 +459,6 @@ public class MobKillEntrustment {
             MobKillEntrustment entrustment = playerCurrentEntrustmentMap.get(name);
             if (playerKillProcessMap.getOrDefault(name, 0) >= entrustment.targetCount || player.isCreative()) {
                 // reward 与 信息
-
                 int costTick = Tick.get() - entrustment.startServerTick;
                 double rate = 0.8;
                 TimeAndTier timeAndTier = null;

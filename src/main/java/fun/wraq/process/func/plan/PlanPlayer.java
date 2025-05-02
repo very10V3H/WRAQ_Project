@@ -241,4 +241,30 @@ public class PlanPlayer {
     public static void sendDoubleStarTip(Player player) {
         sendFormatMSG(player, Te.s("计划已为你提供", "双倍聚星奖励", CustomStyle.styleOfWorld));
     }
+
+    public static double getEstatePriceRate(Player player) {
+        int tier = getPlayerTier(player);
+        if (tier == 3) {
+            return 0.8;
+        } else if (tier == 2) {
+            return 0.85;
+        } else if (tier == 1) {
+            return 0.9;
+        } else {
+            return 1;
+        }
+    }
+
+    public static String getEstateDiscountRate(Player player) {
+        int tier = getPlayerTier(player);
+        if (tier == 3) {
+            return "-20%";
+        } else if (tier == 2) {
+            return "-15%";
+        } else if (tier == 1) {
+            return "-10%";
+        } else {
+            return "-0%";
+        }
+    }
 }

@@ -53,7 +53,7 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
         components.add(Te.s(" 今天的击杀数额为:", getCount(stack), ChatFormatting.RED));
         components.add(Te.s(" 当前 ", ChatFormatting.AQUA,
                 ComponentUtils.AttributeDescription.getElementStrength(
-                        String.format("+%.0f%%", Math.min(5000, getCount(stack)) / 5000d * 0.75))));
+                        String.format("+%.0f%%", Math.min(5000, getCount(stack)) / 5000d * 0.75 * 100))));
         return components;
     }
 

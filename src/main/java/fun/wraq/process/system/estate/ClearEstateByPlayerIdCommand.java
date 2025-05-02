@@ -24,20 +24,17 @@ public class ClearEstateByPlayerIdCommand implements Command<CommandSourceStack>
         String playerId = StringArgumentType.getString(context, "playerId");
         EstateServerSavedData savedData = EstateServerSavedData.getInstance(Tick.server.overworld());
         List<String> infoStringList = savedData.getEstateInfoStringList();
-        EstateServerData estateServerData = infoStringList.stream()
+        infoStringList.stream()
                 .map(EstateServerData::getDataFromString)
                 .filter(serverData -> serverData.ownerId.equals(playerId))
-                .findAny().orElse(null);
-        if (estateServerData == null) {
-            EstateUtil.sendMSG(player, Te.s("该玩家名下没有房产."));
-        } else {
-            int serial = estateServerData.serial;
-            EstateInfo estateInfo = EstateInfo.values()[serial];
-            EstateUtil.broad(Te.s(estateInfo.estateName.getString(), CustomStyle.styleOfGold,
-                    "已重新开始售卖!"));
-            EstateUtil.resetSignBlockText(estateInfo);
-            EstateServerData.removeEstateServerData(serial);
-        }
+                .forEach(serverData -> {
+                    int serial = serverData.serial;
+                    EstateInfo estateInfo = EstateInfo.values()[serial];
+                    EstateUtil.broad(Te.s(estateInfo.estateName.getString(), CustomStyle.styleOfGold,
+                            "已重新开始售卖!"));
+                    EstateUtil.resetSignBlockText(estateInfo);
+                    EstateServerData.removeEstateServerData(serial);
+                });
         return 0;
     }
 }

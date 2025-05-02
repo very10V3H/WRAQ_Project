@@ -34,6 +34,7 @@ import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.process.system.instance.MopUpPaperItems;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
@@ -151,6 +152,7 @@ public class VMD {
         IceHolyItems.ITEMS.register(modEvenBus);
         NewAreaItems.ITEMS.register(modEvenBus);
         ManaTowerItems.ITEMS.register(modEvenBus);
+        MopUpPaperItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -382,48 +384,6 @@ public class VMD {
             for (Item item1 : item) event.accept(item1.getDefaultInstance());
         }
 
-        if (event.getTabKey().equals(ModCreativeModeTab.CODEMANA_TAB.getKey())) {
-            event.accept(ModItems.CodeSceptre.get().getDefaultInstance());
-            event.accept(ModItems.BreakMana.get().getDefaultInstance());
-            event.accept(ModItems.DamageMana.get().getDefaultInstance());
-            event.accept(ModItems.EffectMana.get().getDefaultInstance());
-            event.accept(ModItems.GatherMana.get().getDefaultInstance());
-            event.accept(ModItems.KazeMana.get().getDefaultInstance());
-            event.accept(ModItems.LightningMana.get().getDefaultInstance());
-            event.accept(ModItems.RangeMana.get().getDefaultInstance());
-            event.accept(ModItems.SnowMana.get().getDefaultInstance());
-            event.accept(ModItems.LightningPower.get().getDefaultInstance());
-            event.accept(ModItems.ManaModel.get().getDefaultInstance());
-        }
-
-        if (event.getTabKey().equals(ModCreativeModeTab.SARMOR_TAB.getKey())) {
-            event.accept(ModItems.SHelmet.get().getDefaultInstance());
-            event.accept(ModItems.SChest.get().getDefaultInstance());
-            event.accept(ModItems.SLeggings.get().getDefaultInstance());
-            event.accept(ModItems.SBoots.get().getDefaultInstance());
-            event.accept(ModItems.SunOintment0.get().getDefaultInstance());
-            event.accept(ModItems.SunOintment1.get().getDefaultInstance());
-            event.accept(ModItems.SunOintment2.get().getDefaultInstance());
-            event.accept(ModItems.LakeOintment0.get().getDefaultInstance());
-            event.accept(ModItems.LakeOintment1.get().getDefaultInstance());
-            event.accept(ModItems.LakeOintment2.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoOintment0.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoOintment1.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoOintment2.get().getDefaultInstance());
-            event.accept(ModItems.SnowOintment0.get().getDefaultInstance());
-            event.accept(ModItems.SnowOintment1.get().getDefaultInstance());
-            event.accept(ModItems.SnowOintment2.get().getDefaultInstance());
-            event.accept(ModItems.SkyOintment0.get().getDefaultInstance());
-            event.accept(ModItems.SkyOintment1.get().getDefaultInstance());
-            event.accept(ModItems.SkyOintment2.get().getDefaultInstance());
-            event.accept(ModItems.ManaOintment0.get().getDefaultInstance());
-            event.accept(ModItems.ManaOintment1.get().getDefaultInstance());
-            event.accept(ModItems.ManaOintment2.get().getDefaultInstance());
-            event.accept(ModItems.NetherOintment0.get().getDefaultInstance());
-            event.accept(ModItems.NetherOintment1.get().getDefaultInstance());
-            event.accept(ModItems.NetherOintment2.get().getDefaultInstance());
-        }
-
         if (event.getTabKey().equals(ModCreativeModeTab.DROPSANDMATERIAL_TAB.getKey())) {
             for (Item item : Display.materialList) event.accept(item.getDefaultInstance());
         }
@@ -532,7 +492,9 @@ public class VMD {
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
                     ModItems.goldCoinLottery.get(), ModItems.GOLDEN_BEANS.get(),
                     ModItems.BOND.get(), ModItems.SPECIAL_BOND.get(), ModItems.MILLION_MONEY.get(),
-                    ModItems.ESTATE_KEY.get()
+                    ModItems.ESTATE_KEY.get(), ModItems.REAL_ESTATE_KEY.get(),
+                    ModItems.TP_TICKET.get(),
+                    ModItems.TP_PASS_1DAY.get(), ModItems.TP_PASS_2DAY.get(), ModItems.TP_PASS_3DAY.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
@@ -562,7 +524,6 @@ public class VMD {
             event.accept(ModItems.Ps_Bottle2.get().getDefaultInstance());
             event.accept(ModItems.ParkourMedal.get().getDefaultInstance());
             event.accept(ModItems.KillPaperLoot.get().getDefaultInstance());
-            event.accept(ModItems.MopUpPaperLoot.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.DEVELOPMENT_TAB.getKey())) {
             event.accept(ModItems.RAILWAY_PILLAR_SET_TOOL.get().getDefaultInstance());
@@ -705,6 +666,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.MANA_TOWER.getKey())) {
             ManaTowerItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.KILL_PAPER.getKey())) {
+            MopUpPaperItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

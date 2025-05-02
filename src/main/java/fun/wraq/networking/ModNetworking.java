@@ -69,6 +69,7 @@ import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.element.networking.*;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentInfoS2CPacket;
+import fun.wraq.process.system.estate.EstateDataS2CPacket;
 import fun.wraq.process.system.forge.networking.*;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.process.system.missions.netWorking.*;
@@ -1340,6 +1341,11 @@ public class ModNetworking {
                 .decoder(ElementPieceC2SPacket::new)
                 .encoder(ElementPieceC2SPacket::toBytes)
                 .consumerMainThread(ElementPieceC2SPacket::handle)
+                .add();
+        net.messageBuilder(EstateDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EstateDataS2CPacket::new)
+                .encoder(EstateDataS2CPacket::toBytes)
+                .consumerMainThread(EstateDataS2CPacket::handle)
                 .add();
     }
 

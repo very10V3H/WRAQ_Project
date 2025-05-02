@@ -151,8 +151,8 @@ public class Guide {
                                 "这件", stack.getDisplayName(), "应该能在探索的途中帮到你。"));
                 sendFormatMSG(player, Te.s("你也可以", "关闭引导", ChatFormatting.RED, "自行探索"));
                 InventoryOperation.giveItemStackWithMSG(player, stack);
-                List.of(new ItemStack(ModItems.ForestRune.get()), new ItemStack(ModItems.SkillReset.get(), 8),
-                        new ItemStack(ModItems.TP_TICKET.get(), 32)).forEach(itemStack -> {
+                List.of(new ItemStack(ModItems.ForestRune.get()), new ItemStack(ModItems.SkillReset.get(), 8))
+                        .forEach(itemStack -> {
                     InventoryOperation.giveItemStackWithMSG(player, itemStack);
                 });
             }), StageV2.FOREST_EQUIP));

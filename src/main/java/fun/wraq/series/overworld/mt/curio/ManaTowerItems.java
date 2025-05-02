@@ -18,8 +18,10 @@ public class ManaTowerItems {
     public static final RegistryObject<Item> RUNE = ITEMS.register("mana_tower_rune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MANA_TOWER_BOLD_RARITY), true, true));
 
-    public static final RegistryObject<Item> NAN_HAI = ITEMS.register("nan_hai",
-            () -> new NanHai(new Item.Properties().rarity(CustomStyle.MANA_TOWER_BOLD_RARITY)));
+    public static final RegistryObject<Item> NAN_HAI_A = ITEMS.register("nan_hai_attack",
+            () -> new NanHai(new Item.Properties().rarity(CustomStyle.MANA_TOWER_BOLD_RARITY), true));
+    public static final RegistryObject<Item> NAN_HAI_M = ITEMS.register("nan_hai_mana",
+            () -> new NanHai(new Item.Properties().rarity(CustomStyle.MANA_TOWER_BOLD_RARITY), false));
 
     public static final RegistryObject<Item> TIAN_SHOU = ITEMS.register("tian_shou",
             () -> new TianShou(new Item.Properties().rarity(CustomStyle.MANA_TOWER_BOLD_RARITY)));

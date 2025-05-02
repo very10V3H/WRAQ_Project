@@ -60,7 +60,7 @@ public class ForNew extends Item {
                 new ItemStack(Items.GOLDEN_CARROT, 64),
                 new ItemStack(ModItems.notePaper.get(), 128),
                 elyTra,
-                new ItemStack(ModItems.TP_TICKET.get(), 64));
+                new ItemStack(ModItems.TP_PASS_3DAY.get(), 1));
     }
 
     @Override

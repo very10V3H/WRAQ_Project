@@ -76,6 +76,46 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("旭升岛").withStyle(CustomStyle.styleOfSunIsland)
                 ));
+                put("toSnowVillage", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("北洋村", CustomStyle.styleOfSnow)
+                ));
+                put("toBlackCastle", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("暗黑城堡", CustomStyle.styleOfCastle)
+                ));
+                put("toMushroom", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("菌菇聚落", CustomStyle.MUSHROOM_STYLE)
+                ));
+                put("toXunXiVillage", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("薰曦村", CustomStyle.styleOfJacaranda)
+                ));
+                put("toXunNanVillage", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("薰楠村", CustomStyle.styleOfJacaranda)
+                ));
+                put("toManaRain", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("炼雨府邸", CustomStyle.styleOfSea)
+                ));
+                put("toSeaVillage", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("海岸村", CustomStyle.styleOfSea)
+                ));
+                put("toVolcanoVillage", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("火山村", CustomStyle.styleOfVolcano)
+                ));
+                put("toOceanMonument", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("海底神殿", CustomStyle.styleOfSea)
+                ));
+                put("toManaForest", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("唤魔森林", CustomStyle.styleOfMana)
+                ));
             }};
             if (nameToTextMap.containsKey(name)) {
                 components = nameToTextMap.get(name);

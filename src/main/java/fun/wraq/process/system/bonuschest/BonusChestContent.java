@@ -41,7 +41,6 @@ public class BonusChestContent {
     );
 
     private final static List<ItemAndMaxNum> tier2Loot = List.of(
-            new ItemAndMaxNum(ModItems.MopUpPaperLoot.get(), 1),
             new ItemAndMaxNum(ModItems.KillPaperLoot.get(), 1),
             new ItemAndMaxNum(ModItems.UnCommonLotteries.get(), 1),
             new ItemAndMaxNum(ModItems.GoldCoinBag.get(), 1),

@@ -34,8 +34,7 @@ public class CastleLoot extends Item {
         itemAndWeightList.add(new ItemAndWeight(ModItems.CastleBowPiece.get(), 3));
         itemAndWeightList.add(new ItemAndWeight(ModItems.CastleSceptrePiece.get(), 3));
         itemAndWeightList.add(new ItemAndWeight(ModItems.CastleArmorPiece.get(), 8));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 7));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.MopUpPaperLoot.get(), 15));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 10));
         itemAndWeightList.add(new ItemAndWeight(ModItems.UnCommonLotteries.get(), 25));
         itemAndWeightList.add(new ItemAndWeight(ModItems.CastlePiece.get(), 100));
     }

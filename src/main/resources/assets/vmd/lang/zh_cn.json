@@ -1411,19 +1411,6 @@
   "item.vmd.labour_day_prefix": "称号 - 无产阶级",
   "item.vmd.labour_day_gem": "劳动者的斗争",
 
-  "item.vmd.castle_mop_up_paper": "暗黑城堡扫荡券",
-  "item.vmd.castle_second_floor_mop_up_paper": "暗黑城堡二层扫荡券",
-  "item.vmd.devil_mop_up_paper": "旧世复生魔王扫荡券",
-  "item.vmd.ice_knight_mop_up_paper": "冰霜骑士扫荡券",
-  "item.vmd.lightning_mop_up_paper": "唤雷塔扫荡券",
-  "item.vmd.main1_boss_mop_up_paper": "四元方块扫荡券",
-  "item.vmd.moon_mop_up_paper": "尘月宫扫荡券",
-  "item.vmd.nether_mop_up_paper": "下界征讨扫荡券",
-  "item.vmd.plain_mop_up_paper": "普莱尼扫荡券",
-  "item.vmd.purple_iron_knight_mop_up_paper": "紫晶骑士扫荡券",
-  "item.vmd.sakura_boss_mop_up_paper": "突见忍扫荡券",
-  "item.vmd.taboo_devil_mop_up_paper": "新世禁法魔物扫荡券",
-
   "item.vmd.attack_curios_1": "因子 - 暴君I",
   "item.vmd.attack_curios_2": "因子 - 暴君II",
   "item.vmd.bow_curios_1": "因子 - 游侠I",
@@ -2173,10 +2160,29 @@
   "item.vmd.mana_tower_piece": "原界之痕",
   "item.vmd.mana_tower_rune": "原界玉泽",
 
-  "item.vmd.nan_hai": "原界 - 南海",
+  "item.vmd.nan_hai_attack": "原界 - 南海A",
+  "item.vmd.nan_hai_mana": "原界 - 南海M",
   "item.vmd.tong_tian": "原界 - 通天",
 
   "item.vmd.estate_key": "房屋钥匙",
+  "item.vmd.real_estate_key": "资产钥匙",
+
+  "item.vmd.tp_pass_1day": "传送中枢通票 - 24H",
+  "item.vmd.tp_pass_2day": "传送中枢通票 - 48H",
+  "item.vmd.tp_pass_3day": "传送中枢通票 - 72H",
+
+  "item.vmd.plain_mop_up_paper": "普莱尼扫荡券",
+  "item.vmd.nether_mop_up_paper": "燃魂扫荡券",
+  "item.vmd.purple_iron_boss_mop_up_paper": "紫水晶巨蟹扫荡券",
+  "item.vmd.ice_knight_mop_up_paper": "冰霜骑士扫荡券",
+  "item.vmd.sakura_boss_mop_up_paper": "突见忍扫荡券",
+  "item.vmd.devil_mop_up_paper": "魔王扫荡券",
+  "item.vmd.moon_mop_up_paper": "尘月宫扫荡券",
+  "item.vmd.citadel_mop_up_paper": "影珀守卫扫荡券",
+  "item.vmd.warden_mop_up_paper": "坚守者扫荡券",
+  "item.vmd.castle_mop_up_paper": "暗黑城堡扫荡券",
+
+  "item.vmd.diamond_coin": "晶钻币",
 
   "item.vmd.splasher": "膨热剂",
 

@@ -31,8 +31,7 @@ public class MoonLoot extends Item {
 
     private void setItemAndWeightList() {
         itemAndWeightList.add(new ItemAndWeight(ModItems.MoonCompleteGem.get(), 2));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 7));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.MopUpPaperLoot.get(), 15));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 10));
         itemAndWeightList.add(new ItemAndWeight(ModItems.UnCommonLotteries.get(), 25));
         itemAndWeightList.add(new ItemAndWeight(ModItems.MoonSoul.get(), 125));
     }

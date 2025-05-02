@@ -13,7 +13,10 @@ import fun.wraq.Items.Forging.WraqForge;
 import fun.wraq.Items.KillPaper.KillPaper;
 import fun.wraq.Items.LevelReward.VariousBag.GoldCoinBag;
 import fun.wraq.Items.LevelReward.VariousBag.LogBag;
-import fun.wraq.Items.Lotteries.*;
+import fun.wraq.Items.Lotteries.CommonLotteries;
+import fun.wraq.Items.Lotteries.ExpItem;
+import fun.wraq.Items.Lotteries.FantasyCurio;
+import fun.wraq.Items.Lotteries.UnCommonLotteries;
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.Items.MainStory_1.ForNew;
 import fun.wraq.Items.MainStory_1.Mission.Main0;
@@ -44,9 +47,9 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.entities.animatedItem.AnimatedItem;
-import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
 import fun.wraq.events.mob.instance.item.NetherHand;
 import fun.wraq.events.mob.instance.item.PlainNecklace;
+import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
@@ -70,8 +73,6 @@ import fun.wraq.process.system.estate.EstateKey;
 import fun.wraq.process.system.forge.EquipPiece;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.forge.ForgeTemplate;
-import fun.wraq.process.system.instance.MopUpPaper;
-import fun.wraq.process.system.instance.MopUpPaperLoot;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.lottery.items.LotteryPrefix;
 import fun.wraq.process.system.ore.OreItems;
@@ -82,6 +83,7 @@ import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
 import fun.wraq.process.system.potion.PotionBag;
 import fun.wraq.process.system.teamInstance.instances.blackCastle.CastleNecklace;
+import fun.wraq.process.system.tp.TpPass;
 import fun.wraq.render.gui.testAndHelper.SmartPhoneOpen;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -100,8 +102,6 @@ import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
 import fun.wraq.series.end.recallBooks.*;
-import fun.wraq.series.events.labourDay.*;
-import fun.wraq.series.events.qingMing.*;
 import fun.wraq.series.events.spring2024.DragonPrefix;
 import fun.wraq.series.instance.series.castle.*;
 import fun.wraq.series.instance.series.devil.*;
@@ -280,6 +280,15 @@ public class ModItems {
                 @Override
                 public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
                     components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() * 144 + "vb", CustomStyle.styleOfGold));
+                    super.appendHoverText(stack, level, components, flag);
+                }
+            });
+    public static final RegistryObject<Item> DIAMOND_COIN = ITEMS.register("diamond_coin",
+            () -> new Item(new Item.Properties().rarity(Rarity.EPIC)) {
+                @Override
+                public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld,
+                            stack.getCount() * 144 * 69 + "vb", CustomStyle.styleOfGold));
                     super.appendHoverText(stack, level, components, flag);
                 }
             });
@@ -2877,48 +2886,6 @@ public class ModItems {
                     Te.s("价值1,000,000VB", CustomStyle.styleOfGold)
             )));
 
-    public static final RegistryObject<Item> MobArmorLabourDay1 = ITEMS.register("mob_armor_labour_day1",
-            () -> new MobArmor(ModArmorMaterials.BasicArmor1, ArmorItem.Type.HELMET, StringUtils.MobName.LabourDay1));
-
-    public static final RegistryObject<Item> MobArmorLabourDay2 = ITEMS.register("mob_armor_labour_day2",
-            () -> new MobArmor(ModArmorMaterials.BasicArmor2, ArmorItem.Type.HELMET, StringUtils.MobName.LabourDay2));
-
-    public static final RegistryObject<Item> CastleMopUpPaper = ITEMS.register("castle_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Castle));
-
-    public static final RegistryObject<Item> CastleSecondFloorMopUpPaper = ITEMS.register("castle_second_floor_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.CastleSecondFloor));
-
-    public static final RegistryObject<Item> DevilMopUpPaper = ITEMS.register("devil_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Devil));
-
-    public static final RegistryObject<Item> IceKnightMopUpPaper = ITEMS.register("ice_knight_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.IceKnight));
-
-    public static final RegistryObject<Item> LightningMopUpPaper = ITEMS.register("lightning_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Lightning));
-
-    public static final RegistryObject<Item> Main1BossMopUpPaper = ITEMS.register("main1_boss_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Main1Boss));
-
-    public static final RegistryObject<Item> MoonMopUpPaper = ITEMS.register("moon_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Moon));
-
-    public static final RegistryObject<Item> NetherMopUpPaper = ITEMS.register("nether_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Nether));
-
-    public static final RegistryObject<Item> PlainMopUpPaper = ITEMS.register("plain_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Plain));
-
-    public static final RegistryObject<Item> PurpleIronKnightMopUpPaper = ITEMS.register("purple_iron_knight_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.PurpleIronKnight));
-
-    public static final RegistryObject<Item> SakuraBossMopUpPaper = ITEMS.register("sakura_boss_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.SakuraBoss));
-
-    public static final RegistryObject<Item> TabooDevilMopUpPaper = ITEMS.register("taboo_devil_mop_up_paper",
-            () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.TabooDevil));
-
     public static final RegistryObject<Item> WorldSoulHollow = ITEMS.register("worldsoul_hollow",
             () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
@@ -2940,23 +2907,12 @@ public class ModItems {
     public static final RegistryObject<Item> MobArmorTower6FloorHelmet = ITEMS.register("mob_armor_tower_6floor_helmet",
             () -> new MobArmor(ModArmorMaterials.LightningElement, ArmorItem.Type.HELMET, StringUtils.MobName.Tower6Floor));
 
-    public static final RegistryObject<Item> MopUpPaperLoot = ITEMS.register("mop_up_paper_loot",
-            () -> new MopUpPaperLoot(new Item.Properties().rarity(CustomStyle.RedBold)));
-
     public static final RegistryObject<Item> SWORD_LOTTERY = ITEMS.register("sword_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
                         new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_4.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
-                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
-/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
@@ -2969,15 +2925,7 @@ public class ModItems {
                 List<NewLotteries.Loot> loots = List.of(
                         new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_5.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
-                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
-/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
@@ -2990,15 +2938,7 @@ public class ModItems {
                 List<NewLotteries.Loot> loots = List.of(
                         new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_4.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
-                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
-/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
@@ -3011,15 +2951,7 @@ public class ModItems {
                 List<NewLotteries.Loot> loots = List.of(
                         new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_5.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
-                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
-/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
@@ -3032,15 +2964,7 @@ public class ModItems {
                 List<NewLotteries.Loot> loots = List.of(
                         new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_4.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
-                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
-/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
@@ -3053,15 +2977,7 @@ public class ModItems {
                 List<NewLotteries.Loot> loots = List.of(
                         new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_5.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(UniformItems.StoneCurios0.get()), 0.005),
-                        /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
-/*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.StoneCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.IceCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.LightningCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
@@ -3701,30 +3617,33 @@ public class ModItems {
                     Te.s(" 使用传送中枢的消耗品", CustomStyle.styleOfEnd)
             )));
 
+    public static final RegistryObject<Item> TP_PASS_1DAY = ITEMS.register("tp_pass_1day",
+            () -> new TpPass(new Item.Properties().rarity(CustomStyle.EndBold), 1));
+    public static final RegistryObject<Item> TP_PASS_2DAY = ITEMS.register("tp_pass_2day",
+            () -> new TpPass(new Item.Properties().rarity(CustomStyle.EndBold), 2));
+    public static final RegistryObject<Item> TP_PASS_3DAY = ITEMS.register("tp_pass_3day",
+            () -> new TpPass(new Item.Properties().rarity(CustomStyle.EndBold), 3));
+
     public static final RegistryObject<Item> supplyBoxTier0 = ITEMS.register("supply_box_tier_0",
             () -> new SupplyBox(new Item.Properties().rarity(CustomStyle.Green), new ArrayList<>() {{
                 add(new ItemStack(REVELATION_HEART.get(), 1));
                 add(new ItemStack(notePaper.get(), 64));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 1));
-                add(new ItemStack(TP_TICKET.get(), 16));
             }}));
 
     public static final RegistryObject<Item> supplyBoxTier1 = ITEMS.register("supply_box_tier_1",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.UNCOMMON), new ArrayList<>() {{
                 add(new ItemStack(REVELATION_HEART.get(), 2));
-                add(new ItemStack(MopUpPaperLoot.get(), 4));
-                add(new ItemStack(KillPaperLoot.get(), 8));
+                add(new ItemStack(KillPaperLoot.get(), 12));
                 add(new ItemStack(notePaper.get(), 80));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 2));
-                add(new ItemStack(TP_TICKET.get(), 32));
                 add(new ItemStack(RevelationBook.get(), 8));
             }}));
 
     public static final RegistryObject<Item> supplyBoxTier2 = ITEMS.register("supply_box_tier_2",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
                 add(new ItemStack(REVELATION_HEART.get(), 4));
-                add(new ItemStack(MopUpPaperLoot.get(), 8));
-                add(new ItemStack(KillPaperLoot.get(), 16));
+                add(new ItemStack(KillPaperLoot.get(), 24));
                 add(new ItemStack(notePaper.get(), 96));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
                 add(new ItemStack(RevelationBook.get(), 16));
@@ -3734,8 +3653,7 @@ public class ModItems {
     public static final RegistryObject<Item> supplyBoxTier3 = ITEMS.register("supply_box_tier_3",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.EPIC), new ArrayList<>() {{
                 add(new ItemStack(REVELATION_HEART.get(), 6));
-                add(new ItemStack(MopUpPaperLoot.get(), 16));
-                add(new ItemStack(KillPaperLoot.get(), 32));
+                add(new ItemStack(KillPaperLoot.get(), 48));
                 add(new ItemStack(notePaper.get(), 128));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 4));
                 add(new ItemStack(RevelationBook.get(), 32));
@@ -3814,5 +3732,8 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold), false, true));
 
     public static final RegistryObject<Item> ESTATE_KEY = ITEMS.register("estate_key",
-            () -> new EstateKey(new Item.Properties().rarity(CustomStyle.GoldBold)));
+            () -> new EstateKey(new Item.Properties().rarity(Rarity.RARE), 0));
+
+    public static final RegistryObject<Item> REAL_ESTATE_KEY = ITEMS.register("real_estate_key",
+            () -> new EstateKey(new Item.Properties().rarity(CustomStyle.Gold), 1));
 }

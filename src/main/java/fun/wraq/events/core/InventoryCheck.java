@@ -8,6 +8,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.process.system.instance.MopUpPaperItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.series.TickItem;
@@ -172,14 +173,6 @@ public class InventoryCheck {
                 ModItems.BOW_LOTTERY_1.get(),
                 ModItems.SCEPTRE_LOTTERY_1.get(),
                 ModItems.ID_Card.get(),
-                ModItems.MopUpPaperLoot.get(),
-                ModItems.CastleMopUpPaper.get(),
-                ModItems.DevilMopUpPaper.get(),
-                ModItems.IceKnightMopUpPaper.get(),
-                ModItems.MoonMopUpPaper.get(),
-                ModItems.PlainMopUpPaper.get(),
-                ModItems.PurpleIronKnightMopUpPaper.get(),
-                ModItems.SakuraBossMopUpPaper.get(),
                 ModItems.KillPaperLoot.get(),
                 ModItems.killPaper.get(),
                 ModItems.RevelationBook.get(),
@@ -207,7 +200,11 @@ public class InventoryCheck {
                 SpecialEventItems.LabourDayIronHoe.get(),
                 SpecialEventItems.LabourDayIronPickaxe.get(),
                 SpecialEventItems.LabourDayLottery.get(),
-                ModItems.ESTATE_KEY.get()
+                ModItems.ESTATE_KEY.get(),
+                ModItems.REAL_ESTATE_KEY.get(),
+                ModItems.TP_PASS_1DAY.get(),
+                ModItems.TP_PASS_2DAY.get(),
+                ModItems.TP_PASS_3DAY.get()
         ));
         UniformItems.ITEMS.getEntries()
                 .stream()
@@ -222,6 +219,10 @@ public class InventoryCheck {
                 .map(entry -> entry.get().asItem())
                 .forEach(item -> boundingList.add(item));
         ManaTowerItems.ITEMS.getEntries()
+                .stream()
+                .map(entry -> entry.get().asItem())
+                .forEach(item -> boundingList.add(item));
+        MopUpPaperItems.ITEMS.getEntries()
                 .stream()
                 .map(entry -> entry.get().asItem())
                 .forEach(item -> boundingList.add(item));

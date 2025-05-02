@@ -659,7 +659,7 @@ public class Damage {
     public static double defenceDamageDecreaseRate(Player player, Mob mob, double defence,
                                                    double defencePenetration, double defencePenetration0) {
         double defenceAfterCompute = Math.max(0, defence * (1 - defencePenetration) - defencePenetration0);
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ManaTowerItems.NAN_HAI.get())
+        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ManaTowerItems.NAN_HAI_A.get())
                 && mob.getHealth() / mob.getMaxHealth() < 0.4) {
             defenceAfterCompute = 0;
         }

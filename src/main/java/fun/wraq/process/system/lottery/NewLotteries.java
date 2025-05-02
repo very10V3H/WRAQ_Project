@@ -297,7 +297,6 @@ public class NewLotteries extends Item {
         lootList.add(new Loot(curio.getDefaultInstance(), 0.005));
         lootList.add(new Loot(elementCurio.getDefaultInstance(), 0.005));
         lootList.add(new Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2));
-        lootList.add(new Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2));
         lootList.add(new Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1));
         lootList.add(new Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1));
         lootList.add(new Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1));

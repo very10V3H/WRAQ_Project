@@ -87,10 +87,11 @@ public class BlockEvent {
         // 房产右键判断
         if (!level.isClientSide && event.getHand().equals(InteractionHand.MAIN_HAND)) {
             EstateUtil.onPlayerRightClickInfoSignBlock(player, blockPos);
-            event.setCanceled(!EstateUtil.canPlayerRightClickDoor(player, blockPos));
+            EstateUtil.onPlayerRightClickDoor(player, blockPos);
         }
-        if (level.isClientSide && block instanceof DoorBlock) {
-            event.setCanceled(true);
+        if (!player.isCreative() && level.isClientSide && block instanceof DoorBlock
+                && block.toString().contains("biomesoplenty")) {
+            event.setCanceled(!EstateUtil.clientPlayerCanOpenDoor(blockPos));
         }
     }
 

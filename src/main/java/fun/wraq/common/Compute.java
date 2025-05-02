@@ -956,10 +956,22 @@ public class Compute {
         return cal;
     }
 
+    public static Calendar castStringToCalendar(String DateString) {
+        try {
+            return StringToCalendar(DateString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String CalendarToString(Calendar calendar) {
         Date date = calendar.getTime();
         SimpleDateFormat tmpDate = new SimpleDateFormat("yyyyMMddHHmmss");
         return tmpDate.format(date);
+    }
+
+    public static String castCalendarToString(Calendar calendar) {
+        return CalendarToString(calendar);
     }
 
     public static int playerReputation(Player player) {
