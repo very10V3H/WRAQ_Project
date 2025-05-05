@@ -1,0 +1,58 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "collectorsreap:enabled",
+              "value": "portobello_quiche"
+            },
+            {
+              "type": "forge:not",
+              "value": {
+                "type": "forge:tag_empty",
+                "tag": "forge:cheese"
+              }
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "c": {
+            "tag": "forge:cheese"
+          },
+          "e": {
+            "tag": "forge:eggs"
+          },
+          "m": {
+            "tag": "forge:milk"
+          },
+          "o": {
+            "tag": "forge:vegetables/onion"
+          },
+          "p": {
+            "tag": "forge:mushrooms/portobello"
+          },
+          "r": {
+            "item": "farmersdelight:pie_crust"
+          }
+        },
+        "pattern": [
+          "pop",
+          "mcm",
+          "ere"
+        ],
+        "result": {
+          "item": "collectorsreap:portobello_quiche"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

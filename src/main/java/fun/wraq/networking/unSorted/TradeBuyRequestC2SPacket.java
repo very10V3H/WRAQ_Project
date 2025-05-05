@@ -54,9 +54,6 @@ public class TradeBuyRequestC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
-            if (TradeList.tradeContent.isEmpty() || TradeList.tradeRecipeMap.isEmpty()) {
-                TradeList.setTradeContent();
-            }
             ItemStack targetItemStack = TradeList.tradeContent.get(this.name).get(index);
             ItemStack product = new ItemStack(targetItemStack.getItem(), targetItemStack.getCount());
             List<ItemStack> requireItemList = TradeList.tradeRecipeMap.get(targetItemStack);

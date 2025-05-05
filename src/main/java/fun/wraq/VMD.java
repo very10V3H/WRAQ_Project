@@ -56,7 +56,6 @@ import fun.wraq.render.gui.blocks.FurnaceScreen;
 import fun.wraq.render.gui.blocks.InjectBlockScreen;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.gui.testAndHelper.ModMenuTypes;
-import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
@@ -224,7 +223,6 @@ public class VMD {
         replaceAttributeValue((RangedAttribute) Attributes.ARMOR, Double.MAX_VALUE);
         replaceAttributeValue((RangedAttribute) Attributes.ARMOR_TOUGHNESS, Double.MAX_VALUE);
         Utils.Init();
-        TradeList.setTradeContent();
         ForgeRecipe.forgeDrawRecipeInit();
         ForgeEquipUtils.setZoneForgeItemListMap();
     }
@@ -494,7 +492,8 @@ public class VMD {
                     ModItems.BOND.get(), ModItems.SPECIAL_BOND.get(), ModItems.MILLION_MONEY.get(),
                     ModItems.ESTATE_KEY.get(), ModItems.REAL_ESTATE_KEY.get(),
                     ModItems.TP_TICKET.get(),
-                    ModItems.TP_PASS_1DAY.get(), ModItems.TP_PASS_2DAY.get(), ModItems.TP_PASS_3DAY.get()
+                    ModItems.TP_PASS_1DAY.get(), ModItems.TP_PASS_2DAY.get(), ModItems.TP_PASS_3DAY.get(),
+                    ModItems.FOOD_COIN.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }

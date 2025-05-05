@@ -121,7 +121,7 @@ public class Utils {
 
     public static Stray[] IceHunterForIceKnight = new Stray[15];
 
-    public static boolean OverWorldLevelIsNight = false;
+    public static boolean overworldIsNight = false;
 
     public static List<Mob> witherBonePowerCCMonster = new ArrayList<>();
 

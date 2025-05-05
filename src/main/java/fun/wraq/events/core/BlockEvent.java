@@ -20,6 +20,7 @@ import fun.wraq.networking.unSorted.BlockLimit;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
+import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
@@ -93,6 +94,7 @@ public class BlockEvent {
                 && block.toString().contains("biomesoplenty")) {
             event.setCanceled(!EstateUtil.clientPlayerCanOpenDoor(blockPos));
         }
+        CookingItems.onRightClickBlock(player, blockPos);
     }
 
     @SubscribeEvent

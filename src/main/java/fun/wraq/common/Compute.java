@@ -58,6 +58,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
+import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.projectiles.mana.ManaArrow;
@@ -1840,6 +1841,7 @@ public class Compute {
         rate += QingMingCommonRing.getExHarvest(player);
         rate += RankData.getExHarvestRate(player);
         rate += LabourDayOldCoin.getExHarvest();
+        rate += EstateUtil.getExHarvestRate(player);
         return rate;
     }
 
@@ -2243,5 +2245,9 @@ public class Compute {
     public static final String TEMP_TAG_KEY = "tempTagKey";
     public static CompoundTag getTempTag(Player player) {
         return getPlayerSpecificKeyCompoundTagData(player, TEMP_TAG_KEY);
+    }
+
+    public static boolean isOverworldNight() {
+        return Tick.server.overworld().isNight();
     }
 }

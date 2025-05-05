@@ -1,0 +1,37 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "collectorsreap:enabled",
+          "value": "big_rice_ball"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "category": "misc",
+        "ingredients": [
+          {
+            "item": "minecraft:dried_kelp"
+          },
+          {
+            "item": "farmersdelight:cooked_rice"
+          },
+          {
+            "item": "farmersdelight:cooked_rice"
+          },
+          {
+            "item": "farmersdelight:cooked_rice"
+          },
+          {
+            "tag": "forge:crab_meat"
+          }
+        ],
+        "result": {
+          "item": "collectorsreap:big_rice_ball"
+        }
+      }
+    }
+  ]
+}

@@ -45,6 +45,9 @@ public class TradeList {
     public static Map<String, List<ItemStack>> tradeContent = new HashMap<>();
 
     public static void setTradeContent() {
+        if (!tradeRecipeMap.isEmpty() && !tradeContent.isEmpty()) {
+            return;
+        }
         /* 2.0 */
         plainLeather();
         plainForgeHammer();
@@ -80,6 +83,8 @@ public class TradeList {
         labourDay();
         gateWay();
         mopUpPaper();
+
+        TradeListNew.init();
 
         /* 1.0 */
 
@@ -3393,9 +3398,9 @@ public class TradeList {
         ItemStack tpPass1Day = new ItemStack(ModItems.TP_PASS_1DAY.get());
         ItemStack tpPass2Day = new ItemStack(ModItems.TP_PASS_2DAY.get());
         ItemStack tpPass3Day = new ItemStack(ModItems.TP_PASS_3DAY.get());
-        ItemStack goldCoin16 = new ItemStack(ModItems.GOLD_COIN.get(), 16);
-        ItemStack goldCoin26 = new ItemStack(ModItems.GOLD_COIN.get(), 26);
-        ItemStack goldCoin40 = new ItemStack(ModItems.GOLD_COIN.get(), 40);
+        ItemStack goldCoin16 = new ItemStack(ModItems.GOLD_COIN.get(), 4);
+        ItemStack goldCoin26 = new ItemStack(ModItems.GOLD_COIN.get(), 6);
+        ItemStack goldCoin40 = new ItemStack(ModItems.GOLD_COIN.get(), 10);
         ItemStack[] itemStacks = {
                 tpTicket, tpPass1Day,
                 tpPass2Day, tpPass3Day,
@@ -3406,13 +3411,13 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("传送中枢票务员", "gateWay",
                 CustomStyle.styleOfEnd, VillagerType.SNOW, VillagerProfession.LIBRARIAN, contentList);
         tradeRecipeMap.put(tpTicket,
-                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 8)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 2)));
         tradeRecipeMap.put(tpPass1Day,
-                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 160)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 40)));
         tradeRecipeMap.put(tpPass2Day,
-                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 260)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 64)));
         tradeRecipeMap.put(tpPass3Day,
-                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 400)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 96)));
         tradeRecipeMap.put(goldCoin16,
                 List.of(new ItemStack(ModItems.TP_PASS_1DAY.get(), 1)));
         tradeRecipeMap.put(goldCoin26,

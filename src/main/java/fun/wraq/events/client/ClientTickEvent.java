@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.lottery.NewLotteries;
+import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -24,6 +25,7 @@ public class ClientTickEvent {
                 NewLotteries.setCurrentLotteryLoots(Compute
                                 .StringToCalendar(ClientUtils.serverTime)
                                 .get(Calendar.DAY_OF_YEAR));
+                TradeList.setTradeContent();
             }
         }
     }

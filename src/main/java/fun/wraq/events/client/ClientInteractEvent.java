@@ -2,7 +2,6 @@ package fun.wraq.events.client;
 
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
-import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,8 +14,8 @@ public class ClientInteractEvent {
     @SubscribeEvent
     public static void Trade(PlayerInteractEvent.EntityInteract event) {
         if (event.getSide().isClient() && event.getTarget() instanceof Villager villager && event.getEntity().equals(Minecraft.getInstance().player)) {
-            if (TradeList.tradeContent.isEmpty() || TradeList.tradeRecipeMap.isEmpty()) TradeList.setTradeContent();
-            if (StringUtils.VillagerNameMap.containsValue(villager.getName()) || MyVillagerData.villagerNameMap.containsKey(villager.getName())) {
+            if (StringUtils.VillagerNameMap.containsValue(villager.getName())
+                    || MyVillagerData.villagerNameMap.containsKey(villager.getName())) {
                 event.setCanceled(true);
             }
         }

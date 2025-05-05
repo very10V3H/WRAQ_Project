@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -13,6 +14,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
@@ -23,9 +26,7 @@ import net.minecraft.world.level.block.entity.SignText;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 public class EstateUtil {
 
@@ -61,12 +62,12 @@ public class EstateUtil {
             if (player.isShiftKeyDown()) {
                 double price = estateInfo.price;
                 price *= PlanPlayer.getEstatePriceRate(player);
-                if (type == 0 && Compute.getCurrentVB(player) < price) {
+                if (type == 0 && !player.isCreative() && Compute.getCurrentVB(player) < price) {
                     sendMSG(player, Te.s("所需货币不足. 需要",
                             (int) price + "VB", ChatFormatting.GOLD));
                     return;
                 }
-                if (type == 1 && !InventoryOperation
+                if (type == 1 && !player.isCreative() && !InventoryOperation
                         .checkPlayerHasItem(player, ModItems.GOLDEN_BEANS.get(), (int) price)) {
                     sendMSG(player, Te.s("所需货币不足. 需要",
                             (int) price + "GB", ChatFormatting.GOLD));
@@ -283,5 +284,40 @@ public class EstateUtil {
         } else {
             sendMSG(player, Te.s("暂时没有资产可以出售."));
         }
+    }
+
+    public static Map<String, Integer> estateBuffExpiredTickMap = new HashMap<>();
+    public static Map<String, Integer> realEstateBuffExpiredTickMap = new HashMap<>();
+
+    public static void onPlayerOpenEstateDoor(Player player) {
+        if (Compute.isOverworldNight()) {
+            if (estateBuffExpiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                estateBuffExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(20));
+                player.addEffect(new MobEffectInstance(MobEffects.SATURATION, Tick.min(20)));
+                Compute.sendEffectLastTime(player, ModItems.ESTATE_KEY.get(), Tick.min(20));
+                sendMSG(player, Te.s("夜间首次打开房产门，获得持续", "20min", ChatFormatting.AQUA,
+                        "的", ComponentUtils.getCommonDamageEnhance("20%"), "与",
+                        "饱和效果", CustomStyle.MUSHROOM_STYLE));
+            }
+        }
+    }
+
+    public static double getExCommonDamageRate(Player player) {
+        return estateBuffExpiredTickMap.getOrDefault(Name.get(player), 0) > Tick.get() ? 0.2 : 0;
+    }
+
+    public static void onPlayerOpenRealEstateDoor(Player player) {
+        if (!Compute.isOverworldNight()) {
+            if (realEstateBuffExpiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                realEstateBuffExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(20));
+                Compute.sendEffectLastTime(player, ModItems.GOLDEN_BEANS.get(), Tick.min(20));
+                sendMSG(player, Te.s("日间首次打开资产门，获得持续", "20min", ChatFormatting.AQUA,
+                        "的", "20%额外产出", ChatFormatting.GOLD));
+            }
+        }
+    }
+
+    public static double getExHarvestRate(Player player) {
+        return realEstateBuffExpiredTickMap.getOrDefault(Name.get(player), 0) > Tick.get() ? 0.2 : 0;
     }
 }

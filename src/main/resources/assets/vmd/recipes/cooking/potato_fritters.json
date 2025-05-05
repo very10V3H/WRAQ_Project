@@ -1,0 +1,35 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "collectorsreap:enabled",
+          "value": "potato_fritters"
+        }
+      ],
+      "recipe": {
+        "type": "farmersdelight:cooking",
+        "cookingtime": 200,
+        "experience": 1.0,
+        "ingredients": [
+          {
+            "tag": "forge:vegetables/potato"
+          },
+          {
+            "tag": "forge:fruits/lime"
+          },
+          {
+            "tag": "forge:fruits/lime"
+          },
+          {
+            "tag": "forge:vegetables/onion"
+          }
+        ],
+        "result": {
+          "item": "collectorsreap:potato_fritters"
+        }
+      }
+    }
+  ]
+}

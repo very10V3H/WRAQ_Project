@@ -10,12 +10,12 @@ import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.process.system.bank.Bank;
+import fun.wraq.process.system.cooking.CookingVillager;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
-import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -123,9 +123,11 @@ public class RightClickEvent {
                     ModNetworking.sendToClient(new ScreenSetS2CPacket(6), (ServerPlayer) player);
                     return;
                 }
-            }
-            if (TradeList.tradeContent.isEmpty() || TradeList.tradeRecipeMap.isEmpty()) {
-                TradeList.setTradeContent();
+                case "联合研院大吃货 - 老八" -> {
+                    CookingVillager.onPlayerInteractWithVillager(player);
+                    event.setCanceled(true);
+                    return;
+                }
             }
             boolean flag = false;
             for (MutableComponent value : StringUtils.VillagerNameMap.values()) {

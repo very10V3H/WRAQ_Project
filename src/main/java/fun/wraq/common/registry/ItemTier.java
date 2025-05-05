@@ -2,6 +2,7 @@ package fun.wraq.common.registry;
 
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 public enum ItemTier implements Tier {
     VMaterial(0, 100, 1.0f, 0.0f, 15),
@@ -53,8 +54,7 @@ public enum ItemTier implements Tier {
     }
 
     @Override
-    public Ingredient getRepairIngredient() {
-        return this.getRepairIngredient();
+    public @NotNull Ingredient getRepairIngredient() {
+        return Ingredient.EMPTY;
     }
-
 }

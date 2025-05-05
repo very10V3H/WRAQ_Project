@@ -7,6 +7,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
@@ -31,7 +32,6 @@ public class RankItemCommand implements Command<CommandSourceStack> {
         String rankOrigin = StringArgumentType.getString(context, "rankOrigin");
         String rankBound = StringArgumentType.getString(context, "rankBound");
         int itemType = IntegerArgumentType.getInteger(context, "itemType");
-
         if (!RankData.rankNameMap.containsKey(rankOrigin)) {
             RankData.sendFormatMSG(player, Te.s("rankOrigin不存在"));
             return 0;
@@ -40,11 +40,10 @@ public class RankItemCommand implements Command<CommandSourceStack> {
             RankData.sendFormatMSG(player, Te.s("rankBound不存在"));
             return 0;
         }
-
         int origin = RankData.rankSerialList.indexOf(rankOrigin);
         int bound = RankData.rankSerialList.indexOf(rankBound);
         for (GameProfile profile : gameProfile) {
-            ServerPlayer target = player.getServer().getPlayerList().getPlayer(profile.getId());
+            ServerPlayer target = Tick.server.getPlayerList().getPlayer(profile.getId());
             if (target == null) {
                 RankData.sendFormatMSG(player, Te.s("玩家似乎不在线"));
                 return 0;

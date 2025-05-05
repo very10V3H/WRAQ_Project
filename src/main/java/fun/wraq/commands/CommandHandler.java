@@ -12,6 +12,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.bank.BankOperationCommand;
 import fun.wraq.process.system.bank.GetGoldenBeansCommand;
 import fun.wraq.process.system.bonuschest.BonusInfoCommand;
+import fun.wraq.process.system.cooking.CookingOperationCommand;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
 import fun.wraq.process.system.estate.*;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
@@ -750,6 +751,15 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("sellRealEstate")
                                 .executes(SellRealEstateCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher82 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd82 = dispatcher82.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("cooking").then(
+                                Commands.argument("operation", StringArgumentType.string())
+                                        .executes(CookingOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
     }

@@ -300,7 +300,7 @@ public class RandomEventsHandler {
                             ModItems.StoneElement.get());
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentManaDefenceModifier,
                             "RandomElementEvent", 0.2, Tick.get() + Tick.min(15));
-                    sendElementMSG(player, Te.s("层岩叠嶂，震天撼地", CustomStyle.styleOfFire,
+                    sendElementMSG(player, Te.s("层岩叠嶂，震天撼地", CustomStyle.styleOfStone,
                             " - 获得持续15min的", ComponentUtils.AttributeDescription.defence("20%"),
                             "与", ComponentUtils.AttributeDescription.manaDefence("20%"), "增幅。"));
                 });

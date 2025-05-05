@@ -150,7 +150,7 @@ public class NewLotteries extends Item {
             components.add(Component.literal(""));
             components.add(Component.literal(" 第" + guaranteeTimes.get(item) + "次必定抽取极品奖励").withStyle(ChatFormatting.GOLD));
         }
-        if (getUniformLotteryItems().contains(this)) {
+        if (getUniformLotteryItems().contains(this) && ClientUtils.serverTime != null) {
             int date = 0;
             try {
                 date = Compute.StringToCalendar(ClientUtils.serverTime).get(Calendar.DAY_OF_YEAR);

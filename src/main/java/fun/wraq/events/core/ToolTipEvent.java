@@ -18,6 +18,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.process.func.plan.SimpleTierPaper;
+import fun.wraq.process.system.cooking.CookingValue;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -444,5 +445,6 @@ public class ToolTipEvent {
                         " * " + decomposable.getProduct().getCount(), CustomStyle.styleOfWorld));
             }
         }
+        CookingValue.handleToolTip(event.getItemStack(), tooltip);
     }
 }

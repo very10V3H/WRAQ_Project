@@ -56,8 +56,6 @@ public class TradeScreen extends Screen {
         }).pos(this.width / 2 - 39 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-            if (fun.wraq.render.gui.villagerTrade.TradeList.tradeRecipeMap.isEmpty() || fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.isEmpty())
-                fun.wraq.render.gui.villagerTrade.TradeList.setTradeContent();
 
             List<ItemStack> targetItemList = new ArrayList<>();
             if (fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.containsKey(villagerName))
@@ -178,7 +176,6 @@ public class TradeScreen extends Screen {
 
         int size = 0;
         if (!Objects.equals(villagerName, RandomStore.villagerName)) {
-            if (TradeList.tradeRecipeMap.isEmpty() || TradeList.tradeContent.isEmpty()) TradeList.setTradeContent();
 
             List<ItemStack> targetItemList = new ArrayList<>();
             if (TradeList.tradeContent.containsKey(villagerName))

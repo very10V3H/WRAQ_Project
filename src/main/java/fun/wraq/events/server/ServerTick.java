@@ -13,6 +13,7 @@ import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.vp.VpDataHandler;
+import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -69,6 +70,9 @@ public class ServerTick {
             }
 
             NewLotteries.setCurrentLotteryLoots(Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
+            if (tickCount == 8) {
+                TradeList.setTradeContent();
+            }
         }
     }
 

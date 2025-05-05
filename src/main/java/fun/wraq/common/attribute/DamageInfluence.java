@@ -16,6 +16,7 @@ import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
+import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
@@ -53,6 +54,7 @@ public class DamageInfluence {
         rate += OnHitDamageInfluenceCurios.damageInfluence(player, monster);
         rate += ManaAttackModule.getManaSkill3DamageEnhance(player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
         rate += getPlayerCommonDamageUpOrDown(player);
+        rate += EstateUtil.getExCommonDamageRate(player);
         return rate;
     }
 

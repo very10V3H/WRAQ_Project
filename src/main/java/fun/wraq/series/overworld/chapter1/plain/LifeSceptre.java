@@ -80,7 +80,7 @@ public class LifeSceptre extends WraqSceptre implements OnHitEffectEquip, InCuri
     @Override
     public List<Attribute> getAttributes(Player player, ItemStack stack) {
         if (player.getMainHandItem().is(this) && tier == 4
-                && !Utils.OverWorldLevelIsNight && player.level().dimension().equals(Level.OVERWORLD)) {
+                && !Utils.overworldIsNight && player.level().dimension().equals(Level.OVERWORLD)) {
             return List.of(
                     new Attribute(Utils.manaDamage, 45),
                     new Attribute(Utils.manaRecover, 15)

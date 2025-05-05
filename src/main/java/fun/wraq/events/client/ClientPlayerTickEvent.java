@@ -26,6 +26,7 @@ import fun.wraq.networking.unSorted.UdiskWorldSoulC2SPacket;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.bgm.WraqBgm;
 import fun.wraq.process.system.element.networking.ElementPieceC2SPacket;
 import fun.wraq.process.system.element.piece.ElementPieceGui;
 import fun.wraq.process.system.element.piece.ElementPieceRecipe;
@@ -91,6 +92,7 @@ public class ClientPlayerTickEvent {
             if (SpecialEffectOnPlayer.clientBlindTick > 0) --SpecialEffectOnPlayer.clientBlindTick;
             ParticleProvider.spaceEffectParticleHandleClientTick();
             SkillV2.clientTick();
+            WraqBgm.handleClientPlayerTick(event.player);
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();

@@ -225,13 +225,13 @@ public class LevelEvents {
                 });
             }
             if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
-                if (!Utils.OverWorldLevelIsNight &&
+                if (!Utils.overworldIsNight &&
                         event.level.getDayTime() % 24000 >= 12000) {
-                    Utils.OverWorldLevelIsNight = true;
+                    Utils.overworldIsNight = true;
                 }
-                if (Utils.OverWorldLevelIsNight &&
+                if (Utils.overworldIsNight &&
                         event.level.dayTime() % 24000 == 1) {
-                    Utils.OverWorldLevelIsNight = false;
+                    Utils.overworldIsNight = false;
                 }
             }
         }

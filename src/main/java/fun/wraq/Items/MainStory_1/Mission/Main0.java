@@ -4,8 +4,11 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.process.system.bgm.WraqBgm;
+import fun.wraq.process.system.cooking.CookingVillager;
 import fun.wraq.series.end.citadel.CitadelItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -16,8 +19,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.p3pp3rf1y.sophisticatedbackpacks.backpack.BackpackItem;
-import net.p3pp3rf1y.sophisticatedbackpacks.backpack.wrapper.BackpackWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -68,31 +69,7 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            uuidSet.clear();
-            for (int i = 0; i < player.getInventory().getMaxStackSize(); i++) {
-                ItemStack stack = player.getInventory().getItem(i);
-                if (stack.getItem() instanceof BackpackItem) {
-                    BackpackWrapper backpackWrapper = new BackpackWrapper(stack);
-                    UUID uuid = backpackWrapper.getContentsUuid().orElse(null);
-                    if (uuid != null) {
-                        if (uuidSet.contains(uuid)) {
-                            stack.shrink(1);
-                            player.sendSystemMessage(Te.s("bug"));
-                        }
-                        uuidSet.add(uuid);
-                    }
-/*                    backpackWrapper.getInventoryHandler().setStackInSlot(0, Items.IRON_INGOT.getDefaultInstance());
-                    backpackWrapper.refreshInventoryForInputOutput();
-
-                    ItemStack newBackPack = new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.NETHERITE_BACKPACK.get());
-                    BackpackWrapper newBackpackWrapper = new BackpackWrapper(newBackPack);
-                    backpackWrapper.getUpgradeHandler().copyTo(newBackpackWrapper.getUpgradeHandler());
-                    for (int j = 0; j < backpackWrapper.getInventoryHandler().getSlots(); j++) {
-                        newBackpackWrapper.getInventoryHandler().setSlotStack(j, new ItemStack(Items.IRON_INGOT, 128));
-                    }
-                    player.getInventory().setItem(i, newBackPack);*/
-                }
-            }
+            CookingVillager.acceptEntrustment(player);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
@@ -100,11 +77,11 @@ public class Main0 extends Item {
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-
+            WraqBgm.normalPlay(player);
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {
-
+            Minecraft.getInstance().getSoundManager().stop();
         }
 
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

@@ -1,5 +1,6 @@
 package fun.wraq.process.func.rank;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -96,7 +97,11 @@ public class RankData {
     }
 
     public static void sendFormatMSG(Player player, Component content) {
-        Compute.sendFormatMSG(player, Te.s("Rank", ChatFormatting.AQUA), content);
+        if (player != null) {
+            Compute.sendFormatMSG(player, Te.s("Rank", ChatFormatting.AQUA), content);
+        } else {
+            LogUtils.getLogger().info(content.getString());
+        }
     }
 
     public static List<String> rankSerialList = new ArrayList<>() {{

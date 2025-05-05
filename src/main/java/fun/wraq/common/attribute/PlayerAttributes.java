@@ -202,7 +202,7 @@ public class PlayerAttributes {
             exDamage += powerAbilityPoint * 2;
         } // 能力
 
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
             exDamage += 50;
         // 矿工裤被动
 
@@ -524,7 +524,7 @@ public class PlayerAttributes {
 
         speedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedWithoutBattle);
 
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
             speedUp += 0.4;
         // 矿工裤被动
 
@@ -607,7 +607,7 @@ public class PlayerAttributes {
                 && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 1) {
             exDefence += baseDefence * 0.40 + 10;
         }
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
             exDefence += 1;
         // 矿工裤被动
         if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 60;
@@ -914,7 +914,7 @@ public class PlayerAttributes {
         // 处理主动被动等额外属性
         if (SuitCount.getPlainSuitCount(player) >= 2) healthRecover += 0.5 + player.getMaxHealth() * 0.01F;
         if (SuitCount.getLifeManaSuitCount(player) >= 4) healthRecover += 1 + player.getMaxHealth() * 0.01F;
-        if (!Utils.OverWorldLevelIsNight && SuitCount.getForestSuitCount(player) >= 4) healthRecover += 5;
+        if (!Utils.overworldIsNight && SuitCount.getForestSuitCount(player) >= 4) healthRecover += 5;
 
         if (player.getEffect(ModEffects.HEALTHRECOVER.get()) != null && player.getEffect(ModEffects.HEALTHRECOVER.get()).getAmplifier() == 0)
             healthRecover += player.getMaxHealth() * 0.025;
@@ -1039,7 +1039,7 @@ public class PlayerAttributes {
             exDamage += baseDamage * Compute.getManaSkillLevel(data, 2) * 0.02;
         } // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
 
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
             exDamage += 75;
         // 矿工裤被动
 

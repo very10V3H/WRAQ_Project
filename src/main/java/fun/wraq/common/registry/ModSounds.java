@@ -10,7 +10,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModSounds {
 
-    private static final DeferredRegister<SoundEvent> SOUND = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Utils.MOD_ID);
+    private static final DeferredRegister<SoundEvent> SOUND =
+            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Utils.MOD_ID);
 
     public static final RegistryObject<SoundEvent> Attack = registryObject("attack");
     public static final RegistryObject<SoundEvent> Lava = registryObject("lava");
@@ -28,7 +29,6 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> HeihuangAttack = registryObject("heihuang_attack");
     public static final RegistryObject<SoundEvent> Dice = registryObject("dice");
     public static final RegistryObject<SoundEvent> BreakDice = registryObject("break_dice");
-
 
     public static void register(IEventBus eventBus) {
         SOUND.register(eventBus);

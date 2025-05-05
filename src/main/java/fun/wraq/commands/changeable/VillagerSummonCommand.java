@@ -7,7 +7,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
-import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -34,7 +33,6 @@ public class VillagerSummonCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         String type = StringArgumentType.getString(context, "type").toLowerCase(Locale.ROOT);
         Level level = player.level();
-        if (TradeList.tradeContent.isEmpty()) TradeList.setTradeContent();
         if (player.isCreative()) {
             double[] VillagerPos = {0, 0, 0};
             Vec3 Pos = player.pick(5, 0, true).getLocation();

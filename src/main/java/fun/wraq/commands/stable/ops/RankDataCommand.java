@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.rank.RankData;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -24,7 +25,7 @@ public class RankDataCommand implements Command<CommandSourceStack> {
         String rank = StringArgumentType.getString(context, "rank");
         String description = StringArgumentType.getString(context, "description");
         for (GameProfile profile : gameProfile) {
-            ServerPlayer target = player.getServer().getPlayerList().getPlayer(profile.getId());
+            ServerPlayer target = Tick.server.getPlayerList().getPlayer(profile.getId());
             if (target == null) {
                 RankData.sendFormatMSG(player, Te.s("玩家似乎不在线"));
                 return 0;

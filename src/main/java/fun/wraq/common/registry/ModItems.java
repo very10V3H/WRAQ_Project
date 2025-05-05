@@ -3736,4 +3736,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> REAL_ESTATE_KEY = ITEMS.register("real_estate_key",
             () -> new EstateKey(new Item.Properties().rarity(CustomStyle.Gold), 1));
+
+    public static final RegistryObject<Item> FOOD_COIN = ITEMS.register("food_coin",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Gold), false, true, List.of(
+                    Te.s("老八的认可", CustomStyle.MUSHROOM_STYLE),
+                    Te.s("主要通过完成", "烹饪委托", CustomStyle.MUSHROOM_STYLE, "获得")
+            )));
 }

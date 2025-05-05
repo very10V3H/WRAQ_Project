@@ -1,0 +1,50 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "collectorsreap:enabled",
+              "value": "portobello"
+            },
+            {
+              "type": "collectorsreap:enabled",
+              "value": "portobello_wrap"
+            },
+            {
+              "type": "forge:tag_empty",
+              "tag": "forge:tortilla"
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "category": "misc",
+        "ingredients": [
+          {
+            "tag": "forge:bread"
+          },
+          {
+            "item": "collectorsreap:baked_portobello_cap"
+          },
+          {
+            "tag": "forge:vegetables/onion"
+          },
+          {
+            "tag": "forge:salad_ingredients/cabbage"
+          },
+          {
+            "tag": "forge:vegetables/carrot"
+          }
+        ],
+        "result": {
+          "item": "collectorsreap:portobello_wrap"
+        }
+      }
+    }
+  ]
+}

@@ -152,14 +152,14 @@ public class EstatePlayerData {
                     .get(Calendar.DAY_OF_YEAR) != calendar.get(Calendar.DAY_OF_YEAR)) {
                 setEstateLastRewardDate(player, Compute.CalendarToString(calendar));
                 int price = (int) EstateInfo.values()[serial].price;
-                price = Math.min(price, 5000 * 10000);
+                price = Math.min(price, 2500 * 10000);
                 EstateUtil.sendMSG(player, Te.s("收取了该资产的今日收益."));
                 Compute.VBIncomeAndMSGSend(player, (double) price / 1000000 * 10000);
-                InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), price / 2500000);
-                InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), price / 5000000);
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), price / 1250000);
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), price / 2500000);
                 incrementData(player, ESTATE_VB_REWARD_COUNT_DATA_KEY, price / 1000000 * 10000);
-                incrementData(player, ESTATE_STAR_REWARD_COUNT_DATA_KEY, price / 2500000);
-                incrementData(player, ESTATE_GB_REWARD_COUNT_DATA_KEY, price / 5000000);
+                incrementData(player, ESTATE_STAR_REWARD_COUNT_DATA_KEY, price / 1250000);
+                incrementData(player, ESTATE_GB_REWARD_COUNT_DATA_KEY, price / 2500000);
                 sendEstateRewardMSG(player);
             } else {
                 if (estateMSGSendTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
@@ -169,6 +169,7 @@ public class EstatePlayerData {
                     sendEstateRewardMSG(player);
                 }
             }
+            EstateUtil.onPlayerOpenEstateDoor(player);
         }
         if (getRealEstateSerial(player) == serial) {
             if (getRealEstateLastRewardDate(player).isEmpty()
@@ -178,10 +179,10 @@ public class EstatePlayerData {
                 int price = (int) EstateInfo.values()[serial].price;
                 price = Math.min(price, 2000);
                 EstateUtil.sendMSG(player, Te.s("收取了该资产的今日收益."));
-                Compute.VBIncomeAndMSGSend(player, (double) price / 40 * 10000);
+                Compute.VBIncomeAndMSGSend(player, (double) price / 80 * 10000);
                 InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), price / 100);
                 InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), price / 200);
-                incrementData(player, REAL_ESTATE_VB_REWARD_COUNT_DATA_KEY, price / 40 * 10000);
+                incrementData(player, REAL_ESTATE_VB_REWARD_COUNT_DATA_KEY, price / 80 * 10000);
                 incrementData(player, REAL_ESTATE_STAR_REWARD_COUNT_DATA_KEY, price / 100);
                 incrementData(player, REAL_ESTATE_GB_REWARD_COUNT_DATA_KEY, price / 200);
                 sendRealEstateRewardMSG(player);
@@ -193,6 +194,7 @@ public class EstatePlayerData {
                     sendRealEstateRewardMSG(player);
                 }
             }
+            EstateUtil.onPlayerOpenRealEstateDoor(player);
         }
     }
 
