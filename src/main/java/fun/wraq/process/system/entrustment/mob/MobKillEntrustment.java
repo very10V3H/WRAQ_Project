@@ -131,8 +131,6 @@ public class MobKillEntrustment {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
             Tower.givePlayerStar(player, 5, "委托任务每日进度奖励");
-            formatMSG(Te.s(player.getDisplayName(), "今日完成了", "5", ChatFormatting.GREEN, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 10) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 2));
@@ -141,8 +139,6 @@ public class MobKillEntrustment {
             if (QingTuan.isInActivityDate()) {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
-            formatMSG(Te.s(player.getDisplayName(), "今日完成了", "10", ChatFormatting.YELLOW, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 15) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
@@ -150,8 +146,6 @@ public class MobKillEntrustment {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
             Tower.givePlayerStar(player, 5, "委托任务每日进度奖励");
-            formatMSG(Te.s(player.getDisplayName(), "今日完成了", "15", ChatFormatting.LIGHT_PURPLE, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 20) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
@@ -160,8 +154,6 @@ public class MobKillEntrustment {
             if (QingTuan.isInActivityDate()) {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
-            formatMSG(Te.s(player.getDisplayName(), "今日完成了", "20", ChatFormatting.LIGHT_PURPLE, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         incrementWeeklyFinishedTimes(player, increment);
         if (QingTuan.isInActivityDate()) {
@@ -227,36 +219,26 @@ public class MobKillEntrustment {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
             Tower.givePlayerStar(player, 10, "委托任务每周进度奖励");
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.supplyBoxTier0.get()));
-            formatMSG(Te.s(player.getDisplayName(), "本周完成了", "20", ChatFormatting.GREEN, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 40) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
             Tower.givePlayerStar(player, 20, "委托任务每周进度奖励");
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.ORE_SUPPLY.get()));
-            formatMSG(Te.s(player.getDisplayName(), "本周完成了", "40", ChatFormatting.AQUA, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 60) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
             Tower.givePlayerStar(player, 30, "委托任务每周进度奖励");
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get()));
-            formatMSG(Te.s(player.getDisplayName(), "本周完成了", "60", ChatFormatting.YELLOW, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 80) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
             Tower.givePlayerStar(player, 40, "委托任务每周进度奖励");
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SENIOR_POTION_SUPPLY.get()));
-            formatMSG(Te.s(player.getDisplayName(), "本周完成了", "80", ChatFormatting.LIGHT_PURPLE, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
         if (currentFinishedTime == 100) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
             Tower.givePlayerStar(player, 50, "委托任务每周进度奖励");
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SENIOR_SUPPLY.get()));
-            formatMSG(Te.s(player.getDisplayName(), "本周完成了", "100", ChatFormatting.RED, "次",
-                    "委托任务", CustomStyle.styleOfWorld));
         }
     }
 
@@ -475,9 +457,6 @@ public class MobKillEntrustment {
                         sendMSG(player, Te.s("在",
                                 getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
-                        broad(Te.s(player, "在 ",
-                                getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick), CustomStyle.styleOfWorld,
-                                " 内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
                         incrementEachTierFinishedTimes(player, timeAndTier.component.getString());
                     } else {
                         sendMSG(player, Te.s("在",
@@ -502,9 +481,6 @@ public class MobKillEntrustment {
                                 getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
                         if (timeAndTier.minutes <= 8) {
-                            broad(Te.s(player, "在 ",
-                                    getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick), CustomStyle.styleOfWorld,
-                                    " 内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
                             setExpiredLeftMin(player, 10);
                             setPlayerReputation(player, Math.min(getPlayerReputation(player) + 1, 15));
                             InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get());
@@ -551,14 +527,6 @@ public class MobKillEntrustment {
 
     public static void sendMSG(Player player, Component content) {
         Compute.sendFormatMSG(player, Te.s("委托任务", CustomStyle.styleOfWorld), content);
-    }
-
-    public static void formatMSG(Component content) {
-        Compute.formatBroad(Te.s("委托任务", CustomStyle.styleOfWorld), content);
-    }
-
-    public static void broad(Component content) {
-        Compute.formatBroad(Te.s("委托任务", CustomStyle.styleOfWorld), content);
     }
 
     public static void onKill(Player player, Mob mob) {

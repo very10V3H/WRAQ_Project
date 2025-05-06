@@ -55,24 +55,8 @@ public abstract class DailyEndlessInstance {
             ServerPlayer serverPlayer = Compute.getPlayerByName(challengingPlayerName);
             if (serverPlayer != null) {
                 reward(serverPlayer);
-                sendFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).
-                        append(serverPlayer.getDisplayName()).
-                        append(Component.literal("完成了").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("无尽熵增 - ").withStyle(CustomStyle.styleOfWorld)).
-                        append(name).
-                        append(Component.literal("共击杀了").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal(String.valueOf(killCount)).withStyle(ChatFormatting.RED)).
-                        append(Component.literal("只怪物").withStyle(ChatFormatting.WHITE)));
+                sendFormatMSG(serverPlayer, Te.s("本次挑战共击杀了", killCount, ChatFormatting.RED, "只怪物"));
                 EndlessInstanceRecordData.record(name.getString(), serverPlayer, killCount);
-            } else {
-                sendFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal(challengingPlayerName).withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("完成了").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("无尽熵增 - ").withStyle(CustomStyle.styleOfWorld)).
-                        append(name).
-                        append(Component.literal("共击杀了").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal(String.valueOf(killCount)).withStyle(ChatFormatting.RED)).
-                        append(Component.literal("只怪物").withStyle(ChatFormatting.WHITE)));
             }
             stop();
         }
@@ -117,11 +101,6 @@ public abstract class DailyEndlessInstance {
         if (!onRightClickTrig(player)) {
             return false;
         }
-        sendFormatBroad(player.level(), Component.literal("").withStyle(ChatFormatting.WHITE).
-                append(player.getDisplayName()).
-                append(Component.literal("正在挑战: ").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("无尽熵增 - ").withStyle(CustomStyle.styleOfWorld)).
-                append(name));
         sendFormatMSG(player, Component.literal("尽可能多地清理怪物！").withStyle(ChatFormatting.WHITE));
         start(player);
         return true;

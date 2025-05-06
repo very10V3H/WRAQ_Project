@@ -140,6 +140,7 @@ public class TradeListNew {
         ItemStack bowl = new ItemStack(Items.BOWL, 16);
         ItemStack cauldron = new ItemStack(Items.CAULDRON, 16);
         ItemStack bucket = new ItemStack(Items.BUCKET, 16);
+        ItemStack stick = new ItemStack(Items.STICK, 64);
         List<ItemStack> stacks = List.of(
                 ironKnife, goldenKnife,
                 glassBottle, bowl, cauldron, bucket
@@ -163,6 +164,9 @@ public class TradeListNew {
         }});
         TradeList.tradeRecipeMap.put(bucket, new ArrayList<>() {{
             add(new ItemStack(ModItems.GOLD_COIN.get(), 16));
+        }});
+        TradeList.tradeRecipeMap.put(stick, new ArrayList<>() {{
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
         }});
     }
 

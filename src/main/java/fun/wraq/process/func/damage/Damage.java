@@ -550,8 +550,6 @@ public class Damage {
             if (MoonInstance.isMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
             if (MoonInstance.isMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
             /*AttackEvent.DamageCount(player, (Mob) entity, 0, damage);*/
-            if (player.isCreative())
-                player.sendSystemMessage(Component.literal("" + mob.getHealth() / mob.getMaxHealth()));
             // ---- // 测试新模式
             entity.hurt(entity.damageSources().playerAttack(player), 0);
             MySound.soundOnMob(mob, SoundEvents.PLAYER_HURT);
