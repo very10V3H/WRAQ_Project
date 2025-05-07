@@ -235,7 +235,6 @@ dependencies {
     implementation fg.deobf("curse.maven:brewin-and-chewin-637808:6237884")
     implementation fg.deobf("curse.maven:display-delight-1144296:5964175")
     implementation fg.deobf("curse.maven:jade-324717:6271651")
-    implementation fg.deobf("curse.maven:jei-238222:6075247")
     implementation fg.deobf("curse.maven:neapolitan-382016:6248885")
     implementation fg.deobf("curse.maven:seasonals-416471:6058164")
     // client :
@@ -251,7 +250,6 @@ dependencies {
     implementation fg.deobf("curse.maven:modernfix-790626:5288164")
     implementation fg.deobf("curse.maven:bendy-lib-623373:4550371")
     implementation fg.deobf("curse.maven:asteorbar-959237:6335990")
-    implementation fg.deobf("curse.maven:just-enough-characters-250702:5543190")
 }
 
 dependencies {
