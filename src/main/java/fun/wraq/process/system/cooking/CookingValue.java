@@ -4,41 +4,35 @@ import cn.mcmod.corn_delight.CornForgeTags;
 import cn.mcmod.corn_delight.item.ItemRegistry;
 import com.cosmicgelatin.seasonals.core.registry.SeasonalsItems;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.brdle.collectorsreap.data.CRItemTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.fml.loading.FMLLoader;
 import umpaz.brewinandchewin.common.registry.BnCItems;
 import umpaz.brewinandchewin.common.tag.BnCTags;
+import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
 import vectorwing.farmersdelight.common.registry.ModItems;
+import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
-import java.io.IOException;
 import java.util.*;
 
 public class CookingValue {
@@ -100,55 +94,12 @@ public class CookingValue {
         if (mealValueCacheMap.containsKey(item)) {
             return mealValueCacheMap.get(item);
         }
-        ResourceLocation resourceLocation
-                = new ResourceLocation(Utils.MOD_ID, "recipes/cooking/" + item + ".json");
-        if (item.toString().contains("gummy")) {
-            resourceLocation
-                    = new ResourceLocation(Utils.MOD_ID, "recipes/gummy/"
-                    + item.toString().substring(0, item.toString().lastIndexOf("_")) + ".json");
-        }
-        JsonObject json = null;
-        if (item.getDescriptionId().contains("displaydelight")
-                || getResourceManager().getResource(resourceLocation).isEmpty()) {
-            mealValueCacheMap.put(item, 0);
-            return 0;
-        }
-        try {
-            json = (JsonObject) JsonParser
-                    .parseReader(getResourceManager().openAsReader(resourceLocation));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        JsonArray ingredients = null;
         int count = 1;
-        if (json.has("ingredients")) {
-            ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            if (json.has("result")
-                    && json.get("result").getAsJsonObject().has("count")) {
-                count = json.get("result").getAsJsonObject().get("count").getAsInt();
-            }
-        } else {
-            if (json.has("recipes")) {
-                for (JsonElement jsonElement : json.getAsJsonArray("recipes")) {
-                    if (jsonElement.isJsonObject() && jsonElement.getAsJsonObject().has("recipe")) {
-                        if (jsonElement.getAsJsonObject().get("recipe").getAsJsonObject().has("ingredients")) {
-                            JsonObject recipe = jsonElement.getAsJsonObject().get("recipe").getAsJsonObject();
-                            ingredients = recipe.get("ingredients").getAsJsonArray();
-                            if (recipe.has("result")
-                                    && recipe.get("result").getAsJsonObject().has("count")) {
-                                count = recipe.get("result").getAsJsonObject().get("count").getAsInt();
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        if (ingredients == null) {
+        List<Ingredient> inputItemsIn = getIngredients(item);
+        if (inputItemsIn.isEmpty()) {
             mealValueCacheMap.put(item, 0);
             return 0;
         }
-        NonNullList<Ingredient> inputItemsIn = readIngredients(ingredients);
         int value = 0;
         int ingredientTypeCount = 0;
         Set<String> countedIngredientTypeSet = new HashSet<>();
@@ -507,11 +458,20 @@ public class CookingValue {
         }
     }
 
-    public static ResourceManager getResourceManager() {
-        if (FMLLoader.getDist().isClient()) {
-            return Minecraft.getInstance().getResourceManager();
-        } else {
-            return Tick.server.getResourceManager();
+    public static List<Ingredient> getIngredients(Item item) {
+        CookingPotRecipe cookingPotRecipe = getCookingPotRecipes().stream().filter(recipe -> recipe instanceof CookingPotRecipe)
+                .map(recipe -> (CookingPotRecipe) recipe)
+                .filter(recipe -> recipe.getResultItem(RegistryAccess.EMPTY).is(item))
+                .findAny().orElse(null);
+        if (cookingPotRecipe != null) {
+            return cookingPotRecipe.getIngredients();
         }
+        return List.of();
+    }
+
+    public static List<Recipe<?>> getCookingPotRecipes() {
+        return Tick.server.overworld().getRecipeManager().getRecipes().stream().filter(recipe -> {
+            return recipe.getType().equals(ModRecipeTypes.COOKING.get());
+        }).toList();
     }
 }

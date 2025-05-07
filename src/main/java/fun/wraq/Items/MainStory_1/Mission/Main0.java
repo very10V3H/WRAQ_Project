@@ -75,7 +75,7 @@ public class Main0 extends Item {
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-            player.sendSystemMessage(Te.s(player.getMainHandItem().getItem().getDescriptionId()));
+
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {
