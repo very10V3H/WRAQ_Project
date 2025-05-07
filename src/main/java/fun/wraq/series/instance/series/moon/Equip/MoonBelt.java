@@ -34,8 +34,8 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
         super(p_41383_);
         Utils.attackDamage.put(this, 150d);
         Utils.manaDamage.put(this, 300d);
-        Utils.defencePenetration0.put(this, 2d);
-        Utils.manaPenetration0.put(this, 2d);
+        Utils.defencePenetration0.put(this, 10d);
+        Utils.manaPenetration0.put(this, 10d);
         Utils.coolDownDecrease.put(this, 0.1);
         Utils.levelRequire.put(this, 160);
     }

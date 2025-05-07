@@ -130,6 +130,7 @@ public class CookingItems {
             specialSellingList.add(Items.BONE);
             specialSellingList.add(Items.INK_SAC);
             specialSellingList.add(Items.BLAZE_POWDER);
+            specialSellingList.add(NeapolitanItems.ICE_CUBES.get());
         }
         return specialSellingList;
     }

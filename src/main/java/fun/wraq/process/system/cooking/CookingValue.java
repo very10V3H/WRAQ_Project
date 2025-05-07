@@ -3,17 +3,16 @@ package fun.wraq.process.system.cooking;
 import cn.mcmod.corn_delight.CornForgeTags;
 import cn.mcmod.corn_delight.item.ItemRegistry;
 import com.cosmicgelatin.seasonals.core.registry.SeasonalsItems;
-import com.google.gson.JsonArray;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.brdle.collectorsreap.data.CRItemTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -23,8 +22,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fml.loading.FMLLoader;
 import umpaz.brewinandchewin.common.registry.BnCItems;
 import umpaz.brewinandchewin.common.tag.BnCTags;
 import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
@@ -87,6 +86,10 @@ public class CookingValue {
             components.add(Te.s("售价: ", (price * stack.getCount()) + "VB", ChatFormatting.GOLD));
             components.add(Te.s("收益率: ",
                     String.format("%.0f%%", (price * 1d / value - 1) * 100), ChatFormatting.RED));
+            if (item.equals(ModItems.RAW_PASTA.get())) {
+                components.add(Te.s("该食材无法直接售出，但有几率被烹饪委托选中",
+                        ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            }
         }
     }
 
@@ -145,8 +148,12 @@ public class CookingValue {
         int cost = 0;
         int sum = 0;
         int count = 0;
-        for (int i = 0; i < player.getInventory().getContainerSize(); i ++) {
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
+            if (stack.is(ModItems.RAW_PASTA.get())) {
+                CookingVillager.sendMSG(player, Te.s("生意面无法直接卖出."));
+                continue;
+            }
             int mealValue = getMealValue(stack.getItem());
             if (mealValue > 0) {
                 cost += getMealValue(stack.getItem()) * stack.getCount();
@@ -155,10 +162,12 @@ public class CookingValue {
                 InventoryOperation.removeItem(player, stack.getItem(), stack.getCount());
             }
         }
-        CookingVillager.sendMSG(player, Te.s("共卖出了",
+        CookingPlayerData.incrementSellFoodCount(player, count);
+        CookingVillager.sendMSG(player, Te.s("共售出了",
                 count + "份", CustomStyle.MUSHROOM_STYLE, "食物，",
                 "共收入", sum + "VB，", ChatFormatting.GOLD,
-                "食材成本为:", cost + "VB.", ChatFormatting.GOLD));
+                "食材成本为:", cost + "VB.", ChatFormatting.GOLD,
+                "(累计售出份数:" + CookingPlayerData.getSellFoodCount(player) + ")", ChatFormatting.GRAY));
     }
 
     public static int getMealSellValue(ItemStack itemStack) {
@@ -179,17 +188,6 @@ public class CookingValue {
     public static final Map<Item, Integer> mealValueCacheMap = new HashMap<>();
     public static final Map<Item, Integer> mealIngredientCountMap = new HashMap<>();
     public static final Map<Item, Integer> mealIngredientTypeCountMap = new HashMap<>();
-
-    private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
-        NonNullList<Ingredient> nonnulllist = NonNullList.create();
-        for (int i = 0; i < ingredientArray.size(); ++i) {
-            Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
-            if (!ingredient.isEmpty()) {
-                nonnulllist.add(ingredient);
-            }
-        }
-        return nonnulllist;
-    }
 
     public static void handleTypeToolTip(Item item, List<Component> components) {
         if (getIngredientValue(item) == 0) {
@@ -362,6 +360,7 @@ public class CookingValue {
             ingredientItemValueMap.put(ItemRegistry.TORTILLA_CHIP.get(), 20);
             ingredientItemValueMap.put(Items.PUMPKIN, 20);
             ingredientItemValueMap.put(NeapolitanItems.DRIED_VANILLA_PODS.get(), 20);
+            ingredientItemValueMap.put(NeapolitanItems.ICE_CUBES.get(), 20);
 
             ingredientItemValueMap.put(ItemRegistry.CORNBREAD.get(), 28);
             ingredientItemValueMap.put(Items.BAKED_POTATO, 28);
@@ -458,20 +457,33 @@ public class CookingValue {
         }
     }
 
-    public static List<Ingredient> getIngredients(Item item) {
-        CookingPotRecipe cookingPotRecipe = getCookingPotRecipes().stream().filter(recipe -> recipe instanceof CookingPotRecipe)
-                .map(recipe -> (CookingPotRecipe) recipe)
-                .filter(recipe -> recipe.getResultItem(RegistryAccess.EMPTY).is(item))
-                .findAny().orElse(null);
-        if (cookingPotRecipe != null) {
-            return cookingPotRecipe.getIngredients();
+    private static List<CookingPotRecipe> cookingPotRecipes = new ArrayList<>();
+    public static List<CookingPotRecipe> getCookingPotRecipes() {
+        if (cookingPotRecipes.isEmpty()) {
+            if (FMLLoader.getDist().isClient()) {
+                cookingPotRecipes = ClientUtils.clientLevel.getRecipeManager()
+                        .getRecipes().stream().filter(recipe -> recipe.getType().equals(ModRecipeTypes.COOKING.get()))
+                        .filter(recipe -> recipe instanceof CookingPotRecipe)
+                        .map(recipe -> (CookingPotRecipe) recipe)
+                        .toList();
+            } else {
+                cookingPotRecipes = Tick.server.overworld().getRecipeManager()
+                        .getRecipes().stream().filter(recipe -> recipe.getType().equals(ModRecipeTypes.COOKING.get()))
+                        .filter(recipe -> recipe instanceof CookingPotRecipe)
+                        .map(recipe -> (CookingPotRecipe) recipe)
+                        .toList();
+            }
         }
-        return List.of();
+        return cookingPotRecipes;
     }
 
-    public static List<Recipe<?>> getCookingPotRecipes() {
-        return Tick.server.overworld().getRecipeManager().getRecipes().stream().filter(recipe -> {
-            return recipe.getType().equals(ModRecipeTypes.COOKING.get());
-        }).toList();
+    public static Map<Item, List<Ingredient>> ingredientMap = new HashMap<>();
+    public static List<Ingredient> getIngredients(Item item) {
+        if (ingredientMap.isEmpty()) {
+            getCookingPotRecipes().forEach(recipe -> {
+                ingredientMap.put(recipe.getResultItem(RegistryAccess.EMPTY).getItem(), recipe.getIngredients());
+            });
+        }
+        return ingredientMap.getOrDefault(item, List.of());
     }
 }

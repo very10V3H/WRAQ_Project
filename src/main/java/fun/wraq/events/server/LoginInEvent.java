@@ -39,6 +39,7 @@ import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.bank.BondDividends;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
+import fun.wraq.process.system.cooking.CookingPlayerData;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.estate.EstatePlayerData;
@@ -517,6 +518,7 @@ public class LoginInEvent {
         ManaTowerData.resetDailyRecord(player);
         LabourDayOldCoin.refreshSilverCoinGetCount(player);
         ManaTowerData.setManaTowerPieceDailyGetFlag(player, false);
+        CookingPlayerData.resetDailyFinishedTimesCount(player);
     }
 
     public static void refreshWeeklyContent(Player player) {

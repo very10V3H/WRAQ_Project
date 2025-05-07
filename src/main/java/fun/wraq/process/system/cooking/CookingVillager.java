@@ -36,8 +36,10 @@ public class CookingVillager {
             ItemStack stack = cookingEntrustmentContentMap.get(Name.get(player));
             if (InventoryOperation.removeItem(player, stack.getItem(), stack.getCount())) {
                 submit(player);
+                MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
+                return;
             } else {
-                sendMSG(player, Te.s("怎么样，饭做好了吗？", player));
+                sendMSG(player, Te.s("怎么样，", stack, "做好了吗？", player));
                 Compute.sendBlankLine(player, 3);
                 player.sendSystemMessage(Te.s(" ".repeat(4),
                         Te.c(Te.s("「取消委托」", style),
@@ -65,14 +67,23 @@ public class CookingVillager {
     public static void submit(Player player) {
         ItemStack stack = cookingEntrustmentContentMap.get(Name.get(player));
         int acceptTick = acceptTickMap.get(Name.get(player));
-        Compute.VBIncomeAndMSGSend(player, CookingValue.getMealSellValue(stack) * 1.4);
+        int cookingLevel = CookingPlayerData.getPlayerCookingLevel(player);
+        Compute.VBIncomeAndMSGSend(player, CookingValue.getMealSellValue(stack)
+                * 1.4 * (1 + cookingLevel * 0.1));
+        if (cookingLevel > 0) {
+            sendMSG(player, Te.s("老八:这也太好吃了⑧!!!", CustomStyle.MUSHROOM_STYLE));
+            CookingVillager.sendMSG(player, Te.s("你的", "厨艺", CustomStyle.MUSHROOM_STYLE,
+                    "为你提供了", String.format("%.0f%%", cookingLevel * 10d) + "小费", ChatFormatting.GOLD));
+        }
+        CookingPlayerData.incrementSellFoodCount(player, 4);
         InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), 1);
         InventoryOperation.giveItemStackWithMSG(player, ModItems.FOOD_COIN.get(), 1);
-        CookingPlayerData.incrementFinishedTimesCount(player);
+        CookingPlayerData.incrementEntrustmentFinishedTimesCount(player);
+        CookingPlayerData.incrementDailyFinishedTimesCount(player);
         cookingEntrustmentContentMap.remove(Name.get(player));
         acceptTickMap.remove(Name.get(player));
         sendMSG(player, Te.s("五麦！你已经累计为老八做了",
-                CookingPlayerData.getFinishedTimesCount(player) + "次", CustomStyle.MUSHROOM_STYLE, "美味佳肴了!"));
+                CookingPlayerData.getEntrustmentFinishedTimesCount(player) + "次", CustomStyle.MUSHROOM_STYLE, "美味佳肴了!"));
         MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
         Compute.givePercentExpToPlayer(player, 0.1, 0, player.experienceLevel);
     }

@@ -43,6 +43,7 @@ import fun.wraq.events.mob.moontain.*;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.PrefixPackets.PrefixS2CPacket;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.cooking.CookingPlayerData;
 import fun.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
 import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -116,6 +117,30 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         @Override
         public int matchCondition(Player player) {
             CompoundTag data = player.getPersistentData();
+            int count = data.getInt(tag);
+            if (downBoundary == upBoundary) {
+                if (count == downBoundary) return 1;
+            } else return count >= downBoundary && count < upBoundary ? 1 : 0;
+            return 0;
+        }
+
+        @Override
+        public String getPrefixDescription() {
+            return prefixDescription;
+        }
+
+        @Override
+        public Style getStyle() {
+            return style;
+        }
+    }
+
+    public record ComplexDataProgressPrefixType(String dataKey, String tag, int downBoundary, int upBoundary,
+                                                String prefixDescription, Style style) implements PrefixCondition {
+
+        @Override
+        public int matchCondition(Player player) {
+            CompoundTag data = Compute.getPlayerSpecificKeyCompoundTagData(player, dataKey);
             int count = data.getInt(tag);
             if (downBoundary == upBoundary) {
                 if (count == downBoundary) return 1;
@@ -269,7 +294,22 @@ public class PrefixCommand implements Command<CommandSourceStack> {
                     new ProgressPrefixType(BrewingNote.brewingLevel, 3, 3, "酿造中级", Style.EMPTY.applyFormat(ChatFormatting.YELLOW)),
                     new ProgressPrefixType(BrewingNote.brewingLevel, 4, 4, "酿造高级", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
                     new ProgressPrefixType(BrewingNote.brewingLevel, 5, 5, "酿造学士", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-                    new ProgressPrefixType(BrewingNote.brewingLevel, 6, 6, "酿造大师", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE))
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 6, 6, "酿造大师", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)),
+
+                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
+                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 0, 100, "小小厨", CustomStyle.MUSHROOM_STYLE),
+                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
+                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 100, 300, "小厨", CustomStyle.MUSHROOM_STYLE),
+                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
+                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 300, 600, "厨师", CustomStyle.MUSHROOM_STYLE),
+                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
+                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 600, 1000, "厨师长", CustomStyle.MUSHROOM_STYLE),
+                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
+                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 1000, 2000, "★大厨", CustomStyle.MUSHROOM_STYLE),
+                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
+                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 2000, 4000, "★★大厨", CustomStyle.MUSHROOM_STYLE),
+                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
+                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 4000, Integer.MAX_VALUE, "★★★大厨", CustomStyle.MUSHROOM_STYLE)
             ));
         }
         return simplePrefixTypeList;
