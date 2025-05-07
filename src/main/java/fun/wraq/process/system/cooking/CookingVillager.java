@@ -74,6 +74,7 @@ public class CookingVillager {
         sendMSG(player, Te.s("五麦！你已经累计为老八做了",
                 CookingPlayerData.getFinishedTimesCount(player) + "次", CustomStyle.MUSHROOM_STYLE, "美味佳肴了!"));
         MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+        Compute.givePercentExpToPlayer(player, 0.1, 0, player.experienceLevel);
     }
 
     public static void acceptEntrustment(Player player) {
@@ -87,7 +88,7 @@ public class CookingVillager {
         }
         List<Item> cookingProducts = CookingItems.getCookingProducts();
         Item item = cookingProducts.get(RandomUtils.nextInt(0, cookingProducts.size()));
-        ItemStack requireProduct = new ItemStack(item, 8);
+        ItemStack requireProduct = new ItemStack(item, 4);
         cookingEntrustmentContentMap.put(Name.get(player), requireProduct);
         sendMSG(player, Te.s("已接取烹饪委托: 烹饪 ",
                 item, " * " + requireProduct.getCount(), CustomStyle.MUSHROOM_STYLE, "后交给老八!"));

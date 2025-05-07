@@ -269,7 +269,6 @@ public class BlockEvent {
                 add(Blocks.MANGROVE_TRAPDOOR);
                 add(Blocks.SPRUCE_TRAPDOOR);
                 add(Blocks.WARPED_TRAPDOOR);
-                add(Blocks.CRAFTING_TABLE);
                 add(Blocks.FURNACE);
                 add(Blocks.BLAST_FURNACE);
                 add(Blocks.HOPPER);

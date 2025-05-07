@@ -251,6 +251,7 @@ dependencies {
     implementation fg.deobf("curse.maven:modernfix-790626:5288164")
     implementation fg.deobf("curse.maven:bendy-lib-623373:4550371")
     implementation fg.deobf("curse.maven:asteorbar-959237:6335990")
+    implementation fg.deobf("curse.maven:just-enough-characters-250702:5543190")
 }
 
 dependencies {

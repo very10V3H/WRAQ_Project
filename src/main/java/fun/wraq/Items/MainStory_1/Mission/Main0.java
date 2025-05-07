@@ -4,11 +4,9 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.process.system.bgm.WraqBgm;
 import fun.wraq.process.system.cooking.CookingVillager;
 import fun.wraq.series.end.citadel.CitadelItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -77,11 +75,11 @@ public class Main0 extends Item {
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-            WraqBgm.normalPlay(player);
+            player.sendSystemMessage(Te.s(player.getMainHandItem().getItem().getDescriptionId()));
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {
-            Minecraft.getInstance().getSoundManager().stop();
+
         }
 
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

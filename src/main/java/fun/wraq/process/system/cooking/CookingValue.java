@@ -108,7 +108,8 @@ public class CookingValue {
                     + item.toString().substring(0, item.toString().lastIndexOf("_")) + ".json");
         }
         JsonObject json = null;
-        if (getResourceManager().getResource(resourceLocation).isEmpty()) {
+        if (item.getDescriptionId().contains("displaydelight")
+                || getResourceManager().getResource(resourceLocation).isEmpty()) {
             mealValueCacheMap.put(item, 0);
             return 0;
         }
@@ -396,7 +397,7 @@ public class CookingValue {
             ingredientItemValueMap.put(Items.ROTTEN_FLESH, 20);
             ingredientItemValueMap.put(Items.BONE_MEAL, 20);
             ingredientItemValueMap.put(ModItems.RAW_PASTA.get(), 20);
-            ingredientItemValueMap.put(com.baisylia.culturaldelights.item.ModItems.CORN_DOUGH.get(), 20);
+            ingredientItemValueMap.put(com.baisylia.culturaldelights.item.ModItems.CORN_DOUGH.get(), 50);
             ingredientItemValueMap.put(Items.COCOA_BEANS, 20);
             ingredientItemValueMap.put(com.baisylia.culturaldelights.item.ModItems.EGGPLANT.get(), 20);
             ingredientItemValueMap.put(com.baisylia.culturaldelights.item.ModItems.CUT_EGGPLANT.get(), 20);

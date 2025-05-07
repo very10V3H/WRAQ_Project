@@ -44,6 +44,7 @@ public class CookingItems {
             cropSellingList.add(com.baisylia.culturaldelights.item.ModItems.EGGPLANT.get());
             cropSellingList.add(ItemRegistry.CORN.get());
             cropSellingList.add(NeapolitanItems.DRIED_VANILLA_PODS.get());
+            cropSellingList.add(Items.SUGAR);
         }
         return cropSellingList;
     }
@@ -102,6 +103,7 @@ public class CookingItems {
     private static final List<Item> seafoodSellingList = new ArrayList<>();
     public static List<Item> getSeafoodSellingList() {
         if (seafoodSellingList.isEmpty()) {
+            seafoodSellingList.add(Items.KELP);
             seafoodSellingList.add(Items.COD);
             seafoodSellingList.add(Items.SALMON);
             seafoodSellingList.add(Items.TROPICAL_FISH);
