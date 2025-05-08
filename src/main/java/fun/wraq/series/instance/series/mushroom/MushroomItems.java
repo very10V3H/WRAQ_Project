@@ -15,9 +15,15 @@ import java.util.List;
 public class MushroomItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
-    public static final RegistryObject<Item> PARASITISM_GEM_MUSHROOM = ITEMS.register("parasitism_gem_mushroom",
+    public static final RegistryObject<Item> PARASITISM_GEM_MUSHROOM
+            = ITEMS.register("parasitism_gem_mushroom",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), false,
                     MushroomParasitismGem::onPickUp));
+
+    public static final RegistryObject<Item> PARASITISM_GEM_ENHANCED_MUSHROOM
+            = ITEMS.register("parasitism_gem_enhanced_mushroom",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), false,
+                    MushroomParasitismGem::onEnhancedPickUp));
 
     public static final RegistryObject<Item> BROWN_MUSHROOM = ITEMS.register("brown_mushroom",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY)));

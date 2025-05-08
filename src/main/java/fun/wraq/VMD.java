@@ -30,6 +30,7 @@ import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.WorldRecordInfo;
+import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
@@ -152,6 +153,7 @@ public class VMD {
         NewAreaItems.ITEMS.register(modEvenBus);
         ManaTowerItems.ITEMS.register(modEvenBus);
         MopUpPaperItems.ITEMS.register(modEvenBus);
+        CookingItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -492,8 +494,7 @@ public class VMD {
                     ModItems.BOND.get(), ModItems.SPECIAL_BOND.get(), ModItems.MILLION_MONEY.get(),
                     ModItems.ESTATE_KEY.get(), ModItems.REAL_ESTATE_KEY.get(),
                     ModItems.TP_TICKET.get(),
-                    ModItems.TP_PASS_1DAY.get(), ModItems.TP_PASS_2DAY.get(), ModItems.TP_PASS_3DAY.get(),
-                    ModItems.FOOD_COIN.get()
+                    ModItems.TP_PASS_1DAY.get(), ModItems.TP_PASS_2DAY.get(), ModItems.TP_PASS_3DAY.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
@@ -671,6 +672,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.KILL_PAPER.getKey())) {
             MopUpPaperItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.COOKING.getKey())) {
+            CookingItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

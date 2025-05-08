@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "vmd:item/bunker_book"
+    "layer0": "vmd:item/food_package_3"
   }
 }

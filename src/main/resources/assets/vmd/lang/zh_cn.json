@@ -1996,6 +1996,7 @@
   "item.vmd.unknown_gem": "诡异宝石",
   "item.vmd.unknown_mushroom": "诡异菌菇",
   "item.vmd.parasitism_gem_mushroom": "寄生蘑菇",
+  "item.vmd.parasitism_gem_enhance_mushroom": "增强寄生蘑菇",
   "item.vmd.mushroom_curio": "哞菇印记",
   "item.vmd.mushroom_sputter_gem": "菌菇散孢宝石",
   "item.vmd.mushroom_parasitism_gem": "菌菇寄生宝石",
@@ -2184,6 +2185,20 @@
 
   "item.vmd.diamond_coin": "晶钻币",
   "item.vmd.food_coin": "吃货币",
+  "item.vmd.food_big_coin": "大大大大大吃货币",
+  "item.vmd.food_medal_0": "吃货勋章",
+  "item.vmd.food_medal_1": "吃货勋章★",
+  "item.vmd.food_medal_2": "吃货勋章★★",
+  "item.vmd.food_medal_3": "吃货勋章★★★",
+
+  "item.vmd.food_package_0": "吃货食材包",
+  "item.vmd.food_package_1": "吃货食材包★",
+  "item.vmd.food_package_2": "吃货食材包★★",
+  "item.vmd.food_package_3": "吃货食材包★★★",
+
+  "item.vmd.mushroom_sputter_gem_1": "★菌菇散孢宝石★",
+  "item.vmd.mushroom_parasitism_gem_1": "★菌菇寄生宝石★",
+  "item.vmd.mushroom_split_gem_1": "★菌菇分生宝石★",
 
   "item.vmd.splasher": "膨热剂",
 

@@ -18,14 +18,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
 public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMob, Decomposable {
 
-    public MushroomParasitismGem(Properties properties, List<AttributeMapValue> attributeMapValues, Style hoverStyle, Component oneLineDescription, Component suffix) {
+    private final boolean isEnhanced;
+    public MushroomParasitismGem(Properties properties, List<AttributeMapValue> attributeMapValues, Style hoverStyle,
+                                 Component oneLineDescription, Component suffix, boolean isEnhanced) {
         super(properties, attributeMapValues, hoverStyle, oneLineDescription, suffix);
+        this.isEnhanced = isEnhanced;
     }
 
     @Override
@@ -34,7 +38,7 @@ public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMo
         ComponentUtils.descriptionPassive(components, Te.s("寄生", hoverStyle));
         components.add(Te.s(" 击杀敌人", ChatFormatting.RED, "后，将掉落一个", "菌", hoverStyle));
         components.add(Te.s(" 拾取", "菌", hoverStyle, "将提供",
-                ComponentUtils.AttributeDescription.maxHealth("等级 * 50")));
+                ComponentUtils.AttributeDescription.maxHealth("等级 * " + (isEnhanced ? "75" : "50"))));
         components.add(Te.s(" 持续30s", ChatFormatting.AQUA, "，最多可叠加至", "10层", hoverStyle));
         components.add(Te.s(" 在提供最大生命值时，将会回复等量生命值", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         components.add(Te.s(" 当层数达10层时继续拾取，仅提供生命回复", ChatFormatting.GRAY, ChatFormatting.ITALIC));
@@ -53,9 +57,14 @@ public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMo
         if (queue.size() > 15) {
             queue.poll().remove(Entity.RemovalReason.KILLED);
         }
+        Item item;
+        if (isEnhanced) {
+            item = MushroomItems.PARASITISM_GEM_ENHANCED_MUSHROOM.get();
+        } else {
+            item = MushroomItems.PARASITISM_GEM_MUSHROOM.get();
+        }
         ItemEntity itemEntity = ItemAndRate
-                .summonItemEntity(MushroomItems.PARASITISM_GEM_MUSHROOM.get().getDefaultInstance(),
-                        mob.getEyePosition(), mob.level(), 20);
+                .summonItemEntity(item.getDefaultInstance(), mob.getEyePosition(), mob.level(), 20);
         queue.add(itemEntity);
     }
 
@@ -78,6 +87,16 @@ public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMo
         }
         StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerMaxHealthExValue,
                 PASSIVE_TAG, player.experienceLevel * 50,
+                Tick.get() + Tick.s(30), 10, "item/brown_mushroom");
+    }
+
+    public static void onEnhancedPickUp(Player player) {
+        if (StableTierAttributeModifier.getAttributeModifierTier(player,
+                StableTierAttributeModifier.playerMaxHealthExValue, PASSIVE_TAG) >= 10) {
+            Compute.playerHeal(player, player.experienceLevel * 75);
+        }
+        StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerMaxHealthExValue,
+                PASSIVE_TAG, player.experienceLevel * 75,
                 Tick.get() + Tick.s(30), 10, "item/brown_mushroom");
     }
 

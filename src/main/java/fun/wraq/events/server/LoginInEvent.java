@@ -351,6 +351,7 @@ public class LoginInEvent {
             WraqCurios.shrinkOtherModSlot(serverPlayer);
             LabourDayOldCoin.onPlayerLoginTips(player);
             EstatePlayerData.onLogin(player);
+            CookingPlayerData.sendCookingExpToClient(player);
         }
     }
 

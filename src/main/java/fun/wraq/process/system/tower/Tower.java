@@ -226,7 +226,6 @@ public class Tower {
                         append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(stage + "★").withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal("挑战").withStyle(ChatFormatting.RED)));
-        TowerTimeRecord.refreshRecord(instanceList.indexOf(this) + 1, this.currentPlayer, Tick.get() - this.startTime);
     }
 
     public static void playerTryToChallenging(ServerPlayer serverPlayer, int index) throws SQLException {
@@ -259,12 +258,6 @@ public class Tower {
         tower.currentPlayer = serverPlayer;
         tower.summonDelay = Tick.get() + 100;
         tower.startTime = Tick.get();
-
-        towerTypeFormatBroad(serverPlayer.level(), Component.literal("").withStyle(ChatFormatting.WHITE).
-                append(serverPlayer.getDisplayName()).
-                append(Component.literal("正在挑战 ").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("本源回廊 - " + Tower.numToRoma[index]).withStyle(CustomStyle.styleOfWorld)));
-
         ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
                 new ClientboundSetTitleTextPacket(Component.literal("本源回廊 - " + Tower.numToRoma[index]).withStyle(CustomStyle.styleOfWorld));
         serverPlayer.connection.send(clientboundSetTitleTextPacket);

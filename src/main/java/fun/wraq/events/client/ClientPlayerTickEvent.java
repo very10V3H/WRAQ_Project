@@ -27,6 +27,7 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.bgm.WraqBgm;
+import fun.wraq.process.system.cooking.item.FoodCoinStore;
 import fun.wraq.process.system.element.networking.ElementPieceC2SPacket;
 import fun.wraq.process.system.element.piece.ElementPieceGui;
 import fun.wraq.process.system.element.piece.ElementPieceRecipe;
@@ -319,6 +320,7 @@ public class ClientPlayerTickEvent {
                     case 5 -> mc.setScreen(new SmeltRecipeScreen());
                     case 6 -> mc.setScreen(new EndlessCoreScreen());
                     case 7 -> mc.setScreen(new ElementPieceGui());
+                    case 8 -> mc.setScreen(new FoodCoinStore());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

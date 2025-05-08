@@ -4,6 +4,8 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import fun.wraq.networking.ModNetworking;
+import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.entity.player.Player;
 
@@ -24,6 +26,9 @@ public class CookingOperationCommand implements Command<CommandSourceStack> {
             }
             case "acceptEntrustment" -> {
                 CookingVillager.acceptEntrustment(player);
+            }
+            case "openStore" -> {
+                ModNetworking.sendToClient(new ScreenSetS2CPacket(8), player);
             }
         }
         return 0;

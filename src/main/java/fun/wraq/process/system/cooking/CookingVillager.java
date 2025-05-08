@@ -58,6 +58,10 @@ public class CookingVillager {
                     Te.c(Te.s("「接取委托」", style),
                             "/vmd cooking acceptEntrustment",
                             Te.s("点击以尝试取出接取烹饪委托")),
+                    " ".repeat(4),
+                    Te.c(Te.s("「打开商店」", style),
+                            "/vmd cooking openStore",
+                            Te.s("点击以打开吃货币商店")),
                     " ".repeat(4)));
         }
         Compute.sendBlankLine(player, 4);
@@ -77,7 +81,7 @@ public class CookingVillager {
         }
         CookingPlayerData.incrementSellFoodCount(player, 4);
         InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), 1);
-        InventoryOperation.giveItemStackWithMSG(player, ModItems.FOOD_COIN.get(), 1);
+        InventoryOperation.giveItemStackWithMSG(player, CookingItems.FOOD_COIN.get(), 1);
         CookingPlayerData.incrementEntrustmentFinishedTimesCount(player);
         CookingPlayerData.incrementDailyFinishedTimesCount(player);
         cookingEntrustmentContentMap.remove(Name.get(player));
@@ -86,6 +90,7 @@ public class CookingVillager {
                 CookingPlayerData.getEntrustmentFinishedTimesCount(player) + "次", CustomStyle.MUSHROOM_STYLE, "美味佳肴了!"));
         MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
         Compute.givePercentExpToPlayer(player, 0.1, 0, player.experienceLevel);
+        CookingPlayerData.sendCookingExpToClient(player);
     }
 
     public static void acceptEntrustment(Player player) {

@@ -159,6 +159,33 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         }
     }
 
+    public interface CountHelper {
+        int getCount(Player player);
+    }
+
+    public record CustomCountProgressPrefixType(CountHelper countHelper, int downBoundary, int upBoundary,
+                                                String prefixDescription, Style style) implements PrefixCondition {
+
+        @Override
+        public int matchCondition(Player player) {
+            int count = countHelper.getCount(player);
+            if (downBoundary == upBoundary) {
+                if (count == downBoundary) return 1;
+            } else return count >= downBoundary && count < upBoundary ? 1 : 0;
+            return 0;
+        }
+
+        @Override
+        public String getPrefixDescription() {
+            return prefixDescription;
+        }
+
+        @Override
+        public Style getStyle() {
+            return style;
+        }
+    }
+
     public static String simpleFlagPrefixDataKey = "simpleFlagPrefixDataKey";
 
     public record SimpleFlagPrefixType(String tag, String prefix, Style style) implements PrefixCondition {
@@ -296,20 +323,20 @@ public class PrefixCommand implements Command<CommandSourceStack> {
                     new ProgressPrefixType(BrewingNote.brewingLevel, 5, 5, "酿造学士", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
                     new ProgressPrefixType(BrewingNote.brewingLevel, 6, 6, "酿造大师", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)),
 
-                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
-                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 0, 100, "小小厨", CustomStyle.MUSHROOM_STYLE),
-                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
-                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 100, 300, "小厨", CustomStyle.MUSHROOM_STYLE),
-                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
-                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 300, 600, "厨师", CustomStyle.MUSHROOM_STYLE),
-                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
-                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 600, 1000, "厨师长", CustomStyle.MUSHROOM_STYLE),
-                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
-                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 1000, 2000, "★大厨", CustomStyle.MUSHROOM_STYLE),
-                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
-                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 2000, 4000, "★★大厨", CustomStyle.MUSHROOM_STYLE),
-                    new ComplexDataProgressPrefixType(CookingPlayerData.COOKING_DATA_KEY,
-                            CookingPlayerData.FINISHED_TIMES_COUNT_KEY, 4000, Integer.MAX_VALUE, "★★★大厨", CustomStyle.MUSHROOM_STYLE)
+                    new CustomCountProgressPrefixType(CookingPlayerData::getCookingExp,
+                            0, 100, "小小厨", CustomStyle.MUSHROOM_STYLE),
+                    new CustomCountProgressPrefixType(CookingPlayerData::getCookingExp,
+                            100, 300, "小厨", CustomStyle.MUSHROOM_STYLE),
+                    new CustomCountProgressPrefixType(CookingPlayerData::getCookingExp,
+                            300, 600, "厨师", CustomStyle.MUSHROOM_STYLE),
+                    new CustomCountProgressPrefixType(CookingPlayerData::getCookingExp,
+                            600, 1000, "厨师长", CustomStyle.MUSHROOM_STYLE),
+                    new CustomCountProgressPrefixType(CookingPlayerData::getCookingExp,
+                            1000, 2000, "★大厨", CustomStyle.MUSHROOM_STYLE),
+                    new CustomCountProgressPrefixType(CookingPlayerData::getCookingExp,
+                            2000, 4000, "★★大厨", CustomStyle.MUSHROOM_STYLE),
+                    new CustomCountProgressPrefixType(CookingPlayerData::getCookingExp,
+                            4000, Integer.MAX_VALUE, "★★★大厨", CustomStyle.MUSHROOM_STYLE)
             ));
         }
         return simplePrefixTypeList;

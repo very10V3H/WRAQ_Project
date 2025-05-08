@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.instance.MopUpPaperItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
@@ -159,7 +160,7 @@ public class InventoryCheck {
         return true;
     }
 
-    private static Set<Item> boundingList = new HashSet<>();
+    private static final Set<Item> boundingList = new HashSet<>();
 
     private static void setBoundingList() {
         boundingList.addAll(List.of(
@@ -204,7 +205,10 @@ public class InventoryCheck {
                 ModItems.REAL_ESTATE_KEY.get(),
                 ModItems.TP_PASS_1DAY.get(),
                 ModItems.TP_PASS_2DAY.get(),
-                ModItems.TP_PASS_3DAY.get()
+                ModItems.TP_PASS_3DAY.get(),
+                CookingItems.FOOD_BIG_COIN.get(),
+                CookingItems.FOOD_MEDAL_0.get(), CookingItems.FOOD_MEDAL_1.get(),
+                CookingItems.FOOD_MEDAL_2.get(), CookingItems.FOOD_MEDAL_3.get()
         ));
         UniformItems.ITEMS.getEntries()
                 .stream()

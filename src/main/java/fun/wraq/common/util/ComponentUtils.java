@@ -967,4 +967,8 @@ public class ComponentUtils {
         int num = (int) (Math.min(count, maxCount) / maxCount * length);
         return Te.s("|".repeat(num), style, "|".repeat(length - num), ChatFormatting.GRAY);
     }
+
+    public static Component getSuffixOfCooking() {
+        return Te.s("维瑞乐事", ChatFormatting.ITALIC, CustomStyle.MUSHROOM_STYLE);
+    }
 }

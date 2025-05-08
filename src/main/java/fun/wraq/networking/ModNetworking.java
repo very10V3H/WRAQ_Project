@@ -66,6 +66,7 @@ import fun.wraq.process.func.rank.network.RankChangeS2CPacket;
 import fun.wraq.process.func.rank.network.RankDataS2CPacket;
 import fun.wraq.process.func.security.mac.network.MacC2SPacket;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
+import fun.wraq.process.system.cooking.network.CookingDataS2CPacket;
 import fun.wraq.process.system.element.networking.*;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentInfoS2CPacket;
@@ -1346,6 +1347,11 @@ public class ModNetworking {
                 .decoder(EstateDataS2CPacket::new)
                 .encoder(EstateDataS2CPacket::toBytes)
                 .consumerMainThread(EstateDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(CookingDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(CookingDataS2CPacket::new)
+                .encoder(CookingDataS2CPacket::toBytes)
+                .consumerMainThread(CookingDataS2CPacket::handle)
                 .add();
     }
 

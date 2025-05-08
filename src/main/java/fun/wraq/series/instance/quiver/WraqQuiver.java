@@ -121,7 +121,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
                     if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
                         wraqBow.shoot((ServerPlayer) player, rate, false);
                         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                                DelayOperationWithAnimation.Animation.bursts, Tick.get() + 5, player
+                                DelayOperationWithAnimation.Animation.bursts, Tick.get() + 3, player
                         ) {
                             @Override
                             public void trig() {

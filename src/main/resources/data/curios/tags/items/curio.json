@@ -41,6 +41,10 @@
     "vmd:end_rune",
     "vmd:nan_hai_attack",
     "vmd:nan_hai_mana",
-    "vmd:tong_tian"
+    "vmd:tong_tian",
+    "vmd:food_medal_0",
+    "vmd:food_medal_1",
+    "vmd:food_medal_2",
+    "vmd:food_medal_3"
   ]
 }

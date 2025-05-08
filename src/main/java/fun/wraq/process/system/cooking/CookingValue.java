@@ -82,7 +82,7 @@ public class CookingValue {
             if (typeCount > 0) {
                 components.add(Te.s("食材种类: ", typeCount + " (+" + typeCount * typeCountExValue + "%)", ChatFormatting.AQUA));
             }
-            int price = (int) ((value + count * countExValue) * (1 + typeCount * 0.01 * typeCountExValue));
+            int price = getMealSellValue(stack);
             components.add(Te.s("售价: ", (price * stack.getCount()) + "VB", ChatFormatting.GOLD));
             components.add(Te.s("收益率: ",
                     String.format("%.0f%%", (price * 1d / value - 1) * 100), ChatFormatting.RED));
@@ -168,6 +168,7 @@ public class CookingValue {
                 "共收入", sum + "VB，", ChatFormatting.GOLD,
                 "食材成本为:", cost + "VB.", ChatFormatting.GOLD,
                 "(累计售出份数:" + CookingPlayerData.getSellFoodCount(player) + ")", ChatFormatting.GRAY));
+        CookingPlayerData.sendCookingExpToClient(player);
     }
 
     public static int getMealSellValue(ItemStack itemStack) {
@@ -300,6 +301,11 @@ public class CookingValue {
         put(SeasonalsItems.PUMPKIN_PUREE.get(), CROPS);
         put(NeapolitanItems.BANANA.get(), FRUITS);
         put(NeapolitanItems.DRIED_VANILLA_PODS.get(), CROPS);
+        put(NeapolitanItems.MINT_LEAVES.get(), CROPS);
+        put(NeapolitanItems.CHOCOLATE_BAR.get(), CROPS);
+        put(NeapolitanItems.ADZUKI_BEANS.get(), CROPS);
+        put(NeapolitanItems.ROASTED_ADZUKI_BEANS.get(), CROPS);
+        put(NeapolitanItems.STRAWBERRIES.get(), FRUITS);
     }};
 
     public static final Map<TagKey<Item>, String> ingredientTagTypeMap = new HashMap<>() {{
@@ -361,6 +367,10 @@ public class CookingValue {
             ingredientItemValueMap.put(Items.PUMPKIN, 20);
             ingredientItemValueMap.put(NeapolitanItems.DRIED_VANILLA_PODS.get(), 20);
             ingredientItemValueMap.put(NeapolitanItems.ICE_CUBES.get(), 20);
+            ingredientItemValueMap.put(NeapolitanItems.MINT_LEAVES.get(), 20);
+            ingredientItemValueMap.put(NeapolitanItems.CHOCOLATE_BAR.get(), 29);
+            ingredientItemValueMap.put(NeapolitanItems.ADZUKI_BEANS.get(), 20);
+            ingredientItemValueMap.put(NeapolitanItems.ROASTED_ADZUKI_BEANS.get(), 28);
 
             ingredientItemValueMap.put(ItemRegistry.CORNBREAD.get(), 28);
             ingredientItemValueMap.put(Items.BAKED_POTATO, 28);
@@ -379,6 +389,7 @@ public class CookingValue {
             ingredientItemValueMap.put(CRItems.LIME_SLICE.get(), 36);
             ingredientItemValueMap.put(Items.MELON_SLICE, 36);
             ingredientItemValueMap.put(NeapolitanItems.BANANA.get(), 36);
+            ingredientItemValueMap.put(NeapolitanItems.STRAWBERRIES.get(), 36);
 
             ingredientItemValueMap.put(BnCItems.FLAXEN_CHEESE_WEDGE.get(), 110);
             ingredientItemValueMap.put(BnCItems.FLAXEN_CHEESE_WHEEL.get(), 440);

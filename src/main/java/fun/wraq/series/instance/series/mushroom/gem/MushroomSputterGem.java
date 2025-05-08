@@ -20,8 +20,11 @@ import java.util.List;
 
 public class MushroomSputterGem extends WraqPassiveGem implements GemOnNormalAttackHit, Decomposable {
 
-    public MushroomSputterGem(Properties properties, List<AttributeMapValue> attributeMapValues, Style hoverStyle, Component oneLineDescription, Component suffix) {
+    private final boolean isEnhanced;
+    public MushroomSputterGem(Properties properties, List<AttributeMapValue> attributeMapValues, Style hoverStyle,
+                              Component oneLineDescription, Component suffix, boolean isEnhanced) {
         super(properties, attributeMapValues, hoverStyle, oneLineDescription, suffix);
+        this.isEnhanced = isEnhanced;
     }
 
     @Override

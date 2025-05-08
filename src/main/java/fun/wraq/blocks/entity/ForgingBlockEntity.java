@@ -7,6 +7,7 @@ import fun.wraq.Items.Forging.ForgeProtect;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
@@ -446,53 +447,29 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
                                         append(Component.literal("时失败，装备等级掉至 ").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal("+" + level).withStyle(CustomStyle.styleOfWorld)));
                     }
-
                     if (forgeLevel >= 17 && forgeLevel < 19 && !protect.is(ModItems.ForgeProtect.get())) {
-                        Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
-                                Component.literal("").withStyle(ChatFormatting.WHITE).
-                                        append(player.getDisplayName()).
-                                        append(Component.literal("在强化").withStyle(ChatFormatting.WHITE)).
-                                        append(equip.getDisplayName()).
-                                        append(Component.literal("时失败，装备等级掉至 16").withStyle(ChatFormatting.WHITE)));
                         data.putInt("Forging", 16);
+                        Compute.sendFormatMSG(player, Te.s("强化", ChatFormatting.AQUA),
+                                Te.s("强化失败，未使用保护符，装备强化等级已退至16."));
                     }
                     if (forgeLevel >= 20 && forgeLevel < 22 && !protect.is(ModItems.ForgeProtect.get())) {
-                        Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
-                                Component.literal("").withStyle(ChatFormatting.WHITE).
-                                        append(player.getDisplayName()).
-                                        append(Component.literal("在强化").withStyle(ChatFormatting.WHITE)).
-                                        append(equip.getDisplayName()).
-                                        append(Component.literal("时失败，装备等级掉至 19").withStyle(ChatFormatting.WHITE)));
                         data.putInt("Forging", 19);
+                        Compute.sendFormatMSG(player, Te.s("强化", ChatFormatting.AQUA),
+                                Te.s("强化失败，未使用保护符，装备强化等级已退至19."));
                     }
                     if (forgeLevel == 23 && !protect.is(ModItems.ForgeProtect.get())) {
-                        Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
-                                Component.literal("").withStyle(ChatFormatting.WHITE).
-                                        append(player.getDisplayName()).
-                                        append(Component.literal("在强化").withStyle(ChatFormatting.WHITE)).
-                                        append(equip.getDisplayName()).
-                                        append(Component.literal("时失败，装备等级掉至 22").withStyle(ChatFormatting.WHITE)));
                         data.putInt("Forging", 22);
+                        Compute.sendFormatMSG(player, Te.s("强化", ChatFormatting.AQUA),
+                                Te.s("强化失败，未使用保护符，装备强化等级已退至22."));
                     }
-
                     if (forgeLevel >= 17 && protect.is(ModItems.ForgeProtect.get())) {
                         useProtect = true;
-                        Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
-                                Component.literal("使用了强化保护符，防止了强化等级掉落。").withStyle(ChatFormatting.WHITE));
-                        Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
-                                Component.literal("").withStyle(ChatFormatting.WHITE).
-                                        append(player.getDisplayName()).
-                                        append(Component.literal("在强化").withStyle(ChatFormatting.WHITE)).
-                                        append(equip.getDisplayName()).
-                                        append(Component.literal("时失败，好在使用了强化保护符。").withStyle(ChatFormatting.WHITE)));
                     }
-
                     Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                             Component.literal("强化失败。").withStyle(ChatFormatting.GRAY));
                     MySound.soundToPlayer(player, SoundEvents.ANVIL_DESTROY, blockEntity.getBlockPos().getCenter());
-
                 } else {
-                    if (forgeLevel >= 17)
+                    if (forgeLevel >= 24) {
                         Compute.broad(blockEntity.level, (Component.literal("[").withStyle(ChatFormatting.GRAY).
                                 append(Component.literal("强化").withStyle(ChatFormatting.AQUA)).
                                 append(Component.literal("]").withStyle(ChatFormatting.GRAY)).
@@ -500,6 +477,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
                                 append(" 成功将 ").withStyle(ChatFormatting.WHITE)).
                                 append(equip.getDisplayName()).
                                 append(Component.literal(" 强化至" + "+" + data.getInt("Forging")).withStyle(ChatFormatting.WHITE)));
+                    }
                     Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                             Component.literal("强化成功!").withStyle(ChatFormatting.AQUA));
                     MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());

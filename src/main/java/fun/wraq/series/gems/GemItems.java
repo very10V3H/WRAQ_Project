@@ -392,19 +392,19 @@ public class GemItems {
             () -> new MushroomSputterGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
                     CustomStyle.MUSHROOM_STYLE,
                     Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
-                    ComponentUtils.getSuffixOfMushroom()));
+                    ComponentUtils.getSuffixOfMushroom(), false));
 
     public static final RegistryObject<Item> MUSHROOM_PARASITISM_GEM = ITEMS.register("mushroom_parasitism_gem",
             () -> new MushroomParasitismGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
                     CustomStyle.MUSHROOM_STYLE,
                     Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
-                    ComponentUtils.getSuffixOfMushroom()));
+                    ComponentUtils.getSuffixOfMushroom(), false));
 
     public static final RegistryObject<Item> MUSHROOM_SPLIT_GEM = ITEMS.register("mushroom_split_gem",
             () -> new MushroomSplitGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
                     CustomStyle.MUSHROOM_STYLE,
                     Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
-                    ComponentUtils.getSuffixOfMushroom()));
+                    ComponentUtils.getSuffixOfMushroom(), false));
 
     public static final RegistryObject<Item> OPEN_SLOT = ITEMS.register("open_slot",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(

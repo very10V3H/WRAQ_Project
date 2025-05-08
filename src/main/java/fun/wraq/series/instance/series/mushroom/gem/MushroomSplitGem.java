@@ -21,8 +21,11 @@ import java.util.Set;
 
 public class MushroomSplitGem extends WraqPassiveGem implements GemOnCauseDamage, Decomposable {
 
-    public MushroomSplitGem(Properties properties, List<AttributeMapValue> attributeMapValues, Style hoverStyle, Component oneLineDescription, Component suffix) {
+    private final boolean isEnhanced;
+    public MushroomSplitGem(Properties properties, List<AttributeMapValue> attributeMapValues, Style hoverStyle,
+                            Component oneLineDescription, Component suffix, boolean isEnhanced) {
         super(properties, attributeMapValues, hoverStyle, oneLineDescription, suffix);
+        this.isEnhanced = isEnhanced;
     }
 
     @Override
@@ -30,7 +33,8 @@ public class MushroomSplitGem extends WraqPassiveGem implements GemOnCauseDamage
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("分生", hoverStyle));
         components.add(Te.s(" 造成的", "任意伤害", hoverStyle, "将额外造成自身",
-                ComponentUtils.AttributeDescription.maxHealth(""), "的", "真实伤害", CustomStyle.styleOfSea));
+                ComponentUtils.AttributeDescription.maxHealth(isEnhanced ? "150%" : "100%"),
+                "的", "真实伤害", CustomStyle.styleOfSea));
         return components;
     }
 
@@ -40,7 +44,7 @@ public class MushroomSplitGem extends WraqPassiveGem implements GemOnCauseDamage
     public void onCauseDamage(Player player, Mob mob, double damage) {
         if (!causingDamageMobs.contains(mob)) {
             causingDamageMobs.add(mob);
-            Damage.causeTrueDamageToMonster(player, mob, player.getMaxHealth());
+            Damage.causeTrueDamageToMonster(player, mob, player.getMaxHealth() * (isEnhanced ? 1.5 : 1));
             causingDamageMobs.remove(mob);
         }
     }

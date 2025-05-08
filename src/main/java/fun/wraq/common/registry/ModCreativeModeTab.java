@@ -5,6 +5,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.composites.CompositesItems;
 import fun.wraq.events.mob.loot.C1LootItems;
+import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
@@ -148,6 +149,11 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(
                     () -> new ItemStack(ManaTowerItems.NAN_HAI_A.get()))
                     .title(Te.s("维瑞阿契 | 炼魔塔")).build());
+    public static RegistryObject<CreativeModeTab> COOKING = CREATIVE_MODE_TAB.register("aa_wraq_zd_cooking",
+            () ->
+                    CreativeModeTab.builder().icon(
+                                    () -> new ItemStack(CookingItems.FOOD_PACKAGE_0.get()))
+                            .title(Te.s("维瑞阿契 | 烹饪")).build());
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);
     }

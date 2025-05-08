@@ -1,6 +1,7 @@
 package fun.wraq.render.gui.trade;
 
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.process.system.cooking.item.FoodCoinStoreRecipe;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.ItemStack;
@@ -52,6 +53,7 @@ public record SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, Strin
     public static List<SingleItemChangeRecipe> getRecipeList() {
         if (recipeList.isEmpty()) {
             recipeList.addAll(endlessCoreStoreRecipe);
+            recipeList.addAll(FoodCoinStoreRecipe.recipes);
         }
         return recipeList;
     }

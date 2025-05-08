@@ -2,6 +2,7 @@ package fun.wraq.blocks.blocks.inject;
 
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.InjectingRecipe;
+import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
@@ -949,6 +950,20 @@ public class InjectRecipe {
         injectingRecipeMap.put(ModItems.TreeSceptre3.get(),
                 new InjectingRecipe(DivineIslandItems.GHASTLY_INGOT.get(), 64,
                         DivineIslandItems.GHASTLY_SCEPTRE.get()));
+
+        injectingRecipeMap.put(CookingItems.FOOD_MEDAL_0.get(),
+                new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 20, CookingItems.FOOD_MEDAL_1.get()));
+        injectingRecipeMap.put(CookingItems.FOOD_MEDAL_1.get(),
+                new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 28, CookingItems.FOOD_MEDAL_2.get()));
+        injectingRecipeMap.put(CookingItems.FOOD_MEDAL_2.get(),
+                new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 40, CookingItems.FOOD_MEDAL_3.get()));
+
+        injectingRecipeMap.put(GemItems.MUSHROOM_SPLIT_GEM.get(),
+                new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 40, CookingItems.MUSHROOM_SPLIT_GEM_1.get()));
+        injectingRecipeMap.put(GemItems.MUSHROOM_PARASITISM_GEM.get(),
+                new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 40, CookingItems.MUSHROOM_PARASITISM_GEM_1.get()));
+        injectingRecipeMap.put(GemItems.MUSHROOM_SPUTTER_GEM.get(),
+                new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 40, CookingItems.MUSHROOM_SPUTTER_GEM_1.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             Item material = itemInjectingRecipeEntry.getValue().material;

@@ -16,7 +16,6 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -263,8 +262,8 @@ public class NewLotteries extends Item {
         if (reward.getItem() instanceof RandomCurios randomCurios) {
             randomCurios.setAttribute(reward);
         }
-        if (loot.rate <= 0.05 || (this.equals(SpecialEventItems.QING_MING_QING_TUAN_CHEST.get())
-                || this.equals(SpecialEventItems.QING_MING_REBORN_CHEST.get())) && loot.rate <= 0.1) {
+        if ((getRewardSerial.containsKey(lottery) && serialNum < getRewardSerial.get(lottery))
+                || loot.rate < 0.01) {
             Compute.formatBroad(player.level(), Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(player.getDisplayName()).

@@ -2,13 +2,26 @@ package fun.wraq.process.system.cooking;
 
 import cn.mcmod.corn_delight.item.ItemRegistry;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.cooking.item.FoodCoin;
+import fun.wraq.process.system.cooking.item.FoodMedal;
+import fun.wraq.process.system.cooking.item.FoodPackage;
+import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.WraqItem;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomSplitGem;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomSputterGem;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import umpaz.brewinandchewin.common.registry.BnCItems;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
@@ -16,6 +29,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CookingItems {
+
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
+
+    public static final RegistryObject<Item> FOOD_COIN = ITEMS.register("food_coin",
+            () -> new FoodCoin(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY)));
+    public static final RegistryObject<Item> FOOD_BIG_COIN = ITEMS.register("food_big_coin",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), false, true));
+
+    public static final RegistryObject<Item> FOOD_MEDAL_0 = ITEMS.register("food_medal_0",
+            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
+    public static final RegistryObject<Item> FOOD_MEDAL_1 = ITEMS.register("food_medal_1",
+            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
+    public static final RegistryObject<Item> FOOD_MEDAL_2 = ITEMS.register("food_medal_2",
+            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
+    public static final RegistryObject<Item> FOOD_MEDAL_3 = ITEMS.register("food_medal_3",
+            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
+
+    public static final RegistryObject<Item> FOOD_PACKAGE_0 = ITEMS.register("food_package_0",
+            () -> new FoodPackage(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), 0, 30));
+    public static final RegistryObject<Item> FOOD_PACKAGE_1 = ITEMS.register("food_package_1",
+            () -> new FoodPackage(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), 30, 75));
+    public static final RegistryObject<Item> FOOD_PACKAGE_2 = ITEMS.register("food_package_2",
+            () -> new FoodPackage(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), 75, 150));
+    public static final RegistryObject<Item> FOOD_PACKAGE_3 = ITEMS.register("food_package_3",
+            () -> new FoodPackage(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), 100, 1000));
+
+    public static final RegistryObject<Item> MUSHROOM_SPUTTER_GEM_1 = ITEMS.register("mushroom_sputter_gem_1",
+            () -> new MushroomSputterGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
+                    CustomStyle.MUSHROOM_STYLE,
+                    Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
+                    ComponentUtils.getSuffixOfMushroom(), true));
+
+    public static final RegistryObject<Item> MUSHROOM_PARASITISM_GEM_1 = ITEMS.register("mushroom_parasitism_gem_1",
+            () -> new MushroomParasitismGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
+                    CustomStyle.MUSHROOM_STYLE,
+                    Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
+                    ComponentUtils.getSuffixOfMushroom(), true));
+
+    public static final RegistryObject<Item> MUSHROOM_SPLIT_GEM_1 = ITEMS.register("mushroom_split_gem_1",
+            () -> new MushroomSplitGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
+                    CustomStyle.MUSHROOM_STYLE,
+                    Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
+                    ComponentUtils.getSuffixOfMushroom(), true));
+
     public static final List<Item> cookingProducts = new ArrayList<>();
     public static List<Item> getCookingProducts() {
         if (cookingProducts.isEmpty()) {
@@ -45,6 +102,8 @@ public class CookingItems {
             cropSellingList.add(ItemRegistry.CORN.get());
             cropSellingList.add(NeapolitanItems.DRIED_VANILLA_PODS.get());
             cropSellingList.add(Items.SUGAR);
+            cropSellingList.add(NeapolitanItems.MINT_LEAVES.get());
+            cropSellingList.add(NeapolitanItems.ADZUKI_BEANS.get());
         }
         return cropSellingList;
     }
@@ -60,6 +119,7 @@ public class CookingItems {
             fruitSellingList.add(CRItems.LIME.get());
             fruitSellingList.add(com.baisylia.culturaldelights.item.ModItems.AVOCADO.get());
             fruitSellingList.add(NeapolitanItems.BANANA.get());
+            fruitSellingList.add(NeapolitanItems.STRAWBERRIES.get());
         }
         return fruitSellingList;
     }
@@ -133,6 +193,20 @@ public class CookingItems {
             specialSellingList.add(NeapolitanItems.ICE_CUBES.get());
         }
         return specialSellingList;
+    }
+
+    private static final List<Item> allSellingItemList = new ArrayList<>();
+    public static List<Item> getAllSellingItems() {
+        if (allSellingItemList.isEmpty()) {
+            allSellingItemList.addAll(getCropSellingList());
+            allSellingItemList.addAll(getFruitSellingList());
+            allSellingItemList.addAll(getMushroomSellingList());
+            allSellingItemList.addAll(getMilkAndEggSellingList());
+            allSellingItemList.addAll(getMeatSellingList());
+            allSellingItemList.addAll(getSeafoodSellingList());
+            allSellingItemList.addAll(getSpecialSellingList());
+        }
+        return allSellingItemList;
     }
 
     public static void onRightClickBlock(Player player, BlockPos blockPos) {

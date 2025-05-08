@@ -985,6 +985,8 @@ public class PlayerAttributes {
         exRate += Compute.PassiveEquip.getAttribute(player, Utils.percentMaxHealthEnhance);
         exRate += Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.maxHealth);
+        exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentMaxHealthEnhance);
+
         maxHealth *= (1 + exRate);
 
         writeToCache(player, Utils.maxHealth, maxHealth);
