@@ -7,7 +7,6 @@ import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.util.ClientUtils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.brdle.collectorsreap.common.item.CRItems;
@@ -472,7 +471,7 @@ public class CookingValue {
     public static List<CookingPotRecipe> getCookingPotRecipes() {
         if (cookingPotRecipes.isEmpty()) {
             if (FMLLoader.getDist().isClient()) {
-                cookingPotRecipes = ClientUtils.clientLevel.getRecipeManager()
+                cookingPotRecipes = CookingValueHelper.getClientLevel().getRecipeManager()
                         .getRecipes().stream().filter(recipe -> recipe.getType().equals(ModRecipeTypes.COOKING.get()))
                         .filter(recipe -> recipe instanceof CookingPotRecipe)
                         .map(recipe -> (CookingPotRecipe) recipe)
