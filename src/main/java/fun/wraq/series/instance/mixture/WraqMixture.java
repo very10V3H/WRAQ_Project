@@ -25,6 +25,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
     private final double coolDownSecond;
     private final double lastSecond;
     public final double rate;
+
     public WraqMixture(Properties p_40524_, Style style, Component suffix, int exManaArrowCount, double rate,
                        int eachArrowDecreaseCoolDownTick, double coolDownSecond, double lastSecond, int levelRequire) {
         super(p_40524_);
@@ -118,11 +119,9 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
         if (exShootRateQueueMap.containsKey(player)) {
             Queue<Double> queue = exShootRateQueueMap.get(player);
             if (!queue.isEmpty()) {
-                if (Tick.get() % 2 == 0) {
-                    double rate = queue.remove();
-                    if (player.getMainHandItem().getItem() instanceof WraqSceptre wraqSceptre) {
-                        wraqSceptre.shootManaArrow(player, rate, false);
-                    }
+                double rate = queue.remove();
+                if (player.getMainHandItem().getItem() instanceof WraqSceptre wraqSceptre) {
+                    wraqSceptre.shootManaArrow(player, rate, false);
                 }
             }
         }

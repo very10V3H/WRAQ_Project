@@ -16,7 +16,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -34,6 +33,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
     private final Style style;
     private final double rate;
     private final int shootTimes;
+
     public WraqQuiver(Properties p_40524_, Style style, Component suffix, double rate, int shootTimes
             , double swift, int levelRequire) {
         super(p_40524_);
@@ -116,25 +116,24 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         if (exShootRateQueueMap.containsKey(player)) {
             Queue<Double> queue = exShootRateQueueMap.get(player);
             if (!queue.isEmpty()) {
-                if (Tick.get() % 2 == 0) {
-                    double rate = queue.remove();
-                    if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
-                        wraqBow.shoot((ServerPlayer) player, rate, false);
-                        DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                                DelayOperationWithAnimation.Animation.bursts, Tick.get() + 3, player
-                        ) {
-                            @Override
-                            public void trig() {
+                double rate = queue.remove();
+                if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
+                    wraqBow.shoot(player, rate, false);
+                    DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
+                            DelayOperationWithAnimation.Animation.bursts, Tick.get() + 1, player
+                    ) {
+                        @Override
+                        public void trig() {
 
-                            }
-                        });
-                    }
+                        }
+                    });
                 }
             }
         }
     }
 
     private static Map<Player, Integer> passiveExpiredTickMap = new WeakHashMap<>();
+
     public static void shootQuiverExArrow(Player player) {
         if (passiveExpiredTickMap.getOrDefault(player, 0) > Tick.get()) {
             shootExArrow(player);
@@ -144,7 +143,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
     private static void shootExArrow(Player player) {
         List<Mob> targetList = new ArrayList<>();
         Map<Mob, Double> distance = new HashMap<>();
-        for (int i = 0 ; i < 30 ; i ++) {
+        for (int i = 0; i < 30; i++) {
             Vec3 pickPos = player.pick(i, 0, false).getLocation();
             int finalI = i;
             player.level().getEntitiesOfClass(Mob.class,
@@ -166,8 +165,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
             public int compare(Mob o1, Mob o2) {
                 if (distance.get(o1) < distance.get(o2)) {
                     return -1;
-                }
-                else {
+                } else {
                     if (distance.get(o1) > distance.get(o2)) {
                         return 1;
                     }
