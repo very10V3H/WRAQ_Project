@@ -126,7 +126,7 @@ public class ForgeScreen extends Screen {
                     if (item instanceof ForgeItem forgeItem) {
                         materialList = forgeItem.forgeRecipe();
                     } else {
-                        materialList = ForgeRecipe.forgeDrawRecipe.get(item);
+                        materialList = ForgeRecipe.recipes.get(item);
                     }
                     List<Component> components = new ArrayList<>() {{
                         add(Component.literal("「材料清单」").withStyle(ChatFormatting.AQUA));

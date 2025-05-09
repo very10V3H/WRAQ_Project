@@ -1,14 +1,12 @@
 package fun.wraq.blocks.entity;
 
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
-import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.gui.blocks.InjectBlockMenu;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -191,11 +189,6 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             if (injectedItem.getTagElement(Utils.MOD_ID) != null)
                 productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(injectedItem.getOrCreateTagElement(Utils.MOD_ID));
             if (player != null) {
-                Compute.formatBroad(blockEntity.level, Component.literal("打造").withStyle(ChatFormatting.GRAY),
-                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                append(player.getDisplayName()).
-                                append(" 成功打造了 ").withStyle(ChatFormatting.WHITE).
-                                append(productItemStack.getDisplayName()));
                 Guide.trigV2(player, Guide.StageV2.FIRST_INJECT);
             }
 

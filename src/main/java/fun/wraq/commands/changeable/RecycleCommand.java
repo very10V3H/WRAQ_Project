@@ -31,14 +31,14 @@ public class RecycleCommand implements Command<CommandSourceStack> {
         if (item.equals(ModItems.huskSword1.get()) || item.equals(ModItems.huskSword2.get())
                 || item.equals(ModItems.huskSword3.get())) item = ModItems.huskSword0.get();
 
-        if (ForgeRecipe.forgeDrawRecipe.containsKey(item)) {
+        if (ForgeRecipe.recipes.containsKey(item)) {
             if (!Utils.playerRecycleMap.containsKey(player)
                     || !Utils.playerRecycleMap.get(player)) {
                 Utils.playerRecycleMap.put(player, true);
                 Compute.sendFormatMSG(player, Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal(" 再次输入指令确定回收！").withStyle(ChatFormatting.WHITE));
             } else {
-                List<ItemStack> itemStackList = ForgeRecipe.forgeDrawRecipe.get(item);
+                List<ItemStack> itemStackList = ForgeRecipe.recipes.get(item);
                 itemStackList.forEach(itemStack1 -> {
                     InventoryOperation.giveItemStack(player, new ItemStack(itemStack1.getItem(), (itemStack1.getCount() + 1) / 2));
                 });

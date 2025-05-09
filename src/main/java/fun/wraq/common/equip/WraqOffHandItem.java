@@ -41,7 +41,7 @@ public abstract class WraqOffHandItem extends SwordItem {
         Utils.weaponList.add(this);
         this.type = type;
         if (this instanceof ForgeItem forgeItem) {
-            ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
+            ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
         Display.offHandList.add(this);
     }

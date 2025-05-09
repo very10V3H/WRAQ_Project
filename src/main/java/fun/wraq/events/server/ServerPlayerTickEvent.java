@@ -53,9 +53,8 @@ import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
-import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
-import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0Allow;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
@@ -71,8 +70,6 @@ import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import fun.wraq.series.instance.quiver.WraqQuiver;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
-import fun.wraq.series.instance.series.castle.CastleManaArmor;
-import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
@@ -124,8 +121,6 @@ public class ServerPlayerTickEvent {
             Customize.CustomizeTickEvent(player);
             /*Parkour.Tick(player);*/ // 跑酷
             CastleAttackArmor.Tick(player);
-            CastleSwiftArmor.Tick(player);
-            CastleManaArmor.Tick(player);
             DpsCommand.Tick(player);
             Element.PlayerTick(player);
             LifeElementSword.Tick(player);
@@ -166,7 +161,7 @@ public class ServerPlayerTickEvent {
             MissionV2.handlePlayerTick(player);
             SpringMobEvent.handleServerPlayerTick(player);
             MobSpawn.handlePlayerTick(player);
-            SwordNewSkillBase3_0.handleServerPlayerTick(player);
+            SwordNewSkillBase3_0Allow.handleServerPlayerTick(player);
             DivineUtils.handlePlayerTick(player);
             PurpleIronCommon.handlePlayerTick(player);
             HarbingerMainHand.fix(player);

@@ -13,6 +13,7 @@ import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sun.TabooPaper;
@@ -24,15 +25,14 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2ElementEffect {
+public class ManaNewSkillBase2_Allow_0 extends SkillV2BaseSkill implements SkillV2ElementEffect, SkillV2AllowInterruptNormalAttack {
 
-    public ManaNewSkillBase2_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public ManaNewSkillBase2_Allow_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
     @Override
     protected void releaseOperation(Player player) {
-        DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         boolean enhanced = TabooPaper.enhanceManaSkillV2_2(player);
         double damage = ManaNewSkill.modifyDamage(player,

@@ -4,6 +4,7 @@ import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.impl.onshoot.OnShootManaArrowCurios;
+import fun.wraq.common.impl.onshoot.OnShootManaArrowEquip;
 import fun.wraq.common.impl.onshoot.OnShootManaArrowPassiveEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.MySound;
@@ -14,12 +15,11 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillBase3_0;
+import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillBase3_0Allow;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.ManaArrowHitEntity;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -60,9 +60,10 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                 manaArrow.manaArrowHitEntity = manaArrowHitEntity;
             }
             if (mainShoot) {
+                OnShootManaArrowEquip.shoot(player);
                 OnShootManaArrowCurios.shoot(player);
                 OnShootManaArrowPassiveEquip.shoot(player);
-                ManaNewSkillBase3_0.onShoot(player);
+                ManaNewSkillBase3_0Allow.onShoot(player);
                 ManaCurios4.onShoot(player);
             }
             MySound.soundToNearPlayer(player, SoundEvents.PARROT_IMITATE_EVOKER);
@@ -131,7 +132,6 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
         ) {
             @Override
             public void trig() {
-                CastleManaArmor.NormalAttack(player);
                 Item sceptre = player.getMainHandItem().getItem();
                 if (!Utils.sceptreTag.containsKey(sceptre)) return;
                 if (sceptre instanceof WraqSceptre wraqSceptre) {

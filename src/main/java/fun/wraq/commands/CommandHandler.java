@@ -762,5 +762,12 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher83 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd83 = dispatcher83.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("estateQuery")
+                                .executes(QueryEstateCommand.instance)
+                )
+        );
     }
 }

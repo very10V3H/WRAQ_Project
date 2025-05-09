@@ -32,7 +32,8 @@ public class MushroomSputterGem extends WraqPassiveGem implements GemOnNormalAtt
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("孢子扩散", CustomStyle.MUSHROOM_STYLE));
         components.add(Te.s(" 普通攻击", CustomStyle.styleOfStone, "对目标造成伤害时"));
-        components.add(Te.s(" 会向周围目标", "连锁扩散3次", hoverStyle, "真实伤害", CustomStyle.styleOfSea));
+        components.add(Te.s(" 会向周围目标", "连锁扩散", (isEnhanced ? 4 : 3) + "次", hoverStyle,
+                "真实伤害", CustomStyle.styleOfSea));
         components.add(Te.s(" 真实伤害", CustomStyle.styleOfSea, "等同于对目标造成的伤害"));
         components.add(Te.s(" 每次的连锁扩散会使伤害降低50%", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         components.add(Te.s(" 每次的连锁扩散将会选定当前连锁目标半径9格内的所有目标", ChatFormatting.GRAY, ChatFormatting.ITALIC));
@@ -41,7 +42,8 @@ public class MushroomSputterGem extends WraqPassiveGem implements GemOnNormalAtt
 
     @Override
     public void onHit(Player player, Mob mob, double damage) {
-        SputteringDamage.addSputteringDamageOnMob(mob, player, damage, 2, 3, CustomStyle.MUSHROOM_STYLE);
+        SputteringDamage.addSputteringDamageOnMob(mob, player, damage, 2,
+                isEnhanced ? 4 : 3, CustomStyle.MUSHROOM_STYLE);
     }
 
     @Override

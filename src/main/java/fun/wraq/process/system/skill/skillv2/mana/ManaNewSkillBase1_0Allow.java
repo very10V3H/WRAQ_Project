@@ -11,6 +11,7 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -20,15 +21,14 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2ElementEffect {
+public class ManaNewSkillBase1_0Allow extends SkillV2BaseSkill implements SkillV2ElementEffect, SkillV2AllowInterruptNormalAttack {
 
-    public ManaNewSkillBase1_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public ManaNewSkillBase1_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
     @Override
     protected void releaseOperation(Player player) {
-        DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         double damage = ManaNewSkill.modifyDamage(player,
                 2.5 + skillLevel * 0.25) * (1 + getEnhanceRate(player));

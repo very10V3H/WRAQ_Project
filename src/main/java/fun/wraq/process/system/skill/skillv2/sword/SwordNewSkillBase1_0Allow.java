@@ -8,6 +8,7 @@ import fun.wraq.core.AttackEvent;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -17,15 +18,14 @@ import net.minecraft.world.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwordNewSkillBase1_0 extends SkillV2BaseSkill {
+public class SwordNewSkillBase1_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public SwordNewSkillBase1_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public SwordNewSkillBase1_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
     @Override
     protected void releaseOperation(Player player) {
-        DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = SkillV2.getPlayerSkillLevelBySkillV2(player, this);
         Item mainHandItem = player.getMainHandItem().getItem();
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(

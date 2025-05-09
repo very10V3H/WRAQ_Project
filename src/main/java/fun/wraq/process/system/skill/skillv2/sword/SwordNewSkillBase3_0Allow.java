@@ -12,6 +12,7 @@ import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -21,9 +22,9 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.*;
 
-public class SwordNewSkillBase3_0 extends SkillV2BaseSkill {
+public class SwordNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public SwordNewSkillBase3_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public SwordNewSkillBase3_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
@@ -55,7 +56,6 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill {
     @Override
     protected void releaseOperation(Player player) {
         MySound.soundToNearPlayer(player, ModSounds.Rolling.get());
-        DelayOperationWithAnimation.beforeReleaseSkill(player);
         Compute.sendForwardMotionPacketToPlayer(player, 1 + PlayerAttributes.movementSpeedCurrent(player));
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         skillEndTickMap.put(Name.get(player), Tick.get() + 8);
@@ -77,7 +77,7 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill {
 
     public static void onKillMob(Player player) {
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
-        if (skillV2 instanceof SwordNewSkillBase3_0) {
+        if (skillV2 instanceof SwordNewSkillBase3_0Allow) {
             SkillV2.decreaseSkillCooldownTick(player, skillV2, skillV2.cooldownTick);
         }
     }

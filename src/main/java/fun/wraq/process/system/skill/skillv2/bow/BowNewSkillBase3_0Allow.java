@@ -6,9 +6,11 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.process.func.DelayOperationWithAnimation;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -19,21 +21,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class BowNewSkillBase3_0 extends SkillV2BaseSkill {
+public class BowNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public BowNewSkillBase3_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public BowNewSkillBase3_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
     @Override
     protected void releaseOperation(Player player) {
         MySound.soundToNearPlayer(player, ModSounds.Rolling.get());
-        DelayOperationWithAnimation.beforeReleaseSkill(player);
         Compute.sendForwardMotionPacketToPlayer(player, 1 + PlayerAttributes.movementSpeedCurrent(player));
         int skillLevel = getPlayerSkillLevel(player);
-        effectExpiredTickMap.put(player, Tick.get() + Tick.s(5) + 10 * skillLevel);
-        Compute.sendEffectLastTime(player, getTexture1Url(),
-                Tick.s(5) + 10 * skillLevel, 0, false);
+        int lastTick = Tick.s(5) + 10 * skillLevel;
+        effectExpiredTickMap.put(player, Tick.get() + lastTick);
+        Compute.sendEffectLastTime(player, getTexture1Url(), lastTick, 0, false);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerExAttackSpeed,
+                "BowNewSkillBase3_0ExAttackSpeedEffect", 0.3, Tick.get() + lastTick);
     }
 
     public static Map<Player, Integer> effectExpiredTickMap = new WeakHashMap<>();
@@ -42,8 +45,9 @@ public class BowNewSkillBase3_0 extends SkillV2BaseSkill {
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
         String lastSeconds = String.format("%.1f", 5 + level * 0.5);
-        components.add(Te.s("向前突进，并获得持续", lastSeconds + "s", CustomStyle.styleOfFlexible,
-                "的箭矢穿透效果"));
+        components.add(Te.s("向前突进，并获得持续", lastSeconds + "s", CustomStyle.styleOfFlexible, "的:"));
+        components.add(Te.s(ComponentUtils.AttributeDescription.getAttackSpeed("30%"),
+                "与", "箭矢穿透效果", CustomStyle.styleOfEnd));
         components.add(Te.s("箭矢", CustomStyle.styleOfFlexible,
                 "每穿过一个敌人，会提升", "33%伤害", CustomStyle.styleOfPower));
         components.add(Te.s("箭矢", CustomStyle.styleOfFlexible, "造成",
@@ -54,7 +58,7 @@ public class BowNewSkillBase3_0 extends SkillV2BaseSkill {
 
     public static void onCritHit(Player player) {
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
-        if (skillV2 instanceof BowNewSkillBase3_0) {
+        if (skillV2 instanceof BowNewSkillBase3_0Allow) {
             SkillV2.decreaseSkillCooldownTick(player, skillV2, Tick.s(1));
         }
     }

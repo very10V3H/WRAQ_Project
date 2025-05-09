@@ -66,6 +66,7 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
                         Damage.causeRateApDamageWithElement(player, eachMob,
                                 rateMap.getOrDefault(player, 0d)
                                         * (1 + ManaCurios5.getExBaseDamageRate(player, eachMob)), true);
+                        ManaNewSkillPassive0.onManaPowerHit(player, eachMob);
                     });
             Element.giveResonanceElement(player);
         }
@@ -77,8 +78,9 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
         components.add(Te.s("连续轰炸准星区域", "3次", CustomStyle.styleOfMana));
         components.add(Te.s("爆炸会对其范围内的所有目标造成",
                 getRateDescription(5, 0.5, level), CustomStyle.styleOfMana, "伤害"));
+        components.add(Te.s("并额外引爆一层", " 渗", CustomStyle.styleOfMana));
         components.add(Te.s("每触发一次", " 渗", CustomStyle.styleOfMana,
-                "，将减少该技能", "0.75s冷却时间", ChatFormatting.AQUA));
+                "，将减少该技能", "0.5s冷却时间", ChatFormatting.AQUA));
         return components;
     }
 

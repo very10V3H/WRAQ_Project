@@ -46,9 +46,11 @@ public class RestZone {
             } else {
                 if (inZoneMap.containsKey(serverPlayer)) {
                     inZoneMap.remove(serverPlayer);
-                    Compute.sendFormatMSG(serverPlayer, Te.s("休息", CustomStyle.styleOfLife),
-                            Te.s("你已离开休息区域，本次共休息了",
-                                    countMap.getOrDefault(serverPlayer, 0) + "分钟", ChatFormatting.GREEN));
+                    if (countMap.getOrDefault(serverPlayer, 0) > 0) {
+                        Compute.sendFormatMSG(serverPlayer, Te.s("休息", CustomStyle.styleOfLife),
+                                Te.s("你已离开休息区域，本次共休息了",
+                                        countMap.getOrDefault(serverPlayer, 0) + "分钟", ChatFormatting.GREEN));
+                    }
                     countMap.remove(serverPlayer);
                 }
             }

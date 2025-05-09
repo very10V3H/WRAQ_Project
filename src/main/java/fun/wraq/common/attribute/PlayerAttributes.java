@@ -1452,6 +1452,8 @@ public class PlayerAttributes {
         double rate = 0;
         rate += computeAllEquipSlotBaseAttributeValue(player, Utils.attackSpeedEnhance, false);
         rate += Compute.CuriosAttribute.attributeValue(player, Utils.attackSpeedEnhance, null);
+        rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerExAttackSpeed);
+
         CompoundTag data = player.getPersistentData();
         Item mainHandItem = player.getMainHandItem().getItem();
         if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainHandItem)) {

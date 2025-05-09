@@ -18,6 +18,7 @@ import fun.wraq.networking.unSorted.SoulSceptreC2SPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -54,10 +55,11 @@ public class ClientAttackEvent {
     public static void clientAttackTimeAndCount(PlayerInteractEvent.LeftClickBlock event) {
         if (event.getEntity().level().isClientSide && event.getEntity().equals(Minecraft.getInstance().player)) {
             Player player = event.getEntity();
-            if (!(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof WraqPickaxe)) {
+            Item item = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
+            if (!(item instanceof WraqPickaxe)) {
                 leftClick(player);
                 activeBowAndSceptre(player);
-                if (!player.isCreative()) {
+                if (!player.isCreative() && !(item instanceof AxeItem)) {
                     event.setCanceled(true);
                 }
             }

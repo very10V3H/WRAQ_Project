@@ -22,8 +22,7 @@ public abstract class SkillV2FinalSkill extends SkillV2 {
 
     @Override
     protected boolean canRelease(Player player) {
-        return !DelayOperationWithAnimation.playerCurrentOperationMap.containsKey(Name.get(player))
-                || DelayOperationWithAnimation.isNormalAttacking(player);
+        return !DelayOperationWithAnimation.playerCurrentOperationMap.containsKey(Name.get(player));
     }
 
     @Override

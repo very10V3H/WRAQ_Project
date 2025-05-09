@@ -11,6 +11,7 @@ import fun.wraq.common.impl.skillv2.EnhanceSkillRateEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.power.PowerLogic;
@@ -111,11 +112,11 @@ public abstract class SkillV2 {
             Style style = CustomStyle.styleOfPower;
             swordSkillV2.add(new SwordNewSkillPassive0(Te.s("横扫", style),
                     0, 0, 0, 0, 0));
-            swordSkillV2.add(new SwordNewSkillBase1_0(Te.s("居合", style),
+            swordSkillV2.add(new SwordNewSkillBase1_0Allow(Te.s("居合", style),
                     Tick.s(3), 0, 0, 1, 0));
-            swordSkillV2.add(new SwordNewSkillBase2_0(Te.s("践踏", style),
+            swordSkillV2.add(new SwordNewSkillBase2_Allow_0(Te.s("践踏", style),
                     Tick.s(12), 80, 0, 2, 0));
-            swordSkillV2.add(new SwordNewSkillBase3_0(Te.s("踏前斩", style),
+            swordSkillV2.add(new SwordNewSkillBase3_0Allow(Te.s("踏前斩", style),
                     Tick.s(8), 40, 0, 3, 0));
             swordSkillV2.add(new SwordNewSkillFinal0(Te.s("注魔之刃", style),
                     Tick.s(30), 200, 0, 4, 0));
@@ -128,13 +129,13 @@ public abstract class SkillV2 {
             Style style = CustomStyle.styleOfFlexible;
             bowSkillV2.add(new BowNewSkillPassive0(Te.s("破绽", style),
                     0, 0, 1, 0, 0));
-            bowSkillV2.add(new BowNewSkillBase1_0(Te.s("重矢", style),
+            bowSkillV2.add(new BowNewSkillBase1_0Allow(Te.s("重矢", style),
                     Tick.s(3), 0, 1, 1, 0));
             bowSkillV2.add(new BowNewSkillBase2_0(Te.s("烈矢", style),
                     Tick.s(8), 80, 1, 2, 0));
-            bowSkillV2.add(new BowNewSkillBase3_0(Te.s("附风", style),
+            bowSkillV2.add(new BowNewSkillBase3_0Allow(Te.s("附风", style),
                     Tick.s(20), 80, 1, 3, 0));
-            bowSkillV2.add(new BowNewSkillFinal0(Te.s("速射", style),
+            bowSkillV2.add(new BowNewSkillFinal0Allow(Te.s("速射", style),
                     Tick.s(30), 100, 1, 4, 0));
         }
         return bowSkillV2;
@@ -145,11 +146,11 @@ public abstract class SkillV2 {
             Style style = CustomStyle.styleOfMana;
             manaSkillV2.add(new ManaNewSkillPassive0(Te.s("解析", style),
                     0, 0, 2, 0, 0));
-            manaSkillV2.add(new ManaNewSkillBase1_0(Te.s("崩碎", style),
+            manaSkillV2.add(new ManaNewSkillBase1_0Allow(Te.s("崩碎", style),
                     Tick.s(3), 40, 2, 1, 0));
-            manaSkillV2.add(new ManaNewSkillBase2_0(Te.s("撕裂", style),
+            manaSkillV2.add(new ManaNewSkillBase2_Allow_0(Te.s("撕裂", style),
                     Tick.s(8), 50, 2, 2, 0));
-            manaSkillV2.add(new ManaNewSkillBase3_0(Te.s("激化", style),
+            manaSkillV2.add(new ManaNewSkillBase3_0Allow(Te.s("激化", style),
                     Tick.s(12), 80, 2, 3, 0));
             manaSkillV2.add(new ManaNewSkillFinal0(Te.s("爆裂", style),
                     Tick.s(30), 100, 2, 4, 0));
@@ -504,6 +505,9 @@ public abstract class SkillV2 {
         double manaCostValue = manaCost + skillLevel * getEachLevelExManaCost();
         if (professionType == 2) {
             manaCostValue = ManaNewSkill.modifyManaCost(player, manaCostValue);
+        }
+        if (this instanceof SkillV2AllowInterruptNormalAttack) {
+            DelayOperationWithAnimation.beforeReleaseSkill(player);
         }
         if (canRelease(player)
                 && skillV2AllowReleaseTickMap.getOrDefault(this, 0) <= Tick.get()

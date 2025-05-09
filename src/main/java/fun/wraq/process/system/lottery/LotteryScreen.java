@@ -99,7 +99,7 @@ public class LotteryScreen extends Screen {
 
                 if (x > this.width / 2 + xOffset - 16 && x < this.width / 2 + xOffset + 32
                         && y > this.height / 2 + yOffset + 30 - 8 && y < this.height / 2 + 16 + yOffset + 30) {
-                    List<ItemStack> materialList = ForgeRecipe.forgeDrawRecipe.get(itemStack.getItem());
+                    List<ItemStack> materialList = ForgeRecipe.recipes.get(itemStack.getItem());
                     List<Component> components = new ArrayList<>() {{
                         add(Component.literal("「材料清单」").withStyle(ChatFormatting.AQUA));
                         materialList.forEach(material -> {

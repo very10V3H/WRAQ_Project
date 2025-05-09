@@ -4,27 +4,27 @@ package fun.wraq.series.instance.series.castle;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.fast.Tick;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.*;
+import fun.wraq.common.impl.onshoot.OnShootManaArrowEquip;
+import fun.wraq.common.registry.ModArmorMaterials;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
-public class CastleManaArmor extends WraqArmor implements ForgeItem {
+public class CastleManaArmor extends WraqArmor implements ForgeItem, OnShootManaArrowEquip {
     private static final Style style = CustomStyle.styleOfCastle;
 
     public static Map<Integer, Double> attributeIndexValueMap = new HashMap<>() {{
@@ -68,14 +68,10 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("暗影打击").withStyle(style));
-        components.add(Component.literal(" 进行").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
-                append(Component.literal("后，0.2s后你会进行一次").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("暗影打击").withStyle(style)));
-        components.add(Component.literal(" 暗影打击").withStyle(style).
-                append(Component.literal("被视为拥有15%基础伤害值的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)));
+        ComponentUtils.descriptionPassive(components, Te.s("暗影打击", style));
+        components.add(Te.s(" 普通法球攻击", CustomStyle.styleOfMana,
+                "将附带1枚", "25%基础伤害", CustomStyle.styleOfPower, "的",
+                "额外法球", CustomStyle.styleOfMana));
         Compute.DescriptionPassive(components, Component.literal("灵魂痛击").withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
@@ -88,40 +84,6 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfCastle();
-    }
-
-    public static WeakHashMap<Player, Integer> playerDoubleAttackTick = new WeakHashMap<>();
-
-    public static void Tick(Player player) {
-        int ArmorCount = SuitCount.getCastleManaSuitCount(player);
-        if (ArmorCount == 0) return;
-        int TickCount = Tick.get();
-        if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) == TickCount) {
-            ExAttack(player, ArmorCount * 0.15);
-        }
-    }
-
-    public static void NormalAttack(Player player) {
-        int ArmorCount = SuitCount.getCastleManaSuitCount(player);
-        if (ArmorCount == 0) return;
-        int TickCount = Tick.get();
-        if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) > TickCount) {
-            ExAttack(player, ArmorCount * 0.15);
-            playerDoubleAttackTick.put(player, 0);
-        } else playerDoubleAttackTick.put(player, TickCount + 4);
-    }
-
-    public static void ExAttack(Player player, double rate) {
-        ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level(),
-                rate, PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
-        manaArrow.setSilent(true);
-        manaArrow.setNoGravity(true);
-
-        manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-        ProjectileUtil.rotateTowardsMovement(manaArrow, 0);
-        player.level().addFreshEntity(manaArrow);
-        MySound.soundToNearPlayer(player, ModSounds.Mana.get());
     }
 
     public static double ExIgnoreDefenceDamage(Player player) {
@@ -230,5 +192,10 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
             add(new ItemStack(ModItems.CastlePiece.get(), 128));
             add(new ItemStack(ModItems.TreeRune.get(), 24));
         }};
+    }
+
+    @Override
+    public void onShoot(Player player) {
+        WraqMixture.addExShoot(player, SuitCount.getCastleManaSuitCount(player) * 0.25);
     }
 }

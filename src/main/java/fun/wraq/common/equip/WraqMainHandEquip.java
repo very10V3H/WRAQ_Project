@@ -40,7 +40,7 @@ public abstract class WraqMainHandEquip extends SwordItem {
             Utils.passiveEquipTag.put(this, 1d);
         }
         if (this instanceof ForgeItem forgeItem) {
-            ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
+            ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
     }
 

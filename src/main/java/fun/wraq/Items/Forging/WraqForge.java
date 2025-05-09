@@ -25,8 +25,6 @@ import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
@@ -72,7 +70,7 @@ public class WraqForge extends Item {
         if (forgedItem instanceof ForgeItem forgeItem) {
             materialList = forgeItem.forgeRecipe();
         } else {
-            materialList = ForgeRecipe.forgeDrawRecipe.get(forgedItem);
+            materialList = ForgeRecipe.recipes.get(forgedItem);
         }
         Inventory inventory = player.getInventory();
         boolean containMaterial = true;
@@ -163,13 +161,6 @@ public class WraqForge extends Item {
 
             // 提示信息与音效
             ModNetworking.sendToClient(new ScreenSetS2CPacket(0), (ServerPlayer) player);
-            List<ServerPlayer> playerList = player.getServer().getPlayerList().getPlayers();
-            ClientboundSetTitleTextPacket clientboundSetTitleTextPacket = new ClientboundSetTitleTextPacket(productItemStack.getDisplayName());
-            ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket = new ClientboundSetSubtitleTextPacket(Component.literal("已被" + player.getName().getString() + "成功锻造！").withStyle(ChatFormatting.AQUA));
-            playerList.forEach(serverPlayer -> {
-                serverPlayer.connection.send(clientboundSetTitleTextPacket);
-                serverPlayer.connection.send(clientboundSetSubtitleTextPacket);
-            });
 
             // 前置条件判定
             Item item = productItemStack.getItem();
@@ -276,7 +267,7 @@ public class WraqForge extends Item {
         components.add(Component.literal("-右键尝试锻造").withStyle(ChatFormatting.AQUA));
         components.add(Component.literal("  ").withStyle(ChatFormatting.AQUA).append(forgedItem.getDefaultInstance().getDisplayName()));
         components.add(Component.literal("-材料需求:").withStyle(ChatFormatting.AQUA));
-        List<ItemStack> materialList = ForgeRecipe.forgeDrawRecipe.get(forgedItem);
+        List<ItemStack> materialList = ForgeRecipe.recipes.get(forgedItem);
         if (materialList != null) {
             for (int i = 0; i < materialList.size(); i++) {
                 components.add(requirementDescription((i + 1), materialList.get(i).getDisplayName(), materialList.get(i).getCount()));

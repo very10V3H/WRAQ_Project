@@ -33,11 +33,13 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
         }
     }
 
+    private static final int maxCount = 8;
+
     public static void addCount(Player player, Mob mob, int addCount) {
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 0);
         if (skillV2 instanceof ManaNewSkillPassive0) {
             int count = mobCountMap.getOrDefault(mob, 0);
-            count = Math.min(5, count + addCount);
+            count = Math.min(maxCount, count + addCount);
             mobCountMap.put(mob, count);
             Compute.sendMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(),
                     ICON_TAG, 8888, count, true);
@@ -66,7 +68,7 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
                 }
                 SkillV2 manaFinalSkill = getPlayerCurrentSkillByType(player, 4);
                 if (manaFinalSkill instanceof ManaNewSkillFinal0) {
-                    decreaseSkillCooldownTick(player, manaFinalSkill, 15);
+                    decreaseSkillCooldownTick(player, manaFinalSkill, 10);
                 }
             }
         }
@@ -76,7 +78,7 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("普攻命中目标时，将施加一层 ", "渗", CustomStyle.styleOfMana));
-        components.add(Te.s("至多叠加至", "5", CustomStyle.styleOfMana, "层，法术技能命中时"));
+        components.add(Te.s("至多叠加至", maxCount, CustomStyle.styleOfMana, "层，法术技能命中时"));
         components.add(Te.s("将引爆一层 ", "渗", CustomStyle.styleOfMana, "，对目标周围小范围敌人"));
         components.add(Te.s("造成", getRateDescription(0.5, 0.05, level),
                 CustomStyle.styleOfMana, "伤害"));

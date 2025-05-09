@@ -39,7 +39,7 @@ public abstract class WraqCurios extends Item implements ICurioItem {
             Utils.curiosList.add(this);
         }
         if (this instanceof ForgeItem forgeItem) {
-            ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
+            ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
         if (this instanceof RuneItem) {
             Display.runeList.add(this);
@@ -52,7 +52,7 @@ public abstract class WraqCurios extends Item implements ICurioItem {
             Utils.curiosList.add(this);
         }
         if (this instanceof ForgeItem forgeItem) {
-            ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
+            ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
     }
 

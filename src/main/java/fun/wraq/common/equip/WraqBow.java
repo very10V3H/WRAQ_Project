@@ -20,7 +20,6 @@ import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase2_0;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.quiver.WraqQuiver;
-import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -143,7 +142,6 @@ public abstract class WraqBow extends WraqMainHandEquip {
         ) {
             @Override
             public void trig() {
-                CastleSwiftArmor.NormalAttack(player);
                 Item bow = player.getMainHandItem().getItem();
                 if (!Utils.bowTag.containsKey(bow)) {
                     return;

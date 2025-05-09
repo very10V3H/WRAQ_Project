@@ -40,7 +40,7 @@ public abstract class WraqArmor extends ArmorItem {
             Utils.armorList.add(this);
         }
         if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
-            ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
+            ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
         if (type.equals(Type.HELMET) && !(this instanceof RandomArmor)) {
             Display.helmetList.add(this);

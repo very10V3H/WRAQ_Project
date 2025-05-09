@@ -112,7 +112,34 @@ public class CookingPlayerData {
         }
         CookingVillager.sendMSG(player, Te.s("烹饪经验", CustomStyle.MUSHROOM_STYLE,
                 " + ", ChatFormatting.GREEN, changeCount, CustomStyle.MUSHROOM_STYLE,
-                "(" + getCookingExp(player) + ")", ChatFormatting.GRAY));
+                "(" + getCookingExp(player) + "/"
+                        + getNextLevelNeedExp(getPlayerCookingLevel(player)) + ")", ChatFormatting.GRAY));
+    }
+
+    public static int getNextLevelNeedExp(int level) {
+        switch (level) {
+            case 0 -> {
+                return 100;
+            }
+            case 1 -> {
+                return 300;
+            }
+            case 2 -> {
+                return 600;
+            }
+            case 3 -> {
+                return 1000;
+            }
+            case 4 -> {
+                return 2000;
+            }
+            case 5 -> {
+                return 4000;
+            }
+            default -> {
+                return 999999;
+            }
+        }
     }
 
     public static int getLevelByExp(int exp) {

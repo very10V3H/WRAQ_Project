@@ -169,17 +169,21 @@ public class EstateUtil {
     }
 
     public static void resetSignBlockText(EstateInfo estateInfo) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
         EstateUtil.setSignBlockText(Tick.server.overworld(), estateInfo.infoSignBlockPos,
                 estateInfo.estateName,
                 Te.s(estateInfo.floorInfo, ChatFormatting.BLACK),
                 Te.s("售卖中", ChatFormatting.BLACK),
-                Te.s(decimalFormat.format(estateInfo.price)
+                Te.s(formatDecimal(estateInfo.price)
                         + (estateInfo.type == 0 ? "VB" : "GB"), ChatFormatting.BLACK));
         if (!estateInfo.editableSignBlockPos.equals(BlockPos.ZERO)) {
             EstateUtil.setSignBlockText(Tick.server.overworld(), estateInfo.editableSignBlockPos,
                     Te.s("所有者可编辑"), Te.s(""), Te.s(""), Te.s(""));
         }
+    }
+
+    public static String formatDecimal(double price) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(price);
     }
 
     public static void resetAllSignBlockText() {
@@ -319,5 +323,21 @@ public class EstateUtil {
 
     public static double getExHarvestRate(Player player) {
         return realEstateBuffExpiredTickMap.getOrDefault(Name.get(player), 0) > Tick.get() ? 0.2 : 0;
+    }
+
+    public static void queryCurrentSoldEstate(Player player) {
+        player.sendSystemMessage(Te.s("当前已售资产情况如下:"));
+        List<EstateServerData> serverDataList = EstateServerData.getEstateServerData();
+        player.sendSystemMessage(Te.s("总计已售出房产数为 ", serverDataList.size(), ChatFormatting.GOLD));
+        serverDataList.forEach(serverData -> {
+            String ownerId = serverData.ownerId;
+            EstateInfo estateInfo = EstateInfo.values()[serverData.serial];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            player.sendSystemMessage(Te.s(" ".repeat(4), ownerId,
+                    " - ", estateInfo.estateName.getString(), ChatFormatting.GOLD));
+            player.sendSystemMessage(Te.s(" ".repeat(4),
+                    formatDecimal(estateInfo.price) + (estateInfo.type == 0 ? "VB" : "GB"), ChatFormatting.GOLD,
+                    " - ", dateFormat.format(serverData.boughtDate.getTime()), ChatFormatting.AQUA));
+        });
     }
 }

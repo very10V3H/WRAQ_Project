@@ -104,6 +104,7 @@ public class CookingItems {
             cropSellingList.add(Items.SUGAR);
             cropSellingList.add(NeapolitanItems.MINT_LEAVES.get());
             cropSellingList.add(NeapolitanItems.ADZUKI_BEANS.get());
+            cropSellingList.add(Items.COCOA_BEANS);
         }
         return cropSellingList;
     }

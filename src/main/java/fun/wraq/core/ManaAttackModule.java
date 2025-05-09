@@ -189,11 +189,12 @@ public class ManaAttackModule {
                 OnHitEffectCurios.hit(player, monster);
                 OnHitEffectPassiveEquip.hit(player, monster);
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 2);
-                ManaNewSkillPassive0.onManaArrowHit(player, monster);
                 if (manaArrow.manaArrowHitEntity != null) {
                     manaArrow.manaArrowHitEntity.onHit(manaArrow, entity);
                 }
             }
+
+            ManaNewSkillPassive0.onManaArrowHit(player, monster);
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));

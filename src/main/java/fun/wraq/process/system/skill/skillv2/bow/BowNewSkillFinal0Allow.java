@@ -2,8 +2,8 @@ package fun.wraq.process.system.skill.skillv2.bow;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.customized.uniform.bow.BowCurios4;
-import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.network.chat.Component;
@@ -12,16 +12,15 @@ import net.minecraft.world.entity.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BowNewSkillFinal0 extends SkillV2FinalSkill {
+public class BowNewSkillFinal0Allow extends SkillV2FinalSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public BowNewSkillFinal0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public BowNewSkillFinal0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
     @Override
     protected void releaseOperation(Player player) {
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
-        DelayOperationWithAnimation.beforeReleaseSkill(player);
         WraqQuiver.batchAddExShoot(player,
                 getRate(skillLevel) * (1 + getEnhanceRate(player)),
                 getArrowCount(skillLevel) + BowCurios4.getExArrowCount(player));

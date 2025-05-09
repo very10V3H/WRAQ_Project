@@ -6,7 +6,7 @@ import fun.wraq.core.bow.MyArrow;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.ManaAttackParticleS2CPacket;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
-import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0;
+import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0Allow;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,7 +62,7 @@ public class BowEvent {
             if (!list0.isEmpty()) {
                 if (myArrow.player != null) {
                     Player player = myArrow.player;
-                    if (BowNewSkillBase3_0.effectExpiredTickMap.getOrDefault(player, 0) > Tick.get()) {
+                    if (BowNewSkillBase3_0Allow.effectExpiredTickMap.getOrDefault(player, 0) > Tick.get()) {
                         SkillV2 skillV2 = SkillV2.getPlayerCurrentSkillByType(player, 3);
                         if (skillV2 == null) {
                             return;

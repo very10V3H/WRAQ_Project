@@ -20,7 +20,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.BowSkillTree;
-import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0;
+import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0Allow;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleBow;
@@ -195,7 +195,7 @@ public class MyArrow extends AbstractArrow {
                 damage = baseDamage * (1 + critDamage);
                 data.putBoolean(StringUtils.DamageTypes.Crit, true);
                 OnCritHitEffectMainHandWeapon.critHit(player, monster);
-                BowNewSkillBase3_0.onCritHit(player);
+                BowNewSkillBase3_0Allow.onCritHit(player);
             } else damage = baseDamage;
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {

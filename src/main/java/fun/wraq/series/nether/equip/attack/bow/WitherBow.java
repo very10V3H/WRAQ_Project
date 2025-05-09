@@ -32,7 +32,7 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
         Utils.critRate.put(this, new double[]{0.2, 0.25, 0.25, 0.25}[tier]);
         Utils.levelRequire.put(this, 80);
 
-        ForgeRecipe.forgeDrawRecipe.put(this, new ArrayList<>() {{
+        ForgeRecipe.recipes.put(this, new ArrayList<>() {{
             add(new ItemStack(ModItems.NetherRune.get(), 4));
             add(new ItemStack(ModItems.Ruby.get(), 128));
             add(new ItemStack(ModItems.NetherQuartz.get(), 32));

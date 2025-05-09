@@ -8,6 +8,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.ManaArrowHitEntity;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -24,9 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
+public class ManaNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public ManaNewSkillBase3_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public ManaNewSkillBase3_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
@@ -37,14 +38,13 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
             return;
         }
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
-        if (skillV2 instanceof ManaNewSkillBase3_0) {
+        if (skillV2 instanceof ManaNewSkillBase3_0Allow) {
             WraqMixture.batchAddExShoot(player, 0.5, 1);
         }
     }
 
     @Override
     protected void releaseOperation(Player player) {
-        DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         double damage = ManaNewSkill.modifyDamage(player,
                 1 + skillLevel * 0.05) * (1 + getEnhanceRate(player));

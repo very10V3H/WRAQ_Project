@@ -93,11 +93,6 @@ public abstract class DelayOperationWithAnimation {
         }
     }
 
-    public static boolean isNormalAttacking(Player player) {
-        return playerCurrentOperationMap.containsKey(Name.get(player))
-                && normalAttackAnimationIds.contains(playerCurrentOperationMap.get(Name.get(player)).animationId);
-    }
-
     // 有动画的技能会打断当前普攻
     public static void remove(Player player) {
         playerCurrentOperationMap.remove(Name.get(player));

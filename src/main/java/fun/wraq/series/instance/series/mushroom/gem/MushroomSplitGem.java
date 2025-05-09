@@ -33,7 +33,7 @@ public class MushroomSplitGem extends WraqPassiveGem implements GemOnCauseDamage
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("分生", hoverStyle));
         components.add(Te.s(" 造成的", "任意伤害", hoverStyle, "将额外造成自身",
-                ComponentUtils.AttributeDescription.maxHealth(isEnhanced ? "150%" : "100%"),
+                ComponentUtils.AttributeDescription.maxHealth(isEnhanced ? "130%" : "100%"),
                 "的", "真实伤害", CustomStyle.styleOfSea));
         return components;
     }
@@ -44,7 +44,7 @@ public class MushroomSplitGem extends WraqPassiveGem implements GemOnCauseDamage
     public void onCauseDamage(Player player, Mob mob, double damage) {
         if (!causingDamageMobs.contains(mob)) {
             causingDamageMobs.add(mob);
-            Damage.causeTrueDamageToMonster(player, mob, player.getMaxHealth() * (isEnhanced ? 1.5 : 1));
+            Damage.causeTrueDamageToMonster(player, mob, player.getMaxHealth() * (isEnhanced ? 1.3 : 1));
             causingDamageMobs.remove(mob);
         }
     }
