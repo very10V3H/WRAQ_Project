@@ -501,6 +501,9 @@ public abstract class SkillV2 {
             playerSkillV2AllowReleaseTickMap.put(name, new HashMap<>());
         }
         Map<SkillV2, Integer> skillV2AllowReleaseTickMap = playerSkillV2AllowReleaseTickMap.get(name);
+        if (skillV2AllowReleaseTickMap.getOrDefault(this, 0) > Tick.get()) {
+            return;
+        }
         int skillLevel = getPlayerSkillLevel(player);
         double manaCostValue = manaCost + skillLevel * getEachLevelExManaCost();
         if (professionType == 2) {
@@ -509,9 +512,7 @@ public abstract class SkillV2 {
         if (this instanceof SkillV2AllowInterruptNormalAttack) {
             DelayOperationWithAnimation.beforeReleaseSkill(player);
         }
-        if (canRelease(player)
-                && skillV2AllowReleaseTickMap.getOrDefault(this, 0) <= Tick.get()
-                && Mana.getPlayerCurrentManaNum(player) > manaCostValue) {
+        if (canRelease(player) && Mana.getPlayerCurrentManaNum(player) > manaCostValue) {
             Mana.addOrCostPlayerMana(player, -manaCostValue);
             int cooldownAfterModify = cooldownTick;
             if (professionType == 2) {
