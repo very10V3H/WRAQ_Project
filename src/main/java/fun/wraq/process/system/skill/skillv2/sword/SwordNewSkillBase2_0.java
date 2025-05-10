@@ -22,9 +22,9 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwordNewSkillBase2_Allow_0 extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
+public class SwordNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public SwordNewSkillBase2_Allow_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public SwordNewSkillBase2_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 

@@ -22,9 +22,9 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.*;
 
-public class SwordNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
+public class SwordNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public SwordNewSkillBase3_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public SwordNewSkillBase3_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
@@ -77,7 +77,7 @@ public class SwordNewSkillBase3_0Allow extends SkillV2BaseSkill implements Skill
 
     public static void onKillMob(Player player) {
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
-        if (skillV2 instanceof SwordNewSkillBase3_0Allow) {
+        if (skillV2 instanceof SwordNewSkillBase3_0) {
             SkillV2.decreaseSkillCooldownTick(player, skillV2, skillV2.cooldownTick);
         }
     }

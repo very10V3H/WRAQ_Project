@@ -10,6 +10,7 @@ import fun.wraq.core.bow.MyArrow;
 import fun.wraq.core.bow.MyArrowHitBlock;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sun.FrameArrow;
@@ -20,9 +21,12 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class BowNewSkillBase2_0 extends SkillV2BaseSkill {
+public class BowNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2AllowReleaseAnyTime {
 
     public BowNewSkillBase2_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);

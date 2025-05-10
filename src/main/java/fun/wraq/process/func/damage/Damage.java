@@ -42,7 +42,7 @@ import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
-import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0Allow;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
@@ -591,7 +591,7 @@ public class Damage {
                     GemOnKillMob.kill(player, mob);
                     MobKillEntrustment.onKill(player, mob);
                     AllayPet.onKillMob(player, mob);
-                    SwordNewSkillBase3_0Allow.onKillMob(player);
+                    SwordNewSkillBase3_0.onKillMob(player);
                     DivineUtils.onPlayerKillMob(player, mob);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));

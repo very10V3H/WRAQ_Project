@@ -8,6 +8,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class SwordNewSkillFinal0 extends SkillV2FinalSkill {
+public class SwordNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2AllowReleaseAnyTime {
 
     public SwordNewSkillFinal0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);

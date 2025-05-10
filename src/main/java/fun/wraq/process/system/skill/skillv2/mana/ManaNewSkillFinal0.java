@@ -9,6 +9,7 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
+public class ManaNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2AllowReleaseAnyTime {
 
     public ManaNewSkillFinal0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);

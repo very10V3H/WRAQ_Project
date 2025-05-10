@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class BowNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
+public class BowNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public BowNewSkillBase3_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public BowNewSkillBase3_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
@@ -58,7 +58,7 @@ public class BowNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV2
 
     public static void onCritHit(Player player) {
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
-        if (skillV2 instanceof BowNewSkillBase3_0Allow) {
+        if (skillV2 instanceof BowNewSkillBase3_0) {
             SkillV2.decreaseSkillCooldownTick(player, skillV2, Tick.s(1));
         }
     }

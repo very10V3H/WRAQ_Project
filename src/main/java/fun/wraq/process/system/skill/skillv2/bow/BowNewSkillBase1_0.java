@@ -14,9 +14,9 @@ import net.minecraft.world.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BowNewSkillBase1_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
+public class BowNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public BowNewSkillBase1_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public BowNewSkillBase1_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 

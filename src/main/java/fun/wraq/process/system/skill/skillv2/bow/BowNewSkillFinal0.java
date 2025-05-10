@@ -12,9 +12,9 @@ import net.minecraft.world.entity.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BowNewSkillFinal0Allow extends SkillV2FinalSkill implements SkillV2AllowInterruptNormalAttack {
+public class BowNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public BowNewSkillFinal0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public BowNewSkillFinal0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 

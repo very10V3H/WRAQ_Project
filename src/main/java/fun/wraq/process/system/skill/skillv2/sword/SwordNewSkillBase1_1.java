@@ -19,9 +19,9 @@ import net.minecraft.world.item.Item;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwordNewSkillBase1_1Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
+public class SwordNewSkillBase1_1 extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public SwordNewSkillBase1_1Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public SwordNewSkillBase1_1(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 

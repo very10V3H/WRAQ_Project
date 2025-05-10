@@ -54,7 +54,7 @@ import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
-import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0Allow;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
@@ -161,7 +161,7 @@ public class ServerPlayerTickEvent {
             MissionV2.handlePlayerTick(player);
             SpringMobEvent.handleServerPlayerTick(player);
             MobSpawn.handlePlayerTick(player);
-            SwordNewSkillBase3_0Allow.handleServerPlayerTick(player);
+            SwordNewSkillBase3_0.handleServerPlayerTick(player);
             DivineUtils.handlePlayerTick(player);
             PurpleIronCommon.handlePlayerTick(player);
             HarbingerMainHand.fix(player);

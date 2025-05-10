@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ManaNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
+public class ManaNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2AllowInterruptNormalAttack {
 
-    public ManaNewSkillBase3_0Allow(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    public ManaNewSkillBase3_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
@@ -38,7 +38,7 @@ public class ManaNewSkillBase3_0Allow extends SkillV2BaseSkill implements SkillV
             return;
         }
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
-        if (skillV2 instanceof ManaNewSkillBase3_0Allow) {
+        if (skillV2 instanceof ManaNewSkillBase3_0) {
             WraqMixture.batchAddExShoot(player, 0.5, 1);
         }
     }
