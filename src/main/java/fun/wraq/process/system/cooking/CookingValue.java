@@ -3,8 +3,10 @@ package fun.wraq.process.system.cooking;
 import cn.mcmod.corn_delight.CornForgeTags;
 import cn.mcmod.corn_delight.item.ItemRegistry;
 import com.cosmicgelatin.seasonals.core.registry.SeasonalsItems;
+import com.mojang.logging.LogUtils;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -82,9 +84,9 @@ public class CookingValue {
                 components.add(Te.s("食材种类: ", typeCount + " (+" + typeCount * typeCountExValue + "%)", ChatFormatting.AQUA));
             }
             int price = getMealSellValue(stack);
-            components.add(Te.s("售价: ", (price * stack.getCount()) + "VB", ChatFormatting.GOLD));
+            components.add(Te.s("售价: ", price + "VB", ChatFormatting.GOLD));
             components.add(Te.s("收益率: ",
-                    String.format("%.0f%%", (price * 1d / value - 1) * 100), ChatFormatting.RED));
+                    String.format("%.0f%%", (price * 1d / (value * stack.getCount()) - 1) * 100), ChatFormatting.RED));
             if (item.equals(ModItems.RAW_PASTA.get())) {
                 components.add(Te.s("该食材无法直接售出，但有几率被烹饪委托选中",
                         ChatFormatting.GRAY, ChatFormatting.ITALIC));
@@ -93,10 +95,12 @@ public class CookingValue {
     }
 
     public static int getMealValue(Item item) {
+        if (CookingValueHelper.getClientLevel() == null) {
+            return 0;
+        }
         if (mealValueCacheMap.containsKey(item)) {
             return mealValueCacheMap.get(item);
         }
-        int count = 1;
         List<Ingredient> inputItemsIn = getIngredients(item);
         if (inputItemsIn.isEmpty()) {
             mealValueCacheMap.put(item, 0);
@@ -137,10 +141,10 @@ public class CookingValue {
                 }
             }
         }
-        mealValueCacheMap.put(item, value / count);
+        mealValueCacheMap.put(item, value / productCountMap.getOrDefault(item, 1));
         mealIngredientCountMap.put(item, inputItemsIn.size());
         mealIngredientTypeCountMap.put(item, ingredientTypeCount);
-        return value / count;
+        return value / productCountMap.getOrDefault(item, 1);
     }
 
     public static void sellAll(Player player) {
@@ -167,6 +171,8 @@ public class CookingValue {
                 "共收入", sum + "VB，", ChatFormatting.GOLD,
                 "食材成本为:", cost + "VB.", ChatFormatting.GOLD,
                 "(累计售出份数:" + CookingPlayerData.getSellFoodCount(player) + ")", ChatFormatting.GRAY));
+        LogUtils.getLogger().info("烹饪 {} 售出了 {} 份食物, 共收入 {} VB, 成本为 {} VB",
+                Name.get(player), count, sum, cost);
         CookingPlayerData.sendCookingExpToClient(player);
     }
 
@@ -488,10 +494,13 @@ public class CookingValue {
     }
 
     public static Map<Item, List<Ingredient>> ingredientMap = new HashMap<>();
+    public static Map<Item, Integer> productCountMap = new HashMap<>();
     public static List<Ingredient> getIngredients(Item item) {
         if (ingredientMap.isEmpty()) {
             getCookingPotRecipes().forEach(recipe -> {
-                ingredientMap.put(recipe.getResultItem(RegistryAccess.EMPTY).getItem(), recipe.getIngredients());
+                ItemStack stack = recipe.getResultItem(RegistryAccess.EMPTY);
+                ingredientMap.put(stack.getItem(), recipe.getIngredients());
+                productCountMap.put(stack.getItem(), stack.getCount());
             });
         }
         return ingredientMap.getOrDefault(item, List.of());
