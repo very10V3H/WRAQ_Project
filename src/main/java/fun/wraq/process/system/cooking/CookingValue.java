@@ -95,7 +95,7 @@ public class CookingValue {
     }
 
     public static int getMealValue(Item item) {
-        if (CookingValueHelper.getClientLevel() == null) {
+        if (FMLLoader.getDist().isClient() && CookingValueHelper.getClientLevel() == null) {
             return 0;
         }
         if (mealValueCacheMap.containsKey(item)) {
