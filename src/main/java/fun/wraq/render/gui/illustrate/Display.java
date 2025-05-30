@@ -4,7 +4,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
 import fun.wraq.series.events.SpecialEventItems;
-import fun.wraq.series.holy.ice.IceHolyItems;
+import fun.wraq.series.overworld.mt.ManaTowerItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -82,19 +82,20 @@ public class Display {
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
             newItemList.addAll(List.of(
-                    SpecialEventItems.QING_TUAN.get(),
-                    SpecialEventItems.QING_MING_COMMON_RING.get(),
-                    SpecialEventItems.QING_MING_ATTACK_RING.get(),
-                    SpecialEventItems.QING_MING_DEFENCE_RING.get(),
-                    SpecialEventItems.QING_MING_REBORN_CHEST.get(),
-                    SpecialEventItems.QING_MING_QING_TUAN_CHEST.get(),
-                    SpecialEventItems.QING_MING_PREFIX_PAPER_1.get(),
-                    SpecialEventItems.QING_MING_PREFIX_PAPER_2.get(),
-                    SpecialEventItems.QING_MING_FORGE_PAPER.get()
+                    SpecialEventItems.ZONG_LEAF.get(),
+                    SpecialEventItems.SWEET_ZONG_ZI.get(),
+                    SpecialEventItems.MEAT_ZONG_ZI.get(),
+                    SpecialEventItems.GOLDEN_ZONG_ZI_CONDIMENT.get(),
+                    SpecialEventItems.GOLDEN_ZONG_LEAF.get(),
+                    SpecialEventItems.GOLDEN_ZONG_ZI.get(),
+                    SpecialEventItems.DRAGON_BOAT_FES_PREFIX.get(),
+                    SpecialEventItems.SEVEN_SHADE_PIECE_RICE.get(),
+                    SpecialEventItems.SEVEN_SHADE_PIECE_GOLDEN_LEAF.get(),
+                    SpecialEventItems.SEVEN_SHADE_PIECE_DRAGON_BOAT.get(),
+                    SpecialEventItems.DRAGON_BOAT_FES_FORGE_PAPER.get(),
+                    SpecialEventItems.DRAGON_DIAMOND.get(),
+                    ManaTowerItems.KANUPUS_WING_F.get()
             ));
-            for (RegistryObject<Item> registryObject : IceHolyItems.ITEMS.getEntries()) {
-                newItemList.add(registryObject.get());
-            }
         }
         return newItemList;
     }
