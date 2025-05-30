@@ -1,6 +1,8 @@
 package fun.wraq.render.gui.villagerTrade;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
@@ -8,6 +10,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import fun.wraq.networking.unSorted.TradeBuyRequestC2SPacket;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.randomStore.RandomStore;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -18,6 +21,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
@@ -215,6 +219,10 @@ public class TradeScreen extends Screen {
                 this.width / 2 - 100 - 33 + 206 + 20 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
         if (x > this.width / 2 - 100 - 33 + 206 + xOffset && x < this.width / 2 - 100 - 33 + 16 + 206 + xOffset
                 && y > this.height / 2 - 75 + 32 * i && y < this.height / 2 - 75 + 32 * i + 16) {
+            Item item = targetItemStack.getItem();
+            if (item instanceof WraqArmor || item instanceof WraqMainHandEquip) {
+                ForgeEquipUtils.setForgeQualityOnEquip(targetItemStack, 4);
+            }
             guiGraphics.renderTooltip(font, targetItemStack, x, y);
         }
 

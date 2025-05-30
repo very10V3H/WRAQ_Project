@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vmd:item/golden_zong_zi_condiment"
+  }
+}

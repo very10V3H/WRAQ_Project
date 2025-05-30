@@ -65,7 +65,8 @@ public class SingleItemChangeScreen extends Screen {
                 int finalI = i;
                 this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
                     SingleItemChangeRecipe recipe = recipeList.get(finalI + page * 10);
-                    ModNetworking.sendToServer(new SingleItemChangeC2SPacket(recipe.needStack(), recipe.goods()));
+                    ModNetworking.sendToServer(new SingleItemChangeC2SPacket(
+                            new ItemStack(recipe.needStack.getItem()), recipe.needStack.getCount(), recipe.goods));
                 }).pos(this.width / 2 - 35, this.height / 2 - 83 + 32 * i).size(32, 16).build());
             }
         }
@@ -75,7 +76,8 @@ public class SingleItemChangeScreen extends Screen {
                 int finalI = i;
                 this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
                     SingleItemChangeRecipe recipe = recipeList.get(finalI + page * 10 + 5);
-                    ModNetworking.sendToServer(new SingleItemChangeC2SPacket(recipe.needStack(), recipe.goods()));
+                    ModNetworking.sendToServer(new SingleItemChangeC2SPacket(
+                            new ItemStack(recipe.needStack.getItem()), recipe.needStack.getCount(), recipe.goods));
                 }).pos(this.width / 2 - 35 + 140, this.height / 2 - 83 + 32 * i).size(32, 16).build());
             }
         }
@@ -100,8 +102,8 @@ public class SingleItemChangeScreen extends Screen {
         for (int i = 0; i < 5; i++) {
             if (page * 10 + i < recipeList.size()) {
                 SingleItemChangeRecipe recipe = recipeList.get(i + page * 10);
-                ItemStack goods = recipe.goods();
-                ItemStack needStack = recipe.needStack();
+                ItemStack goods = recipe.goods;
+                ItemStack needStack = recipe.needStack;
                 guiGraphics.renderItem(goods, this.width / 2 - 100 - 17 + xOffset, this.height / 2 - 83 + 32 * i);
                 guiGraphics.drawCenteredString(font, Component.literal("" + goods.getCount()).withStyle(ChatFormatting.WHITE),
                         this.width / 2 - 100 - 17 + xOffset + 20, this.height / 2 - 83 + 32 * i + 8, 0);
@@ -115,14 +117,14 @@ public class SingleItemChangeScreen extends Screen {
 
                 if (x > this.width / 2 - 35 && x < this.width / 2
                         && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
-                    if (recipe.limitType().equals(SingleItemChangePurchaseLimit.Type.NULL)) {
+                    if (recipe.limitType.equals(SingleItemChangePurchaseLimit.Type.NULL)) {
                         guiGraphics.renderTooltip(font, Te.s("不限制购买次数", CustomStyle.styleOfStone), x, y);
                     } else {
                         guiGraphics.renderTooltip(font, Te.s("限购: ", CustomStyle.styleOfGold,
                                 "" + SingleItemChangePurchaseLimit.clientDataMap.getOrDefault(recipe.getDataKey(), 0),
                                 CustomStyle.styleOfWorld, " / ", CustomStyle.styleOfStone,
-                                "" + recipe.limitTimes(),
-                                " - ", SingleItemChangePurchaseLimit.TYPE_DESCRIPTION_MAP.get(recipe.limitType())), x, y);
+                                "" + recipe.limitTimes,
+                                " - ", SingleItemChangePurchaseLimit.TYPE_DESCRIPTION_MAP.get(recipe.limitType)), x, y);
                     }
                 }
             }
@@ -131,8 +133,8 @@ public class SingleItemChangeScreen extends Screen {
         for (int i = 0; i < 5; i++) {
             if (page * 10 + 5 + i < recipeList.size()) {
                 SingleItemChangeRecipe recipe = recipeList.get(i + page * 10 + 5);
-                ItemStack goods = recipe.goods();
-                ItemStack needStack = recipe.needStack();
+                ItemStack goods = recipe.goods;
+                ItemStack needStack = recipe.needStack;
                 guiGraphics.renderItem(goods,
                         this.width / 2 - 100 - 13 + 140 + xOffset, this.height / 2 - 83 + 32 * i);
                 guiGraphics.drawCenteredString(font, Te.s(String.valueOf(goods.getCount())),
@@ -148,14 +150,14 @@ public class SingleItemChangeScreen extends Screen {
 
                 if (x > this.width / 2 - 35 + 140 && x < this.width / 2 + 140
                         && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
-                    if (recipe.limitType().equals(SingleItemChangePurchaseLimit.Type.NULL)) {
+                    if (recipe.limitType.equals(SingleItemChangePurchaseLimit.Type.NULL)) {
                         guiGraphics.renderTooltip(font, Te.s("不限制购买次数", CustomStyle.styleOfStone), x, y);
                     } else {
                         guiGraphics.renderTooltip(font, Te.s("限购: ", CustomStyle.styleOfGold,
                                 "" + SingleItemChangePurchaseLimit.clientDataMap.getOrDefault(recipe.getDataKey(), 0),
                                 CustomStyle.styleOfWorld, " / ", CustomStyle.styleOfStone,
-                                "" + recipe.limitTimes(),
-                                " - ", SingleItemChangePurchaseLimit.TYPE_DESCRIPTION_MAP.get(recipe.limitType())), x, y);
+                                "" + recipe.limitTimes,
+                                " - ", SingleItemChangePurchaseLimit.TYPE_DESCRIPTION_MAP.get(recipe.limitType)), x, y);
                     }
                 }
             }

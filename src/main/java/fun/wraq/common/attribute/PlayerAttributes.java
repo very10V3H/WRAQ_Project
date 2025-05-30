@@ -37,6 +37,8 @@ import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events._7shade.SevenShadePiece;
+import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.holy.ice.curio.IceHolyCrest;
@@ -274,6 +276,8 @@ public class PlayerAttributes {
         exRate += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerAttackDamageEnhance);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentAttackDamageEnhance);
         exRate += AttackCurios5.getExPercentAttackDamage(player);
+        exRate += SevenShadePiece.getEnhanceValue(player, Utils.percentAttackDamageEnhance);
+        exRate += DragonDiamond.getAttackDamageEnhance(player);
 
         totalAttackDamage *= (1 + exRate);
 
@@ -491,7 +495,8 @@ public class PlayerAttributes {
         // 上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
-        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.movementSpeedCommon)   ;
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.movementSpeedCommon);
+        exRate += SevenShadePiece.getEnhanceValue(player, Utils.movementSpeedCommon);
         movementSpeedUp *= (1 + exRate);
 
         writeToCache(player, Utils.movementSpeedCommon, movementSpeedUp);
@@ -637,6 +642,8 @@ public class PlayerAttributes {
         exDefence += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defence);
         exDefence += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.defence);
         exDefence += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceModifier);
+        exDefence += SevenShadePiece.getEnhanceValue(player, Utils.defence);
+
         // 请在上方添加
         double totalDefence = baseDefence + exDefence;
         double exRate = 0;
@@ -650,6 +657,7 @@ public class PlayerAttributes {
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.defence);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentDefenceEnhance);
+        exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentDefenceEnhance, false);
         totalDefence *= (1 + exRate);
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceDecreaseModifier);
         totalDefence = Math.max(0, totalDefence);
@@ -796,6 +804,7 @@ public class PlayerAttributes {
         if (Utils.sceptreTag.containsKey(mainhand)) {
             releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.02; // 术法全析
         }
+        releaseSpeed += SevenShadePiece.getEnhanceValue(player, Utils.coolDownDecrease);
 
         // 请在上方添加
         double exRate = 0;
@@ -927,18 +936,21 @@ public class PlayerAttributes {
         }
 
         healthRecover += Compute.CuriosAttribute
-                .attributeValue(player, Utils.healthRecover, StringUtils.RandomCuriosAttribute.healthRecover); // 新版饰品属性加成
+                .attributeValue(player, Utils.healthRecover, StringUtils.RandomCuriosAttribute.healthRecover);
         healthRecover += PlainNewRune.playerHealthRecover(player);
         healthRecover += ForestNewRune.playerHealthRecoverUp(player);
-
         healthRecover += StableAttributesModifier.getModifierValue(player,
                 StableAttributesModifier.playerHealthRecoverModifier);
+        healthRecover += SevenShadePiece.getEnhanceValue(player, Utils.healthRecover);
 
         // 最大生命值百分比生命回复
         healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, false)
                 * player.getMaxHealth();
         healthRecover += StableAttributesModifier.getModifierValue(player,
                 StableAttributesModifier.playerPercentHealthRecoverModifier) * player.getMaxHealth();
+        healthRecover += Compute.CuriosAttribute
+                .attributeValue(player, Utils.percentHealthRecover,
+                        StringUtils.RandomCuriosAttribute.percentHealthRecover) * player.getMaxHealth();
 
         // 请在上方添加
         double exRate = 0;
@@ -947,7 +959,7 @@ public class PlayerAttributes {
         healthRecover *= (1 + exRate);
 
         writeToCache(player, Utils.healthRecover, healthRecover);
-        return healthRecover;
+        return Math.max(0, healthRecover);
     }
 
     public static double maxHealth(Player player) {
@@ -975,6 +987,7 @@ public class PlayerAttributes {
         maxHealth += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExMaxHealth);
         maxHealth += PlainArmor.exMaxHealth(player);
         maxHealth += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerMaxHealthExValue);
+        maxHealth += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMaxHealth);
 
         // 请在上方添加
         double exRate = 0;
@@ -986,6 +999,9 @@ public class PlayerAttributes {
         exRate += Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.maxHealth);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentMaxHealthEnhance);
+        exRate += SevenShadePiece.getEnhanceValue(player, Utils.percentMaxHealthEnhance);
+        exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentMaxHealth);
+        exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentMaxHealthEnhance, false);
 
         maxHealth *= (1 + exRate);
 
@@ -1098,6 +1114,8 @@ public class PlayerAttributes {
                 .getModifierValue(player, StableAttributesModifier.playerPercentManaDamageModifier);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentManaDamageEnhance);
         exRate += ManaCurios4.getExManaDamageRate(player);
+        exRate += SevenShadePiece.getEnhanceValue(player, Utils.percentManaDamageEnhance);
+        exRate += DragonDiamond.getManaDamageEnhance(player);
 
         totalDamage *= (1 + exRate);
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
@@ -1170,6 +1188,7 @@ public class PlayerAttributes {
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
         manaRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaRecover);
         manaRecover += TabooPaper.getExManaRecoverValue(player);
+        manaRecover += SevenShadePiece.getEnhanceValue(player, Utils.manaRecover);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1220,8 +1239,9 @@ public class PlayerAttributes {
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
         exDefence += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.manaDefence);
         exDefence += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDefenceModifier);
-        // 请在上方添加
+        exDefence += SevenShadePiece.getEnhanceValue(player, Utils.manaDefence);
 
+        // 请在上方添加
         double totalDefence = baseDefence + exDefence;
         double exRate = 0;
         exRate += EarthPower.PlayerDefenceEnhance(player);
@@ -1233,6 +1253,8 @@ public class PlayerAttributes {
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDefence);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentManaDefenceEnhance);
+        exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDefenceEnhance, false);
+
         totalDefence *= (1 + exRate);
 
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDefenceDecreaseModifier);
@@ -1603,8 +1625,12 @@ public class PlayerAttributes {
             if ((attributeMap.containsKey(item) || traditionalValue != 0)
                     && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
                 double value = 0;
-                if (computeForge && equip.getTagElement(Utils.MOD_ID) != null) {
+                if (computeForge && equip.getTagElement(Utils.MOD_ID) != null && traditionalValue > 0) {
                     value += Compute.forgingValue(equip, traditionalValue);
+                }
+                // 移动速度强化效率减半
+                if (attributeMap.equals(Utils.movementSpeedCommon)) {
+                    value /= 2;
                 }
                 totalValue += traditionalValue + value;
             }

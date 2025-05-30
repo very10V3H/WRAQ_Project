@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -147,8 +148,9 @@ public class GateWay {
                     }
                 }
                 ItemStack validTpPass = TpPass.playerHasValidTpPass(player);
+                boolean isInFreeTime = DragonBoatFes.isInActivate();
                 if (nearGateway) {
-                    if (validTpPass == null
+                    if (!isInFreeTime && validTpPass == null
                             && InventoryOperation.itemStackCount(player, ModItems.TP_TICKET.get()) == 0
                             && PlanPlayer.getPlayerTier(player) < 2) {
                         playerTPDelayCount.put(name, -1);
@@ -179,12 +181,14 @@ public class GateWay {
                             if (destination.pos.distanceTo(skyTpCenterPos) < 30)
                                 playerTPCooldownMap.put(name, tick + 2);
                             else playerTPCooldownMap.put(name, tick + 60);
-                            if (PlanPlayer.getPlayerTier(player) < 2) {
-                                if (validTpPass != null) {
-                                    TpPass.setExpiredDate(validTpPass);
-                                } else {
-                                    InventoryOperation.removeItem(player.getInventory(),
-                                            ModItems.TP_TICKET.get(), 1);
+                            if (!isInFreeTime) {
+                                if (PlanPlayer.getPlayerTier(player) < 2) {
+                                    if (validTpPass != null) {
+                                        TpPass.setExpiredDate(validTpPass);
+                                    } else {
+                                        InventoryOperation.removeItem(player.getInventory(),
+                                                ModItems.TP_TICKET.get(), 1);
+                                    }
                                 }
                             }
                         }

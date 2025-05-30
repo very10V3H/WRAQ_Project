@@ -2250,4 +2250,12 @@ public class Compute {
     public static boolean isOverworldNight() {
         return Tick.server.overworld().isNight();
     }
+
+    public static void sendCommandOpMSG(Player player, String content) {
+        if (player == null) {
+            LogUtils.getLogger().info(content);
+        } else {
+            player.sendSystemMessage(Te.s(content));
+        }
+    }
 }

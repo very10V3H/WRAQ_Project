@@ -1,10 +1,8 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.process.system.cooking.CookingPlayerData;
 import fun.wraq.series.end.citadel.CitadelItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -67,14 +65,11 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            CookingPlayerData.setEntrustmentFinishedTimesCount(player,
-                    CookingPlayerData.getEntrustmentFinishedTimesCount(player) + 100);
-            player.sendSystemMessage(Te.s("" + CookingPlayerData.getEntrustmentFinishedTimesCount(player)));
+
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            CookingPlayerData.setEntrustmentFinishedTimesCount(player, 0);
-            player.sendSystemMessage(Te.s("" + CookingPlayerData.getEntrustmentFinishedTimesCount(player)));
+
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {

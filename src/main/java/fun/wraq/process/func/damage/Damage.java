@@ -56,7 +56,7 @@ import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
-import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.mt.ManaTowerItems;
 import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;

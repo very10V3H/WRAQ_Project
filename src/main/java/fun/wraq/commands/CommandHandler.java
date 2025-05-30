@@ -759,7 +759,7 @@ public class CommandHandler {
                         Commands.literal("cooking").then(
                                 Commands.argument("operation", StringArgumentType.string())
                                         .executes(CookingOperationCommand.instance)
-                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                        )
                 )
         );
         CommandDispatcher<CommandSourceStack> dispatcher83 = event.getDispatcher();
@@ -767,6 +767,32 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("estateQuery")
                                 .executes(QueryEstateCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher84 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd84 = dispatcher84.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("specificPlayerTag").then(
+                                Commands.argument("player", GameProfileArgument.gameProfile()).then(
+                                        Commands.argument("topKey", StringArgumentType.string()).then(
+                                                Commands.argument("type", StringArgumentType.string()).then(
+                                                        Commands.argument("key", StringArgumentType.string()).then(
+                                                                Commands.argument("value", StringArgumentType.string())
+                                                                        .executes(SpecificPlayerTagCommand.instance)
+                                                        )
+                                                )
+                                        )
+                                )
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher85 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd85 = dispatcher85.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("clearBounding")
+                                .executes(ClearBoundingCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
     }

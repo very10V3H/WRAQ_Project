@@ -11,7 +11,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.mt.ManaTowerItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -50,6 +50,7 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -92,7 +93,7 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.OVERWORLD)) {
                 if (overWolrdList.isEmpty()) setOverWorldList(event.level);
                 overWolrdList.forEach(mobSpawnController -> {
-                    if (tick % 160 == overWolrdList.indexOf(mobSpawnController)) {
+                    if (tick % 240 == overWolrdList.indexOf(mobSpawnController)) {
                         mobSpawnController.detectAndSpawn();
                     }
                     mobSpawnController.tick();
@@ -115,7 +116,7 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.NETHER)) {
                 if (netherList.isEmpty()) setNetherList(event.level);
                 netherList.forEach(mobSpawnController -> {
-                    if (tick % 160 == netherList.indexOf(mobSpawnController) + 50) {
+                    if (tick % 240 == netherList.indexOf(mobSpawnController) + 50) {
                         mobSpawnController.detectAndSpawn();
                     }
                     mobSpawnController.tick();
@@ -125,7 +126,7 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.END)) {
                 if (endList.isEmpty()) setEndList(event.level);
                 endList.forEach(mobSpawnController -> {
-                    if (tick % 160 == endList.indexOf(mobSpawnController) + 25) {
+                    if (tick % 240 == endList.indexOf(mobSpawnController) + 25) {
                         mobSpawnController.detectAndSpawn();
                     }
                     mobSpawnController.tick();
@@ -376,7 +377,7 @@ public class MobSpawn {
         return num;
     }
 
-    private static int getMobXpLevel(Mob mob) {
+    public static int getMobXpLevel(Mob mob) {
         String name = mob.getName().getString();
         int start = name.indexOf('.');
         int end = name.indexOf(' ');
@@ -405,6 +406,7 @@ public class MobSpawn {
             ItemAndRate.send(player, SpecialEventItems.QING_TUAN.get().getDefaultInstance());
         }
         LabourDayOldCoin.onPlayerKillMob(player);
+        DragonBoatFes.onKillMob(mob, player);
 
         recall(mob, player);
         if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) return;

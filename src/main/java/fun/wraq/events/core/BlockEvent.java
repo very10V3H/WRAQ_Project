@@ -56,6 +56,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -306,6 +307,15 @@ public class BlockEvent {
             } else {
                 BonusChestPlayerData.onPlayerSuccessOpenBonusChest(player, blockPos, event);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void recordPlayerOpenContainer(PlayerContainerEvent.Open event) {
+        Player player = event.getEntity();
+        String playerName = player.getName().getString();
+        if (event.getContainer() instanceof CookingPotMenu) {
+            LogUtils.getLogger().info("容器 {} 在 {} 打开了 {}", playerName, player.position(), event.getContainer());
         }
     }
 

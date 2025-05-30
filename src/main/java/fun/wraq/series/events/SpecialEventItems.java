@@ -7,12 +7,21 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
-import fun.wraq.series.events.labourDay.*;
+import fun.wraq.series.events._7shade.SevenShadePiece;
+import fun.wraq.series.events.dragonboat.DragonDiamond;
+import fun.wraq.series.events.dragonboat.MeatZongZi;
+import fun.wraq.series.events.dragonboat.SweetZongZi;
+import fun.wraq.series.events.labourDay.LabourDayIronHoe;
+import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.midautumn.MidAutumnBow;
 import fun.wraq.series.events.midautumn.MidAutumnSceptre;
 import fun.wraq.series.events.midautumn.MidAutumnSword;
 import fun.wraq.series.events.midautumn.MoonFeather;
-import fun.wraq.series.events.qingMing.*;
+import fun.wraq.series.events.qingMing.QingMingAttackRing;
+import fun.wraq.series.events.qingMing.QingMingCommonRing;
+import fun.wraq.series.events.qingMing.QingMingDefenceRing;
+import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.events.spring2024.FireCracker;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.events.spring2024.Spring2024Scale;
@@ -297,4 +306,59 @@ public class SpecialEventItems {
                 add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 1), 0.1));
                 add(new NewLotteries.Loot(new ItemStack(ModItems.WORLD_SOUL_5.get(), 4), 0.8));
             }}));
+
+    public static final RegistryObject<Item> ZONG_LEAF = ITEMS.register("zong_leaf",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DRAGON_BOAT_FES_RARITY)));
+    public static final RegistryObject<Item> SWEET_ZONG_ZI = ITEMS.register("sweet_zong_zi",
+            () -> new SweetZongZi(new Item.Properties().rarity(CustomStyle.DRAGON_BOAT_FES_RARITY)));
+    public static final RegistryObject<Item> MEAT_ZONG_ZI = ITEMS.register("meat_zong_zi",
+            () -> new MeatZongZi(new Item.Properties().rarity(CustomStyle.DRAGON_BOAT_FES_RARITY)));
+
+    public static final RegistryObject<Item> GOLDEN_ZONG_ZI_CONDIMENT = ITEMS.register("golden_zong_zi_condiment",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
+    public static final RegistryObject<Item> GOLDEN_ZONG_LEAF = ITEMS.register("golden_zong_leaf",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
+    public static final RegistryObject<Item> GOLDEN_ZONG_ZI = ITEMS.register("golden_zong_zi",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
+
+    public static final RegistryObject<Item> DRAGON_BOAT_FES_PREFIX = ITEMS.register("dragon_boat_fes_prefix",
+            () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.DRAGON_BOAT_FES_RARITY),
+                    "dragonBoatFes", "粽子大王", CustomStyle.DRAGON_BOAT_FES_STYLE));
+
+    public static final RegistryObject<Item> SEVEN_SHADE_PIECE_RICE
+            = ITEMS.register("seven_shade_piece_rice",
+            () -> new SevenShadePiece(new Item.Properties().rarity(CustomStyle.WorldBold),
+                    List.of(
+                            new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.05),
+                            new WraqGem.AttributeMapValue(Utils.healthRecover, -50)
+                    )));
+
+    public static final RegistryObject<Item> SEVEN_SHADE_PIECE_GOLDEN_LEAF
+            = ITEMS.register("seven_shade_piece_golden_leaf",
+            () -> new SevenShadePiece(new Item.Properties().rarity(CustomStyle.WorldBold),
+                    List.of(
+                            new WraqGem.AttributeMapValue(Utils.percentAttackDamageEnhance, 0.02),
+                            new WraqGem.AttributeMapValue(Utils.percentManaDamageEnhance, 0.02),
+                            new WraqGem.AttributeMapValue(Utils.manaRecover, 20),
+                            new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.04)
+                    )));
+
+    public static final RegistryObject<Item> SEVEN_SHADE_PIECE_DRAGON_BOAT
+            = ITEMS.register("seven_shade_piece_dragon_boat",
+            () -> new SevenShadePiece(new Item.Properties().rarity(CustomStyle.WorldBold),
+                    List.of(
+                            new WraqGem.AttributeMapValue(Utils.movementSpeedCommon, 0.1),
+                            new WraqGem.AttributeMapValue(Utils.coolDownDecrease, 0.1),
+                            new WraqGem.AttributeMapValue(Utils.defence, -20),
+                            new WraqGem.AttributeMapValue(Utils.manaDefence, -20)
+                    )));
+
+    public static final RegistryObject<Item> DRAGON_BOAT_FES_FORGE_PAPER
+            = ITEMS.register("dragon_boat_fes_forge_paper",
+            () -> new ForgePaper(new Item.Properties().rarity(CustomStyle.DRAGON_BOAT_FES_RARITY),
+                    "DragonBoatFes", LabourDayOldCoin.getLabourDaySuffix(),
+                    Te.s("「粽符+1」", CustomStyle.DRAGON_BOAT_FES_STYLE)));
+
+    public static final RegistryObject<Item> DRAGON_DIAMOND = ITEMS.register("dragon_diamond",
+            () -> new DragonDiamond(new Item.Properties().rarity(CustomStyle.WorldBold)));
 }

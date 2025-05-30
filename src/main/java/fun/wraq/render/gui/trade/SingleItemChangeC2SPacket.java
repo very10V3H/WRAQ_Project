@@ -1,6 +1,8 @@
 package fun.wraq.render.gui.trade;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -15,20 +17,24 @@ import java.util.function.Supplier;
 public class SingleItemChangeC2SPacket {
 
     private final ItemStack needStack;
+    private final int needCount;
     private final ItemStack goods;
 
-    public SingleItemChangeC2SPacket(ItemStack needStack, ItemStack goods) {
+    public SingleItemChangeC2SPacket(ItemStack needStack, int needCount, ItemStack goods) {
         this.needStack = needStack;
+        this.needCount = needCount;
         this.goods = goods;
     }
 
     public SingleItemChangeC2SPacket(FriendlyByteBuf buf) {
         this.needStack = buf.readItem();
+        this.needCount = buf.readInt();
         this.goods = buf.readItem();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeItem(needStack);
+        buf.writeInt(needCount);
         buf.writeItem(goods);
     }
 
@@ -39,9 +45,10 @@ public class SingleItemChangeC2SPacket {
             List<SingleItemChangeRecipe> recipeList = SingleItemChangeRecipe.getRecipeList();
             SingleItemChangeRecipe recipe = null;
             boolean containRecipe = false;
+            ItemStack material = new ItemStack(needStack.getItem(), needCount);
             for (SingleItemChangeRecipe singleItemChangeRecipe : recipeList) {
-                if (stackEquals(singleItemChangeRecipe.needStack(), needStack)
-                        && stackEquals(singleItemChangeRecipe.goods(), goods)) {
+                if (stackEquals(singleItemChangeRecipe.needStack, material)
+                        && stackEquals(singleItemChangeRecipe.goods, goods)) {
                     containRecipe = true;
                     if (SingleItemChangePurchaseLimit.check(serverPlayer, singleItemChangeRecipe)) {
                         recipe = singleItemChangeRecipe;
@@ -54,11 +61,13 @@ public class SingleItemChangeC2SPacket {
                 }
             }
             if (recipe != null) {
-                if (InventoryOperation.checkItemRemoveIfHas(serverPlayer, List.of(needStack))) {
+                if (InventoryOperation.checkItemRemoveIfHas(serverPlayer, List.of(material))) {
                     InventoryOperation.giveItemStack(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
                     Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
                             Te.s("完成了一笔交易!"));
                     SingleItemChangePurchaseLimit.addTimes(serverPlayer, recipe);
+                    LogUtils.getLogger().info("村民 {} 使用 {} 购买了 {} ", Name.get(serverPlayer),
+                            material.getItem() + " * " + material.getCount(), goods.getItem());
                 } else {
                     Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
                             Te.s("所需的物品不足。"));

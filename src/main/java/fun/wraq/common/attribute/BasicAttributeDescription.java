@@ -20,6 +20,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
 import fun.wraq.series.events.ForgePaper;
+import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
@@ -52,13 +53,15 @@ public class BasicAttributeDescription {
         if (localPlayer == null) return;
         int index = 4;
         ItemStack itemStack = event.getItemStack();
-        if (itemStack.getItem() instanceof WraqCurios) index = 5;
-        if (!(itemStack.getItem() instanceof WraqCurios || itemStack.getItem() instanceof WraqUniformCurios)
-                && itemStack.getTagElement(Utils.MOD_ID) == null && !Utils.offHandTag.containsKey(itemStack.getItem()))
+        Item item = itemStack.getItem();
+        if (item instanceof WraqCurios) index = 5;
+        if (item instanceof SevenShadePiece) index = 6;
+        if (!(item instanceof WraqCurios || item instanceof WraqUniformCurios
+                || item instanceof SevenShadePiece)
+                && itemStack.getTagElement(Utils.MOD_ID) == null && !Utils.offHandTag.containsKey(item))
             return;
         if (event.getTooltipElements().size() < 5) return;
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-        Item item = itemStack.getItem();
 
         if (data.contains(StringUtils.ForgeLevel)) {
             int forgeLevel = data.getInt(StringUtils.ForgeLevel);
@@ -211,8 +214,16 @@ public class BasicAttributeDescription {
             } else defence = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.defence);
 
             MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 基础护甲").withStyle(ChatFormatting.GRAY).
-                    append(Component.literal("+" + getDecimal(defence, 1)).withStyle(ChatFormatting.WHITE)));
+
+            if (defence > 0) {
+                mutableComponent.append(Component.literal(" 基础护甲").withStyle(ChatFormatting.GRAY).
+                        append(Component.literal("+" + getDecimal(defence, 1)).withStyle(ChatFormatting.WHITE)));
+            }
+
+            if (defence < 0) {
+                mutableComponent.append(Te.s(" 基础护甲", ChatFormatting.GRAY,
+                        "-" + getDecimal(-defence, 1), ChatFormatting.RED));
+            }
 
             handleExBaseAttributeValue(itemStack, mutableComponent, Utils.defence);
             handleForge(data, defence, mutableComponent);
@@ -239,8 +250,14 @@ public class BasicAttributeDescription {
                 manaDefence = data.getDouble(StringUtils.RandomCuriosAttribute.manaDefence) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.manaDefence);
 
             MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 魔法抗性").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+" + getDecimal(manaDefence, 1)).withStyle(ChatFormatting.WHITE)));
+            if (manaDefence > 0) {
+                mutableComponent.append(Component.literal(" 魔法抗性").withStyle(ChatFormatting.BLUE).
+                        append(Component.literal("+" + getDecimal(manaDefence, 1)).withStyle(ChatFormatting.WHITE)));
+            }
+            if (manaDefence < 0) {
+                mutableComponent.append(Te.s(" 魔法抗性", ChatFormatting.BLUE,
+                        "-" + getDecimal(-manaDefence, 1), ChatFormatting.RED));
+            }
 
             handleForge(data, manaDefence, mutableComponent);
             handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaDefence, mutableComponent);
@@ -279,15 +296,13 @@ public class BasicAttributeDescription {
 
             handleExBaseAttributeValue(itemStack, mutableComponent, Utils.maxHealth);
             double ExHealth = 0;
-            if (data.contains(StringUtils.ForgeLevel)) ExHealth = Compute.forgingValue(data, maxHealth);
+            if (data.contains(StringUtils.ForgeLevel)) {
+                ExHealth = Compute.forgingValue(data, maxHealth);
+            }
 
             if (ExHealth > 0) {
                 mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExHealth)).withStyle(ChatFormatting.GREEN).
                         append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
-            }
-            if (ExHealth < 0) {
-                mutableComponent.append(Component.literal(" - " + String.format("%.0f", -(ExHealth))).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.RED));
             }
 
             handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.maxHealth, mutableComponent);
@@ -1057,6 +1072,11 @@ public class BasicAttributeDescription {
                     exForgingValue = Compute.forgingValue(data, value);
                 }
 
+                // 移动速度属性强化效能减半
+                if (map.equals(Utils.movementSpeedCommon)) {
+                    exForgingValue /= 2;
+                }
+
                 if (exForgingValue != 0) {
                     mutableComponent.append(Component.literal(" + " + getDecimal(exForgingValue * (isPercent ? 100 : 1), decimalScale) + percent).withStyle(forgeValueStyle)).
                             append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower));
@@ -1159,10 +1179,12 @@ public class BasicAttributeDescription {
     }
 
     private static void handleForge(CompoundTag data, double baseValue, MutableComponent mutableComponent) {
-        double ExDamageForging = 0;
-        if (data.contains(StringUtils.ForgeLevel)) ExDamageForging = Compute.forgingValue(data, baseValue);
-        if (ExDamageForging != 0) {
-            mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.YELLOW)).
+        double exDamageForging = 0;
+        if (data.contains(StringUtils.ForgeLevel)) {
+            exDamageForging = Compute.forgingValue(data, baseValue);
+        }
+        if (exDamageForging > 0) {
+            mutableComponent.append(Component.literal(" + " + String.format("%.0f", exDamageForging)).withStyle(ChatFormatting.YELLOW)).
                     append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower));
         }
     }

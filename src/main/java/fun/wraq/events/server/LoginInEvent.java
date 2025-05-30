@@ -59,6 +59,8 @@ import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
 import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events._7shade.SevenShadePiece;
+import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -300,16 +302,9 @@ public class LoginInEvent {
             DailySupply.sendStatusToClient(player);
             VpDataHandler.sendPlayerVpValue(player);
 
-            int quickUseMode = 1;
             if (data.contains(QuickUseHud.DISPLAY_KEY)) {
                 ModNetworking.sendToClient(
                         new QuickUseDisplayS2CPacket(data.getInt(QuickUseHud.DISPLAY_KEY)), serverPlayer);
-                quickUseMode = data.getInt(QuickUseHud.DISPLAY_KEY);
-            }
-            if (quickUseMode != -1) {
-                Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                        Te.s("战斗快捷使用显示正在以 ", "模式" + quickUseMode, ChatFormatting.AQUA,
-                                " 显示，使用/vmd quickUseDisplay [模式] 来关闭或切换模式"));
             }
 
             if (!serverPlayer.getName().getString().equals("very_H")) {
@@ -352,6 +347,8 @@ public class LoginInEvent {
             LabourDayOldCoin.onPlayerLoginTips(player);
             EstatePlayerData.onLogin(player);
             CookingPlayerData.sendCookingExpToClient(player);
+            SevenShadePiece.sendDataToClient(player);
+            DragonBoatFes.onLogin(player);
         }
     }
 

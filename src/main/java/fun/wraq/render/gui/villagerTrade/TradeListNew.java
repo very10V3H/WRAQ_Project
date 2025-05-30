@@ -26,6 +26,7 @@ public class TradeListNew {
         cookingSpecial();
         cookingTools();
         cooking();
+        dragonBoat();
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -171,9 +172,14 @@ public class TradeListNew {
     }
 
     public static void cooking() {
-        List<ItemStack> contentList = new ArrayList<>();
         MyVillagerData.setMyVillagerData("联合研院大吃货 - 老八",
                 "cooking", CustomStyle.MUSHROOM_STYLE, VillagerType.SNOW,
-                VillagerProfession.LIBRARIAN, contentList);
+                VillagerProfession.LIBRARIAN, List.of());
+    }
+
+    public static void dragonBoat() {
+        MyVillagerData.setMyVillagerData("粽子大王",
+                "dragonBoat", CustomStyle.DRAGON_BOAT_FES_STYLE, VillagerType.JUNGLE,
+                VillagerProfession.BUTCHER, List.of());
     }
 }

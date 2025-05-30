@@ -14,6 +14,9 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class killCommand implements Command<CommandSourceStack> {
     public static killCommand instance = new killCommand();
 
@@ -24,17 +27,27 @@ public class killCommand implements Command<CommandSourceStack> {
             return 0;
         }
         player.sendSystemMessage(Te.s("击杀数统计如下:"));
+        Set<String> set = new HashSet<>();
         for (MobSpawnController controller : MobSpawn.getAllControllers(true)) {
-            player.sendSystemMessage(Te.s(controller.mobName, " : ",
-                    MobSpawn.getPlayerKillCount(player, controller.mobName.getString())));
+            if (!set.contains(controller.mobName.getString())) {
+                set.add(controller.mobName.getString());
+                player.sendSystemMessage(Te.s(controller.mobName, " : ",
+                        MobSpawn.getPlayerKillCount(player, controller.mobName.getString())));
+            }
         }
         for (NoTeamInstance noTeamInstance : NoTeamInstanceModule.getAllInstance()) {
-            player.sendSystemMessage(Te.s(noTeamInstance.name, " : ",
-                    MobSpawn.getPlayerKillCount(player, noTeamInstance.name.getString())));
+            if (!set.contains(noTeamInstance.name.getString())) {
+                set.add(noTeamInstance.name.getString());
+                player.sendSystemMessage(Te.s(noTeamInstance.name, " : ",
+                        MobSpawn.getPlayerKillCount(player, noTeamInstance.name.getString())));
+            }
         }
         for (NewTeamInstance instance : NewTeamInstanceHandler.getInstances()) {
-            player.sendSystemMessage(Te.s(instance.description, " : ",
-                    MobSpawn.getPlayerKillCount(player, instance.description.getString())));
+            if (!set.contains(instance.description.getString())) {
+                set.add(instance.description.getString());
+                player.sendSystemMessage(Te.s(instance.description, " : ",
+                        MobSpawn.getPlayerKillCount(player, instance.description.getString())));
+            }
         }
         player.sendSystemMessage(Te.s("总击杀数 : ",
                 MobSpawn.totalKillCountCache.getOrDefault(Name.get(player), 0)));

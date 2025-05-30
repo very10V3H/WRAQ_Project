@@ -128,6 +128,11 @@ public class RightClickEvent {
                     event.setCanceled(true);
                     return;
                 }
+                case "粽子大王" -> {
+                    ModNetworking.sendToClient(new ScreenSetS2CPacket(9), player);
+                    event.setCanceled(true);
+                    return;
+                }
             }
             boolean flag = false;
             for (MutableComponent value : StringUtils.VillagerNameMap.values()) {

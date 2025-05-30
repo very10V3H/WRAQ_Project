@@ -103,8 +103,13 @@ public abstract class WraqArmor extends ArmorItem {
             components.addAll(getAdditionalComponents(stack));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
+        components.addAll(getExtraDescription());
         components.add(getSuffix());
         super.appendHoverText(stack, level, components, flag);
+    }
+
+    public List<Component> getExtraDescription() {
+        return List.of();
     }
 
     @OnlyIn(Dist.CLIENT)

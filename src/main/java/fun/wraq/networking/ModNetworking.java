@@ -94,6 +94,7 @@ import fun.wraq.render.gui.trade.SingleItemChangeC2SPacket;
 import fun.wraq.render.gui.trade.SingleItemChangeFullDataS2CPacket;
 import fun.wraq.render.gui.trade.SingleItemChangeSingleRecipeTimeS2CPacket;
 import fun.wraq.render.hud.networking.*;
+import fun.wraq.series.events._7shade.SevenShadePieceS2CPacket;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -1352,6 +1353,11 @@ public class ModNetworking {
                 .decoder(CookingDataS2CPacket::new)
                 .encoder(CookingDataS2CPacket::toBytes)
                 .consumerMainThread(CookingDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(SevenShadePieceS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SevenShadePieceS2CPacket::new)
+                .encoder(SevenShadePieceS2CPacket::toBytes)
+                .consumerMainThread(SevenShadePieceS2CPacket::handle)
                 .add();
     }
 

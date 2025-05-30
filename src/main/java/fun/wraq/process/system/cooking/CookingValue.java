@@ -11,6 +11,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventItems;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.brdle.collectorsreap.data.CRItemTags;
 import net.minecraft.ChatFormatting;
@@ -65,7 +66,7 @@ public class CookingValue {
         }
         int ingredientValue = getIngredientValue(item);
         if (ingredientValue > 0) {
-            components.add(Te.s(" 食材价值: ", ingredientValue + "VB", ChatFormatting.GOLD));
+            components.add(Te.s(" 食材价值: ", ingredientValue + " VB", ChatFormatting.GOLD));
         }
     }
 
@@ -74,7 +75,7 @@ public class CookingValue {
         Item item = stack.getItem();
         int value = getMealValue(item);
         if (value != 0) {
-            components.add(Te.s("食材总价: ", (value * stack.getCount()) + "VB", ChatFormatting.GOLD));
+            components.add(Te.s("食材总价: ", (value * stack.getCount()) + " VB", ChatFormatting.GOLD));
             int count = mealIngredientCountMap.getOrDefault(item, 0);
             int typeCount = mealIngredientTypeCountMap.getOrDefault(item, 0);
             if (count > 0) {
@@ -84,7 +85,7 @@ public class CookingValue {
                 components.add(Te.s("食材种类: ", typeCount + " (+" + typeCount * typeCountExValue + "%)", ChatFormatting.AQUA));
             }
             int price = getMealSellValue(stack);
-            components.add(Te.s("售价: ", price + "VB", ChatFormatting.GOLD));
+            components.add(Te.s("售价: ", price + " VB", ChatFormatting.GOLD));
             components.add(Te.s("收益率: ",
                     String.format("%.0f%%", (price * 1d / (value * stack.getCount()) - 1) * 100), ChatFormatting.RED));
             if (item.equals(ModItems.RAW_PASTA.get())) {
@@ -168,8 +169,8 @@ public class CookingValue {
         CookingPlayerData.incrementSellFoodCount(player, count);
         CookingVillager.sendMSG(player, Te.s("共售出了",
                 count + "份", CustomStyle.MUSHROOM_STYLE, "食物，",
-                "共收入", sum + "VB，", ChatFormatting.GOLD,
-                "食材成本为:", cost + "VB.", ChatFormatting.GOLD,
+                "共收入", sum + " VB，", ChatFormatting.GOLD,
+                "食材成本为:", cost + " VB.", ChatFormatting.GOLD,
                 "(累计售出份数:" + CookingPlayerData.getSellFoodCount(player) + ")", ChatFormatting.GRAY));
         LogUtils.getLogger().info("烹饪 {} 售出了 {} 份食物, 共收入 {} VB, 成本为 {} VB",
                 Name.get(player), count, sum, cost);
@@ -311,6 +312,9 @@ public class CookingValue {
         put(NeapolitanItems.ADZUKI_BEANS.get(), CROPS);
         put(NeapolitanItems.ROASTED_ADZUKI_BEANS.get(), CROPS);
         put(NeapolitanItems.STRAWBERRIES.get(), FRUITS);
+        put(SpecialEventItems.ZONG_LEAF.get(), SPECIAL);
+        put(SpecialEventItems.GOLDEN_ZONG_LEAF.get(), SPECIAL);
+        put(SpecialEventItems.GOLDEN_ZONG_ZI_CONDIMENT.get(), SPECIAL);
     }};
 
     public static final Map<TagKey<Item>, String> ingredientTagTypeMap = new HashMap<>() {{
@@ -395,6 +399,7 @@ public class CookingValue {
             ingredientItemValueMap.put(Items.MELON_SLICE, 36);
             ingredientItemValueMap.put(NeapolitanItems.BANANA.get(), 36);
             ingredientItemValueMap.put(NeapolitanItems.STRAWBERRIES.get(), 36);
+            ingredientItemValueMap.put(SpecialEventItems.ZONG_LEAF.get(), 88);
 
             ingredientItemValueMap.put(BnCItems.FLAXEN_CHEESE_WEDGE.get(), 110);
             ingredientItemValueMap.put(BnCItems.FLAXEN_CHEESE_WHEEL.get(), 440);
@@ -419,6 +424,8 @@ public class CookingValue {
             ingredientItemValueMap.put(CRItems.CLAM.get(), 300);
             ingredientItemValueMap.put(CRItems.PLATINUM_BASS_HEAD.get(), 144);
             ingredientItemValueMap.put(CRItems.CHIEFTAIN_CRAB_BUCKET.get(), 800);
+            ingredientItemValueMap.put(SpecialEventItems.GOLDEN_ZONG_LEAF.get(), 17600);
+            ingredientItemValueMap.put(SpecialEventItems.GOLDEN_ZONG_ZI_CONDIMENT.get(), 7680);
         }
 
         if (ingredientTagKeyValueMap.isEmpty()) {

@@ -99,6 +99,8 @@ public class DamageInfluence {
                 ModEffects.ATTACK_DAMAGE_ENHANCE.get(), 0.35, 0.5);
         rate += Compute.CuriosAttribute
                 .attributeValue(player, Utils.attackDamageEnhance, StringUtils.RandomCuriosAttribute.attackDamageEnhance);
+        rate += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player,
+                Utils.attackDamageEnhance, false);
         return rate;
     }
 
@@ -117,6 +119,8 @@ public class DamageInfluence {
                 ModEffects.MANA_DAMAGE_ENHANCE.get(), 0.35, 0.5);
         rate += Compute.CuriosAttribute
                 .attributeValue(player, Utils.manaDamageEnhance, StringUtils.RandomCuriosAttribute.manaDamageEnhance);
+        rate += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player,
+                Utils.manaDamageEnhance, false);
         return rate;
     }
 

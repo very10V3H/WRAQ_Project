@@ -77,7 +77,7 @@ import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
-import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.mt.ManaTowerItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
@@ -102,6 +102,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 
@@ -109,6 +110,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.util.Map;
 
 @Mod(Utils.MOD_ID)
 @Mod.EventBusSubscriber
@@ -680,6 +682,13 @@ public class VMD {
             CookingItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.ALL.getKey())) {
+            ForgeRegistries.ITEMS.getEntries()
+                    .stream()
+                    .filter(entry -> entry.getKey().location().getNamespace().equals(Utils.MOD_ID))
+                    .map(Map.Entry::getValue)
                     .forEach(event::accept);
         }
     }

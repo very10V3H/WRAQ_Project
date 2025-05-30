@@ -20,7 +20,7 @@ public class FoodMedal extends WraqCurios implements InCuriosOrEquipSlotAttribut
     public FoodMedal(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.percentHealthRecover.put(this, new double[]{0.005, 0.008, 0.01, 0.015, 0.02}[tier]);
+        Utils.percentHealthRecover.put(this, new double[]{0.002, 0.004, 0.006, 0.008, 0.01}[tier]);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class FoodMedal extends WraqCurios implements InCuriosOrEquipSlotAttribut
                 "提供", ComponentUtils.AttributeDescription.maxHealth("")));
         int cookingLevel = CookingPlayerData.getLevelByExp(CookingPlayerData.clientCookingExp);
         components.add(Te.s(CookingPlayerData.getPrefixByLevel(cookingLevel), hoverMainStyle(),
-                "->", ComponentUtils.AttributeDescription.maxHealth(String.format("%d%%", cookingLevel * 4))));
+                "->", ComponentUtils.AttributeDescription.maxHealth(String.format("%d%%", cookingLevel))));
         return components;
     }
 
@@ -53,7 +53,7 @@ public class FoodMedal extends WraqCurios implements InCuriosOrEquipSlotAttribut
     @Override
     public List<Attribute> getAttributes(Player player, ItemStack stack) {
         return List.of(
-                new Attribute(Utils.percentMaxHealthEnhance, CookingPlayerData.getPlayerCookingLevel(player) * 0.04)
+                new Attribute(Utils.percentMaxHealthEnhance, CookingPlayerData.getPlayerCookingLevel(player) * 0.01)
         );
     }
 }

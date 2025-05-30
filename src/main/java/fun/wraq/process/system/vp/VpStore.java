@@ -1,6 +1,8 @@
 package fun.wraq.process.system.vp;
 
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.customized.UniformItems;
+import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.world.item.Item;
 
@@ -18,15 +20,47 @@ public class VpStore {
 
     public static List<Item> getGoodsList() {
         if (goodsList.isEmpty()) {
-            Item[] items = new Item[]{
-                    ModItems.SWORD_LOTTERY.get(), ModItems.SWORD_LOTTERY_1.get(),
-                    ModItems.BOW_LOTTERY.get(), ModItems.BOW_LOTTERY_1.get(),
-                    ModItems.SCEPTRE_LOTTERY.get(), ModItems.SCEPTRE_LOTTERY_1.get(),
-                    ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
-                    ModItems.SENIOR_POTION_SUPPLY.get(), ModItems.ORE_SUPPLY.get(),
-                    ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get()
-            };
-            goodsList.addAll(List.of(items));
+            List<Item> items = new ArrayList<>() {{
+                addAll(List.of(
+                        ModItems.SWORD_LOTTERY.get(), ModItems.SWORD_LOTTERY_1.get(),
+                        ModItems.BOW_LOTTERY.get(), ModItems.BOW_LOTTERY_1.get(),
+                        ModItems.SCEPTRE_LOTTERY.get(), ModItems.SCEPTRE_LOTTERY_1.get(),
+                        ModItems.simpleTier1Paper.get(),
+                        ModItems.simpleTier2Paper.get(),
+                        ModItems.simpleTier3Paper.get(),
+                        ModItems.SENIOR_POTION_SUPPLY.get(), ModItems.ORE_SUPPLY.get(),
+                        ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get()
+                ));
+            }};
+            if (DragonBoatFes.isInActivate()) {
+                items.addAll(List.of(
+                        UniformItems.AttackCurios0.get(),
+                        UniformItems.AttackCurios1.get(),
+                        UniformItems.AttackCurios2.get(),
+                        UniformItems.ATTACK_CURIOS_3.get(),
+                        UniformItems.ATTACK_CURIOS_4.get(),
+                        UniformItems.ATTACK_CURIOS_5.get(),
+                        UniformItems.ATTACK_CURIOS_YXWG.get(),
+                        UniformItems.ATTACK_CURIO_LX.get(),
+                        UniformItems.BowCurios0.get(),
+                        UniformItems.BowCurios1.get(),
+                        UniformItems.BowCurios2.get(),
+                        UniformItems.BOW_CURIOS_3.get(),
+                        UniformItems.BOW_CURIOS_4.get(),
+                        UniformItems.BOW_CURIOS_5.get(),
+                        UniformItems.BOW_CURIOS_YXWG.get(),
+                        UniformItems.BOW_CURIO_LEI_YAN.get(),
+                        UniformItems.ManaCurios0.get(),
+                        UniformItems.ManaCurios1.get(),
+                        UniformItems.ManaCurios2.get(),
+                        UniformItems.MANA_CURIOS_3.get(),
+                        UniformItems.MANA_CURIOS_4.get(),
+                        UniformItems.MANA_CURIOS_5.get(),
+                        UniformItems.MANA_CURIOS_YXWG.get(),
+                        UniformItems.MANA_CURIO_TABOO.get()
+                ));
+            }
+            goodsList.addAll(items);
         }
         return goodsList;
     }
@@ -46,6 +80,11 @@ public class VpStore {
             priceMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 15);
             priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 15);
             priceMap.put(ModItems.SENIOR_SUPPLY.get(), 45);
+            getGoodsList().forEach(item -> {
+                if (!priceMap.containsKey(item)) {
+                    priceMap.put(item, 300);
+                }
+            });
         }
         if (LabourDayOldCoin.isInActivityDate()) {
             priceMap.put(ModItems.simpleTier1Paper.get(), 54);
@@ -84,6 +123,11 @@ public class VpStore {
             countMap.put(ModItems.JUNIOR_SUPPLY.get(), 1);
             countMap.put(ModItems.SENIOR_SUPPLY.get(), 1);
         }
+        goodsList.forEach(item -> {
+            if (!countMap.containsKey(item)) {
+                countMap.put(item, 1);
+            }
+        });
         return countMap;
     }
 }

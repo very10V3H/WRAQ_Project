@@ -2200,6 +2200,36 @@
   "item.vmd.mushroom_parasitism_gem_1": "★菌菇寄生宝石★",
   "item.vmd.mushroom_split_gem_1": "★菌菇分生宝石★",
 
+  "item.vmd.zong_leaf": "粽叶",
+  "item.vmd.sweet_zong_zi": "甜粽",
+  "item.vmd.meat_zong_zi": "肉粽",
+  "item.vmd.dragon_boat_fes_prefix": "称号「粽子大王」",
+  "item.vmd.golden_zong_zi_condiment": "黄金粽调味品",
+  "item.vmd.golden_zong_leaf": "黄金粽叶",
+  "item.vmd.golden_zong_zi": "黄金粽",
+  "item.vmd.dragon_boat_fes_forge_paper": "凋叶粽符",
+  "item.vmd.seven_shade_piece_rice": "七影碎片 - 糯米",
+  "item.vmd.seven_shade_piece_golden_leaf": "七影碎片 - 黄金叶",
+  "item.vmd.seven_shade_piece_dragon_boat": "七影碎片 - 龙舟",
+  "item.vmd.dragon_diamond": "龙钻",
+
+  "item.vmd.kanupus_wing_f": "卡纽帕斯之翼\uD835\uDE41",
+  "item.vmd.kanupus_wing_e": "卡纽帕斯之翼\uD835\uDE40",
+  "item.vmd.kanupus_wing_d": "卡纽帕斯之翼\uD835\uDE3F",
+  "item.vmd.kanupus_wing_c": "卡纽帕斯之翼\uD835\uDE3E",
+  "item.vmd.kanupus_wing_b": "卡纽帕斯之翼\uD835\uDE3D",
+  "item.vmd.kanupus_wing_a": "卡纽帕斯之翼\uD835\uDE3C",
+  "item.vmd.kanupus_wing_z": "卡纽帕斯之翼\uD835\uDE55",
+
+  "item.vmd.kanupus_core_e": "卡纽帕斯之核\uD835\uDE40",
+  "item.vmd.kanupus_core_d": "卡纽帕斯之核\uD835\uDE3F",
+  "item.vmd.kanupus_core_c": "卡纽帕斯之核\uD835\uDE3E",
+  "item.vmd.kanupus_core_b": "卡纽帕斯之核\uD835\uDE3D",
+  "item.vmd.kanupus_core_a": "卡纽帕斯之核\uD835\uDE3C",
+  "item.vmd.kanupus_core_z": "卡纽帕斯之核\uD835\uDE55",
+
+  "item.vmd.refined_divine_piece": "圣光团露",
+
   "item.vmd.splasher": "膨热剂",
 
   "item.vmd.attackup_potion": "攻击提升药水",
@@ -2698,8 +2728,11 @@
   "item.minecraft.splash_potion.effect.con_healreply_potion": "浓缩喷溅型生命回复提升药水",
   "item.minecraft.lingering_potion.effect.con_healreply_potion": "浓缩滞留型生命回复提升药水",
 
-  "block.vmd.forging_block": "维瑞阿契锻造台",
-  "block.vmd.h_brewing_block": "维瑞阿契酿造台",
+  "block.vmd.forging_block": "锻造台",
+  "block.vmd.h_brewing_block": "酿造台",
+  "block.vmd.inject_block": "灌注台",
+  "block.vmd.furnace": "炼造台",
+
   "itemGroup.vmd": "维瑞阿契物品栏",
 
   "entity.vmd.hboss": "铁头的方块哥",

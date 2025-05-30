@@ -32,13 +32,20 @@ public class ProgressUnlockCommand implements Command<CommandSourceStack> {
             }
 
             // target -> player
-            List<String> tags = List.of(NoTeamInstanceModule.AllowRewardKey.blackCastle, NoTeamInstanceModule.AllowRewardKey.nether,
-                    NoTeamInstanceModule.AllowRewardKey.iceKnight, NoTeamInstanceModule.AllowRewardKey.purpleIron,
-                    NoTeamInstanceModule.AllowRewardKey.devil, NoTeamInstanceModule.AllowRewardKey.moon,
-                    NoTeamInstanceModule.AllowRewardKey.sakuraBoss, NoTeamInstanceModule.AllowRewardKey.blackCastle,
-                    NoTeamInstanceModule.AllowRewardKey.moontainBoss, NoTeamInstanceModule.AllowRewardKey.enderGuardian,
-                    NoTeamInstanceModule.AllowRewardKey.warden, NoTeamInstanceModule.AllowRewardKey.harbinger,
-                    NoTeamInstanceModule.AllowRewardKey.bunker, NoTeamInstanceModule.AllowRewardKey.divine);
+            List<String> tags = List.of(NoTeamInstanceModule.AllowRewardKey.blackCastle,
+                    NoTeamInstanceModule.AllowRewardKey.nether,
+                    NoTeamInstanceModule.AllowRewardKey.iceKnight,
+                    NoTeamInstanceModule.AllowRewardKey.purpleIron,
+                    NoTeamInstanceModule.AllowRewardKey.devil,
+                    NoTeamInstanceModule.AllowRewardKey.moon,
+                    NoTeamInstanceModule.AllowRewardKey.sakuraBoss,
+                    NoTeamInstanceModule.AllowRewardKey.blackCastle,
+                    NoTeamInstanceModule.AllowRewardKey.moontainBoss,
+                    NoTeamInstanceModule.AllowRewardKey.enderGuardian,
+                    NoTeamInstanceModule.AllowRewardKey.warden,
+                    NoTeamInstanceModule.AllowRewardKey.harbinger,
+                    NoTeamInstanceModule.AllowRewardKey.bunker,
+                    NoTeamInstanceModule.AllowRewardKey.divine);
             tags.forEach(s -> {
                 NoTeamInstanceModule.putPlayerAllowReward(target, s, true);
             });

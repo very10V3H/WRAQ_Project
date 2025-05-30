@@ -1,6 +1,7 @@
 package fun.wraq.events.mob;
 
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -146,6 +147,7 @@ public abstract class MobSpawnController {
                     }
                     for (int i = 0; i < summonTimes; i++) {
                         Mob mob = this.mobItemAndAttributeSet();
+                        DragonBoatFes.handleOnMobSpawn(mob);
                         Random r = new Random();
                         Vec3 offset = Vec3.ZERO;
                         if (summonOffset > 0) {

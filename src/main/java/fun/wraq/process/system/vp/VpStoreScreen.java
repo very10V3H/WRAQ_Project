@@ -50,7 +50,7 @@ public class VpStoreScreen extends Screen {
         }).pos(this.width / 2 + 20 - 4, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
-            this.minecraft.setScreen((Screen) null);
+            this.minecraft.setScreen(null);
             this.minecraft.mouseHandler.grabMouse();
         }).pos(this.width / 2 + 136, this.height / 2 - 98).size(12, 12).build());
 

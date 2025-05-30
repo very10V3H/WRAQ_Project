@@ -3,13 +3,30 @@ package fun.wraq.render.gui.trade;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.item.FoodCoinStoreRecipe;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.series.events.dragonboat.DragonBoatStoreRecipe;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public record SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, String limitType, int limitTimes) {
+public class SingleItemChangeRecipe {
+
+    public ItemStack needStack;
+    public ItemStack goods;
+    public String limitType;
+    public int limitTimes;
+    public SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, String limitType, int limitTimes) {
+        this.needStack = needStack;
+        this.goods = goods;
+        this.limitType = limitType;
+        this.limitTimes = limitTimes;
+    }
+
+    public SingleItemChangeRecipe(ItemStack needStack, ItemStack goods) {
+        this(needStack, goods, SingleItemChangePurchaseLimit.Type.NULL, 0);
+    }
+
     public static List<SingleItemChangeRecipe> recipeList = new ArrayList<>();
 
     public static List<SingleItemChangeRecipe> endlessCoreStoreRecipe = List.of(
@@ -54,12 +71,13 @@ public record SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, Strin
         if (recipeList.isEmpty()) {
             recipeList.addAll(endlessCoreStoreRecipe);
             recipeList.addAll(FoodCoinStoreRecipe.recipes);
+            recipeList.addAll(DragonBoatStoreRecipe.recipes);
         }
         return recipeList;
     }
 
     public String getDataKey() {
-        return needStack().getItem() + "#" + needStack().getCount() + "#"
-                + goods().getItem() + "#" + goods().getCount() + "#" + limitType + "#";
+        return needStack.getItem() + "#" + needStack.getCount() + "#"
+                + goods.getItem() + "#" + goods.getCount() + "#" + limitType + "#";
     }
 }

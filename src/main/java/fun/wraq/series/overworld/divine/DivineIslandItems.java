@@ -298,4 +298,7 @@ public class DivineIslandItems {
     public static final RegistryObject<Item> DIVINE_BOOTS_1 = ITEMS.register("divine_boots_1",
             () -> new DivineArmor(ModArmorMaterials.DIVINE, ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(CustomStyle.DIVINE_ITALIC_RARITY), 1));
+
+    public static final RegistryObject<Item> REFINED_DIVINE_PIECE = ITEMS.register("refined_divine_piece",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.DIVINE_BOLD_RARITY)));
 }

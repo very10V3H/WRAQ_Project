@@ -1,0 +1,29 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 400,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "vmd:zong_leaf"
+    },
+    {
+      "item": "vmd:zong_leaf"
+    },
+    {
+      "tag": "forge:crops/rice"
+    },
+    {
+      "tag": "forge:crops/rice"
+    },
+    {
+      "tag": "forge:raw_pork"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "item": "vmd:meat_zong_zi"
+  }
+}

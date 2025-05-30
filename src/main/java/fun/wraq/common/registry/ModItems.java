@@ -1045,7 +1045,9 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
 
     public static final RegistryObject<Item> FOILED_NETHER_IMPRINT = ITEMS.register("foiled_nether_imprint",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), true, true));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), true, true, List.of(
+                    Te.s("于", "炼造台", CustomStyle.styleOfPower, "制作")
+            )));
 
     public static final RegistryObject<Item> NETHER_POWER_MODEL = ITEMS.register("powermodel",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Evoker)));

@@ -49,32 +49,32 @@ public class SingleItemChangePurchaseLimit {
     }
 
     public static boolean check(Player player, SingleItemChangeRecipe recipe) {
-        if (recipe.limitType().equals(Type.NULL)) return true;
+        if (recipe.limitType.equals(Type.NULL)) return true;
         String dataKey = recipe.getDataKey();
-        return getPlayerPurchaseLimitData(player, recipe.limitType()).getInt(dataKey) < recipe.limitTimes();
+        return getPlayerPurchaseLimitData(player, recipe.limitType).getInt(dataKey) < recipe.limitTimes;
     }
 
     public static int getTimes(Player player, SingleItemChangeRecipe recipe) {
-        return getPlayerPurchaseLimitData(player, recipe.limitType()).getInt(recipe.getDataKey());
+        return getPlayerPurchaseLimitData(player, recipe.limitType).getInt(recipe.getDataKey());
     }
 
     public static void addTimes(Player player, SingleItemChangeRecipe recipe) {
         String dataKey = recipe.getDataKey();
-        CompoundTag data = getPlayerPurchaseLimitData(player, recipe.limitType());
+        CompoundTag data = getPlayerPurchaseLimitData(player, recipe.limitType);
         data.putInt(dataKey, data.getInt(dataKey) + 1);
         sendSingleRecipeTimes(player, recipe);
     }
 
     public static void setTimes(Player player, SingleItemChangeRecipe recipe, int times) {
         String dataKey = recipe.getDataKey();
-        CompoundTag data = getPlayerPurchaseLimitData(player, recipe.limitType());
+        CompoundTag data = getPlayerPurchaseLimitData(player, recipe.limitType);
         data.putInt(dataKey, 0);
         sendSingleRecipeTimes(player, recipe);
     }
 
     private static void refresh(Player player, String type) {
         SingleItemChangeRecipe.getRecipeList().forEach(recipe -> {
-            if (recipe.limitType().equals(type)) {
+            if (recipe.limitType.equals(type)) {
                 setTimes(player, recipe, 0);
             }
         });
@@ -108,7 +108,7 @@ public class SingleItemChangePurchaseLimit {
     public static Map<String, Integer> getPlayerDataMap(Player player) {
         Map<String, Integer> map = new HashMap<>();
         SingleItemChangeRecipe.getRecipeList().forEach(recipe -> {
-            if (!Objects.equals(recipe.limitType(), Type.NULL)) {
+            if (!Objects.equals(recipe.limitType, Type.NULL)) {
                 map.put(recipe.getDataKey(), SingleItemChangePurchaseLimit.getTimes(player, recipe));
             }
         });

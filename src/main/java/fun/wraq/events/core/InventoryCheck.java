@@ -2,6 +2,7 @@ package fun.wraq.events.core;
 
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -14,9 +15,10 @@ import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.series.TickItem;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
-import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.mt.ManaTowerItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -45,13 +47,15 @@ public class InventoryCheck {
                 && event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
-            String name = serverPlayer.getName().getString();
+/*            String name = serverPlayer.getName().getString();
             if (name.equals("Dev")) {
                 return;
-            }
+            }*/
             Inventory inventory = player.getInventory();
+            DragonDiamond.countMap.remove(Name.get(player));
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 ItemStack itemStack = inventory.getItem(i);
+                DragonDiamond.handleEachStack(itemStack, player);
                 Item item = itemStack.getItem();
                 if (item instanceof TickItem tickItem) {
                     tickItem.handleTick(player, itemStack);

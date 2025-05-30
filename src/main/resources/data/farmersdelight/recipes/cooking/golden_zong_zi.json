@@ -1,0 +1,29 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 300,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "vmd:golden_zong_leaf"
+    },
+    {
+      "item": "vmd:golden_zong_leaf"
+    },
+    {
+      "tag": "forge:crops/rice"
+    },
+    {
+      "tag": "forge:crops/rice"
+    },
+    {
+      "tag": "forge:crops/rice"
+    },
+    {
+      "item": "vmd:golden_zong_zi_condiment"
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "item": "vmd:golden_zong_zi"
+  }
+}

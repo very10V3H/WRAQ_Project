@@ -25,6 +25,7 @@ import fun.wraq.render.gui.mission.OldMissionScreen;
 import fun.wraq.render.gui.mission.ReputationStore;
 import fun.wraq.render.gui.testAndHelper.OpenSkillTreeGui;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events._7shade.SevenShadePiece;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -699,6 +700,16 @@ public class IdCardGui extends Screen {
             } else {
                 guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GRAY), this.width / 2 + SkillOffsetX[i] + 11, this.height / 2 + SkillOffsetY[i] + 23, 0);
 
+            }
+        }
+
+        for (int i = 0; i < SevenShadePiece.clientActivePieces.size(); i++) {
+            ItemStack itemStack = SevenShadePiece.clientActivePieces.get(i).getDefaultInstance();
+            int posX = this.width / 2 - 150 + i * 16;
+            int posY = this.height / 2 - 116;
+            guiGraphics.renderItem(itemStack, posX, posY);
+            if (x > posX && x < posX + 16 && y > posY && y < posY + 16) {
+                guiGraphics.renderTooltip(font, itemStack, x, y);
             }
         }
     }

@@ -10,6 +10,7 @@ import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.instance.MopUpPaper;
 import fun.wraq.process.system.instance.MopUpPaperItems;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
@@ -25,7 +26,7 @@ import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
-import fun.wraq.series.overworld.mt.curio.ManaTowerItems;
+import fun.wraq.series.overworld.mt.ManaTowerItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
@@ -564,6 +565,7 @@ public class TradeList {
     }
 
     public static void SoulEquipment() {
+        ItemStack kanupusWingF = new ItemStack(ManaTowerItems.KANUPUS_WING_F.get());
         ItemStack[] itemStacks = {
                 ModItems.WorldSoulNote.get().getDefaultInstance(),
                 ModItems.SoulSword.get().getDefaultInstance(),
@@ -581,7 +583,8 @@ public class TradeList {
                 ManaTowerItems.RUNE.get().getDefaultInstance(),
                 ManaTowerItems.NAN_HAI_A.get().getDefaultInstance(),
                 ManaTowerItems.NAN_HAI_M.get().getDefaultInstance(),
-                ManaTowerItems.TONG_TIAN.get().getDefaultInstance()
+                ManaTowerItems.TONG_TIAN.get().getDefaultInstance(),
+                kanupusWingF
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -595,6 +598,20 @@ public class TradeList {
         contentList.addAll(uniformList);
         tradeContent.put(StringUtils.VillagerName.WorldSoul, contentList);
 
+        tradeRecipeMap.put(kanupusWingF, List.of(
+                new ItemStack(ManaTowerItems.RUNE.get(), 21),
+                new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 40),
+                new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 32),
+                new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get(), 128),
+                new ItemStack(ModItems.SkyRune.get(), 32),
+                new ItemStack(ModItems.FOILED_NETHER_IMPRINT.get(), 8),
+                new ItemStack(ModItems.MoonCompleteGem.get(), 8),
+                new ItemStack(DivineIslandItems.REFINED_DIVINE_PIECE.get(), 8),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 32),
+                new ItemStack(ModItems.ReputationMedal.get(), 64),
+                new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get(), 64),
+                new ItemStack(ModItems.MILLION_MONEY.get(), 1)
+        ));
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -3118,8 +3135,9 @@ public class TradeList {
         ItemStack divineRuneWeapon = new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get());
         ItemStack divineRuneArmor = new ItemStack(DivineIslandItems.DIVINE_RUNE_ARMOR.get());
         ItemStack ghastlyIngot = new ItemStack(DivineIslandItems.GHASTLY_INGOT.get());
+        ItemStack refinedDivinePiece = new ItemStack(DivineIslandItems.REFINED_DIVINE_PIECE.get());
         ItemStack[] itemStacks = {
-                divineRuneWeapon, divineRuneArmor, ghastlyIngot
+                divineRuneWeapon, divineRuneArmor, ghastlyIngot, refinedDivinePiece
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3137,6 +3155,9 @@ public class TradeList {
                 List.of(new ItemStack(DivineIslandItems.GHASTLY_NUGGET.get(), 10),
                         new ItemStack(DivineIslandItems.GHASTLY_SOUL.get(), 15),
                         new ItemStack(DivineIslandItems.GHASTLY_GUN_POWDER.get(), 15)));
+        tradeRecipeMap.put(refinedDivinePiece,
+                List.of(new ItemStack(DivineIslandItems.DIVINE_SOUL.get(), 16),
+                        new ItemStack(ModItems.REFINED_PIECE.get(), 16)));
     }
 
     public static void bunker() {

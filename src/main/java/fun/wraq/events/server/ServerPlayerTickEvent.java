@@ -64,6 +64,7 @@ import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.curios.EndCrystal;
+import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
@@ -166,6 +167,7 @@ public class ServerPlayerTickEvent {
             PurpleIronCommon.handlePlayerTick(player);
             HarbingerMainHand.fix(player);
             Security.fixDuplicatedBackpack(player);
+            SevenShadePiece.sendDataToClient(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

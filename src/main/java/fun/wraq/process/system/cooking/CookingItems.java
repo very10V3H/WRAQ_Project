@@ -40,11 +40,11 @@ public class CookingItems {
     public static final RegistryObject<Item> FOOD_MEDAL_0 = ITEMS.register("food_medal_0",
             () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
     public static final RegistryObject<Item> FOOD_MEDAL_1 = ITEMS.register("food_medal_1",
-            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
+            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 1));
     public static final RegistryObject<Item> FOOD_MEDAL_2 = ITEMS.register("food_medal_2",
-            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
+            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 2));
     public static final RegistryObject<Item> FOOD_MEDAL_3 = ITEMS.register("food_medal_3",
-            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 0));
+            () -> new FoodMedal(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), 3));
 
     public static final RegistryObject<Item> FOOD_PACKAGE_0 = ITEMS.register("food_package_0",
             () -> new FoodPackage(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), 0, 30));

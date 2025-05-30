@@ -48,6 +48,7 @@ import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import fun.wraq.render.hud.main.ItemAndExpGetHud;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
+import fun.wraq.series.events.dragonboat.DragonBoatStore;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
@@ -138,8 +139,8 @@ public class ClientPlayerTickEvent {
             }
 
         }
-        if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START) && event.player.equals(Minecraft.getInstance().player)) {
-
+        if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)
+                && event.player.equals(Minecraft.getInstance().player)) {
             if (ClientUtils.missionScreenFlag != -1) {
                 Minecraft.getInstance().setScreen(new MissionScreen(ClientUtils.missionScreenFlag, 0));
                 ClientUtils.missionScreenFlag = -1;
@@ -321,6 +322,7 @@ public class ClientPlayerTickEvent {
                     case 6 -> mc.setScreen(new EndlessCoreScreen());
                     case 7 -> mc.setScreen(new ElementPieceGui());
                     case 8 -> mc.setScreen(new FoodCoinStore());
+                    case 9 -> mc.setScreen(new DragonBoatStore());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

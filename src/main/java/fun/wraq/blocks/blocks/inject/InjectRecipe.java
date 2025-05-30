@@ -9,6 +9,7 @@ import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.mt.ManaTowerItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -964,6 +965,19 @@ public class InjectRecipe {
                 new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 40, CookingItems.MUSHROOM_PARASITISM_GEM_1.get()));
         injectingRecipeMap.put(GemItems.MUSHROOM_SPUTTER_GEM.get(),
                 new InjectingRecipe(CookingItems.FOOD_BIG_COIN.get(), 40, CookingItems.MUSHROOM_SPUTTER_GEM_1.get()));
+
+        injectingRecipeMap.put(ManaTowerItems.KANUPUS_WING_F.get(),
+                new InjectingRecipe(ManaTowerItems.KANUPUS_CORE_E.get(), 1, ManaTowerItems.KANUPUS_WING_E.get()));
+        injectingRecipeMap.put(ManaTowerItems.KANUPUS_WING_E.get(),
+                new InjectingRecipe(ManaTowerItems.KANUPUS_CORE_D.get(), 1, ManaTowerItems.KANUPUS_WING_D.get()));
+        injectingRecipeMap.put(ManaTowerItems.KANUPUS_WING_D.get(),
+                new InjectingRecipe(ManaTowerItems.KANUPUS_CORE_C.get(), 1, ManaTowerItems.KANUPUS_WING_C.get()));
+        injectingRecipeMap.put(ManaTowerItems.KANUPUS_WING_C.get(),
+                new InjectingRecipe(ManaTowerItems.KANUPUS_CORE_B.get(), 1, ManaTowerItems.KANUPUS_WING_B.get()));
+        injectingRecipeMap.put(ManaTowerItems.KANUPUS_WING_B.get(),
+                new InjectingRecipe(ManaTowerItems.KANUPUS_CORE_A.get(), 1, ManaTowerItems.KANUPUS_WING_A.get()));
+        injectingRecipeMap.put(ManaTowerItems.KANUPUS_WING_A.get(),
+                new InjectingRecipe(ManaTowerItems.KANUPUS_CORE_Z.get(), 1, ManaTowerItems.KANUPUS_WING_Z.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             Item material = itemInjectingRecipeEntry.getValue().material;
