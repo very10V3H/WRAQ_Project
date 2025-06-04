@@ -138,7 +138,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
     public List<ItemStack> forgeRecipe() {
         if (tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.MoonCompleteGem.get(), 16),
+                    new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 16),
                     new ItemStack(ModItems.GOLD_COIN.get(), 384),
                     new ItemStack(PickaxeItems.TINKER_IRON.get(), 16),
                     new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16)
@@ -147,7 +147,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         return List.of(
                 new ItemStack(ModItems.MOON_SWORD.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 20),
-                new ItemStack(ModItems.ReputationMedal.get(), 80),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 80),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 8)
         );
     }

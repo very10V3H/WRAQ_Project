@@ -103,16 +103,16 @@ public class EvokerSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.EvokerSoul.get(), 1));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.375));
+            add(new ItemAndRate(ModItems.EVOKER_SOUL.get(), 1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.ManaCrest0.get(), 0.02));
-            add(new ItemAndRate(ModItems.ManaCrest1.get(), 0.005));
-            add(new ItemAndRate(ModItems.ManaCrest2.get(), 0.001));
-            add(new ItemAndRate(ModItems.ManaCrest3.get(), 0.0002));
-            add(new ItemAndRate(ModItems.LifeElementPiece0.get(), 0.2));
-            add(new ItemAndRate(C2LootItems.evokerSceptre.get(), 0.005));
-            add(new ItemAndRate(NewRuneItems.evokerNewRune.get(), 0.001));
+            add(new ItemAndRate(ModItems.MANA_CREST_0.get(), 0.02));
+            add(new ItemAndRate(ModItems.MANA_CREST_1.get(), 0.005));
+            add(new ItemAndRate(ModItems.MANA_CREST_2.get(), 0.001));
+            add(new ItemAndRate(ModItems.MANA_CREST_3.get(), 0.0002));
+            add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.2));
+            add(new ItemAndRate(C2LootItems.EVOKER_SCEPTRE.get(), 0.005));
+            add(new ItemAndRate(NewRuneItems.EVOKER_NEW_RUNE.get(), 0.001));
         }};
     }
 

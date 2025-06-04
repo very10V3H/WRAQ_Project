@@ -192,12 +192,12 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
                 Guide.trigV2(player, Guide.StageV2.FIRST_INJECT);
             }
 
-            Set<Item> plainBossTier3Rings = Set.of(ModItems.PlainAttackRing3.get(), ModItems.PlainManaAttackRing3.get(),
-                    ModItems.PlainHealthRing3.get(), ModItems.PlainDefenceRing3.get());
+            Set<Item> plainBossTier3Rings = Set.of(ModItems.PLAIN_ATTACK_RING_3.get(), ModItems.PLAIN_MANA_RING_3.get(),
+                    ModItems.PLAIN_HEALTH_RING_3.get(), ModItems.PLAIN_DEFENCE_RING_3.get());
             if (plainBossTier3Rings.contains(productItemStack.getItem())) NoTeamInstanceModule
                     .putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.nether, true);
 
-            Set<Item> devilWeapons = Set.of(ModItems.DevilSword.get(), ModItems.DevilBow.get(), ModItems.DevilSceptre.get());
+            Set<Item> devilWeapons = Set.of(ModItems.DEVIL_SWORD.get(), ModItems.DEVIL_BOW.get(), ModItems.DEVIL_SCEPTRE.get());
             if (devilWeapons.contains(productItemStack.getItem())) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moon, true);
             }

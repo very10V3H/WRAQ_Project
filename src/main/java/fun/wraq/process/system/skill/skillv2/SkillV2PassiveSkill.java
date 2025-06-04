@@ -46,7 +46,7 @@ public abstract class SkillV2PassiveSkill extends SkillV2 {
     private List<ItemStack> getUpgradeNeedMaterial(int skillLevel) {
         switch (skillLevel) {
             case 3 -> {
-                return List.of(new ItemStack(ModItems.PlainCompleteGem.get()));
+                return List.of(new ItemStack(ModItems.PLAIN_COMPLETE_GEM.get()));
             }
             case 4 -> {
                 return List.of(new ItemStack(ModItems.GOLD_COIN.get(), 2));
@@ -55,24 +55,24 @@ public abstract class SkillV2PassiveSkill extends SkillV2 {
                 return List.of(new ItemStack(ModItems.FOILED_NETHER_IMPRINT.get()));
             }
             case 6 -> {
-                return List.of(new ItemStack(ModItems.PurpleIronBud2.get()));
+                return List.of(new ItemStack(ModItems.PURPLE_IRON_BUD_2.get()));
             }
             case 7 -> {
-                return List.of(new ItemStack(ModItems.IceCompleteGem.get()));
+                return List.of(new ItemStack(ModItems.ICE_COMPLETE_GEM.get()));
             }
             case 8 -> {
                 return List.of(
                         new ItemStack(ModItems.GOLDEN_SHEET.get()),
-                        new ItemStack(ModItems.DevilBlood.get())
+                        new ItemStack(ModItems.DEVIL_BLOOD.get())
                 );
             }
             case 9 -> {
                 List<ItemStack> items = new ArrayList<>();
-                items.add(new ItemStack(ModItems.MoonCompleteGem.get()));
+                items.add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get()));
                 switch (professionType) {
-                    case 0 -> items.add(new ItemStack(ModItems.CastleSwordPiece.get()));
-                    case 1 -> items.add(new ItemStack(ModItems.CastleBowPiece.get()));
-                    case 2 -> items.add(new ItemStack(ModItems.CastleSceptrePiece.get()));
+                    case 0 -> items.add(new ItemStack(ModItems.CASTLE_SWORD_PIECE.get()));
+                    case 1 -> items.add(new ItemStack(ModItems.CASTLE_BOW_PIECE.get()));
+                    case 2 -> items.add(new ItemStack(ModItems.CASTLE_SCEPTRE_PIECE.get()));
                 }
                 return items;
             }

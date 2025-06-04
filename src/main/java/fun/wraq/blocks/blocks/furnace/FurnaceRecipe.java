@@ -236,72 +236,72 @@ public class FurnaceRecipe {
         add(new FurnaceRecipe(new ItemStack(Items.CHARCOAL, 4),
                 new ArrayList<>() {{
                     add(new ItemStack(Items.COAL));
-                    add(new ItemStack(ModItems.PlainSoul.get()));
+                    add(new ItemStack(ModItems.PLAIN_SOUL.get()));
                 }},
-                new ItemStack(ModItems.CrudeCoal.get(), 1)));
+                new ItemStack(ModItems.CRUDE_COAL.get(), 1)));
 
         add(new FurnaceRecipe(new ItemStack(Items.CHARCOAL, 4),
                 new ArrayList<>() {{
                     add(new ItemStack(Items.COAL));
-                    add(new ItemStack(ModItems.ForestSoul.get()));
+                    add(new ItemStack(ModItems.FOREST_SOUL.get()));
                 }},
-                new ItemStack(ModItems.CrudeCoal.get(), 1)));
+                new ItemStack(ModItems.CRUDE_COAL.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.CrudeCoal.get(), 4),
+        add(new FurnaceRecipe(new ItemStack(ModItems.CRUDE_COAL.get(), 4),
                 new ArrayList<>() {{
                     add(new ItemStack(Items.COAL));
-                    add(new ItemStack(ModItems.VolcanoSoul.get()));
+                    add(new ItemStack(ModItems.VOLCANO_SOUL.get()));
                 }},
-                new ItemStack(ModItems.HotCoal.get(), 1)));
+                new ItemStack(ModItems.HOT_COAL.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.CrudeCoal.get(), 4),
+        add(new FurnaceRecipe(new ItemStack(ModItems.CRUDE_COAL.get(), 4),
                 new ArrayList<>() {{
                     add(new ItemStack(Items.COAL));
-                    add(new ItemStack(ModItems.LakeSoul.get()));
+                    add(new ItemStack(ModItems.LAKE_SOUL.get()));
                 }},
-                new ItemStack(ModItems.RefiningCoal.get(), 1)));
+                new ItemStack(ModItems.REFINING_COAL.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.HotCoal.get(), 4),
+        add(new FurnaceRecipe(new ItemStack(ModItems.HOT_COAL.get(), 4),
                 new ArrayList<>() {{
                     add(new ItemStack(Items.COAL));
-                    add(new ItemStack(ModItems.magmaSoul.get()));
+                    add(new ItemStack(ModItems.MAGMA_SOUL.get()));
                 }},
-                new ItemStack(ModItems.BlazeCoal.get(), 1)));
+                new ItemStack(ModItems.BLAZE_COAL.get(), 1)));
 
         add(new FurnaceRecipe(new ItemStack(Items.RAW_IRON, 4),
-                new ItemStack(ModItems.CrudeCoal.get(), 1),
-                new ItemStack(ModItems.CrudeIron.get(), 1)));
+                new ItemStack(ModItems.CRUDE_COAL.get(), 1),
+                new ItemStack(ModItems.CRUDE_IRON.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.CrudeIron.get(), 4),
-                new ItemStack(ModItems.HotCoal.get(), 1),
-                new ItemStack(ModItems.HotIron.get(), 1)));
+        add(new FurnaceRecipe(new ItemStack(ModItems.CRUDE_IRON.get(), 4),
+                new ItemStack(ModItems.HOT_COAL.get(), 1),
+                new ItemStack(ModItems.HOT_IRON.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.HotIron.get(), 4),
-                new ItemStack(ModItems.RefiningCoal.get(), 1),
-                new ItemStack(ModItems.RefiningIron.get(), 1)));
+        add(new FurnaceRecipe(new ItemStack(ModItems.HOT_IRON.get(), 4),
+                new ItemStack(ModItems.REFINING_COAL.get(), 1),
+                new ItemStack(ModItems.REFINING_IRON.get(), 1)));
 
         add(new FurnaceRecipe(new ItemStack(Items.RAW_COPPER, 4),
-                new ItemStack(ModItems.CrudeCoal.get(), 1),
-                new ItemStack(ModItems.CrudeCopper.get(), 1)));
+                new ItemStack(ModItems.CRUDE_COAL.get(), 1),
+                new ItemStack(ModItems.CRUDE_COPPER.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.CrudeCopper.get(), 4),
-                new ItemStack(ModItems.HotCoal.get(), 1),
-                new ItemStack(ModItems.HotCopper.get(), 1)));
+        add(new FurnaceRecipe(new ItemStack(ModItems.CRUDE_COPPER.get(), 4),
+                new ItemStack(ModItems.HOT_COAL.get(), 1),
+                new ItemStack(ModItems.HOT_COPPER.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.HotCopper.get(), 4),
-                new ItemStack(ModItems.RefiningCoal.get(), 1),
-                new ItemStack(ModItems.RefiningCopper.get(), 1)));
+        add(new FurnaceRecipe(new ItemStack(ModItems.HOT_COPPER.get(), 4),
+                new ItemStack(ModItems.REFINING_COAL.get(), 1),
+                new ItemStack(ModItems.REFINING_COPPER.get(), 1)));
 
         add(new FurnaceRecipe(new ItemStack(Items.RAW_GOLD, 4),
-                new ItemStack(ModItems.CrudeCoal.get(), 1),
-                new ItemStack(ModItems.CrudeGold.get(), 1)));
+                new ItemStack(ModItems.CRUDE_COAL.get(), 1),
+                new ItemStack(ModItems.CRUDE_GOLD.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.CrudeGold.get(), 4),
-                new ItemStack(ModItems.BlazeCoal.get(), 1),
-                new ItemStack(ModItems.BlazeGold.get(), 1)));
+        add(new FurnaceRecipe(new ItemStack(ModItems.CRUDE_GOLD.get(), 4),
+                new ItemStack(ModItems.BLAZE_COAL.get(), 1),
+                new ItemStack(ModItems.BLAZE_GOLD.get(), 1)));
 
-        add(new FurnaceRecipe(new ItemStack(ModItems.BlazeGold.get(), 4),
-                new ItemStack(ModItems.RefiningCoal.get(), 1),
-                new ItemStack(ModItems.RefiningGold.get(), 1)));
+        add(new FurnaceRecipe(new ItemStack(ModItems.BLAZE_GOLD.get(), 4),
+                new ItemStack(ModItems.REFINING_COAL.get(), 1),
+                new ItemStack(ModItems.REFINING_GOLD.get(), 1)));
     }};
 }

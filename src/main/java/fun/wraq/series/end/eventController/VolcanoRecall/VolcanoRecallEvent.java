@@ -100,9 +100,9 @@ public class VolcanoRecallEvent {
                             if (Utils.VolcanoRecallBlaze != null)
                                 Utils.VolcanoRecallBlaze.remove(Entity.RemovalReason.KILLED);
                             Utils.VolcanoRecallBlaze = new Blaze(EntityType.BLAZE, level1);
-                            MobSpawn.setMobCustomName(Utils.VolcanoRecallBlaze, ModItems.ArmorVolcanoRecall.get(), Component.literal("模糊记忆中的火山熔岩").withStyle(style));
-                            Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorVolcanoRecall.get().getDefaultInstance());
-                            Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ForestSword3.get().getDefaultInstance());
+                            MobSpawn.setMobCustomName(Utils.VolcanoRecallBlaze, ModItems.ARMOR_VOLCANO_RECALL.get(), Component.literal("模糊记忆中的火山熔岩").withStyle(style));
+                            Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_VOLCANO_RECALL.get().getDefaultInstance());
+                            Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.FOREST_SWORD_3.get().getDefaultInstance());
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);
@@ -148,7 +148,7 @@ public class VolcanoRecallEvent {
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.IntensifiedVolcanoSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.INTENSIFIED_VOLCANO_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.volcanoRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 1);
@@ -165,7 +165,7 @@ public class VolcanoRecallEvent {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.VolcanoRune.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.VOLCANO_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.volcanoRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 1);

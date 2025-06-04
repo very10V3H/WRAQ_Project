@@ -94,9 +94,9 @@ public class HuskRecallEvent {
                         if (Utils.HuskRecallHusk == null || !Utils.HuskRecallHusk.isAlive()) {
                             if (Utils.HuskRecallHusk != null) Utils.HuskRecallHusk.remove(Entity.RemovalReason.KILLED);
                             Utils.HuskRecallHusk = new Husk(EntityType.HUSK, level1);
-                            MobSpawn.setMobCustomName(Utils.HuskRecallHusk, ModItems.ArmorHuskRecall.get(), Component.literal("模糊记忆中的脆弱灵魂").withStyle(style));
-                            Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorHuskRecall.get().getDefaultInstance());
-                            Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.MAINHAND, ModItems.BlackForestSword4.get().getDefaultInstance());
+                            MobSpawn.setMobCustomName(Utils.HuskRecallHusk, ModItems.ARMOR_HUSK_RECALL.get(), Component.literal("模糊记忆中的脆弱灵魂").withStyle(style));
+                            Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_HUSK_RECALL.get().getDefaultInstance());
+                            Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.MAINHAND, ModItems.HUSK_SWORD_4.get().getDefaultInstance());
                             Utils.HuskRecallHusk.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.HuskRecallHusk.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.HuskRecallHusk.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);
@@ -143,7 +143,7 @@ public class HuskRecallEvent {
                                                 append(Component.literal("次回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.BlackForestRecallSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.BLACK_FOREST_RECALL_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.huskRecall.recallPlayer, itemStack);
                             } else {

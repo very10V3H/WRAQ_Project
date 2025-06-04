@@ -55,7 +55,8 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
 import fun.wraq.process.system.vp.VpDataHandler;
-import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
+import fun.wraq.render.gui.trade.single.SingleItemChangePurchaseLimit;
+import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
 import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -125,7 +126,7 @@ public class LoginInEvent {
                     });
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             Component.literal("所有副本的前置条件已解锁").withStyle(ChatFormatting.WHITE));
-                    InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.ForNew.get()));
+                    InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.FOR_NEW.get()));
                 }
             }
 
@@ -186,7 +187,7 @@ public class LoginInEvent {
             if (!data.contains(StringUtils.AbilityPoint_Total))
                 data.putInt(StringUtils.AbilityPoint_Total, player.experienceLevel / 2);
             if (!data.contains("ID_Card")) {
-                player.addItem(ModItems.ID_Card.get().getDefaultInstance());
+                player.addItem(ModItems.ID_CARD.get().getDefaultInstance());
                 data.putBoolean("ID_Card", false);
             }
 
@@ -269,7 +270,7 @@ public class LoginInEvent {
             }
 
             if (!data.contains("FirstReward")) {
-                InventoryOperation.giveItemStack(player, ModItems.ForNew.get().getDefaultInstance());
+                InventoryOperation.giveItemStack(player, ModItems.FOR_NEW.get().getDefaultInstance());
                 Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.WHITE),
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).
@@ -349,6 +350,7 @@ public class LoginInEvent {
             CookingPlayerData.sendCookingExpToClient(player);
             SevenShadePiece.sendDataToClient(player);
             DragonBoatFes.onLogin(player);
+            WeeklyStorePlayerData.sendDataToClient(player);
         }
     }
 

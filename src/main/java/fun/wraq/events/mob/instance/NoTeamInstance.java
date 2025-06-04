@@ -8,7 +8,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.AdjustStackBeforeGive;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
@@ -36,7 +35,6 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -123,7 +121,7 @@ public abstract class NoTeamInstance {
     public abstract void summonModule(Level level);
 
     public Item getSummonAndRewardNeedItem() {
-        return ModItems.notePaper.get();
+        return ModItems.NOTE_PAPER.get();
     }
 
     public int getRewardNeedItemCount() {
@@ -229,7 +227,7 @@ public abstract class NoTeamInstance {
             if (tick > summonTick) {
                 if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
                     summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
-                            ModItems.notePaper.get(), "右键以召唤", ChatFormatting.AQUA));
+                            ModItems.NOTE_PAPER.get(), "右键以召唤", ChatFormatting.AQUA));
                 } else {
                     summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
                             getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName(),
@@ -277,12 +275,6 @@ public abstract class NoTeamInstance {
             }
         }
         return players.stream().toList();
-    }
-
-    public static void givePlayerNotePaper(Player player) throws IOException {
-        ItemStack itemStack = new ItemStack(ModItems.notePaper.get(), 64);
-        InventoryCheck.addOwnerTagToItemStack(player, itemStack);
-        InventoryOperation.giveItemStack(player, itemStack);
     }
 
     public void bossInfoSet(Level level) {

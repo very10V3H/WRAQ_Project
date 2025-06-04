@@ -228,7 +228,7 @@ public enum MissionV2 {
                     "个", "可接受", CustomStyle.styleOfFlexible, "的，",
                     getInProgressMissionCount(player), CustomStyle.styleOfField,
                     "个", "进行中", CustomStyle.styleOfField, "的", "任务。"));
-            sendMSG(player, Te.s("使用", ModItems.ID_Card, "打开", "任务列表", CustomStyle.styleOfFlexible,
+            sendMSG(player, Te.s("使用", ModItems.ID_CARD, "打开", "任务列表", CustomStyle.styleOfFlexible,
                     "以查看详情。"));
         }
     }

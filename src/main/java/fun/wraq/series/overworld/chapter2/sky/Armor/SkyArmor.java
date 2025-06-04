@@ -81,7 +81,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.SkyRune.get(), 5),
+                new ItemStack(ModItems.SKY_RUNE.get(), 5),
                 new ItemStack(Items.DIAMOND, 16)
         );
     }
@@ -97,7 +97,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
         } else {
             effectTier = 1;
         }
-        Compute.sendEffectLastTime(player, ModItems.SKY_ARMOR_HELMET.get(), effectTier, true);
+        Compute.sendEffectLastTime(player, ModItems.SKY_HELMET.get(), effectTier, true);
         super.tick(player);
     }
 }

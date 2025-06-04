@@ -63,7 +63,7 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
     }
 
     public static boolean isOn(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MoonCurios.get());
+        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MOON_CURIOS.get());
     }
 
     public static double getExCommonDamageEnhance(Player player) {
@@ -90,11 +90,11 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
     public static WeakHashMap<Player, Integer> passiveCoolDownMap = new WeakHashMap<>();
 
     public static double Passive(Player player, Mob mob) {
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MoonCurios.get())) {
+        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MOON_CURIOS.get())) {
             int TickCount = Tick.get();
             if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
                 passiveCoolDownMap.put(player, TickCount + 200);
-                Compute.sendCoolDownTime(player, ModItems.MoonCurios.get().getDefaultInstance(), 200);
+                Compute.sendCoolDownTime(player, ModItems.MOON_CURIOS.get().getDefaultInstance(), 200);
                 Shield.providePlayerShield(player, 200, player.experienceLevel * 20);
                 return mob.getMaxHealth() * 0.01;
             }

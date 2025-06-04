@@ -71,10 +71,10 @@ public class EndPower extends Item implements ActiveItem {
 
     public static void Release(Player player) {
         if (Compute.playerManaCost(player, (PowerLogic.playerLastTimeReleasePowerManaCost.getOrDefault(player, 45d) * 1.5), true)) {
-            Compute.playerItemCoolDown(player, ModItems.EndPower.get(), CoolDownTime[0]);
-            Compute.playerItemCoolDown(player, ModItems.EndPower1.get(), CoolDownTime[1]);
-            Compute.playerItemCoolDown(player, ModItems.EndPower2.get(), CoolDownTime[2]);
-            Compute.playerItemCoolDown(player, ModItems.EndPower3.get(), CoolDownTime[3]);
+            Compute.playerItemCoolDown(player, ModItems.END_POWER.get(), CoolDownTime[0]);
+            Compute.playerItemCoolDown(player, ModItems.END_POWER_1.get(), CoolDownTime[1]);
+            Compute.playerItemCoolDown(player, ModItems.END_POWER_2.get(), CoolDownTime[2]);
+            Compute.playerItemCoolDown(player, ModItems.END_POWER_3.get(), CoolDownTime[3]);
             PowerLogic.ReleaseLastTime(player);
         }
     }

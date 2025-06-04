@@ -107,7 +107,7 @@ public interface VdWeaponCommon {
                 }
                 removeList.add(countOnMob);
                 Compute.sendMobEffectHudToNearPlayer(countOnMob.mob
-                        , C7Items.vdSword.get(), "vdCount", 8888, countOnMob.count, true);
+                        , C7Items.VD_SWORD.get(), "vdCount", 8888, countOnMob.count, true);
             }
             list.removeAll(removeList);
         });
@@ -134,14 +134,14 @@ public interface VdWeaponCommon {
     static double normalAttackRateEnhance(Player player) {
         boolean intensified = intensifiedAttackMap.getOrDefault(player.getName().getString(), false);
         intensifiedAttackMap.put(player.getName().getString(), false);
-        List<Item> list = List.of(C7Items.vdSword.get(), C7Items.vdBow.get(), C7Items.vdSceptre.get());
+        List<Item> list = List.of(C7Items.VD_SWORD.get(), C7Items.VD_BOW.get(), C7Items.VD_SCEPTRE.get());
         list.forEach(item -> Compute.removeEffectLastTime(player, item));
         return intensified ? 0.5 : 0;
     }
 
     static void active(Player player, Item item) {
         if (Compute.playerManaCost(player, 100)) {
-            List<Item> list = List.of(C7Items.vdSword.get(), C7Items.vdBow.get(), C7Items.vdSceptre.get());
+            List<Item> list = List.of(C7Items.VD_SWORD.get(), C7Items.VD_BOW.get(), C7Items.VD_SCEPTRE.get());
             list.forEach(item1 -> Compute.playerItemCoolDown(player, item1, 15));
             List<CountOnMob> countOnMobs = countMap.get(player.getName().getString());
             List<Mob> nearMobs = getNearMobs(player);
@@ -157,7 +157,7 @@ public interface VdWeaponCommon {
                     removeSet.add(mob);
                     if (mob.isAlive()) {
                         Damage.causeTrueDamageToMonster(player, mob, mob.getHealth() * 0.06 * countMap.get(mob));
-                        Compute.removeMobEffectHudToNearPlayer(mob, C7Items.vdSword.get(), "vdCount");
+                        Compute.removeMobEffectHudToNearPlayer(mob, C7Items.VD_SWORD.get(), "vdCount");
                         if (mob.getHealth() < mob.getMaxHealth() * 0.025 * countMap.get(mob)) {
                             player.getCooldowns().removeCooldown(item);
                             Mana.addOrCostPlayerMana(player, 100);

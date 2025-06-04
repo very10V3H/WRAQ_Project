@@ -107,7 +107,7 @@ public class BunkerInstance extends NoTeamInstance {
                 new ItemAndRate(BunkerItems.BUNKER_MANA_CREST_2.get(), 0.0025),
                 new ItemAndRate(BunkerItems.BUNKER_MANA_CREST_3.get(), 0.0001),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1));
     }
 
     @Override

@@ -32,28 +32,28 @@ public class ModCreativeModeTab {
             = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Utils.MOD_ID);
     public static RegistryObject<CreativeModeTab> WEAPON_TAB = CREATIVE_MODE_TAB.register("aa_wraq_a_weapon",
             () -> CreativeModeTab.builder().icon(
-                    () -> new ItemStack(ModItems.KazeSword3.get())).title(Component.literal("维瑞阿契 | 武器")).build());
+                    () -> new ItemStack(ModItems.KAZE_SWORD_3.get())).title(Component.literal("维瑞阿契 | 武器")).build());
     public static RegistryObject<CreativeModeTab> ARMOR_TAB = CREATIVE_MODE_TAB.register("aa_wraq_b_armor",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.NETHER_ARMOR_HELMET.get())).title(Component.literal("维瑞阿契 | 护甲")).build());
+                            () -> new ItemStack(ModItems.NETHER_HELMET.get())).title(Component.literal("维瑞阿契 | 护甲")).build());
     public static RegistryObject<CreativeModeTab> BREWING_TAB = CREATIVE_MODE_TAB.register("aa_wraq_c_brewing",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(Items.POTION)).title(Component.literal("维瑞阿契 | 酿造")).build());
     public static RegistryObject<CreativeModeTab> FORGING_TAB = CREATIVE_MODE_TAB.register("aa_wraq_d_forgings",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.DiamondHammer.get())).title(Component.literal("维瑞阿契 | 锻造")).build());
+                            () -> new ItemStack(ModItems.DIAMOND_HAMMER.get())).title(Component.literal("维瑞阿契 | 锻造")).build());
     public static RegistryObject<CreativeModeTab> MONEYANDMISSION_TAB = CREATIVE_MODE_TAB.register("aa_wraq_e_moneyandmission",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.GOLD_COIN.get())).title(Component.literal("维瑞阿契 | 金钱/任务")).build());
     public static RegistryObject<CreativeModeTab> DROPSANDMATERIAL_TAB = CREATIVE_MODE_TAB.register("aa_wraq_f_dropsandmaterial",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.PlainSoul.get())).title(Component.literal("维瑞阿契 | 掉落物与材料")).build());
+                            () -> new ItemStack(ModItems.PLAIN_SOUL.get())).title(Component.literal("维瑞阿契 | 掉落物与材料")).build());
     public static RegistryObject<CreativeModeTab> CURIOS_AND_GEMS = CREATIVE_MODE_TAB.register("aa_wraq_g_runesandcuiros",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.END_CURIOS_BOW.get())).title(Component.literal("维瑞阿契 | 饰品/宝石")).build());
     public static RegistryObject<CreativeModeTab> MISC_TAB = CREATIVE_MODE_TAB.register("aa_wraq_h_hmisc",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.ID_Card.get())).title(Component.literal("维瑞阿契 | 杂项")).build());
+                            () -> new ItemStack(ModItems.ID_CARD.get())).title(Component.literal("维瑞阿契 | 杂项")).build());
     public static RegistryObject<CreativeModeTab> DEVELOPMENT_TAB = CREATIVE_MODE_TAB.register("aa_wraq_i_development",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.PP.get())).title(Component.literal("维瑞阿契 | 开发工具")).build());
@@ -62,25 +62,25 @@ public class ModCreativeModeTab {
                             () -> new ItemStack(ModItems.WORLD_SOUL_1.get())).title(Component.literal("维瑞阿契 | 世界本源")).build());
     public static RegistryObject<CreativeModeTab> KILL_PAPER = CREATIVE_MODE_TAB.register("aa_wraq_k_kill_paper",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.killPaper.get())).title(Component.literal("维瑞阿契 | 征讨券/扫荡券")).build());
+                            () -> new ItemStack(ModItems.KILL_PAPER.get())).title(Component.literal("维瑞阿契 | 征讨券/扫荡券")).build());
     public static RegistryObject<CreativeModeTab> FURNACE = CREATIVE_MODE_TAB.register("aa_wraq_l_furnace",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.CrudeCoal.get())).title(Component.literal("维瑞阿契 | 熔炼")).build());
+                            () -> new ItemStack(ModItems.CRUDE_COAL.get())).title(Component.literal("维瑞阿契 | 熔炼")).build());
     public static RegistryObject<CreativeModeTab> CUSTOMIZED = CREATIVE_MODE_TAB.register("aa_wraq_m_customized",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(UniformItems.AttackCurios0.get())).title(Component.literal("维瑞阿契 | 制式")).build());
+                            () -> new ItemStack(UniformItems.ATTACK_CURIOS_0.get())).title(Component.literal("维瑞阿契 | 制式")).build());
     public static RegistryObject<CreativeModeTab> SPECIAL_FESTIVAL = CREATIVE_MODE_TAB.register("aa_wraq_n_special_festival",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(SpecialEventItems.QING_TUAN.get())).title(Component.literal("维瑞阿契 | 节庆活动")).build());
     public static RegistryObject<CreativeModeTab> ELEMENT = CREATIVE_MODE_TAB.register("aa_wraq_o_elememt",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.LifeElementPiece2.get())).title(Component.literal("维瑞阿契 | 元素")).build());
+                            () -> new ItemStack(ModItems.LIFE_ELEMENT_PIECE_2.get())).title(Component.literal("维瑞阿契 | 元素")).build());
     public static RegistryObject<CreativeModeTab> LOOT_EQUIP = CREATIVE_MODE_TAB.register("aa_wraq_p_loot_equip",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(C1LootItems.forestZombieAxe.get())).title(Component.literal("维瑞阿契 | 简易装备")).build());
+                            () -> new ItemStack(C1LootItems.FOREST_ZOMBIE_AXE.get())).title(Component.literal("维瑞阿契 | 简易装备")).build());
     public static RegistryObject<CreativeModeTab> SPUR_ITEMS = CREATIVE_MODE_TAB.register("aa_wraq_q_spur_items",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(SpurItems.cropPiece.get())).title(Component.literal("维瑞阿契 | 支线")).build());
+                            () -> new ItemStack(SpurItems.CROP_PIECE.get())).title(Component.literal("维瑞阿契 | 支线")).build());
     public static RegistryObject<CreativeModeTab> BLOCK = CREATIVE_MODE_TAB.register("aa_wraq_r_block",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModBlocks.WRAQ_ORE_1.get().asItem())).title(Component.literal("维瑞阿契 | 方块")).build());
@@ -127,7 +127,7 @@ public class ModCreativeModeTab {
                             .title(Te.s("维瑞阿契 | 烹饪")).build());
     public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_ze_all",
             () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(ModItems.DevilSword.get()))
+                            () -> new ItemStack(ModItems.DEVIL_SWORD.get()))
                     .title(Te.s("维瑞阿契 | 总集")).build());
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);

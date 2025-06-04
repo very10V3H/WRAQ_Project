@@ -119,12 +119,12 @@ public class Parkour {
     }
 
     public static Item[] rewardItems = {
-            ModItems.Ps_Bottle1.get(),
+            ModItems.PS_BOTTLE_1.get(),
             ModItems.COMPLETE_GEM.get(),
-            ModItems.ReputationMedal.get(),
-            ModItems.ParkourMedal.get(),
-            ModItems.ParkourMedal.get(),
-            ModItems.ParkourMedal.get()
+            ModItems.REPUTATION_MEDAL.get(),
+            ModItems.PARKOUR_MEDAL.get(),
+            ModItems.PARKOUR_MEDAL.get(),
+            ModItems.PARKOUR_MEDAL.get()
     };
 
     public static void Tick(Player player) throws IOException {

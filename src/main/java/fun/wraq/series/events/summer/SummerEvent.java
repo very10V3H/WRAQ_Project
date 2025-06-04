@@ -184,7 +184,7 @@ public class SummerEvent {
         }
 
         if (!quitJudge) {
-            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.SeaSoul.get(), 3));
+            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.SEA_SOUL.get(), 3));
         }
 
     }

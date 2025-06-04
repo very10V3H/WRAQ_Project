@@ -34,7 +34,7 @@ public class IceWeaponHelper {
             if (tier > 0) {
                 StableAttributesModifier.addM(mob,
                         maxTier == 5 ? StableAttributesModifier.mobPercentDefenceModifier : StableAttributesModifier.mobPercentManaDefenceModifier,
-                        tag + "Defence decrease", -0.3, Tick.get() + 100, ModItems.IceHeart.get());
+                        tag + "Defence decrease", -0.3, Tick.get() + 100, ModItems.ICE_HEART.get());
                 StableAttributesModifier.addM(player, StableAttributesModifier.playerCritRateModifier,
                         "Ice equip passive crit rate up", 0.3, Tick.get() + 100);
             }

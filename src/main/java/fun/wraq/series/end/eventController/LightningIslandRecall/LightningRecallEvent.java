@@ -99,11 +99,12 @@ public class LightningRecallEvent {
                             if (Utils.LightingRecallZombie != null)
                                 Utils.LightingRecallZombie.remove(Entity.RemovalReason.KILLED);
                             Utils.LightingRecallZombie = new Zombie(EntityType.ZOMBIE, level1);
-                            MobSpawn.setMobCustomName(Utils.LightingRecallZombie, ModItems.ArmorLightningRecall.get(), Component.literal("模糊记忆中的唤雷守卫").withStyle(style));
-                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorLightningRecall.get().getDefaultInstance());
-                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorLZChest.get().getDefaultInstance());
-                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorLZLeggings.get().getDefaultInstance());
-                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.FEET, ModItems.ArmorLZBoots.get().getDefaultInstance());
+                            MobSpawn.setMobCustomName(Utils.LightingRecallZombie, ModItems.ARMOR_LIGHTNING_RECALL.get(),
+                                    Component.literal("模糊记忆中的唤雷守卫").withStyle(style));
+                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_LIGHTNING_RECALL.get().getDefaultInstance());
+                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.IRON_CHESTPLATE));
+                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.LEGS, Compute.getSimpleFoiledItemStack(Items.IRON_LEGGINGS));
+                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.FEET, Compute.getSimpleFoiledItemStack(Items.IRON_BOOTS));
                             Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
                             Utils.LightingRecallZombie.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.LightingRecallZombie.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
@@ -150,7 +151,7 @@ public class LightningRecallEvent {
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.LightningRecallSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.LIGHTNING_RECALL_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.lightningRecall.recallPlayer, itemStack);
                             } else {
@@ -166,7 +167,7 @@ public class LightningRecallEvent {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.LightningRune.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.LIGHTNING_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.lightningRecall.recallPlayer, itemStack);
                             }

@@ -104,7 +104,7 @@ public class ClientAttackEvent {
         if ((item instanceof WraqSceptre || item instanceof WraqBow) && item instanceof ActiveItem) {
             ModNetworking.sendToServer(new CommonActiveC2SPacket(item.getDefaultInstance()));
         }
-        if (item.equals(ModItems.SoulSceptre.get())) {
+        if (item.equals(ModItems.SOUL_SCEPTRE.get())) {
             ModNetworking.sendToServer(new SoulSceptreC2SPacket());
         }
     }

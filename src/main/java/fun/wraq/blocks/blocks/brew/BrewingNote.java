@@ -44,20 +44,20 @@ public class BrewingNote extends Item {
     public static Map<Item, String> typeMap = new HashMap<>();
 
     public static void setTypeMap() {
-        typeMap.put(ModItems.VolcanoSolidifiedSoul.get(), ExpName.volcano);
-        typeMap.put(ModItems.ForestSolidifiedSoul.get(), ExpName.forest);
-        typeMap.put(ModItems.SnowSolidifiedSoul.get(), ExpName.snow);
-        typeMap.put(ModItems.EvokerSolidifiedSoul.get(), ExpName.evoker);
-        typeMap.put(ModItems.PlainSolidifiedSoul.get(), ExpName.plain);
-        typeMap.put(ModItems.LakeSolidifiedSoul.get(), ExpName.lake);
-        typeMap.put(ModItems.NetherSolidifiedSoul.get(), ExpName.nether);
-        typeMap.put(ModItems.SkySolidifiedSoul.get(), ExpName.sky);
-        typeMap.put(ModItems.Pearl1.get(), ExpName.pear1);
-        typeMap.put(ModItems.Pearl2.get(), ExpName.pear2);
-        typeMap.put(ModItems.Pearl3.get(), ExpName.pear3);
-        typeMap.put(ModItems.Pearl4.get(), ExpName.pear4);
-        typeMap.put(ModItems.Pearl5.get(), ExpName.pear5);
-        typeMap.put(ModItems.Pearl6.get(), ExpName.pear6);
+        typeMap.put(ModItems.VOLCANO_SOLIDIFIED_SOUL.get(), ExpName.volcano);
+        typeMap.put(ModItems.FOREST_SOLIDIFIED_SOUL.get(), ExpName.forest);
+        typeMap.put(ModItems.SNOW_SOLIDIFIED_SOUL.get(), ExpName.snow);
+        typeMap.put(ModItems.EVOKER_SOLIDIFIED_SOUL.get(), ExpName.evoker);
+        typeMap.put(ModItems.PLAIN_SOLIDIFIED_SOUL.get(), ExpName.plain);
+        typeMap.put(ModItems.LAKE_SOLIDIFIED_SOUL.get(), ExpName.lake);
+        typeMap.put(ModItems.NETHER_SOLIDIFIED_SOUL.get(), ExpName.nether);
+        typeMap.put(ModItems.SKY_SOLIDIFIED_SOUL.get(), ExpName.sky);
+        typeMap.put(ModItems.PEARL_1.get(), ExpName.pear1);
+        typeMap.put(ModItems.PEARL_2.get(), ExpName.pear2);
+        typeMap.put(ModItems.PEARL_3.get(), ExpName.pear3);
+        typeMap.put(ModItems.PEARL_4.get(), ExpName.pear4);
+        typeMap.put(ModItems.PEARL_5.get(), ExpName.pear5);
+        typeMap.put(ModItems.PEARL_6.get(), ExpName.pear6);
         typeMap.put(ModItems.Boss2Piece.get(), ExpName.boss2Piece);
     }
 

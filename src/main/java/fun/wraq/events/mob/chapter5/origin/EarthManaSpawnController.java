@@ -101,11 +101,11 @@ public class EarthManaSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.EarthManaSoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.615));
+            add(new ItemAndRate(ModItems.EARTH_MANA_SOUL.get(), 0.8));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.615));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.03));
-            add(new ItemAndRate(ModItems.LifeElementPiece0.get(), 0.3));
-            add(new ItemAndRate(C5LootItems.earthManaSceptre.get(), 0.005));
+            add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.3));
+            add(new ItemAndRate(C5LootItems.EARTH_MANA_SCEPTRE.get(), 0.005));
         }};
     }
 

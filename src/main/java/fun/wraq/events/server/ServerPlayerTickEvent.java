@@ -230,7 +230,7 @@ public class ServerPlayerTickEvent {
             if (player.tickCount % 20 == 0) {
                 List<ItemEntity> list = player.level().getEntitiesOfClass(ItemEntity.class, AABB.ofSize(player.position(), 15, 15, 15));
                 list.forEach(itemEntity -> {
-                    if (itemEntity.getItem().is(ModItems.Value.get())
+                    if (itemEntity.getItem().is(ModItems.VALUE.get())
                             && itemEntity.tickCount > 20) itemEntity.remove(Entity.RemovalReason.KILLED);
                 });
 
@@ -285,14 +285,14 @@ public class ServerPlayerTickEvent {
             if (TickCount % 20 == 3) {
                 Inventory inventory = player.getInventory();
                 for (int i = 0; i < inventory.getContainerSize(); i++) {
-                    if (inventory.getItem(i).is(ModItems.Value.get())
+                    if (inventory.getItem(i).is(ModItems.VALUE.get())
                             || inventory.getItem(i).is(Items.ARROW)) {
                         inventory.removeItem(i, 64);
                     }
                     if (inventory.getItem(i).is(Items.NETHER_STAR)) {
                         ItemStack itemStack = inventory.getItem(i);
                         int count = itemStack.getCount();
-                        inventory.setItem(i, new ItemStack(ModItems.LotteryStar.get(), count));
+                        inventory.setItem(i, new ItemStack(ModItems.LOTTERY_STAR.get(), count));
                     }
                 }
             }
@@ -333,7 +333,7 @@ public class ServerPlayerTickEvent {
             if (player.tickCount % 200 == 0 && SuitCount.getPurpleIronSuitCount(player) > 0) {
                 int Rate = SuitCount.getPurpleIronSuitCount(player);
                 Shield.providePlayerShield(player, 100, player.getMaxHealth() * 0.1 * Rate);
-                Compute.sendEffectLastTime(player, ModItems.PurpleIron.get().getDefaultInstance(), 100);
+                Compute.sendEffectLastTime(player, ModItems.PURPLE_IRON_INGOT.get().getDefaultInstance(), 100);
             }
 
             if (player.tickCount % 10 == 0) ColdData.PlayerColdNumStatusUpdate(player);
@@ -490,7 +490,7 @@ public class ServerPlayerTickEvent {
                                     Te.s(player.getName(), " 通过探索，达到了", String.valueOf(player.experienceLevel), ChatFormatting.LIGHT_PURPLE, "级"));
                         }
                         if (oldLevel == 99) {
-                            InventoryOperation.giveItemStack(player, ModItems.SkillReset.get().getDefaultInstance());
+                            InventoryOperation.giveItemStack(player, ModItems.SKILL_RESET.get().getDefaultInstance());
                         }
                         ModNetworking.sendToClient(new SoundsS2CPacket(3), serverPlayer);
                     } else {
@@ -564,7 +564,7 @@ public class ServerPlayerTickEvent {
             }
 
             if (TmpNum % 60 == 0) {
-                if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SnowBossArmorChest.get())) {
+                if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SNOW_BOSS_CHEST.get())) {
                     Level level = player.level();
                     List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(new Vec3(player.getX(), player.getY(), player.getZ()), 6, 6, 6));
                     mobList.forEach(mob -> {

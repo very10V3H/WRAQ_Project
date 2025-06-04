@@ -59,7 +59,7 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     public static boolean IsOn(Player player) {
-        return player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.TabooAttackLeggings.get());
+        return player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.TABOO_ATTACK_LEGGINGS.get());
     }
 
     public static double Passive(Player player) {
@@ -75,8 +75,8 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.ConstrainTaboo.get(), 1),
-                new ItemStack(ModItems.PurpleIronArmorLeggings.get(), 1),
+                new ItemStack(ModItems.CONSTRAINT_TABOO.get(), 1),
+                new ItemStack(ModItems.PURPLE_IRON_LEGGINGS.get(), 1),
                 new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
         );
     }

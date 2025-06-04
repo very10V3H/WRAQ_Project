@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
-import fun.wraq.render.gui.blocks.BrewingMenu;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -75,17 +74,17 @@ public class BrewingScreen extends AbstractContainerScreen<fun.wraq.render.gui.b
         }
         add(Component.literal("2.浓缩/稳定/膨化").withStyle(ChatFormatting.AQUA));
         add(Component.literal(" 在材料槽位放置").withStyle(ChatFormatting.WHITE).
-                append(ModItems.Concentrater.get().getDefaultInstance().getDisplayName()).
+                append(ModItems.CONCENTRATER.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal(" / ").withStyle(CustomStyle.styleOfBrew)).
-                append(ModItems.Stabilizer.get().getDefaultInstance().getDisplayName()).
+                append(ModItems.STABILIZER.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal(" / ").withStyle(CustomStyle.styleOfBrew)).
-                append(ModItems.Splasher.get().getDefaultInstance().getDisplayName()));
+                append(ModItems.SPLASHER.get().getDefaultInstance().getDisplayName()));
         add(Component.literal(" 注意，浓缩与稳定只能使用没有被浓缩/稳定后的药水").withStyle(CustomStyle.styleOfBrew));
         add(Component.literal(" 酿造喷溅药水需要达到").withStyle(CustomStyle.styleOfBrew).
                 append(Component.literal("酿造大师等阶").withStyle(ChatFormatting.LIGHT_PURPLE)));
         add(Component.literal("3.固化材料").withStyle(ChatFormatting.AQUA));
         add(Component.literal(" 在酿造槽放置对应根源，在右侧材料槽放置").withStyle(ChatFormatting.WHITE).
-                append(ModItems.Solidifier.get().getDefaultInstance().getDisplayName()));
+                append(ModItems.SOLIDIFIER.get().getDefaultInstance().getDisplayName()));
         add(Component.literal("4.酿造等阶说明").withStyle(ChatFormatting.AQUA));
         add(Component.literal(" 0.酿造初识").withStyle(ChatFormatting.GRAY));
         add(Component.literal(" 1.酿造入门").withStyle(ChatFormatting.GREEN).

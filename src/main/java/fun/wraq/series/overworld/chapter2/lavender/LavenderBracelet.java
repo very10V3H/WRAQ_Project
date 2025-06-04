@@ -86,7 +86,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     @Override
     public void tick(Player player) {
-        if (player.tickCount % 20 == 0 && Compute.hasCurios(player, ModItems.lavenderBracelet.get())) {
+        if (player.tickCount % 20 == 0 && Compute.hasCurios(player, ModItems.LAVENDER_BRACELET.get())) {
             Shield.providePlayerShield(player, 30, PlayerAttributes.maxHealth(player) * 0.05);
         }
     }
@@ -103,7 +103,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.PurpleIronPiece.get(), 8);
+        return new ItemStack(ModItems.PURPLE_IRON_PIECE.get(), 8);
     }
 
     public static boolean resetBugAttributes(ItemStack itemStack) {

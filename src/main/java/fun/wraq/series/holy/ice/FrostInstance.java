@@ -99,8 +99,8 @@ public class FrostInstance extends NoTeamInstance {
         return List.of(
                 new ItemAndRate(IceHolyItems.CHEST.get(), 1),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 2),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 1),
-                new ItemAndRate(ModItems.IceElementPiece1.get(), 0.25)
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 1),
+                new ItemAndRate(ModItems.ICE_ELEMENT_PIECE_1.get(), 0.25)
         );
     }
 

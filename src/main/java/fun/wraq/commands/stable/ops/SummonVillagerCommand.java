@@ -84,16 +84,16 @@ public class SummonVillagerCommand implements Command<CommandSourceStack> {
         MerchantOffers offers = new MerchantOffers();
         Random random = new Random();
         List<MerchantOffer> merchantOffers = List.of(
-                new MerchantOffer(new ItemStack(ModItems.copperCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.COPPER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.COOKIE, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.copperCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.COPPER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.BREAD, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.copperCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.COPPER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.BAKED_POTATO, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.copperCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.COPPER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.PUMPKIN_PIE, 1),
                         Integer.MAX_VALUE, 0, 0)
         );
@@ -105,16 +105,16 @@ public class SummonVillagerCommand implements Command<CommandSourceStack> {
         MerchantOffers offers = new MerchantOffers();
         Random random = new Random();
         List<MerchantOffer> merchantOffers = List.of(
-                new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.RAW_IRON, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.RAW_COPPER, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin * 2, bound * 2)),
+                new MerchantOffer(new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin * 2, bound * 2)),
                         new ItemStack(Items.RAW_GOLD, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin * 3, bound * 3)),
+                new MerchantOffer(new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin * 3, bound * 3)),
                         new ItemStack(Items.DIAMOND, 1),
                         Integer.MAX_VALUE, 0, 0)
         );
@@ -146,26 +146,26 @@ public class SummonVillagerCommand implements Command<CommandSourceStack> {
                 new MerchantOffer(new ItemStack(ModItems.GOLD_COIN.get(), random.nextInt(origin * 4, bound * 4)),
                         fishRod,
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.FISHING_ROD, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.COOKED_COD, 1),
                         Integer.MAX_VALUE, 0, 0),
-                new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                new MerchantOffer(new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(Items.COOKED_SALMON, 1),
                         Integer.MAX_VALUE, 0, 0),
                 new MerchantOffer(new ItemStack(Items.COD, 8),
-                        new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                        new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         Integer.MAX_VALUE, 0, 0),
                 new MerchantOffer(new ItemStack(Items.SALMON, 8),
-                        new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                        new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         Integer.MAX_VALUE, 0, 0),
                 new MerchantOffer(new ItemStack(Items.TROPICAL_FISH, 2),
-                        new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                        new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         Integer.MAX_VALUE, 0, 0),
                 new MerchantOffer(new ItemStack(Items.PUFFERFISH, 2),
-                        new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),
+                        new ItemStack(ModItems.SILVER_COIN.get(), random.nextInt(origin, bound)),
                         Integer.MAX_VALUE, 0, 0)
         );
         offers.addAll(merchantOffers);

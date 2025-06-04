@@ -90,9 +90,12 @@ import fun.wraq.process.system.vp.networking.VpValueS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.ClientWayPointS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
-import fun.wraq.render.gui.trade.SingleItemChangeC2SPacket;
-import fun.wraq.render.gui.trade.SingleItemChangeFullDataS2CPacket;
-import fun.wraq.render.gui.trade.SingleItemChangeSingleRecipeTimeS2CPacket;
+import fun.wraq.render.gui.trade.single.SingleItemChangeC2SPacket;
+import fun.wraq.render.gui.trade.single.SingleItemChangeFullDataS2CPacket;
+import fun.wraq.render.gui.trade.single.SingleItemChangeSingleRecipeTimeS2CPacket;
+import fun.wraq.render.gui.trade.weekly.WeeklyStoreCountDataS2CPacket;
+import fun.wraq.render.gui.trade.weekly.WeeklyStoreRecipeDataS2CPacket;
+import fun.wraq.render.gui.trade.weekly.WeeklyStoreScreenC2SPacket;
 import fun.wraq.render.hud.networking.*;
 import fun.wraq.series.events._7shade.SevenShadePieceS2CPacket;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
@@ -1358,6 +1361,21 @@ public class ModNetworking {
                 .decoder(SevenShadePieceS2CPacket::new)
                 .encoder(SevenShadePieceS2CPacket::toBytes)
                 .consumerMainThread(SevenShadePieceS2CPacket::handle)
+                .add();
+        net.messageBuilder(WeeklyStoreRecipeDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(WeeklyStoreRecipeDataS2CPacket::new)
+                .encoder(WeeklyStoreRecipeDataS2CPacket::toBytes)
+                .consumerMainThread(WeeklyStoreRecipeDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(WeeklyStoreCountDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(WeeklyStoreCountDataS2CPacket::new)
+                .encoder(WeeklyStoreCountDataS2CPacket::toBytes)
+                .consumerMainThread(WeeklyStoreCountDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(WeeklyStoreScreenC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(WeeklyStoreScreenC2SPacket::new)
+                .encoder(WeeklyStoreScreenC2SPacket::toBytes)
+                .consumerMainThread(WeeklyStoreScreenC2SPacket::handle)
                 .add();
     }
 

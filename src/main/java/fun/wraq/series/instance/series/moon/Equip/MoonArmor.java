@@ -72,8 +72,8 @@ public class MoonArmor extends WraqArmor implements ForgeItem {
     }
 
     public static double DamageEnhance(Player player, Mob mob) {
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MoonLeggings.get())
-                || player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MoonHelmet.get())) {
+        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MOON_LEGGINGS.get())
+                || player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MOON_HELMET.get())) {
             Item weapon = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
             if (Utils.swordTag.containsKey(weapon) && mob.distanceTo(player) <= 5)
                 return SuitCount.getMoonSuitCount(player) * 0.15;
@@ -86,7 +86,7 @@ public class MoonArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.MoonCompleteGem.get(), 12),
+                new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 12),
                 new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 64)
         );
     }

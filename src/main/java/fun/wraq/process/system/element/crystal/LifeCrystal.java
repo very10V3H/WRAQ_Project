@@ -94,10 +94,10 @@ public class LifeCrystal extends SwordItem implements ActiveItem {
         if (!player.getCooldowns().isOnCooldown(this)) {
             int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.getPlayerLifeElementValue(player)));
             List<Item> itemList = new ArrayList<>() {{
-                add(ModItems.LifeCrystal0.get());
-                add(ModItems.LifeCrystal1.get());
-                add(ModItems.LifeCrystal2.get());
-                add(ModItems.LifeCrystal3.get());
+                add(ModItems.LIFE_CRYSTAL_0.get());
+                add(ModItems.LIFE_CRYSTAL_1.get());
+                add(ModItems.LIFE_CRYSTAL_2.get());
+                add(ModItems.LIFE_CRYSTAL_3.get());
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);

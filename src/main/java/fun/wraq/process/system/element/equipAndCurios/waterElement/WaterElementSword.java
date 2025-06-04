@@ -94,9 +94,9 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
     }
 
     public static void Passive(LivingEntity livingEntity) {
-        if (livingEntity instanceof Player player && player.getMainHandItem().is(ModItems.WaterElementSword.get())) {
+        if (livingEntity instanceof Player player && player.getMainHandItem().is(ModItems.WATER_ELEMENT_SWORD.get())) {
             playerElementEnhanceTickMap.put(player, Tick.get() + 140);
-            Compute.sendEffectLastTime(player, ModItems.WaterElementSword.get().getDefaultInstance(), 140);
+            Compute.sendEffectLastTime(player, ModItems.WATER_ELEMENT_SWORD.get().getDefaultInstance(), 140);
         }
     }
 
@@ -110,7 +110,7 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.PlayerUseWithHud(player, playerActiveCoolDownMap, ModItems.WaterElementSword.get(), 0, 25)) {
+        if (Compute.PlayerUseWithHud(player, playerActiveCoolDownMap, ModItems.WATER_ELEMENT_SWORD.get(), 0, 25)) {
             Compute.playerItemCoolDown(player, this, 25);
             Vec3 pos = Compute.MyPlayerPickLocation(player, 15);
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 15, 15, 15));

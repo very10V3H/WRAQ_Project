@@ -35,9 +35,9 @@ public class FishEvent {
         CompoundTag data = player.getPersistentData();
         if (r.nextDouble() < 0.1) {
             data.putInt(seaPieceGetTimes, data.getInt(seaPieceGetTimes) + 1);
-            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.seaPiece.get()));
+            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.SEA_PIECE.get()));
         }
-        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.seaPiece.get()), 0.1)) {
+        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.SEA_PIECE.get()), 0.1)) {
             data.putInt(seaPieceGetTimes, data.getInt(seaPieceGetTimes) + 1);
         }
 
@@ -45,8 +45,8 @@ public class FishEvent {
         else data.putInt("FishCount", data.getInt("FishCount") + 1);
         int RodLevel = data.getInt("FishCount");
         ItemStack GoldCoin = ModItems.GOLD_COIN.get().getDefaultInstance();
-        ItemStack SilverCoin = ModItems.silverCoin.get().getDefaultInstance();
-        ItemStack SeaSoul = ModItems.SeaSoul.get().getDefaultInstance();
+        ItemStack SilverCoin = ModItems.SILVER_COIN.get().getDefaultInstance();
+        ItemStack SeaSoul = ModItems.SEA_SOUL.get().getDefaultInstance();
         Utils.dayFishCount.put(player.getName().getString(), Utils.dayFishCount.getOrDefault(player.getName().getString(), 0) + 1);
         double rateEnhance = Compute.playerExHarvest(player);
         if (RodLevel > 2000) {

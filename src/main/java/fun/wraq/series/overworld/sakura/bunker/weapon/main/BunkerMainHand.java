@@ -14,7 +14,7 @@ public interface BunkerMainHand {
             addAll(List.of(
                     new ItemStack(frontItem),
                     new ItemStack(BunkerItems.BUNKER_RUNE.get(), 150),
-                    new ItemStack(ModItems.ReputationMedal.get(), 80)
+                    new ItemStack(ModItems.REPUTATION_MEDAL.get(), 80)
             ));
         }};
     }

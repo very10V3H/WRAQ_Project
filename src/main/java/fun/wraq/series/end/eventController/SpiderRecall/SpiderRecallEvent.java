@@ -100,12 +100,12 @@ public class SpiderRecallEvent {
                             if (Utils.SpiderRecallSpider != null)
                                 Utils.SpiderRecallSpider.remove(Entity.RemovalReason.KILLED);
                             Utils.SpiderRecallSpider = new Spider(EntityType.SPIDER, level1);
-                            MobSpawn.setMobCustomName(Utils.SpiderRecallSpider, ModItems.ArmorSpiderRecall.get(), Component.literal("模糊记忆中的微光蜘蛛").withStyle(style));
-                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorSpiderRecall.get().getDefaultInstance());
-                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorKazeChest.get().getDefaultInstance());
-                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorKazeLeggings.get().getDefaultInstance());
-                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.FEET, ModItems.ArmorKazeBoots.get().getDefaultInstance());
-                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.MAINHAND, ModItems.KazeSword3.get().getDefaultInstance());
+                            MobSpawn.setMobCustomName(Utils.SpiderRecallSpider, ModItems.ARMOR_SPIDER_RECALL.get(), Component.literal("模糊记忆中的微光蜘蛛").withStyle(style));
+                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_SPIDER_RECALL.get().getDefaultInstance());
+                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.CHEST, ModItems.ARMOR_KAZE_CHEST.get().getDefaultInstance());
+                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.LEGS, ModItems.ARMOR_KAZE_LEGGINGS.get().getDefaultInstance());
+                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.FEET, ModItems.ARMOR_KAZE_BOOTS.get().getDefaultInstance());
+                            Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.MAINHAND, ModItems.KAZE_SWORD_3.get().getDefaultInstance());
                             Utils.SpiderRecallSpider.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.SpiderRecallSpider.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.SpiderRecallSpider.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);
@@ -151,7 +151,7 @@ public class SpiderRecallEvent {
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.SpiderRecallSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.SPIDER_RECALL_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.spiderRecall.recallPlayer, itemStack);
                             } else {
@@ -167,7 +167,7 @@ public class SpiderRecallEvent {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.SpiderRune.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.SPIDER_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.spiderRecall.recallPlayer, itemStack);
                             }

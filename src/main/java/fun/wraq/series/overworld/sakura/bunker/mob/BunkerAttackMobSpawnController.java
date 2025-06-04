@@ -97,9 +97,9 @@ public class BunkerAttackMobSpawnController extends MobSpawnController {
     public List<ItemAndRate> getDropList() {
         return List.of(
                 new ItemAndRate(BunkerItems.BUNKER_SOUL.get(), 0.3),
-                new ItemAndRate(ModItems.silverCoin.get(), 1),
+                new ItemAndRate(ModItems.SILVER_COIN.get(), 1),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065),
-                new ItemAndRate(ModItems.FireElementPiece0.get(), 0.5)
+                new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.5)
         );
     }
 

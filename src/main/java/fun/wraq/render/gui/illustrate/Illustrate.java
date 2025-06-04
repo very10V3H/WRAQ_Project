@@ -9,7 +9,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.illustrate.mobinfo.MobInfoGui;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -51,11 +51,15 @@ public class Illustrate extends Screen {
         int X = this.width / 2;
         int Y = this.height / 2;
         this.addRenderableWidget(Button.builder(Component.translatable("←"), (p_280814_) -> {
-            if (page > 0) page--;
+            if (page > 0) {
+                page--;
+            }
         }).pos(X - 39 + 5, Y - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-            if (page < 100) page++;
+            if (page < ((getItems().size() - 1) / 45)) {
+                page++;
+            }
         }).pos(X + 20 + 5, Y - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
@@ -184,30 +188,41 @@ public class Illustrate extends Screen {
         guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
                 0, 0, 300, 200, textureWidth, textureHeight);
         int xOffset = -28;
-        switch (type) {
-            case 0 -> sameModule(Utils.weaponList, guiGraphics, x, y, xOffset);
-            case 1 -> sameModule(Utils.armorList, guiGraphics, x, y, xOffset);
-            case 2 -> sameModule(Utils.curiosList, guiGraphics, x, y, xOffset);
-            case 3 -> sameModule(Utils.customizedList, guiGraphics, x, y, xOffset);
-            case 4 -> sameModule(Display.getBrewingList(), guiGraphics, x, y, xOffset);
-            case 5 -> sameModule(Display.materialList, guiGraphics, x, y, xOffset);
-            case 6 -> sameModule(Display.gemList, guiGraphics, x, y, xOffset);
-            case 7 -> sameModule(Display.runeList, guiGraphics, x, y, xOffset);
-            case 8 -> sameModule(Display.swordList, guiGraphics, x, y, xOffset);
-            case 9 -> sameModule(Display.bowList, guiGraphics, x, y, xOffset);
-            case 10 -> sameModule(Display.sceptreList, guiGraphics, x, y, xOffset);
-            case 11 -> sameModule(Display.offHandList, guiGraphics, x, y, xOffset);
-            case 12 -> sameModule(Display.helmetList, guiGraphics, x, y, xOffset);
-            case 13 -> sameModule(Display.chestList, guiGraphics, x, y, xOffset);
-            case 14 -> sameModule(Display.leggingsList, guiGraphics, x, y, xOffset);
-            case 15 -> sameModule(Display.bootsList, guiGraphics, x, y, xOffset);
-            case 16 -> sameModule(Display.powerList, guiGraphics, x, y, xOffset);
-            case 17 -> sameModule(Display.pickAxeList, guiGraphics, x, y, xOffset);
-            case 18 -> sameModule(Display.getSouvenirsList(), guiGraphics, x, y, xOffset);
-            case 19 -> sameModule(Display.getNewItemList(), guiGraphics, x, y, xOffset);
-        }
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
+        List<Item> list = getItems();
+        sameModule(list, guiGraphics, x, y, xOffset);
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("" + (page + 1)),
+                this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
+        guiGraphics.drawCenteredString(fontRenderer,
+                Te.s("共" + ((list.size() - 1) / 45 + 1) + "页 " + (list.size()) + "件物品"),
+                this.width / 2 + 80, this.height / 2 + 83, 0);
         super.render(p_96310_, x, y, v);
+    }
+
+    private List<Item> getItems() {
+        List<Item> list = new ArrayList<>();
+        switch (type) {
+            case 0 -> list = Utils.weaponList;
+            case 1 -> list = Utils.armorList;
+            case 2 -> list = Utils.curiosList;
+            case 3 -> list = Utils.customizedList;
+            case 4 -> list = Display.getBrewingList();
+            case 5 -> list = Display.materialList;
+            case 6 -> list = Display.gemList;
+            case 7 -> list = Display.runeList;
+            case 8 -> list = Display.swordList;
+            case 9 -> list = Display.bowList;
+            case 10 -> list = Display.sceptreList;
+            case 11 -> list = Display.offHandList;
+            case 12 -> list = Display.helmetList;
+            case 13 -> list = Display.chestList;
+            case 14 -> list = Display.leggingsList;
+            case 15 -> list = Display.bootsList;
+            case 16 -> list = Display.powerList;
+            case 17 -> list = Display.pickAxeList;
+            case 18 -> list = Display.getSouvenirsList();
+            case 19 -> list = Display.getNewItemList();
+        }
+        return list;
     }
 
     @Override

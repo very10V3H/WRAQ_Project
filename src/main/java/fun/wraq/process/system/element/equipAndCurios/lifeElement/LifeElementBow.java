@@ -62,7 +62,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
     public static void Tick(Player player) {
         if (LifeElementSword.lifeElementActiveLastTick.containsKey(player) && LifeElementSword.lifeElementActiveLastTick.get(player) >= Tick.get()) {
             int tickCount = LifeElementSword.lifeElementActiveLastTick.get(player) - Tick.get();
-            Compute.sendEffectLastTime(player, ModItems.LifeElementSword.get().getDefaultInstance(), tickCount, tickCount, true);
+            Compute.sendEffectLastTime(player, ModItems.LIFE_ELEMENT_SWORD.get().getDefaultInstance(), tickCount, tickCount, true);
             Compute.playerHeal(player, LifeElementSword.lifeElementActiveHealth.get(player) * 0.01);
         }
     }

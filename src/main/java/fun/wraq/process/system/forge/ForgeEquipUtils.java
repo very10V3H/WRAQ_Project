@@ -75,14 +75,14 @@ public class ForgeEquipUtils {
 
     public static void setZoneForgeItemListMap() {
         List<Item> plain = List.of(
-                ModItems.PlainArmorHelmet.get(),
-                ModItems.PlainArmorChest.get(),
-                ModItems.PlainArmorLeggings.get(),
-                ModItems.PlainArmorBoots.get(),
-                ModItems.KazeSword0.get(),
-                ModItems.KazeBoots.get(),
-                ModItems.PlainSword0.get(),
-                ModItems.PlainBow0.get(),
+                ModItems.PLAIN_HELMET.get(),
+                ModItems.PLAIN_CHEST.get(),
+                ModItems.PLAIN_LEGGINGS.get(),
+                ModItems.PLAIN_BOOTS.get(),
+                ModItems.KAZE_SWORD_0.get(),
+                ModItems.KAZE_BOOTS.get(),
+                ModItems.PLAIN_SWORD_0.get(),
+                ModItems.PLAIN_BOW_0.get(),
                 ModItems.LIFE_SCEPTRE_0.get()
         );
 
@@ -91,96 +91,96 @@ public class ForgeEquipUtils {
         }});
 
         List<Item> forest = List.of(
-                ModItems.ForestSword0.get(),
-                ModItems.ForestBow0.get(),
-                ModItems.ForestArmorHelmet.get(),
-                ModItems.ForestArmorChest.get(),
-                ModItems.ForestArmorLeggings.get(),
-                ModItems.ForestArmorBoots.get(),
-                ModItems.LakeSword0.get(),
-                ModItems.lakeBow0.get(),
-                ModItems.lakeSceptre0.get(),
-                ModItems.LakeArmorHelmet.get(),
-                ModItems.LakeArmorChest.get(),
-                ModItems.LakeArmorLeggings.get(),
-                ModItems.LakeArmorBoots.get(),
-                ModItems.MineSword0.get(),
-                ModItems.MineBow0.get(),
-                ModItems.MineArmorHelmet.get(),
-                ModItems.MineArmorChest.get(),
-                ModItems.MineArmorLeggings.get(),
-                ModItems.MineArmorBoots.get(),
-                ModItems.VolcanoSword0.get(),
-                ModItems.VolcanoBow0.get(),
-                ModItems.VolcanoArmorHelmet.get(),
-                ModItems.VolcanoArmorChest.get(),
-                ModItems.VolcanoArmorLeggings.get(),
-                ModItems.VolcanoArmorBoots.get()
+                ModItems.FOREST_SWORD_0.get(),
+                ModItems.FOREST_BOW_0.get(),
+                ModItems.FOREST_HELMET.get(),
+                ModItems.FOREST_CHEST.get(),
+                ModItems.FOREST_LEGGINGS.get(),
+                ModItems.FOREST_BOOTS.get(),
+                ModItems.LAKE_SWORD_0.get(),
+                ModItems.LAKE_BOW_0.get(),
+                ModItems.LAKE_SCEPTRE_0.get(),
+                ModItems.LAKE_HELMET.get(),
+                ModItems.LAKE_CHEST.get(),
+                ModItems.LAKE_LEGGINGS.get(),
+                ModItems.LAKE_BOOTS.get(),
+                ModItems.MINE_SWORD_0.get(),
+                ModItems.MINE_BOW_0.get(),
+                ModItems.MINE_HELMET.get(),
+                ModItems.MINE_CHEST.get(),
+                ModItems.MINE_LEGGINGS.get(),
+                ModItems.MINE_BOOTS.get(),
+                ModItems.VOLCANO_SWORD_0.get(),
+                ModItems.VOLCANO_BOW_0.get(),
+                ModItems.VOLCANO_HELMET.get(),
+                ModItems.VOLCANO_CHEST.get(),
+                ModItems.VOLCANO_LEGGINGS.get(),
+                ModItems.VOLCANO_BOOTS.get()
         );
         zoneForgeItemListMap.put(FOREST_VILLAGE, new ArrayList<>() {{
             forest.forEach(item -> add(item.getDefaultInstance()));
         }});
 
         List<Item> lake = List.of(
-                ModItems.LakeSword0.get(),
-                ModItems.LakeArmorHelmet.get(),
-                ModItems.LakeArmorChest.get(),
-                ModItems.LakeArmorLeggings.get(),
-                ModItems.LakeArmorBoots.get(),
-                ModItems.SlimeBoots.get()
+                ModItems.LAKE_SWORD_0.get(),
+                ModItems.LAKE_HELMET.get(),
+                ModItems.LAKE_CHEST.get(),
+                ModItems.LAKE_LEGGINGS.get(),
+                ModItems.LAKE_BOOTS.get(),
+                ModItems.SLIME_BOOTS.get()
         );
         zoneForgeItemListMap.put(LAKE_VILLAGE, new ArrayList<>() {{
             lake.forEach(item -> add(item.getDefaultInstance()));
         }});
 
         List<Item> volcano = List.of(
-                ModItems.VolcanoSword0.get(),
-                ModItems.VolcanoBow0.get(),
-                ModItems.VolcanoArmorHelmet.get(),
-                ModItems.VolcanoArmorChest.get(),
-                ModItems.VolcanoArmorLeggings.get(),
-                ModItems.VolcanoArmorBoots.get(),
-                C7Items.boneImpKnife.get()
+                ModItems.VOLCANO_SWORD_0.get(),
+                ModItems.VOLCANO_BOW_0.get(),
+                ModItems.VOLCANO_HELMET.get(),
+                ModItems.VOLCANO_CHEST.get(),
+                ModItems.VOLCANO_LEGGINGS.get(),
+                ModItems.VOLCANO_BOOTS.get(),
+                C7Items.BONE_IMP_KNIFE.get()
         );
         zoneForgeItemListMap.put(VOLCANO_VILLAGE, new ArrayList<>() {{
             volcano.forEach(item -> add(item.getDefaultInstance()));
         }});
 
         List<Item> snow = List.of(
-                ModItems.SnowSword0.get(),
-                ModItems.SnowArmorHelmet.get(),
-                ModItems.SnowArmorChest.get(),
-                ModItems.SnowArmorLeggings.get(),
-                ModItems.SnowArmorBoots.get(),
+                ModItems.SNOW_SWORD_0.get(),
+                ModItems.SNOW_HELMET.get(),
+                ModItems.SNOW_CHEST.get(),
+                ModItems.SNOW_LEGGINGS.get(),
+                ModItems.SNOW_BOOTS.get(),
                 ModItems.ICE_SWORD.get(),
                 ModItems.ICE_SWORD_E.get(),
                 ModItems.ICE_BOW.get(),
                 ModItems.ICE_BOW_E.get(),
                 ModItems.ICE_SCEPTRE.get(),
                 ModItems.ICE_SCEPTRE_E.get(),
-                ModItems.IceArmorHelmet.get(), ModItems.IceArmorChest.get(),
-                ModItems.IceArmorLeggings.get(), ModItems.IceArmorBoots.get(),
+                ModItems.ICE_HELMET.get(), ModItems.ICE_CHEST.get(),
+                ModItems.ICE_LEGGINGS.get(), ModItems.ICE_BOOTS.get(),
                 ModItems.CASTLE_SWORD.get(),
                 ModItems.CASTLE_SWORD_E.get(),
                 ModItems.CASTLE_BOW.get(),
                 ModItems.CASTLE_BOW_E.get(),
                 ModItems.CASTLE_SCEPTRE.get(),
                 ModItems.CASTLE_SCEPTRE_E.get(),
-                ModItems.CastleAttackHelmet.get(), ModItems.CastleAttackChest.get(), ModItems.CastleAttackLeggings.get(), ModItems.CastleAttackBoots.get(),
-                ModItems.CastleSwiftHelmet.get(), ModItems.CastleSwiftChest.get(), ModItems.CastleSwiftLeggings.get(), ModItems.CastleSwiftBoots.get(),
-                ModItems.CastleManaHelmet.get(), ModItems.CastleManaChest.get(), ModItems.CastleManaLeggings.get(), ModItems.CastleManaBoots.get()
+                ModItems.CASTLE_ATTACK_HELMET.get(), ModItems.CASTLE_ATTACK_CHEST.get(), ModItems.CASTLE_ATTACK_LEGGINGS.get(), ModItems.CASTLE_ATTACK_BOOTS.get(),
+                ModItems.CASTLE_SWIFT_HELMET.get(), ModItems.CASTLE_SWIFT_CHEST.get(), ModItems.CASTLE_SWIFT_LEGGINGS.get(), ModItems.CASTLE_SWIFT_BOOTS.get(),
+                ModItems.CASTLE_MANA_HELMET.get(), ModItems.CASTLE_MANA_CHEST.get(), ModItems.CASTLE_MANA_LEGGINGS.get(), ModItems.CASTLE_MANA_BOOTS.get()
         );
         zoneForgeItemListMap.put(SNOW_VILLAGE, new ArrayList<>() {{
             snow.forEach(item -> add(item.getDefaultInstance()));
         }});
 
         List<Item> birch = List.of(
-                ModItems.SeaSword0.get(),
-                ModItems.huskSword0.get(),
-                ModItems.SeaBow.get(),
-                ModItems.ShipSword.get(),
-                ModItems.ShipBow.get(),
-                ModItems.ShipSceptre.get(),
+                ModItems.SEA_SWORD_0.get(),
+                ModItems.HUSK_SWORD_0.get(),
+                ModItems.SEA_BOW.get(),
+                ModItems.SHIP_SWORD.get(),
+                ModItems.SHIP_BOW.get(),
+                ModItems.SHIP_SCEPTRE.get(),
                 ModItems.LIGHTNING_HELMET.get(),
                 ModItems.LIGHTNING_CHEST.get(),
                 ModItems.LIGHTNING_LEGGINGS.get(),
@@ -194,61 +194,61 @@ public class ForgeEquipUtils {
         }});
 
         List<Item> sakura = List.of(
-                ModItems.SakuraDemonSword.get(),
-                ModItems.SakuraBow.get(),
-                ModItems.goldenShield.get(),
-                ModItems.goldenKnife.get(),
-                ModItems.ManaShield.get(),
-                ModItems.manaKnife.get(),
-                ModItems.EarthManaArmorHelmet.get(),
-                ModItems.EarthManaArmorChest.get(),
-                ModItems.EarthManaArmorLeggings.get(),
-                ModItems.EarthManaArmorBoots.get(),
-                ModItems.BloodManaArmorHelmet.get(),
-                ModItems.BloodManaArmorChest.get(),
-                ModItems.BloodManaArmorLeggings.get(),
-                ModItems.BloodManaArmorBoots.get(),
-                ModItems.DevilAttackChest.get(),
-                ModItems.DevilSwiftBoots.get(),
-                ModItems.DevilManaHelmet.get(),
-                ModItems.TabooAttackLeggings.get(),
-                ModItems.TabooSwiftHelmet.get(),
-                ModItems.TabooManaBoots.get()
+                ModItems.SAKURA_SWORD.get(),
+                ModItems.SAKURA_BOW.get(),
+                ModItems.GOLDEN_SHIELD.get(),
+                ModItems.GOLDEN_KNIFE.get(),
+                ModItems.MANA_SHIELD.get(),
+                ModItems.MANA_KNIFE.get(),
+                ModItems.EARTH_MANA_HELMET.get(),
+                ModItems.EARTH_MANA_CHEST.get(),
+                ModItems.EARTH_MANA_LEGGINGS.get(),
+                ModItems.EARTH_MANA_BOOTS.get(),
+                ModItems.BLOOD_MANA_HELMET.get(),
+                ModItems.BLOOD_MANA_CHEST.get(),
+                ModItems.BLOOD_MANA_LEGGINGS.get(),
+                ModItems.BLOOD_MANA_BOOTS.get(),
+                ModItems.DEVIL_ATTACK_CHEST.get(),
+                ModItems.DEVIL_SWIFT_BOOTS.get(),
+                ModItems.DEVIL_MANA_HELMET.get(),
+                ModItems.TABOO_ATTACK_LEGGINGS.get(),
+                ModItems.TABOO_SWIFT_HELMET.get(),
+                ModItems.TABOO_MANA_BOOTS.get()
         );
         zoneForgeItemListMap.put(SAKURA_VILLAGE, new ArrayList<>() {{
             sakura.forEach(item -> add(item.getDefaultInstance()));
         }});
 
         List<Item> sky = List.of(
-                ModItems.SkyBow.get(),
+                ModItems.SKY_BOW.get(),
                 ModItems.SKY_SWORD.get(),
-                ModItems.SKY_ARMOR_HELMET.get(),
-                ModItems.SKY_ARMOR_CHEST.get(),
-                ModItems.SKY_ARMOR_LEGGINGS.get(),
-                ModItems.SKY_ARMOR_BOOTS.get(),
-                ModItems.NetherShield.get(),
-                ModItems.WitherSword0.get(),
-                ModItems.PiglinHelmet0.get(),
-                ModItems.WitherBow0.get(),
-                ModItems.MagmaSceptre0.get(),
+                ModItems.SKY_HELMET.get(),
+                ModItems.SKY_CHEST.get(),
+                ModItems.SKY_LEGGINGS.get(),
+                ModItems.SKY_BOOTS.get(),
+                ModItems.NETHER_SHIELD.get(),
+                ModItems.WITHER_SWORD_0.get(),
+                ModItems.PIGLIN_HELMET_0.get(),
+                ModItems.WITHER_BOW_0.get(),
+                ModItems.MAGMA_SCEPTRE_0.get(),
                 ModItems.NETHER_SWORD.get(),
                 ModItems.NETHER_SWORD_E.get(),
                 ModItems.NETHER_SCEPTRE.get(),
                 ModItems.NETHER_SCEPTRE_E.get(),
                 ModItems.NETHER_KNIFE.get(),
                 ModItems.NETHER_KNIFE_E.get(),
-                ModItems.NETHER_ARMOR_HELMET.get(),
-                ModItems.NETHER_ARMOR_CHEST.get(),
-                ModItems.NETHER_ARMOR_LEGGINGS.get(),
-                ModItems.NETHER_ARMOR_BOOTS.get(),
-                ModItems.NetherManaArmorHelmet.get(),
-                ModItems.NetherManaArmorChest.get(),
-                ModItems.NetherManaArmorLeggings.get(),
-                ModItems.NetherManaArmorBoots.get(),
-                ModItems.StarBottle.get(),
-                C7Items.vdSword.get(),
-                C7Items.vdBow.get(),
-                C7Items.vdSceptre.get()
+                ModItems.NETHER_HELMET.get(),
+                ModItems.NETHER_CHEST.get(),
+                ModItems.NETHER_LEGGINGS.get(),
+                ModItems.NETHER_BOOTS.get(),
+                ModItems.NETHER_MANA_HELMET.get(),
+                ModItems.NETHER_MANA_CHEST.get(),
+                ModItems.NETHER_MANA_LEGGINGS.get(),
+                ModItems.NETHER_MANA_BOOTS.get(),
+                ModItems.STAR_BOTTLE.get(),
+                C7Items.VD_SWORD.get(),
+                C7Items.VD_BOW.get(),
+                C7Items.VD_SCEPTRE.get()
         );
         zoneForgeItemListMap.put(SKY_CITY, new ArrayList<>() {{
             sky.forEach(item -> add(item.getDefaultInstance()));
@@ -261,22 +261,22 @@ public class ForgeEquipUtils {
                 ModItems.MOON_BOW_E.get(),
                 ModItems.MOON_SCEPTRE.get(),
                 ModItems.MOON_SCEPTRE_E.get(),
-                ModItems.MoonShield.get(),
-                ModItems.MoonKnife.get(),
-                ModItems.MoonBook.get(),
-                ModItems.MoonBelt.get(),
-                ModItems.MoonHelmet.get(),
-                ModItems.MoonLeggings.get()
+                ModItems.MOON_SHIELD.get(),
+                ModItems.MOON_KNIFE.get(),
+                ModItems.MOON_BOOK.get(),
+                ModItems.MOON_BELT.get(),
+                ModItems.MOON_HELMET.get(),
+                ModItems.MOON_LEGGINGS.get()
         );
         zoneForgeItemListMap.put(XUNNAN_VILLAGE, new ArrayList<>() {{
             xunNan.forEach(item -> add(item.getDefaultInstance()));
         }});
 
         List<Item> xunXi = List.of(
-                ModItems.PurpleIronArmorHelmet.get(),
-                ModItems.PurpleIronArmorChest.get(),
-                ModItems.PurpleIronArmorLeggings.get(),
-                ModItems.PurpleIronArmorBoots.get()
+                ModItems.PURPLE_IRON_HELMET.get(),
+                ModItems.PURPLE_IRON_CHEST.get(),
+                ModItems.PURPLE_IRON_LEGGINGS.get(),
+                ModItems.PURPLE_IRON_BOOTS.get()
         );
         zoneForgeItemListMap.put(XUNXI_VILLAGE, new ArrayList<>() {{
             xunXi.forEach(item -> add(item.getDefaultInstance()));
@@ -478,11 +478,11 @@ public class ForgeEquipUtils {
     }
 
     public static List<Item> getEquipPieceList() {
-        return List.of(ModItems.equipPiece0.get(),
-                ModItems.equipPiece1.get(), ModItems.equipPiece2.get(), ModItems.equipPiece3.get(), ModItems.equipPiece4.get(),
-                ModItems.equipPiece5.get(), ModItems.equipPiece6.get(), ModItems.equipPiece7.get(), ModItems.equipPiece8.get(),
-                ModItems.equipPiece9.get(), ModItems.equipPiece10.get(), ModItems.equipPiece11.get(), ModItems.equipPiece12.get(),
-                ModItems.equipPiece13.get());
+        return List.of(ModItems.EQUIP_PIECE_0.get(),
+                ModItems.EQUIP_PIECE_1.get(), ModItems.EQUIP_PIECE_2.get(), ModItems.EQUIP_PIECE_3.get(), ModItems.EQUIP_PIECE_4.get(),
+                ModItems.EQUIP_PIECE_5.get(), ModItems.EQUIP_PIECE_6.get(), ModItems.EQUIP_PIECE_7.get(), ModItems.EQUIP_PIECE_8.get(),
+                ModItems.EQUIP_PIECE_9.get(), ModItems.EQUIP_PIECE_10.get(), ModItems.EQUIP_PIECE_11.get(), ModItems.EQUIP_PIECE_12.get(),
+                ModItems.EQUIP_PIECE_13.get());
     }
 
     public static boolean itemContainForgeQuality(ItemStack itemStack) {

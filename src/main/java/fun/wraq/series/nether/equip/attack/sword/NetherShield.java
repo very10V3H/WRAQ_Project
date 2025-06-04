@@ -68,9 +68,9 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.NetherRune.get(), 4));
-            add(new ItemStack(ModItems.Ruby.get(), 128));
-            add(new ItemStack(ModItems.NetherQuartz.get(), 32));
+            add(new ItemStack(ModItems.NETHER_RUNE.get(), 4));
+            add(new ItemStack(ModItems.RUBY.get(), 128));
+            add(new ItemStack(ModItems.NETHER_QUARTZ.get(), 32));
             add(new ItemStack(Items.IRON_INGOT, 64));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};
@@ -82,6 +82,6 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
         double rate = 2 - Damage.defenceDamageDecreaseRate(player, mob, defenceValue, 0, 0);
         int tick = Tick.get();
         Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.2 * rate, 3, tick + 20, player.getName().getString(), true, null));
-        Compute.sendMobEffectHudToNearPlayer(mob, ModItems.Ruby.get(), "NetherShieldDot", 20, 0, false);
+        Compute.sendMobEffectHudToNearPlayer(mob, ModItems.RUBY.get(), "NetherShieldDot", 20, 0, false);
     }
 }

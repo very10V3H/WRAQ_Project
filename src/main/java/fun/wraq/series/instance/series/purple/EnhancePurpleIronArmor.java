@@ -77,6 +77,6 @@ public class EnhancePurpleIronArmor extends WraqArmor implements Decomposable {
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.PurpleIronBud2.get(), 2);
+        return new ItemStack(ModItems.PURPLE_IRON_BUD_2.get(), 2);
     }
 }

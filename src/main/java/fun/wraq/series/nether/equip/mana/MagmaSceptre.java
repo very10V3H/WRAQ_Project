@@ -91,9 +91,9 @@ public class MagmaSceptre extends WraqSceptre implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.MagmaRune.get(), 4),
-                new ItemStack(ModItems.Ruby.get(), 128),
-                new ItemStack(ModItems.NetherQuartz.get(), 32),
+                new ItemStack(ModItems.MAGMA_RUNE.get(), 4),
+                new ItemStack(ModItems.RUBY.get(), 128),
+                new ItemStack(ModItems.NETHER_QUARTZ.get(), 32),
                 new ItemStack(Items.RAW_GOLD, 32),
                 new ItemStack(ModItems.GOLD_COIN.get(), 64)
         );

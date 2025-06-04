@@ -88,7 +88,7 @@ public class MoonKnife extends WraqOffHandItem implements OnArrowHitEffectCurios
             Mob oldMob = PlayerMoonKnifeMap.get(Name.get(player));
             oldMob.removeEffect(MobEffects.GLOWING);
             PlayerMoonKnifeCountMap.put(player, 0);
-            Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MoonSoul.get(), "MoonKnifeCount");
+            Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MOON_SOUL.get(), "MoonKnifeCount");
         }
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
         PlayerMoonKnifeMap.put(Name.get(player), mob);
@@ -103,10 +103,10 @@ public class MoonKnife extends WraqOffHandItem implements OnArrowHitEffectCurios
                 }
             });
             playerDamageEnhanceTickMap.put(player, TickCount + 60);
-            Compute.sendEffectLastTime(player, ModItems.MoonSoul.get(), 60);
-            Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonKnifeCount");
+            Compute.sendEffectLastTime(player, ModItems.MOON_SOUL.get(), 60);
+            Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonKnifeCount");
         } else {
-            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonKnifeCount", 8888, count, true);
+            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonKnifeCount", 8888, count, true);
         }
     }
 }

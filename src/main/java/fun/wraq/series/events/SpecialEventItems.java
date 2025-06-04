@@ -185,7 +185,7 @@ public class SpecialEventItems {
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.SpringBold), new ArrayList<>() {{
                 add(new NewLotteries.Loot(new ItemStack(MONEY.get()), 0.6));
                 add(new NewLotteries.Loot(new ItemStack(ModItems.WORLD_SOUL_5.get(), 8), 0.2));
-                add(new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1));
                 add(new NewLotteries.Loot(new ItemStack(RED_ENVELOPE.get()), 0.1));
             }}));
 
@@ -268,28 +268,27 @@ public class SpecialEventItems {
                     Te.s(" 完成", "委托任务", ChatFormatting.AQUA, "即可获得", "1个此物品")
             )));
 
-    public static final RegistryObject<Item> OldSilverCoin = ITEMS.register("old_silver_coin",
+    public static final RegistryObject<Item> OLD_SILVER_COIN = ITEMS.register("old_silver_coin",
             () -> new LabourDayOldCoin(new Item.Properties().rarity(CustomStyle.Mine)));
 
-    public static final RegistryObject<Item> OldGoldCoin = ITEMS.register("old_gold_coin",
+    public static final RegistryObject<Item> OLD_GOLD_COIN = ITEMS.register("old_gold_coin",
             () -> new LabourDayOldCoin(new Item.Properties().rarity(CustomStyle.Gold)));
 
-    public static final RegistryObject<Item> LabourDayForgePaper = ITEMS.register("labour_day_forge_paper",
+    public static final RegistryObject<Item> LABOUR_DAY_FORGE_PAPER = ITEMS.register("labour_day_forge_paper",
             () -> new ForgePaper(new Item.Properties().rarity(CustomStyle.GoldBold),
                     "LabourDayForgePaper", LabourDayOldCoin.getLabourDaySuffix(),
                     Te.s("「劳动+1」", ChatFormatting.GOLD)));
 
-    public static final RegistryObject<Item> LabourDayIronHoe = ITEMS.register("labour_day_iron_hoe",
+    public static final RegistryObject<Item> LABOUR_DAY_IRON_HOE = ITEMS.register("labour_day_iron_hoe",
             () -> new LabourDayIronHoe(new Item.Properties().rarity(CustomStyle.GoldBold)));
-
-    public static final RegistryObject<Item> LabourDayIronPickaxe = ITEMS.register("labour_day_iron_pickaxe",
+    public static final RegistryObject<Item> LABOUR_DAY_IRON_PICKAXE = ITEMS.register("labour_day_iron_pickaxe",
             () -> new LabourDayIronPickaxe(new Item.Properties().rarity(CustomStyle.GoldBold)));
 
-    public static final RegistryObject<Item> LabourDayPrefix = ITEMS.register("labour_day_prefix",
+    public static final RegistryObject<Item> LABOUR_DAY_PREFIX = ITEMS.register("labour_day_prefix",
             () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.GoldBold),
                     "labourDay", "无产阶级", CustomStyle.styleOfGold));
 
-    public static final RegistryObject<Item> LabourDayGem = ITEMS.register("labour_day_gem",
+    public static final RegistryObject<Item> LABOUR_DAY_GEM = ITEMS.register("labour_day_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.GoldBold),
                     List.of(
                             new WraqGem.AttributeMapValue(Utils.percentAttackDamageEnhance, 0.05),
@@ -297,13 +296,13 @@ public class SpecialEventItems {
                     ), CustomStyle.styleOfGold, Te.s("这是最后的斗争", CustomStyle.styleOfGold),
                     LabourDayOldCoin.getLabourDaySuffix()));
 
-    public static final RegistryObject<Item> LabourDayLottery = ITEMS.register("labour_day_lottery",
+    public static final RegistryObject<Item> LABOUR_DAY_LOTTERY = ITEMS.register("labour_day_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.GoldBold), new ArrayList<>() {{
-                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.LabourDayForgePaper.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.LabourDayGem.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.LabourDayPrefix.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 2), 0.04));
-                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.OldGoldCoin.get(), 1), 0.1));
+                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.LABOUR_DAY_FORGE_PAPER.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.LABOUR_DAY_GEM.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.LABOUR_DAY_PREFIX.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.OLD_GOLD_COIN.get(), 2), 0.04));
+                add(new NewLotteries.Loot(new ItemStack(SpecialEventItems.OLD_GOLD_COIN.get(), 1), 0.1));
                 add(new NewLotteries.Loot(new ItemStack(ModItems.WORLD_SOUL_5.get(), 4), 0.8));
             }}));
 

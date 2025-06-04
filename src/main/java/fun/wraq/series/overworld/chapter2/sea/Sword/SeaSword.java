@@ -66,15 +66,15 @@ public class SeaSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        player.getCooldowns().addCooldown(ModItems.SeaSword0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.SeaSword1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.SeaSword2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.SeaSword3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        Compute.playerItemCoolDown(player, ModItems.SeaSword4.get(), 3);
+        player.getCooldowns().addCooldown(ModItems.SEA_SWORD_0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.SEA_SWORD_1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.SEA_SWORD_2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.SEA_SWORD_3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        Compute.playerItemCoolDown(player, ModItems.SEA_SWORD_4.get(), 3);
         if (tier == 4) Utils.SeaSwordActiveMap.put(player, 3);
         else if (tier == 3) Utils.SeaSwordActiveMap.put(player, 2);
         else Utils.SeaSwordActiveMap.put(player, 1);
-        Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 8888, 0, true);
+        Compute.sendEffectLastTime(player, ModItems.SEA_SWORD_0.get().getDefaultInstance(), 8888, 0, true);
         MySound.soundToNearPlayer(player, ModSounds.Attack.get());
     }
 
@@ -101,7 +101,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
                 }
             }
             Utils.SeaSwordActiveMap.remove(player);
-            Compute.removeEffectLastTime(player, ModItems.SeaSword0.get());
+            Compute.removeEffectLastTime(player, ModItems.SEA_SWORD_0.get());
         }
     }
 }

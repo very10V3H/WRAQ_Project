@@ -18,40 +18,40 @@ public class UniformItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
-    public static final RegistryObject<Item> AttackCurios0 = ITEMS.register("attack_curios_0",
+    public static final RegistryObject<Item> ATTACK_CURIOS_0 = ITEMS.register("attack_curios_0",
             () -> new AttackCurios0(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-    public static final RegistryObject<Item> BowCurios0 = ITEMS.register("bow_curios_0",
+    public static final RegistryObject<Item> BOW_CURIOS_0 = ITEMS.register("bow_curios_0",
             () -> new BowCurios0(new Item.Properties().rarity(CustomStyle.LifeBold)));
-    public static final RegistryObject<Item> ManaCurios0 = ITEMS.register("mana_curios_0",
+    public static final RegistryObject<Item> MANA_CURIOS_0 = ITEMS.register("mana_curios_0",
             () -> new ManaCurios0(new Item.Properties().rarity(CustomStyle.EvokerBold)));
 
-    public static final RegistryObject<Item> AttackCurios1 = ITEMS.register("attack_curios_1",
+    public static final RegistryObject<Item> ATTACK_CURIOS_1 = ITEMS.register("attack_curios_1",
             () -> new AttackCurios1(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-    public static final RegistryObject<Item> BowCurios1 = ITEMS.register("bow_curios_1",
+    public static final RegistryObject<Item> BOW_CURIOS_1 = ITEMS.register("bow_curios_1",
             () -> new BowCurios1(new Item.Properties().rarity(CustomStyle.LifeBold)));
-    public static final RegistryObject<Item> ManaCurios1 = ITEMS.register("mana_curios_1",
+    public static final RegistryObject<Item> MANA_CURIOS_1 = ITEMS.register("mana_curios_1",
             () -> new ManaCurios1(new Item.Properties().rarity(CustomStyle.EvokerBold)));
 
-    public static final RegistryObject<Item> AttackCurios2 = ITEMS.register("attack_curios_2",
+    public static final RegistryObject<Item> ATTACK_CURIOS_2 = ITEMS.register("attack_curios_2",
             () -> new AttackCurios2(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-    public static final RegistryObject<Item> BowCurios2 = ITEMS.register("bow_curios_2",
+    public static final RegistryObject<Item> BOW_CURIOS_2 = ITEMS.register("bow_curios_2",
             () -> new BowCurios2(new Item.Properties().rarity(CustomStyle.LifeBold)));
-    public static final RegistryObject<Item> ManaCurios2 = ITEMS.register("mana_curios_2",
+    public static final RegistryObject<Item> MANA_CURIOS_2 = ITEMS.register("mana_curios_2",
             () -> new ManaCurios2(new Item.Properties().rarity(CustomStyle.EvokerBold)));
 
-    public static final RegistryObject<Item> LifeCurios0 = ITEMS.register("life_curios_0",
+    public static final RegistryObject<Item> LIFE_CURIOS_0 = ITEMS.register("life_curios_0",
             () -> new LifeCurios0(new Item.Properties().rarity(CustomStyle.LifeBold)));
-    public static final RegistryObject<Item> WaterCurios0 = ITEMS.register("water_curios_0",
+    public static final RegistryObject<Item> WATER_CURIOS_0 = ITEMS.register("water_curios_0",
             () -> new WaterCurios0(new Item.Properties().rarity(CustomStyle.WaterBold)));
-    public static final RegistryObject<Item> FireCurios0 = ITEMS.register("fire_curios_0",
+    public static final RegistryObject<Item> FIRE_CURIOS_0 = ITEMS.register("fire_curios_0",
             () -> new FireCurios0(new Item.Properties().rarity(CustomStyle.FireBold)));
-    public static final RegistryObject<Item> StoneCurios0 = ITEMS.register("stone_curios_0",
+    public static final RegistryObject<Item> STONE_CURIOS_0 = ITEMS.register("stone_curios_0",
             () -> new StoneCurios0(new Item.Properties().rarity(CustomStyle.StoneBold)));
-    public static final RegistryObject<Item> IceCurios0 = ITEMS.register("ice_curios_0",
+    public static final RegistryObject<Item> ICE_CURIOS_0 = ITEMS.register("ice_curios_0",
             () -> new IceCurios0(new Item.Properties().rarity(CustomStyle.IceBold)));
-    public static final RegistryObject<Item> WindCurios0 = ITEMS.register("wind_curios_0",
+    public static final RegistryObject<Item> WIND_CURIOS_0 = ITEMS.register("wind_curios_0",
             () -> new WindCurios0(new Item.Properties().rarity(CustomStyle.WindBold)));
-    public static final RegistryObject<Item> LightningCurios0 = ITEMS.register("lightning_curios_0",
+    public static final RegistryObject<Item> LIGHTNING_CURIOS_0 = ITEMS.register("lightning_curios_0",
             () -> new LightningCurios0(new Item.Properties().rarity(CustomStyle.LightningBold)));
 
     public static final RegistryObject<Item> ATTACK_CURIOS_YXWG = ITEMS.register("attack_curios_yxwg",
@@ -68,7 +68,7 @@ public class UniformItems {
     public static final RegistryObject<Item> MANA_CURIO_TABOO = ITEMS.register("mana_curio_taboo",
             () -> new ManaCurioTaboo(new Item.Properties().stacksTo(1).rarity(CustomStyle.EvokerBold)));
 
-    public static final RegistryObject<Item> uniformPiece = ITEMS.register("uniform_piece",
+    public static final RegistryObject<Item> UNIFORM_PIECE = ITEMS.register("uniform_piece",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
     public static final RegistryObject<Item> ATTACK_CURIOS_3 = ITEMS.register("attack_curios_3",

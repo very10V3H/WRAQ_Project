@@ -33,11 +33,11 @@ public class UnCommonLotteries extends Item {
         itemAndWeightList.add(new ItemAndWeight(ModItems.FANTASY_MEDAL.get(), 2));
         itemAndWeightList.add(new ItemAndWeight(ModItems.FANTASY_BRACELET.get(), 2));
         itemAndWeightList.add(new ItemAndWeight(ModItems.WORLD_SOUL_3.get(), 2));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.ForgeEnhance2.get(), 20));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 10));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.FORGE_ENHANCE_2.get(), 20));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.KILL_PAPER_LOOT.get(), 10));
         itemAndWeightList.add(new ItemAndWeight(ModItems.GOLD_COIN.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.WORLD_SOUL_2.get(), 30));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.RevelationBook.get(), 30));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.REVELATION_BOOK.get(), 30));
     }
 
     private int TotalWeight() {

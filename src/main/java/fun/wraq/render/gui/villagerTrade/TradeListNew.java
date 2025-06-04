@@ -27,6 +27,7 @@ public class TradeListNew {
         cookingTools();
         cooking();
         dragonBoat();
+        weeklyStore();
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -35,10 +36,10 @@ public class TradeListNew {
             stacks.add(new ItemStack(ModItems.GOLD_COIN.get(), vb / 144));
         }
         if (vb % 144 / 12 > 0) {
-            stacks.add(new ItemStack(ModItems.silverCoin.get(), vb % 144 / 12));
+            stacks.add(new ItemStack(ModItems.SILVER_COIN.get(), vb % 144 / 12));
         }
         if (vb % 12 > 0) {
-            stacks.add(new ItemStack(ModItems.copperCoin.get(), vb % 12));
+            stacks.add(new ItemStack(ModItems.COPPER_COIN.get(), vb % 12));
         }
         return stacks;
     }
@@ -181,5 +182,12 @@ public class TradeListNew {
         MyVillagerData.setMyVillagerData("粽子大王",
                 "dragonBoat", CustomStyle.DRAGON_BOAT_FES_STYLE, VillagerType.JUNGLE,
                 VillagerProfession.BUTCHER, List.of());
+    }
+
+    public static final String WEEKLY_STORE_VILLAGER_NAME = "联合研院采购";
+    public static void weeklyStore() {
+        MyVillagerData.setMyVillagerData(WEEKLY_STORE_VILLAGER_NAME,
+                "weeklyStore", CustomStyle.styleOfWorld, VillagerType.SAVANNA,
+                VillagerProfession.LIBRARIAN, List.of());
     }
 }

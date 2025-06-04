@@ -457,7 +457,7 @@ public class AttackEventModule {
     }
 
     public static double NetherBow(Player player, Mob monster) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.NetherBow.get()))
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.NETHER_BOW.get()))
             return Math.min(1, monster.distanceTo(player) / 100);
         return 0;
     }
@@ -478,26 +478,26 @@ public class AttackEventModule {
     public static double SoulSwordActive(Player player) {
         if (Utils.SoulSwordMap.containsKey(player) && Utils.SoulSwordMap.get(player)) {
             Utils.SoulSwordMap.put(player, false);
-            Compute.sendEffectLastTime(player, ModItems.SoulSword.get().getDefaultInstance(), 0);
+            Compute.sendEffectLastTime(player, ModItems.SOUL_SWORD.get().getDefaultInstance(), 0);
             return 0.5;
         }
         return 0;
     }
 
     public static void snowShieldEffect(Player player, Mob mob) {
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.SnowShield.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.SNOW_SHIELD.get())) {
             int TickCount = Tick.get();
             Utils.SnowShieldPlayerEffectTickMap.put(player, TickCount + 40);
             Utils.SnowShieldPlayerEffectMap.put(player, (MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence) / 4));
             Utils.SnowShieldMobEffectMap.put(mob, TickCount + 40);
             Compute.addDefenceDecreaseEffectParticle(mob, 40);
-            Compute.sendEffectLastTime(player, ModItems.SnowSoul.get().getDefaultInstance(), 40);
-             Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SnowShield.get(), "SnowShieldDefenceDecrease", 40, 0, false);
+            Compute.sendEffectLastTime(player, ModItems.SNOW_SOUL.get().getDefaultInstance(), 40);
+             Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SNOW_SHIELD.get(), "SnowShieldDefenceDecrease", 40, 0, false);
         }
     }
 
     public static void ManaKnifeHealthRecover(Player player) {
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.manaKnife.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_KNIFE.get())) {
             Compute.playerHeal(player, PlayerAttributes.attackDamage(player) * 0.05);
         }
     }

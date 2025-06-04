@@ -56,7 +56,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean passiveTrig(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.mineNewRune.get())
+        return Compute.hasCurios(player, NewRuneItems.MINE_NEW_RUNE.get())
                 && player.getHealth() / player.getMaxHealth() >= 0.6;
     }
 
@@ -64,9 +64,9 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public void tick(Player player) {
         if (player.tickCount % 20 == 8) {
             if (passiveTrig(player)) {
-                Compute.sendEffectLastTime(player, NewRuneItems.mineNewRune.get(), 0, true);
+                Compute.sendEffectLastTime(player, NewRuneItems.MINE_NEW_RUNE.get(), 0, true);
             } else {
-                Compute.removeEffectLastTime(player, NewRuneItems.mineNewRune.get());
+                Compute.removeEffectLastTime(player, NewRuneItems.MINE_NEW_RUNE.get());
             }
         }
     }

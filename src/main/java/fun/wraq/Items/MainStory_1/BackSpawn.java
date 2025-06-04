@@ -96,7 +96,7 @@ public class BackSpawn extends Item {
 
     public static void setName(Player player) {
         ItemStack itemStack = player.getMainHandItem();
-        if (itemStack.is(ModItems.BackSpawn.get())) {
+        if (itemStack.is(ModItems.BACK_SPAWN_TICKET.get())) {
             if (player.level().dimension().equals(Level.OVERWORLD)) {
                 itemStack.setHoverName(Te.s("回城卷轴 - ", ChatFormatting.BLUE, clientNearestSpawnPoint));
             } else {

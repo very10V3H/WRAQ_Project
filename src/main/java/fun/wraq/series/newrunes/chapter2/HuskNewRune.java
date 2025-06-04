@@ -66,7 +66,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.huskNewRune.get());
+        return Compute.hasCurios(player, NewRuneItems.HUSK_NEW_RUNE.get());
     }
 
     public static Map<String, Queue<Integer>> soulCollectionMap = new HashMap<>();
@@ -80,11 +80,11 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     @Override
     public void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, NewRuneItems.huskNewRune.get());
+            Compute.removeEffectLastTime(player, NewRuneItems.HUSK_NEW_RUNE.get());
             return;
         }
         int size = handleQueue(player).size();
-        Compute.sendEffectLastTime(player, NewRuneItems.huskNewRune.get(), size, true);
+        Compute.sendEffectLastTime(player, NewRuneItems.HUSK_NEW_RUNE.get(), size, true);
     }
 
     public static double damageEnhance(Player player) {

@@ -34,7 +34,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("接取专属月卡任务(材料需求减半)").withStyle(ChatFormatting.LIGHT_PURPLE)));
         add(Te.s("4. ", CustomStyle.styleOfWorld, "委托任务", CustomStyle.styleOfWorld,
                 "高评级时间延长", "1min", ChatFormatting.LIGHT_PURPLE, "，并保底获得", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
-        SupplyBox supplyBoxTier1 = (fun.wraq.process.func.plan.SupplyBox) ModItems.supplyBoxTier1.get();
+        SupplyBox supplyBoxTier1 = (fun.wraq.process.func.plan.SupplyBox) ModItems.SUPPLY_BOX_TIER_1.get();
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("每日补给").withStyle(ChatFormatting.GOLD)).
                 append(Component.literal("内容更改为").withStyle(ChatFormatting.WHITE)).
@@ -70,11 +70,11 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("接取专属月卡任务(材料需求减半)").withStyle(ChatFormatting.LIGHT_PURPLE)));
         add(Te.s("4. ", CustomStyle.styleOfWorld, "委托任务", CustomStyle.styleOfWorld,
                 "高评级时间延长", "1min", ChatFormatting.LIGHT_PURPLE, "，并保底获得", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
-        SupplyBox supplyBoxTier2 = (fun.wraq.process.func.plan.SupplyBox) ModItems.supplyBoxTier2.get();
+        SupplyBox supplyBoxTier2 = (fun.wraq.process.func.plan.SupplyBox) ModItems.SUPPLY_BOX_TIER_2.get();
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("每日补给").withStyle(ChatFormatting.GOLD)).
                 append(Component.literal("内容更改为").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.supplyBoxTier2.get().getDefaultInstance().getDisplayName()));
+                append(ModItems.SUPPLY_BOX_TIER_2.get().getDefaultInstance().getDisplayName()));
         add(Component.literal(" 内含:").withStyle(CustomStyle.styleOfWorld));
         for (int i = 0; i < supplyBoxTier2.getSupplyItems().size(); i++) {
             ItemStack supplyItem = supplyBoxTier2.getSupplyItems().get(i);
@@ -108,11 +108,11 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("接取专属月卡任务(材料需求减半)").withStyle(ChatFormatting.LIGHT_PURPLE)));
         add(Te.s("4. ", CustomStyle.styleOfWorld, "委托任务", CustomStyle.styleOfWorld,
                 "高评级时间延长", "1min", ChatFormatting.LIGHT_PURPLE, "，并保底获得", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
-        SupplyBox supplyBoxTier3 = (SupplyBox) ModItems.supplyBoxTier3.get();
+        SupplyBox supplyBoxTier3 = (SupplyBox) ModItems.SUPPLY_BOX_TIER_3.get();
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("每日补给").withStyle(ChatFormatting.GOLD)).
                 append(Component.literal("内容更改为").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.supplyBoxTier3.get().getDefaultInstance().getDisplayName()));
+                append(ModItems.SUPPLY_BOX_TIER_3.get().getDefaultInstance().getDisplayName()));
         add(Component.literal(" 内含:").withStyle(CustomStyle.styleOfWorld));
         for (int i = 0; i < supplyBoxTier3.getSupplyItems().size(); i++) {
             ItemStack supplyItem = supplyBoxTier3.getSupplyItems().get(i);

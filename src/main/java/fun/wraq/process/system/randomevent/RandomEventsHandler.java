@@ -267,7 +267,7 @@ public class RandomEventsHandler {
                 players.forEach(player -> {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentHealthRecoverModifier,
                             "RandomElementEvent", 0.02, Tick.get() + Tick.min(15),
-                            ModItems.LifeElement.get());
+                            ModItems.LIFE_ELEMENT.get());
                     sendElementMSG(player, Te.s("生机迸发，万物复苏", CustomStyle.styleOfLife,
                             " - 获得持续15min的", ComponentUtils.AttributeDescription.healthRecover("2%")));
                 });
@@ -276,7 +276,7 @@ public class RandomEventsHandler {
                 players.forEach(player -> {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerCooldownModifier,
                             "RandomElementEvent", 0.3, Tick.get() + Tick.min(15),
-                            ModItems.WaterElement.get());
+                            ModItems.WATER_ELEMENT.get());
                     sendElementMSG(player, Te.s("碧水匀涌，青碧无暇", CustomStyle.styleOfWater,
                             " - 获得持续15min的", ComponentUtils.AttributeDescription.coolDown("30")));
                 });
@@ -285,7 +285,7 @@ public class RandomEventsHandler {
                 players.forEach(player -> {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentAttackDamageModifier,
                             "RandomElementEvent", 0.1, Tick.get() + Tick.min(15),
-                            ModItems.FireElement.get());
+                            ModItems.FIRE_ELEMENT.get());
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentManaDamageModifier,
                             "RandomElementEvent", 0.1, Tick.get() + Tick.min(15));
                     sendElementMSG(player, Te.s("炽热烈焰，燃地冲顶", CustomStyle.styleOfFire,
@@ -297,7 +297,7 @@ public class RandomEventsHandler {
                 players.forEach(player -> {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentDefenceModifier,
                             "RandomElementEvent", 0.2, Tick.get() + Tick.min(15),
-                            ModItems.StoneElement.get());
+                            ModItems.STONE_ELEMENT.get());
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentManaDefenceModifier,
                             "RandomElementEvent", 0.2, Tick.get() + Tick.min(15));
                     sendElementMSG(player, Te.s("层岩叠嶂，震天撼地", CustomStyle.styleOfStone,
@@ -309,7 +309,7 @@ public class RandomEventsHandler {
                 players.forEach(player -> {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerCritRateModifier,
                             "RandomElementEvent", 0.2, Tick.get() + Tick.min(15),
-                            ModItems.IceElement.get());
+                            ModItems.ICE_ELEMENT.get());
                     sendElementMSG(player, Te.s("凌冽冰气，摧肤刺骨", CustomStyle.styleOfIce,
                             " - 获得持续15min的", ComponentUtils.AttributeDescription.critRate("20%")));
                 });
@@ -318,7 +318,7 @@ public class RandomEventsHandler {
                 players.forEach(player -> {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
                             "RandomElementEvent", 0.4, Tick.get() + Tick.min(15),
-                            ModItems.LightningElement.get());
+                            ModItems.LIGHTNING_ELEMENT.get());
                     sendElementMSG(player, Te.s("暴怒狂雷，响彻大地", CustomStyle.styleOfLightingIsland,
                             " - 获得持续15min的", ComponentUtils.AttributeDescription.critDamage("40%")));
                 });
@@ -327,7 +327,7 @@ public class RandomEventsHandler {
                 players.forEach(player -> {
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
                             "RandomElementEvent", 0.3, Tick.get() + Tick.min(15),
-                            ModItems.WindElement.get());
+                            ModItems.WIND_ELEMENT.get());
                     sendElementMSG(player, Te.s("微风吹拂，驭气漂浮", CustomStyle.styleOfKaze,
                             " - 获得持续15min的", ComponentUtils.AttributeDescription.movementSpeed("30%")));
                 });

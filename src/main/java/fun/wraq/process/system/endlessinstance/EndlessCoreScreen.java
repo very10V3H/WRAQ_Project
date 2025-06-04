@@ -1,7 +1,7 @@
 package fun.wraq.process.system.endlessinstance;
 
-import fun.wraq.render.gui.trade.SingleItemChangeRecipe;
-import fun.wraq.render.gui.trade.SingleItemChangeScreen;
+import fun.wraq.render.gui.trade.single.SingleItemChangeRecipe;
+import fun.wraq.render.gui.trade.single.SingleItemChangeScreen;
 
 public class EndlessCoreScreen extends SingleItemChangeScreen {
 

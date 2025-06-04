@@ -32,8 +32,8 @@ public class ForNew extends Item {
     }
 
     private List<ItemStack> getItemList() {
-        ItemStack sword = new ItemStack(ModItems.PlainSword0.get());
-        ItemStack bow = new ItemStack(ModItems.PlainBow0.get());
+        ItemStack sword = new ItemStack(ModItems.PLAIN_SWORD_0.get());
+        ItemStack bow = new ItemStack(ModItems.PLAIN_BOW_0.get());
         ItemStack sceptre = new ItemStack(ModItems.LIFE_SCEPTRE_0.get());
         ForgeEquipUtils.setForgeQualityOnEquip(sword, 6);
         ForgeEquipUtils.setForgeQualityOnEquip(bow, 6);
@@ -48,17 +48,17 @@ public class ForNew extends Item {
                 sword, bow, sceptre,
                 new ItemStack(ModItems.BAMBOO_KANATA.get()),
                 new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()),
-                new ItemStack(ModItems.PlainManaBook.get()),
-                new ItemStack(NewRuneItems.plainNewRune.get()),
-                new ItemStack(NewRuneItems.forestNewRune.get()),
-                new ItemStack(NewRuneItems.lakeNewRune.get()),
-                new ItemStack(NewRuneItems.volcanoNewRune.get()),
-                new ItemStack(NewRuneItems.endNewRune.get()),
-                new ItemStack(ModItems.BackPackTickets.get()),
-                new ItemStack(ModItems.CopperHammer.get()),
-                new ItemStack(ModItems.BackSpawn.get()),
+                new ItemStack(ModItems.PLAIN_MANA_BOOK.get()),
+                new ItemStack(NewRuneItems.PLAIN_NEW_RUNE.get()),
+                new ItemStack(NewRuneItems.FOREST_NEW_RUNE.get()),
+                new ItemStack(NewRuneItems.LAKE_NEW_RUNE.get()),
+                new ItemStack(NewRuneItems.VOLCANO_NEW_RUNE.get()),
+                new ItemStack(NewRuneItems.END_NEW_RUNE.get()),
+                new ItemStack(ModItems.BACKPACK_TICKETS.get()),
+                new ItemStack(ModItems.COPPER_HAMMER.get()),
+                new ItemStack(ModItems.BACK_SPAWN_TICKET.get()),
                 new ItemStack(Items.GOLDEN_CARROT, 64),
-                new ItemStack(ModItems.notePaper.get(), 128),
+                new ItemStack(ModItems.NOTE_PAPER.get(), 128),
                 elyTra,
                 new ItemStack(ModItems.TP_PASS_3DAY.get(), 1));
     }

@@ -5,7 +5,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -58,7 +57,7 @@ public class DailyMissionRequestC2SPacket {
                         ItemStack itemStack = chooseItemStack.copy();
                         Utils.playerDailyMissionContent.put(serverPlayer.getName().getString(), itemStack);
                         int count = random.nextInt(64, Math.max(65, serverPlayer.experienceLevel));
-                        if (itemStack.is(ModItems.SpiderSoul.get())) count = (int) (count * 0.1);
+                        if (itemStack.is(ModItems.SPIDER_SOUL.get())) count = (int) (count * 0.1);
                         Utils.playerDailyMissionContentNum.put(serverPlayer.getName().getString(), count);
                         ModNetworking.sendToClient(new DailyMissionContentS2CPacket(
                                 Utils.playerDailyMissionContent.get(serverPlayer.getName().getString()),

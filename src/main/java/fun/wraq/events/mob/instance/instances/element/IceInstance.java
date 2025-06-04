@@ -116,10 +116,10 @@ public class IceInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 1250, 90, 90, 0.35,
                 3, 0.2, 30, 0, maxHealth, 0.35);
         stray.setHealth(stray.getMaxHealth());
-        stray.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHelmet.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceChest.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorIceLeggings.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorIceBoots.get().getDefaultInstance());
+        stray.setItemSlot(EquipmentSlot.HEAD, Compute.getSimpleFoiledItemStack(Items.DIAMOND_HELMET));
+        stray.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.DIAMOND_CHESTPLATE));
+        stray.setItemSlot(EquipmentSlot.LEGS, Compute.getSimpleFoiledItemStack(Items.DIAMOND_LEGGINGS));
+        stray.setItemSlot(EquipmentSlot.FEET, Compute.getSimpleFoiledItemStack(Items.DIAMOND_BOOTS));
         stray.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ICE_SWORD.get().getDefaultInstance());
         stray.moveTo(pos);
         level.addFreshEntity(stray);
@@ -162,11 +162,11 @@ public class IceInstance extends NoTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.IceLoot.get(), 1),
-                new ItemAndRate(ModItems.IceHeart.get(), 0.05),
+        return List.of(new ItemAndRate(ModItems.ICE_LOOT.get(), 1),
+                new ItemAndRate(ModItems.ICE_HEART.get(), 0.05),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
-                new ItemAndRate(ModItems.iceBelt.get(), 0.08));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1),
+                new ItemAndRate(ModItems.ICE_BELT.get(), 0.08));
     }
 
     public static void skill(Mob mob, int instanceTick, List<Player> playerList) {
@@ -249,17 +249,17 @@ public class IceInstance extends NoTeamInstance {
                             }
                             Utils.IceHunterForIceKnight[i] = new Stray(EntityType.STRAY, mob.level());
                             Mob iceHunter = Utils.IceHunterForIceKnight[i];
-                            MobSpawn.setMobCustomName(iceHunter, ModItems.MobArmorIceHunterHelmet.get(),
+                            MobSpawn.setMobCustomName(iceHunter, ModItems.MOB_ARMOR_ICE_HUNTER_HELMET.get(),
                                     Component.literal("冰原猎手").withStyle(CustomStyle.styleOfIce));
 
                             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(iceHunter), 100);
                             MobSpawn.MobBaseAttributes.setMobBaseAttributes(iceHunter, 625, 90, 90, 0.35,
                                     3, 0.2, 30, 20, 75000, 0.35);
 
-                            iceHunter.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHunterHelmet.get().getDefaultInstance());
-                            iceHunter.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceHunterChest.get().getDefaultInstance());
-                            iceHunter.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorIceHunterLeggings.get().getDefaultInstance());
-                            iceHunter.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorIceHunterBoots.get().getDefaultInstance());
+                            iceHunter.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_ICE_HUNTER_HELMET.get().getDefaultInstance());
+                            iceHunter.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_ICE_HUNTER_CHEST.get().getDefaultInstance());
+                            iceHunter.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_ICE_HUNTER_LEGGINGS.get().getDefaultInstance());
+                            iceHunter.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_ICE_HUNTER_BOOTS.get().getDefaultInstance());
                             iceHunter.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
 
                             iceHunter.moveTo(mob.position().add(1 - random.nextInt(2), 1 - random.nextInt(2), 1 - random.nextInt(2)));
@@ -273,7 +273,7 @@ public class IceInstance extends NoTeamInstance {
     }
 
     public static double IceKnightHealthAttackDamageFix(Mob mob) {
-        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorIceHelmet.get())) {
+        if (MobSpawn.getMobOriginName(mob).equals(mobName)) {
             if (mob.getHealth() / mob.getMaxHealth() > 2.0 / 3) return -0.5;
             if (mob.getHealth() / mob.getMaxHealth() < 1.0 / 3) return 0.5;
         }
@@ -281,7 +281,7 @@ public class IceInstance extends NoTeamInstance {
     }
 
     public static double IceKnightHealthManaDamageFix(Mob mob) {
-        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorIceHelmet.get())) {
+        if (MobSpawn.getMobOriginName(mob).equals(mobName)) {
             if (mob.getHealth() / mob.getMaxHealth() > 2.0 / 3) return 0.5;
             if (mob.getHealth() / mob.getMaxHealth() < 1.0 / 3) return -0.5;
         }

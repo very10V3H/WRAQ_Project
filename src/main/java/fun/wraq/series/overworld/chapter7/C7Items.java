@@ -15,21 +15,21 @@ import net.minecraftforge.registries.RegistryObject;
 public class C7Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
-    public static final RegistryObject<Item> boneImpSoul = ITEMS.register("bone_imp_soul", () ->
+    public static final RegistryObject<Item> BONE_IMP_SOUL = ITEMS.register("bone_imp_soul", () ->
             new WraqItem(new Item.Properties().rarity(CustomStyle.WitherBold)));
 
-    public static final RegistryObject<Item> boneImpKnife = ITEMS.register("bone_imp_knife", () ->
+    public static final RegistryObject<Item> BONE_IMP_KNIFE = ITEMS.register("bone_imp_knife", () ->
             new BoneImpKnife(new Item.Properties().rarity(CustomStyle.WitherBold), Component.literal("利刃短匕").withStyle(CustomStyle.styleOfBloodMana)));
 
-    public static final RegistryObject<Item> vdSoul = ITEMS.register("vd_soul", () ->
+    public static final RegistryObject<Item> VD_SOUL = ITEMS.register("vd_soul", () ->
             new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
-    public static final RegistryObject<Item> vdSword = ITEMS.register("vd_sword",
+    public static final RegistryObject<Item> VD_SWORD = ITEMS.register("vd_sword",
             () -> new VdSword(new Item.Properties().rarity(CustomStyle.WorldItalic)));
 
-    public static final RegistryObject<Item> vdBow = ITEMS.register("vd_bow",
+    public static final RegistryObject<Item> VD_BOW = ITEMS.register("vd_bow",
             () -> new VdBow(new Item.Properties().rarity(CustomStyle.WorldItalic)));
 
-    public static final RegistryObject<Item> vdSceptre = ITEMS.register("vd_sceptre",
+    public static final RegistryObject<Item> VD_SCEPTRE = ITEMS.register("vd_sceptre",
             () -> new VdSceptre(new Item.Properties().rarity(CustomStyle.WorldItalic)));
 }

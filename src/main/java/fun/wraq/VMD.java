@@ -57,6 +57,7 @@ import fun.wraq.render.gui.blocks.FurnaceScreen;
 import fun.wraq.render.gui.blocks.InjectBlockScreen;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.gui.testAndHelper.ModMenuTypes;
+import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
@@ -187,6 +188,7 @@ public class VMD {
         VpDataHandler.firstRead();
         WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
         TowerTimeRecord.readFromWorldRecordInfo();
+        WeeklyStore.init();
     }
 
     @SubscribeEvent
@@ -279,28 +281,28 @@ public class VMD {
     private void AddItemToTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey().equals(ModCreativeModeTab.ELEMENT.getKey())) {
             Item[] items = {
-                    ModItems.LifeElementPiece0.get(), ModItems.LifeElementPiece1.get(), ModItems.LifeElementPiece2.get(),
-                    ModItems.WaterElementPiece0.get(), ModItems.WaterElementPiece1.get(), ModItems.WaterElementPiece2.get(),
-                    ModItems.FireElementPiece0.get(), ModItems.FireElementPiece1.get(), ModItems.FireElementPiece2.get(),
-                    ModItems.StoneElementPiece0.get(), ModItems.StoneElementPiece1.get(), ModItems.StoneElementPiece2.get(),
-                    ModItems.IceElementPiece0.get(), ModItems.IceElementPiece1.get(), ModItems.IceElementPiece2.get(),
-                    ModItems.LightningElementPiece0.get(), ModItems.LightningElementPiece1.get(), ModItems.LightningElementPiece2.get(),
-                    ModItems.WindElementPiece0.get(), ModItems.WindElementPiece1.get(), ModItems.WindElementPiece2.get(),
-                    ModItems.LifeCrystal0.get(), ModItems.LifeCrystal1.get(), ModItems.LifeCrystal2.get(), ModItems.LifeCrystal3.get(),
-                    ModItems.WaterCrystal0.get(), ModItems.WaterCrystal1.get(), ModItems.WaterCrystal2.get(), ModItems.WaterCrystal3.get(),
-                    ModItems.FireCrystal0.get(), ModItems.FireCrystal1.get(), ModItems.FireCrystal2.get(), ModItems.FireCrystal3.get(),
-                    ModItems.StoneCrystal0.get(), ModItems.StoneCrystal1.get(), ModItems.StoneCrystal2.get(), ModItems.StoneCrystal3.get(),
-                    ModItems.IceCrystal0.get(), ModItems.IceCrystal1.get(), ModItems.IceCrystal2.get(), ModItems.IceCrystal3.get(),
-                    ModItems.WindCrystal0.get(), ModItems.WindCrystal1.get(), ModItems.WindCrystal2.get(), ModItems.WindCrystal3.get(),
-                    ModItems.LightningCrystal0.get(), ModItems.LightningCrystal1.get(), ModItems.LightningCrystal2.get(), ModItems.LightningCrystal3.get(),
-                    ModItems.RainbowPowder.get(), ModItems.RainbowCrystal.get(),
-                    ModItems.LifeHolyStone0.get(), ModItems.LifeHolyStone1.get(), ModItems.LifeHolyStone2.get(),
-                    ModItems.WaterHolyStone0.get(), ModItems.WaterHolyStone1.get(), ModItems.WaterHolyStone2.get(),
-                    ModItems.FireHolyStone0.get(), ModItems.FireHolyStone1.get(), ModItems.FireHolyStone2.get(),
-                    ModItems.StoneHolyStone0.get(), ModItems.StoneHolyStone1.get(), ModItems.StoneHolyStone2.get(),
-                    ModItems.IceHolyStone0.get(), ModItems.IceHolyStone1.get(), ModItems.IceHolyStone2.get(),
-                    ModItems.LightningHolyStone0.get(), ModItems.LightningHolyStone1.get(), ModItems.LightningHolyStone2.get(),
-                    ModItems.WindHolyStone0.get(), ModItems.WindHolyStone1.get(), ModItems.WindHolyStone2.get(),
+                    ModItems.LIFE_ELEMENT_PIECE_0.get(), ModItems.LIFE_ELEMENT_PIECE_1.get(), ModItems.LIFE_ELEMENT_PIECE_2.get(),
+                    ModItems.WATER_ELEMENT_PIECE_0.get(), ModItems.WATER_ELEMENT_PIECE_1.get(), ModItems.WATER_ELEMENT_PIECE_2.get(),
+                    ModItems.FIRE_ELEMENT_PIECE_0.get(), ModItems.FIRE_ELEMENT_PIECE_1.get(), ModItems.FIRE_ELEMENT_PIECE_2.get(),
+                    ModItems.STONE_ELEMENT_PIECE_0.get(), ModItems.STONE_ELEMENT_PIECE_1.get(), ModItems.STONE_ELEMENT_PIECE_2.get(),
+                    ModItems.ICE_ELEMENT_PIECE_0.get(), ModItems.ICE_ELEMENT_PIECE_1.get(), ModItems.ICE_ELEMENT_PIECE_2.get(),
+                    ModItems.LIGHTNING_ELEMENT_PIECE_0.get(), ModItems.LIGHTNING_ELEMENT_PIECE_1.get(), ModItems.LIGHTNING_ELEMENT_PIECE_2.get(),
+                    ModItems.WIND_ELEMENT_PIECE_0.get(), ModItems.WIND_ELEMENT_PIECE_1.get(), ModItems.WIND_ELEMENT_PIECE_2.get(),
+                    ModItems.LIFE_CRYSTAL_0.get(), ModItems.LIFE_CRYSTAL_1.get(), ModItems.LIFE_CRYSTAL_2.get(), ModItems.LIFE_CRYSTAL_3.get(),
+                    ModItems.WATER_CRYSTAL_0.get(), ModItems.WATER_CRYSTAL_1.get(), ModItems.WATER_CRYSTAL_2.get(), ModItems.WATER_CRYSTAL_3.get(),
+                    ModItems.FIRE_CRYSTAL_0.get(), ModItems.FIRE_CRYSTAL_1.get(), ModItems.FIRE_CRYSTAL_2.get(), ModItems.FIRE_CRYSTAL_3.get(),
+                    ModItems.STONE_CRYSTAL_0.get(), ModItems.STONE_CRYSTAL_1.get(), ModItems.STONE_CRYSTAL_2.get(), ModItems.STONE_CRYSTAL_3.get(),
+                    ModItems.ICE_CRYSTAL_0.get(), ModItems.ICE_CRYSTAL_1.get(), ModItems.ICE_CRYSTAL_2.get(), ModItems.ICE_CRYSTAL_3.get(),
+                    ModItems.WIND_CRYSTAL_0.get(), ModItems.WIND_CRYSTAL_1.get(), ModItems.WIND_CRYSTAL_2.get(), ModItems.WIND_CRYSTAL_3.get(),
+                    ModItems.LIGHTNING_CRYSTAL_0.get(), ModItems.LIGHTNING_CRYSTAL_1.get(), ModItems.LIGHTNING_CRYSTAL_2.get(), ModItems.LIGHTNING_CRYSTAL_3.get(),
+                    ModItems.RAINBOW_POWDER.get(), ModItems.RAINBOW_CRYSTAL.get(),
+                    ModItems.LIFE_HOLY_STONE_0.get(), ModItems.LIFE_HOLY_STONE_1.get(), ModItems.LIFE_HOLY_STONE_2.get(),
+                    ModItems.WATER_HOLY_STONE_0.get(), ModItems.WATER_HOLY_STONE_1.get(), ModItems.WATER_HOLY_STONE_2.get(),
+                    ModItems.FIRE_HOLY_STONE_0.get(), ModItems.FIRE_HOLY_STONE_1.get(), ModItems.FIRE_HOLY_STONE_2.get(),
+                    ModItems.STONE_HOLY_STONE_0.get(), ModItems.STONE_HOLY_STONE_1.get(), ModItems.STONE_HOLY_STONE_2.get(),
+                    ModItems.ICE_HOLY_STONE_0.get(), ModItems.ICE_HOLY_STONE_1.get(), ModItems.ICE_HOLY_STONE_2.get(),
+                    ModItems.LIGHTNING_HOLY_STONE_0.get(), ModItems.LIGHTNING_HOLY_STONE_1.get(), ModItems.LIGHTNING_HOLY_STONE_2.get(),
+                    ModItems.WIND_HOLY_STONE_0.get(), ModItems.WIND_HOLY_STONE_1.get(), ModItems.WIND_HOLY_STONE_2.get(),
             };
             for (Item item : items) event.accept(item);
 
@@ -321,66 +323,66 @@ public class VMD {
         }
 
         if (event.getTabKey().equals(ModCreativeModeTab.BREWING_TAB.getKey())) {
-            event.accept(ModItems.Purifier.get().getDefaultInstance());
-            event.accept(ModItems.PurifiedWater.get().getDefaultInstance());
-            event.accept(ModItems.BrewingNote.get().getDefaultInstance());
-            event.accept(ModItems.PlainSolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.ForestSolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.LakeSolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoSolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.SnowSolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.SkySolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.EvokerSolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.NetherSolidifiedSoul.get().getDefaultInstance());
-            event.accept(ModItems.Solidifier.get().getDefaultInstance());
-            event.accept(ModItems.Stabilizer.get().getDefaultInstance());
-            event.accept(ModItems.Concentrater.get().getDefaultInstance());
-            event.accept(ModItems.Splasher.get().getDefaultInstance());
+            event.accept(ModItems.PURIFIER.get().getDefaultInstance());
+            event.accept(ModItems.PURIFIED_WATER.get().getDefaultInstance());
+            event.accept(ModItems.BREWING_NOTE.get().getDefaultInstance());
+            event.accept(ModItems.PLAIN_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.FOREST_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.LAKE_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.VOLCANO_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.SNOW_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.SKY_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.EVOKER_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.NETHER_SOLIDIFIED_SOUL.get().getDefaultInstance());
+            event.accept(ModItems.SOLIDIFIER.get().getDefaultInstance());
+            event.accept(ModItems.STABILIZER.get().getDefaultInstance());
+            event.accept(ModItems.CONCENTRATER.get().getDefaultInstance());
+            event.accept(ModItems.SPLASHER.get().getDefaultInstance());
 
             Item[] item = {
 
-                    ModItems.WaterBottle.get(),
-                    ModItems.AttackUpPotion.get(), ModItems.AttackUpConPotion.get(), ModItems.AttackUpLongPotion.get(),
-                    ModItems.SplashAttackUpPotion.get(), ModItems.SplashAttackUpConPotion.get(), ModItems.SplashAttackUpLongPotion.get(),
-                    ModItems.DefencePenetrationUpPotion.get(), ModItems.DefencePenetrationUpConPotion.get(), ModItems.DefencePenetrationUpLongPotion.get(),
-                    ModItems.SplashDefencePenetrationUpPotion.get(), ModItems.SplashDefencePenetrationUpConPotion.get(), ModItems.SplashDefencePenetrationUpLongPotion.get(),
-                    ModItems.ManaPenetrationUpPotion.get(), ModItems.ManaPenetrationUpConPotion.get(), ModItems.ManaPenetrationUpLongPotion.get(),
-                    ModItems.SplashManaPenetrationUpPotion.get(), ModItems.SplashManaPenetrationUpConPotion.get(), ModItems.SplashManaPenetrationUpLongPotion.get(),
-                    ModItems.CooldownUpPotion.get(), ModItems.CooldownUpConPotion.get(), ModItems.CooldownUpLongPotion.get(),
-                    ModItems.SplashCooldownUpPotion.get(), ModItems.SplashCooldownUpConPotion.get(), ModItems.SplashCooldownUpLongPotion.get(),
-                    ModItems.CritDamageUpPotion.get(), ModItems.CritDamageUpConPotion.get(), ModItems.CritDamageUpLongPotion.get(),
-                    ModItems.SplashCritDamageUpPotion.get(), ModItems.SplashCritDamageUpConPotion.get(), ModItems.SplashCritDamageUpLongPotion.get(),
+                    ModItems.WATER_BOTTLE.get(),
+                    ModItems.ATTACKUP_POTION.get(), ModItems.ATTACKUP_CON_POTION.get(), ModItems.ATTACKUP_LONG_POTION.get(),
+                    ModItems.SPLASH_ATTACKUP_POTION.get(), ModItems.SPLASH_ATTACKUP_CON_POTION.get(), ModItems.SPLASH_ATTACKUP_LONG_POTION.get(),
+                    ModItems.DEFENCE_PENETRATION_UP_POTION.get(), ModItems.DEFENCE_PENETRATION_UP_CON_POTION.get(), ModItems.DEFENCE_PENETRATION_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_DEFENCE_PENETRATION_UP_POTION.get(), ModItems.SPLASH_DEFENCE_PENETRATION_UP_CON_POTION.get(), ModItems.SPLASH_DEFENCE_PENETRATION_UP_LONG_POTION.get(),
+                    ModItems.MANA_PENETRATION_UP_POTION.get(), ModItems.MANA_PENETRATION_UP_CON_POTION.get(), ModItems.MANA_PENETRATION_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_MANA_PENETRATION_UP_POTION.get(), ModItems.SPLASH_MANA_PENETRATION_UP_CON_POTION.get(), ModItems.SPLASH_MANA_PENETRATION_UP_LONG_POTION.get(),
+                    ModItems.COOLDOWN_UP_POTION.get(), ModItems.COOLDOWN_UP_CON_POTION.get(), ModItems.COOLDOWN_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_COOLDOWN_UP_POTION.get(), ModItems.SPLASH_COOLDOWN_UP_CON_POTION.get(), ModItems.SPLASH_COOLDOWN_UP_LONG_POTION.get(),
+                    ModItems.CRIT_DAMAGE_UP_POTION.get(), ModItems.CRIT_DAMAGE_UP_CON_POTION.get(), ModItems.CRIT_DAMAGE_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_CRIT_DAMAGE_UP_POTION.get(), ModItems.SPLASH_CRIT_DAMAGE_UP_CON_POTION.get(), ModItems.SPLASH_CRIT_DAMAGE_UP_LONG_POTION.get(),
 
-                    ModItems.CritRateUpPotion.get(), ModItems.CritRateUpConPotion.get(), ModItems.CritRateUpLongPotion.get(),
-                    ModItems.SplashCritRateUpPotion.get(), ModItems.SplashCritRateUpConPotion.get(), ModItems.SplashCritRateUpLongPotion.get(),
-                    ModItems.DefenceUpPotion.get(), ModItems.DefenceUpConPotion.get(), ModItems.DefenceUpLongPotion.get(),
-                    ModItems.SplashDefenceUpPotion.get(), ModItems.SplashDefenceUpConPotion.get(), ModItems.SplashDefenceUpLongPotion.get(),
-                    ModItems.HealthStealUpPotion.get(), ModItems.HealthStealUpConPotion.get(), ModItems.HealthStealUpLongPotion.get(),
-                    ModItems.SplashHealthStealUpPotion.get(), ModItems.SplashHealthStealUpConPotion.get(), ModItems.SplashHealthStealUpLongPotion.get(),
-                    ModItems.ManaDamageUpPotion.get(), ModItems.ManaDamageUpConPotion.get(), ModItems.ManaDamageUpLongPotion.get(),
-                    ModItems.SplashManaDamageUpPotion.get(), ModItems.SplashManaDamageUpConPotion.get(), ModItems.SplashManaDamageUpLongPotion.get(),
-                    ModItems.ManaDefenceUpPotion.get(), ModItems.ManaDefenceUpConPotion.get(), ModItems.ManaDefenceUpLongPotion.get(),
-                    ModItems.SplashManaDefenceUpPotion.get(), ModItems.SplashManaDefenceUpConPotion.get(), ModItems.SplashManaDefenceUpLongPotion.get(),
+                    ModItems.CRIT_RATE_UP_POTION.get(), ModItems.CRIT_RATE_UP_CON_POTION.get(), ModItems.CRIT_RATE_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_CRIT_RATE_UP_POTION.get(), ModItems.SPLASH_CRIT_RATE_UP_CON_POTION.get(), ModItems.SPLASH_CRIT_RATE_UP_LONG_POTION.get(),
+                    ModItems.DEFENCE_UP_POTION.get(), ModItems.DEFENCE_UP_CON_POTION.get(), ModItems.DEFENCE_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_DEFENCE_UP_POTION.get(), ModItems.SPLASH_DEFENCE_UP_CON_POTION.get(), ModItems.SPLASH_DEFENCE_UP_LONG_POTION.get(),
+                    ModItems.HEALTH_STEAL_UP_POTION.get(), ModItems.HEALTH_STEAL_UP_CON_POTION.get(), ModItems.HEALTH_STEAL_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_HEALTH_STEAL_UP_POTION.get(), ModItems.SPLASH_HEALTH_STEAL_UP_CON_POTION.get(), ModItems.SPLASH_HEALTH_STEAL_UP_LONG_POTION.get(),
+                    ModItems.MANA_DAMAGE_UP_POTION.get(), ModItems.MANA_DAMAGE_UP_CON_POTION.get(), ModItems.MANA_DAMAGE_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_MANA_DAMAGE_UP_POTION.get(), ModItems.SPLASH_MANA_DAMAGE_UP_CON_POTION.get(), ModItems.SPLASH_MANA_DAMAGE_UP_LONG_POTION.get(),
+                    ModItems.MANA_DEFENCE_UP_POTION.get(), ModItems.MANA_DEFENCE_UP_CON_POTION.get(), ModItems.MANA_DEFENCE_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_MANA_DEFENCE_UP_POTION.get(), ModItems.SPLASH_MANA_DEFENCE_UP_CON_POTION.get(), ModItems.SPLASH_MANA_DEFENCE_UP_LONG_POTION.get(),
 
-                    ModItems.ManaRecoverUpPotion.get(), ModItems.ManaRecoverUpConPotion.get(), ModItems.ManaRecoverUpLongPotion.get(),
-                    ModItems.SplashManaRecoverUpPotion.get(), ModItems.SplashManaRecoverUpConPotion.get(), ModItems.SplashManaRecoverUpLongPotion.get(),
-                    ModItems.MovementSpeedUpPotion.get(), ModItems.MovementSpeedUpConPotion.get(), ModItems.MovementSpeedUpLongPotion.get(),
-                    ModItems.SplashMovementSpeedUpPotion.get(), ModItems.SplashMovementSpeedUpConPotion.get(), ModItems.SplashMovementSpeedUpLongPotion.get(),
-                    ModItems.HealthRecoverUpPotion.get(), ModItems.HealthRecoverUpConPotion.get(), ModItems.HealthRecoverUpLongPotion.get(),
-                    ModItems.SplashHealthRecoverUpPotion.get(), ModItems.SplashHealthRecoverUpConPotion.get(), ModItems.SplashHealthRecoverUpLongPotion.get(),
+                    ModItems.MANA_RECOVER_UP_POTION.get(), ModItems.MANA_RECOVER_UP_CON_POTION.get(), ModItems.MANA_RECOVER_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_MANA_RECOVER_UP_POTION.get(), ModItems.SPLASH_MANA_RECOVER_UP_CON_POTION.get(), ModItems.SPLASH_MANA_RECOVER_UP_LONG_POTION.get(),
+                    ModItems.MOVEMENT_SPEED_UP_POTION.get(), ModItems.MOVEMENT_SPEED_UP_CON_POTION.get(), ModItems.MOVEMENT_SPEED_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_MOVEMENT_SPEED_UP_POTION.get(), ModItems.SPLASH_MOVEMENT_SPEED_UP_CON_POTION.get(), ModItems.SPLASH_MOVEMENT_SPEED_UP_LONG_POTION.get(),
+                    ModItems.HEALTH_RECOVER_UP_POTION.get(), ModItems.HEALTH_RECOVER_UP_CON_POTION.get(), ModItems.HEALTH_RECOVER_UP_LONG_POTION.get(),
+                    ModItems.SPLASH_HEALTH_RECOVER_UP_POTION.get(), ModItems.SPLASH_HEALTH_RECOVER_UP_CON_POTION.get(), ModItems.SPLASH_HEALTH_RECOVER_UP_LONG_POTION.get(),
 
-                    ModItems.DamageEnhancePotion.get(), ModItems.DamageEnhanceConPotion.get(), ModItems.DamageEnhanceLongPotion.get(),
-                    ModItems.SplashDamageEnhancePotion.get(), ModItems.SplashDamageEnhanceConPotion.get(), ModItems.SplashDamageEnhanceLongPotion.get(),
-                    ModItems.AttackDamageEnhancePotion.get(), ModItems.AttackDamageEnhanceConPotion.get(), ModItems.AttackDamageEnhanceLongPotion.get(),
-                    ModItems.SplashAttackDamageEnhancePotion.get(), ModItems.SplashAttackDamageEnhanceConPotion.get(), ModItems.SplashAttackDamageEnhanceLongPotion.get(),
-                    ModItems.ManaDamageEnhancePotion.get(), ModItems.ManaDamageEnhanceConPotion.get(), ModItems.ManaDamageEnhanceLongPotion.get(),
-                    ModItems.SplashManaDamageEnhancePotion.get(), ModItems.SplashManaDamageEnhanceConPotion.get(), ModItems.SplashManaDamageEnhanceLongPotion.get(),
-                    ModItems.GiantPotion.get(), ModItems.GiantConPotion.get(), ModItems.GiantLongPotion.get(),
-                    ModItems.SplashGiantPotion.get(), ModItems.SplashGiantConPotion.get(), ModItems.SplashGiantLongPotion.get(),
-                    ModItems.StonePotion.get(), ModItems.StoneConPotion.get(), ModItems.StoneLongPotion.get(),
-                    ModItems.SplashStonePotion.get(), ModItems.SplashStoneConPotion.get(), ModItems.SplashStoneLongPotion.get(),
-                    ModItems.ExHarvestPotion.get(), ModItems.ExHarvestConPotion.get(), ModItems.ExHarvestLongPotion.get(),
-                    ModItems.SplashExHarvestPotion.get(), ModItems.SplashExHarvestConPotion.get(), ModItems.SplashExHarvestLongPotion.get()
+                    ModItems.DAMAGE_ENHANCE_POTION.get(), ModItems.DAMAGE_ENHANCE_CON_POTION.get(), ModItems.DAMAGE_ENHANCE_LONG_POTION.get(),
+                    ModItems.SPLASH_DAMAGE_ENHANCE_POTION.get(), ModItems.SPLASH_DAMAGE_ENHANCE_CON_POTION.get(), ModItems.SPLASH_DAMAGE_ENHANCE_LONG_POTION.get(),
+                    ModItems.ATTACK_DAMAGE_ENHANCE_POTION.get(), ModItems.ATTACK_DAMAGE_ENHANCE_CON_POTION.get(), ModItems.ATTACK_DAMAGE_ENHANCE_LONG_POTION.get(),
+                    ModItems.SPLASH_ATTACK_DAMAGE_ENHANCE_POTION.get(), ModItems.SPLASH_ATTACK_DAMAGE_ENHANCE_CON_POTION.get(), ModItems.SPLASH_ATTACK_DAMAGE_ENHANCE_LONG_POTION.get(),
+                    ModItems.MANA_DAMAGE_ENHANCE_POTION.get(), ModItems.MANA_DAMAGE_ENHANCE_CON_POTION.get(), ModItems.MANA_DAMAGE_ENHANCE_LONG_POTION.get(),
+                    ModItems.SPLASH_MANA_DAMAGE_ENHANCE_POTION.get(), ModItems.SPLASH_MANA_DAMAGE_ENHANCE_CON_POTION.get(), ModItems.SPLASH_MANA_DAMAGE_ENHANCE_LONG_POTION.get(),
+                    ModItems.GIANT_POTION.get(), ModItems.GIANT_CON_POTION.get(), ModItems.GIANT_LONG_POTION.get(),
+                    ModItems.SPLASH_GIANT_POTION.get(), ModItems.SPLASH_GIANT_CON_POTION.get(), ModItems.SPLASH_GIANT_LONG_POTION.get(),
+                    ModItems.STONE_POTION.get(), ModItems.STONE_CON_POTION.get(), ModItems.STONE_LONG_POTION.get(),
+                    ModItems.SPLASH_STONE_POTION.get(), ModItems.SPLASH_STONE_CON_POTION.get(), ModItems.SPLASH_STONE_LONG_POTION.get(),
+                    ModItems.EX_HARVEST_POTION.get(), ModItems.EX_HARVEST_CON_POTION.get(), ModItems.EX_HARVEST_LONG_POTION.get(),
+                    ModItems.SPLASH_EX_HARVEST_POTION.get(), ModItems.SPLASH_EX_HARVEST_CON_POTION.get(), ModItems.SPLASH_EX_HARVEST_LONG_POTION.get()
             };
 
             for (Item item1 : item) event.accept(item1.getDefaultInstance());
@@ -403,51 +405,47 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.FORGING_TAB.getKey())) {
             Item[] items = {
-                    ModItems.Pearl1.get(), ModItems.Pearl2.get(),
-                    ModItems.Pearl3.get(), ModItems.Pearl4.get(),
-                    ModItems.Pearl5.get(), ModItems.Pearl6.get(),
-                    ModItems.WORLD_FORGE_STONE.get(), ModItems.Splasher.get(),
-                    ModItems.WoodHammer.get(), ModItems.StoneHammer.get(),
-                    ModItems.CopperHammer.get(), ModItems.IronHammer.get(),
-                    ModItems.GoldHammer.get(), ModItems.DiamondHammer.get(),
+                    ModItems.PEARL_1.get(), ModItems.PEARL_2.get(),
+                    ModItems.PEARL_3.get(), ModItems.PEARL_4.get(),
+                    ModItems.PEARL_5.get(), ModItems.PEARL_6.get(),
+                    ModItems.WORLD_FORGE_STONE.get(), ModItems.SPLASHER.get(),
+                    ModItems.WOOD_HAMMER.get(), ModItems.STONE_HAMMER.get(),
+                    ModItems.COPPER_HAMMER.get(), ModItems.IRON_HAMMER.get(),
+                    ModItems.GOLD_HAMMER.get(), ModItems.DIAMOND_HAMMER.get(),
                     ModItems.EMERALD_HAMMER.get(), ModItems.NETHER_HAMMER.get(),
                     ModItems.END_HAMMER.get(),
-                    ModItems.equipPiece0.get(), ModItems.equipPiece1.get(),
-                    ModItems.equipPiece2.get(), ModItems.equipPiece3.get(),
-                    ModItems.equipPiece4.get(), ModItems.equipPiece5.get(),
-                    ModItems.equipPiece6.get(), ModItems.equipPiece7.get(),
-                    ModItems.equipPiece8.get(), ModItems.equipPiece9.get(),
-                    ModItems.equipPiece10.get(), ModItems.equipPiece11.get(),
-                    ModItems.equipPiece12.get(), ModItems.equipPiece13.get()
+                    ModItems.EQUIP_PIECE_0.get(), ModItems.EQUIP_PIECE_1.get(),
+                    ModItems.EQUIP_PIECE_2.get(), ModItems.EQUIP_PIECE_3.get(),
+                    ModItems.EQUIP_PIECE_4.get(), ModItems.EQUIP_PIECE_5.get(),
+                    ModItems.EQUIP_PIECE_6.get(), ModItems.EQUIP_PIECE_7.get(),
+                    ModItems.EQUIP_PIECE_8.get(), ModItems.EQUIP_PIECE_9.get(),
+                    ModItems.EQUIP_PIECE_10.get(), ModItems.EQUIP_PIECE_11.get(),
+                    ModItems.EQUIP_PIECE_12.get(), ModItems.EQUIP_PIECE_13.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
-            event.accept(ModItems.SpeIron.get().getDefaultInstance());
-            event.accept(ModItems.ForgingStone0.get().getDefaultInstance());
-            event.accept(ModItems.ForgingStone1.get().getDefaultInstance());
-            event.accept(ModItems.ForgingStone2.get().getDefaultInstance());
-            event.accept(ModItems.ForgeEnhance0.get().getDefaultInstance());
-            event.accept(ModItems.ForgeEnhance1.get().getDefaultInstance());
-            event.accept(ModItems.ForgeEnhance2.get().getDefaultInstance());
-            event.accept(ModItems.ForgeEnhance3.get().getDefaultInstance());
-            event.accept(ModItems.ForgeProtect.get().getDefaultInstance());
+            event.accept(ModItems.FORGING_STONE_0.get().getDefaultInstance());
+            event.accept(ModItems.FORGING_STONE_1.get().getDefaultInstance());
+            event.accept(ModItems.FORGING_STONE_2.get().getDefaultInstance());
+            event.accept(ModItems.FORGE_ENHANCE_0.get().getDefaultInstance());
+            event.accept(ModItems.FORGE_ENHANCE_1.get().getDefaultInstance());
+            event.accept(ModItems.FORGE_ENHANCE_2.get().getDefaultInstance());
+            event.accept(ModItems.FORGE_ENHANCE_3.get().getDefaultInstance());
+            event.accept(ModItems.FORGE_PROTECT.get().getDefaultInstance());
             event.accept(GemItems.DISMANTLE.get().getDefaultInstance());
             event.accept(ModItems.FORGE_TEMPLATE.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.MONEYANDMISSION_TAB.getKey())) {
-            event.accept(ModItems.pickUpgradePaper.get().getDefaultInstance());
-            event.accept(ModItems.skinTemplatePaper.get().getDefaultInstance());
-            event.accept(ModItems.stackUpgradePaper.get().getDefaultInstance());
+            event.accept(ModItems.PICK_UPGRADE_PAPER.get().getDefaultInstance());
+            event.accept(ModItems.SKIN_TEMPLATE_PAPER.get().getDefaultInstance());
+            event.accept(ModItems.STACK_UPGRADE_PAPER.get().getDefaultInstance());
             event.accept(ModItems.GEM_PIECE.get().getDefaultInstance());
             event.accept(ModItems.ROSE_GOLD_COIN.get().getDefaultInstance());
             event.accept(ModItems.GOLD_COIN.get().getDefaultInstance());
-            event.accept(ModItems.silverCoin.get().getDefaultInstance());
-            event.accept(ModItems.copperCoin.get().getDefaultInstance());
-            event.accept(ModItems.SignInReward.get().getDefaultInstance());
-            event.accept(ModItems.SmartPhone.get().getDefaultInstance());
-            event.accept(ModItems.DailyMission.get().getDefaultInstance());
+            event.accept(ModItems.SILVER_COIN.get().getDefaultInstance());
+            event.accept(ModItems.COPPER_COIN.get().getDefaultInstance());
             event.accept(ModItems.ATTACK_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.DEFENCE_PENETRATION_POTION_BAG.get().getDefaultInstance());
-            event.accept(ModItems.CRIT_RATE_UP_POTIONBAG.get().getDefaultInstance());
+            event.accept(ModItems.CRIT_RATE_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.CRIT_DAMAGE_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.MANA_DAMAGE_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.MANA_PENETRATION_POTION_BAG.get().getDefaultInstance());
@@ -457,26 +455,26 @@ public class VMD {
             event.accept(ModItems.DEFENCE_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.MANA_DEFENCE_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.MOVEMENT_SPEED_UP_POTION_BAG.get().getDefaultInstance());
-            event.accept(ModItems.GoldCoinBag.get().getDefaultInstance());
-            event.accept(ModItems.BackPackTickets.get().getDefaultInstance());
+            event.accept(ModItems.GOLD_COIN_BAG.get().getDefaultInstance());
+            event.accept(ModItems.BACKPACK_TICKETS.get().getDefaultInstance());
             event.accept(ModItems.COMPLETE_GEM.get().getDefaultInstance());
-            event.accept(ModItems.ReputationMedal.get().getDefaultInstance());
-            event.accept(ModItems.commonLotteries.get().getDefaultInstance());
-            event.accept(ModItems.UnCommonLotteries.get().getDefaultInstance());
-            event.accept(ModItems.RevelationBook.get().getDefaultInstance());
+            event.accept(ModItems.REPUTATION_MEDAL.get().getDefaultInstance());
+            event.accept(ModItems.COMMON_LOTTERIES.get().getDefaultInstance());
+            event.accept(ModItems.UNCOMMON_LOTTERIES.get().getDefaultInstance());
+            event.accept(ModItems.REVELATION_BOOK.get().getDefaultInstance());
             event.accept(ModItems.REVELATION_HEART.get().getDefaultInstance());
-            event.accept(ModItems.U_Disk.get().getDefaultInstance());
-            event.accept(ModItems.IceLoot.get().getDefaultInstance());
+            event.accept(ModItems.U_DISK.get().getDefaultInstance());
+            event.accept(ModItems.ICE_LOOT.get().getDefaultInstance());
             event.accept(SpecialEventItems.FIRE_WORK_GUN.get().getDefaultInstance());
             event.accept(SpecialEventItems.MONEY.get().getDefaultInstance());
             event.accept(SpecialEventItems.RED_ENVELOPE.get().getDefaultInstance());
             event.accept(SpecialEventItems.SPRING_GOLD_COIN.get().getDefaultInstance());
-            event.accept(ModItems.DevilLoot.get().getDefaultInstance());
-            event.accept(ModItems.DragonPrefix.get().getDefaultInstance());
-            event.accept(ModItems.MoonLoot.get().getDefaultInstance());
-            event.accept(ModItems.CastleLoot.get().getDefaultInstance());
-            event.accept(ModItems.LotteryStar.get().getDefaultInstance());
-            event.accept(ModItems.LotteryPrefix.get().getDefaultInstance());
+            event.accept(ModItems.DEVIL_LOOT.get().getDefaultInstance());
+            event.accept(ModItems.DRAGON_PREFIX.get().getDefaultInstance());
+            event.accept(ModItems.MOON_LOOT.get().getDefaultInstance());
+            event.accept(ModItems.CASTLE_LOOT.get().getDefaultInstance());
+            event.accept(ModItems.LOTTERY_STAR.get().getDefaultInstance());
+            event.accept(ModItems.LOTTERY_PREFIX.get().getDefaultInstance());
 
             event.accept(ModItems.SWORD_LOTTERY.get().getDefaultInstance());
             event.accept(ModItems.BOW_LOTTERY.get().getDefaultInstance());
@@ -485,14 +483,14 @@ public class VMD {
             event.accept(ModItems.BOW_LOTTERY_1.get().getDefaultInstance());
             event.accept(ModItems.SCEPTRE_LOTTERY_1.get().getDefaultInstance());
 
-            event.accept(ModItems.notePaper.get().getDefaultInstance());
+            event.accept(ModItems.NOTE_PAPER.get().getDefaultInstance());
             Item[] items = {
-                    ModItems.supplyBoxTier0.get(),
-                    ModItems.supplyBoxTier1.get(), ModItems.supplyBoxTier2.get(), ModItems.supplyBoxTier3.get(),
+                    ModItems.SUPPLY_BOX_TIER_0.get(),
+                    ModItems.SUPPLY_BOX_TIER_1.get(), ModItems.SUPPLY_BOX_TIER_2.get(), ModItems.SUPPLY_BOX_TIER_3.get(),
                     ModItems.ORE_SUPPLY.get(), ModItems.SENIOR_POTION_SUPPLY.get(),
                     ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
-                    ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
-                    ModItems.goldCoinLottery.get(), ModItems.GOLDEN_BEANS.get(),
+                    ModItems.SIMPLE_TIER_1_PAPER.get(), ModItems.SIMPLE_TIER_2_PAPER.get(), ModItems.SIMPLE_TIER_3_PAPER.get(),
+                    ModItems.GOLD_COIN_LOTTERY.get(), ModItems.GOLDEN_BEANS.get(),
                     ModItems.BOND.get(), ModItems.SPECIAL_BOND.get(), ModItems.MILLION_MONEY.get(),
                     ModItems.ESTATE_KEY.get(), ModItems.REAL_ESTATE_KEY.get(),
                     ModItems.TP_TICKET.get(),
@@ -510,39 +508,21 @@ public class VMD {
         }
 
         if (event.getTabKey().equals(ModCreativeModeTab.MISC_TAB.getKey())) {
-            event.accept(ModItems.Main0.get().getDefaultInstance());
-            event.accept(ModItems.Note_0.get().getDefaultInstance());
-            event.accept(ModItems.ExploreNote.get().getDefaultInstance());
-            event.accept(ModItems.ForNew.get().getDefaultInstance());
-            event.accept(ModItems.BackSpawn.get().getDefaultInstance());
-            event.accept(ModItems.tickettosky.get().getDefaultInstance());
-            event.accept(ModItems.Note_1.get().getDefaultInstance());
-            event.accept(ModItems.Note_2.get().getDefaultInstance());
-            event.accept(ModItems.Note_3.get().getDefaultInstance());
-            event.accept(ModItems.LightningChange.get().getDefaultInstance());
-            event.accept(ModItems.ID_Card.get().getDefaultInstance());
-            event.accept(ModItems.Ps_Bottle0.get().getDefaultInstance());
-            event.accept(ModItems.Ps_Bottle1.get().getDefaultInstance());
-            event.accept(ModItems.Ps_Bottle2.get().getDefaultInstance());
-            event.accept(ModItems.ParkourMedal.get().getDefaultInstance());
-            event.accept(ModItems.KillPaperLoot.get().getDefaultInstance());
+            event.accept(ModItems.MAIN_0.get().getDefaultInstance());
+            event.accept(ModItems.FOR_NEW.get().getDefaultInstance());
+            event.accept(ModItems.BACK_SPAWN_TICKET.get().getDefaultInstance());
+            event.accept(ModItems.SKY_CITY_TICKET.get().getDefaultInstance());
+            event.accept(ModItems.ID_CARD.get().getDefaultInstance());
+            event.accept(ModItems.PS_BOTTLE_0.get().getDefaultInstance());
+            event.accept(ModItems.PS_BOTTLE_1.get().getDefaultInstance());
+            event.accept(ModItems.PS_BOTTLE_2.get().getDefaultInstance());
+            event.accept(ModItems.PARKOUR_MEDAL.get().getDefaultInstance());
+            event.accept(ModItems.KILL_PAPER_LOOT.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.DEVELOPMENT_TAB.getKey())) {
             event.accept(ModItems.RAILWAY_PILLAR_SET_TOOL.get().getDefaultInstance());
-            event.accept(ModItems.GetTime.get().getDefaultInstance());
-            event.accept(ModItems.ItemIDCheck.get().getDefaultInstance());
-            event.accept(ModItems.attributecheck.get().getDefaultInstance());
-            event.accept(ModItems.hovertest.get().getDefaultInstance());
-            event.accept(ModItems.ArrowItem.get().getDefaultInstance());
-            event.accept(ModItems.Security.get().getDefaultInstance());
-            event.accept(ModItems.ResetSecurity.get().getDefaultInstance());
-            event.accept(ModItems.tick.get().getDefaultInstance());
-            event.accept(ModItems.EntityCopy.get().getDefaultInstance());
-            event.accept(ModItems.BlockReset.get().getDefaultInstance());
-            event.accept(ModItems.quartzcheck.get().getDefaultInstance());
-            event.accept(ModItems.GuiOpen.get().getDefaultInstance());
-            event.accept(ModItems.BarrierSet.get().getDefaultInstance());
-            event.accept(ModItems.WaterSet.get().getDefaultInstance());
+            event.accept(ModItems.BARRIER_SET.get().getDefaultInstance());
+            event.accept(ModItems.WATER_SET.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.WORLD_SOUL.getKey())) {
             event.accept(ModItems.WORLD_SOUL_1.get().getDefaultInstance());
@@ -550,14 +530,14 @@ public class VMD {
             event.accept(ModItems.WORLD_SOUL_3.get().getDefaultInstance());
             event.accept(ModItems.WORLD_SOUL_4.get().getDefaultInstance());
             event.accept(ModItems.WORLD_SOUL_5.get().getDefaultInstance());
-            event.accept(ModItems.SoulSword.get().getDefaultInstance());
-            event.accept(ModItems.SoulBow.get().getDefaultInstance());
-            event.accept(ModItems.SoulSceptre.get().getDefaultInstance());
-            event.accept(ModItems.SkillReset.get().getDefaultInstance());
+            event.accept(ModItems.SOUL_SWORD.get().getDefaultInstance());
+            event.accept(ModItems.SOUL_BOW.get().getDefaultInstance());
+            event.accept(ModItems.SOUL_SCEPTRE.get().getDefaultInstance());
+            event.accept(ModItems.SKILL_RESET.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.KILL_PAPER.getKey())) {
             Item[] items = {
-                    ModItems.killPaper.get(), ModItems.killPaperL.get()
+                    ModItems.KILL_PAPER.get(), ModItems.KILL_PAPER_L.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
@@ -570,19 +550,19 @@ public class VMD {
 
             WraqPickaxe.PICKAXE_ITEM_LIST.forEach(event::accept);
 
-            event.accept(ModItems.CrudeCoal.get().getDefaultInstance());
-            event.accept(ModItems.HotCoal.get().getDefaultInstance());
-            event.accept(ModItems.RefiningCoal.get().getDefaultInstance());
-            event.accept(ModItems.BlazeCoal.get().getDefaultInstance());
-            event.accept(ModItems.CrudeIron.get().getDefaultInstance());
-            event.accept(ModItems.HotIron.get().getDefaultInstance());
-            event.accept(ModItems.RefiningIron.get().getDefaultInstance());
-            event.accept(ModItems.CrudeCopper.get().getDefaultInstance());
-            event.accept(ModItems.HotCopper.get().getDefaultInstance());
-            event.accept(ModItems.RefiningCopper.get().getDefaultInstance());
-            event.accept(ModItems.CrudeGold.get().getDefaultInstance());
-            event.accept(ModItems.BlazeGold.get().getDefaultInstance());
-            event.accept(ModItems.RefiningGold.get().getDefaultInstance());
+            event.accept(ModItems.CRUDE_COAL.get().getDefaultInstance());
+            event.accept(ModItems.HOT_COAL.get().getDefaultInstance());
+            event.accept(ModItems.REFINING_COAL.get().getDefaultInstance());
+            event.accept(ModItems.BLAZE_COAL.get().getDefaultInstance());
+            event.accept(ModItems.CRUDE_IRON.get().getDefaultInstance());
+            event.accept(ModItems.HOT_IRON.get().getDefaultInstance());
+            event.accept(ModItems.REFINING_IRON.get().getDefaultInstance());
+            event.accept(ModItems.CRUDE_COPPER.get().getDefaultInstance());
+            event.accept(ModItems.HOT_COPPER.get().getDefaultInstance());
+            event.accept(ModItems.REFINING_COPPER.get().getDefaultInstance());
+            event.accept(ModItems.CRUDE_GOLD.get().getDefaultInstance());
+            event.accept(ModItems.BLAZE_GOLD.get().getDefaultInstance());
+            event.accept(ModItems.REFINING_GOLD.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.CUSTOMIZED.getKey())) {
             UniformItems.ITEMS.getEntries()

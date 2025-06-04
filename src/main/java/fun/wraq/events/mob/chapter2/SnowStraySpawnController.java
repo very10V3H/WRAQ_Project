@@ -82,7 +82,7 @@ public class SnowStraySpawnController extends MobSpawnController {
             tag.put("display", tag1);
             stray.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
-        stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.SnowSword3.get().getDefaultInstance());
+        stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.SNOW_SWORD_3.get().getDefaultInstance());
 
         // 设置掉落
         List<ItemAndRate> list = getDropList();
@@ -101,15 +101,15 @@ public class SnowStraySpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.SnowSoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.5));
+            add(new ItemAndRate(ModItems.SNOW_SOUL.get(), 0.8));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.5));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.SnowCrest0.get(), 0.02));
-            add(new ItemAndRate(ModItems.SnowCrest1.get(), 0.005));
-            add(new ItemAndRate(ModItems.SnowCrest2.get(), 0.001));
-            add(new ItemAndRate(ModItems.SnowCrest3.get(), 0.0002));
-            add(new ItemAndRate(ModItems.IceElementPiece0.get(), 0.2));
-            add(new ItemAndRate(C2LootItems.snowStrayPickaxe.get(), 0.005));
+            add(new ItemAndRate(ModItems.SNOW_CREST_0.get(), 0.02));
+            add(new ItemAndRate(ModItems.SNOW_CREST_1.get(), 0.005));
+            add(new ItemAndRate(ModItems.SNOW_CREST_2.get(), 0.001));
+            add(new ItemAndRate(ModItems.SNOW_CREST_3.get(), 0.0002));
+            add(new ItemAndRate(ModItems.ICE_ELEMENT_PIECE_0.get(), 0.2));
+            add(new ItemAndRate(C2LootItems.SNOW_STRAY_PICKAXE.get(), 0.005));
         }};
     }
 

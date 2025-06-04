@@ -87,8 +87,8 @@ public class SnowPower extends WraqPower {
 
     @Override
     public void release(Player player) {
-        List.of(ModItems.SnowPower.get(), ModItems.SnowPower1.get(),
-                ModItems.SnowPower2.get(), ModItems.SnowPower3.get()).
+        List.of(ModItems.SNOW_POWER.get(), ModItems.SNOW_POWER_1.get(),
+                ModItems.SNOW_POWER_2.get(), ModItems.SNOW_POWER_3.get()).
                 forEach(item -> {
                     playerItemCoolDown(player, item, SnowPower.CoolDownTime[tier]);
                 });
@@ -115,7 +115,7 @@ public class SnowPower extends WraqPower {
                 Damage.causeRateApDamageWithElement(player, mob, effect, true,
                         Element.ice, ElementValue.getElementValueJudgeByType(player, Element.ice) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
-                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SnowPower.get(), "SnowPowerImprison", 20, 0, false);
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SNOW_POWER.get(), "SnowPowerImprison", 20, 0, false);
             }
         });
 
@@ -125,7 +125,7 @@ public class SnowPower extends WraqPower {
             if (player1.distanceTo(player) < 6) {
                 Shield.providePlayerShield(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
                 Compute.createIceParticle(player1);
-                sendEffectLastTime(player, ModItems.SnowPower.get().getDefaultInstance(), 50);
+                sendEffectLastTime(player, ModItems.SNOW_POWER.get().getDefaultInstance(), 50);
             }
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfSnow.getColor().getValue());

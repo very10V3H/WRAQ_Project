@@ -114,7 +114,7 @@ public class DivineArmor extends WraqArmor implements DivineArmorCommon {
             return List.of(
                     new ItemStack(DivineIslandItems.DIVINE_RUNE_ARMOR.get(), 96),
                     new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
-                    new ItemStack(ModItems.ReputationMedal.get(), 160),
+                    new ItemStack(ModItems.REPUTATION_MEDAL.get(), 160),
                     new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 20),
                     new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
             );
@@ -137,7 +137,7 @@ public class DivineArmor extends WraqArmor implements DivineArmorCommon {
             return List.of(
                     new ItemStack(tier0Equip, 1),
                     new ItemStack(DivineIslandItems.DIVINE_BALANCE_STAR.get(), 999),
-                    new ItemStack(ModItems.RainbowCrystal.get(), 999)
+                    new ItemStack(ModItems.RAINBOW_CRYSTAL.get(), 999)
             );
         }
     }

@@ -68,8 +68,8 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.BloodManaRune.get(), 16));
-            add(new ItemStack(ModItems.EarthManaRune.get(), 16));
+            add(new ItemStack(ModItems.BLOOD_MANA_RUNE.get(), 16));
+            add(new ItemStack(ModItems.EARTH_MANA_RUNE.get(), 16));
             add(new ItemStack(Items.IRON_INGOT, 64));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};

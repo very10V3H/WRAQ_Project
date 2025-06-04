@@ -1,6 +1,5 @@
 package fun.wraq.entities.entities.MainBoss;
 
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.UtilsParticleS2CPacket;
 import net.minecraft.nbt.CompoundTag;
@@ -13,7 +12,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -26,12 +24,10 @@ import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.EvokerFangs;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -213,41 +209,6 @@ public class MainBoss extends WitherSkeleton implements GeoEntity {
         if (this.getHealth() <= 1500.0f && this.SummonFlag) {
             this.SummonFlag = false;
             this.heal(500.0f);
-            Monster entity0 = new Skeleton(EntityType.SKELETON, level);
-            entity0.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-            entity0.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestSkeleton.get().getDefaultInstance());
-            entity0.getAttribute(Attributes.MAX_HEALTH).setBaseValue(300D);
-            entity0.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(20);
-            entity0.setHealth(entity0.getMaxHealth());
-            entity0.moveTo(this.getX() + 1, this.getY(), this.getZ());
-            level.addFreshEntity(entity0);
-
-            Monster entity1 = new Skeleton(EntityType.SKELETON, level);
-            entity1.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-            entity1.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestSkeleton.get().getDefaultInstance());
-            entity1.getAttribute(Attributes.MAX_HEALTH).setBaseValue(300D);
-            entity0.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(20);
-            entity1.setHealth(entity1.getMaxHealth());
-            entity1.moveTo(this.getX() - 1, this.getY(), this.getZ());
-            level.addFreshEntity(entity1);
-
-            Monster entity2 = new Skeleton(EntityType.SKELETON, level);
-            entity2.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-            entity2.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestSkeleton.get().getDefaultInstance());
-            entity2.getAttribute(Attributes.MAX_HEALTH).setBaseValue(300D);
-            entity0.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(20);
-            entity2.setHealth(entity2.getMaxHealth());
-            entity2.moveTo(this.getX(), this.getY(), this.getZ() + 1);
-            level.addFreshEntity(entity2);
-
-            Monster entity3 = new Skeleton(EntityType.SKELETON, level);
-            entity3.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-            entity3.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestSkeleton.get().getDefaultInstance());
-            entity3.getAttribute(Attributes.MAX_HEALTH).setBaseValue(300D);
-            entity0.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(20);
-            entity3.setHealth(entity3.getMaxHealth());
-            entity3.moveTo(this.getX(), this.getY(), this.getZ() - 1);
-            level.addFreshEntity(entity3);
         }
     }
 

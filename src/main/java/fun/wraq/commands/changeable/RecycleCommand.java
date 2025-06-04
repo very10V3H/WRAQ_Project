@@ -26,10 +26,10 @@ public class RecycleCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         Item item = itemStack.getItem();
-        if (item.equals(ModItems.SeaSword1.get()) || item.equals(ModItems.SeaSword2.get())
-                || item.equals(ModItems.SeaSword3.get())) item = ModItems.SeaSword0.get();
-        if (item.equals(ModItems.huskSword1.get()) || item.equals(ModItems.huskSword2.get())
-                || item.equals(ModItems.huskSword3.get())) item = ModItems.huskSword0.get();
+        if (item.equals(ModItems.SEA_SWORD_1.get()) || item.equals(ModItems.SEA_SWORD_2.get())
+                || item.equals(ModItems.SEA_SWORD_3.get())) item = ModItems.SEA_SWORD_0.get();
+        if (item.equals(ModItems.HUSK_SWORD_1.get()) || item.equals(ModItems.HUSK_SWORD_2.get())
+                || item.equals(ModItems.HUSK_SWORD_3.get())) item = ModItems.HUSK_SWORD_0.get();
 
         if (ForgeRecipe.recipes.containsKey(item)) {
             if (!Utils.playerRecycleMap.containsKey(player)
@@ -52,16 +52,16 @@ public class RecycleCommand implements Command<CommandSourceStack> {
             }
         }
 
-        if (itemStack.is(ModItems.PurpleIronSword.get())
-                || itemStack.is(ModItems.PurpleIronBow.get())
-                || itemStack.is(ModItems.PurpleIronSceptre.get())) {
+        if (itemStack.is(ModItems.PURPLE_IRON_SWORD.get())
+                || itemStack.is(ModItems.PURPLE_IRON_BOW.get())
+                || itemStack.is(ModItems.PURPLE_IRON_SCEPTRE.get())) {
             if (!Utils.playerRecycleMap.containsKey(player)
                     || !Utils.playerRecycleMap.get(player)) {
                 Utils.playerRecycleMap.put(player, true);
                 Compute.sendFormatMSG(player, Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal(" 再次输入指令确定回收！").withStyle(ChatFormatting.WHITE));
             } else {
-                InventoryOperation.giveItemStack(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));
+                InventoryOperation.giveItemStack(player, new ItemStack(ModItems.PURPLE_IRON_BUD_2.get(), 1));
                 Compute.formatBroad(player.level(), Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).

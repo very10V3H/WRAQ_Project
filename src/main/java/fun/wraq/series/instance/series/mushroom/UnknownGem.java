@@ -44,10 +44,10 @@ public class UnknownGem extends WraqItem {
                 "吞噬", ChatFormatting.LIGHT_PURPLE, "成功概率"));
         components.add(Te.s(" 根据吞噬的物品，将有几率使此物转化为", "菌菇宝石", CustomStyle.MUSHROOM_STYLE));
         components.add(Te.s(" 可被", "吞噬", ChatFormatting.RED, "的物品有:"));
-        components.add(Te.s("   必须品:", ChatFormatting.AQUA, GemItems.lifeManaGem, " 20%(1)"));
-        components.add(Te.s("   1.", ChatFormatting.AQUA, ModItems.LifeElementPiece0, " 0.02% - 至多20%(1000)"));
-        components.add(Te.s("   2.", ChatFormatting.AQUA, ModItems.PlainRune, " 6% - 至多30%(5)"));
-        components.add(Te.s("   3.", ChatFormatting.AQUA, ModItems.ForestRune, " 6% - 至多30%(5)"));
+        components.add(Te.s("   必须品:", ChatFormatting.AQUA, GemItems.LIFE_MANA_GEM, " 20%(1)"));
+        components.add(Te.s("   1.", ChatFormatting.AQUA, ModItems.LIFE_ELEMENT_PIECE_0, " 0.02% - 至多20%(1000)"));
+        components.add(Te.s("   2.", ChatFormatting.AQUA, ModItems.PLAIN_RUNE, " 6% - 至多30%(5)"));
+        components.add(Te.s("   3.", ChatFormatting.AQUA, ModItems.FOREST_RUNE, " 6% - 至多30%(5)"));
         components.add(Te.s(" 吞噬失败将仅消耗", "生机元素物品", CustomStyle.styleOfLife, "，不会消耗此物"));
         super.appendHoverText(itemStack, level, components, tooltipFlag);
     }
@@ -63,7 +63,7 @@ public class UnknownGem extends WraqItem {
                     "吞噬成功率", ChatFormatting.RED, "为:", String.format("%.2f%%", rate * 100), ChatFormatting.AQUA));
         } else {
             if (rate == 0) {
-                sendMSG(player, Te.s("缺少必须品:", GemItems.lifeManaGem));
+                sendMSG(player, Te.s("缺少必须品:", GemItems.LIFE_MANA_GEM));
             } else {
                 removeItems(player);
                 if (RandomUtils.nextDouble(0, 1) < rate) {
@@ -85,23 +85,23 @@ public class UnknownGem extends WraqItem {
     }
 
     private void removeItems(Player player) {
-        InventoryOperation.removeItem(player, GemItems.lifeManaGem.get(), 1);
-        int count0 = InventoryOperation.itemStackCount(player, ModItems.LifeElementPiece0.get());
-        InventoryOperation.removeItem(player, ModItems.LifeElementPiece0.get(), Math.min(1000, count0));
-        int count1 = InventoryOperation.itemStackCount(player, ModItems.PlainRune.get());
-        InventoryOperation.removeItem(player, ModItems.PlainRune.get(), Math.min(5, count1));
-        int count2 = InventoryOperation.itemStackCount(player, ModItems.ForestRune.get());
-        InventoryOperation.removeItem(player, ModItems.ForestRune.get(), Math.min(5, count2));
+        InventoryOperation.removeItem(player, GemItems.LIFE_MANA_GEM.get(), 1);
+        int count0 = InventoryOperation.itemStackCount(player, ModItems.LIFE_ELEMENT_PIECE_0.get());
+        InventoryOperation.removeItem(player, ModItems.LIFE_ELEMENT_PIECE_0.get(), Math.min(1000, count0));
+        int count1 = InventoryOperation.itemStackCount(player, ModItems.PLAIN_RUNE.get());
+        InventoryOperation.removeItem(player, ModItems.PLAIN_RUNE.get(), Math.min(5, count1));
+        int count2 = InventoryOperation.itemStackCount(player, ModItems.FOREST_RUNE.get());
+        InventoryOperation.removeItem(player, ModItems.FOREST_RUNE.get(), Math.min(5, count2));
     }
 
     private double getCurrentInventoryItemSuccessRate(Player player) {
-        if (!InventoryOperation.checkPlayerHasItem(player, GemItems.lifeManaGem.get(), 1)) {
+        if (!InventoryOperation.checkPlayerHasItem(player, GemItems.LIFE_MANA_GEM.get(), 1)) {
             return 0;
         }
         double rate = 0.2;
-        rate += Math.min(0.2, 0.0002 * InventoryOperation.itemStackCount(player, ModItems.LifeElementPiece0.get()));
-        rate += Math.min(0.3, 0.06 * InventoryOperation.itemStackCount(player, ModItems.PlainRune.get()));
-        rate += Math.min(0.3, 0.06 * InventoryOperation.itemStackCount(player, ModItems.ForestRune.get()));
+        rate += Math.min(0.2, 0.0002 * InventoryOperation.itemStackCount(player, ModItems.LIFE_ELEMENT_PIECE_0.get()));
+        rate += Math.min(0.3, 0.06 * InventoryOperation.itemStackCount(player, ModItems.PLAIN_RUNE.get()));
+        rate += Math.min(0.3, 0.06 * InventoryOperation.itemStackCount(player, ModItems.FOREST_RUNE.get()));
         return rate;
     }
 

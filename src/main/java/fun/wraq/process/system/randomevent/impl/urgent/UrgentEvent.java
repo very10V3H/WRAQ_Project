@@ -82,9 +82,9 @@ public class UrgentEvent extends RandomEvent {
     protected void finishAction() {
         // 结束奖励 普遍奖励
         List<ItemStack> reward = List.of(
-                new ItemStack(ModItems.GoldCoinBag.get(), 2),
+                new ItemStack(ModItems.GOLD_COIN_BAG.get(), 2),
                 new ItemStack(ModItems.GEM_PIECE.get(), 12),
-                new ItemStack(ModItems.RevelationBook.get(), 5)
+                new ItemStack(ModItems.REVELATION_BOOK.get(), 5)
         );
         players.forEach(player -> {
             reward.forEach(stack -> {

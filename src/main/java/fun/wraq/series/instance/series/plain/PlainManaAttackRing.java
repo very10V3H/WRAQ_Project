@@ -41,6 +41,6 @@ public class PlainManaAttackRing extends WraqCurios implements Decomposable {
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.PlainBossSoul.get(), 2);
+        return new ItemStack(ModItems.PLAIN_BOSS_SOUL.get(), 2);
     }
 }

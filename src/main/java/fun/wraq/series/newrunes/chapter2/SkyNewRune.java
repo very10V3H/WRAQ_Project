@@ -62,13 +62,13 @@ public class SkyNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDes
 
     @Override
     public void tick(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.skyNewRune.get())) {
-            Compute.sendEffectLastTime(player, NewRuneItems.skyNewRune.get(), 0, true);
-        } else Compute.removeEffectLastTime(player, NewRuneItems.skyNewRune.get());
+        if (Compute.hasCurios(player, NewRuneItems.SKY_NEW_RUNE.get())) {
+            Compute.sendEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get(), 0, true);
+        } else Compute.removeEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get());
     }
 
     public static double critDamageInfluence(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.skyNewRune.get())) {
+        if (Compute.hasCurios(player, NewRuneItems.SKY_NEW_RUNE.get())) {
             return -0.1;
         }
         return 0;

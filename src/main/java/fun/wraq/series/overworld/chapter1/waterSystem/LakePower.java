@@ -92,8 +92,8 @@ public class LakePower extends WraqPower {
 
     @Override
     public void release(Player player) {
-        List.of(ModItems.LakePower.get(), ModItems.LakePower1.get(),
-                        ModItems.LakePower2.get(), ModItems.LakePower3.get())
+        List.of(ModItems.LAKE_POWER.get(), ModItems.LAKE_POWER_1.get(),
+                        ModItems.LAKE_POWER_2.get(), ModItems.LAKE_POWER_3.get())
                 .forEach(item -> {
                     playerItemCoolDown(player, item, LakePower.CoolDownTime[tier] - SuitCount.getObsiManaESuitCount(player) * 0.75);
                 });
@@ -110,7 +110,7 @@ public class LakePower extends WraqPower {
         playerList.forEach(player1 -> {
             LakePower.playerDefendRateMap.put(player1, tier + 1);
             LakePower.playerDefendTickMap.put(player1, tick + 80);
-            Compute.sendEffectLastTime(player1, ModItems.LakePower.get().getDefaultInstance(), 80);
+            Compute.sendEffectLastTime(player1, ModItems.LAKE_POWER.get().getDefaultInstance(), 80);
             SpecialEffectOnPlayer.cleanse(player1);
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfLake.getColor().getValue());

@@ -60,7 +60,7 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.volcanoNewRune.get());
+        return Compute.hasCurios(player, NewRuneItems.VOLCANO_NEW_RUNE.get());
     }
 
     public static Map<String, Integer> playerAttackCounts = new HashMap<>();
@@ -72,7 +72,7 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
         int counts = (playerAttackCounts.getOrDefault(name, 0) + 1);
         if (counts == 3) rate += 1;
         playerAttackCounts.put(name, counts % 3);
-        Compute.sendEffectLastTime(player, NewRuneItems.volcanoNewRune.get(), 8888, counts % 3, true);
+        Compute.sendEffectLastTime(player, NewRuneItems.VOLCANO_NEW_RUNE.get(), 8888, counts % 3, true);
         return rate;
     }
 

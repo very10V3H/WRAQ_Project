@@ -441,7 +441,7 @@ public class Compute {
         itemStack[1] = ModItems.DEFENCE_PENETRATION_POTION_BAG.get().getDefaultInstance();
         itemStack[2] = ModItems.POWER_RELEASE_SPEED_POTION_BAG.get().getDefaultInstance();
         itemStack[3] = ModItems.CRIT_DAMAGE_UP_POTION_BAG.get().getDefaultInstance();
-        itemStack[4] = ModItems.CRIT_RATE_UP_POTIONBAG.get().getDefaultInstance();
+        itemStack[4] = ModItems.CRIT_RATE_UP_POTION_BAG.get().getDefaultInstance();
         itemStack[5] = ModItems.DEFENCE_UP_POTION_BAG.get().getDefaultInstance();
         itemStack[6] = ModItems.HEALTH_STEAL_UP_POTION_BAG.get().getDefaultInstance();
         itemStack[7] = ModItems.MANA_PENETRATION_POTION_BAG.get().getDefaultInstance();
@@ -903,8 +903,8 @@ public class Compute {
     }
 
     public static boolean IsSoulEquip(ItemStack itemStack) {
-        return itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())
-                || itemStack.is(ModItems.SoulSceptre.get());
+        return itemStack.is(ModItems.SOUL_SWORD.get()) || itemStack.is(ModItems.SOUL_BOW.get())
+                || itemStack.is(ModItems.SOUL_SCEPTRE.get());
     }
 
     public static void resetSkillAndAbility(Player player) {
@@ -1101,16 +1101,16 @@ public class Compute {
         Vec3 delta = player.position().subtract(mob.position());
         Vec3 delta0 = new Vec3(delta.x, 0, delta.z);
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
-        itemEntity.setItem(ModItems.Value.get().getDefaultInstance());
+        itemEntity.setItem(ModItems.VALUE.get().getDefaultInstance());
         itemEntity.setCustomName(component);
         itemEntity.setCustomNameVisible(true);
         itemEntity.setNoGravity(true);
         Vec3 pos = mob.getEyePosition();
         Random r = new Random();
         if (type == 0)
-            pos = pos.add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(r.nextDouble()));
+            pos = pos.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(r.nextDouble()));
         if (type == 1)
-            pos = pos.add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(-1 * r.nextDouble()));
+            pos = pos.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(-1 * r.nextDouble()));
         itemEntity.moveTo(pos.add(r.nextDouble(0.5) - 0.25, r.nextDouble(0.5) - 0.25, r.nextDouble(0.5) - 0.25));
         itemEntity.setPickUpDelay(200);
         itemEntity.setDeltaMovement(new Vec3(delta0.normalize().scale(0.1).x, 0.1, delta0.normalize().scale(0.1).z));
@@ -1633,12 +1633,12 @@ public class Compute {
 
     public static Vec3 getLivingEntityBackOffsetPos(LivingEntity livingEntity) {
         Vec3 vec3 = livingEntity.pick(-1, 0, false).getLocation();
-        return vec3.add(livingEntity.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(Math.sqrt(4)));
+        return vec3.add(livingEntity.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(Math.sqrt(4)));
     }
 
     public static Vec3 getLivingEntityFrontOffsetPos(LivingEntity livingEntity) {
         Vec3 vec3 = livingEntity.pick(1, 0, false).getLocation();
-        return vec3.add(livingEntity.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(Math.sqrt(4)));
+        return vec3.add(livingEntity.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(Math.sqrt(4)));
     }
 
     public static Vec3 GetPlayerBackPos(Player player, int type) {
@@ -1648,20 +1648,20 @@ public class Compute {
                 return vec3.add(0, 2, 0);
             }
             case 1 -> {
-                return vec3.add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(Math.sqrt(4)));
+                return vec3.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(Math.sqrt(4)));
             }
             case 2 -> {
-                return vec3.add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(-Math.sqrt(4)));
+                return vec3.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(-Math.sqrt(4)));
             }
             case 3 -> {
-                return vec3.add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(4)).add(0, -1, 0);
+                return vec3.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(4)).add(0, -1, 0);
             }
             case 4 -> {
-                return vec3.add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(-4)).add(0, -1, 0);
+                return vec3.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(-4)).add(0, -1, 0);
             }
         }
         vec3 = player.pick(-1, 0, false).getLocation().
-                add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get()));
+                add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()));
         return vec3;
     }
 
@@ -1756,9 +1756,7 @@ public class Compute {
     public static List<Item> mobArmorList = new ArrayList<>();
 
     public static void setMobArmorList() {
-        mobArmorList.add(ModItems.MobArmorCastleKnightHelmet.get());
-        mobArmorList.add(ModItems.MobArmorPurpleIronKnightHelmet.get());
-        mobArmorList.add(ModItems.MobArmorGiant.get());
+        mobArmorList.add(ModItems.MOB_ARMOR_CASTLE_KNIGHT_HELMET.get());
     }
 
     public static double InstanceMobDamageLimit(Player player, Mob mob, double damage) {

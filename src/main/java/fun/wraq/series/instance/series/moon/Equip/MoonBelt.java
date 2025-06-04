@@ -99,7 +99,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
             statusType.put(player, 0);
             storedDamage.put(player, 0d);
             coolDown.put(player, tick + 200);
-            Compute.sendCoolDownTime(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
+            Compute.sendCoolDownTime(player, ModItems.MOON_BELT.get().getDefaultInstance(), 200);
             ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(),
                     1, 1, 120, ParticleTypes.FIREWORK, 1);
             ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(),
@@ -126,7 +126,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
                     storedDamage.put(player, Math.min(getUpperLimit(player), value));
                 }
             }
-            Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(),
+            Compute.sendEffectLastTime(player, ModItems.MOON_BELT.get().getDefaultInstance(),
                     damageTick.getOrDefault(player, 0) - Tick.get(),
                     storedDamage.get(player).intValue(), false);
         }
@@ -150,7 +150,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
                     storedDamage.put(player, Math.min(getUpperLimit(player), value));
                 }
             }
-            Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(),
+            Compute.sendEffectLastTime(player, ModItems.MOON_BELT.get().getDefaultInstance(),
                     damageTick.getOrDefault(player, 0) - Tick.get(),
                     storedDamage.get(player).intValue(), false);
         }

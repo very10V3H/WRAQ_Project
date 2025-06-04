@@ -114,9 +114,9 @@ public class TowerScreen extends Screen {
                         if (j < stage)
                             guiGraphics.renderItem(ModItems.WORLD_SOUL_5.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
                         else
-                            guiGraphics.renderItem(ModItems.WorldSoulHollow.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
+                            guiGraphics.renderItem(ModItems.WORLDSOUL_HOLLOW.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
                     }
-                    guiGraphics.renderItem(ModItems.WorldSoulHollow.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
+                    guiGraphics.renderItem(ModItems.WORLDSOUL_HOLLOW.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
                 }
 
                 guiGraphics.drawString(fontRenderer, Component.literal("「").withStyle(ChatFormatting.AQUA).

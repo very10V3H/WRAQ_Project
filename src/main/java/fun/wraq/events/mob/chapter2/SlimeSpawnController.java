@@ -84,11 +84,11 @@ public class SlimeSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.SlimeBall.get(), 0.4));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.1875));
+            add(new ItemAndRate(ModItems.SLIME_BALL.get(), 0.4));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.1875));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.LifeElementPiece0.get(), 0.15));
-            add(new ItemAndRate(C2LootItems.slimeChest.get(), 0.005));
+            add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.15));
+            add(new ItemAndRate(C2LootItems.SLIME_CHEST.get(), 0.005));
         }};
     }
 

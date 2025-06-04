@@ -82,11 +82,11 @@ public class DevilInstance extends NoTeamInstance {
                 0.4, 3, 0.25, 50, 0,
                 maxHealth, 0.35);
         zombie.setHealth(zombie.getMaxHealth());
-        zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorDevilHelmet.get().getDefaultInstance());
-        zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorEarthManaChest.get().getDefaultInstance());
-        zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorEarthManaLeggings.get().getDefaultInstance());
-        zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorEarthManaBoots.get().getDefaultInstance());
-        zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.manaKnife.get().getDefaultInstance());
+        zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_DEVIL_HELMET.get().getDefaultInstance());
+        zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_EARTH_MANA_CHEST.get().getDefaultInstance());
+        zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_EARTH_MANA_LEGGINGS.get().getDefaultInstance());
+        zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_EARTH_MANA_BOOTS.get().getDefaultInstance());
+        zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MANA_KNIFE.get().getDefaultInstance());
         devilSkill3Flag = true;
         devilSkill4Flag = true;
         exDamage = 0;
@@ -117,10 +117,10 @@ public class DevilInstance extends NoTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.DevilLoot.get(), 1),
-                new ItemAndRate(ModItems.TabooPiece.get(), 1),
+        return List.of(new ItemAndRate(ModItems.DEVIL_LOOT.get(), 1),
+                new ItemAndRate(ModItems.TABOO_PIECE.get(), 1),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1));
     }
 
     public static void skill1(Mob mob, List<Player> playerList) {

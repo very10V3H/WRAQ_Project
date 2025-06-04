@@ -68,10 +68,10 @@ public class DailySupply {
 
     public static Int2ObjectMap<ItemStack> getRewardItemMap() {
         if (rewardItemMap.isEmpty()) {
-            rewardItemMap.put(0, new ItemStack(ModItems.supplyBoxTier0.get()));
-            rewardItemMap.put(1, new ItemStack(ModItems.supplyBoxTier1.get()));
-            rewardItemMap.put(2, new ItemStack(ModItems.supplyBoxTier2.get()));
-            rewardItemMap.put(3, new ItemStack(ModItems.supplyBoxTier3.get()));
+            rewardItemMap.put(0, new ItemStack(ModItems.SUPPLY_BOX_TIER_0.get()));
+            rewardItemMap.put(1, new ItemStack(ModItems.SUPPLY_BOX_TIER_1.get()));
+            rewardItemMap.put(2, new ItemStack(ModItems.SUPPLY_BOX_TIER_2.get()));
+            rewardItemMap.put(3, new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get()));
         }
         return rewardItemMap;
     }

@@ -60,13 +60,13 @@ public class SlimeBoots extends WraqArmor implements ForgeItem {
     }
 
     public static boolean IsOn(Player player) {
-        return player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SlimeBoots.get());
+        return player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SLIME_BOOTS.get());
     }
 
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.SlimeBall.get(), 384));
+            add(new ItemStack(ModItems.SLIME_BALL.get(), 384));
             add(new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 32));
         }};
     }

@@ -62,7 +62,7 @@ public class Common {
         if (map.containsKey(mob)) {
             Vec3 dis = mob.getEyePosition().subtract(player.getEyePosition());
             Vec3 vec3 = mob.getEyePosition().add(dis.normalize().scale(-0.75)
-                    .add(player.getHandHoldingItemAngle(ModItems.PlainSword0.get())));
+                    .add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get())));
             Vector3f toScreenPos = ClientSetup.worldToScreenSpace(vec3, 0);
             event.getGuiGraphics().blit(Element.getResource(type), (int) toScreenPos.x, (int) toScreenPos.y,
                     0, 0, 16,16, 16, 16);

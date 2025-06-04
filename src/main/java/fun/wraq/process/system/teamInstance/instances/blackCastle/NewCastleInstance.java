@@ -83,12 +83,12 @@ public class NewCastleInstance extends NewTeamInstance {
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 160,
                         80, 0.5, 3, 0.3, 55, 0,
                         maxHealth, 0.3);
-                witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
-                witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
-                witherSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());
-                witherSkeleton.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorBlackCastleOneFloorBoots.get().getDefaultInstance());
+                witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_MANA_HELMET.get().getDefaultInstance());
+                witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_CHEST.get().getDefaultInstance());
+                witherSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_LEGGINGS.get().getDefaultInstance());
+                witherSkeleton.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_BOOTS.get().getDefaultInstance());
                 witherSkeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SCEPTRE.get().getDefaultInstance());
-                witherSkeleton.setItemSlot(EquipmentSlot.OFFHAND, ModItems.WitherBook.get().getDefaultInstance());
+                witherSkeleton.setItemSlot(EquipmentSlot.OFFHAND, ModItems.WITHER_BOOK.get().getDefaultInstance());
                 witherSkeleton.moveTo(pos.add(offset.get(i)));
                 mobList.add(new ConditionSummonMob(0, witherSkeleton, pos, 5));
             }
@@ -108,12 +108,12 @@ public class NewCastleInstance extends NewTeamInstance {
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 80,
                     160, 0.5, 3, 0.3, 55, 0,
                     maxHealth, 0.3);
-            witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
-            witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
-            witherSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());
-            witherSkeleton.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorBlackCastleOneFloorBoots.get().getDefaultInstance());
+            witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_ATTACK_HELMET.get().getDefaultInstance());
+            witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_CHEST.get().getDefaultInstance());
+            witherSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_LEGGINGS.get().getDefaultInstance());
+            witherSkeleton.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_BOOTS.get().getDefaultInstance());
             witherSkeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SWORD.get().getDefaultInstance());
-            witherSkeleton.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MineShield.get().getDefaultInstance());
+            witherSkeleton.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MINE_SHIELD.get().getDefaultInstance());
             witherSkeleton.moveTo(pos.add(offset.get(random.nextInt(offset.size()))));
             mobList.add(new ConditionSummonMob(0, witherSkeleton, pos, 5));
         });
@@ -152,12 +152,12 @@ public class NewCastleInstance extends NewTeamInstance {
                         170, 0.5, 3, 0.3, 55, 0,
                         maxHealth, 0.35);
                 zombie.setBaby(true);
-                zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorBlackCastleOneFloorBoots.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_MANA_HELMET.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_CHEST.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_LEGGINGS.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_BOOTS.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SWORD.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MineShield.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MINE_SHIELD.get().getDefaultInstance());
                 zombie.moveTo(new Vec3(2372 + random.nextInt(6) - 3, 160, -1372 + random.nextInt(6) - 3));
                 mobList.add(new ConditionSummonMob(0, zombie, new Vec3(2372, 159, -1372), 10));
             }
@@ -169,12 +169,12 @@ public class NewCastleInstance extends NewTeamInstance {
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 180, 3500, 170,
                         170, 0.5, 3, 0.3, 55, 0,
                         maxHealth, 0.35);
-                zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorBlackCastleOneFloorBoots.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_ATTACK_HELMET.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_CHEST.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_LEGGINGS.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_BLACK_CASTLE_ONE_FLOOR_BOOTS.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SWORD.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MineShield.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MINE_SHIELD.get().getDefaultInstance());
                 zombie.moveTo(new Vec3(2372 + random.nextInt(6) - 3, 160, -1372 + random.nextInt(6) - 3));
                 mobList.add(new ConditionSummonMob(0, zombie, new Vec3(2372, 159, -1372), 10));
             }
@@ -183,7 +183,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
     @Override
     public void reward(Player player) {
-        if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.notePaper.get(), 2)))) {
+        if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.NOTE_PAPER.get(), 2)))) {
             getRewardList().forEach(itemAndRate -> {
                 itemAndRate.sendWithMSG(player, 2);
             });
@@ -191,7 +191,7 @@ public class NewCastleInstance extends NewTeamInstance {
         } else {
             Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
-                            append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
+                            append(ModItems.NOTE_PAPER.get().getDefaultInstance().getDisplayName()).
                             append(Te.s(" * 2", ChatFormatting.AQUA)).
                             append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
         }
@@ -213,11 +213,11 @@ public class NewCastleInstance extends NewTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.CastleLoot.get(), 1),
+        return List.of(new ItemAndRate(ModItems.CASTLE_LOOT.get(), 1),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
-                new ItemAndRate(ModItems.CastleNecklace.get(), 0.08),
-                new ItemAndRate(NewRuneItems.castleNewRune.get(), 0.015));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1),
+                new ItemAndRate(ModItems.CASTLE_NECKLACE.get(), 0.08),
+                new ItemAndRate(NewRuneItems.CASTLE_NEW_RUNE.get(), 0.015));
     }
 
     @Override

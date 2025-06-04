@@ -63,11 +63,11 @@ public class AttackCurios2 extends WraqAttackUniformCurios {
 
     public static void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, UniformItems.AttackCurios2.get());
+            Compute.removeEffectLastTime(player, UniformItems.ATTACK_CURIOS_2.get());
             return;
         }
         if (playerNearbyHasNoOthers(player))
-            Compute.sendEffectLastTime(player, UniformItems.AttackCurios2.get(), 8888, 0, true);
-        else Compute.sendEffectLastTime(player, UniformItems.AttackCurios2.get(), 0, 0, true);
+            Compute.sendEffectLastTime(player, UniformItems.ATTACK_CURIOS_2.get(), 8888, 0, true);
+        else Compute.sendEffectLastTime(player, UniformItems.ATTACK_CURIOS_2.get(), 0, 0, true);
     }
 }

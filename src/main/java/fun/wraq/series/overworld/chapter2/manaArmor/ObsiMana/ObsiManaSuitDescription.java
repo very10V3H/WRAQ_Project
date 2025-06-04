@@ -42,16 +42,16 @@ public class ObsiManaSuitDescription {
         Player player = Minecraft.getInstance().player;
         Style MainStyle = CustomStyle.styleOfMana;
         Item[] items = {
-                ModItems.ObsiManaArmorHelmet.get(),
-                ModItems.ObsiManaArmorChest.get(),
-                ModItems.ObsiManaArmorLeggings.get(),
-                ModItems.ObsiManaArmorBoots.get(),
+                ModItems.OBSI_MANA_HELMET.get(),
+                ModItems.OBSI_MANA_CHEST.get(),
+                ModItems.OBSI_MANA_LEGGINGS.get(),
+                ModItems.OBIS_MANA_BOOTS.get(),
         };
         ArrayList<Item> OffHands = new ArrayList<>() {{
-            add(ModItems.EvokerBook0.get());
-            add(ModItems.EvokerBook1.get());
-            add(ModItems.EvokerBook2.get());
-            add(ModItems.EvokerBook3.get());
+            add(ModItems.EVOKER_BOOK_0.get());
+            add(ModItems.EVOKER_BOOK_1.get());
+            add(ModItems.EVOKER_BOOK_2.get());
+            add(ModItems.EVOKER_BOOK_3.get());
         }};
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

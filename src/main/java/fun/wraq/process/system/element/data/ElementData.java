@@ -57,8 +57,8 @@ public class ElementData {
             descriptionMap.put(ICE_PIECE_COUNT_KEY, Element.Description.IceElement(""));
             descriptionMap.put(LIGHTNING_PIECE_COUNT_KEY, Element.Description.LightningElement(""));
             descriptionMap.put(WIND_PIECE_COUNT_KEY, Element.Description.WindElement(""));
-            descriptionMap.put(RAINBOW_POWDER_COUNT_KEY, Te.s("「", ModItems.RainbowPowder, "」"));
-            descriptionMap.put(WEAK_PIECE_COUNT_KEY, Te.s("「", ElementItems.weakPiece0, "」"));
+            descriptionMap.put(RAINBOW_POWDER_COUNT_KEY, Te.s("「", ModItems.RAINBOW_POWDER, "」"));
+            descriptionMap.put(WEAK_PIECE_COUNT_KEY, Te.s("「", ElementItems.WEAK_PIECE_0, "」"));
         }
         return descriptionMap.get(countKey);
     }
@@ -66,13 +66,13 @@ public class ElementData {
     public static Map<Item, String> piece0CountKeyMap = new HashMap<>();
     public static String getPiece0CountKey(Item item) {
         if (piece0CountKeyMap.isEmpty()) {
-            piece0CountKeyMap.put(ModItems.LifeElementPiece0.get(), LIFE_PIECE_COUNT_KEY);
-            piece0CountKeyMap.put(ModItems.WaterElementPiece0.get(), WATER_PIECE_COUNT_KEY);
-            piece0CountKeyMap.put(ModItems.FireElementPiece0.get(), FIRE_PIECE_COUNT_KEY);
-            piece0CountKeyMap.put(ModItems.StoneElementPiece0.get(), STONE_PIECE_COUNT_KEY);
-            piece0CountKeyMap.put(ModItems.IceElementPiece0.get(), ICE_PIECE_COUNT_KEY);
-            piece0CountKeyMap.put(ModItems.LightningElementPiece0.get(), LIGHTNING_PIECE_COUNT_KEY);
-            piece0CountKeyMap.put(ModItems.WindElementPiece0.get(), WIND_PIECE_COUNT_KEY);
+            piece0CountKeyMap.put(ModItems.LIFE_ELEMENT_PIECE_0.get(), LIFE_PIECE_COUNT_KEY);
+            piece0CountKeyMap.put(ModItems.WATER_ELEMENT_PIECE_0.get(), WATER_PIECE_COUNT_KEY);
+            piece0CountKeyMap.put(ModItems.FIRE_ELEMENT_PIECE_0.get(), FIRE_PIECE_COUNT_KEY);
+            piece0CountKeyMap.put(ModItems.STONE_ELEMENT_PIECE_0.get(), STONE_PIECE_COUNT_KEY);
+            piece0CountKeyMap.put(ModItems.ICE_ELEMENT_PIECE_0.get(), ICE_PIECE_COUNT_KEY);
+            piece0CountKeyMap.put(ModItems.LIGHTNING_ELEMENT_PIECE_0.get(), LIGHTNING_PIECE_COUNT_KEY);
+            piece0CountKeyMap.put(ModItems.WIND_ELEMENT_PIECE_0.get(), WIND_PIECE_COUNT_KEY);
         }
         return piece0CountKeyMap.get(item);
     }
@@ -80,13 +80,13 @@ public class ElementData {
     public static Map<String, Item> piece0Map = new HashMap<>();
     public static Item getPiece0ByCountKey(String countKey) {
         if (piece0Map.isEmpty()) {
-            piece0Map.put(LIFE_PIECE_COUNT_KEY, ModItems.LifeElementPiece0.get());
-            piece0Map.put(WATER_PIECE_COUNT_KEY, ModItems.WaterElementPiece0.get());
-            piece0Map.put(FIRE_PIECE_COUNT_KEY, ModItems.FireElementPiece0.get());
-            piece0Map.put(STONE_PIECE_COUNT_KEY, ModItems.StoneElementPiece0.get());
-            piece0Map.put(ICE_PIECE_COUNT_KEY, ModItems.IceElementPiece0.get());
-            piece0Map.put(LIGHTNING_PIECE_COUNT_KEY, ModItems.LightningElementPiece0.get());
-            piece0Map.put(WIND_PIECE_COUNT_KEY, ModItems.WindElementPiece0.get());
+            piece0Map.put(LIFE_PIECE_COUNT_KEY, ModItems.LIFE_ELEMENT_PIECE_0.get());
+            piece0Map.put(WATER_PIECE_COUNT_KEY, ModItems.WATER_ELEMENT_PIECE_0.get());
+            piece0Map.put(FIRE_PIECE_COUNT_KEY, ModItems.FIRE_ELEMENT_PIECE_0.get());
+            piece0Map.put(STONE_PIECE_COUNT_KEY, ModItems.STONE_ELEMENT_PIECE_0.get());
+            piece0Map.put(ICE_PIECE_COUNT_KEY, ModItems.ICE_ELEMENT_PIECE_0.get());
+            piece0Map.put(LIGHTNING_PIECE_COUNT_KEY, ModItems.LIGHTNING_ELEMENT_PIECE_0.get());
+            piece0Map.put(WIND_PIECE_COUNT_KEY, ModItems.WIND_ELEMENT_PIECE_0.get());
         }
         return piece0Map.get(countKey);
     }
@@ -94,13 +94,13 @@ public class ElementData {
     public static Map<String, Item> piece1Map = new HashMap<>();
     public static Item getPiece1ByCountKey(String countKey) {
         if (piece1Map.isEmpty()) {
-            piece1Map.put(LIFE_PIECE_COUNT_KEY, ModItems.LifeElementPiece1.get());
-            piece1Map.put(WATER_PIECE_COUNT_KEY, ModItems.WaterElementPiece1.get());
-            piece1Map.put(FIRE_PIECE_COUNT_KEY, ModItems.FireElementPiece1.get());
-            piece1Map.put(STONE_PIECE_COUNT_KEY, ModItems.StoneElementPiece1.get());
-            piece1Map.put(ICE_PIECE_COUNT_KEY, ModItems.IceElementPiece1.get());
-            piece1Map.put(LIGHTNING_PIECE_COUNT_KEY, ModItems.LightningElementPiece1.get());
-            piece1Map.put(WIND_PIECE_COUNT_KEY, ModItems.WindElementPiece1.get());
+            piece1Map.put(LIFE_PIECE_COUNT_KEY, ModItems.LIFE_ELEMENT_PIECE_1.get());
+            piece1Map.put(WATER_PIECE_COUNT_KEY, ModItems.WATER_ELEMENT_PIECE_1.get());
+            piece1Map.put(FIRE_PIECE_COUNT_KEY, ModItems.FIRE_ELEMENT_PIECE_1.get());
+            piece1Map.put(STONE_PIECE_COUNT_KEY, ModItems.STONE_ELEMENT_PIECE_1.get());
+            piece1Map.put(ICE_PIECE_COUNT_KEY, ModItems.ICE_ELEMENT_PIECE_1.get());
+            piece1Map.put(LIGHTNING_PIECE_COUNT_KEY, ModItems.LIGHTNING_ELEMENT_PIECE_1.get());
+            piece1Map.put(WIND_PIECE_COUNT_KEY, ModItems.WIND_ELEMENT_PIECE_1.get());
         }
         return piece1Map.get(countKey);
     }
@@ -108,13 +108,13 @@ public class ElementData {
     public static Map<String, Item> piece2Map = new HashMap<>();
     public static Item getPiece2ByCountKey(String countKey) {
         if (piece2Map.isEmpty()) {
-            piece2Map.put(LIFE_PIECE_COUNT_KEY, ModItems.LifeElementPiece2.get());
-            piece2Map.put(WATER_PIECE_COUNT_KEY, ModItems.WaterElementPiece2.get());
-            piece2Map.put(FIRE_PIECE_COUNT_KEY, ModItems.FireElementPiece2.get());
-            piece2Map.put(STONE_PIECE_COUNT_KEY, ModItems.StoneElementPiece2.get());
-            piece2Map.put(ICE_PIECE_COUNT_KEY, ModItems.IceElementPiece2.get());
-            piece2Map.put(LIGHTNING_PIECE_COUNT_KEY, ModItems.LightningElementPiece2.get());
-            piece2Map.put(WIND_PIECE_COUNT_KEY, ModItems.WindElementPiece2.get());
+            piece2Map.put(LIFE_PIECE_COUNT_KEY, ModItems.LIFE_ELEMENT_PIECE_2.get());
+            piece2Map.put(WATER_PIECE_COUNT_KEY, ModItems.WATER_ELEMENT_PIECE_2.get());
+            piece2Map.put(FIRE_PIECE_COUNT_KEY, ModItems.FIRE_ELEMENT_PIECE_2.get());
+            piece2Map.put(STONE_PIECE_COUNT_KEY, ModItems.STONE_ELEMENT_PIECE_2.get());
+            piece2Map.put(ICE_PIECE_COUNT_KEY, ModItems.ICE_ELEMENT_PIECE_2.get());
+            piece2Map.put(LIGHTNING_PIECE_COUNT_KEY, ModItems.LIGHTNING_ELEMENT_PIECE_2.get());
+            piece2Map.put(WIND_PIECE_COUNT_KEY, ModItems.WIND_ELEMENT_PIECE_2.get());
         }
         return piece2Map.get(countKey);
     }
@@ -157,7 +157,7 @@ public class ElementData {
         if (rainbowPowderCount + canBeConvertCount / 7 < count * 49) {
             sendMSG(player, Te.s("所需材料不足，", "量子化七色棱镜碎片", CustomStyle.styleOfWorld,
                     "与可用于转化的", "所有元素微型碎片", ChatFormatting.LIGHT_PURPLE, "之和未达到所需值。当前可以使用以上两种材料最多转换",
-                    (rainbowPowderCount + canBeConvertCount / 7) / 49 + "个", ModItems.RainbowCrystal));
+                    (rainbowPowderCount + canBeConvertCount / 7) / 49 + "个", ModItems.RAINBOW_CRYSTAL));
             return;
         }
         if (!InventoryOperation.checkPlayerHasItem(player, ModItems.COMPLETE_GEM.get(), count * 7)) {
@@ -193,7 +193,7 @@ public class ElementData {
             });
         }
         InventoryOperation.removeItem(player, ModItems.COMPLETE_GEM.get(), count * 7);
-        InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.RainbowCrystal.get(), count));
+        InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.RAINBOW_CRYSTAL.get(), count));
     }
 
     public static void tryToConvertWeakPiece(Player player) {
@@ -271,7 +271,7 @@ public class ElementData {
 
     public static void handleServerPlayerTick(Player player) {
         if (player.tickCount % 20 == 9
-                && InventoryOperation.checkPlayerHasItem(player, ModItems.U_Disk.get(), 1)) {
+                && InventoryOperation.checkPlayerHasItem(player, ModItems.U_DISK.get(), 1)) {
             Set<Item> piece0Set = getAllPieceCountKey().stream()
                     .map(ElementData::getPiece0ByCountKey).collect(Collectors.toSet());
             for (int i = 0 ; i < player.getInventory().getContainerSize() ; i ++) {

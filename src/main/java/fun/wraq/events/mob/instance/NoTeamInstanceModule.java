@@ -196,7 +196,7 @@ public class NoTeamInstanceModule {
     }
 
     public static void handlePlayerRightClick(Player player) {
-        if ((player.getMainHandItem().is(ModItems.notePaper.get()))
+        if ((player.getMainHandItem().is(ModItems.NOTE_PAPER.get()))
                 || player.getMainHandItem().is(MoontainItems.HEART.get())) {
             Item item = player.getMainHandItem().getItem();
             getMap().forEach((k, v) -> {
@@ -210,7 +210,7 @@ public class NoTeamInstanceModule {
                             return;
                         }
                         boolean reasonJudge = instance.getSummonAndRewardNeedItem().equals(ModItems.REASON.get())
-                                && item.equals(ModItems.notePaper.get());
+                                && item.equals(ModItems.NOTE_PAPER.get());
                         if ((instance.getSummonAndRewardNeedItem().equals(item) || reasonJudge)
                                 && player.position().distanceTo(instance.pos) < 12
                                 && Tick.get() > instance.summonTick) {

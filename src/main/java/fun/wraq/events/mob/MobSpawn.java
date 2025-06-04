@@ -420,7 +420,7 @@ public class MobSpawn {
 
         // 直接送至背包或掉落
         if (dropsDirectToInventory.containsKey(MobSpawn.getMobOriginName(mob))
-                || Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(NewRuneItems.endNewRune.get())) {
+                || Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(NewRuneItems.END_NEW_RUNE.get())) {
             Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
             list.forEach(itemAndRate -> {
                 itemAndRate.send(player, num);
@@ -442,7 +442,7 @@ public class MobSpawn {
         oldVersionMaterial(mob, player);
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
-            if (Compute.hasCurios(player, NewRuneItems.endNewRune.get())) {
+            if (Compute.hasCurios(player, NewRuneItems.END_NEW_RUNE.get())) {
                 ItemAndRate itemAndRate = new ItemAndRate(ModItems.WORLD_SOUL_1.get(), 1);
                 itemAndRate.send(player, 1);
             } else {
@@ -547,15 +547,15 @@ public class MobSpawn {
                 Utils.lightningRecall, Utils.netherRecall, Utils.snowRecall, Utils.volcanoRecall
         };
         Item[] items = {
-                ModItems.ArmorKazeRecall.get(), ModItems.ArmorSpiderRecall.get(),
-                ModItems.ArmorHuskRecall.get(), ModItems.ArmorSeaRecall.get(),
-                ModItems.ArmorLightningRecall.get(), ModItems.ArmorNetherRecall.get(),
-                ModItems.ArmorSnowRecall.get(), ModItems.ArmorVolcanoRecall.get()
+                ModItems.ARMOR_KAZE_RECALL.get(), ModItems.ARMOR_SPIDER_RECALL.get(),
+                ModItems.ARMOR_HUSK_RECALL.get(), ModItems.ARMOR_SEA_RECALL.get(),
+                ModItems.ARMOR_LIGHTNING_RECALL.get(), ModItems.ARMOR_NETHER_RECALL.get(),
+                ModItems.ARMOR_SNOW_RECALL.get(), ModItems.ARMOR_VOLCANO_RECALL.get()
         };
         for (int i = 0; i < recalls.length; i++) {
             recallSuccess(recalls[i], player, mob, items[i]);
         }
-        if (Utils.forestRecall.recallPlayer != null && mob.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(ModItems.ArmorForestRecall.get())
+        if (Utils.forestRecall.recallPlayer != null && mob.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(ModItems.ARMOR_FOREST_RECALL.get())
                 && Utils.forestRecall.recallPlayer.equals(player)) {
             Utils.ForestRecallBossKillCount++;
             if (Utils.ForestRecallBossKillCount == 2) Utils.forestRecall.recallSuccess = true;
@@ -581,7 +581,7 @@ public class MobSpawn {
         Element.Unit unit = Element.entityElementUnit.getOrDefault(mob, new Element.Unit(Element.life, 0));
         if (unit.value() > 0) {
             String[] elementType = {Element.life, Element.water, Element.fire};
-            Item[] items = {ModItems.SunPower.get(), ModItems.LAKE_CORE.get(), ModItems.VOLCANO_CORE.get()};
+            Item[] items = {ModItems.SUN_POWER.get(), ModItems.LAKE_CORE.get(), ModItems.VOLCANO_CORE.get()};
             List<Map<String, Integer>> maps = new ArrayList<>() {{
                 add(LoginInEvent.sunPowerGetCount);
                 add(LoginInEvent.lakeCoreGetCount);
@@ -597,7 +597,7 @@ public class MobSpawn {
                         String name = player.getName().getString();
                         if (!getMap.containsKey(name) || getMap.get(name) <= 36) {
                             getMap.put(name, getMap.getOrDefault(name, 0) + 1);
-                            if (Compute.hasCurios(player, NewRuneItems.endNewRune.get())) {
+                            if (Compute.hasCurios(player, NewRuneItems.END_NEW_RUNE.get())) {
                                 InventoryOperation.giveItemStack(player, item.getDefaultInstance());
                             } else ItemAndRate.summonBoundingItemEntity(mob, item.getDefaultInstance(), player);
                         }

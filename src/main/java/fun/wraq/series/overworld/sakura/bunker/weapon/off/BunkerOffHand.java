@@ -13,7 +13,7 @@ public interface BunkerOffHand {
                 new ItemStack(frontItem),
                 new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get(), 8),
                 new ItemStack(BunkerItems.BUNKER_RUNE.get(), 50),
-                new ItemStack(ModItems.ReputationMedal.get(), 40)
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 40)
         );
     }
 }

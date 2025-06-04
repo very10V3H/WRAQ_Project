@@ -26,7 +26,6 @@ import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.func.plan.PlanPlayer;
-import fun.wraq.process.func.suit.SArmorAttribute;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
@@ -76,7 +75,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
@@ -204,7 +206,7 @@ public class PlayerAttributes {
             exDamage += powerAbilityPoint * 2;
         } // 能力
 
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MINE_PANTS.get()) && (Utils.overworldIsNight || player.getY() < 63))
             exDamage += 50;
         // 矿工裤被动
 
@@ -222,7 +224,7 @@ public class PlayerAttributes {
                 exDamage += baseAttackDamage * (Utils.SpringScaleEffect.get(player) + 1) * 0.1;
         } //年兽鳞片
 
-        if (mainhand.equals(ModItems.SoulSword.get())) {
+        if (mainhand.equals(ModItems.SOUL_SWORD.get())) {
             if (stackmainhandtag.contains(StringUtils.SoulSwordKillCount)) {
                 exDamage += Math.min(256, stackmainhandtag.getInt(StringUtils.SoulSwordKillCount) / 100);
             }
@@ -295,7 +297,7 @@ public class PlayerAttributes {
         }
         CompoundTag data = player.getPersistentData();
         double critRate = 0.0d;
-        if (player.getMainHandItem().is(C5LootItems.pillagerBow.get())) {
+        if (player.getMainHandItem().is(C5LootItems.PILLAGER_BOW.get())) {
             CompoundTag tempData = player.getMainHandItem().getOrCreateTagElement(Utils.MOD_ID);
             if (tempData.getDouble(StringUtils.RandomAttribute.critRate) > 1)
                 tempData.putDouble(StringUtils.RandomAttribute.critRate, 0.5);
@@ -317,7 +319,6 @@ public class PlayerAttributes {
             critRate += 0.2;
         if (player.getEffect(ModEffects.CRITRATEUP.get()) != null && player.getEffect(ModEffects.CRITRATEUP.get()).getAmplifier() == 1)
             critRate += 0.4;
-        critRate += SArmorAttribute.value(player, SArmorAttribute.skyPower);
         if (Compute.getBowSkillLevel(data, 11) > 0 && Utils.bowTag.containsKey(mainhand)) {
             critRate += Compute.getBowSkillLevel(data, 11) * 0.02;
         } // 锻弦-平衡（手持弓时，获得额外2%暴击几率）
@@ -368,7 +369,6 @@ public class PlayerAttributes {
             critDamage += 0.1;
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 1)
             critDamage += 0.2;
-        critDamage += SArmorAttribute.value(player, SArmorAttribute.snowPower);
 
         if (Compute.getBowSkillLevel(data, 7) > 0 && Utils.bowTag.containsKey(mainhand)) {
             critDamage += Compute.getBowSkillLevel(data, 7) * 0.1;
@@ -380,13 +380,13 @@ public class PlayerAttributes {
             critDamage +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.CritDamage;
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_SHIELD.get())) {
             if (player.getHealth() / player.getMaxHealth() > 0.5) {
                 critDamage += data.getDouble("HealthStealAfterCompute");
             }
         } // 封魔者法盾
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.manaKnife.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_KNIFE.get())) {
             critDamage += data.getDouble("HealthStealAfterCompute") * 1;
         } // 猎魔者小刀
 
@@ -408,7 +408,7 @@ public class PlayerAttributes {
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.critDamage);
         critDamage *= (1 + exRate);
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_SHIELD.get())) {
             if (player.getHealth() / player.getMaxHealth() < 0.5) {
                 data.putDouble("CritDamageAfterCompute", critDamage);
                 critDamage = 0;
@@ -483,7 +483,7 @@ public class PlayerAttributes {
             movementSpeedUp += 0.08;
         }
 
-        if (Compute.hasCurios(player, NewRuneItems.skyNewRune.get())){
+        if (Compute.hasCurios(player, NewRuneItems.SKY_NEW_RUNE.get())){
             movementSpeedUp += 0.2;
         }
 
@@ -529,7 +529,7 @@ public class PlayerAttributes {
 
         speedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedWithoutBattle);
 
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MINE_PANTS.get()) && (Utils.overworldIsNight || player.getY() < 63))
             speedUp += 0.4;
         // 矿工裤被动
 
@@ -612,7 +612,7 @@ public class PlayerAttributes {
                 && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 1) {
             exDefence += baseDefence * 0.40 + 10;
         }
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MINE_PANTS.get()) && (Utils.overworldIsNight || player.getY() < 63))
             exDefence += 1;
         // 矿工裤被动
         if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 60;
@@ -781,7 +781,6 @@ public class PlayerAttributes {
             releaseSpeed += 0.2;
         if (player.getEffect(ModEffects.COOLDOWNUP.get()) != null && player.getEffect(ModEffects.COOLDOWNUP.get()).getAmplifier() == 1)
             releaseSpeed += 0.4;
-        releaseSpeed += SArmorAttribute.value(player, SArmorAttribute.lakePower);
         if (Compute.getSwordSkillLevel(data, 7) > 0 && Utils.swordTag.containsKey(mainhand))
             releaseSpeed += Compute.getSwordSkillLevel(data, 7) * 0.03; // 冷静（手持近战武器时，获得3%冷却缩减）
 
@@ -879,7 +878,7 @@ public class PlayerAttributes {
             defencePenetration0 +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.DefencePenetration0;
 
-        if (mainhand.equals(ModItems.ShipBow.get())) {
+        if (mainhand.equals(ModItems.SHIP_BOW.get())) {
             List<Player> serverPlayerList = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
             AtomicInteger Count = new AtomicInteger();
             serverPlayerList.forEach(player1 -> {
@@ -972,7 +971,6 @@ public class PlayerAttributes {
         maxHealth += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.maxHealth);
         maxHealth += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxHealth);
         if (SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 800;
-        maxHealth += SArmorAttribute.value(player, SArmorAttribute.sumPower);
 
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
@@ -1046,7 +1044,6 @@ public class PlayerAttributes {
             exDamage += baseDamage * 0.25 + 25;
         if (player.getEffect(ModEffects.MANADAMAGEUP.get()) != null && player.getEffect(ModEffects.MANADAMAGEUP.get()).getAmplifier() == 1)
             exDamage += baseDamage * 0.4 + 40;
-        exDamage += SArmorAttribute.value(player, SArmorAttribute.manaPower);
 
         int intelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
         if (data.contains(StringUtils.Ability.Intelligent) && data.getInt(StringUtils.Ability.Intelligent) > 0) {
@@ -1057,7 +1054,7 @@ public class PlayerAttributes {
             exDamage += baseDamage * Compute.getManaSkillLevel(data, 2) * 0.02;
         } // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
 
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.overworldIsNight || player.getY() < 63))
+        if (leggings.equals(ModItems.MINE_PANTS.get()) && (Utils.overworldIsNight || player.getY() < 63))
             exDamage += 75;
         // 矿工裤被动
 
@@ -1120,7 +1117,7 @@ public class PlayerAttributes {
         totalDamage *= (1 + exRate);
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
 
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.DevilManaHelmet.get())) {
+        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.DEVIL_MANA_HELMET.get())) {
             totalDamage *= 1.25;
         }
 
@@ -1285,7 +1282,6 @@ public class PlayerAttributes {
             healthSteal += 0.12;
         if (player.getEffect(ModEffects.HEALSTEALUP.get()) != null && player.getEffect(ModEffects.HEALSTEALUP.get()).getAmplifier() == 1)
             healthSteal += 0.25;
-        healthSteal += SArmorAttribute.value(player, SArmorAttribute.netherPower);
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand)))
             healthSteal +=
@@ -1293,7 +1289,7 @@ public class PlayerAttributes {
 
         if (Utils.BloodManaCurios.containsKey(player) && Utils.BloodManaCurios.get(player)) healthSteal += 0.05;
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_SHIELD.get())) {
             if (player.getHealth() / player.getMaxHealth() < 0.5) {
                 healthSteal += data.getDouble("CritDamageAfterCompute");
             }
@@ -1312,12 +1308,12 @@ public class PlayerAttributes {
         exRate += SuitCount.getBloodManaSuitCount(player) * 0.08;
         healthSteal *= (1 + exRate);
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.manaKnife.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_KNIFE.get())) {
             data.putDouble("HealthStealAfterCompute", healthSteal);
             healthSteal = 0;
         } // 猎魔者小刀
 
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_SHIELD.get())) {
             if (player.getHealth() / player.getMaxHealth() > 0.5) {
                 data.putDouble("HealthStealAfterCompute", healthSteal);
                 healthSteal = 0;

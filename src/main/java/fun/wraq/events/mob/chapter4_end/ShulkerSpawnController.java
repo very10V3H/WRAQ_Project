@@ -83,10 +83,10 @@ public class ShulkerSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.ShulkerSoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.75));
+            add(new ItemAndRate(ModItems.SHULKER_SOUL.get(), 0.8));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.75));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.05));
-            add(new ItemAndRate(C4LootItems.shulkerChest.get(), 0.005));
+            add(new ItemAndRate(C4LootItems.SHULKER_CHEST.get(), 0.005));
         }};
     }
 

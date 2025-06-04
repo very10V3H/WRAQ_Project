@@ -61,10 +61,10 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, VdWeaponCom
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.DevilBow.get(), 1));
-            add(new ItemStack(C7Items.vdSoul.get(), 256));
+            add(new ItemStack(ModItems.DEVIL_BOW.get(), 1));
+            add(new ItemStack(C7Items.VD_SOUL.get(), 256));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 32));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 128));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 128));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 16));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 8));
         }};

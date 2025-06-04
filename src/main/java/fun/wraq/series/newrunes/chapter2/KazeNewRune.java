@@ -68,10 +68,10 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static void onHit(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.kazeNewRune.get())) {
+        if (Compute.hasCurios(player, NewRuneItems.KAZE_NEW_RUNE.get())) {
             ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.movementSpeedUp,
                     "kazeNewRuneMovementSpeed", 0.2, 40, true);
-            Compute.sendEffectLastTime(player, NewRuneItems.kazeNewRune.get(), 40);
+            Compute.sendEffectLastTime(player, NewRuneItems.KAZE_NEW_RUNE.get(), 40);
         }
     }
 }

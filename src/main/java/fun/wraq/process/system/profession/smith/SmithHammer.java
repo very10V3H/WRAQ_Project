@@ -40,8 +40,8 @@ public class SmithHammer extends WraqCurios {
         components.add(Te.s(" 当前等阶为:", tier, CustomStyle.styleOfWorld, "，等价于:",
                 ForgeHammer.getForgeHammerByTier(tier)));
         ComponentUtils.descriptionPassive(components, Te.s("奖金", CustomStyle.styleOfGold));
-        Item equipPiece5 = ModItems.equipPiece5.get();
-        Item equipPiece6 = ModItems.equipPiece6.get();
+        Item equipPiece5 = ModItems.EQUIP_PIECE_5.get();
+        Item equipPiece6 = ModItems.EQUIP_PIECE_6.get();
         ItemStack rewardItem;
         if (tier <= 4) {
             rewardItem = new ItemStack(equipPiece5, tier);

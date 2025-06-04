@@ -70,7 +70,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         Compute.PlayerPowerParticle(player);
         Level level = player.level();
-        player.getCooldowns().addCooldown(ModItems.QuartzSword.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.QUARTZ_SWORD.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
         List<Player> playerList = level.getNearbyPlayers(TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
         for (Player player1 : playerList) {
             Damage.causeManaDamageToPlayer(player, player1, 2.5f);

@@ -189,7 +189,7 @@ public class ParticleEvent {
             List<Mob> list = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 100, 100, 100));
             for (Mob mob : list) {
 
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorKazeRecall.get())) {
+                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_KAZE_RECALL.get())) {
                     ParticleFour(mob, ModParticles.KAZE.get(), ModParticles.KAZE.get());
                     List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 20, 20, 20));
                     for (Player player1 : playerList) {
@@ -198,27 +198,27 @@ public class ParticleEvent {
                         }
                     }
                 }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorSpiderRecall.get())) {
+                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_SPIDER_RECALL.get())) {
                     ParticleFour(mob, ModParticles.SPIDER.get(), ModParticles.SPIDER.get());
                 }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorHuskRecall.get())) {
+                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_HUSK_RECALL.get())) {
                     if (ClientUtils.BlackForestParticle) {
                         ClientUtils.BlackForestParticle = false;
                         SkillParticle(level, mob, ModParticles.BLACKFOREST_RECALL.get());
                     }
                     ParticleFour(mob, ModParticles.BLACKFOREST.get(), ModParticles.BLACKFOREST.get());
                 }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorLightningRecall.get())) {
+                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_LIGHTNING_RECALL.get())) {
                     ParticleFour(mob, ModParticles.LIGHTNINGISLAND.get(), ModParticles.LIGHTNINGISLAND.get());
                 }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorNetherRecall.get())) {
+                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_NETHER_RECALL.get())) {
                     if (ClientUtils.NetherParticle) {
                         ClientUtils.NetherParticle = false;
                         SkillParticle(level, mob, ModParticles.NETHER.get());
                     }
                     ParticleFour(mob, ModParticles.NETHER.get(), ModParticles.NETHER.get());
                 }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorSnowRecall.get())) {
+                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_SNOW_RECALL.get())) {
                     ParticleFour(mob, ModParticles.SNOW.get(), ModParticles.SNOW.get());
                 }
             }
@@ -226,7 +226,7 @@ public class ParticleEvent {
             List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(player.getPosition(1), 100, 100, 100));
             Random random = new Random();
             for (Player player1 : playerList) {
-                if (TickCount % 20 == 0 && player1.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SakuraArmorHelmet.get())) {
+                if (TickCount % 20 == 0 && player1.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SAKURA_HELMET.get())) {
                     level.addParticle(ParticleTypes.CHERRY_LEAVES, player1.getX() + random.nextDouble(-0.5, 0.5), player1.getY() + 1.7, player1.getZ() + random.nextDouble(-0.5, 0.5), 0, 0, 0);
                 }
             }

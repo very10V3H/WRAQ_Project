@@ -32,7 +32,7 @@ import fun.wraq.render.gui.mission.ReputationStore;
 import fun.wraq.render.gui.skills.IdCardGui;
 import fun.wraq.render.gui.skills.SkillTreeGui;
 import fun.wraq.render.gui.team.*;
-import fun.wraq.render.gui.trade.SingleItemChangeScreen;
+import fun.wraq.render.gui.trade.single.SingleItemChangeScreen;
 import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

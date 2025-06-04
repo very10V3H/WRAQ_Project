@@ -261,8 +261,8 @@ public class MissionV2Helper {
     public static MissionV2.PlayerAction getDailyMissionRewardAction() {
         return (player -> {
             List<ItemStack> rewardList = List.of(
-                    new ItemStack(ModItems.GoldCoinBag.get()),
-                    new ItemStack(ModItems.RevelationBook.get(), 10)
+                    new ItemStack(ModItems.GOLD_COIN_BAG.get()),
+                    new ItemStack(ModItems.REVELATION_BOOK.get(), 10)
             );
             rewardList.forEach(stack -> {
                 InventoryOperation.giveItemStackWithMSG(player, stack.getItem(), stack.getCount());
@@ -279,8 +279,8 @@ public class MissionV2Helper {
     public static List<Component> getDailyRewardDescription() {
         List<Component> components = new ArrayList<>();
         components.addAll(ComponentUtils.getItemStackDescriptionList(List.of(
-                new ItemStack(ModItems.GoldCoinBag.get()),
-                new ItemStack(ModItems.RevelationBook.get(), 10),
+                new ItemStack(ModItems.GOLD_COIN_BAG.get()),
+                new ItemStack(ModItems.REVELATION_BOOK.get(), 10),
                 new ItemStack(ModItems.WORLD_SOUL_5.get(), 4)
         )));
         return components;

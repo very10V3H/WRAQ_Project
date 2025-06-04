@@ -71,7 +71,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     public static WeakHashMap<Mob, Boolean> trigMob = new WeakHashMap<>();
 
     public static void onKill(Player player, Mob mob) {
-        if (!Compute.hasCurios(player, NewRuneItems.netherNewRune.get())) return;
+        if (!Compute.hasCurios(player, NewRuneItems.NETHER_NEW_RUNE.get())) return;
         if (trigMob.containsKey(mob)) return;
         trigMob.put(mob, true);
         List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 6, 6, 6));

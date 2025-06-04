@@ -43,12 +43,12 @@ public class ForgeHammer extends Item {
     public static Item getForgeHammerByTier(int tier) {
         if (forgeHammers.isEmpty()) {
             forgeHammers.addAll(List.of(
-                    ModItems.WoodHammer.get(),
-                    ModItems.StoneHammer.get(),
-                    ModItems.IronHammer.get(),
-                    ModItems.CopperHammer.get(),
-                    ModItems.GoldHammer.get(),
-                    ModItems.DiamondHammer.get(),
+                    ModItems.WOOD_HAMMER.get(),
+                    ModItems.STONE_HAMMER.get(),
+                    ModItems.IRON_HAMMER.get(),
+                    ModItems.COPPER_HAMMER.get(),
+                    ModItems.GOLD_HAMMER.get(),
+                    ModItems.DIAMOND_HAMMER.get(),
                     ModItems.EMERALD_HAMMER.get(),
                     ModItems.NETHER_HAMMER.get(),
                     ModItems.END_HAMMER.get()

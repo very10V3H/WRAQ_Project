@@ -60,11 +60,11 @@ public class ManaCurios2 extends WraqManaUniformCurios {
 
     public static void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, UniformItems.ManaCurios2.get());
+            Compute.removeEffectLastTime(player, UniformItems.MANA_CURIOS_2.get());
             return;
         }
         if (playerNearbyHasNoOthers(player))
-            Compute.sendEffectLastTime(player, UniformItems.ManaCurios2.get(), 8888, 0, true);
-        else Compute.sendEffectLastTime(player, UniformItems.ManaCurios2.get(), 0, 0, true);
+            Compute.sendEffectLastTime(player, UniformItems.MANA_CURIOS_2.get(), 8888, 0, true);
+        else Compute.sendEffectLastTime(player, UniformItems.MANA_CURIOS_2.get(), 0, 0, true);
     }
 }

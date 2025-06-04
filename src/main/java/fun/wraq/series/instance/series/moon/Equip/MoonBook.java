@@ -85,7 +85,7 @@ public class MoonBook extends WraqOffHandItem implements OnHitEffectEquip {
             Mob oldMob = PlayerMoonBookMap.get(Name.get(player));
             oldMob.removeEffect(MobEffects.GLOWING);
             PlayerMoonBookCountMap.put(player, 0);
-            Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MoonSoul.get(), "MoonBookCount");
+            Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MOON_SOUL.get(), "MoonBookCount");
         }
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
         PlayerMoonBookMap.put(Name.get(player), mob);
@@ -95,11 +95,11 @@ public class MoonBook extends WraqOffHandItem implements OnHitEffectEquip {
             count = 0;
             PlayerMoonBookCountMap.put(player, count);
             playerDamageEnhanceTickMap.put(player, TickCount + 60);
-            Compute.sendEffectLastTime(player, ModItems.MoonSoul.get().getDefaultInstance(), 60);
-            Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonBookCount");
+            Compute.sendEffectLastTime(player, ModItems.MOON_SOUL.get().getDefaultInstance(), 60);
+            Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonBookCount");
             Damage.causeAutoAdaptionRateDamageToMob(player, mob, 14, true);
         } else {
-            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonBookCount", 8888, count, true);
+            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonBookCount", 8888, count, true);
         }
     }
 }

@@ -80,6 +80,6 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem, Deco
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(UniformItems.uniformPiece.get());
+        return new ItemStack(UniformItems.UNIFORM_PIECE.get());
     }
 }

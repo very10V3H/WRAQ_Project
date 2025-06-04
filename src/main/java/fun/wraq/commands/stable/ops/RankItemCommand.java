@@ -67,7 +67,7 @@ public class RankItemCommand implements Command<CommandSourceStack> {
             switch (itemType) {
                 case 0 -> item = ModItems.WORLD_SOUL_5.get();
                 case 1 -> item = ModItems.REVELATION_HEART.get();
-                case 2 -> item = ModItems.KillPaperLootL.get();
+                case 2 -> item = ModItems.KILL_PAPER_LOOT_L.get();
                 default -> item = Items.AIR;
             }
             InventoryOperation.giveItemStackWithMSGByBatch(target, new ItemStack(item, itemNum));

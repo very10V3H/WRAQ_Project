@@ -142,11 +142,11 @@ public class KazeSword extends WraqSword implements ActiveItem {
                     }
                 }
             }
-            player.getCooldowns().addCooldown(ModItems.KazeSword0.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
-            player.getCooldowns().addCooldown(ModItems.KazeSword1.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
-            player.getCooldowns().addCooldown(ModItems.KazeSword2.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
-            player.getCooldowns().addCooldown(ModItems.KazeSword3.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
-            player.getCooldowns().addCooldown(ModItems.KazeSword4.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_0.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_1.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_2.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_3.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_4.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
 
             if (MobDamageCount > 0) {
                 if (!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))
@@ -199,11 +199,11 @@ public class KazeSword extends WraqSword implements ActiveItem {
                     }
                 }
             }
-            player.getCooldowns().addCooldown(ModItems.KazeSword0.get(), 8);
-            player.getCooldowns().addCooldown(ModItems.KazeSword1.get(), 8);
-            player.getCooldowns().addCooldown(ModItems.KazeSword2.get(), 8);
-            player.getCooldowns().addCooldown(ModItems.KazeSword3.get(), 8);
-            player.getCooldowns().addCooldown(ModItems.KazeSword4.get(), 8);
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_0.get(), 8);
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_1.get(), 8);
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_2.get(), 8);
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_3.get(), 8);
+            player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_4.get(), 8);
         }
     }
 

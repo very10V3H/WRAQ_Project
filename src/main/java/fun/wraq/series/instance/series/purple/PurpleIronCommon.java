@@ -94,9 +94,9 @@ public interface PurpleIronCommon {
                         .stream().map(entity -> (Player) entity)
                         .forEach(player -> {
                             StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceModifier,
-                                    "PurpleIronPassiveEquip cluster passive", 25, Tick.get() + 60, ModItems.PurpleIronBud3.get());
+                                    "PurpleIronPassiveEquip cluster passive", 25, Tick.get() + 60, ModItems.PURPLE_IRON_BUD_3.get());
                             StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceModifier,
-                                    "PurpleIronPassiveEquip cluster passive", 25, Tick.get() + 60, ModItems.PurpleIronBud3.get());
+                                    "PurpleIronPassiveEquip cluster passive", 25, Tick.get() + 60, ModItems.PURPLE_IRON_BUD_3.get());
                         });
 
                 MySound.soundToNearPlayer(info.level, info.blockPos.getCenter(), SoundEvents.AMETHYST_CLUSTER_HIT);

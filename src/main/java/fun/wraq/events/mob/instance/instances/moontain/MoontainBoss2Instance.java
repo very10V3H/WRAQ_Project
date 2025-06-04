@@ -81,7 +81,7 @@ public class MoontainBoss2Instance extends NoTeamInstance {
         return List.of(new ItemAndRate(MoontainItems.NUGGET.get(), 1),
                 new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 7),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1));
     }
 
     @Override

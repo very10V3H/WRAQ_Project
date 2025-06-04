@@ -55,12 +55,8 @@ public class SellCommand implements Command<CommandSourceStack> {
             return 0;
         }
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-        Item item = itemStack.getItem();
-        if (isAllowedSold(item)) {
-            InventoryCheck.removeOwnerTag(player, itemStack);
-        }
-        if (!player.isCreative() && (itemStack.is(Items.AIR) || !MarketItemInfo.itemCanBeSold(itemStack)
-                || InventoryCheck.containOwnerTag(itemStack))) {
+        if (!player.isCreative() && (itemStack.is(Items.AIR)
+                || !MarketItemInfo.itemCanBeSold(itemStack) || InventoryCheck.containOwnerTag(itemStack))) {
             Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                     Component.literal("这件物品似乎不可以出售。"));
             return 0;

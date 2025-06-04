@@ -104,7 +104,7 @@ public class OldMissionScreen extends Screen {
         guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
                 0, 0, 300, 200, textureWidth, textureHeight);
         // 每日任务
-        guiGraphics.renderItem(ModItems.DailyMission.get().getDefaultInstance(), this.width / 2 - 110, this.height / 2 - 80);
+        guiGraphics.renderItem(ModItems.DAILY_MISSION.get().getDefaultInstance(), this.width / 2 - 110, this.height / 2 - 80);
         guiGraphics.drawCenteredString(font, Component.literal("每日任务").withStyle(ChatFormatting.AQUA), this.width / 2 - 100, this.height / 2 - 60, 0);
 
         if (ClientUtils.DailyMissionItem == null || ClientUtils.DailyMissionItem.is(Items.AIR)) {

@@ -68,7 +68,7 @@ public class PlanMissionRequestC2SPacket {
 
                         fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionContentMap.put(name, itemStack);
                         int count = random.nextInt(64, Math.max(65, serverPlayer.experienceLevel)) / 2;
-                        if (itemStack.is(ModItems.SpiderSoul.get())) count = (int) (count * 0.1);
+                        if (itemStack.is(ModItems.SPIDER_SOUL.get())) count = (int) (count * 0.1);
                         fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionContentCountMap.put(name, count);
 
                         fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionStartTimeMap.put(name, Compute.CalendarToString(Calendar.getInstance()));

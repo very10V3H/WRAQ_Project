@@ -86,8 +86,8 @@ public class NetherSword extends WraqSword implements ActiveItem, ForgeItem, Enh
     public List<ItemStack> forgeRecipe() {
         if (tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.NetherRune.get(), 2),
-                    new ItemStack(ModItems.QuartzRune.get(), 1),
+                    new ItemStack(ModItems.NETHER_RUNE.get(), 2),
+                    new ItemStack(ModItems.QUARTZ_RUNE.get(), 1),
                     new ItemStack(ModItems.GOLD_COIN.get(), 192),
                     new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4)
             );
@@ -95,7 +95,7 @@ public class NetherSword extends WraqSword implements ActiveItem, ForgeItem, Enh
         return List.of(
                 new ItemStack(ModItems.NETHER_SWORD.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
-                new ItemStack(ModItems.ReputationMedal.get(), 8)
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 8)
         );
     }
 

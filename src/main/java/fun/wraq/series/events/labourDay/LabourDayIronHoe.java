@@ -42,7 +42,7 @@ public class LabourDayIronHoe extends Item {
         if (player.tickCount % 20 != 0) return;
         Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
-            if (inventory.getItem(i).is(SpecialEventItems.LabourDayIronHoe.get())) {
+            if (inventory.getItem(i).is(SpecialEventItems.LABOUR_DAY_IRON_HOE.get())) {
                 playerIsIn.put(player, true);
                 return;
             }

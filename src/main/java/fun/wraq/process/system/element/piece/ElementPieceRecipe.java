@@ -35,25 +35,25 @@ public class ElementPieceRecipe {
             // 七元素
             Element.getPiece0ItemMap().values().forEach(item -> {
                 recipes.add(new ElementPieceRecipe(new ItemStack(item), List.of(
-                        new ItemStack(ElementItems.weakPiece0.get(), 64),
+                        new ItemStack(ElementItems.WEAK_PIECE_0.get(), 64),
                         new ItemStack(item)
                 )));
-                recipes.add(new ElementPieceRecipe(new ItemStack(ElementItems.weakPiece0.get(), 64), List.of(
-                        new ItemStack(ModItems.RainbowPowder.get()),
+                recipes.add(new ElementPieceRecipe(new ItemStack(ElementItems.WEAK_PIECE_0.get(), 64), List.of(
+                        new ItemStack(ModItems.RAINBOW_POWDER.get()),
                         new ItemStack(item, 64)
                 )));
             });
             Element.getPiece1ItemMap().values().forEach(item -> {
                 Item piece0 = Element.getPiece0ItemMap().get(Element.getPiece1ToElementMap().get(item));
                 recipes.add(new ElementPieceRecipe(new ItemStack(item), List.of(
-                        new ItemStack(ModItems.RainbowPowder.get()),
+                        new ItemStack(ModItems.RAINBOW_POWDER.get()),
                         new ItemStack(piece0, 64)
                 )));
             });
             Element.getPiece2ItemMap().values().forEach(item -> {
                 Item piece1 = Element.getPiece1ItemMap().get(Element.getPiece2ToElementMap().get(item));
                 recipes.add(new ElementPieceRecipe(new ItemStack(item), List.of(
-                        new ItemStack(ModItems.RainbowCrystal.get()),
+                        new ItemStack(ModItems.RAINBOW_CRYSTAL.get()),
                         new ItemStack(piece1, 64)
                 )));
             });
@@ -62,9 +62,9 @@ public class ElementPieceRecipe {
             Element.getPiece0Items().forEach(item -> {
                 piece0_7List.add(new ItemStack(item, 7));
             });
-            recipes.add(new ElementPieceRecipe(new ItemStack(ModItems.RainbowPowder.get()), piece0_7List));
-            recipes.add(new ElementPieceRecipe(new ItemStack(ModItems.RainbowCrystal.get()), List.of(
-                    new ItemStack(ModItems.RainbowPowder.get(), 49),
+            recipes.add(new ElementPieceRecipe(new ItemStack(ModItems.RAINBOW_POWDER.get()), piece0_7List));
+            recipes.add(new ElementPieceRecipe(new ItemStack(ModItems.RAINBOW_CRYSTAL.get()), List.of(
+                    new ItemStack(ModItems.RAINBOW_POWDER.get(), 49),
                     new ItemStack(ModItems.COMPLETE_GEM.get(), 7)
             )));
         }
@@ -72,9 +72,9 @@ public class ElementPieceRecipe {
     }
 
     public static void tryToCompose(Player player, int index0, int index1) {
-        Item rainbowPowder = ModItems.RainbowPowder.get();
-        Item rainbowCrystal = ModItems.RainbowCrystal.get();
-        Item weakPiece0 = ElementItems.weakPiece0.get();
+        Item rainbowPowder = ModItems.RAINBOW_POWDER.get();
+        Item rainbowCrystal = ModItems.RAINBOW_CRYSTAL.get();
+        Item weakPiece0 = ElementItems.WEAK_PIECE_0.get();
         if (index0 < 7) {
             String elementType = Element.elementList.get(index0);
             Item piece0Item = Element.getPiece0Items().get(index0);
@@ -212,17 +212,17 @@ public class ElementPieceRecipe {
                     Element.getPiece0ItemMap().get(element),
                     Element.getPiece1ItemMap().get(element),
                     Element.getPiece2ItemMap().get(element),
-                    ElementItems.weakPiece0.get()
+                    ElementItems.WEAK_PIECE_0.get()
             );
         } else {
             if (index == 7) {
                 return List.of(
-                        ModItems.RainbowPowder.get(),
-                        ModItems.RainbowCrystal.get()
+                        ModItems.RAINBOW_POWDER.get(),
+                        ModItems.RAINBOW_CRYSTAL.get()
                 );
             } else {
                 return List.of(
-                        ElementItems.weakPiece0.get()
+                        ElementItems.WEAK_PIECE_0.get()
                 );
             }
         }

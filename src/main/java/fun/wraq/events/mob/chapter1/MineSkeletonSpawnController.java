@@ -94,17 +94,17 @@ public class MineSkeletonSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return List.of(
-                new ItemAndRate(ModItems.MineSoul.get(), 0.8),
-                new ItemAndRate(ModItems.MineSoul1.get(), 0.1),
-                new ItemAndRate(ModItems.copperCoin.get(), 3),
+                new ItemAndRate(ModItems.MINE_SOUL.get(), 0.8),
+                new ItemAndRate(ModItems.MINE_SOUL_1.get(), 0.1),
+                new ItemAndRate(ModItems.COPPER_COIN.get(), 3),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01),
-                new ItemAndRate(ModItems.MineCrest0.get(), 0.02),
-                new ItemAndRate(ModItems.MineCrest1.get(), 0.005),
-                new ItemAndRate(ModItems.MineCrest2.get(), 0.001),
-                new ItemAndRate(ModItems.MineCrest3.get(), 0.0002),
-                new ItemAndRate(ModItems.StoneElementPiece0.get(), 0.1),
-                new ItemAndRate(C1LootItems.mineSkeletonPickaxe.get(), 0.005),
-                new ItemAndRate(NewRuneItems.mineNewRune.get(), 0.001),
+                new ItemAndRate(ModItems.MINE_CREST_0.get(), 0.02),
+                new ItemAndRate(ModItems.MINE_CREST_1.get(), 0.005),
+                new ItemAndRate(ModItems.MINE_CREST_2.get(), 0.001),
+                new ItemAndRate(ModItems.MINE_CREST_3.get(), 0.0002),
+                new ItemAndRate(ModItems.STONE_ELEMENT_PIECE_0.get(), 0.1),
+                new ItemAndRate(C1LootItems.MINE_SKELETON_PICKAXE.get(), 0.005),
+                new ItemAndRate(NewRuneItems.MINE_NEW_RUNE.get(), 0.001),
 
                 // 以下为矿石掉落
                 new ItemAndRate(Items.RAW_COPPER, 0.2),

@@ -68,13 +68,13 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
         ParticleProvider.createRandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
-        Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 200);
+        Compute.sendEffectLastTime(player, ModItems.VOLCANO_SWORD_3.get().getDefaultInstance(), 200);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerAttackDamageModifier,
                 "Volcano Sword Active", exAttackDamage[tier], Tick.get() + 200);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
                 "Volcano Sword Active", exCritDamage[tier], Tick.get() + 200);
-        List.of(ModItems.VolcanoSword0.get(), ModItems.VolcanoSword1.get(),
-                        ModItems.VolcanoSword2.get(), ModItems.VolcanoSword3.get(), ModItems.VolcanoSword4.get())
+        List.of(ModItems.VOLCANO_SWORD_0.get(), ModItems.VOLCANO_SWORD_1.get(),
+                        ModItems.VOLCANO_SWORD_2.get(), ModItems.VOLCANO_SWORD_3.get(), ModItems.VOLCANO_SWORD_4.get())
                 .forEach(item -> {
                     Compute.playerItemCoolDown(player, item, 18);
                 });

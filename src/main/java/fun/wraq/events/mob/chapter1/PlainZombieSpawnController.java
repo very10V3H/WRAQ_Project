@@ -101,16 +101,16 @@ public class PlainZombieSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.PlainSoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.copperCoin.get(), 1.5));
+            add(new ItemAndRate(ModItems.PLAIN_SOUL.get(), 0.8));
+            add(new ItemAndRate(ModItems.COPPER_COIN.get(), 1.5));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01));
-            add(new ItemAndRate(ModItems.PlainCrest0.get(), 0.02));
-            add(new ItemAndRate(ModItems.PlainCrest1.get(), 0.005));
-            add(new ItemAndRate(ModItems.PlainCrest2.get(), 0.001));
-            add(new ItemAndRate(ModItems.PlainCrest3.get(), 0.0002));
-            add(new ItemAndRate(ModItems.LifeElementPiece0.get(), 0.1));
-            add(new ItemAndRate(NewRuneItems.plainNewRune.get(), 0.001));
-            add(new ItemAndRate(C1LootItems.plainZombieHoe.get(), 0.005));
+            add(new ItemAndRate(ModItems.PLAIN_CREST_0.get(), 0.02));
+            add(new ItemAndRate(ModItems.PLAIN_CREST_1.get(), 0.005));
+            add(new ItemAndRate(ModItems.PLAIN_CREST_2.get(), 0.001));
+            add(new ItemAndRate(ModItems.PLAIN_CREST_3.get(), 0.0002));
+            add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.1));
+            add(new ItemAndRate(NewRuneItems.PLAIN_NEW_RUNE.get(), 0.001));
+            add(new ItemAndRate(C1LootItems.PLAIN_ZOMBIE_HOE.get(), 0.005));
         }};
     }
 

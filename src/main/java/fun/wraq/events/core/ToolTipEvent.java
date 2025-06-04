@@ -41,7 +41,7 @@ public class ToolTipEvent {
         Item item = stack.getItem();
         List<Component> tooltip = event.getToolTip();
         stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        if (stack.is(ModItems.notePaper.get())) {
+        if (stack.is(ModItems.NOTE_PAPER.get())) {
             event.getToolTip().add(Component.literal(" 置于背包以获取").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("副本奖励").withStyle(ChatFormatting.AQUA)));
         }
@@ -51,13 +51,13 @@ public class ToolTipEvent {
         }
 
         List<Item> items = new ArrayList<>() {{
-            add(ModItems.LifeElementPiece2.get());
-            add(ModItems.WaterElementPiece2.get());
-            add(ModItems.FireElementPiece2.get());
-            add(ModItems.StoneElementPiece2.get());
-            add(ModItems.IceElementPiece2.get());
-            add(ModItems.LightningElementPiece2.get());
-            add(ModItems.WindElementPiece2.get());
+            add(ModItems.LIFE_ELEMENT_PIECE_2.get());
+            add(ModItems.WATER_ELEMENT_PIECE_2.get());
+            add(ModItems.FIRE_ELEMENT_PIECE_2.get());
+            add(ModItems.STONE_ELEMENT_PIECE_2.get());
+            add(ModItems.ICE_ELEMENT_PIECE_2.get());
+            add(ModItems.LIGHTNING_ELEMENT_PIECE_2.get());
+            add(ModItems.WIND_ELEMENT_PIECE_2.get());
         }};
         if (items.contains(stack.getItem())) {
             event.getToolTip().add(
@@ -151,7 +151,7 @@ public class ToolTipEvent {
             if (item instanceof SwordItem || item instanceof BowItem || item instanceof ArmorItem || item instanceof PickaxeItem)
                 stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-            if (stack.is(ModItems.BrewingNote.get())) {
+            if (stack.is(ModItems.BREWING_NOTE.get())) {
                 Component[] Name = {
                         Component.literal("平原根源").withStyle(ChatFormatting.GREEN),
                         Component.literal("森林根源").withStyle(ChatFormatting.DARK_GREEN),
@@ -207,153 +207,41 @@ public class ToolTipEvent {
                 ComponentUtils.descriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
             }
 
-            if (stack.is(ModItems.ForestBossSword.get())) {
+            if (stack.is(ModItems.FOREST_BOSS_SWORD.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("森林次元熵").withStyle(CustomStyle.styleOfHealth)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Forest).withStyle(CustomStyle.styleOfHealth)));
             }
-            if (stack.is(ModItems.VolcanoBossSword.get())) {
+            if (stack.is(ModItems.VOLCANO_BOSS_SWORD.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("熔岩次元熵").withStyle(CustomStyle.styleOfVolcano)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Volcano).withStyle(CustomStyle.styleOfVolcano)));
             }
-            if (stack.is(ModItems.LakeBossSword.get())) {
+            if (stack.is(ModItems.LAKE_BOSS_SWORD.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("湖泊次元熵").withStyle(ChatFormatting.BLUE)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Lake).withStyle(ChatFormatting.BLUE)));
             }
-            if (stack.is(ModItems.SkyBossBow.get())) {
+            if (stack.is(ModItems.SKY_BOSS_BOW.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("天空次元熵").withStyle(CustomStyle.styleOfSky)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Sky).withStyle(CustomStyle.styleOfSky)));
             }
-            if (stack.is(ModItems.SnowBossArmorChest.get())) {
+            if (stack.is(ModItems.SNOW_BOSS_CHEST.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("冰川次元熵").withStyle(CustomStyle.styleOfSnow)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Snow).withStyle(CustomStyle.styleOfSnow)));
             }
-            if (stack.is(ModItems.SBoots.get()) || stack.is(ModItems.SLeggings.get())
-                    || stack.is(ModItems.SChest.get()) || stack.is(ModItems.SHelmet.get())
-                    || stack.is(ModItems.ISArmorBoots.get()) || stack.is(ModItems.ISArmorLeggings.get())
-                    || stack.is(ModItems.ISArmorChest.get()) || stack.is(ModItems.ISArmorHelmet.get())) {
-                List<Component> components = event.getToolTip();
-                if (stack.is(ModItems.SBoots.get()) || stack.is(ModItems.ISArmorBoots.get())) {
-                    components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("靴子").withStyle(CustomStyle.styleOfSpider)));
-                } else if (stack.is(ModItems.SLeggings.get()) || stack.is(ModItems.ISArmorLeggings.get())) {
-                    components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("护腿").withStyle(CustomStyle.styleOfSpider)));
-                } else if (stack.is(ModItems.SChest.get()) || stack.is(ModItems.ISArmorChest.get())) {
-                    components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("胸甲").withStyle(CustomStyle.styleOfSpider)));
-                } else if (stack.is(ModItems.SHelmet.get()) || stack.is(ModItems.ISArmorHelmet.get())) {
-                    components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("头盔").withStyle(CustomStyle.styleOfSpider)));
-                }
-                ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSpider, ChatFormatting.WHITE);
-                ComponentUtils.descriptionOfBasic(components);
-                int SIndex = data.getInt("SIndex");
-                int Rate = (stack.is(ModItems.ISArmorBoots.get()) || stack.is(ModItems.ISArmorLeggings.get())
-                        || stack.is(ModItems.ISArmorChest.get()) || stack.is(ModItems.ISArmorHelmet.get())) ? 2 : 1;
-                for (int i = 1; i <= 5; i++) {
-                    String IsSunPower = "#Slot#" + i + "#SunPower";
-                    String IsLakePower = "#Slot#" + i + "#LakePower";
-                    String IsVolcanoPower = "#Slot#" + i + "#VolcanoPower";
-                    String IsSnowPower = "#Slot#" + i + "#SnowPower";
-                    String IsSkyPower = "#Slot#" + i + "#SkyPower";
-                    String IsManaPower = "#Slot#" + i + "#ManaPower";
-                    String IsNetherPower = "#Slot#" + i + "#NetherPower";
-                    String Index = "";
-                    if (SIndex == i) Index = "✧";
-                    String Star = "";
-                    ChatFormatting chatFormatting0 = ChatFormatting.WHITE;
-                    ChatFormatting chatFormatting1 = ChatFormatting.GREEN;
-                    ChatFormatting chatFormatting2 = ChatFormatting.AQUA;
-                    ChatFormatting chatFormatting3 = ChatFormatting.LIGHT_PURPLE;
-                    if (data.contains(IsSunPower)) {
-                        if (data.getInt(IsSunPower) >= 9) {
-                            chatFormatting0 = chatFormatting3;
-                            Star = "✦";
-                        } else if (data.getInt(IsSunPower) >= 8) chatFormatting0 = chatFormatting2;
-                        else if (data.getInt(IsSunPower) >= 7) chatFormatting0 = chatFormatting1;
-                        components.add(Component.literal(i + "." + Utils.Emoji.Health + " 最大生命值").withStyle(ChatFormatting.GREEN).
-                                append(Component.literal(String.format(" +%.1f", data.getDouble(IsSunPower) * Rate * 2) + Star).withStyle(chatFormatting0)).
-                                append(Component.literal(Index).withStyle(ChatFormatting.GRAY)));
-                    } else if (data.contains(IsLakePower)) {
-                        if (data.getInt(IsLakePower) >= 9) {
-                            chatFormatting0 = chatFormatting3;
-                            Star = "✦";
-                        } else if (data.getInt(IsLakePower) >= 8) chatFormatting0 = chatFormatting2;
-                        else if (data.getInt(IsLakePower) >= 7) chatFormatting0 = chatFormatting1;
-                        components.add(Component.literal(i + "." + Utils.Emoji.CoolDown + " 冷却缩减").withStyle(ChatFormatting.AQUA).
-                                append(Component.literal(String.format(" +%.1f%%", data.getDouble(IsLakePower) * Rate * 1.5 / 2) + Star).withStyle(chatFormatting0)).
-                                append(Component.literal(Index).withStyle(ChatFormatting.GRAY)));
-                    } else if (data.contains(IsVolcanoPower)) {
-                        if (data.getInt(IsVolcanoPower) >= 9) {
-                            chatFormatting0 = chatFormatting3;
-                            Star = "✦";
-                        } else if (data.getInt(IsVolcanoPower) >= 8) chatFormatting0 = chatFormatting2;
-                        else if (data.getInt(IsVolcanoPower) >= 7) chatFormatting0 = chatFormatting1;
-                        components.add(Component.literal(i + "." + Utils.Emoji.Sword + " 额外攻击").withStyle(ChatFormatting.YELLOW).
-                                append(Component.literal(String.format(" +%.1f", data.getDouble(IsVolcanoPower) * Rate * 1.5) + Star).withStyle(chatFormatting0)).
-                                append(Component.literal(Index).withStyle(ChatFormatting.GRAY)));
-                    } else if (data.contains(IsSnowPower)) {
-                        if (data.getInt(IsSnowPower) >= 9) {
-                            chatFormatting0 = chatFormatting3;
-                            Star = "✦";
-                        } else if (data.getInt(IsSnowPower) >= 8) chatFormatting0 = chatFormatting2;
-                        else if (data.getInt(IsSnowPower) >= 7) chatFormatting0 = chatFormatting1;
-                        components.add(Component.literal(i + "." + Utils.Emoji.CritDamage + " 暴击伤害").withStyle(ChatFormatting.BLUE).
-                                append(Component.literal(String.format(" +%.1f%%", data.getDouble(IsSnowPower) * Rate * 1.5) + Star).withStyle(chatFormatting0)).
-                                append(Component.literal(Index).withStyle(ChatFormatting.GRAY)));
-                    } else if (data.contains(IsSkyPower)) {
-                        if (data.getInt(IsSkyPower) >= 9) {
-                            chatFormatting0 = chatFormatting3;
-                            Star = "✦";
-                        } else if (data.getInt(IsSkyPower) >= 8) chatFormatting0 = chatFormatting2;
-                        else if (data.getInt(IsSkyPower) >= 7) chatFormatting0 = chatFormatting1;
-                        components.add(Component.literal(i + "." + Utils.Emoji.CritRate + " 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
-                                append(Component.literal(String.format(" +%.1f%%", data.getDouble(IsSkyPower) * Rate * 1.5 / 2) + Star).withStyle(chatFormatting0)).
-                                append(Component.literal(Index).withStyle(ChatFormatting.GRAY)));
-                    } else if (data.contains(IsManaPower)) {
-                        if (data.getInt(IsManaPower) >= 9) {
-                            chatFormatting0 = chatFormatting3;
-                            Star = "✦";
-                        } else if (data.getInt(IsManaPower) >= 8) chatFormatting0 = chatFormatting2;
-                        else if (data.getInt(IsManaPower) >= 7) chatFormatting0 = chatFormatting1;
-                        components.add(Component.literal(i + "." + Utils.Emoji.Mana + " 魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
-                                append(Component.literal(String.format(" +%.1f", data.getDouble(IsManaPower) * Rate * 1.5) + Star).withStyle(chatFormatting0)).
-                                append(Component.literal(Index).withStyle(ChatFormatting.GRAY)));
-                    } else if (data.contains(IsNetherPower)) {
-                        if (data.getInt(IsNetherPower) >= 9) {
-                            chatFormatting0 = chatFormatting3;
-                            Star = "✦";
-                        } else if (data.getInt(IsNetherPower) >= 8) chatFormatting0 = chatFormatting2;
-                        else if (data.getInt(IsNetherPower) >= 7) chatFormatting0 = chatFormatting1;
-                        components.add(Component.literal(i + "." + Utils.Emoji.HealSteal + " 生命偷取").withStyle(ChatFormatting.RED).
-                                append(Component.literal(String.format(" +%.1f%%", data.getDouble(IsNetherPower) * Rate * 1.5 / 4) + Star).withStyle(chatFormatting0)).
-                                append(Component.literal(Index).withStyle(ChatFormatting.GRAY)));
-                    } else {
-                        components.add(Component.literal(i + ".[待涂附]").withStyle(ChatFormatting.GRAY));
-                    }
-                }
-                ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSpider, ChatFormatting.WHITE);
-                components.add(Component.literal(" "));
-                if (Rate == 1) {
-                    components.add(Component.literal("SArmor-I").withStyle(CustomStyle.styleOfSpider).withStyle(ChatFormatting.ITALIC));
-                    components.add(Component.literal("MainStoryII").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
-                } else {
-                    components.add(Component.literal("SArmor-X").withStyle(CustomStyle.styleOfSpider).withStyle(ChatFormatting.ITALIC));
-                    components.add(Component.literal("Intensified-Spider").withStyle(CustomStyle.styleOfVolcano).withStyle(ChatFormatting.ITALIC));
-                }
-            }
-
             if (data.contains(InventoryCheck.owner)) {
                 event.getToolTip().add(Component.literal("「").withStyle(ChatFormatting.AQUA).
                         append(Component.literal("绑定于 " + data.getString(InventoryCheck.owner)).withStyle(CustomStyle.styleOfMoon)).
@@ -375,20 +263,20 @@ public class ToolTipEvent {
                     append(Component.literal("打开锻造界面会有不同的装备供打造").withStyle(ChatFormatting.WHITE)));
             usage.add(Component.literal("提示：前期装备可以不用过多考虑锻造品质").withStyle(ChatFormatting.GRAY));
         }
-        if (item.equals(ModItems.PlainSoul.get())) {
+        if (item.equals(ModItems.PLAIN_SOUL.get())) {
             hasUsage = true;
             usage.add(Component.literal("在").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("，根源通常作为基础材料，用于合成意志").withStyle(ChatFormatting.WHITE)));
             usage.add(Component.literal("而意志通常作为合成各类装备的材料").withStyle(ChatFormatting.WHITE));
         }
-        if (item.equals(ModItems.BackPackTickets.get())) {
+        if (item.equals(ModItems.BACKPACK_TICKETS.get())) {
             hasUsage = true;
             usage.add(Component.literal("可以在天空城找到").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("背包兑换商人").withStyle(ChatFormatting.GOLD)).
                     append(Component.literal("兑换背包").withStyle(ChatFormatting.WHITE)));
         }
-        if (item.equals(ModItems.LifeElementPiece0.get())) {
+        if (item.equals(ModItems.LIFE_ELEMENT_PIECE_0.get())) {
             hasUsage = true;
             usage.add(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("拥有7种元素").withStyle(CustomStyle.styleOfMoon)));
@@ -396,7 +284,7 @@ public class ToolTipEvent {
                     append(Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE)).
                     append(Component.literal("构成了整个世界").withStyle(ChatFormatting.WHITE)));
         }
-        if (item.equals(ModItems.SunPower.get())) {
+        if (item.equals(ModItems.SUN_POWER.get())) {
             hasUsage = true;
             usage.add(Component.literal("击杀带有").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("生机元素").withStyle(CustomStyle.styleOfLife)).

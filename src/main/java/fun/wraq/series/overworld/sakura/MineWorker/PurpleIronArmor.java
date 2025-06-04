@@ -65,7 +65,7 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.PurpleIron.get(), 16),
+                new ItemStack(ModItems.PURPLE_IRON_INGOT.get(), 16),
                 new ItemStack(PickaxeItems.TINKER_IRON.get(), 2)
         );
     }

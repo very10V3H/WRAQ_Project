@@ -64,7 +64,7 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static int getPassiveCount(Player player) {
-        if (!Compute.hasCurios(player, NewRuneItems.moonNewRune.get())) return 0;
+        if (!Compute.hasCurios(player, NewRuneItems.MOON_NEW_RUNE.get())) return 0;
         int count = 0;
         for (int i = 0; i < 6; i++) {
             ItemStack itemStack = player.getInventory().getItem(3 + i);
@@ -80,8 +80,8 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public void tick(Player player) {
         int count = getPassiveCount(player);
         if (count > 0) {
-            Compute.sendEffectLastTime(player, NewRuneItems.moonNewRune.get(), count, true);
-        } else Compute.removeEffectLastTime(player, NewRuneItems.moonNewRune.get());
+            Compute.sendEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get(), count, true);
+        } else Compute.removeEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get());
     }
 
     public static double damageEnhance(Player player) {

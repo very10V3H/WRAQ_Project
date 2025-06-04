@@ -86,16 +86,16 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem, Enhance
     public List<ItemStack> forgeRecipe() {
         if (tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.CastleBowPiece.get(), 12),
-                    new ItemStack(ModItems.CastlePiece.get(), 192),
-                    new ItemStack(ModItems.BeaconRune.get(), 8),
+                    new ItemStack(ModItems.CASTLE_BOW_PIECE.get(), 12),
+                    new ItemStack(ModItems.CASTLE_PIECE.get(), 192),
+                    new ItemStack(ModItems.BEACON_RUNE.get(), 8),
                     new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12)
             );
         }
         return List.of(
                 new ItemStack(ModItems.CASTLE_BOW.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 26),
-                new ItemStack(ModItems.ReputationMedal.get(), 104),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 104),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 6)
         );
     }

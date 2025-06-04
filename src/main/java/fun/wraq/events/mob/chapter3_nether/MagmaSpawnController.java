@@ -85,15 +85,15 @@ public class MagmaSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.Ruby.get(), 0.5));
-            add(new ItemAndRate(ModItems.NetherQuartz.get(), 0.15));
-            add(new ItemAndRate(ModItems.magmaSoul.get(), 0.4));
-            add(new ItemAndRate(ModItems.copperCoin.get(), 3));
+            add(new ItemAndRate(ModItems.RUBY.get(), 0.5));
+            add(new ItemAndRate(ModItems.NETHER_QUARTZ.get(), 0.15));
+            add(new ItemAndRate(ModItems.MAGMA_SOUL.get(), 0.4));
+            add(new ItemAndRate(ModItems.COPPER_COIN.get(), 3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.2));
-            add(new ItemAndRate(ModItems.toNether.get(), 0.005));
-            add(new ItemAndRate(C3LootItems.magmaLootSceptre.get(), 0.005));
-            add(new ItemAndRate(NewRuneItems.netherNewRune.get(), 0.001));
+            add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.2));
+            add(new ItemAndRate(ModItems.NETHER_PEARL.get(), 0.005));
+            add(new ItemAndRate(C3LootItems.MAGMA_LOOT_SCEPTRE.get(), 0.005));
+            add(new ItemAndRate(NewRuneItems.NETHER_NEW_RUNE.get(), 0.001));
         }};
     }
 

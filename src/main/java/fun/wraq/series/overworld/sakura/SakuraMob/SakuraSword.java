@@ -89,7 +89,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
             ModNetworking.sendToClient(new SkillImageS2CPacket(1, 10, 10, 0, 3), (ServerPlayer) player);
             Utils.SakuraDemonSword.put(name, false);
             data.putInt(StringUtils.SakuraDemonSword, tickCount + 200);
-            player.getCooldowns().addCooldown(ModItems.SakuraDemonSword.get(),
+            player.getCooldowns().addCooldown(ModItems.SAKURA_SWORD.get(),
                     (int) (300 - 300 * PlayerAttributes.coolDownDecrease(player)));
         } else {
             Compute.sendFormatMSG(player, Component.literal("妖刀").withStyle(CustomStyle.styleOfDemon),

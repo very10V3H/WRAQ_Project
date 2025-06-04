@@ -91,16 +91,16 @@ public class WoodSpur {
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
 
         if (data.contains(StringUtils.Lop.Xp) && !data.contains(StringUtils.LogReward)) {
-            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
+            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.LOG_BAG.get(), data.getInt(StringUtils.Lop.Xp) / 256));
             data.putBoolean(StringUtils.LogReward, true);
         }
 
         Random random = new Random();
         if (random.nextDouble() < 0.05) {
             data.putInt(logPieceGetTimes, data.getInt(logPieceGetTimes) + 1);
-            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.logPiece.get()));
+            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.LOG_PIECE.get()));
         }
-        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.logPiece.get()), 0.05)) {
+        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.LOG_PIECE.get()), 0.05)) {
             data.putInt(logPieceGetTimes, data.getInt(logPieceGetTimes) + 1);
         }
     }

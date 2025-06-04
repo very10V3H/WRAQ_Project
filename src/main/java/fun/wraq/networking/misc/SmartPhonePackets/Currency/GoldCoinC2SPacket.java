@@ -83,7 +83,7 @@ public class GoldCoinC2SPacket {
                 // 使用64枚铜币兑换1枚金币
                 case 3 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.copperCoin.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.COPPER_COIN.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -92,7 +92,7 @@ public class GoldCoinC2SPacket {
                 // 使用8枚银币兑换一枚金币
                 case 4 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.silverCoin.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.SILVER_COIN.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

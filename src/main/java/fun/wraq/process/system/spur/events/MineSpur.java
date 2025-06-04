@@ -132,9 +132,9 @@ public class MineSpur {
         if (random.nextDouble() < 0.08) {
             CompoundTag tag = player.getPersistentData();
             tag.putInt(minePieceGetTimes, tag.getInt(minePieceGetTimes) + 1);
-            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.minePiece.get()));
+            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.MINE_PIECE.get()));
         }
-        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.minePiece.get()), 0.08)) {
+        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.MINE_PIECE.get()), 0.08)) {
             CompoundTag tag = player.getPersistentData();
             tag.putInt(minePieceGetTimes, tag.getInt(minePieceGetTimes) + 1);
         }

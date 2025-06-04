@@ -118,8 +118,9 @@ public class InventoryOperation {
     public static void giveItemStack(Player player, ItemStack itemStack) {
         itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         if (itemStack.getCount() > 0) {
-            if (InventoryCheck.getBoundingList().contains(itemStack.getItem()))
+            if (InventoryCheck.getBoundingList().contains(itemStack.getItem())) {
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
+            }
             Inventory inventory = player.getInventory();
             if (inventory.getFreeSlot() != -1) {
                 ModNetworking.sendToClient(new ItemGetS2CPacket(itemStack), (ServerPlayer) player);

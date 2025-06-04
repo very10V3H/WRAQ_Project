@@ -69,7 +69,7 @@ public class TabooRune extends WraqCurios implements RuneItem {
                             player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
                 });
                 Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.02);
-                Compute.sendCoolDownTime(player, NewRuneItems.evokerNewRune.get(), 80);
+                Compute.sendCoolDownTime(player, NewRuneItems.EVOKER_NEW_RUNE.get(), 80);
             }
         }
     }

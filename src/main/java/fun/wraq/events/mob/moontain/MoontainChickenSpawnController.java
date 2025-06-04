@@ -96,7 +96,7 @@ public class MoontainChickenSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(MoontainItems.FEATHER.get(), 0.1));
             add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.4));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
         }};
     }

@@ -67,11 +67,11 @@ public class ForestSword4 extends WraqSword implements ActiveItem {
         ParticleProvider.VerticleCircleParticle(serverPlayer, 0.5 * 2, 1.25, 28, ParticleTypes.COMPOSTER);
         ParticleProvider.VerticleCircleParticle(serverPlayer, 0.25 * 2, 1.5, 32, ParticleTypes.COMPOSTER);
         ParticleProvider.VerticleCircleParticle(serverPlayer, 0.0 * 2, 1.75, 36, ParticleTypes.COMPOSTER);
-        player.getCooldowns().addCooldown(ModItems.ForestSword0.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.ForestSword1.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.ForestSword2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.ForestSword3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.ForestSword4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_0.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_1.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
         MySound.soundToNearPlayer(player, ModSounds.Attack.get());
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
                 "forestSwordDefencePenetration",0.2, Tick.get() + 400);

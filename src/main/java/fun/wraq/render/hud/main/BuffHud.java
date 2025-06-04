@@ -65,7 +65,7 @@ public class BuffHud {
             }
         }
 
-        if (mc.player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SakuraDemonSword.get()) && ClientUtils.ChargedCountsSakuraDemonSword > 0) {
+        if (mc.player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SAKURA_SWORD.get()) && ClientUtils.ChargedCountsSakuraDemonSword > 0) {
             guiGraphics.blit(SakuraDemon, x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (int) ClientUtils.ChargedCountsSakuraDemonSword).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 10, y - 52, 0);
             count++;

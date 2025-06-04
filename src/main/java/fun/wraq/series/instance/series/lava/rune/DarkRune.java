@@ -62,8 +62,8 @@ public class DarkRune extends WraqCurios implements RuneItem {
     public void tick(Player player) {
         int count = MoonNewRune.getPassiveCount(player);
         if (count > 0) {
-            Compute.sendEffectLastTime(player, NewRuneItems.moonNewRune.get(), count, true);
-        } else Compute.removeEffectLastTime(player, NewRuneItems.moonNewRune.get());
+            Compute.sendEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get(), count, true);
+        } else Compute.removeEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get());
     }
 
     @Override

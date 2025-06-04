@@ -43,7 +43,7 @@ public class SpecialEffectOnPlayer {
         slowdownEffectMap.put(name, fullEffect);
         slowdownStartTimeMap.put(name, tick);
         slowdownEndTimeMap.put(name, tick + lastTick);
-        Compute.sendDebuffTime(player, ModItems.SlimeBall.get(), lastTick, 0);
+        Compute.sendDebuffTime(player, ModItems.SLIME_BALL.get(), lastTick, 0);
     }
 
     public static double slowdownEffectValue(Player player) {

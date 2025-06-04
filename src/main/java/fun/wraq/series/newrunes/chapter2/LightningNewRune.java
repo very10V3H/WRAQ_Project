@@ -74,20 +74,20 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
     public static Map<String, Integer> cooldownMap = new HashMap<>();
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.lightningNewRune.get());
+        return Compute.hasCurios(player, NewRuneItems.LIGHTNING_NEW_RUNE.get());
     }
 
     @Override
     public void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, NewRuneItems.lightningNewRune.get());
+            Compute.removeEffectLastTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get());
             return;
         }
         int tick = Tick.get();
         String name = player.getName().getString();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) == tick) {
             cooldownMap.put(name, tick);
-            Compute.sendEffectLastTime(player, NewRuneItems.lightningNewRune.get(), 0, true);
+            Compute.sendEffectLastTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get(), 0, true);
         }
     }
 
@@ -98,7 +98,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
         Random random = new Random();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) < tick) {
             cooldownMap.put(name, tick + 160);
-            Compute.sendCoolDownTime(player, NewRuneItems.lightningNewRune.get(), 160);
+            Compute.sendCoolDownTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get(), 160);
             List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 16, 16, 16));
             mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 8);
             mobList.forEach(soleMob -> {

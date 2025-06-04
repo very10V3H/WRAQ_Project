@@ -39,10 +39,10 @@ public class PlainSuitDescription {
         Player player = Minecraft.getInstance().player;
         ChatFormatting mainStyle = ChatFormatting.GREEN;
         Item[] items = {
-                ModItems.PlainArmorHelmet.get(),
-                ModItems.PlainArmorChest.get(),
-                ModItems.PlainArmorLeggings.get(),
-                ModItems.PlainArmorBoots.get(),
+                ModItems.PLAIN_HELMET.get(),
+                ModItems.PLAIN_CHEST.get(),
+                ModItems.PLAIN_LEGGINGS.get(),
+                ModItems.PLAIN_BOOTS.get(),
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

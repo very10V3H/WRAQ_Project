@@ -25,34 +25,34 @@ public class VpStore {
                         ModItems.SWORD_LOTTERY.get(), ModItems.SWORD_LOTTERY_1.get(),
                         ModItems.BOW_LOTTERY.get(), ModItems.BOW_LOTTERY_1.get(),
                         ModItems.SCEPTRE_LOTTERY.get(), ModItems.SCEPTRE_LOTTERY_1.get(),
-                        ModItems.simpleTier1Paper.get(),
-                        ModItems.simpleTier2Paper.get(),
-                        ModItems.simpleTier3Paper.get(),
+                        ModItems.SIMPLE_TIER_1_PAPER.get(),
+                        ModItems.SIMPLE_TIER_2_PAPER.get(),
+                        ModItems.SIMPLE_TIER_3_PAPER.get(),
                         ModItems.SENIOR_POTION_SUPPLY.get(), ModItems.ORE_SUPPLY.get(),
                         ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get()
                 ));
             }};
             if (DragonBoatFes.isInActivate()) {
                 items.addAll(List.of(
-                        UniformItems.AttackCurios0.get(),
-                        UniformItems.AttackCurios1.get(),
-                        UniformItems.AttackCurios2.get(),
+                        UniformItems.ATTACK_CURIOS_0.get(),
+                        UniformItems.ATTACK_CURIOS_1.get(),
+                        UniformItems.ATTACK_CURIOS_2.get(),
                         UniformItems.ATTACK_CURIOS_3.get(),
                         UniformItems.ATTACK_CURIOS_4.get(),
                         UniformItems.ATTACK_CURIOS_5.get(),
                         UniformItems.ATTACK_CURIOS_YXWG.get(),
                         UniformItems.ATTACK_CURIO_LX.get(),
-                        UniformItems.BowCurios0.get(),
-                        UniformItems.BowCurios1.get(),
-                        UniformItems.BowCurios2.get(),
+                        UniformItems.BOW_CURIOS_0.get(),
+                        UniformItems.BOW_CURIOS_1.get(),
+                        UniformItems.BOW_CURIOS_2.get(),
                         UniformItems.BOW_CURIOS_3.get(),
                         UniformItems.BOW_CURIOS_4.get(),
                         UniformItems.BOW_CURIOS_5.get(),
                         UniformItems.BOW_CURIOS_YXWG.get(),
                         UniformItems.BOW_CURIO_LEI_YAN.get(),
-                        UniformItems.ManaCurios0.get(),
-                        UniformItems.ManaCurios1.get(),
-                        UniformItems.ManaCurios2.get(),
+                        UniformItems.MANA_CURIOS_0.get(),
+                        UniformItems.MANA_CURIOS_1.get(),
+                        UniformItems.MANA_CURIOS_2.get(),
                         UniformItems.MANA_CURIOS_3.get(),
                         UniformItems.MANA_CURIOS_4.get(),
                         UniformItems.MANA_CURIOS_5.get(),
@@ -73,9 +73,9 @@ public class VpStore {
             priceMap.put(ModItems.BOW_LOTTERY_1.get(), 5);
             priceMap.put(ModItems.SCEPTRE_LOTTERY.get(), 5);
             priceMap.put(ModItems.SCEPTRE_LOTTERY_1.get(), 5);
-            priceMap.put(ModItems.simpleTier1Paper.get(), 68);
-            priceMap.put(ModItems.simpleTier2Paper.get(), 168);
-            priceMap.put(ModItems.simpleTier3Paper.get(), 298);
+            priceMap.put(ModItems.SIMPLE_TIER_1_PAPER.get(), 68);
+            priceMap.put(ModItems.SIMPLE_TIER_2_PAPER.get(), 168);
+            priceMap.put(ModItems.SIMPLE_TIER_3_PAPER.get(), 298);
             priceMap.put(ModItems.ORE_SUPPLY.get(), 25);
             priceMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 15);
             priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 15);
@@ -87,9 +87,9 @@ public class VpStore {
             });
         }
         if (LabourDayOldCoin.isInActivityDate()) {
-            priceMap.put(ModItems.simpleTier1Paper.get(), 54);
-            priceMap.put(ModItems.simpleTier2Paper.get(), 134);
-            priceMap.put(ModItems.simpleTier3Paper.get(), 238);
+            priceMap.put(ModItems.SIMPLE_TIER_1_PAPER.get(), 54);
+            priceMap.put(ModItems.SIMPLE_TIER_2_PAPER.get(), 134);
+            priceMap.put(ModItems.SIMPLE_TIER_3_PAPER.get(), 238);
         }
         return priceMap;
     }
@@ -115,9 +115,9 @@ public class VpStore {
             countMap.put(ModItems.SWORD_LOTTERY_1.get(), 1);
             countMap.put(ModItems.BOW_LOTTERY_1.get(), 1);
             countMap.put(ModItems.SCEPTRE_LOTTERY_1.get(), 1);
-            countMap.put(ModItems.simpleTier1Paper.get(), 1);
-            countMap.put(ModItems.simpleTier2Paper.get(), 1);
-            countMap.put(ModItems.simpleTier3Paper.get(), 1);
+            countMap.put(ModItems.SIMPLE_TIER_1_PAPER.get(), 1);
+            countMap.put(ModItems.SIMPLE_TIER_2_PAPER.get(), 1);
+            countMap.put(ModItems.SIMPLE_TIER_3_PAPER.get(), 1);
             countMap.put(ModItems.ORE_SUPPLY.get(), 1);
             countMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 1);
             countMap.put(ModItems.JUNIOR_SUPPLY.get(), 1);

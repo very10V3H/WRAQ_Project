@@ -39,7 +39,7 @@ public class KillPaperLoot extends Item {
         if (!level.isClientSide) {
             Random rand = new Random();
             String tag = KillPaper.getDropListMap().keySet().stream().toList().get(rand.nextInt(KillPaper.getDropListMap().size()));
-            ItemStack itemStack = new ItemStack(isLarge ? ModItems.killPaperL.get() : ModItems.killPaper.get());
+            ItemStack itemStack = new ItemStack(isLarge ? ModItems.KILL_PAPER_L.get() : ModItems.KILL_PAPER.get());
             itemStack.getOrCreateTagElement(Utils.MOD_ID).putString(KillPaper.killPaperType, tag);
             InventoryOperation.giveItemStackWithMSG(player, itemStack);
             Compute.playerItemUseWithRecord(player);

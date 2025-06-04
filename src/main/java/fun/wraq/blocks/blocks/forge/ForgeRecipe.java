@@ -98,353 +98,353 @@ public class ForgeRecipe {
     }
 
     public static void forgeDrawRecipeInit() {
-        recipes.put(ModItems.PlainArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PlainRune.get(), 2));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
+        recipes.put(ModItems.PLAIN_HELMET.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
             add(new ItemStack(Items.LEATHER, 5));
         }});
 
-        recipes.put(ModItems.PlainArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PlainRune.get(), 2));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
+        recipes.put(ModItems.PLAIN_CHEST.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
             add(new ItemStack(Items.LEATHER, 8));
         }});
 
-        recipes.put(ModItems.PlainArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PlainRune.get(), 2));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
+        recipes.put(ModItems.PLAIN_LEGGINGS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
             add(new ItemStack(Items.LEATHER, 7));
         }});
 
-        recipes.put(ModItems.PlainArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PlainRune.get(), 2));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
+        recipes.put(ModItems.PLAIN_BOOTS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
             add(new ItemStack(Items.LEATHER, 4));
         }});
 
-        recipes.put(ModItems.PlainSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PlainRune.get(), 2));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
+        recipes.put(ModItems.PLAIN_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
         }});
 
-        recipes.put(ModItems.PlainBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PlainRune.get(), 2));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
+        recipes.put(ModItems.PLAIN_BOW_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
         }});
 
         recipes.put(ModItems.LIFE_SCEPTRE_0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PlainRune.get(), 2));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
+            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
         }});
 
-        recipes.put(ModItems.ForestArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 3));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
+        recipes.put(ModItems.FOREST_HELMET.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 10));
         }});
 
-        recipes.put(ModItems.ForestArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 3));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
+        recipes.put(ModItems.FOREST_CHEST.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 16));
         }});
 
-        recipes.put(ModItems.ForestArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 3));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
+        recipes.put(ModItems.FOREST_LEGGINGS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 14));
         }});
 
-        recipes.put(ModItems.ForestArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 3));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
+        recipes.put(ModItems.FOREST_BOOTS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 8));
         }});
 
-        recipes.put(ModItems.ForestSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 3));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
+        recipes.put(ModItems.FOREST_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
         }});
 
-        recipes.put(ModItems.ForestBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 3));
-            add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
+        recipes.put(ModItems.FOREST_BOW_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
+            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
         }});
 
-        recipes.put(ModItems.LakeArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 3));
-            add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
+        recipes.put(ModItems.LAKE_HELMET.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.LAKE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.WATER_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 10));
         }});
 
-        recipes.put(ModItems.LakeArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 3));
-            add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
+        recipes.put(ModItems.LAKE_CHEST.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.LAKE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.WATER_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 16));
         }});
 
-        recipes.put(ModItems.LakeArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 3));
-            add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
+        recipes.put(ModItems.LAKE_LEGGINGS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.LAKE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.WATER_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 14));
         }});
 
-        recipes.put(ModItems.LakeArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 3));
-            add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
+        recipes.put(ModItems.LAKE_BOOTS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.LAKE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.WATER_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 8));
         }});
 
-        recipes.put(ModItems.LakeSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 3));
-            add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
+        recipes.put(ModItems.LAKE_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.LAKE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.WATER_ELEMENT_PIECE_0.get(), 14));
         }});
 
-        recipes.put(ModItems.lakeBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 3));
-            add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
+        recipes.put(ModItems.LAKE_BOW_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.LAKE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.WATER_ELEMENT_PIECE_0.get(), 14));
         }});
 
-        recipes.put(ModItems.lakeSceptre0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 3));
-            add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
+        recipes.put(ModItems.LAKE_SCEPTRE_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.LAKE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.WATER_ELEMENT_PIECE_0.get(), 14));
         }});
 
-        recipes.put(ModItems.VolcanoArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
-            add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
+        recipes.put(ModItems.VOLCANO_HELMET.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
+            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 10));
         }});
 
-        recipes.put(ModItems.VolcanoArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
-            add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
+        recipes.put(ModItems.VOLCANO_CHEST.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
+            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 16));
         }});
 
-        recipes.put(ModItems.VolcanoArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
-            add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
+        recipes.put(ModItems.VOLCANO_LEGGINGS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
+            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 14));
         }});
 
-        recipes.put(ModItems.VolcanoArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
-            add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
+        recipes.put(ModItems.VOLCANO_BOOTS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
+            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 8));
         }});
 
-        recipes.put(ModItems.VolcanoSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
-            add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
+        recipes.put(ModItems.VOLCANO_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
+            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
-        recipes.put(ModItems.VolcanoBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
-            add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
+        recipes.put(ModItems.VOLCANO_BOW_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
+            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
         }});
 
-        recipes.put(ModItems.MineArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 3));
-            add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
+        recipes.put(ModItems.MINE_HELMET.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
-        recipes.put(ModItems.MineArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 3));
-            add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
+        recipes.put(ModItems.MINE_CHEST.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
-        recipes.put(ModItems.MineArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 3));
-            add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
+        recipes.put(ModItems.MINE_LEGGINGS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
-        recipes.put(ModItems.MineArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 3));
-            add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
+        recipes.put(ModItems.MINE_BOOTS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
-        recipes.put(ModItems.MineSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 3));
-            add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
+        recipes.put(ModItems.MINE_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
-        recipes.put(ModItems.MineBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 3));
-            add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
+        recipes.put(ModItems.MINE_BOW_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
+            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
-        recipes.put(ModItems.SnowArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 3));
-            add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
+        recipes.put(ModItems.SNOW_HELMET.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SNOW_RUNE.get(), 3));
+            add(new ItemStack(ModItems.ICE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 4));
         }});
 
-        recipes.put(ModItems.SnowArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 3));
-            add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
+        recipes.put(ModItems.SNOW_CHEST.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SNOW_RUNE.get(), 3));
+            add(new ItemStack(ModItems.ICE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 4));
         }});
 
-        recipes.put(ModItems.SnowArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 3));
-            add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
+        recipes.put(ModItems.SNOW_LEGGINGS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SNOW_RUNE.get(), 3));
+            add(new ItemStack(ModItems.ICE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 4));
         }});
 
-        recipes.put(ModItems.SnowArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 3));
-            add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
+        recipes.put(ModItems.SNOW_BOOTS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SNOW_RUNE.get(), 3));
+            add(new ItemStack(ModItems.ICE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 4));
         }});
 
-        recipes.put(ModItems.SnowSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 3));
-            add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
+        recipes.put(ModItems.SNOW_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SNOW_RUNE.get(), 3));
+            add(new ItemStack(ModItems.ICE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 10));
         }});
 
-        recipes.put(ModItems.SkyBow.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SkyRune.get(), 8));
-            add(new ItemStack(ModItems.WindElementPiece0.get(), 14));
+        recipes.put(ModItems.SKY_BOW.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SKY_RUNE.get(), 8));
+            add(new ItemStack(ModItems.WIND_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 10));
         }});
 
         recipes.put(ModItems.SKY_SWORD.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SkyRune.get(), 8));
-            add(new ItemStack(ModItems.WindElementPiece0.get(), 14));
+            add(new ItemStack(ModItems.SKY_RUNE.get(), 8));
+            add(new ItemStack(ModItems.WIND_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 10));
         }});
 
-        recipes.put(ModItems.SakuraDemonSword.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SakuraPetal.get(), 576));
+        recipes.put(ModItems.SAKURA_SWORD.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SAKURA_PETAL.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 192));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
         }});
 
-        recipes.put(ModItems.SeaSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SeaRune.get(), 16));
+        recipes.put(ModItems.SEA_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SEA_RUNE.get(), 16));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 128));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
         }});
 
-        recipes.put(ModItems.huskSword0.get(), new ArrayList<>() {{
+        recipes.put(ModItems.HUSK_SWORD_0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.HUSK_RUNE.get(), 16));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 128));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
         }});
 
-        recipes.put(ModItems.KazeSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.KazeRune.get(), 8));
+        recipes.put(ModItems.KAZE_SWORD_0.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.KAZE_RUNE.get(), 8));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 128));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
         }});
 
-        recipes.put(ModItems.SakuraBow.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SakuraPetal.get(), 576));
+        recipes.put(ModItems.SAKURA_BOW.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SAKURA_PETAL.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 192));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
         }});
 
-        recipes.put(ModItems.MinePants.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.Wheat.get(), 64));
+        recipes.put(ModItems.MINE_PANTS.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.WHEAT.get(), 64));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 256));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 12));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 48));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 48));
             add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
             add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
         }});
 
-        recipes.put(ModItems.SeaBow.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SeaRune.get(), 8));
+        recipes.put(ModItems.SEA_BOW.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SEA_RUNE.get(), 8));
             add(new ItemStack(ModItems.HUSK_RUNE.get(), 8));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 128));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
         }});
 
-        recipes.put(ModItems.ShipSword.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ShipPiece.get(), 576));
+        recipes.put(ModItems.SHIP_SWORD.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SHIP_PIECE.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 256));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 2));
         }});
 
-        recipes.put(ModItems.ShipBow.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ShipPiece.get(), 576));
+        recipes.put(ModItems.SHIP_BOW.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SHIP_PIECE.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 256));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 2));
         }});
 
-        recipes.put(ModItems.ShipSceptre.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ShipPiece.get(), 576));
+        recipes.put(ModItems.SHIP_SCEPTRE.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SHIP_PIECE.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 256));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 2));
         }});
 
-        recipes.put(ModItems.MoonShield.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ManaShield.get(), 1));
-            add(new ItemStack(ModItems.MoonCompleteGem.get(), 6));
+        recipes.put(ModItems.MOON_SHIELD.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MANA_SHIELD.get(), 1));
+            add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 6));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 288));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 12));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 48));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 48));
             add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
             add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
         }});
 
-        recipes.put(ModItems.MoonKnife.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.manaKnife.get(), 1));
-            add(new ItemStack(ModItems.MoonCompleteGem.get(), 6));
+        recipes.put(ModItems.MOON_KNIFE.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MANA_KNIFE.get(), 1));
+            add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 6));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 288));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 12));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 48));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 48));
             add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
             add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
         }});
 
-        recipes.put(ModItems.MoonBook.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.EarthBook.get(), 1));
-            add(new ItemStack(ModItems.MoonCompleteGem.get(), 6));
+        recipes.put(ModItems.MOON_BOOK.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.EARTH_BOOK.get(), 1));
+            add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 6));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 288));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 12));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 48));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 48));
             add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
             add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
         }});
 
-        recipes.put(ModItems.MoonBelt.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MoonCompleteGem.get(), 16));
+        recipes.put(ModItems.MOON_BELT.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 16));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 384));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 20));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 80));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 80));
             add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 16));
             add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 8));
         }});
 
-        recipes.put(ModItems.StarBottle.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.StarStar.get(), 24));
+        recipes.put(ModItems.STAR_BOTTLE.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.STAR_STAR.get(), 24));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 384));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 16));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 64));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 64));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 3));
         }});

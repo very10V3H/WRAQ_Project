@@ -67,11 +67,11 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
     @Override
     public void active(Player player) {
         int tickCount = Tick.get();
-        player.getCooldowns().addCooldown(ModItems.WitherSword0.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.WitherSword1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.WitherSword2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.WitherSword3.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        Compute.sendEffectLastTime(player, ModItems.WitherSword0.get().getDefaultInstance(), 240);
+        player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_0.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_3.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        Compute.sendEffectLastTime(player, ModItems.WITHER_SWORD_0.get().getDefaultInstance(), 240);
         if (player.getHealth() <= player.getMaxHealth() * 0.3f) {
             player.kill();
             Compute.formatBroad(player.level(), Component.literal("死亡").withStyle(ChatFormatting.RED),
@@ -92,8 +92,8 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.WITHER_RUNE.get(), 4));
-            add(new ItemStack(ModItems.Ruby.get(), 128));
-            add(new ItemStack(ModItems.NetherQuartz.get(), 32));
+            add(new ItemStack(ModItems.RUBY.get(), 128));
+            add(new ItemStack(ModItems.NETHER_QUARTZ.get(), 32));
             add(new ItemStack(Items.COAL, 192));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};

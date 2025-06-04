@@ -64,10 +64,10 @@ public class IceBook extends WraqOffHandItem implements OnHitEffectEquip, OnHitD
             coolDownMap.put(player, Tick.get() + 100);
             effectTargetMap.put(Name.get(player), mob);
             effectLastTickMap.put(player, Tick.get() + 60);
-            Compute.sendCoolDownTime(player, ModItems.IceBook.get().getDefaultInstance(), 100);
+            Compute.sendCoolDownTime(player, ModItems.ICE_BOOK.get().getDefaultInstance(), 100);
             Compute.addSlowDownEffect(mob, 60, 3);
             Compute.createIceParticle(mob);
-            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.IceBook.get(), "IceBookDamageEnhance", 60, 0, false);
+            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.ICE_BOOK.get(), "IceBookDamageEnhance", 60, 0, false);
         }
     }
 

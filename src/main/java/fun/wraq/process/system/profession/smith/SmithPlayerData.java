@@ -44,8 +44,8 @@ public class SmithPlayerData {
     public static void onPlayerSubmitEntrustment(Player player) {
         int tier = getTier(player);
         if (tier == 0) return;
-        Item equipPiece5 = ModItems.equipPiece5.get();
-        Item equipPiece6 = ModItems.equipPiece6.get();
+        Item equipPiece5 = ModItems.EQUIP_PIECE_5.get();
+        Item equipPiece6 = ModItems.EQUIP_PIECE_6.get();
         if (allowDailyReward(player)) {
             setDailyReward(player, false);
             ItemStack stack;

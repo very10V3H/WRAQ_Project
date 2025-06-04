@@ -67,15 +67,15 @@ public class HuskSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        player.getCooldowns().addCooldown(ModItems.huskSword0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.huskSword1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.huskSword2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.huskSword3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-        Compute.playerItemCoolDown(player, ModItems.BlackForestSword4.get(), 3);
+        player.getCooldowns().addCooldown(ModItems.HUSK_SWORD_0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.HUSK_SWORD_1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.HUSK_SWORD_2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.HUSK_SWORD_3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        Compute.playerItemCoolDown(player, ModItems.HUSK_SWORD_4.get(), 3);
         if (tier == 4) Utils.BlackForestSwordActiveMap.put(player, 3);
         else if (tier == 3) Utils.BlackForestSwordActiveMap.put(player, 2);
         else Utils.BlackForestSwordActiveMap.put(player, 1);
-        Compute.sendEffectLastTime(player, ModItems.huskSword0.get().getDefaultInstance(), 8888, 0, true);
+        Compute.sendEffectLastTime(player, ModItems.HUSK_SWORD_0.get().getDefaultInstance(), 8888, 0, true);
         MySound.soundToNearPlayer(player, ModSounds.Attack.get());
     }
 
@@ -102,7 +102,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
                 }
             }
             Utils.BlackForestSwordActiveMap.remove(player);
-            Compute.removeEffectLastTime(player, ModItems.huskSword0.get());
+            Compute.removeEffectLastTime(player, ModItems.HUSK_SWORD_0.get());
         }
     }
 }

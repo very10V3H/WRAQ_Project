@@ -89,8 +89,7 @@ public class VariousEvents {
         }
         if (!InventoryCheck.itemOwnerCorrect(player, itemStack) && !player.isCreative()) {
             event.setCanceled(true);
-        }
-        else {
+        } else {
             if (itemStack.getTagElement(Utils.MOD_ID) != null) {
                 CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                 if (!Utils.mainHandTag.containsKey(item) && !Utils.offHandTag.containsKey(item)
@@ -167,20 +166,9 @@ public class VariousEvents {
                         && (data == null || !data.contains(InventoryCheck.owner))) {
                     InventoryCheck.addOwnerTagToItemStack(player, stack);
                 }
-                if (!Compute.playerIsInBattle(player)) {
-                    Security.recordItemStream(player.getName().getString(), "GROUND", stack,
-                            Security.RecordType.DROP_BOUNDING_ITEM);
-                    Vec3 pos = player.position();
-                    Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
-                            Te.s("你在", "("
-                                    + String.format("%.0f", pos.x) + ","
-                                    + String.format("%.0f", pos.y) + ","
-                                    + String.format("%.0f", pos.z) + ")", " 丢弃了 ", stack));
-                } else {
-                    event.getPlayer().addItem(stack);
-                    event.setCanceled(true);
-                    dropped = false;
-                }
+                event.getPlayer().addItem(stack);
+                event.setCanceled(true);
+                dropped = false;
             }
             if (Utils.weaponList.contains(item)) {
                 event.getPlayer().addItem(stack);
@@ -208,9 +196,9 @@ public class VariousEvents {
 
     @SubscribeEvent
     public static void PickUpItem(PlayerEvent.ItemPickupEvent event) {
-        if (!event.getEntity().level().isClientSide && event.getStack().is(ModItems.Value.get())) {
-            InventoryOperation.removeItem(event.getEntity().getInventory(), ModItems.Value.get(),
-                    InventoryOperation.itemStackCount(event.getEntity().getInventory(), ModItems.Value.get()));
+        if (!event.getEntity().level().isClientSide && event.getStack().is(ModItems.VALUE.get())) {
+            InventoryOperation.removeItem(event.getEntity().getInventory(), ModItems.VALUE.get(),
+                    InventoryOperation.itemStackCount(event.getEntity().getInventory(), ModItems.VALUE.get()));
         }
     }
 
@@ -438,7 +426,7 @@ public class VariousEvents {
                 CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
                     int size = iCuriosItemHandler.getEquippedCurios().getSlots();
                     Set<Item> curiosItemSet = new HashSet<>();
-                    for (int i = 0 ; i < size ; i ++) {
+                    for (int i = 0; i < size; i++) {
                         ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
                         if (stack.is(Items.AIR)) continue;
                         if (!curiosItemSet.contains(stack.getItem())) {

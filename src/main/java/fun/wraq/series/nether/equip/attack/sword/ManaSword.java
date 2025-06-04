@@ -67,7 +67,7 @@ public class ManaSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         CompoundTag data = player.getPersistentData();
         Compute.PlayerPowerParticle(player);
-        player.getCooldowns().addCooldown(ModItems.ManaSword.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.MANA_SWORD.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
         data.putInt("ManaSwordActive", data.getInt("MANA"));
         data.putInt("MANA", 0);
         Mana.updateManaStatus(player);

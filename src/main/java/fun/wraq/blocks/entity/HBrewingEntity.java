@@ -38,7 +38,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppable {
@@ -161,8 +160,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             return;
         }
         if (hasRecipe(blockEntity) || hasRecipe1(blockEntity) || hasRecipe2(blockEntity)
-                || hasRecipe3(blockEntity) || hasRecipe4(blockEntity) || hasRecipe5(blockEntity)
-                || hasRecipeOfSplash(blockEntity)) {
+                || hasRecipe3(blockEntity) || hasRecipe4(blockEntity) || hasRecipeOfSplash(blockEntity)) {
             blockEntity.progress++;
             setChanged(level, pos, blockState);
             if (blockEntity.progress >= blockEntity.maxProgress) {
@@ -193,14 +191,16 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             for (int i = 2; i <= 5; i++) purifiedWater.add(blockEntity.itemStackHandler.getStackInSlot(i));
             int purifiedWaterCount = 0;
             for (ItemStack itemStack : purifiedWater)
-                if (itemStack.is(ModItems.PurifiedWater.get())) purifiedWaterCount++;
-            BrewingRecipe brewingRecipe = BrewingRecipe.getRecipe(new ItemStack(ModItems.PurifiedWater.get()), material1, material2);
+                if (itemStack.is(ModItems.PURIFIED_WATER.get())) purifiedWaterCount++;
+            BrewingRecipe brewingRecipe = BrewingRecipe.getRecipe(new ItemStack(ModItems.PURIFIED_WATER.get()), material1, material2);
             if (brewingRecipe == null) return;
             ItemStack output = brewingRecipe.output;
             if (output == null) return;
             BrewingNote.addExp(brewingNote, material1.getItem(), purifiedWaterCount);
             BrewingNote.addExp(brewingNote, material2.getItem(), purifiedWaterCount);
-            if (player != null) InventoryCheck.addOwnerTagToItemStack(player, brewingNote);
+            if (player != null) {
+                InventoryCheck.addOwnerTagToItemStack(player, brewingNote);
+            }
             blockEntity.itemStackHandler.setStackInSlot(6, new ItemStack(output.getItem(), potion.getCount() + purifiedWaterCount));
 
             int BrewingLevel = Compute.BrewingLevel(brewingNote);
@@ -217,7 +217,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             }
 
             for (int i = 2; i <= 5; i++) {
-                if (blockEntity.itemStackHandler.getStackInSlot(i).is(ModItems.PurifiedWater.get()))
+                if (blockEntity.itemStackHandler.getStackInSlot(i).is(ModItems.PURIFIED_WATER.get()))
                     blockEntity.itemStackHandler.extractItem(i, 1, false);
             }
             blockEntity.resetProgress();
@@ -227,17 +227,17 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             ItemStack purifiedWater = blockEntity.itemStackHandler.getStackInSlot(6);
             int waterBottleCount = 0;
             for (int i = 2; i <= 5; i++) {
-                if (blockEntity.itemStackHandler.getStackInSlot(i).is(ModItems.WaterBottle.get())) {
+                if (blockEntity.itemStackHandler.getStackInSlot(i).is(ModItems.WATER_BOTTLE.get())) {
                     blockEntity.itemStackHandler.extractItem(i, 1, false);
                     waterBottleCount++;
                 }
             }
 
-            ItemStack itemStack = ModItems.PurifiedWater.get().getDefaultInstance();
+            ItemStack itemStack = ModItems.PURIFIED_WATER.get().getDefaultInstance();
             itemStack.setCount(waterBottleCount + purifiedWater.getCount());
             blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
 
-            if (Material1.is(ModItems.Purifier.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
+            if (Material1.is(ModItems.PURIFIER.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
             else blockEntity.itemStackHandler.extractItem(1, 1, false);
             blockEntity.resetProgress();
         }
@@ -267,7 +267,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             }
             blockEntity.itemStackHandler.setStackInSlot(6, output);
             for (int i = 2; i <= 5; i++) blockEntity.itemStackHandler.extractItem(i, 1, false);
-            if (Material1.is(ModItems.Stabilizer.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
+            if (Material1.is(ModItems.STABILIZER.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
             else blockEntity.itemStackHandler.extractItem(1, 1, false);
             blockEntity.resetProgress();
         }
@@ -296,7 +296,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             }
             blockEntity.itemStackHandler.setStackInSlot(6, output);
             for (int i = 2; i <= 5; i++) blockEntity.itemStackHandler.extractItem(i, 1, false);
-            if (Material1.is(ModItems.Splasher.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
+            if (Material1.is(ModItems.SPLASHER.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
             else blockEntity.itemStackHandler.extractItem(1, 1, false);
             blockEntity.resetProgress();
         }
@@ -334,7 +334,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             blockEntity.itemStackHandler.extractItem(3, 1, false);
             blockEntity.itemStackHandler.extractItem(4, 1, false);
             blockEntity.itemStackHandler.extractItem(5, 1, false);
-            if (Material1.is(ModItems.Solidifier.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
+            if (Material1.is(ModItems.SOLIDIFIER.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
             else blockEntity.itemStackHandler.extractItem(1, 1, false);
             blockEntity.resetProgress();
         }
@@ -364,215 +364,9 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             }
             blockEntity.itemStackHandler.setStackInSlot(6, output);
             for (int i = 2; i <= 5; i++) blockEntity.itemStackHandler.extractItem(i, 1, false);
-            if (Material1.is(ModItems.Concentrater.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
+            if (Material1.is(ModItems.CONCENTRATER.get())) blockEntity.itemStackHandler.extractItem(0, 1, false);
             else blockEntity.itemStackHandler.extractItem(1, 1, false);
             blockEntity.resetProgress();
-        }
-        if (hasRecipe5(blockEntity)) { // 涂膏
-            ItemStack Material1 = blockEntity.itemStackHandler.getStackInSlot(0);
-            ItemStack Material2 = blockEntity.itemStackHandler.getStackInSlot(1);
-            ItemStack BrewingNote = blockEntity.itemStackHandler.getStackInSlot(7);
-            int Count = 0;
-            if (blockEntity.itemStackHandler.getStackInSlot(2).is(ModItems.PurifiedWater.get())) Count++;
-            if (blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.PurifiedWater.get())) Count++;
-            if (blockEntity.itemStackHandler.getStackInSlot(4).is(ModItems.PurifiedWater.get())) Count++;
-            if (blockEntity.itemStackHandler.getStackInSlot(5).is(ModItems.PurifiedWater.get())) Count++;
-            int BrewingLevel = Compute.BrewingLevel(BrewingNote);
-            int Rate1 = BrewingLevel;
-            Random random = new Random();
-            blockEntity.itemStackHandler.extractItem(2, 1, false);
-            blockEntity.itemStackHandler.extractItem(3, 1, false);
-            blockEntity.itemStackHandler.extractItem(4, 1, false);
-            blockEntity.itemStackHandler.extractItem(5, 1, false);
-            if (Material1.is(ModItems.SunPower.get()) || Material2.is(ModItems.SunPower.get())) {
-                if (Material1.is(ModItems.SunPower.get())) {
-                    blockEntity.itemStackHandler.extractItem(0, 6, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                } else {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 6, false);
-                }
-                if (random.nextInt(10) < Rate1) {
-                    ItemStack itemStack = ModItems.SunOintment2.get().getDefaultInstance();
-                    itemStack.setCount(Count);
-                    itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                    blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                } else {
-                    if (random.nextInt(10) < Rate1) {
-                        ItemStack itemStack = ModItems.SunOintment1.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    } else {
-                        ItemStack itemStack = ModItems.SunOintment0.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    }
-                }
-            }
-            if (Material1.is(ModItems.LAKE_CORE.get()) || Material2.is(ModItems.LAKE_CORE.get())) {
-                if (Material1.is(ModItems.LAKE_CORE.get())) {
-                    blockEntity.itemStackHandler.extractItem(0, 6, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                } else {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 6, false);
-                }
-                if (random.nextInt(10) < Rate1) {
-                    ItemStack itemStack = ModItems.LakeOintment2.get().getDefaultInstance();
-                    itemStack.setCount(Count);
-                    itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                    blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                } else {
-                    if (random.nextInt(10) < Rate1) {
-                        ItemStack itemStack = ModItems.LakeOintment1.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    } else {
-                        ItemStack itemStack = ModItems.LakeOintment0.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    }
-                }
-            }
-            if (Material1.is(ModItems.VOLCANO_CORE.get()) || Material2.is(ModItems.VOLCANO_CORE.get())) {
-                if (Material1.is(ModItems.VOLCANO_CORE.get())) {
-                    blockEntity.itemStackHandler.extractItem(0, 6, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                } else {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 6, false);
-                }
-                if (random.nextInt(10) < Rate1) {
-                    ItemStack itemStack = ModItems.VolcanoOintment2.get().getDefaultInstance();
-                    itemStack.setCount(Count);
-                    itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                    blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                } else {
-                    if (random.nextInt(10) < Rate1) {
-                        ItemStack itemStack = ModItems.VolcanoOintment1.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    } else {
-                        ItemStack itemStack = ModItems.VolcanoOintment0.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    }
-                }
-            }
-            if (Material1.is(ModItems.SnowRune.get()) || Material2.is(ModItems.SnowRune.get())) {
-                if (Material1.is(ModItems.SnowRune.get())) {
-                    blockEntity.itemStackHandler.extractItem(0, 2, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                } else {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 2, false);
-                }
-                if (random.nextInt(10) < Rate1) {
-                    ItemStack itemStack = ModItems.SnowOintment2.get().getDefaultInstance();
-                    itemStack.setCount(Count);
-                    itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                    blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                } else {
-                    if (random.nextInt(10) < Rate1) {
-                        ItemStack itemStack = ModItems.SnowOintment1.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    } else {
-                        ItemStack itemStack = ModItems.SnowOintment0.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    }
-                }
-            }
-            if (Material1.is(ModItems.SkyRune.get()) || Material2.is(ModItems.SkyRune.get())) {
-                if (Material1.is(ModItems.SkyRune.get())) {
-                    blockEntity.itemStackHandler.extractItem(0, 3, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                } else {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 3, false);
-                }
-                if (random.nextInt(10) < Rate1) {
-                    ItemStack itemStack = ModItems.SkyOintment2.get().getDefaultInstance();
-                    itemStack.setCount(Count);
-                    itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                    blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                } else {
-                    if (random.nextInt(10) < Rate1) {
-                        ItemStack itemStack = ModItems.SkyOintment1.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    } else {
-                        ItemStack itemStack = ModItems.SkyOintment0.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    }
-                }
-            }
-            if (Material1.is(ModItems.EvokerRune.get()) || Material2.is(ModItems.EvokerRune.get())) {
-                if (Material1.is(ModItems.EvokerRune.get())) {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                } else {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                }
-                if (random.nextInt(10) < Rate1) {
-                    ItemStack itemStack = ModItems.ManaOintment2.get().getDefaultInstance();
-                    itemStack.setCount(Count);
-                    itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                    blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                } else {
-                    if (random.nextInt(10) < Rate1) {
-                        ItemStack itemStack = ModItems.ManaOintment1.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    } else {
-                        ItemStack itemStack = ModItems.ManaOintment0.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    }
-                }
-            }
-            if (Material1.is(ModItems.Ruby.get()) || Material2.is(ModItems.Ruby.get())) {
-                if (Material1.is(ModItems.Ruby.get())) {
-                    blockEntity.itemStackHandler.extractItem(0, 64, false);
-                    blockEntity.itemStackHandler.extractItem(1, 1, false);
-                } else {
-                    blockEntity.itemStackHandler.extractItem(0, 1, false);
-                    blockEntity.itemStackHandler.extractItem(1, 64, false);
-                }
-                if (random.nextInt(10) < Rate1) {
-                    ItemStack itemStack = ModItems.NetherOintment2.get().getDefaultInstance();
-                    itemStack.setCount(Count);
-                    itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                    blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                } else {
-                    if (random.nextInt(10) < Rate1) {
-                        ItemStack itemStack = ModItems.NetherOintment1.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    } else {
-                        ItemStack itemStack = ModItems.NetherOintment0.get().getDefaultInstance();
-                        itemStack.setCount(Count);
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        blockEntity.itemStackHandler.setStackInSlot(6, itemStack);
-                    }
-                }
-            }
         }
     }
 
@@ -589,10 +383,10 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         List<ItemStack> purifiedWater = new ArrayList<>();
         for (int i = 2; i <= 5; i++) purifiedWater.add(blockEntity.itemStackHandler.getStackInSlot(i));
         int purifiedWaterCount = 0;
-        for (ItemStack itemStack : purifiedWater) if (itemStack.is(ModItems.PurifiedWater.get())) purifiedWaterCount++;
+        for (ItemStack itemStack : purifiedWater) if (itemStack.is(ModItems.PURIFIED_WATER.get())) purifiedWaterCount++;
         boolean hasPurifiedWater = purifiedWaterCount > 0;
 
-        ItemStack output = BrewingRecipe.getOutput(new ItemStack(ModItems.PurifiedWater.get()), material1, material2);
+        ItemStack output = BrewingRecipe.getOutput(new ItemStack(ModItems.PURIFIED_WATER.get()), material1, material2);
         if (BrewingRecipe.outputNeedBrewingLevelMap.isEmpty()) BrewingRecipe.setOutputNeedBrewingLevelMap();
         if (output == null) return false;
         if (BrewingRecipe.outputNeedBrewingLevelMap.containsKey(output.getItem())
@@ -601,7 +395,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
 
         boolean canInsertIntoBrewedSlot = brewedPotion.isEmpty() ||
                 (brewedPotion.is(output.getItem()) && brewedPotion.getCount() + purifiedWaterCount <= 64);
-        boolean brewingNoteSlotIsNoEmpty = brewingNote.is(ModItems.BrewingNote.get());
+        boolean brewingNoteSlotIsNoEmpty = brewingNote.is(ModItems.BREWING_NOTE.get());
         return hasPurifiedWater && canInsertIntoBrewedSlot && brewingNoteSlotIsNoEmpty;
     }
 
@@ -615,14 +409,14 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         List<ItemStack> list = new ArrayList<>();
         for (int i = 2; i <= 5; i++) list.add(blockEntity.itemStackHandler.getStackInSlot(i));
         int waterBottleCount = 0;
-        for (ItemStack itemStack : list) if (itemStack.is(ModItems.WaterBottle.get())) ++waterBottleCount;
+        for (ItemStack itemStack : list) if (itemStack.is(ModItems.WATER_BOTTLE.get())) ++waterBottleCount;
         ItemStack BrewedPotion = blockEntity.itemStackHandler.getStackInSlot(6);
         ItemStack BrewingNote = blockEntity.itemStackHandler.getStackInSlot(7);
         boolean hasWaterBottle = waterBottleCount > 0;
-        boolean HasPurifierInSlot = Material1.is(ModItems.Purifier.get()) || Material2.is(ModItems.Purifier.get());
+        boolean HasPurifierInSlot = Material1.is(ModItems.PURIFIER.get()) || Material2.is(ModItems.PURIFIER.get());
         boolean canInsertIntoBrewedSlot = BrewedPotion.isEmpty()
-                || (BrewedPotion.is(ModItems.PurifiedWater.get()) && BrewedPotion.getCount() + waterBottleCount <= 64);
-        boolean BrewingNoteSlotIsNoEmpty = BrewingNote.is(ModItems.BrewingNote.get());
+                || (BrewedPotion.is(ModItems.PURIFIED_WATER.get()) && BrewedPotion.getCount() + waterBottleCount <= 64);
+        boolean BrewingNoteSlotIsNoEmpty = BrewingNote.is(ModItems.BREWING_NOTE.get());
         return hasWaterBottle && HasPurifierInSlot && canInsertIntoBrewedSlot && BrewingNoteSlotIsNoEmpty;
     }
 
@@ -655,11 +449,11 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         Item output = BrewingRecipe.getLongPotionItem(potion.getItem());
         if (output == null) return false;
         Utils.PotionMapInit();
-        boolean HasStabilizerInSlot = (Material1.is(ModItems.Stabilizer.get()) && Material2.is(ModItems.Stabilizer.get()))
-                || (Material1.is(ModItems.Stabilizer.get()) && Material2.isEmpty())
-                || (Material1.isEmpty() && Material2.is(ModItems.Stabilizer.get()));
+        boolean HasStabilizerInSlot = (Material1.is(ModItems.STABILIZER.get()) && Material2.is(ModItems.STABILIZER.get()))
+                || (Material1.is(ModItems.STABILIZER.get()) && Material2.isEmpty())
+                || (Material1.isEmpty() && Material2.is(ModItems.STABILIZER.get()));
         boolean canInsertIntoBrewedSlot = BrewedPotion.isEmpty() || (BrewedPotion.is(output) && BrewedPotion.getCount() + potionCount <= 64);
-        boolean BrewingNoteInSlot = BrewingNote.is(ModItems.BrewingNote.get());
+        boolean BrewingNoteInSlot = BrewingNote.is(ModItems.BREWING_NOTE.get());
         return HasStabilizerInSlot && canInsertIntoBrewedSlot && BrewingNoteInSlot;
     }
 
@@ -709,13 +503,13 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             Count++;
             NormalSoulItem = NormalSoul4.getItem();
         }
-        boolean IsSolidifierInSlot = Material1.is(ModItems.Solidifier.get()) || Material2.is(ModItems.Solidifier.get());
+        boolean IsSolidifierInSlot = Material1.is(ModItems.SOLIDIFIER.get()) || Material2.is(ModItems.SOLIDIFIER.get());
         boolean SolidifiedSoulSlot = SolidifiedSoul.getCount() + Count <= SolidifiedSoul.getMaxStackSize();
         boolean IsSoulsInSlot = (Utils.BrewSoulMap.containsKey(NormalSoul1.getItem())) ||
                 (Utils.BrewSoulMap.containsKey(NormalSoul2.getItem())) ||
                 (Utils.BrewSoulMap.containsKey(NormalSoul3.getItem())) ||
                 (Utils.BrewSoulMap.containsKey(NormalSoul4.getItem()));
-        boolean IsBrewingBookInSlot = BrewingNote.is(ModItems.BrewingNote.get());
+        boolean IsBrewingBookInSlot = BrewingNote.is(ModItems.BREWING_NOTE.get());
         boolean SolidifiedSlotSameNormalSlot = true;
         if (!SolidifiedSoul.isEmpty()) {
             if (Utils.BrewSoulMap.get(NormalSoulItem) == null) SolidifiedSlotSameNormalSlot = false;
@@ -756,54 +550,12 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         Item output = BrewingRecipe.getConPotionItem(potion.getItem());
         if (output == null) return false;
         Utils.PotionMapInit();
-        boolean hasConcentrater = (Material1.is(ModItems.Concentrater.get()) && Material2.is(ModItems.Concentrater.get()))
-                || (Material1.is(ModItems.Concentrater.get()) && Material2.isEmpty())
-                || (Material1.isEmpty() && Material2.is(ModItems.Concentrater.get()));
+        boolean hasConcentrater = (Material1.is(ModItems.CONCENTRATER.get()) && Material2.is(ModItems.CONCENTRATER.get()))
+                || (Material1.is(ModItems.CONCENTRATER.get()) && Material2.isEmpty())
+                || (Material1.isEmpty() && Material2.is(ModItems.CONCENTRATER.get()));
         boolean canInsertIntoBrewedSlot = BrewedPotion.isEmpty() || (BrewedPotion.is(output) && BrewedPotion.getCount() + potionCount <= 64);
-        boolean brewingNoteInSlot = BrewingNote.is(ModItems.BrewingNote.get());
+        boolean brewingNoteInSlot = BrewingNote.is(ModItems.BREWING_NOTE.get());
         return hasConcentrater && canInsertIntoBrewedSlot && brewingNoteInSlot;
-    }
-
-    private static boolean hasRecipe5(HBrewingEntity blockEntity) { //涂料酿造
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getSlots());
-        for (int i = 0; i < blockEntity.itemStackHandler.getSlots(); i++) {
-            inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
-        }
-        ItemStack Material1 = blockEntity.itemStackHandler.getStackInSlot(0);
-        ItemStack Material2 = blockEntity.itemStackHandler.getStackInSlot(1);
-        ItemStack NormalPotion1 = blockEntity.itemStackHandler.getStackInSlot(2);
-        ItemStack NormalPotion2 = blockEntity.itemStackHandler.getStackInSlot(3);
-        ItemStack NormalPotion3 = blockEntity.itemStackHandler.getStackInSlot(4);
-        ItemStack NormalPotion4 = blockEntity.itemStackHandler.getStackInSlot(5);
-        ItemStack BrewedPotion = blockEntity.itemStackHandler.getStackInSlot(6);
-        ItemStack BrewingNote = blockEntity.itemStackHandler.getStackInSlot(7);
-        boolean MaterialCorrect = ((Material1.is(ModItems.SunPower.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.SunPower.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
-
-                || (Material1.is(ModItems.LAKE_CORE.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.LAKE_CORE.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
-
-                || (Material1.is(ModItems.VOLCANO_CORE.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.VOLCANO_CORE.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
-
-                || (Material1.is(ModItems.SnowRune.get()) && Material1.getCount() >= 2 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.SnowRune.get()) && Material2.getCount() >= 2 && Material1.is(ModItems.Concentrater.get()))
-
-                || (Material1.is(ModItems.SkyRune.get()) && Material1.getCount() >= 3 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.SkyRune.get()) && Material2.getCount() >= 3 && Material1.is(ModItems.Concentrater.get()))
-
-                || (Material1.is(ModItems.EvokerRune.get()) && Material1.getCount() >= 1 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.EvokerRune.get()) && Material2.getCount() >= 1 && Material1.is(ModItems.Concentrater.get()))
-
-                || (Material1.is(ModItems.Ruby.get()) && Material1.getCount() >= 64 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.Ruby.get()) && Material2.getCount() >= 64 && Material1.is(ModItems.Concentrater.get())));
-        boolean HasNormalPotionInSlot = NormalPotion1.is(ModItems.PurifiedWater.get()) ||
-                NormalPotion2.is(ModItems.PurifiedWater.get()) ||
-                NormalPotion3.is(ModItems.PurifiedWater.get()) ||
-                NormalPotion4.is(ModItems.PurifiedWater.get());
-        boolean BrewingNoteInSlot = BrewingNote.is(ModItems.BrewingNote.get());
-        boolean BrewedPotionIsEmpty = BrewedPotion.isEmpty();
-        return MaterialCorrect && HasNormalPotionInSlot && BrewingNoteInSlot && BrewedPotionIsEmpty;
     }
 
     private static boolean hasRecipeOfSplash(HBrewingEntity blockEntity) { // 喷溅
@@ -835,11 +587,11 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         Item output = NewThrowablePotion.getSplashPotion(potion.getItem());
         if (output == null) return false;
         Utils.PotionMapInit();
-        boolean hasSplasher = (material1.is(ModItems.Splasher.get()) && material2.is(ModItems.Splasher.get()))
-                || (material1.is(ModItems.Splasher.get()) && material2.isEmpty())
-                || (material1.isEmpty() && material2.is(ModItems.Splasher.get()));
+        boolean hasSplasher = (material1.is(ModItems.SPLASHER.get()) && material2.is(ModItems.SPLASHER.get()))
+                || (material1.is(ModItems.SPLASHER.get()) && material2.isEmpty())
+                || (material1.isEmpty() && material2.is(ModItems.SPLASHER.get()));
         boolean canInsertIntoBrewedSlot = brewedPotion.isEmpty() || (brewedPotion.is(output) && brewedPotion.getCount() + potionCount <= 64);
-        boolean brewingNoteInSlot = brewingNote.is(ModItems.BrewingNote.get());
+        boolean brewingNoteInSlot = brewingNote.is(ModItems.BREWING_NOTE.get());
         return hasSplasher && canInsertIntoBrewedSlot && brewingNoteInSlot;
     }
 }

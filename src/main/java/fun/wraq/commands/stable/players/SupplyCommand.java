@@ -20,7 +20,8 @@ public class SupplyCommand implements Command<CommandSourceStack> {
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
         List<ItemStack> supply = List.of(
-                new ItemStack(ModItems.ID_Card.get())
+                new ItemStack(ModItems.ID_CARD.get()),
+                new ItemStack(ModItems.BACK_SPAWN_TICKET.get())
         );
         supply.forEach(stack -> {
             InventoryOperation.giveItemStackWithMSG(player, stack);

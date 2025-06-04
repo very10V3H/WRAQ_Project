@@ -87,16 +87,16 @@ public class BlazePowerSpawnController extends JungleMobSpawnController {
     @Override
     public List<ItemAndRate> getRewardItemList() {
         return List.of(
-                new ItemAndRate(ModItems.VolcanoSoul.get(), 30),
-                new ItemAndRate(ModItems.silverCoin.get(), 8),
+                new ItemAndRate(ModItems.VOLCANO_SOUL.get(), 30),
+                new ItemAndRate(ModItems.SILVER_COIN.get(), 8),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 1),
-                new ItemAndRate(ModItems.VolcanoCrest0.get(), 0.4),
-                new ItemAndRate(ModItems.VolcanoCrest1.get(), 0.1),
-                new ItemAndRate(ModItems.VolcanoCrest2.get(), 0.02),
-                new ItemAndRate(ModItems.VolcanoCrest3.get(), 0.004),
-                new ItemAndRate(ModItems.FireElementPiece0.get(), 4),
-                new ItemAndRate(NewRuneItems.volcanoNewRune.get(), 0.02),
-                new ItemAndRate(C2LootItems.searedSpiritStick.get(), 0.02)
+                new ItemAndRate(ModItems.VOLCANO_CREST_0.get(), 0.4),
+                new ItemAndRate(ModItems.VOLCANO_CREST_1.get(), 0.1),
+                new ItemAndRate(ModItems.VOLCANO_CREST_2.get(), 0.02),
+                new ItemAndRate(ModItems.VOLCANO_CREST_3.get(), 0.004),
+                new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 4),
+                new ItemAndRate(NewRuneItems.VOLCANO_NEW_RUNE.get(), 0.02),
+                new ItemAndRate(C2LootItems.SEARED_SPIRIT_STICK.get(), 0.02)
         );
     }
 

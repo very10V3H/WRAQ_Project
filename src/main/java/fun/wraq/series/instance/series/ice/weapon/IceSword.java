@@ -76,7 +76,7 @@ public class IceSword extends WraqSword implements OnHitEffectEquip, OnCritHitEf
     public List<ItemStack> forgeRecipe() {
         if (tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.IceCompleteGem.get(), 8),
+                    new ItemStack(ModItems.ICE_COMPLETE_GEM.get(), 8),
                     new ItemStack(ModItems.GOLD_COIN.get(), 256),
                     new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8)
             );
@@ -84,7 +84,7 @@ public class IceSword extends WraqSword implements OnHitEffectEquip, OnCritHitEf
         return List.of(
                 new ItemStack(ModItems.ICE_SWORD.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 6),
-                new ItemStack(ModItems.ReputationMedal.get(), 48),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 48),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 2)
         );
     }

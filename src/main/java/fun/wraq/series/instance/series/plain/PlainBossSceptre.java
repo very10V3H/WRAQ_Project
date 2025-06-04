@@ -39,7 +39,7 @@ public class PlainBossSceptre extends WraqSceptre implements Decomposable {
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.PlainBossSoul.get(), 5);
+        return new ItemStack(ModItems.PLAIN_BOSS_SOUL.get(), 5);
     }
 
     @Override

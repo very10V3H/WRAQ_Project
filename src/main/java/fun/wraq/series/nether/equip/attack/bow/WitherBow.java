@@ -33,9 +33,9 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
         Utils.levelRequire.put(this, 80);
 
         ForgeRecipe.recipes.put(this, new ArrayList<>() {{
-            add(new ItemStack(ModItems.NetherRune.get(), 4));
-            add(new ItemStack(ModItems.Ruby.get(), 128));
-            add(new ItemStack(ModItems.NetherQuartz.get(), 32));
+            add(new ItemStack(ModItems.NETHER_RUNE.get(), 4));
+            add(new ItemStack(ModItems.RUBY.get(), 128));
+            add(new ItemStack(ModItems.NETHER_QUARTZ.get(), 32));
             add(new ItemStack(Items.COAL, 192));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }});
@@ -78,6 +78,6 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
                 new StableAttributesModifier("witherBowActiveDefencePenetration0",
                         new int[]{4, 6, 8, 12}[tier], Tick.get() + 100));
 
-        Compute.sendEffectLastTime(player, ModItems.WitherBow0.get().getDefaultInstance(), 100);
+        Compute.sendEffectLastTime(player, ModItems.WITHER_BOW_0.get().getDefaultInstance(), 100);
     }
 }

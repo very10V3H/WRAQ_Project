@@ -98,16 +98,16 @@ public class FireLightSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.VolcanoSoul.get(), 1.2));
-            add(new ItemAndRate(ModItems.copperCoin.get(), 3));
+            add(new ItemAndRate(ModItems.VOLCANO_SOUL.get(), 1.2));
+            add(new ItemAndRate(ModItems.COPPER_COIN.get(), 3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.VolcanoCrest0.get(), 0.02));
-            add(new ItemAndRate(ModItems.VolcanoCrest1.get(), 0.005));
-            add(new ItemAndRate(ModItems.VolcanoCrest2.get(), 0.001));
-            add(new ItemAndRate(ModItems.VolcanoCrest3.get(), 0.0002));
-            add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.2));
-            add(new ItemAndRate(NewRuneItems.volcanoNewRune.get(), 0.001));
-            add(new ItemAndRate(C2LootItems.fireLightKnife.get(), 0.005));
+            add(new ItemAndRate(ModItems.VOLCANO_CREST_0.get(), 0.02));
+            add(new ItemAndRate(ModItems.VOLCANO_CREST_1.get(), 0.005));
+            add(new ItemAndRate(ModItems.VOLCANO_CREST_2.get(), 0.001));
+            add(new ItemAndRate(ModItems.VOLCANO_CREST_3.get(), 0.0002));
+            add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.2));
+            add(new ItemAndRate(NewRuneItems.VOLCANO_NEW_RUNE.get(), 0.001));
+            add(new ItemAndRate(C2LootItems.FIRE_LIGHT_KNIFE.get(), 0.005));
         }};
     }
 

@@ -283,14 +283,14 @@ public class Utils {
     public static ArrayList<Item> CoolDownItem = new ArrayList<>();
 
     public static void Init() {
-        BrewSoulMap.put(ModItems.PlainSoul.get(), ModItems.PlainSolidifiedSoul.get());
-        BrewSoulMap.put(ModItems.ForestSoul.get(), ModItems.ForestSolidifiedSoul.get());
-        BrewSoulMap.put(ModItems.LakeSoul.get(), ModItems.LakeSolidifiedSoul.get());
-        BrewSoulMap.put(ModItems.VolcanoSoul.get(), ModItems.VolcanoSolidifiedSoul.get());
-        BrewSoulMap.put(ModItems.SnowSoul.get(), ModItems.SnowSolidifiedSoul.get());
-        BrewSoulMap.put(ModItems.EvokerSoul.get(), ModItems.EvokerSolidifiedSoul.get());
-        BrewSoulMap.put(ModItems.Ruby.get(), ModItems.NetherSolidifiedSoul.get());
-        BrewSoulMap.put(ModItems.SkySoul.get(), ModItems.SkySolidifiedSoul.get());
+        BrewSoulMap.put(ModItems.PLAIN_SOUL.get(), ModItems.PLAIN_SOLIDIFIED_SOUL.get());
+        BrewSoulMap.put(ModItems.FOREST_SOUL.get(), ModItems.FOREST_SOLIDIFIED_SOUL.get());
+        BrewSoulMap.put(ModItems.LAKE_SOUL.get(), ModItems.LAKE_SOLIDIFIED_SOUL.get());
+        BrewSoulMap.put(ModItems.VOLCANO_SOUL.get(), ModItems.VOLCANO_SOLIDIFIED_SOUL.get());
+        BrewSoulMap.put(ModItems.SNOW_SOUL.get(), ModItems.SNOW_SOLIDIFIED_SOUL.get());
+        BrewSoulMap.put(ModItems.EVOKER_SOUL.get(), ModItems.EVOKER_SOLIDIFIED_SOUL.get());
+        BrewSoulMap.put(ModItems.RUBY.get(), ModItems.NETHER_SOLIDIFIED_SOUL.get());
+        BrewSoulMap.put(ModItems.SKY_SOUL.get(), ModItems.SKY_SOLIDIFIED_SOUL.get());
         MobEffectMap.put(ModEffects.PLAINARMOR.get(), true);
         MobEffectMap.put(ModEffects.FORESTARMOR.get(), true);
         MobEffectMap.put(ModEffects.VOLCANOARMOR.get(), true);
@@ -300,45 +300,45 @@ public class Utils {
         MobEffectMap.put(ModEffects.SKYARMOR.get(), true);
         MobEffectMap.put(ModEffects.LIGHTNINGARMOR.get(), true);
 
-        CoolDownItem.add(ModItems.PlainSword0.get());
-        CoolDownItem.add(ModItems.PlainSword1.get());
-        CoolDownItem.add(ModItems.PlainSword2.get());
-        CoolDownItem.add(ModItems.PlainSword3.get());
-        CoolDownItem.add(ModItems.ForestSword0.get());
-        CoolDownItem.add(ModItems.ForestSword1.get());
-        CoolDownItem.add(ModItems.ForestSword2.get());
-        CoolDownItem.add(ModItems.ForestSword3.get());
-        CoolDownItem.add(ModItems.ForestSword4.get());
-        CoolDownItem.add(ModItems.LakeSword3.get());
-        CoolDownItem.add(ModItems.VolcanoSword0.get());
-        CoolDownItem.add(ModItems.VolcanoSword1.get());
-        CoolDownItem.add(ModItems.VolcanoSword2.get());
-        CoolDownItem.add(ModItems.VolcanoSword3.get());
-        CoolDownItem.add(ModItems.VolcanoSword4.get());
-        CoolDownItem.add(ModItems.SnowSword3.get());
-        CoolDownItem.add(ModItems.SnowSword4.get());
-        CoolDownItem.add(ModItems.ManaSword.get());
-        CoolDownItem.add(ModItems.ManaSword1.get());
-        CoolDownItem.add(ModItems.QuartzSabre.get());
-        CoolDownItem.add(ModItems.QuartzSword.get());
-        CoolDownItem.add(ModItems.SeaSword0.get());
-        CoolDownItem.add(ModItems.SeaSword1.get());
-        CoolDownItem.add(ModItems.SeaSword2.get());
-        CoolDownItem.add(ModItems.SeaSword3.get());
-        CoolDownItem.add(ModItems.SeaSword4.get());
-        CoolDownItem.add(ModItems.huskSword0.get());
-        CoolDownItem.add(ModItems.huskSword1.get());
-        CoolDownItem.add(ModItems.huskSword2.get());
-        CoolDownItem.add(ModItems.huskSword3.get());
-        CoolDownItem.add(ModItems.BlackForestSword4.get());
-        CoolDownItem.add(ModItems.KazeSword0.get());
-        CoolDownItem.add(ModItems.KazeSword1.get());
-        CoolDownItem.add(ModItems.KazeSword2.get());
-        CoolDownItem.add(ModItems.KazeSword3.get());
-        CoolDownItem.add(ModItems.KazeSword4.get());
-        CoolDownItem.add(ModItems.ForestBossSword.get());
-        CoolDownItem.add(ModItems.VolcanoBossSword.get());
-        CoolDownItem.add(ModItems.SakuraDemonSword.get());
+        CoolDownItem.add(ModItems.PLAIN_SWORD_0.get());
+        CoolDownItem.add(ModItems.PLAIN_SWORD_1.get());
+        CoolDownItem.add(ModItems.PLAIN_SWORD_2.get());
+        CoolDownItem.add(ModItems.PLAIN_SWORD_3.get());
+        CoolDownItem.add(ModItems.FOREST_SWORD_0.get());
+        CoolDownItem.add(ModItems.FOREST_SWORD_1.get());
+        CoolDownItem.add(ModItems.FOREST_SWORD_2.get());
+        CoolDownItem.add(ModItems.FOREST_SWORD_3.get());
+        CoolDownItem.add(ModItems.FOREST_SWORD_4.get());
+        CoolDownItem.add(ModItems.LAKE_SWORD_3.get());
+        CoolDownItem.add(ModItems.VOLCANO_SWORD_0.get());
+        CoolDownItem.add(ModItems.VOLCANO_SWORD_1.get());
+        CoolDownItem.add(ModItems.VOLCANO_SWORD_2.get());
+        CoolDownItem.add(ModItems.VOLCANO_SWORD_3.get());
+        CoolDownItem.add(ModItems.VOLCANO_SWORD_4.get());
+        CoolDownItem.add(ModItems.SNOW_SWORD_3.get());
+        CoolDownItem.add(ModItems.SNOW_SWORD_4.get());
+        CoolDownItem.add(ModItems.MANA_SWORD.get());
+        CoolDownItem.add(ModItems.MANA_SWORD_1.get());
+        CoolDownItem.add(ModItems.QUARTZ_SABRE.get());
+        CoolDownItem.add(ModItems.QUARTZ_SWORD.get());
+        CoolDownItem.add(ModItems.SEA_SWORD_0.get());
+        CoolDownItem.add(ModItems.SEA_SWORD_1.get());
+        CoolDownItem.add(ModItems.SEA_SWORD_2.get());
+        CoolDownItem.add(ModItems.SEA_SWORD_3.get());
+        CoolDownItem.add(ModItems.SEA_SWORD_4.get());
+        CoolDownItem.add(ModItems.HUSK_SWORD_0.get());
+        CoolDownItem.add(ModItems.HUSK_SWORD_1.get());
+        CoolDownItem.add(ModItems.HUSK_SWORD_2.get());
+        CoolDownItem.add(ModItems.HUSK_SWORD_3.get());
+        CoolDownItem.add(ModItems.HUSK_SWORD_4.get());
+        CoolDownItem.add(ModItems.KAZE_SWORD_0.get());
+        CoolDownItem.add(ModItems.KAZE_SWORD_1.get());
+        CoolDownItem.add(ModItems.KAZE_SWORD_2.get());
+        CoolDownItem.add(ModItems.KAZE_SWORD_3.get());
+        CoolDownItem.add(ModItems.KAZE_SWORD_4.get());
+        CoolDownItem.add(ModItems.FOREST_BOSS_SWORD.get());
+        CoolDownItem.add(ModItems.VOLCANO_BOSS_SWORD.get());
+        CoolDownItem.add(ModItems.SAKURA_SWORD.get());
     }
 
     public static HashMap<String, ParticleOptions> ParticleStringToParticleMap = new HashMap<>() {{
@@ -472,21 +472,21 @@ public class Utils {
     public static List<Item> SoulList = new ArrayList<>();
 
     public static void SoulListInit() {
-        SoulList.add(ModItems.PlainSoul.get());
-        SoulList.add(ModItems.ForestSoul.get());
-        SoulList.add(ModItems.LakeSoul.get());
-        SoulList.add(ModItems.VolcanoSoul.get());
-        SoulList.add(ModItems.MineSoul.get());
-        SoulList.add(ModItems.FieldSoul.get());
-        SoulList.add(ModItems.SnowSoul.get());
-        SoulList.add(ModItems.SkySoul.get());
-        SoulList.add(ModItems.EvokerSoul.get());
-        SoulList.add(ModItems.SeaSoul.get());
-        SoulList.add(ModItems.LightningSoul.get());
-        SoulList.add(ModItems.huskSoul.get());
-        SoulList.add(ModItems.KazeSoul.get());
-        SoulList.add(ModItems.SpiderSoul.get());
-        SoulList.add(ModItems.PlainSoul.get());
+        SoulList.add(ModItems.PLAIN_SOUL.get());
+        SoulList.add(ModItems.FOREST_SOUL.get());
+        SoulList.add(ModItems.LAKE_SOUL.get());
+        SoulList.add(ModItems.VOLCANO_SOUL.get());
+        SoulList.add(ModItems.MINE_SOUL.get());
+        SoulList.add(ModItems.FIELD_SOUL.get());
+        SoulList.add(ModItems.SNOW_SOUL.get());
+        SoulList.add(ModItems.SKY_SOUL.get());
+        SoulList.add(ModItems.EVOKER_SOUL.get());
+        SoulList.add(ModItems.SEA_SOUL.get());
+        SoulList.add(ModItems.LIGHTNING_SOUL.get());
+        SoulList.add(ModItems.HUSK_SOUL.get());
+        SoulList.add(ModItems.KAZE_SOUL.get());
+        SoulList.add(ModItems.SPIDER_SOUL.get());
+        SoulList.add(ModItems.PLAIN_SOUL.get());
     }
 
     public static Map<Item, Item> WorldSoulMap = new HashMap<>();
@@ -519,10 +519,10 @@ public class Utils {
     public static Map<Item, String> SoulBagsMap = new HashMap<>();
 
     public static void SoulBagsInit() {
-        SoulBagsMap.put(ModItems.PlainSoul.get(), StringUtils.PlainSoulCount);
-        SoulBagsMap.put(ModItems.ForestSoul.get(), StringUtils.ForestSoulCount);
-        SoulBagsMap.put(ModItems.LakeSoul.get(), StringUtils.LakeSoulCount);
-        SoulBagsMap.put(ModItems.VolcanoSoul.get(), StringUtils.VolcanoSoulCount);
+        SoulBagsMap.put(ModItems.PLAIN_SOUL.get(), StringUtils.PlainSoulCount);
+        SoulBagsMap.put(ModItems.FOREST_SOUL.get(), StringUtils.ForestSoulCount);
+        SoulBagsMap.put(ModItems.LAKE_SOUL.get(), StringUtils.LakeSoulCount);
+        SoulBagsMap.put(ModItems.VOLCANO_SOUL.get(), StringUtils.VolcanoSoulCount);
     }
 
     public static Map<Player, PlayerTeam> playerTeamMap = new WeakHashMap<>();
@@ -557,10 +557,10 @@ public class Utils {
     public static Map<String, Item> ManaCoreMap = new HashMap<>();
 
     public static void setManaCoreMap() {
-        ManaCoreMap.put(StringUtils.ManaCore.SeaCore, ModItems.SeaManaCore.get());
-        ManaCoreMap.put(StringUtils.ManaCore.BlackForestCore, ModItems.BlackForestManaCore.get());
-        ManaCoreMap.put(StringUtils.ManaCore.KazeCore, ModItems.KazeManaCore.get());
-        ManaCoreMap.put(StringUtils.ManaCore.SakuraCore, ModItems.SakuraCore.get());
+        ManaCoreMap.put(StringUtils.ManaCore.SeaCore, ModItems.SEA_MANA_CORE.get());
+        ManaCoreMap.put(StringUtils.ManaCore.BlackForestCore, ModItems.BLACK_FOREST_MANA_CORE.get());
+        ManaCoreMap.put(StringUtils.ManaCore.KazeCore, ModItems.KAZE_MANA_CORE.get());
+        ManaCoreMap.put(StringUtils.ManaCore.SakuraCore, ModItems.SAKURA_MANA_CORE.get());
     }
 
     public static Map<String, Boolean> playerSakuraCoreMap = new HashMap<>();
@@ -583,17 +583,17 @@ public class Utils {
 
     public static void setMissionItemList() {
         Item[] items = new Item[]{
-                ModItems.PlainSoul.get(), ModItems.ForestSoul.get(), ModItems.LakeSoul.get(), ModItems.MineSoul.get(),
-                ModItems.SpiderSoul.get(), ModItems.VolcanoSoul.get(), ModItems.EvokerSoul.get(), ModItems.wolfLeather.get(),
-                ModItems.SkySoul.get(), ModItems.SlimeBall.get(), ModItems.PurpleIronPiece.get(), ModItems.Ruby.get(),
-                ModItems.KazeSoul.get(), ModItems.huskSoul.get(), ModItems.LightningSoul.get(), ModItems.SeaSoul.get(),
-                ModItems.witherSkeletonSoul.get(), ModItems.magmaSoul.get(), ModItems.netherSkeletonSoul.get(), ModItems.PigLinSoul.get(),
+                ModItems.PLAIN_SOUL.get(), ModItems.FOREST_SOUL.get(), ModItems.LAKE_SOUL.get(), ModItems.MINE_SOUL.get(),
+                ModItems.SPIDER_SOUL.get(), ModItems.VOLCANO_SOUL.get(), ModItems.EVOKER_SOUL.get(), ModItems.WOLF_LEATHER.get(),
+                ModItems.SKY_SOUL.get(), ModItems.SLIME_BALL.get(), ModItems.PURPLE_IRON_PIECE.get(), ModItems.RUBY.get(),
+                ModItems.KAZE_SOUL.get(), ModItems.HUSK_SOUL.get(), ModItems.LIGHTNING_SOUL.get(), ModItems.SEA_SOUL.get(),
+                ModItems.WITHER_SKELETON_SOUL.get(), ModItems.MAGMA_SOUL.get(), ModItems.NETHER_SKELETON_SOUL.get(), ModItems.PIGLIN_SOUL.get(),
 
-                ModItems.SnowSoul.get(), ModItems.RecallPiece.get(), ModItems.ShipPiece.get(), ModItems.BloodManaSoul.get(),
-                ModItems.EarthManaSoul.get(), ModItems.SakuraPetal.get(), ModItems.EnderMiteSoul.get(), ModItems.ShulkerSoul.get(),
+                ModItems.SNOW_SOUL.get(), ModItems.RECALL_PIECE.get(), ModItems.SHIP_PIECE.get(), ModItems.BLOOD_MANA_SOUL.get(),
+                ModItems.EARTH_MANA_SOUL.get(), ModItems.SAKURA_PETAL.get(), ModItems.ENDER_MITE_SOUL.get(), ModItems.SHULKER_SOUL.get(),
 
-                ModItems.BeaconSoul.get(), ModItems.BlazeSoul.get(), ModItems.TreeSoul.get(), ModItems.StarSoul.get(),
-                C7Items.boneImpSoul.get()
+                ModItems.BEACON_SOUL.get(), ModItems.BLAZE_SOUL.get(), ModItems.TREE_SOUL.get(), ModItems.STAR_SOUL.get(),
+                C7Items.BONE_IMP_SOUL.get()
         };
         Collections.addAll(missionItemList, items);
     }
@@ -613,19 +613,19 @@ public class Utils {
     public static List<Item> ReputationStoreItemList = new ArrayList<>();
 
     public static void setReputationStoreItemList() {
-        ReputationStoreItemList.add(ModItems.ReputationMedal.get());
-        ReputationStoreItemList.add(ModItems.GoldCoinBag.get());
-        ReputationStoreItemList.add(ModItems.commonLotteries.get());
-        ReputationStoreItemList.add(ModItems.UnCommonLotteries.get());
+        ReputationStoreItemList.add(ModItems.REPUTATION_MEDAL.get());
+        ReputationStoreItemList.add(ModItems.GOLD_COIN_BAG.get());
+        ReputationStoreItemList.add(ModItems.COMMON_LOTTERIES.get());
+        ReputationStoreItemList.add(ModItems.UNCOMMON_LOTTERIES.get());
     }
 
     public static Map<Item, Integer> ReputationStorePrice = new HashMap<>();
 
     public static void setReputationStorePrice() {
-        ReputationStorePrice.put(ModItems.ReputationMedal.get(), 64);
-        ReputationStorePrice.put(ModItems.GoldCoinBag.get(), 16);
-        ReputationStorePrice.put(ModItems.commonLotteries.get(), 32);
-        ReputationStorePrice.put(ModItems.UnCommonLotteries.get(), 64);
+        ReputationStorePrice.put(ModItems.REPUTATION_MEDAL.get(), 64);
+        ReputationStorePrice.put(ModItems.GOLD_COIN_BAG.get(), 16);
+        ReputationStorePrice.put(ModItems.COMMON_LOTTERIES.get(), 32);
+        ReputationStorePrice.put(ModItems.UNCOMMON_LOTTERIES.get(), 64);
     }
 
     public static Map<BlockPos, Player> whoIsUsingBlock = new HashMap<>();

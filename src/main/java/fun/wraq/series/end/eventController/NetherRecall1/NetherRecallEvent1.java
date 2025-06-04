@@ -102,9 +102,9 @@ public class NetherRecallEvent1 {
                             if (Utils.NetherRecallWither != null)
                                 Utils.NetherRecallWither.remove(Entity.RemovalReason.KILLED);
                             Utils.NetherRecallWither = new WitherSkeleton(EntityType.WITHER_SKELETON, level1);
-                            MobSpawn.setMobCustomName(Utils.NetherRecallWither, ModItems.ArmorNetherRecall.get(), Component.literal("模糊记忆中的下界凋零骷髅").withStyle(style));
-                            Utils.NetherRecallWither.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorNetherRecall.get().getDefaultInstance());
-                            Utils.NetherRecallWither.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ManaSword1.get().getDefaultInstance());
+                            MobSpawn.setMobCustomName(Utils.NetherRecallWither, ModItems.ARMOR_NETHER_RECALL.get(), Component.literal("模糊记忆中的下界凋零骷髅").withStyle(style));
+                            Utils.NetherRecallWither.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_NETHER_RECALL.get().getDefaultInstance());
+                            Utils.NetherRecallWither.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MANA_SWORD_1.get().getDefaultInstance());
                             Utils.NetherRecallWither.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.NetherRecallWither.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.NetherRecallWither.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);
@@ -150,7 +150,7 @@ public class NetherRecallEvent1 {
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.NetherRecallSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.NETHER_RECALL_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.netherRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 2);
@@ -167,7 +167,7 @@ public class NetherRecallEvent1 {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.NetherSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.NETHER_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.netherRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 2);

@@ -26,424 +26,404 @@ public class InjectRecipe {
     public static Map<Item, List<InjectingRecipe>> injectingWaysMap = new HashMap<>();
 
     public static void setInjectingRecipeMap() {
-        injectingRecipeMap.put(ModItems.PlainSword0.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 1,
-                        ModItems.PlainSword1.get()));
-        injectingRecipeMap.put(ModItems.PlainSword1.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 2,
-                        ModItems.PlainSword2.get()));
-        injectingRecipeMap.put(ModItems.PlainSword2.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 3,
-                        ModItems.PlainSword3.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_SWORD_0.get(),
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 1,
+                        ModItems.PLAIN_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_SWORD_1.get(),
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 2,
+                        ModItems.PLAIN_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_SWORD_2.get(),
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 3,
+                        ModItems.PLAIN_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.PlainBow0.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 1,
-                        ModItems.PlainBow1.get()));
-        injectingRecipeMap.put(ModItems.PlainBow1.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 2,
-                        ModItems.PlainBow2.get()));
-        injectingRecipeMap.put(ModItems.PlainBow2.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 3,
-                        ModItems.PlainBow3.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_BOW_0.get(),
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 1,
+                        ModItems.PLAIN_BOW_1.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_BOW_1.get(),
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 2,
+                        ModItems.PLAIN_BOW_2.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_BOW_2.get(),
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 3,
+                        ModItems.PLAIN_BOW_3.get()));
 
         injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_0.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 1,
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 1,
                         ModItems.LIFE_SCEPTRE_1.get()));
         injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_1.get(),
-                new InjectingRecipe(ModItems.PlainRune.get(), 2,
+                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 2,
                         ModItems.LIFE_SCEPTRE_2.get()));
         injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_2.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 3,
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 3,
                         ModItems.LIFE_SCEPTRE_3.get()));
 
-        injectingRecipeMap.put(ModItems.ForestSword0.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 1,
-                        ModItems.ForestSword1.get()));
-        injectingRecipeMap.put(ModItems.ForestSword1.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 2,
-                        ModItems.ForestSword2.get()));
-        injectingRecipeMap.put(ModItems.ForestSword2.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 3,
-                        ModItems.ForestSword3.get()));
+        injectingRecipeMap.put(ModItems.FOREST_SWORD_0.get(),
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 1,
+                        ModItems.FOREST_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.FOREST_SWORD_1.get(),
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 2,
+                        ModItems.FOREST_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.FOREST_SWORD_2.get(),
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 3,
+                        ModItems.FOREST_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.ForestBow0.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 1,
-                        ModItems.ForestBow1.get()));
-        injectingRecipeMap.put(ModItems.ForestBow1.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 2,
-                        ModItems.ForestBow2.get()));
-        injectingRecipeMap.put(ModItems.ForestBow2.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 3,
-                        ModItems.ForestBow3.get()));
+        injectingRecipeMap.put(ModItems.FOREST_BOW_0.get(),
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 1,
+                        ModItems.FOREST_BOW_1.get()));
+        injectingRecipeMap.put(ModItems.FOREST_BOW_1.get(),
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 2,
+                        ModItems.FOREST_BOW_2.get()));
+        injectingRecipeMap.put(ModItems.FOREST_BOW_2.get(),
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 3,
+                        ModItems.FOREST_BOW_3.get()));
 
-        injectingRecipeMap.put(ModItems.LakeSword0.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 1,
-                        ModItems.LakeSword1.get()));
-        injectingRecipeMap.put(ModItems.LakeSword1.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 2,
-                        ModItems.LakeSword2.get()));
-        injectingRecipeMap.put(ModItems.LakeSword2.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 3,
-                        ModItems.LakeSword3.get()));
+        injectingRecipeMap.put(ModItems.LAKE_SWORD_0.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 1,
+                        ModItems.LAKE_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.LAKE_SWORD_1.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 2,
+                        ModItems.LAKE_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.LAKE_SWORD_2.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 3,
+                        ModItems.LAKE_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.lakeBow0.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 1,
-                        ModItems.lakeBow1.get()));
-        injectingRecipeMap.put(ModItems.lakeBow1.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 2,
-                        ModItems.lakeBow2.get()));
-        injectingRecipeMap.put(ModItems.lakeBow2.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 3,
-                        ModItems.lakeBow3.get()));
+        injectingRecipeMap.put(ModItems.LAKE_BOW_0.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 1,
+                        ModItems.LAKE_BOW_1.get()));
+        injectingRecipeMap.put(ModItems.LAKE_BOW_1.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 2,
+                        ModItems.LAKE_BOW_2.get()));
+        injectingRecipeMap.put(ModItems.LAKE_BOW_2.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 3,
+                        ModItems.LAKE_BOW_3.get()));
 
-        injectingRecipeMap.put(ModItems.lakeSceptre0.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 1,
-                        ModItems.lakeSceptre1.get()));
-        injectingRecipeMap.put(ModItems.lakeSceptre1.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 2,
-                        ModItems.lakeSceptre2.get()));
-        injectingRecipeMap.put(ModItems.lakeSceptre2.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 3,
-                        ModItems.lakeSceptre3.get()));
+        injectingRecipeMap.put(ModItems.LAKE_SCEPTRE_0.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 1,
+                        ModItems.LAKE_SCEPTRE_1.get()));
+        injectingRecipeMap.put(ModItems.LAKE_SCEPTRE_1.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 2,
+                        ModItems.LAKE_SCEPTRE_2.get()));
+        injectingRecipeMap.put(ModItems.LAKE_SCEPTRE_2.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 3,
+                        ModItems.LAKE_SCEPTRE_3.get()));
 
-        injectingRecipeMap.put(ModItems.VolcanoSword0.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 1,
-                        ModItems.VolcanoSword1.get()));
-        injectingRecipeMap.put(ModItems.VolcanoSword1.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 2,
-                        ModItems.VolcanoSword2.get()));
-        injectingRecipeMap.put(ModItems.VolcanoSword2.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 3,
-                        ModItems.VolcanoSword3.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_0.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 1,
+                        ModItems.VOLCANO_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_1.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 2,
+                        ModItems.VOLCANO_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_2.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 3,
+                        ModItems.VOLCANO_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.VolcanoBow0.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 1,
-                        ModItems.VolcanoBow1.get()));
-        injectingRecipeMap.put(ModItems.VolcanoBow1.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 2,
-                        ModItems.VolcanoBow2.get()));
-        injectingRecipeMap.put(ModItems.VolcanoBow2.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 3,
-                        ModItems.VolcanoBow3.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_BOW_0.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 1,
+                        ModItems.VOLCANO_BOW_1.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_BOW_1.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 2,
+                        ModItems.VOLCANO_BOW_2.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_BOW_2.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 3,
+                        ModItems.VOLCANO_BOW_3.get()));
 
-        injectingRecipeMap.put(ModItems.MineSword0.get(),
-                new InjectingRecipe(ModItems.MineRune.get(), 1,
-                        ModItems.MineSword1.get()));
-        injectingRecipeMap.put(ModItems.MineSword1.get(),
-                new InjectingRecipe(ModItems.MineRune.get(), 2,
-                        ModItems.MineSword2.get()));
-        injectingRecipeMap.put(ModItems.MineSword2.get(),
-                new InjectingRecipe(ModItems.MineRune.get(), 3,
-                        ModItems.MineSword3.get()));
+        injectingRecipeMap.put(ModItems.MINE_SWORD_0.get(),
+                new InjectingRecipe(ModItems.MINE_RUNE.get(), 1,
+                        ModItems.MINE_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.MINE_SWORD_1.get(),
+                new InjectingRecipe(ModItems.MINE_RUNE.get(), 2,
+                        ModItems.MINE_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.MINE_SWORD_2.get(),
+                new InjectingRecipe(ModItems.MINE_RUNE.get(), 3,
+                        ModItems.MINE_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.FieldSword0.get(),
-                new InjectingRecipe(ModItems.FieldRune.get(), 1,
-                        ModItems.FieldSword1.get()));
-        injectingRecipeMap.put(ModItems.FieldSword1.get(),
-                new InjectingRecipe(ModItems.FieldRune.get(), 2,
-                        ModItems.FieldSword2.get()));
-        injectingRecipeMap.put(ModItems.FieldSword2.get(),
-                new InjectingRecipe(ModItems.FieldRune.get(), 3,
-                        ModItems.FieldSword3.get()));
+        injectingRecipeMap.put(ModItems.FIELD_SWORD_0.get(),
+                new InjectingRecipe(ModItems.FIELD_RUNE.get(), 1,
+                        ModItems.FIELD_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.FIELD_SWORD_1.get(),
+                new InjectingRecipe(ModItems.FIELD_RUNE.get(), 2,
+                        ModItems.FIELD_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.FIELD_SWORD_2.get(),
+                new InjectingRecipe(ModItems.FIELD_RUNE.get(), 3,
+                        ModItems.FIELD_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.SnowSword0.get(),
-                new InjectingRecipe(ModItems.SnowRune.get(), 1,
-                        ModItems.SnowSword1.get()));
-        injectingRecipeMap.put(ModItems.SnowSword1.get(),
-                new InjectingRecipe(ModItems.SnowRune.get(), 2,
-                        ModItems.SnowSword2.get()));
-        injectingRecipeMap.put(ModItems.SnowSword2.get(),
-                new InjectingRecipe(ModItems.SnowRune.get(), 3,
-                        ModItems.SnowSword3.get()));
+        injectingRecipeMap.put(ModItems.SNOW_SWORD_0.get(),
+                new InjectingRecipe(ModItems.SNOW_RUNE.get(), 1,
+                        ModItems.SNOW_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.SNOW_SWORD_1.get(),
+                new InjectingRecipe(ModItems.SNOW_RUNE.get(), 2,
+                        ModItems.SNOW_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.SNOW_SWORD_2.get(),
+                new InjectingRecipe(ModItems.SNOW_RUNE.get(), 3,
+                        ModItems.SNOW_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.SeaSword0.get(),
-                new InjectingRecipe(ModItems.SeaRune.get(), 1,
-                        ModItems.SeaSword1.get()));
-        injectingRecipeMap.put(ModItems.SeaSword1.get(),
-                new InjectingRecipe(ModItems.SeaRune.get(), 2,
-                        ModItems.SeaSword2.get()));
-        injectingRecipeMap.put(ModItems.SeaSword2.get(),
-                new InjectingRecipe(ModItems.SeaRune.get(), 3,
-                        ModItems.SeaSword3.get()));
+        injectingRecipeMap.put(ModItems.SEA_SWORD_0.get(),
+                new InjectingRecipe(ModItems.SEA_RUNE.get(), 1,
+                        ModItems.SEA_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.SEA_SWORD_1.get(),
+                new InjectingRecipe(ModItems.SEA_RUNE.get(), 2,
+                        ModItems.SEA_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.SEA_SWORD_2.get(),
+                new InjectingRecipe(ModItems.SEA_RUNE.get(), 3,
+                        ModItems.SEA_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.huskSword0.get(),
+        injectingRecipeMap.put(ModItems.HUSK_SWORD_0.get(),
                 new InjectingRecipe(ModItems.HUSK_RUNE.get(), 1,
-                        ModItems.huskSword1.get()));
-        injectingRecipeMap.put(ModItems.huskSword1.get(),
+                        ModItems.HUSK_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.HUSK_SWORD_1.get(),
                 new InjectingRecipe(ModItems.HUSK_RUNE.get(), 2,
-                        ModItems.huskSword2.get()));
-        injectingRecipeMap.put(ModItems.huskSword2.get(),
+                        ModItems.HUSK_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.HUSK_SWORD_2.get(),
                 new InjectingRecipe(ModItems.HUSK_RUNE.get(), 3,
-                        ModItems.huskSword3.get()));
+                        ModItems.HUSK_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.KazeSword0.get(),
+        injectingRecipeMap.put(ModItems.KAZE_SWORD_0.get(),
                 new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 1,
-                        ModItems.KazeSword1.get()));
-        injectingRecipeMap.put(ModItems.KazeSword1.get(),
+                        ModItems.KAZE_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.KAZE_SWORD_1.get(),
                 new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 2,
-                        ModItems.KazeSword2.get()));
-        injectingRecipeMap.put(ModItems.KazeSword2.get(),
+                        ModItems.KAZE_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.KAZE_SWORD_2.get(),
                 new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 3,
-                        ModItems.KazeSword3.get()));
+                        ModItems.KAZE_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.WitherSword0.get(),
+        injectingRecipeMap.put(ModItems.WITHER_SWORD_0.get(),
                 new InjectingRecipe(ModItems.WITHER_RUNE.get(), 1,
-                        ModItems.WitherSword1.get()));
-        injectingRecipeMap.put(ModItems.WitherSword1.get(),
+                        ModItems.WITHER_SWORD_1.get()));
+        injectingRecipeMap.put(ModItems.WITHER_SWORD_1.get(),
                 new InjectingRecipe(ModItems.WITHER_RUNE.get(), 2,
-                        ModItems.WitherSword2.get()));
-        injectingRecipeMap.put(ModItems.WitherSword2.get(),
+                        ModItems.WITHER_SWORD_2.get()));
+        injectingRecipeMap.put(ModItems.WITHER_SWORD_2.get(),
                 new InjectingRecipe(ModItems.WITHER_RUNE.get(), 3,
-                        ModItems.WitherSword3.get()));
+                        ModItems.WITHER_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.WitherBow0.get(),
-                new InjectingRecipe(ModItems.NetherRune.get(), 1,
-                        ModItems.WitherBow1.get()));
-        injectingRecipeMap.put(ModItems.WitherBow1.get(),
-                new InjectingRecipe(ModItems.NetherRune.get(), 2,
-                        ModItems.WitherBow2.get()));
-        injectingRecipeMap.put(ModItems.WitherBow2.get(),
-                new InjectingRecipe(ModItems.NetherRune.get(), 3,
-                        ModItems.WitherBow3.get()));
+        injectingRecipeMap.put(ModItems.WITHER_BOW_0.get(),
+                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 1,
+                        ModItems.WITHER_BOW_1.get()));
+        injectingRecipeMap.put(ModItems.WITHER_BOW_1.get(),
+                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 2,
+                        ModItems.WITHER_BOW_2.get()));
+        injectingRecipeMap.put(ModItems.WITHER_BOW_2.get(),
+                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 3,
+                        ModItems.WITHER_BOW_3.get()));
 
-        injectingRecipeMap.put(ModItems.MagmaSceptre0.get(),
-                new InjectingRecipe(ModItems.MagmaRune.get(), 1,
-                        ModItems.MagmaSceptre1.get()));
-        injectingRecipeMap.put(ModItems.MagmaSceptre1.get(),
-                new InjectingRecipe(ModItems.MagmaRune.get(), 2,
-                        ModItems.MagmaSceptre2.get()));
-        injectingRecipeMap.put(ModItems.MagmaSceptre2.get(),
-                new InjectingRecipe(ModItems.MagmaRune.get(), 3,
-                        ModItems.MagmaSceptre3.get()));
+        injectingRecipeMap.put(ModItems.MAGMA_SCEPTRE_0.get(),
+                new InjectingRecipe(ModItems.MAGMA_RUNE.get(), 1,
+                        ModItems.MAGMA_SCEPTRE_1.get()));
+        injectingRecipeMap.put(ModItems.MAGMA_SCEPTRE_1.get(),
+                new InjectingRecipe(ModItems.MAGMA_RUNE.get(), 2,
+                        ModItems.MAGMA_SCEPTRE_2.get()));
+        injectingRecipeMap.put(ModItems.MAGMA_SCEPTRE_2.get(),
+                new InjectingRecipe(ModItems.MAGMA_RUNE.get(), 3,
+                        ModItems.MAGMA_SCEPTRE_3.get()));
 
-        injectingRecipeMap.put(ModItems.PiglinHelmet0.get(),
+        injectingRecipeMap.put(ModItems.PIGLIN_HELMET_0.get(),
                 new InjectingRecipe(ModItems.PIGLIN_RUNE.get(), 1,
-                        ModItems.PiglinHelmet1.get()));
-        injectingRecipeMap.put(ModItems.PiglinHelmet1.get(),
+                        ModItems.PIGLIN_HELMET_1.get()));
+        injectingRecipeMap.put(ModItems.PIGLIN_HELMET_1.get(),
                 new InjectingRecipe(ModItems.PIGLIN_RUNE.get(), 2,
-                        ModItems.PiglinHelmet2.get()));
-        injectingRecipeMap.put(ModItems.PiglinHelmet2.get(),
+                        ModItems.PIGLIN_HELMET_2.get()));
+        injectingRecipeMap.put(ModItems.PIGLIN_HELMET_2.get(),
                 new InjectingRecipe(ModItems.PIGLIN_RUNE.get(), 3,
-                        ModItems.PiglinHelmet3.get()));
+                        ModItems.PIGLIN_HELMET_3.get()));
 
-        injectingRecipeMap.put(ModItems.LightningRune.get(),
-                new InjectingRecipe(10, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.LightningPower.get()));
-
-        injectingRecipeMap.put(ModItems.KazeRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.KAZE_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedKazeSoul.get()));
+                        ModItems.INTENSIFIED_KAZE_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.SpiderRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.SPIDER_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedSpiderSoul.get()));
+                        ModItems.INTENSIFIED_SPIDER_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.BlackForestRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.BLACK_FOREST_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedBlackForestSoul.get()));
+                        ModItems.INTENSIFIED_BLACK_FOREST_SOUL.get()));
 
 
-        injectingRecipeMap.put(ModItems.SeaRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.SEA_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedSeaSoul.get()));
+                        ModItems.INTENSIFIED_SEA_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.LightningRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.LIGHTNING_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedLightningSoul.get()));
+                        ModItems.INTENSIFIED_LIGHTNING_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.NetherRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.NETHER_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedNetherSoul.get()));
+                        ModItems.INTENSIFIED_NETHER_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.SnowRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.SNOW_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedSnowSoul.get()));
+                        ModItems.INTENSIFIED_SNOW_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.LightningRecallSoul.get(),
+        injectingRecipeMap.put(ModItems.LIGHTNING_RECALL_SOUL.get(),
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
-                        ModItems.IntensifiedLightningSoul.get()));
+                        ModItems.INTENSIFIED_LIGHTNING_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.KazeSoul.get(),
+        injectingRecipeMap.put(ModItems.KAZE_SOUL.get(),
                 new InjectingRecipe(64, ModItems.LAKE_CORE.get(), 6,
-                        ModItems.KazeRune.get()));
+                        ModItems.KAZE_RUNE.get()));
 
-        injectingRecipeMap.put(ModItems.SeaSoul.get(),
-                new InjectingRecipe(64, ModItems.SunPower.get(), 6,
-                        ModItems.SeaRune.get()));
+        injectingRecipeMap.put(ModItems.SEA_SOUL.get(),
+                new InjectingRecipe(64, ModItems.SUN_POWER.get(), 6,
+                        ModItems.SEA_RUNE.get()));
 
-        injectingRecipeMap.put(ModItems.huskSoul.get(),
-                new InjectingRecipe(64, ModItems.SunPower.get(), 6,
+        injectingRecipeMap.put(ModItems.HUSK_SOUL.get(),
+                new InjectingRecipe(64, ModItems.SUN_POWER.get(), 6,
                         ModItems.HUSK_RUNE.get()));
 
-        injectingRecipeMap.put(ModItems.LightningSoul.get(),
+        injectingRecipeMap.put(ModItems.LIGHTNING_SOUL.get(),
                 new InjectingRecipe(64, PickaxeItems.TINKER_IRON.get(), 1,
-                        ModItems.LightningRune.get()));
+                        ModItems.LIGHTNING_RUNE.get()));
 
-        injectingRecipeMap.put(ModItems.KazeSword3.get(),
-                new InjectingRecipe(ModItems.IntensifiedKazeSoul.get(), 1,
-                        ModItems.KazeSword4.get()));
+        injectingRecipeMap.put(ModItems.KAZE_SWORD_3.get(),
+                new InjectingRecipe(ModItems.INTENSIFIED_KAZE_SOUL.get(), 1,
+                        ModItems.KAZE_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.SBoots.get(),
-                new InjectingRecipe(ModItems.IntensifiedSpiderSoul.get(), 1,
-                        ModItems.ISArmorBoots.get()));
+        injectingRecipeMap.put(ModItems.HUSK_SWORD_3.get(),
+                new InjectingRecipe(ModItems.INTENSIFIED_BLACK_FOREST_SOUL.get(), 1,
+                        ModItems.HUSK_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.SLeggings.get(),
-                new InjectingRecipe(ModItems.IntensifiedSpiderSoul.get(), 1,
-                        ModItems.ISArmorLeggings.get()));
-
-        injectingRecipeMap.put(ModItems.SChest.get(),
-                new InjectingRecipe(ModItems.IntensifiedSpiderSoul.get(), 1,
-                        ModItems.ISArmorChest.get()));
-
-        injectingRecipeMap.put(ModItems.SHelmet.get(),
-                new InjectingRecipe(ModItems.IntensifiedSpiderSoul.get(), 1,
-                        ModItems.ISArmorHelmet.get()));
-
-        injectingRecipeMap.put(ModItems.huskSword3.get(),
-                new InjectingRecipe(ModItems.IntensifiedBlackForestSoul.get(), 1,
-                        ModItems.BlackForestSword4.get()));
-
-        injectingRecipeMap.put(ModItems.SeaSword3.get(),
-                new InjectingRecipe(ModItems.IntensifiedSeaSoul.get(), 1,
-                        ModItems.SeaSword4.get()));
+        injectingRecipeMap.put(ModItems.SEA_SWORD_3.get(),
+                new InjectingRecipe(ModItems.INTENSIFIED_SEA_SOUL.get(), 1,
+                        ModItems.SEA_SWORD_4.get()));
 
         injectingRecipeMap.put(ModItems.LIGHTNING_HELMET.get(),
-                new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
-                        ModItems.ILArmorHelmet.get()));
+                new InjectingRecipe(ModItems.INTENSIFIED_LIGHTNING_SOUL.get(), 1,
+                        ModItems.IL_HELMET.get()));
 
         injectingRecipeMap.put(ModItems.LIGHTNING_CHEST.get(),
-                new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
-                        ModItems.ILArmorChest.get()));
+                new InjectingRecipe(ModItems.INTENSIFIED_LIGHTNING_SOUL.get(), 1,
+                        ModItems.IL_CHEST.get()));
 
         injectingRecipeMap.put(ModItems.LIGHTNING_LEGGINGS.get(),
-                new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
-                        ModItems.ILArmorLeggings.get()));
+                new InjectingRecipe(ModItems.INTENSIFIED_LIGHTNING_SOUL.get(), 1,
+                        ModItems.IL_LEGGINGS.get()));
 
         injectingRecipeMap.put(ModItems.LIGHTNING_BOOTS.get(),
-                new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
-                        ModItems.ILArmorBoots.get()));
+                new InjectingRecipe(ModItems.INTENSIFIED_LIGHTNING_SOUL.get(), 1,
+                        ModItems.IL_BOOTS.get()));
 
-        injectingRecipeMap.put(ModItems.ManaSword.get(),
-                new InjectingRecipe(ModItems.IntensifiedNetherSoul.get(), 1,
-                        ModItems.ManaSword1.get()));
+        injectingRecipeMap.put(ModItems.MANA_SWORD.get(),
+                new InjectingRecipe(ModItems.INTENSIFIED_NETHER_SOUL.get(), 1,
+                        ModItems.MANA_SWORD_1.get()));
 
-        injectingRecipeMap.put(ModItems.SnowSword3.get(),
-                new InjectingRecipe(ModItems.IntensifiedSnowSoul.get(), 1,
-                        ModItems.SnowSword4.get()));
+        injectingRecipeMap.put(ModItems.SNOW_SWORD_3.get(),
+                new InjectingRecipe(ModItems.INTENSIFIED_SNOW_SOUL.get(), 1,
+                        ModItems.SNOW_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.ForestSword3.get(),
-                new InjectingRecipe(ModItems.IntensifiedForestRecallSoul.get(), 1,
-                        ModItems.ForestSword4.get()));
+        injectingRecipeMap.put(ModItems.FOREST_SWORD_3.get(),
+                new InjectingRecipe(ModItems.INTENSIFIED_FOREST_RECALL_SOUL.get(), 1,
+                        ModItems.FOREST_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.VolcanoSword3.get(),
-                new InjectingRecipe(ModItems.IntensifiedVolcanoSoul.get(), 1,
-                        ModItems.VolcanoSword4.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_3.get(),
+                new InjectingRecipe(ModItems.INTENSIFIED_VOLCANO_SOUL.get(), 1,
+                        ModItems.VOLCANO_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.MineSword3.get(),
-                new InjectingRecipe(ModItems.SnowRune.get(), 1,
-                        ModItems.SnowSword0.get()));
+        injectingRecipeMap.put(ModItems.MINE_SWORD_3.get(),
+                new InjectingRecipe(ModItems.SNOW_RUNE.get(), 1,
+                        ModItems.SNOW_SWORD_0.get()));
 
         injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_3.get(),
-                new InjectingRecipe(ModItems.ForestRune.get(), 2,
+                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 2,
                         ModItems.LIFE_SCEPTRE_X.get()));
 
-        injectingRecipeMap.put(ModItems.PlainAttackRing0.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainAttackRing1.get()));
-        injectingRecipeMap.put(ModItems.PlainAttackRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainAttackRing2.get()));
-        injectingRecipeMap.put(ModItems.PlainAttackRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainAttackRing3.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_ATTACK_RING_0.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_ATTACK_RING_1.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_ATTACK_RING_1.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_ATTACK_RING_2.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_ATTACK_RING_2.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_ATTACK_RING_3.get()));
 
-        injectingRecipeMap.put(ModItems.PlainManaAttackRing0.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainManaAttackRing1.get()));
-        injectingRecipeMap.put(ModItems.PlainManaAttackRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainManaAttackRing2.get()));
-        injectingRecipeMap.put(ModItems.PlainManaAttackRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainManaAttackRing3.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_MANA_RING_0.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_MANA_RING_1.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_MANA_RING_1.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_MANA_RING_2.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_MANA_RING_2.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_MANA_RING_3.get()));
 
-        injectingRecipeMap.put(ModItems.PlainHealthRing0.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainHealthRing1.get()));
-        injectingRecipeMap.put(ModItems.PlainHealthRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainHealthRing2.get()));
-        injectingRecipeMap.put(ModItems.PlainHealthRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainHealthRing3.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_HEALTH_RING_0.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_HEALTH_RING_1.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_HEALTH_RING_1.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_HEALTH_RING_2.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_HEALTH_RING_2.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_HEALTH_RING_3.get()));
 
-        injectingRecipeMap.put(ModItems.PlainDefenceRing0.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainDefenceRing1.get()));
-        injectingRecipeMap.put(ModItems.PlainDefenceRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainDefenceRing2.get()));
-        injectingRecipeMap.put(ModItems.PlainDefenceRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
-                        ModItems.PlainDefenceRing3.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_DEFENCE_RING_0.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_DEFENCE_RING_1.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_DEFENCE_RING_1.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_DEFENCE_RING_2.get()));
+        injectingRecipeMap.put(ModItems.PLAIN_DEFENCE_RING_2.get(),
+                new InjectingRecipe(ModItems.PLAIN_COMPLETE_GEM.get(), 1,
+                        ModItems.PLAIN_DEFENCE_RING_3.get()));
 
-        injectingRecipeMap.put(ModItems.PlainBossSoul.get(),
+        injectingRecipeMap.put(ModItems.PLAIN_BOSS_SOUL.get(),
                 new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 1,
-                        ModItems.PlainCompleteGem.get()));
+                        ModItems.PLAIN_COMPLETE_GEM.get()));
 
-        injectingRecipeMap.put(ModItems.IceSoul.get(),
+        injectingRecipeMap.put(ModItems.ICE_BOSS_SOUL.get(),
                 new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 1,
-                        ModItems.IceCompleteGem.get()));
+                        ModItems.ICE_COMPLETE_GEM.get()));
 
-        injectingRecipeMap.put(ModItems.VolcanoBow3.get(),
-                new InjectingRecipe(ModItems.QuartzRune.get(), 1,
-                        ModItems.NetherBow.get()));
+        injectingRecipeMap.put(ModItems.VOLCANO_BOW_3.get(),
+                new InjectingRecipe(ModItems.QUARTZ_RUNE.get(), 1,
+                        ModItems.NETHER_BOW.get()));
 
-        injectingRecipeMap.put(ModItems.MineBow0.get(),
-                new InjectingRecipe(ModItems.MineRune.get(), 1,
-                        ModItems.MineBow1.get()));
-        injectingRecipeMap.put(ModItems.MineBow1.get(),
-                new InjectingRecipe(ModItems.MineRune.get(), 2,
-                        ModItems.MineBow2.get()));
-        injectingRecipeMap.put(ModItems.MineBow2.get(),
-                new InjectingRecipe(ModItems.MineRune.get(), 3,
-                        ModItems.MineBow3.get()));
+        injectingRecipeMap.put(ModItems.MINE_BOW_0.get(),
+                new InjectingRecipe(ModItems.MINE_RUNE.get(), 1,
+                        ModItems.MINE_BOW_1.get()));
+        injectingRecipeMap.put(ModItems.MINE_BOW_1.get(),
+                new InjectingRecipe(ModItems.MINE_RUNE.get(), 2,
+                        ModItems.MINE_BOW_2.get()));
+        injectingRecipeMap.put(ModItems.MINE_BOW_2.get(),
+                new InjectingRecipe(ModItems.MINE_RUNE.get(), 3,
+                        ModItems.MINE_BOW_3.get()));
 
-        injectingRecipeMap.put(ModItems.LifeManaArmorHelmet.get(),
-                new InjectingRecipe(ModItems.NaturalCore.get(), 3,
-                        ModItems.LifeManaArmorHelmetE.get()));
+        injectingRecipeMap.put(ModItems.LIFE_MANA_HELMET.get(),
+                new InjectingRecipe(ModItems.NATURAL_CORE.get(), 3,
+                        ModItems.LIFE_MANA_HELMET_E.get()));
 
-        injectingRecipeMap.put(ModItems.LifeManaArmorChest.get(),
-                new InjectingRecipe(ModItems.NaturalCore.get(), 3,
-                        ModItems.LifeManaArmorChestE.get()));
+        injectingRecipeMap.put(ModItems.LIFE_MANA_CHEST.get(),
+                new InjectingRecipe(ModItems.NATURAL_CORE.get(), 3,
+                        ModItems.LIFE_MANA_CHEST_E.get()));
 
-        injectingRecipeMap.put(ModItems.LifeManaArmorLeggings.get(),
-                new InjectingRecipe(ModItems.NaturalCore.get(), 3,
-                        ModItems.LifeManaArmorLeggingsE.get()));
+        injectingRecipeMap.put(ModItems.LIFE_MANA_LEGGINGS.get(),
+                new InjectingRecipe(ModItems.NATURAL_CORE.get(), 3,
+                        ModItems.LIFE_MANA_LEGGINGS_E.get()));
 
-        injectingRecipeMap.put(ModItems.LifeManaArmorBoots.get(),
-                new InjectingRecipe(ModItems.NaturalCore.get(), 3,
-                        ModItems.LifeManaArmorBootsE.get()));
+        injectingRecipeMap.put(ModItems.LIFE_MANA_BOOTS.get(),
+                new InjectingRecipe(ModItems.NATURAL_CORE.get(), 3,
+                        ModItems.LIFE_MANA_BOOTS_E.get()));
 
-        injectingRecipeMap.put(ModItems.ObsiManaArmorHelmet.get(),
-                new InjectingRecipe(ModItems.OreRune.get(), 3,
-                        ModItems.ObsiManaArmorHelmetE.get()));
+        injectingRecipeMap.put(ModItems.OBSI_MANA_HELMET.get(),
+                new InjectingRecipe(ModItems.ORE_RUNE.get(), 3,
+                        ModItems.OBSI_MANA_HELMET_E.get()));
 
-        injectingRecipeMap.put(ModItems.ObsiManaArmorChest.get(),
-                new InjectingRecipe(ModItems.OreRune.get(), 3,
-                        ModItems.ObsiManaArmorChestE.get()));
+        injectingRecipeMap.put(ModItems.OBSI_MANA_CHEST.get(),
+                new InjectingRecipe(ModItems.ORE_RUNE.get(), 3,
+                        ModItems.OBSI_MANA_CHEST_E.get()));
 
-        injectingRecipeMap.put(ModItems.ObsiManaArmorLeggings.get(),
-                new InjectingRecipe(ModItems.OreRune.get(), 3,
-                        ModItems.ObsiManaArmorLeggingsE.get()));
+        injectingRecipeMap.put(ModItems.OBSI_MANA_LEGGINGS.get(),
+                new InjectingRecipe(ModItems.ORE_RUNE.get(), 3,
+                        ModItems.OBSI_MANA_LEGGINGS_E.get()));
 
-        injectingRecipeMap.put(ModItems.ObsiManaArmorBoots.get(),
-                new InjectingRecipe(ModItems.OreRune.get(), 3,
-                        ModItems.ObsiManaArmorBootsE.get()));
+        injectingRecipeMap.put(ModItems.OBIS_MANA_BOOTS.get(),
+                new InjectingRecipe(ModItems.ORE_RUNE.get(), 3,
+                        ModItems.OBSI_MANA_BOOTS_E.get()));
 
-        injectingRecipeMap.put(ModItems.EvokerBook3.get(),
-                new InjectingRecipe(ModItems.IceHeart.get(), 2,
-                        ModItems.IceBook.get()));
+        injectingRecipeMap.put(ModItems.EVOKER_BOOK_3.get(),
+                new InjectingRecipe(ModItems.ICE_HEART.get(), 2,
+                        ModItems.ICE_BOOK.get()));
 
         injectingRecipeMap.put(SpecialEventItems.RING.get(),
                 new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 3,
@@ -501,333 +481,333 @@ public class InjectRecipe {
                 new InjectingRecipe(24, SpecialEventItems.SPRING_GOLD_COIN.get(), 6,
                         SpecialEventItems.SpringHeart.get()));
 
-        injectingRecipeMap.put(ModItems.BloodManaCurios.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 6,
-                        ModItems.DevilBloodManaCurios.get()));
+        injectingRecipeMap.put(ModItems.BLOOD_MANA_CURIOS.get(),
+                new InjectingRecipe(ModItems.DEVIL_BLOOD.get(), 6,
+                        ModItems.DEVIL_BLOOD_MANA_CURIOS.get()));
 
-        injectingRecipeMap.put(ModItems.EarthManaCurios.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 6,
-                        ModItems.DevilEarthManaCurios.get()));
+        injectingRecipeMap.put(ModItems.EARTH_MANA_CURIOS.get(),
+                new InjectingRecipe(ModItems.DEVIL_BLOOD.get(), 6,
+                        ModItems.DEVIL_EARTH_MANA_CURIOS.get()));
 
-        injectingRecipeMap.put(ModItems.MoonSoul.get(),
+        injectingRecipeMap.put(ModItems.MOON_SOUL.get(),
                 new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 2,
-                        ModItems.MoonCompleteGem.get()));
+                        ModItems.MOON_COMPLETE_GEM.get()));
 
         injectingRecipeMap.put(ModItems.ICE_SWORD_E.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 8,
-                        ModItems.DevilSword.get()));
+                new InjectingRecipe(ModItems.DEVIL_BLOOD.get(), 8,
+                        ModItems.DEVIL_SWORD.get()));
 
         injectingRecipeMap.put(ModItems.ICE_BOW_E.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 8,
-                        ModItems.DevilBow.get()));
+                new InjectingRecipe(ModItems.DEVIL_BLOOD.get(), 8,
+                        ModItems.DEVIL_BOW.get()));
 
         injectingRecipeMap.put(ModItems.ICE_SCEPTRE_E.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 8,
-                        ModItems.DevilSceptre.get()));
-
-        injectingRecipeMap.put(GemItems.skyGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.skyGemD.get()));
-
-        injectingRecipeMap.put(GemItems.evokerGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.evokerGemD.get()));
-
-        injectingRecipeMap.put(GemItems.plainGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.plainGemD.get()));
-
-        injectingRecipeMap.put(GemItems.forestGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.forestGemD.get()));
-
-        injectingRecipeMap.put(GemItems.lakeGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.lakeGemD.get()));
-
-        injectingRecipeMap.put(GemItems.volcanoGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.volcanoGemD.get()));
-
-        injectingRecipeMap.put(GemItems.snowGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.snowGemD.get()));
-
-        injectingRecipeMap.put(GemItems.fieldGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.fieldGemD.get()));
-
-        injectingRecipeMap.put(GemItems.mineGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.mineGemD.get()));
-
-        injectingRecipeMap.put(GemItems.lifeManaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.lifeManaGemD.get()));
-
-        injectingRecipeMap.put(GemItems.obsiManaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.obsiManaGemD.get()));
-
-        injectingRecipeMap.put(GemItems.netherSkeletonGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.netherSkeletonGemD.get()));
-
-        injectingRecipeMap.put(GemItems.magmaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.magmaGemD.get()));
-
-        injectingRecipeMap.put(GemItems.witherGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.witherGemD.get()));
-
-        injectingRecipeMap.put(GemItems.piglinGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.piglinGemD.get()));
-
-        injectingRecipeMap.put(GemItems.sakuraGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.sakuraGemD.get()));
-
-        injectingRecipeMap.put(GemItems.shipGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.shipGemD.get()));
-
-        injectingRecipeMap.put(GemItems.moonAttackGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.moonAttackGemD.get()));
-
-        injectingRecipeMap.put(GemItems.moonManaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        GemItems.moonManaGemD.get()));
-
-        injectingRecipeMap.put(ModItems.BeaconBow.get(),
-                new InjectingRecipe(ModItems.BeaconRune.get(), 4,
-                        ModItems.BeaconBow1.get()));
-
-        injectingRecipeMap.put(ModItems.BeaconBow1.get(),
-                new InjectingRecipe(ModItems.BeaconRune.get(), 6,
-                        ModItems.BeaconBow2.get()));
-
-        injectingRecipeMap.put(ModItems.BeaconBow2.get(),
-                new InjectingRecipe(ModItems.BeaconRune.get(), 8,
-                        ModItems.BeaconBow3.get()));
-
-        injectingRecipeMap.put(ModItems.BlazeSword.get(),
-                new InjectingRecipe(ModItems.BlazeRune.get(), 4,
-                        ModItems.BlazeSword1.get()));
-
-        injectingRecipeMap.put(ModItems.BlazeSword1.get(),
-                new InjectingRecipe(ModItems.BlazeRune.get(), 6,
-                        ModItems.BlazeSword2.get()));
-
-        injectingRecipeMap.put(ModItems.BlazeSword2.get(),
-                new InjectingRecipe(ModItems.BlazeRune.get(), 8,
-                        ModItems.BlazeSword3.get()));
-
-        injectingRecipeMap.put(ModItems.TreeSceptre.get(),
-                new InjectingRecipe(ModItems.TreeRune.get(), 4,
-                        ModItems.TreeSceptre1.get()));
-
-        injectingRecipeMap.put(ModItems.TreeSceptre1.get(),
-                new InjectingRecipe(ModItems.TreeRune.get(), 6,
-                        ModItems.TreeSceptre2.get()));
-
-        injectingRecipeMap.put(ModItems.TreeSceptre2.get(),
-                new InjectingRecipe(ModItems.TreeRune.get(), 8,
-                        ModItems.TreeSceptre3.get()));
-
-        injectingRecipeMap.put(ModItems.CastleNecklace.get(),
-                new InjectingRecipe(ModItems.CastleNecklace.get(), 1,
-                        ModItems.CastleNecklace.get()));
-
-        injectingRecipeMap.put(ModItems.RubyNecklace.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 8,
-                        ModItems.RubyNecklace1.get()));
-
-        injectingRecipeMap.put(ModItems.RubyNecklace1.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 16,
-                        ModItems.RubyNecklace2.get()));
-
-        injectingRecipeMap.put(ModItems.RubyNecklace2.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 24,
-                        ModItems.RubyNecklace3.get()));
-
-        injectingRecipeMap.put(ModItems.SapphireNecklace.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 8,
-                        ModItems.SapphireNecklace1.get()));
-
-        injectingRecipeMap.put(ModItems.SapphireNecklace1.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 16,
-                        ModItems.SapphireNecklace2.get()));
-
-        injectingRecipeMap.put(ModItems.SapphireNecklace2.get(),
-                new InjectingRecipe(ModItems.LakeRune.get(), 24,
-                        ModItems.SapphireNecklace3.get()));
-
-        injectingRecipeMap.put(ModItems.FancySapphireNecklace.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 1,
-                        ModItems.FancySapphireNecklace1.get()));
-
-        injectingRecipeMap.put(ModItems.FancySapphireNecklace1.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 2,
-                        ModItems.FancySapphireNecklace2.get()));
-
-        injectingRecipeMap.put(ModItems.FancySapphireNecklace2.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
-                        ModItems.FancySapphireNecklace3.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronBud1.get(),
-                new InjectingRecipe(16, ModItems.PurpleIron.get(), 4,
-                        ModItems.PurpleIronBud2.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronBud2.get(),
-                new InjectingRecipe(16, ModItems.PurpleIron.get(), 16,
-                        ModItems.PurpleIronBud3.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronSword.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronSword1.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronSword1.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronSword2.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronSword2.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronSword3.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronBow.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronBow1.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronBow1.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronBow2.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronBow2.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronBow3.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronSceptre.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronSceptre1.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronSceptre1.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronSceptre2.get()));
-
-        injectingRecipeMap.put(ModItems.PurpleIronSceptre2.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
-                        ModItems.PurpleIronSceptre3.get()));
-
-        injectingRecipeMap.put(ModItems.StarRune.get(),
-                new InjectingRecipe(8, ModItems.StarSoul.get(), 64,
-                        ModItems.StarStar.get()));
-
-        injectingRecipeMap.put(ModItems.MoonHelmet.get(),
-                new InjectingRecipe(ModItems.StarStar.get(), 32,
-                        ModItems.StarHelmet.get()));
-
-        injectingRecipeMap.put(ModItems.MoonLeggings.get(),
-                new InjectingRecipe(ModItems.StarStar.get(), 32,
-                        ModItems.StarLeggings.get()));
-
-        injectingRecipeMap.put(ModItems.LifeCrystal0.get(),
-                new InjectingRecipe(ModItems.LifeElementPiece2.get(), 1,
-                        ModItems.LifeCrystal1.get()));
-
-        injectingRecipeMap.put(ModItems.LifeCrystal1.get(),
-                new InjectingRecipe(ModItems.LifeElementPiece2.get(), 2,
-                        ModItems.LifeCrystal2.get()));
-
-        injectingRecipeMap.put(ModItems.LifeCrystal2.get(),
-                new InjectingRecipe(ModItems.LifeElementPiece2.get(), 3,
-                        ModItems.LifeCrystal3.get()));
-
-        injectingRecipeMap.put(ModItems.WaterCrystal0.get(),
-                new InjectingRecipe(ModItems.WaterElementPiece2.get(), 1,
-                        ModItems.WaterCrystal1.get()));
-
-        injectingRecipeMap.put(ModItems.WaterCrystal1.get(),
-                new InjectingRecipe(ModItems.WaterElementPiece2.get(), 2,
-                        ModItems.WaterCrystal2.get()));
-
-        injectingRecipeMap.put(ModItems.WaterCrystal2.get(),
-                new InjectingRecipe(ModItems.WaterElementPiece2.get(), 3,
-                        ModItems.WaterCrystal3.get()));
-
-        injectingRecipeMap.put(ModItems.FireCrystal0.get(),
-                new InjectingRecipe(ModItems.FireElementPiece2.get(), 1,
-                        ModItems.FireCrystal1.get()));
-
-        injectingRecipeMap.put(ModItems.FireCrystal1.get(),
-                new InjectingRecipe(ModItems.FireElementPiece2.get(), 2,
-                        ModItems.FireCrystal2.get()));
-
-        injectingRecipeMap.put(ModItems.FireCrystal2.get(),
-                new InjectingRecipe(ModItems.FireElementPiece2.get(), 3,
-                        ModItems.FireCrystal3.get()));
-
-        injectingRecipeMap.put(ModItems.IceCrystal0.get(),
-                new InjectingRecipe(ModItems.IceElementPiece2.get(), 1,
-                        ModItems.IceCrystal1.get()));
-
-        injectingRecipeMap.put(ModItems.IceCrystal1.get(),
-                new InjectingRecipe(ModItems.IceElementPiece2.get(), 2,
-                        ModItems.IceCrystal2.get()));
-
-        injectingRecipeMap.put(ModItems.IceCrystal2.get(),
-                new InjectingRecipe(ModItems.IceElementPiece2.get(), 3,
-                        ModItems.IceCrystal3.get()));
-
-        injectingRecipeMap.put(ModItems.WindCrystal0.get(),
-                new InjectingRecipe(ModItems.WindElementPiece2.get(), 1,
-                        ModItems.WindCrystal1.get()));
-
-        injectingRecipeMap.put(ModItems.WindCrystal1.get(),
-                new InjectingRecipe(ModItems.WindElementPiece2.get(), 2,
-                        ModItems.WindCrystal2.get()));
-
-        injectingRecipeMap.put(ModItems.WindCrystal2.get(),
-                new InjectingRecipe(ModItems.WindElementPiece2.get(), 3,
-                        ModItems.WindCrystal3.get()));
-
-        injectingRecipeMap.put(ModItems.StoneCrystal0.get(),
-                new InjectingRecipe(ModItems.StoneElementPiece2.get(), 1,
-                        ModItems.StoneCrystal1.get()));
-
-        injectingRecipeMap.put(ModItems.StoneCrystal1.get(),
-                new InjectingRecipe(ModItems.StoneElementPiece2.get(), 2,
-                        ModItems.StoneCrystal2.get()));
-
-        injectingRecipeMap.put(ModItems.StoneCrystal2.get(),
-                new InjectingRecipe(ModItems.StoneElementPiece2.get(), 3,
-                        ModItems.StoneCrystal3.get()));
-
-        injectingRecipeMap.put(ModItems.LightningCrystal0.get(),
-                new InjectingRecipe(ModItems.LightningElementPiece2.get(), 1,
-                        ModItems.LightningCrystal1.get()));
-
-        injectingRecipeMap.put(ModItems.LightningCrystal1.get(),
-                new InjectingRecipe(ModItems.LightningElementPiece2.get(), 2,
-                        ModItems.LightningCrystal2.get()));
-
-        injectingRecipeMap.put(ModItems.LightningCrystal2.get(),
-                new InjectingRecipe(ModItems.LightningElementPiece2.get(), 3,
-                        ModItems.LightningCrystal3.get()));
-
-        injectingRecipeMap.put(ModItems.EvokerSword.get(),
-                new InjectingRecipe(ModItems.EvokerRune.get(), 4,
-                        ModItems.EvokerSword1.get()));
-
-        injectingRecipeMap.put(ModItems.EvokerSword1.get(),
-                new InjectingRecipe(ModItems.EvokerRune.get(), 6,
-                        ModItems.EvokerSword2.get()));
-
-        injectingRecipeMap.put(ModItems.EvokerSword2.get(),
-                new InjectingRecipe(ModItems.EvokerRune.get(), 8,
-                        ModItems.EvokerSword3.get()));
+                new InjectingRecipe(ModItems.DEVIL_BLOOD.get(), 8,
+                        ModItems.DEVIL_SCEPTRE.get()));
+
+        injectingRecipeMap.put(GemItems.SKY_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.SKY_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.EVOKER_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.EVOKER_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.PLAIN_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.PLAIN_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.FOREST_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.FOREST_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.LAKE_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.LAKE_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.VOLCANO_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.VOLCANO_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.SNOW_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.SNOW_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.FIELD_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.FIELD_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.MINE_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.MINE_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.LIFE_MANA_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.LIFE_MANA_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.OBSI_MANA_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.OBSI_MANA_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.NETHER_SKELETON_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.NETHER_SKELETON_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.MAGMA_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.MAGMA_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.WITHER_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.WITHER_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.PIGLIN_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.PIGLIN_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.SAKURA_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.SAKURA_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.SHIP_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.SHIP_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.MOON_ATTACK_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.MOON_ATTACK_GEM_D.get()));
+
+        injectingRecipeMap.put(GemItems.MOON_MANA_GEM.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        GemItems.MOON_MANA_GEM_D.get()));
+
+        injectingRecipeMap.put(ModItems.BEACON_BOW.get(),
+                new InjectingRecipe(ModItems.BEACON_RUNE.get(), 4,
+                        ModItems.BEACON_BOW_1.get()));
+
+        injectingRecipeMap.put(ModItems.BEACON_BOW_1.get(),
+                new InjectingRecipe(ModItems.BEACON_RUNE.get(), 6,
+                        ModItems.BEACON_BOW_2.get()));
+
+        injectingRecipeMap.put(ModItems.BEACON_BOW_2.get(),
+                new InjectingRecipe(ModItems.BEACON_RUNE.get(), 8,
+                        ModItems.BEACON_BOW_3.get()));
+
+        injectingRecipeMap.put(ModItems.BLAZE_SWORD.get(),
+                new InjectingRecipe(ModItems.BLAZE_RUNE.get(), 4,
+                        ModItems.BLAZE_SWORD_1.get()));
+
+        injectingRecipeMap.put(ModItems.BLAZE_SWORD_1.get(),
+                new InjectingRecipe(ModItems.BLAZE_RUNE.get(), 6,
+                        ModItems.BLAZE_SWORD_2.get()));
+
+        injectingRecipeMap.put(ModItems.BLAZE_SWORD_2.get(),
+                new InjectingRecipe(ModItems.BLAZE_RUNE.get(), 8,
+                        ModItems.BLAZE_SWORD_3.get()));
+
+        injectingRecipeMap.put(ModItems.TREE_SCEPTRE.get(),
+                new InjectingRecipe(ModItems.TREE_RUNE.get(), 4,
+                        ModItems.TREE_SCEPTRE_1.get()));
+
+        injectingRecipeMap.put(ModItems.TREE_SCEPTRE_1.get(),
+                new InjectingRecipe(ModItems.TREE_RUNE.get(), 6,
+                        ModItems.TREE_SCEPTRE_2.get()));
+
+        injectingRecipeMap.put(ModItems.TREE_SCEPTRE_2.get(),
+                new InjectingRecipe(ModItems.TREE_RUNE.get(), 8,
+                        ModItems.TREE_SCEPTRE_3.get()));
+
+        injectingRecipeMap.put(ModItems.CASTLE_NECKLACE.get(),
+                new InjectingRecipe(ModItems.CASTLE_NECKLACE.get(), 1,
+                        ModItems.CASTLE_NECKLACE.get()));
+
+        injectingRecipeMap.put(ModItems.RUBY_NECKLACE.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 8,
+                        ModItems.RUBY_NECKLACE_1.get()));
+
+        injectingRecipeMap.put(ModItems.RUBY_NECKLACE_1.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 16,
+                        ModItems.RUBY_NECKLACE_2.get()));
+
+        injectingRecipeMap.put(ModItems.RUBY_NECKLACE_2.get(),
+                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 24,
+                        ModItems.RUBY_NECKLACE_3.get()));
+
+        injectingRecipeMap.put(ModItems.SAPPHIRE_NECKLACE.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 8,
+                        ModItems.SAPPHIRE_NECKLACE_1.get()));
+
+        injectingRecipeMap.put(ModItems.SAPPHIRE_NECKLACE_1.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 16,
+                        ModItems.SAPPHIRE_NECKLACE_2.get()));
+
+        injectingRecipeMap.put(ModItems.SAPPHIRE_NECKLACE_2.get(),
+                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 24,
+                        ModItems.SAPPHIRE_NECKLACE_3.get()));
+
+        injectingRecipeMap.put(ModItems.FANCY_SAPPHIRE_NECKLACE.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 1,
+                        ModItems.FANCY_SAPPHIRE_NECKLACE_1.get()));
+
+        injectingRecipeMap.put(ModItems.FANCY_SAPPHIRE_NECKLACE_1.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 2,
+                        ModItems.FANCY_SAPPHIRE_NECKLACE_2.get()));
+
+        injectingRecipeMap.put(ModItems.FANCY_SAPPHIRE_NECKLACE_2.get(),
+                new InjectingRecipe(ModItems.CONSTRAINT_TABOO.get(), 3,
+                        ModItems.FANCY_SAPPHIRE_NECKLACE_3.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_BUD_1.get(),
+                new InjectingRecipe(16, ModItems.PURPLE_IRON_INGOT.get(), 4,
+                        ModItems.PURPLE_IRON_BUD_2.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_BUD_2.get(),
+                new InjectingRecipe(16, ModItems.PURPLE_IRON_INGOT.get(), 16,
+                        ModItems.PURPLE_IRON_BUD_3.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_SWORD.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_SWORD_1.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_SWORD_1.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_SWORD_2.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_SWORD_2.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_SWORD_3.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_BOW.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_BOW_1.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_BOW_1.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_BOW_2.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_BOW_2.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_BOW_3.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_SCEPTRE.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_SCEPTRE_1.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_SCEPTRE_1.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_SCEPTRE_2.get()));
+
+        injectingRecipeMap.put(ModItems.PURPLE_IRON_SCEPTRE_2.get(),
+                new InjectingRecipe(ModItems.PURPLE_IRON_BUD_3.get(), 1,
+                        ModItems.PURPLE_IRON_SCEPTRE_3.get()));
+
+        injectingRecipeMap.put(ModItems.STAR_RUNE.get(),
+                new InjectingRecipe(8, ModItems.STAR_SOUL.get(), 64,
+                        ModItems.STAR_STAR.get()));
+
+        injectingRecipeMap.put(ModItems.MOON_HELMET.get(),
+                new InjectingRecipe(ModItems.STAR_STAR.get(), 32,
+                        ModItems.STAR_HELMET.get()));
+
+        injectingRecipeMap.put(ModItems.MOON_LEGGINGS.get(),
+                new InjectingRecipe(ModItems.STAR_STAR.get(), 32,
+                        ModItems.STAR_LEGGINGS.get()));
+
+        injectingRecipeMap.put(ModItems.LIFE_CRYSTAL_0.get(),
+                new InjectingRecipe(ModItems.LIFE_ELEMENT_PIECE_2.get(), 1,
+                        ModItems.LIFE_CRYSTAL_1.get()));
+
+        injectingRecipeMap.put(ModItems.LIFE_CRYSTAL_1.get(),
+                new InjectingRecipe(ModItems.LIFE_ELEMENT_PIECE_2.get(), 2,
+                        ModItems.LIFE_CRYSTAL_2.get()));
+
+        injectingRecipeMap.put(ModItems.LIFE_CRYSTAL_2.get(),
+                new InjectingRecipe(ModItems.LIFE_ELEMENT_PIECE_2.get(), 3,
+                        ModItems.LIFE_CRYSTAL_3.get()));
+
+        injectingRecipeMap.put(ModItems.WATER_CRYSTAL_0.get(),
+                new InjectingRecipe(ModItems.WATER_ELEMENT_PIECE_2.get(), 1,
+                        ModItems.WATER_CRYSTAL_1.get()));
+
+        injectingRecipeMap.put(ModItems.WATER_CRYSTAL_1.get(),
+                new InjectingRecipe(ModItems.WATER_ELEMENT_PIECE_2.get(), 2,
+                        ModItems.WATER_CRYSTAL_2.get()));
+
+        injectingRecipeMap.put(ModItems.WATER_CRYSTAL_2.get(),
+                new InjectingRecipe(ModItems.WATER_ELEMENT_PIECE_2.get(), 3,
+                        ModItems.WATER_CRYSTAL_3.get()));
+
+        injectingRecipeMap.put(ModItems.FIRE_CRYSTAL_0.get(),
+                new InjectingRecipe(ModItems.FIRE_ELEMENT_PIECE_2.get(), 1,
+                        ModItems.FIRE_CRYSTAL_1.get()));
+
+        injectingRecipeMap.put(ModItems.FIRE_CRYSTAL_1.get(),
+                new InjectingRecipe(ModItems.FIRE_ELEMENT_PIECE_2.get(), 2,
+                        ModItems.FIRE_CRYSTAL_2.get()));
+
+        injectingRecipeMap.put(ModItems.FIRE_CRYSTAL_2.get(),
+                new InjectingRecipe(ModItems.FIRE_ELEMENT_PIECE_2.get(), 3,
+                        ModItems.FIRE_CRYSTAL_3.get()));
+
+        injectingRecipeMap.put(ModItems.ICE_CRYSTAL_0.get(),
+                new InjectingRecipe(ModItems.ICE_ELEMENT_PIECE_2.get(), 1,
+                        ModItems.ICE_CRYSTAL_1.get()));
+
+        injectingRecipeMap.put(ModItems.ICE_CRYSTAL_1.get(),
+                new InjectingRecipe(ModItems.ICE_ELEMENT_PIECE_2.get(), 2,
+                        ModItems.ICE_CRYSTAL_2.get()));
+
+        injectingRecipeMap.put(ModItems.ICE_CRYSTAL_2.get(),
+                new InjectingRecipe(ModItems.ICE_ELEMENT_PIECE_2.get(), 3,
+                        ModItems.ICE_CRYSTAL_3.get()));
+
+        injectingRecipeMap.put(ModItems.WIND_CRYSTAL_0.get(),
+                new InjectingRecipe(ModItems.WIND_ELEMENT_PIECE_2.get(), 1,
+                        ModItems.WIND_CRYSTAL_1.get()));
+
+        injectingRecipeMap.put(ModItems.WIND_CRYSTAL_1.get(),
+                new InjectingRecipe(ModItems.WIND_ELEMENT_PIECE_2.get(), 2,
+                        ModItems.WIND_CRYSTAL_2.get()));
+
+        injectingRecipeMap.put(ModItems.WIND_CRYSTAL_2.get(),
+                new InjectingRecipe(ModItems.WIND_ELEMENT_PIECE_2.get(), 3,
+                        ModItems.WIND_CRYSTAL_3.get()));
+
+        injectingRecipeMap.put(ModItems.STONE_CRYSTAL_0.get(),
+                new InjectingRecipe(ModItems.STONE_ELEMENT_PIECE_2.get(), 1,
+                        ModItems.STONE_CRYSTAL_1.get()));
+
+        injectingRecipeMap.put(ModItems.STONE_CRYSTAL_1.get(),
+                new InjectingRecipe(ModItems.STONE_ELEMENT_PIECE_2.get(), 2,
+                        ModItems.STONE_CRYSTAL_2.get()));
+
+        injectingRecipeMap.put(ModItems.STONE_CRYSTAL_2.get(),
+                new InjectingRecipe(ModItems.STONE_ELEMENT_PIECE_2.get(), 3,
+                        ModItems.STONE_CRYSTAL_3.get()));
+
+        injectingRecipeMap.put(ModItems.LIGHTNING_CRYSTAL_0.get(),
+                new InjectingRecipe(ModItems.LIGHTNING_ELEMENT_PIECE_2.get(), 1,
+                        ModItems.LIGHTNING_CRYSTAL_1.get()));
+
+        injectingRecipeMap.put(ModItems.LIGHTNING_CRYSTAL_1.get(),
+                new InjectingRecipe(ModItems.LIGHTNING_ELEMENT_PIECE_2.get(), 2,
+                        ModItems.LIGHTNING_CRYSTAL_2.get()));
+
+        injectingRecipeMap.put(ModItems.LIGHTNING_CRYSTAL_2.get(),
+                new InjectingRecipe(ModItems.LIGHTNING_ELEMENT_PIECE_2.get(), 3,
+                        ModItems.LIGHTNING_CRYSTAL_3.get()));
+
+        injectingRecipeMap.put(ModItems.EVOKER_SWORD.get(),
+                new InjectingRecipe(ModItems.EVOKER_RUNE.get(), 4,
+                        ModItems.EVOKER_SWORD_1.get()));
+
+        injectingRecipeMap.put(ModItems.EVOKER_SWORD_1.get(),
+                new InjectingRecipe(ModItems.EVOKER_RUNE.get(), 6,
+                        ModItems.EVOKER_SWORD_2.get()));
+
+        injectingRecipeMap.put(ModItems.EVOKER_SWORD_2.get(),
+                new InjectingRecipe(ModItems.EVOKER_RUNE.get(), 8,
+                        ModItems.EVOKER_SWORD_3.get()));
 
         injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_0.get(),
                 new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_1.get()));
@@ -883,9 +863,9 @@ public class InjectRecipe {
                 new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_4.get()));
 
         injectingRecipeMap.put(ModItems.BAMBOO_KANATA.get(),
-                new InjectingRecipe(ModItems.SkyRune.get(), 4, ModItems.SKY_KANATA.get()));
+                new InjectingRecipe(ModItems.SKY_RUNE.get(), 4, ModItems.SKY_KANATA.get()));
         injectingRecipeMap.put(ModItems.SKY_KANATA.get(),
-                new InjectingRecipe(ModItems.NetherRune.get(), 2, ModItems.NETHER_KANATA.get()));
+                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 2, ModItems.NETHER_KANATA.get()));
         injectingRecipeMap.put(ModItems.NETHER_KANATA.get(),
                 new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 1, ModItems.SAKURA_KANATA.get()));
 
@@ -896,13 +876,13 @@ public class InjectRecipe {
         injectingRecipeMap.put(CitadelItems.CITADEL_CURIO_2.get(),
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 4, CitadelItems.CITADEL_CURIO_3.get()));
 
-        injectingRecipeMap.put(ModItems.IceArmorHelmet.get(),
+        injectingRecipeMap.put(ModItems.ICE_HELMET.get(),
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_HELMET.get()));
-        injectingRecipeMap.put(ModItems.IceArmorChest.get(),
+        injectingRecipeMap.put(ModItems.ICE_CHEST.get(),
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_CHEST.get()));
-        injectingRecipeMap.put(ModItems.IceArmorLeggings.get(),
+        injectingRecipeMap.put(ModItems.ICE_LEGGINGS.get(),
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_LEGGINGS.get()));
-        injectingRecipeMap.put(ModItems.IceArmorBoots.get(),
+        injectingRecipeMap.put(ModItems.ICE_BOOTS.get(),
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_BOOTS.get()));
 
         injectingRecipeMap.put(CitadelItems.CITADEL_PIECE.get(),
@@ -942,13 +922,13 @@ public class InjectRecipe {
         injectingRecipeMap.put(WardenItems.WARDEN_SOUL_INGOT.get(),
                 new InjectingRecipe(64, ModItems.REFINED_PIECE.get(), 16, WardenItems.WARDEN_HEART.get()));
 
-        injectingRecipeMap.put(ModItems.BlazeSword3.get(),
+        injectingRecipeMap.put(ModItems.BLAZE_SWORD_3.get(),
                 new InjectingRecipe(DivineIslandItems.GHASTLY_INGOT.get(), 64,
                         DivineIslandItems.GHASTLY_SWORD.get()));
-        injectingRecipeMap.put(ModItems.BeaconBow3.get(),
+        injectingRecipeMap.put(ModItems.BEACON_BOW_3.get(),
                 new InjectingRecipe(DivineIslandItems.GHASTLY_INGOT.get(), 64,
                         DivineIslandItems.GHASTLY_BOW.get()));
-        injectingRecipeMap.put(ModItems.TreeSceptre3.get(),
+        injectingRecipeMap.put(ModItems.TREE_SCEPTRE_3.get(),
                 new InjectingRecipe(DivineIslandItems.GHASTLY_INGOT.get(), 64,
                         DivineIslandItems.GHASTLY_SCEPTRE.get()));
 

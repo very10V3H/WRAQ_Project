@@ -3,6 +3,7 @@ package fun.wraq.networking.unSorted;
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Name;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
@@ -11,6 +12,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.lottery.NewLotteries;
+import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -57,6 +59,11 @@ public class TradeBuyRequestC2SPacket {
             ItemStack targetItemStack = TradeList.tradeContent.get(this.name).get(index);
             ItemStack product = new ItemStack(targetItemStack.getItem(), targetItemStack.getCount());
             List<ItemStack> requireItemList = TradeList.tradeRecipeMap.get(targetItemStack);
+            if (!WeeklyStore.canPlayerBuy(serverPlayer, product, requireItemList)) {
+                Compute.sendFormatMSG(serverPlayer, Te.s("交易", ChatFormatting.GOLD),
+                        Te.s("超出了购买限制."));
+                return;
+            }
             List<ItemStack> itemList = new ArrayList<>();
 
             requireItemList.forEach(itemStack -> {
@@ -126,24 +133,25 @@ public class TradeBuyRequestC2SPacket {
                     product = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
 
                 if (NewLotteries.getRewardSerial.isEmpty()) NewLotteries.setGetRewardSerial();
-                if (NewLotteries.getRewardSerial.containsKey(product.getItem()))
+                if (NewLotteries.getRewardSerial.containsKey(product.getItem())) {
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, product);
+                }
                 if (product.is(TradeList.netheriteBackPack)) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.BACKPACK);
                 }
-                if (product.is(ModItems.ForestManaBook.get())) {
+                if (product.is(ModItems.FOREST_MANA_BOOK.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.FOREST_EQUIP);
                 }
-                if (product.is(ModItems.LakeManaBook.get())) {
+                if (product.is(ModItems.LAKE_MANA_BOOK.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.LAKE_EQUIP);
                 }
                 if (product.is(ModItems.MINE_MANA_NOTE.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.MINE_EQUIP);
                 }
-                if (product.is(ModItems.VolcanoManaBook.get())) {
+                if (product.is(ModItems.VOLCANO_MANA_BOOK.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.VOLCANO_EQUIP);
                 }
-                if (product.is(ModItems.EvokerSword.get())) {
+                if (product.is(ModItems.EVOKER_SWORD.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.ENHANCE_EQUIP);
                 }
 
@@ -151,7 +159,7 @@ public class TradeBuyRequestC2SPacket {
                 if (Utils.mainHandTag.containsKey(productItem) || Utils.armorTag.containsKey(productItem)) {
                     ForgeEquipUtils.setForgeQualityOnEquip(product, 4);
                 }
-
+                WeeklyStore.afterPlayerBuy(serverPlayer, product, itemList);
                 LogUtils.getLogger().info("村民 {} 购买了 {} 出售的 {} ", Name.get(serverPlayer), name, product);
                 InventoryOperation.giveItemStack(serverPlayer, product);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
@@ -164,16 +172,16 @@ public class TradeBuyRequestC2SPacket {
     }
 
     public static int playerInventoryCurrencyVBCount(Player player) {
-        return InventoryOperation.itemStackCount(player, ModItems.copperCoin.get()) +
-                InventoryOperation.itemStackCount(player, ModItems.silverCoin.get()) * 12 +
+        return InventoryOperation.itemStackCount(player, ModItems.COPPER_COIN.get()) +
+                InventoryOperation.itemStackCount(player, ModItems.SILVER_COIN.get()) * 12 +
                 InventoryOperation.itemStackCount(player, ModItems.GOLD_COIN.get()) * 144;
     }
 
     public static int requireItemListVBCount(List<ItemStack> requireItemList) {
         int count = 0;
         for (ItemStack itemStack : requireItemList) {
-            if (itemStack.is(ModItems.copperCoin.get())) count += itemStack.getCount();
-            if (itemStack.is(ModItems.silverCoin.get())) count += itemStack.getCount() * 12;
+            if (itemStack.is(ModItems.COPPER_COIN.get())) count += itemStack.getCount();
+            if (itemStack.is(ModItems.SILVER_COIN.get())) count += itemStack.getCount() * 12;
             if (itemStack.is(ModItems.GOLD_COIN.get())) count += itemStack.getCount() * 144;
         }
         return count;
@@ -184,11 +192,11 @@ public class TradeBuyRequestC2SPacket {
         int income = 0;
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.is(ModItems.copperCoin.get())) {
+            if (itemStack.is(ModItems.COPPER_COIN.get())) {
                 income += itemStack.getCount();
                 itemStack.setCount(0);
             }
-            if (itemStack.is(ModItems.silverCoin.get())) {
+            if (itemStack.is(ModItems.SILVER_COIN.get())) {
                 income += itemStack.getCount() * 12;
                 itemStack.setCount(0);
             }
@@ -202,7 +210,7 @@ public class TradeBuyRequestC2SPacket {
     }
 
     public static boolean itemStackIsCurrency(ItemStack itemStack) {
-        return itemStack.is(ModItems.copperCoin.get()) || itemStack.is(ModItems.silverCoin.get())
+        return itemStack.is(ModItems.COPPER_COIN.get()) || itemStack.is(ModItems.SILVER_COIN.get())
                 || itemStack.is(ModItems.GOLD_COIN.get());
     }
 }

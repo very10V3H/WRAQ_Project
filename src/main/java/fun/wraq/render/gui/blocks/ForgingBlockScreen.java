@@ -91,9 +91,9 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
                 append(Component.literal("放置于左下").withStyle(ChatFormatting.WHITE)));
         add(Component.literal(" [可选]:").withStyle(ChatFormatting.GOLD).
                 append(Component.literal("可在右侧两个位置放置").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.ForgeProtect.get().getDefaultInstance().getDisplayName()).
+                append(ModItems.FORGE_PROTECT.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("或").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.ForgeEnhance2.get().getDefaultInstance().getDisplayName()));
+                append(ModItems.FORGE_ENHANCE_2.get().getDefaultInstance().getDisplayName()));
         add(Component.literal("2.开孔").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
@@ -191,10 +191,10 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
                 double successRate = 0;
 
                 Map<Item, Double> enhanceRateMap = ImmutableMap.of(
-                        ModItems.ForgeEnhance0.get(), 1.25,
-                        ModItems.ForgeEnhance1.get(), 1.5,
-                        ModItems.ForgeEnhance2.get(), 2d,
-                        ModItems.ForgeEnhance3.get(), 2.5d
+                        ModItems.FORGE_ENHANCE_0.get(), 1.25,
+                        ModItems.FORGE_ENHANCE_1.get(), 1.5,
+                        ModItems.FORGE_ENHANCE_2.get(), 2d,
+                        ModItems.FORGE_ENHANCE_3.get(), 2.5d
                 );
                 double enhanceRate = enhanceRateMap.getOrDefault(enhancePaper.getItem(), 1d);
 

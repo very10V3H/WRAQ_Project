@@ -33,10 +33,10 @@ public class SakuraPocket extends Item {
         components.add(Component.literal(" "));
         components.add(Component.literal("·礼盒中可能含有:").withStyle(ChatFormatting.GOLD));
         Item[] Rewards = {
-                ModItems.SakuraPetal.get(), ModItems.ForgingStone2.get(),
+                ModItems.SAKURA_PETAL.get(), ModItems.FORGING_STONE_2.get(),
                 ModItems.GOLD_COIN.get(),
-                ModItems.SakuraPetal.get(), ModItems.SakuraPetal.get(),
-                ModItems.SakuraArmorHelmet.get()
+                ModItems.SAKURA_PETAL.get(), ModItems.SAKURA_PETAL.get(),
+                ModItems.SAKURA_HELMET.get()
         };
         double[] RewardsRate = {
                 1, 0.25,

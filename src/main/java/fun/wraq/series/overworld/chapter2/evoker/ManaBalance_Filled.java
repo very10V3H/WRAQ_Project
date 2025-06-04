@@ -43,7 +43,7 @@ public class ManaBalance_Filled extends Item {
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
             CompoundTag data = player.getPersistentData();
             data.putInt("MANA", itemStack.getOrCreateTagElement(Utils.MOD_ID).getInt("MANA"));
-            ItemStack itemStack1 = ModItems.ManaBalance_Empty.get().getDefaultInstance();
+            ItemStack itemStack1 = ModItems.MANA_BALANCE_EMPTY.get().getDefaultInstance();
             itemStack1.getOrCreateTagElement(Utils.MOD_ID);
             player.addItem(itemStack1);
             Mana.updateManaStatus(player);

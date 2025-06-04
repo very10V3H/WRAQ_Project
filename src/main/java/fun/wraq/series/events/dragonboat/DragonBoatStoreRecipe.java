@@ -1,8 +1,8 @@
 package fun.wraq.series.events.dragonboat;
 
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
-import fun.wraq.render.gui.trade.SingleItemChangeRecipe;
+import fun.wraq.render.gui.trade.single.SingleItemChangePurchaseLimit;
+import fun.wraq.render.gui.trade.single.SingleItemChangeRecipe;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.world.item.ItemStack;
 

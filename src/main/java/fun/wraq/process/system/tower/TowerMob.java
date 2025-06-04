@@ -35,14 +35,14 @@ public class TowerMob {
             for (int i = 0; i < 3; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
 
-                Item helmet = ModItems.MobArmorTower1FloorHelmet.get();
+                Item helmet = ModItems.MOB_ARMOR_TOWER_1_FLOOR_HELMET.get();
 
                 MobSpawn.setMobCustomName(zombie, helmet, Component.literal("本源生机元素").withStyle(CustomStyle.styleOfLife));
                 zombie.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorLifeElementChest.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorLifeElementLeggings.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorLifeElementBoots.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.LifeElementSword.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_LIFE_ELEMENT_CHEST.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_LIFE_ELEMENT_LEGGINGS.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_LIFE_ELEMENT_BOOTS.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.LIFE_ELEMENT_SWORD.get().getDefaultInstance());
 
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 100);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 500, 60, 60,
@@ -62,14 +62,14 @@ public class TowerMob {
         for (Vec3 pos : posList) {
             Stray stray = new Stray(EntityType.STRAY, level);
 
-            Item helmet = ModItems.MobArmorTower2FloorHelmet.get();
+            Item helmet = ModItems.MOB_ARMOR_TOWER_2_FLOOR_HELMET.get();
 
             MobSpawn.setMobCustomName(stray, helmet, Component.literal("本源碧水元素").withStyle(CustomStyle.styleOfWater));
             stray.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
-            stray.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorWaterElementChest.get().getDefaultInstance());
-            stray.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorWaterElementLeggings.get().getDefaultInstance());
-            stray.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorWaterElementBoots.get().getDefaultInstance());
-            stray.setItemSlot(EquipmentSlot.MAINHAND, ModItems.WaterElementSceptre.get().getDefaultInstance());
+            stray.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_WATER_ELEMENT_CHEST.get().getDefaultInstance());
+            stray.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_WATER_ELEMENT_LEGGINGS.get().getDefaultInstance());
+            stray.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_WATER_ELEMENT_BOOTS.get().getDefaultInstance());
+            stray.setItemSlot(EquipmentSlot.MAINHAND, ModItems.WATER_ELEMENT_SCEPTRE.get().getDefaultInstance());
 
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 120);
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 800, 70, 70, 0.4,
@@ -88,14 +88,14 @@ public class TowerMob {
             for (int i = 0; i < 4; i++) {
                 Blaze blaze = new Blaze(EntityType.BLAZE, level);
 
-                Item helmet = ModItems.MobArmorTower3FloorHelmet.get();
+                Item helmet = ModItems.MOB_ARMOR_TOWER_3_FLOOR_HELMET.get();
 
                 MobSpawn.setMobCustomName(blaze, helmet, Component.literal("本源炽焰元素").withStyle(CustomStyle.styleOfFire));
                 blaze.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
-                blaze.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorFireElementChest.get().getDefaultInstance());
-                blaze.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorFireElementLeggings.get().getDefaultInstance());
-                blaze.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorFireElementBoots.get().getDefaultInstance());
-                blaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.FireElementSword.get().getDefaultInstance());
+                blaze.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_FIRE_ELEMENT_CHEST.get().getDefaultInstance());
+                blaze.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_FIRE_ELEMENT_LEGGINGS.get().getDefaultInstance());
+                blaze.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_FIRE_ELEMENT_BOOTS.get().getDefaultInstance());
+                blaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.FIRE_ELEMENT_SWORD.get().getDefaultInstance());
 
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(blaze), 140);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(blaze, 1200, 90, 90,
@@ -115,14 +115,14 @@ public class TowerMob {
         for (Vec3 pos : posList) {
             Skeleton skeleton = new Skeleton(EntityType.SKELETON, level);
 
-            Item helmet = ModItems.MobArmorTower4FloorHelmet.get();
+            Item helmet = ModItems.MOB_ARMOR_TOWER_4_FLOOR_HELMET.get();
 
             MobSpawn.setMobCustomName(skeleton, helmet, Component.literal("本源层岩元素").withStyle(CustomStyle.styleOfStone));
             skeleton.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
-            skeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorStoneElementChest.get().getDefaultInstance());
-            skeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorStoneElementLeggings.get().getDefaultInstance());
-            skeleton.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorStoneElementBoots.get().getDefaultInstance());
-            skeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MineSword3.get().getDefaultInstance());
+            skeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_STONE_ELEMENT_CHEST.get().getDefaultInstance());
+            skeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_STONE_ELEMENT_LEGGINGS.get().getDefaultInstance());
+            skeleton.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_STONE_ELEMENT_BOOTS.get().getDefaultInstance());
+            skeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MINE_SWORD_3.get().getDefaultInstance());
 
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), 160);
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 2000, 150, 150,
@@ -141,13 +141,13 @@ public class TowerMob {
             for (int i = 0; i < 3; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
 
-                Item helmet = ModItems.MobArmorTower5FloorHelmet.get();
+                Item helmet = ModItems.MOB_ARMOR_TOWER_5_FLOOR_HELMET.get();
 
                 MobSpawn.setMobCustomName(zombie, helmet, Component.literal("本源凛冰元素").withStyle(CustomStyle.styleOfIce));
                 zombie.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceElementChest.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorIceElementLeggings.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorIceElementBoots.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_ICE_ELEMENT_CHEST.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_ICE_ELEMENT_LEGGINGS.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_ICE_ELEMENT_BOOTS.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ICE_SWORD.get().getDefaultInstance());
 
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 180);
@@ -169,13 +169,13 @@ public class TowerMob {
         for (Vec3 pos : posList) {
             Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
 
-            Item helmet = ModItems.MobArmorTower6FloorHelmet.get();
+            Item helmet = ModItems.MOB_ARMOR_TOWER_6_FLOOR_HELMET.get();
 
             MobSpawn.setMobCustomName(zombie, helmet, Component.literal("本源怒雷元素").withStyle(CustomStyle.styleOfLightning));
             zombie.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
-            zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorLightningElementChest.get().getDefaultInstance());
-            zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorLightningElementLeggings.get().getDefaultInstance());
-            zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorLightningElementBoots.get().getDefaultInstance());
+            zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_LIGHTNING_ELEMENT_CHEST.get().getDefaultInstance());
+            zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_LIGHTNING_ELEMENT_LEGGINGS.get().getDefaultInstance());
+            zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_LIGHTNING_ELEMENT_BOOTS.get().getDefaultInstance());
             zombie.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
 
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 200);

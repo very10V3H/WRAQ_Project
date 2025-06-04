@@ -96,12 +96,12 @@ public class KazeRecallEvent {
                             if (Utils.KazeRecallSkeleton != null)
                                 Utils.KazeRecallSkeleton.remove(Entity.RemovalReason.KILLED);
                             Utils.KazeRecallSkeleton = new Skeleton(EntityType.SKELETON, level1);
-                            MobSpawn.setMobCustomName(Utils.KazeRecallSkeleton, ModItems.ArmorKazeRecall.get(), Component.literal("模糊记忆中的狂风").withStyle(style));
-                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorKazeRecall.get().getDefaultInstance());
-                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorKazeChest.get().getDefaultInstance());
-                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorKazeLeggings.get().getDefaultInstance());
-                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.FEET, ModItems.ArmorKazeBoots.get().getDefaultInstance());
-                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.KazeSword3.get().getDefaultInstance());
+                            MobSpawn.setMobCustomName(Utils.KazeRecallSkeleton, ModItems.ARMOR_KAZE_RECALL.get(), Component.literal("模糊记忆中的狂风").withStyle(style));
+                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_KAZE_RECALL.get().getDefaultInstance());
+                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.ARMOR_KAZE_CHEST.get().getDefaultInstance());
+                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.ARMOR_KAZE_LEGGINGS.get().getDefaultInstance());
+                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.FEET, ModItems.ARMOR_KAZE_BOOTS.get().getDefaultInstance());
+                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.KAZE_SWORD_3.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.KazeRecallSkeleton.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.KazeRecallSkeleton.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);
@@ -147,7 +147,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.KazeRecallSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.KAZE_RECALL_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.kazeRecall.recallPlayer, itemStack);
                             } else {
@@ -163,7 +163,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.KazeRune.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.KAZE_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.kazeRecall.recallPlayer, itemStack);
                             }

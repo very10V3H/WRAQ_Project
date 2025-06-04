@@ -30,13 +30,13 @@ public class CastleLoot extends Item {
     private List<ItemAndWeight> itemAndWeightList = new ArrayList<>();
 
     private void setItemAndWeightList() {
-        itemAndWeightList.add(new ItemAndWeight(ModItems.CastleSwordPiece.get(), 3));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.CastleBowPiece.get(), 3));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.CastleSceptrePiece.get(), 3));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.CastleArmorPiece.get(), 8));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 10));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.UnCommonLotteries.get(), 25));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.CastlePiece.get(), 100));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.CASTLE_SWORD_PIECE.get(), 3));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.CASTLE_BOW_PIECE.get(), 3));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.CASTLE_SCEPTRE_PIECE.get(), 3));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.CASTLE_ARMOR_PIECE.get(), 8));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.KILL_PAPER_LOOT.get(), 10));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.UNCOMMON_LOTTERIES.get(), 25));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.CASTLE_PIECE.get(), 100));
     }
 
     private int TotalWeight() {

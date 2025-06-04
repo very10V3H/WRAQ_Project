@@ -77,7 +77,7 @@ public class AttributeSet {
                 player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.08);
             }
 
-            if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.PlainRing.get())) {
+            if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.PLAIN_RING.get())) {
                 if (!Compute.getNearEntity(player, CarriageContraptionEntity.class, 16).isEmpty()) {
                     player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()).setBaseValue(0);
                 } else {

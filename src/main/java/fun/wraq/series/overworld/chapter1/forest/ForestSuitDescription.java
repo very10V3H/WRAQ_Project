@@ -43,10 +43,10 @@ public class ForestSuitDescription {
         Player player = Minecraft.getInstance().player;
         ChatFormatting MainStyle = ChatFormatting.DARK_GREEN;
         Item[] items = {
-                ModItems.ForestArmorHelmet.get(),
-                ModItems.ForestArmorChest.get(),
-                ModItems.ForestArmorLeggings.get(),
-                ModItems.ForestArmorBoots.get()
+                ModItems.FOREST_HELMET.get(),
+                ModItems.FOREST_CHEST.get(),
+                ModItems.FOREST_LEGGINGS.get(),
+                ModItems.FOREST_BOOTS.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

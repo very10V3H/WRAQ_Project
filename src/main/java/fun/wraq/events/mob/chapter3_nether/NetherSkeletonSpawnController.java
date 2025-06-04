@@ -97,15 +97,15 @@ public class NetherSkeletonSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.Ruby.get(), 1));
-            add(new ItemAndRate(ModItems.NetherQuartz.get(), 0.33));
-            add(new ItemAndRate(ModItems.netherSkeletonSoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.5));
+            add(new ItemAndRate(ModItems.RUBY.get(), 1));
+            add(new ItemAndRate(ModItems.NETHER_QUARTZ.get(), 0.33));
+            add(new ItemAndRate(ModItems.NETHER_SKELETON_SOUL.get(), 0.8));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.5));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.04));
-            add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.4));
-            add(new ItemAndRate(ModItems.toNether.get(), 0.01));
-            add(new ItemAndRate(C3LootItems.netherSkeletonLootBow.get(), 0.005));
-            add(new ItemAndRate(NewRuneItems.netherNewRune.get(), 0.001));
+            add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.4));
+            add(new ItemAndRate(ModItems.NETHER_PEARL.get(), 0.01));
+            add(new ItemAndRate(C3LootItems.NETHER_SKELETON_LOOT_BOW.get(), 0.005));
+            add(new ItemAndRate(NewRuneItems.NETHER_NEW_RUNE.get(), 0.001));
         }};
     }
 

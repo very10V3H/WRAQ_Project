@@ -107,13 +107,13 @@ public class Element {
     public static Map<String, Item> getElementItemMap() {
         if (elementItemMap == null) {
             elementItemMap = new HashMap<>() {{
-                put(life, ModItems.LifeElement.get());
-                put(water, ModItems.WaterElement.get());
-                put(fire, ModItems.FireElement.get());
-                put(stone, ModItems.StoneElement.get());
-                put(ice, ModItems.IceElement.get());
-                put(lightning, ModItems.LightningElement.get());
-                put(wind, ModItems.WindElement.get());
+                put(life, ModItems.LIFE_ELEMENT.get());
+                put(water, ModItems.WATER_ELEMENT.get());
+                put(fire, ModItems.FIRE_ELEMENT.get());
+                put(stone, ModItems.STONE_ELEMENT.get());
+                put(ice, ModItems.ICE_ELEMENT.get());
+                put(lightning, ModItems.LIGHTNING_ELEMENT.get());
+                put(wind, ModItems.WIND_ELEMENT.get());
             }};
         }
         return elementItemMap;
@@ -661,7 +661,7 @@ public class Element {
     public static void SummonReactionTypeItem(LivingEntity passive, MutableComponent component) {
         Level level = passive.level();
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
-        itemEntity.setItem(ModItems.Value.get().getDefaultInstance());
+        itemEntity.setItem(ModItems.VALUE.get().getDefaultInstance());
         itemEntity.setCustomName(component);
         itemEntity.setCustomNameVisible(true);
         itemEntity.moveTo(passive.getEyePosition().add(0, 0.2, 0));
@@ -762,13 +762,13 @@ public class Element {
 
     public static void setElementList() {
         Item[] items = {
-                ModItems.LifeElement.get(),
-                ModItems.WaterElement.get(),
-                ModItems.FireElement.get(),
-                ModItems.StoneElement.get(),
-                ModItems.IceElement.get(),
-                ModItems.LightningElement.get(),
-                ModItems.WindElement.get()
+                ModItems.LIFE_ELEMENT.get(),
+                ModItems.WATER_ELEMENT.get(),
+                ModItems.FIRE_ELEMENT.get(),
+                ModItems.STONE_ELEMENT.get(),
+                ModItems.ICE_ELEMENT.get(),
+                ModItems.LIGHTNING_ELEMENT.get(),
+                ModItems.WIND_ELEMENT.get()
         };
         elementItemList.addAll(List.of(items));
     }
@@ -811,13 +811,13 @@ public class Element {
         int slotIndex = player.getInventory().selected + 27;
 
         Map<Item, String> map = new HashMap<>() {{
-            put(ModItems.LifeElementPiece2.get(), life);
-            put(ModItems.WaterElementPiece2.get(), water);
-            put(ModItems.FireElementPiece2.get(), fire);
-            put(ModItems.StoneElementPiece2.get(), stone);
-            put(ModItems.IceElementPiece2.get(), ice);
-            put(ModItems.LightningElementPiece2.get(), lightning);
-            put(ModItems.WindElementPiece2.get(), wind);
+            put(ModItems.LIFE_ELEMENT_PIECE_2.get(), life);
+            put(ModItems.WATER_ELEMENT_PIECE_2.get(), water);
+            put(ModItems.FIRE_ELEMENT_PIECE_2.get(), fire);
+            put(ModItems.STONE_ELEMENT_PIECE_2.get(), stone);
+            put(ModItems.ICE_ELEMENT_PIECE_2.get(), ice);
+            put(ModItems.LIGHTNING_ELEMENT_PIECE_2.get(), lightning);
+            put(ModItems.WIND_ELEMENT_PIECE_2.get(), wind);
         }};
 
         ItemStack itemStack = player.getInventory().getItem(slotIndex);
@@ -1080,26 +1080,26 @@ public class Element {
 
     public static List<Item> getPiece0Items() {
         return List.of(
-                ModItems.LifeElementPiece0.get(),
-                ModItems.WaterElementPiece0.get(),
-                ModItems.FireElementPiece0.get(),
-                ModItems.StoneElementPiece0.get(),
-                ModItems.IceElementPiece0.get(),
-                ModItems.LightningElementPiece0.get(),
-                ModItems.WindElementPiece0.get()
+                ModItems.LIFE_ELEMENT_PIECE_0.get(),
+                ModItems.WATER_ELEMENT_PIECE_0.get(),
+                ModItems.FIRE_ELEMENT_PIECE_0.get(),
+                ModItems.STONE_ELEMENT_PIECE_0.get(),
+                ModItems.ICE_ELEMENT_PIECE_0.get(),
+                ModItems.LIGHTNING_ELEMENT_PIECE_0.get(),
+                ModItems.WIND_ELEMENT_PIECE_0.get()
         );
     }
 
     private static final Map<String, Item> piece0ItemMap = new HashMap<>();
     public static Map<String, Item> getPiece0ItemMap() {
         if (piece0ItemMap.isEmpty()) {
-            piece0ItemMap.put(life, ModItems.LifeElementPiece0.get());
-            piece0ItemMap.put(water, ModItems.WaterElementPiece0.get());
-            piece0ItemMap.put(fire, ModItems.FireElementPiece0.get());
-            piece0ItemMap.put(stone, ModItems.StoneElementPiece0.get());
-            piece0ItemMap.put(ice, ModItems.IceElementPiece0.get());
-            piece0ItemMap.put(wind, ModItems.WindElementPiece0.get());
-            piece0ItemMap.put(lightning, ModItems.LightningElementPiece0.get());
+            piece0ItemMap.put(life, ModItems.LIFE_ELEMENT_PIECE_0.get());
+            piece0ItemMap.put(water, ModItems.WATER_ELEMENT_PIECE_0.get());
+            piece0ItemMap.put(fire, ModItems.FIRE_ELEMENT_PIECE_0.get());
+            piece0ItemMap.put(stone, ModItems.STONE_ELEMENT_PIECE_0.get());
+            piece0ItemMap.put(ice, ModItems.ICE_ELEMENT_PIECE_0.get());
+            piece0ItemMap.put(wind, ModItems.WIND_ELEMENT_PIECE_0.get());
+            piece0ItemMap.put(lightning, ModItems.LIGHTNING_ELEMENT_PIECE_0.get());
         }
         return piece0ItemMap;
     }
@@ -1107,13 +1107,13 @@ public class Element {
     private static final Map<String, Item> piece1ItemMap = new HashMap<>();
     public static Map<String, Item> getPiece1ItemMap() {
         if (piece1ItemMap.isEmpty()) {
-            piece1ItemMap.put(life, ModItems.LifeElementPiece1.get());
-            piece1ItemMap.put(water, ModItems.WaterElementPiece1.get());
-            piece1ItemMap.put(fire, ModItems.FireElementPiece1.get());
-            piece1ItemMap.put(stone, ModItems.StoneElementPiece1.get());
-            piece1ItemMap.put(ice, ModItems.IceElementPiece1.get());
-            piece1ItemMap.put(wind, ModItems.WindElementPiece1.get());
-            piece1ItemMap.put(lightning, ModItems.LightningElementPiece1.get());
+            piece1ItemMap.put(life, ModItems.LIFE_ELEMENT_PIECE_1.get());
+            piece1ItemMap.put(water, ModItems.WATER_ELEMENT_PIECE_1.get());
+            piece1ItemMap.put(fire, ModItems.FIRE_ELEMENT_PIECE_1.get());
+            piece1ItemMap.put(stone, ModItems.STONE_ELEMENT_PIECE_1.get());
+            piece1ItemMap.put(ice, ModItems.ICE_ELEMENT_PIECE_1.get());
+            piece1ItemMap.put(wind, ModItems.WIND_ELEMENT_PIECE_1.get());
+            piece1ItemMap.put(lightning, ModItems.LIGHTNING_ELEMENT_PIECE_1.get());
         }
         return piece1ItemMap;
     }
@@ -1121,13 +1121,13 @@ public class Element {
     private static final Map<Item, String> piece1ToElementMap = new HashMap<>();
     public static Map<Item, String> getPiece1ToElementMap() {
         if (piece1ToElementMap.isEmpty()) {
-            piece1ToElementMap.put(ModItems.LifeElementPiece1.get(), life);
-            piece1ToElementMap.put(ModItems.WaterElementPiece1.get(), water);
-            piece1ToElementMap.put(ModItems.FireElementPiece1.get(), fire);
-            piece1ToElementMap.put(ModItems.StoneElementPiece1.get(), stone);
-            piece1ToElementMap.put(ModItems.IceElementPiece1.get(), ice);
-            piece1ToElementMap.put(ModItems.WindElementPiece1.get(), wind);
-            piece1ToElementMap.put(ModItems.LightningElementPiece1.get(), lightning);
+            piece1ToElementMap.put(ModItems.LIFE_ELEMENT_PIECE_1.get(), life);
+            piece1ToElementMap.put(ModItems.WATER_ELEMENT_PIECE_1.get(), water);
+            piece1ToElementMap.put(ModItems.FIRE_ELEMENT_PIECE_1.get(), fire);
+            piece1ToElementMap.put(ModItems.STONE_ELEMENT_PIECE_1.get(), stone);
+            piece1ToElementMap.put(ModItems.ICE_ELEMENT_PIECE_1.get(), ice);
+            piece1ToElementMap.put(ModItems.WIND_ELEMENT_PIECE_1.get(), wind);
+            piece1ToElementMap.put(ModItems.LIGHTNING_ELEMENT_PIECE_1.get(), lightning);
         }
         return piece1ToElementMap;
     }
@@ -1135,13 +1135,13 @@ public class Element {
     private static final Map<String, Item> piece2ItemMap = new HashMap<>();
     public static Map<String, Item> getPiece2ItemMap() {
         if (piece2ItemMap.isEmpty()) {
-            piece2ItemMap.put(life, ModItems.LifeElementPiece2.get());
-            piece2ItemMap.put(water, ModItems.WaterElementPiece2.get());
-            piece2ItemMap.put(fire, ModItems.FireElementPiece2.get());
-            piece2ItemMap.put(stone, ModItems.StoneElementPiece2.get());
-            piece2ItemMap.put(ice, ModItems.IceElementPiece2.get());
-            piece2ItemMap.put(wind, ModItems.WindElementPiece2.get());
-            piece2ItemMap.put(lightning, ModItems.LightningElementPiece2.get());
+            piece2ItemMap.put(life, ModItems.LIFE_ELEMENT_PIECE_2.get());
+            piece2ItemMap.put(water, ModItems.WATER_ELEMENT_PIECE_2.get());
+            piece2ItemMap.put(fire, ModItems.FIRE_ELEMENT_PIECE_2.get());
+            piece2ItemMap.put(stone, ModItems.STONE_ELEMENT_PIECE_2.get());
+            piece2ItemMap.put(ice, ModItems.ICE_ELEMENT_PIECE_2.get());
+            piece2ItemMap.put(wind, ModItems.WIND_ELEMENT_PIECE_2.get());
+            piece2ItemMap.put(lightning, ModItems.LIGHTNING_ELEMENT_PIECE_2.get());
         }
         return piece2ItemMap;
     }
@@ -1149,13 +1149,13 @@ public class Element {
     private static final Map<Item, String> piece2ToElementMap = new HashMap<>();
     public static Map<Item, String> getPiece2ToElementMap() {
         if (piece2ToElementMap.isEmpty()) {
-            piece2ToElementMap.put(ModItems.LifeElementPiece2.get(), life);
-            piece2ToElementMap.put(ModItems.WaterElementPiece2.get(), water);
-            piece2ToElementMap.put(ModItems.FireElementPiece2.get(), fire);
-            piece2ToElementMap.put(ModItems.StoneElementPiece2.get(), stone);
-            piece2ToElementMap.put(ModItems.IceElementPiece2.get(), ice);
-            piece2ToElementMap.put(ModItems.WindElementPiece2.get(), wind);
-            piece2ToElementMap.put(ModItems.LightningElementPiece2.get(), lightning);
+            piece2ToElementMap.put(ModItems.LIFE_ELEMENT_PIECE_2.get(), life);
+            piece2ToElementMap.put(ModItems.WATER_ELEMENT_PIECE_2.get(), water);
+            piece2ToElementMap.put(ModItems.FIRE_ELEMENT_PIECE_2.get(), fire);
+            piece2ToElementMap.put(ModItems.STONE_ELEMENT_PIECE_2.get(), stone);
+            piece2ToElementMap.put(ModItems.ICE_ELEMENT_PIECE_2.get(), ice);
+            piece2ToElementMap.put(ModItems.WIND_ELEMENT_PIECE_2.get(), wind);
+            piece2ToElementMap.put(ModItems.LIGHTNING_ELEMENT_PIECE_2.get(), lightning);
         }
         return piece2ToElementMap;
     }

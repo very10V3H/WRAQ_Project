@@ -188,9 +188,9 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem, OnShootMana
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.CastleArmorPiece.get(), 24));
-            add(new ItemStack(ModItems.CastlePiece.get(), 128));
-            add(new ItemStack(ModItems.TreeRune.get(), 24));
+            add(new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get(), 24));
+            add(new ItemStack(ModItems.CASTLE_PIECE.get(), 128));
+            add(new ItemStack(ModItems.TREE_RUNE.get(), 24));
         }};
     }
 

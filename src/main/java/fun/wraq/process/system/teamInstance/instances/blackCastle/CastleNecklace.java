@@ -70,6 +70,6 @@ public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrG
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.CastleCuriosPowder.get());
+        return new ItemStack(ModItems.CASTLE_CURIOS_POWDER.get());
     }
 }

@@ -99,16 +99,16 @@ public class SkyVexSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.SkySoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.375));
+            add(new ItemAndRate(ModItems.SKY_SOUL.get(), 0.8));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.SkyCrest0.get(), 0.02));
-            add(new ItemAndRate(ModItems.SkyCrest1.get(), 0.005));
-            add(new ItemAndRate(ModItems.SkyCrest2.get(), 0.001));
-            add(new ItemAndRate(ModItems.SkyCrest3.get(), 0.0002));
-            add(new ItemAndRate(ModItems.WindElementPiece0.get(), 0.2));
-            add(new ItemAndRate(C2LootItems.skyVexBow.get(), 0.005));
-            add(new ItemAndRate(NewRuneItems.skyNewRune.get(), 0.001));
+            add(new ItemAndRate(ModItems.SKY_CREST_0.get(), 0.02));
+            add(new ItemAndRate(ModItems.SKY_CREST_1.get(), 0.005));
+            add(new ItemAndRate(ModItems.SKY_CREST_2.get(), 0.001));
+            add(new ItemAndRate(ModItems.SKY_CREST_3.get(), 0.0002));
+            add(new ItemAndRate(ModItems.WIND_ELEMENT_PIECE_0.get(), 0.2));
+            add(new ItemAndRate(C2LootItems.SKY_VEX_BOW.get(), 0.005));
+            add(new ItemAndRate(NewRuneItems.SKY_NEW_RUNE.get(), 0.001));
         }};
     }
 

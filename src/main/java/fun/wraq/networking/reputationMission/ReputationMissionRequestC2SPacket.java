@@ -5,8 +5,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
-import fun.wraq.networking.reputationMission.ReputationMissionContentS2CPacket;
-import fun.wraq.networking.reputationMission.ReputationMissionStartTimeS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -62,7 +60,7 @@ public class ReputationMissionRequestC2SPacket {
                         ItemStack itemStack = chooseItemStack.copy();
                         Utils.playerReputationMissionContent.put(serverPlayer.getName().getString(), itemStack);
                         int count = random.nextInt(64, Math.max(65, serverPlayer.experienceLevel));
-                        if (itemStack.is(ModItems.SpiderSoul.get())) count = (int) (count * 0.1);
+                        if (itemStack.is(ModItems.SPIDER_SOUL.get())) count = (int) (count * 0.1);
                         Utils.playerReputationMissionContentNum.put(serverPlayer.getName().getString(), count);
                         Utils.playerReputationMissionStartTime.put(serverPlayer.getName().getString(), Compute.CalendarToString(Calendar.getInstance()));
                         ModNetworking.sendToClient(new ReputationMissionStartTimeS2CPacket(Utils.playerReputationMissionStartTime.get(serverPlayer.getName().getString())), serverPlayer);

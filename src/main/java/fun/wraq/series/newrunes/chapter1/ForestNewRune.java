@@ -58,7 +58,7 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.forestNewRune.get());
+        return Compute.hasCurios(player, NewRuneItems.FOREST_NEW_RUNE.get());
     }
 
     public static Map<String, Integer> passiveNextActiveTime = new HashMap<>();
@@ -72,8 +72,8 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
             if ((player.getHealth() - damage) / (player.getMaxHealth() - damage) <= 0.2) {
                 passiveNextActiveTime.put(name, tick + 1200);
                 healthRecoverUpTime.put(name, tick + 100);
-                Compute.sendEffectLastTime(player, NewRuneItems.forestNewRune.get(), 100);
-                Compute.sendCoolDownTime(player, NewRuneItems.forestNewRune.get(), 1200);
+                Compute.sendEffectLastTime(player, NewRuneItems.FOREST_NEW_RUNE.get(), 100);
+                Compute.sendCoolDownTime(player, NewRuneItems.FOREST_NEW_RUNE.get(), 1200);
                 return true;
             }
         }

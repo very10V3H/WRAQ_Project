@@ -56,7 +56,7 @@ public class LakeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.lakeNewRune.get());
+        return Compute.hasCurios(player, NewRuneItems.LAKE_NEW_RUNE.get());
     }
 
     public static double exSwimSpeed(Player player) {

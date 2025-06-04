@@ -37,25 +37,25 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
     }
 
     public static void IgniteEffect(Player player, Mob mob) {
-        if (mob.getRemainingFireTicks() > 0 && player.getMainHandItem().is(ModItems.FireElementSceptre.get())) {
+        if (mob.getRemainingFireTicks() > 0 && player.getMainHandItem().is(ModItems.FIRE_ELEMENT_SCEPTRE.get())) {
             fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerFireElementValueEnhanceTickMap.put(player, Tick.get() + 40);
         }
     }
 
     public static void Tick(Player player) {
-        if (!player.getMainHandItem().is(ModItems.FireElementSceptre.get())) return;
+        if (!player.getMainHandItem().is(ModItems.FIRE_ELEMENT_SCEPTRE.get())) return;
         if (!fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerIgniteMobMap.containsKey(player))
             fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
         List<fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.IgniteMob> list = fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerIgniteMobMap.get(player);
         list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
         if (list.size() > 0)
-            Compute.sendEffectLastTime(player, ModItems.FireElementSceptre.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
+            Compute.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_SCEPTRE.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
         else
-            Compute.sendEffectLastTime(player, ModItems.FireElementSceptre.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
+            Compute.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_SCEPTRE.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
     }
 
     public static void PlayerIgniteMobEffect(Player player, Mob mob) {
-        if (!player.getMainHandItem().is(ModItems.FireElementSceptre.get())) return;
+        if (!player.getMainHandItem().is(ModItems.FIRE_ELEMENT_SCEPTRE.get())) return;
         if (!fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerIgniteMobMap.containsKey(player))
             fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
         List<fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.IgniteMob> list = fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerIgniteMobMap.get(player);
@@ -119,7 +119,7 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FireElementSceptre.get(), 0, 7)) {
+        if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FIRE_ELEMENT_SCEPTRE.get(), 0, 7)) {
             Compute.playerItemCoolDown(player, this, 7);
             List<Mob> mobList = Compute.OneShotLaser(player, true, PlayerAttributes.manaDamage(player) * 0.5, ModParticles.LONG_RED_SPELL.get());
             mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));

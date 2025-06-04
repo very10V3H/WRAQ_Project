@@ -105,7 +105,7 @@ public class PiglinPower extends WraqPower {
         double manaDamageUpValue = 0;
         if (StableAttributesModifier.getAttributeModifierList(player, StableAttributesModifier.playerAttackDamageModifier).
                 stream().anyMatch(attributesModifier -> attributesModifier.tag().equals("piglinPowerAttackDamageUp"))
-                && Compute.hasCurios(player, NewRuneItems.castleNewRune.get())) {
+                && Compute.hasCurios(player, NewRuneItems.CASTLE_NEW_RUNE.get())) {
             manaDamageUpValue = (PlayerAttributes.manaDamage(player) - StableAttributesModifier.getAttributeModifierList(player, StableAttributesModifier.playerAttackDamageModifier).
                     stream().filter(attributesModifier -> attributesModifier.tag().equals("piglinPowerAttackDamageUp")).findFirst().get().value() * 0.4) * 0.03;
         } else manaDamageUpValue = 0.03 * PlayerAttributes.manaDamage(player);

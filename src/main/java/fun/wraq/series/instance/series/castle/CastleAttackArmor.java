@@ -214,9 +214,9 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.CastleArmorPiece.get(), 24));
-            add(new ItemStack(ModItems.CastlePiece.get(), 128));
-            add(new ItemStack(ModItems.BlazeRune.get(), 24));
+            add(new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get(), 24));
+            add(new ItemStack(ModItems.CASTLE_PIECE.get(), 128));
+            add(new ItemStack(ModItems.BLAZE_RUNE.get(), 24));
         }};
     }
 }

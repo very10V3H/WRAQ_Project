@@ -36,7 +36,7 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
     public static void Tick(Player player) {
         if (fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.containsKey(player) && fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) >= Tick.get()) {
             int tickCount = fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) - Tick.get();
-            Compute.sendEffectLastTime(player, ModItems.LifeElementSword.get().getDefaultInstance(), tickCount, tickCount, true);
+            Compute.sendEffectLastTime(player, ModItems.LIFE_ELEMENT_SWORD.get().getDefaultInstance(), tickCount, tickCount, true);
             Compute.playerHeal(player, fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveHealth.get(player) * 0.01);
         }
     }

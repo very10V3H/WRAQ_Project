@@ -100,16 +100,16 @@ public class LakeDrownSpawnController extends MobSpawnController {
 
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.LakeSoul.get(), 1.5));
-            add(new ItemAndRate(ModItems.copperCoin.get(), 3));
+            add(new ItemAndRate(ModItems.LAKE_SOUL.get(), 1.5));
+            add(new ItemAndRate(ModItems.COPPER_COIN.get(), 3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01));
-            add(new ItemAndRate(ModItems.LakeCrest0.get(), 0.02));
-            add(new ItemAndRate(ModItems.LakeCrest1.get(), 0.005));
-            add(new ItemAndRate(ModItems.LakeCrest2.get(), 0.001));
-            add(new ItemAndRate(ModItems.LakeCrest3.get(), 0.0002));
-            add(new ItemAndRate(ModItems.WaterElementPiece0.get(), 0.1));
-            add(new ItemAndRate(NewRuneItems.lakeNewRune.get(), 0.001));
-            add(new ItemAndRate(C1LootItems.lakeDrownHelmet.get(), 0.005));
+            add(new ItemAndRate(ModItems.LAKE_CREST_0.get(), 0.02));
+            add(new ItemAndRate(ModItems.LAKE_CREST_1.get(), 0.005));
+            add(new ItemAndRate(ModItems.LAKE_CREST_2.get(), 0.001));
+            add(new ItemAndRate(ModItems.LAKE_CREST_3.get(), 0.0002));
+            add(new ItemAndRate(ModItems.WATER_ELEMENT_PIECE_0.get(), 0.1));
+            add(new ItemAndRate(NewRuneItems.LAKE_NEW_RUNE.get(), 0.001));
+            add(new ItemAndRate(C1LootItems.LAKE_DROWN_HELMET.get(), 0.005));
         }};
     }
 

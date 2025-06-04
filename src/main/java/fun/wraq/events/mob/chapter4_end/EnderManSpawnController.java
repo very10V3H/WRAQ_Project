@@ -102,12 +102,12 @@ public class EnderManSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.RecallPiece.get(), 0.8));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.625));
+            add(new ItemAndRate(ModItems.RECALL_PIECE.get(), 0.8));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.625));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.05));
-            add(new ItemAndRate(ModItems.toEnd.get(), 0.01));
-            add(new ItemAndRate(NewRuneItems.endNewRune.get(), 0.001));
-            add(new ItemAndRate(C4LootItems.enderManSword.get(), 0.005));
+            add(new ItemAndRate(ModItems.END_PEARL.get(), 0.01));
+            add(new ItemAndRate(NewRuneItems.END_NEW_RUNE.get(), 0.001));
+            add(new ItemAndRate(C4LootItems.ENDERMAN_SWORD.get(), 0.005));
         }};
     }
 

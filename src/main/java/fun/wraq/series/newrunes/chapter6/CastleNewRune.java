@@ -62,7 +62,7 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.castleNewRune.get());
+        return Compute.hasCurios(player, NewRuneItems.CASTLE_NEW_RUNE.get());
     }
 
     public static double attackDamage(Player player) {

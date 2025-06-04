@@ -93,13 +93,13 @@ public class DivineBow extends WraqBow implements DivineWeaponCommon, PreventLef
             return List.of(
                     new ItemStack(DivineIslandItems.DIVINE_BOW_0.get(), 1),
                     new ItemStack(DivineIslandItems.DIVINE_BALANCE_STAR.get(), 999),
-                    new ItemStack(ModItems.RainbowCrystal.get(), 999)
+                    new ItemStack(ModItems.RAINBOW_CRYSTAL.get(), 999)
             );
         }
         return List.of(
                 new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get(), 128),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
-                new ItemStack(ModItems.ReputationMedal.get(), 160),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 160),
                 new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
         );

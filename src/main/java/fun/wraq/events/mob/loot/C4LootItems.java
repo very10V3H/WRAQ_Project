@@ -16,20 +16,20 @@ import java.util.List;
 public class C4LootItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
-    public static final RegistryObject<Item> enderManSword = ITEMS.register("enderman_sword", () ->
+    public static final RegistryObject<Item> ENDERMAN_SWORD = ITEMS.register("enderman_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.EndBold), CustomStyle.styleOfEnd,
                     ComponentUtils.getSuffixOfEnd(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 2, 3),
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaPenetration0, 2, 3)), 80));
 
-    public static final RegistryObject<Item> endermiteSceptre = ITEMS.register("endermite_sceptre", () ->
+    public static final RegistryObject<Item> ENDERMITE_SCEPTRE = ITEMS.register("endermite_sceptre", () ->
             new RandomSceptre(new Item.Properties().rarity(CustomStyle.EndBold), CustomStyle.styleOfEnd,
                     ComponentUtils.getSuffixOfEnd(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.defence, 10, 15),
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaPenetration0, 3, 4),
                     new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 3, 4)), 140));
 
-    public static final RegistryObject<Item> shulkerChest = ITEMS.register("shulker_chest", () ->
+    public static final RegistryObject<Item> SHULKER_CHEST = ITEMS.register("shulker_chest", () ->
             new RandomArmor(ModArmorMaterials.PurpleIron, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.EndBold), CustomStyle.styleOfEnd,
                     ComponentUtils.getSuffixOfEnd(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.defence, 10, 15),

@@ -62,8 +62,8 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.ConstrainTaboo.get(), 1),
-                new ItemStack(ModItems.PurpleIronArmorBoots.get(), 1),
+                new ItemStack(ModItems.CONSTRAINT_TABOO.get(), 1),
+                new ItemStack(ModItems.PURPLE_IRON_BOOTS.get(), 1),
                 new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
         );
     }

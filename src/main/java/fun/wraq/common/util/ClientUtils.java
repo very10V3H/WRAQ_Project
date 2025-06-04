@@ -1,13 +1,11 @@
 package fun.wraq.common.util;
 
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.*;
 import fun.wraq.files.MarketItemInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -92,31 +90,6 @@ public class ClientUtils {
     public static boolean IsAdjustingPower = false;
     public static Queue<Integer> PowerQueue = new LinkedList<>();
     public static Map<Integer, Integer> PowerInSlot = new HashMap<>();
-    public static Map<Integer, Item> NumToItem = new HashMap<>() {
-        {
-            put(1, ModItems.EffectMana.get());
-            put(2, ModItems.RangeMana.get());
-            put(3, ModItems.DamageMana.get());
-            put(4, ModItems.BreakMana.get());
-            put(5, ModItems.KazeMana.get());
-            put(6, ModItems.SnowMana.get());
-            put(7, ModItems.LightningMana.get());
-            put(8, ModItems.GatherMana.get());
-        }
-    };
-    public static Map<Item, Integer> ItemToNum = new HashMap<>() {
-        {
-            put(null, 0);
-            put(ModItems.EffectMana.get(), 1);
-            put(ModItems.RangeMana.get(), 2);
-            put(ModItems.DamageMana.get(), 3);
-            put(ModItems.BreakMana.get(), 4);
-            put(ModItems.KazeMana.get(), 5);
-            put(ModItems.SnowMana.get(), 6);
-            put(ModItems.LightningMana.get(), 7);
-            put(ModItems.GatherMana.get(), 8);
-        }
-    };
     public static boolean BlackForestParticle = false;
     public static boolean NetherParticle = false;
     public static int PlayerSkillPoint_Total = 0;

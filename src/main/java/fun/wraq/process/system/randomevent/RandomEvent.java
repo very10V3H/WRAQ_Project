@@ -172,7 +172,7 @@ public abstract class RandomEvent {
 
     public static List<ItemAndRate> getDefaultRewardList() {
         return new ArrayList<>(List.of(
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 4),
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 4),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 20),
                 new ItemAndRate(ModItems.REVELATION_HEART.get(), 1)
         ));

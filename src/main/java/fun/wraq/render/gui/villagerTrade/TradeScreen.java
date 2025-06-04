@@ -12,6 +12,10 @@ import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import fun.wraq.networking.unSorted.TradeBuyRequestC2SPacket;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.randomStore.RandomStore;
+import fun.wraq.render.gui.trade.weekly.WeeklyStore;
+import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
+import fun.wraq.render.gui.trade.weekly.WeeklyStoreRecipe;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -40,11 +44,15 @@ public class TradeScreen extends Screen {
     private static final Font fontRenderer = mc.font;
     private int page = 0;
     private String villagerName;
+    private boolean isWeeklyStore = false;
 
     public TradeScreen(boolean p_96308_, String villagerName) {
         super(p_96308_ ? Component.translatable("menu.trade") : Component.translatable("menu.trade0"));
         this.showPauseMenu = p_96308_;
         this.villagerName = villagerName;
+        if (villagerName.equals(TradeListNew.WEEKLY_STORE_VILLAGER_NAME)) {
+            isWeeklyStore = true;
+        }
     }
 
     protected void init() {
@@ -73,48 +81,51 @@ public class TradeScreen extends Screen {
             this.minecraft.mouseHandler.grabMouse();
         }).pos(this.width / 2 + 136, this.height / 2 - 98).size(12, 12).build());
 
-        for (int i = 0; i < 7; i++) {
-            int finalI = i;
-            this.addRenderableWidget(Button.builder(Component.translatable("兑换"), (p_280814_) -> {
-                switch (finalI) {
-                    case 0 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(4)); // 1金换8银
-                    case 1 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(4)); // 1金换64铜
-                    case 2 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(4)); // 8银换1金
-                    case 3 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(3)); // 1银换8铜
-                    case 4 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(3)); // 64铜换1金
-                    case 5 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(3)); // 8铜换1银
-                    case 6 -> ModNetworking.sendToServer(new GemPieceC2SPacket()); // 8铜换1银
-                }
-            }).pos(this.width / 2 + 256, this.height / 2 - 78 + 24 * i).size(24, 16).build());
+        if (!isWeeklyStore) {
+            for (int i = 0; i < 7; i++) {
+                int finalI = i;
+                this.addRenderableWidget(Button.builder(Component.translatable("兑换"), (p_280814_) -> {
+                    switch (finalI) {
+                        case 0 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(4)); // 1金换8银
+                        case 1 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(4)); // 1金换64铜
+                        case 2 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(4)); // 8银换1金
+                        case 3 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(3)); // 1银换8铜
+                        case 4 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(3)); // 64铜换1金
+                        case 5 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(3)); // 8铜换1银
+                        case 6 -> ModNetworking.sendToServer(new GemPieceC2SPacket()); // 8铜换1银
+                    }
+                }).pos(this.width / 2 + 256, this.height / 2 - 78 + 24 * i).size(24, 16).build());
+            }
+
+            this.addRenderableWidget(Button.builder(Component.translatable("VB兑1金币"), (p_280814_) -> {
+                ModNetworking.sendToServer(new GoldCoinC2SPacket(1));
+            }).pos(this.width / 2 - 146, this.height / 2 - 116).size(48, 16).build());
+
+            this.addRenderableWidget(Button.builder(Component.translatable("x10"), (p_280814_) -> {
+                ModNetworking.sendToServer(new GoldCoinC2SPacket(2));
+            }).pos(this.width / 2 - 146 + 50, this.height / 2 - 116).size(24, 16).build());
+
+            this.addRenderableWidget(Button.builder(Component.translatable("VB兑10银币"), (p_280814_) -> {
+                ModNetworking.sendToServer(new SilverCoinC2SPacket(1));
+            }).pos(this.width / 2 - 146 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
+
+            this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
+                ModNetworking.sendToServer(new SilverCoinC2SPacket(2));
+            }).pos(this.width / 2 - 146 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
+
+            this.addRenderableWidget(Button.builder(Component.translatable("VB兑10铜币"), (p_280814_) -> {
+                ModNetworking.sendToServer(new CopperCoinC2SPacket(1));
+            }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
+
+            this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
+                ModNetworking.sendToServer(new CopperCoinC2SPacket(2));
+            }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
+
+            this.addRenderableWidget(Button.builder(Component.translatable("兑换VB").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
+                ModNetworking.sendToServer(new AllCurrencyC2SPacket(true));
+            }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
+
         }
-
-        this.addRenderableWidget(Button.builder(Component.translatable("VB兑1金币"), (p_280814_) -> {
-            ModNetworking.sendToServer(new GoldCoinC2SPacket(1));
-        }).pos(this.width / 2 - 146, this.height / 2 - 116).size(48, 16).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("x10"), (p_280814_) -> {
-            ModNetworking.sendToServer(new GoldCoinC2SPacket(2));
-        }).pos(this.width / 2 - 146 + 50, this.height / 2 - 116).size(24, 16).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("VB兑10银币"), (p_280814_) -> {
-            ModNetworking.sendToServer(new SilverCoinC2SPacket(1));
-        }).pos(this.width / 2 - 146 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
-            ModNetworking.sendToServer(new SilverCoinC2SPacket(2));
-        }).pos(this.width / 2 - 146 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("VB兑10铜币"), (p_280814_) -> {
-            ModNetworking.sendToServer(new CopperCoinC2SPacket(1));
-        }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
-            ModNetworking.sendToServer(new CopperCoinC2SPacket(2));
-        }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("兑换VB").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
-            ModNetworking.sendToServer(new AllCurrencyC2SPacket(true));
-        }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
 
         for (int i = 0; i < 5; i++) {
             int finalI = i;
@@ -144,36 +155,41 @@ public class TradeScreen extends Screen {
 
         int X = this.width / 2;
         int Y = this.height / 2;
-        guiGraphics.blit(COIN_TEXTURE, X + 150, Y - 81, 0, 0, 200, 200, 200, 200);
+        if (!isWeeklyStore) {
+            guiGraphics.blit(COIN_TEXTURE, X + 150, Y - 81, 0, 0,
+                    200, 200, 200, 200);
+        }
 
-        List<ItemStack> coinList = List.of(
-                new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.silverCoin.get(), 12),
-                new ItemStack(ModItems.GOLD_COIN.get()), new ItemStack(ModItems.copperCoin.get(), 144),
-                new ItemStack(ModItems.silverCoin.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()),
-                new ItemStack(ModItems.silverCoin.get()), new ItemStack(ModItems.copperCoin.get(), 12),
-                new ItemStack(ModItems.copperCoin.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()),
-                new ItemStack(ModItems.copperCoin.get(), 12), new ItemStack(ModItems.silverCoin.get()),
-                new ItemStack(ModItems.GEM_PIECE.get(), 64), new ItemStack(ModItems.COMPLETE_GEM.get()));
+        if (!isWeeklyStore) {
+            List<ItemStack> coinList = List.of(
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.SILVER_COIN.get(), 12),
+                    new ItemStack(ModItems.GOLD_COIN.get()), new ItemStack(ModItems.COPPER_COIN.get(), 144),
+                    new ItemStack(ModItems.SILVER_COIN.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()),
+                    new ItemStack(ModItems.SILVER_COIN.get()), new ItemStack(ModItems.COPPER_COIN.get(), 12),
+                    new ItemStack(ModItems.COPPER_COIN.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()),
+                    new ItemStack(ModItems.COPPER_COIN.get(), 12), new ItemStack(ModItems.SILVER_COIN.get()),
+                    new ItemStack(ModItems.GEM_PIECE.get(), 64), new ItemStack(ModItems.COMPLETE_GEM.get()));
 
-        for (int i = 0; i < coinList.size(); i++) {
-            ItemStack coin = coinList.get(i);
-            if (i % 2 == 0) {
-                guiGraphics.renderItem(coin,
-                        this.width / 2 + 158, this.height / 2 - 77 + i / 2 * 24);
-                guiGraphics.drawCenteredString(font, Component.literal("" + coin.getCount()).withStyle(ChatFormatting.WHITE),
-                        this.width / 2 + 158 + 20, this.height / 2 - 77 + 8 + i / 2 * 24, 0);
-                if (x > this.width / 2 + 158 && x < this.width / 2 + 158 + 16
-                        && y > this.height / 2 - 77 + i / 2 * 24 && y < this.height / 2 - 77 + i / 2 * 24 + 16) {
-                    guiGraphics.renderTooltip(font, coin, x, y);
-                }
-            } else {
-                guiGraphics.renderItem(coin,
-                        this.width / 2 + 158 + 67, this.height / 2 - 77 + i / 2 * 24);
-                guiGraphics.drawCenteredString(font, Component.literal("" + coin.getCount()).withStyle(ChatFormatting.WHITE),
-                        this.width / 2 + 158 + 67 + 20, this.height / 2 - 77 + 8 + i / 2 * 24, 0);
-                if (x > this.width / 2 + 158 + 67 && x < this.width / 2 + 158 + 67 + 16
-                        && y > this.height / 2 - 77 + i / 2 * 24 && y < this.height / 2 - 77 + i / 2 * 24 + 16) {
-                    guiGraphics.renderTooltip(font, coin, x, y);
+            for (int i = 0; i < coinList.size(); i++) {
+                ItemStack coin = coinList.get(i);
+                if (i % 2 == 0) {
+                    guiGraphics.renderItem(coin,
+                            this.width / 2 + 158, this.height / 2 - 77 + i / 2 * 24);
+                    guiGraphics.drawCenteredString(font, Component.literal("" + coin.getCount()).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 + 158 + 20, this.height / 2 - 77 + 8 + i / 2 * 24, 0);
+                    if (x > this.width / 2 + 158 && x < this.width / 2 + 158 + 16
+                            && y > this.height / 2 - 77 + i / 2 * 24 && y < this.height / 2 - 77 + i / 2 * 24 + 16) {
+                        guiGraphics.renderTooltip(font, coin, x, y);
+                    }
+                } else {
+                    guiGraphics.renderItem(coin,
+                            this.width / 2 + 158 + 67, this.height / 2 - 77 + i / 2 * 24);
+                    guiGraphics.drawCenteredString(font, Component.literal("" + coin.getCount()).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 + 158 + 67 + 20, this.height / 2 - 77 + 8 + i / 2 * 24, 0);
+                    if (x > this.width / 2 + 158 + 67 && x < this.width / 2 + 158 + 67 + 16
+                            && y > this.height / 2 - 77 + i / 2 * 24 && y < this.height / 2 - 77 + i / 2 * 24 + 16) {
+                        guiGraphics.renderTooltip(font, coin, x, y);
+                    }
                 }
             }
         }
@@ -182,8 +198,9 @@ public class TradeScreen extends Screen {
         if (!Objects.equals(villagerName, RandomStore.villagerName)) {
 
             List<ItemStack> targetItemList = new ArrayList<>();
-            if (TradeList.tradeContent.containsKey(villagerName))
+            if (TradeList.tradeContent.containsKey(villagerName)) {
                 targetItemList = TradeList.tradeContent.get(villagerName);
+            }
             size = targetItemList.size();
 
             for (int i = 0; i < 10; i++) {
@@ -198,15 +215,24 @@ public class TradeScreen extends Screen {
             }
         }
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("当前VB余额:").withStyle(ChatFormatting.WHITE),
-                this.width / 2 - 110, this.height / 2 + 83, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Te.s(String.format("%.2f", ClientUtils.VBNUM)),
-                this.width / 2 - 60, this.height / 2 + 83, 0);
+        if (!isWeeklyStore) {
+            guiGraphics.drawCenteredString(fontRenderer, Te.s("当前VB余额:"),
+                    this.width / 2 - 110, this.height / 2 + 83, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Te.s(String.format("%.2f", ClientUtils.VBNUM)),
+                    this.width / 2 - 60, this.height / 2 + 83, 0);
+        }
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE),
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("" + page + 1),
                 this.width / 2, this.height / 2 + 83, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("共" + ((size - 1) / 10 + 1) + "页 " + (size) + "件物品").withStyle(ChatFormatting.WHITE),
-                this.width / 2 + 80, this.height / 2 + 83, 0);
+        guiGraphics.drawCenteredString(fontRenderer,
+                Te.s("共" + ((size - 1) / 10 + 1) + "页 " + (size) + "件物品"),
+                 this.width / 2 + 80, this.height / 2 + 83, 0);
+
+        if (villagerName.equals(TradeListNew.WEEKLY_STORE_VILLAGER_NAME)) {
+            guiGraphics.drawCenteredString(fontRenderer,
+                    Te.s("研发采购 - 第", WeeklyStorePlayerData.clientIssueCount, ChatFormatting.RED,
+                            "期" + " 每周五更新"), this.width / 2, this.height / 2 - 96, 0);
+        }
         super.render(p_96310_, x, y, v);
     }
 
@@ -233,9 +259,25 @@ public class TradeScreen extends Screen {
                 material.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                 guiGraphics.renderItem(material,
                         this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset, this.height / 2 - 75 + 32 * i);
-                if (x > this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset && x < this.width / 2 - 100 - 33 + 16 + 150 - j * 28 + xOffset
-                        && y > this.height / 2 - 75 + 32 * i && y < this.height / 2 - 75 + 32 * i + 16) {
+                if (x > this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset
+                        && x < this.width / 2 - 100 - 33 + 16 + 150 - j * 28 + xOffset
+                        && y > this.height / 2 - 75 + 32 * i
+                        && y < this.height / 2 - 75 + 32 * i + 16) {
                     guiGraphics.renderTooltip(font, material, x, y);
+                }
+                if (x > this.width / 2 - 100 - 33 + 150 + 20 + xOffset
+                        && x < this.width / 2 - 100 - 33 + 32 + 150 + 20 + xOffset
+                        && y > this.height / 2 - 75 + 32 * i
+                        && y < this.height / 2 - 75 + 32 * i + 16) {
+                    WeeklyStoreRecipe weeklyStoreRecipe = WeeklyStore.recipes.stream()
+                            .filter(recipe -> recipe.isSameRecipe(recipeList, targetItemStack))
+                            .findAny().orElse(null);
+                    if (weeklyStoreRecipe != null) {
+                        guiGraphics.renderTooltip(font, Te.s("限购: ", CustomStyle.styleOfGold,
+                                WeeklyStorePlayerData.clientPlayerChangedCount.getOrDefault(weeklyStoreRecipe.toString(), 0),
+                                CustomStyle.styleOfWorld, " / ", CustomStyle.styleOfStone,
+                                weeklyStoreRecipe.count, " - ", "每期"), x, y);
+                    }
                 }
                 if (material.getCount() > 9) {
                     guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),

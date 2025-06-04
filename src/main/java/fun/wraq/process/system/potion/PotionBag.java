@@ -49,7 +49,7 @@ public class PotionBag extends Item {
         return List.of(
                 ModItems.ATTACK_UP_POTION_BAG.get(),
                 ModItems.DEFENCE_PENETRATION_POTION_BAG.get(),
-                ModItems.CRIT_RATE_UP_POTIONBAG.get(),
+                ModItems.CRIT_RATE_UP_POTION_BAG.get(),
                 ModItems.CRIT_DAMAGE_UP_POTION_BAG.get(),
                 ModItems.MANA_DAMAGE_UP_POTION_BAG.get(),
                 ModItems.MANA_PENETRATION_POTION_BAG.get(),

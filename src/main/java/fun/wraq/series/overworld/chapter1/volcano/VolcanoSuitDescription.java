@@ -40,10 +40,10 @@ public class VolcanoSuitDescription {
         Player player = Minecraft.getInstance().player;
         ChatFormatting MainStyle = ChatFormatting.YELLOW;
         Item[] items = {
-                ModItems.VolcanoArmorHelmet.get(),
-                ModItems.VolcanoArmorChest.get(),
-                ModItems.VolcanoArmorLeggings.get(),
-                ModItems.VolcanoArmorBoots.get()
+                ModItems.VOLCANO_HELMET.get(),
+                ModItems.VOLCANO_CHEST.get(),
+                ModItems.VOLCANO_LEGGINGS.get(),
+                ModItems.VOLCANO_BOOTS.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

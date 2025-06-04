@@ -93,8 +93,8 @@ public class BasicAttributeDescription {
 
         if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.attackDamage)
                 || data.contains(StringUtils.RandomCuriosAttribute.attackDamage)) {
-            if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
-                if (itemStack.is(ModItems.SoulSword.get())) {
+            if (itemStack.is(ModItems.SOUL_SWORD.get()) || itemStack.is(ModItems.SOUL_BOW.get())) {
+                if (itemStack.is(ModItems.SOUL_SWORD.get())) {
                     int ForgeTime = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 物理攻击").withStyle(ChatFormatting.AQUA).
@@ -105,7 +105,7 @@ public class BasicAttributeDescription {
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
                 }
-                if (itemStack.is(ModItems.SoulBow.get())) {
+                if (itemStack.is(ModItems.SOUL_BOW.get())) {
                     int ForgeTime = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 物理攻击").withStyle(ChatFormatting.AQUA).
@@ -152,7 +152,7 @@ public class BasicAttributeDescription {
 
         if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.manaDamage)
                 || data.contains(StringUtils.RandomCuriosAttribute.manaDamage)) {
-            if (itemStack.is(ModItems.SoulSceptre.get())) {
+            if (itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
@@ -351,8 +351,8 @@ public class BasicAttributeDescription {
 
         if (Utils.defencePenetration0.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.defencePenetration0)
                 || data.contains(StringUtils.RandomAttribute.defencePenetration0)) {
-            if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
-                if (itemStack.is(ModItems.SoulSword.get())) {
+            if (itemStack.is(ModItems.SOUL_SWORD.get()) || itemStack.is(ModItems.SOUL_BOW.get())) {
+                if (itemStack.is(ModItems.SOUL_SWORD.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
@@ -363,7 +363,7 @@ public class BasicAttributeDescription {
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration0)));
                 }
-                if (itemStack.is(ModItems.SoulBow.get())) {
+                if (itemStack.is(ModItems.SOUL_BOW.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
@@ -400,8 +400,8 @@ public class BasicAttributeDescription {
 
         if (Utils.critRate.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.critRate)
                 || data.contains(StringUtils.RandomAttribute.critRate)) {
-            if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
-                if (itemStack.is(ModItems.SoulSword.get())) {
+            if (itemStack.is(ModItems.SOUL_SWORD.get()) || itemStack.is(ModItems.SOUL_BOW.get())) {
+                if (itemStack.is(ModItems.SOUL_SWORD.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
@@ -412,7 +412,7 @@ public class BasicAttributeDescription {
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critRate)));
                 }
-                if (itemStack.is(ModItems.SoulBow.get())) {
+                if (itemStack.is(ModItems.SOUL_BOW.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
@@ -449,8 +449,8 @@ public class BasicAttributeDescription {
         if (Utils.critDamage.containsKey(item)
                 || data.contains(StringUtils.RandomCuriosAttribute.critDamage)
                 || data.contains(StringUtils.RandomAttribute.critDamage)) {
-            if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
-                if (itemStack.is(ModItems.SoulSword.get())) {
+            if (itemStack.is(ModItems.SOUL_SWORD.get()) || itemStack.is(ModItems.SOUL_BOW.get())) {
+                if (itemStack.is(ModItems.SOUL_SWORD.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 暴击伤害").withStyle(ChatFormatting.BLUE).
@@ -461,7 +461,7 @@ public class BasicAttributeDescription {
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critDamage)));
                 }
-                if (itemStack.is(ModItems.SoulBow.get())) {
+                if (itemStack.is(ModItems.SOUL_BOW.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 暴击伤害").withStyle(ChatFormatting.BLUE).
@@ -496,8 +496,8 @@ public class BasicAttributeDescription {
 
         if (Utils.healthSteal.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.healthSteal)
                 || data.contains(StringUtils.RandomAttribute.healthSteal)) {
-            if (itemStack.is(ModItems.SoulSword.get())) {
-                if (itemStack.is(ModItems.SoulSword.get())) {
+            if (itemStack.is(ModItems.SOUL_SWORD.get())) {
+                if (itemStack.is(ModItems.SOUL_SWORD.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 生命偷取").withStyle(ChatFormatting.RED).
@@ -529,7 +529,7 @@ public class BasicAttributeDescription {
         }
 
         if (Utils.manaCost.containsKey(item)) {
-            if (itemStack.is(ModItems.SoulSceptre.get())) {
+            if (itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 法力消耗").withStyle(ChatFormatting.DARK_PURPLE).
@@ -551,7 +551,7 @@ public class BasicAttributeDescription {
 
         if (Utils.maxMana.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.maxMana)
                 || data.contains(StringUtils.RandomCuriosAttribute.maxMana)) {
-            if (itemStack.is(ModItems.SoulSceptre.get())) {
+            if (itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 最大法力值").withStyle(ChatFormatting.LIGHT_PURPLE).
@@ -602,7 +602,7 @@ public class BasicAttributeDescription {
 
         if (Utils.manaPenetration0.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaPenetration0)
                 || data.contains(StringUtils.RandomAttribute.manaPenetration0)) {
-            if (itemStack.is(ModItems.SoulSceptre.get())) {
+            if (itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
@@ -636,7 +636,7 @@ public class BasicAttributeDescription {
 
         if (Utils.manaRecover.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaRecover)
                 || data.contains(StringUtils.RandomAttribute.manaRecover)) {
-            if (itemStack.is(ModItems.SoulSceptre.get())) {
+            if (itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
                 int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
@@ -692,9 +692,9 @@ public class BasicAttributeDescription {
 
         if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.movementSpeed)
                 || data.contains(StringUtils.RandomAttribute.movementSpeedWithoutBattle)) {
-            if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())
-                    || itemStack.is(ModItems.SoulSceptre.get())) {
-                if (itemStack.is(ModItems.SoulSword.get())) {
+            if (itemStack.is(ModItems.SOUL_SWORD.get()) || itemStack.is(ModItems.SOUL_BOW.get())
+                    || itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
+                if (itemStack.is(ModItems.SOUL_SWORD.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 脱战移动速度").withStyle(ChatFormatting.GREEN).
@@ -705,7 +705,7 @@ public class BasicAttributeDescription {
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
                 }
-                if (itemStack.is(ModItems.SoulBow.get())) {
+                if (itemStack.is(ModItems.SOUL_BOW.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 脱战移动速度").withStyle(ChatFormatting.GREEN).
@@ -716,7 +716,7 @@ public class BasicAttributeDescription {
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
                 }
-                if (itemStack.is(ModItems.SoulSceptre.get())) {
+                if (itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 脱战移动速度").withStyle(ChatFormatting.GREEN).

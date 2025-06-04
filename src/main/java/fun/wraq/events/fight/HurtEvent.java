@@ -1,13 +1,9 @@
 package fun.wraq.events.fight;
 
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.entities.entities.Civil.Civil;
-import fun.wraq.process.func.damage.Damage;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
@@ -55,13 +51,6 @@ public class HurtEvent {
                     }
                 }
             }
-        }
-    }
-
-    public static void BlazeReflectDamage(Mob monster, Player player) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorBlaze.get())
-                || monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorBlaze.get())) {
-            Damage.causeManaDamageToPlayer(monster, player, player.getMaxHealth() * 0.02f);
         }
     }
 }

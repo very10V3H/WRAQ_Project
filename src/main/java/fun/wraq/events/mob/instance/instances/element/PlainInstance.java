@@ -152,15 +152,15 @@ public class PlainInstance extends NoTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.PlainBossSoul.get(), 1),
+        return List.of(new ItemAndRate(ModItems.PLAIN_BOSS_SOUL.get(), 1),
                 new ItemAndRate(ModItems.PLAIN_BOSS_SCEPTRE.get(), 0.01),
-                new ItemAndRate(ModItems.plainNecklace.get(), 0.08),
-                new ItemAndRate(ModItems.PlainAttackRing0.get(), 0.05),
-                new ItemAndRate(ModItems.PlainManaAttackRing0.get(), 0.05),
-                new ItemAndRate(ModItems.PlainHealthRing0.get(), 0.05),
-                new ItemAndRate(ModItems.PlainDefenceRing0.get(), 0.05),
+                new ItemAndRate(ModItems.PLAIN_NECKLACE.get(), 0.08),
+                new ItemAndRate(ModItems.PLAIN_ATTACK_RING_0.get(), 0.05),
+                new ItemAndRate(ModItems.PLAIN_MANA_RING_0.get(), 0.05),
+                new ItemAndRate(ModItems.PLAIN_HEALTH_RING_0.get(), 0.05),
+                new ItemAndRate(ModItems.PLAIN_DEFENCE_RING_0.get(), 0.05),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1));
     }
 
     @Override

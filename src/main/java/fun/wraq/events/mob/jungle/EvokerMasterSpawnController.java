@@ -53,7 +53,7 @@ public class EvokerMasterSpawnController extends JungleMobSpawnController {
         double manaRecoverValue = (double) player.experienceLevel / 2 + PlayerAttributes.maxMana(player) * 0.05;
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaRecoverModifier,
                 "BlueBuff", manaRecoverValue,
-                Tick.get() + Tick.min(8), ModItems.EvokerSoul.get());
+                Tick.get() + Tick.min(8), ModItems.EVOKER_SOUL.get());
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCooldownModifier,
                 "BlueBuff", 0.3, Tick.get() + Tick.min(8));
         sendMSG(player, Te.s("获得了持续", "8min", ChatFormatting.AQUA, "的", "唤魔之力", STYLE,
@@ -77,16 +77,16 @@ public class EvokerMasterSpawnController extends JungleMobSpawnController {
     @Override
     public List<ItemAndRate> getRewardItemList() {
         return List.of(
-                new ItemAndRate(ModItems.EvokerSoul.get(), 16),
-                new ItemAndRate(ModItems.silverCoin.get(), 8),
+                new ItemAndRate(ModItems.EVOKER_SOUL.get(), 16),
+                new ItemAndRate(ModItems.SILVER_COIN.get(), 8),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 1),
-                new ItemAndRate(ModItems.ManaCrest0.get(), 0.4),
-                new ItemAndRate(ModItems.ManaCrest1.get(), 0.1),
-                new ItemAndRate(ModItems.ManaCrest2.get(), 0.02),
-                new ItemAndRate(ModItems.ManaCrest3.get(), 0.004),
-                new ItemAndRate(ModItems.LightningElementPiece0.get(), 4),
-                new ItemAndRate(C2LootItems.evokerSceptre.get(), 0.02),
-                new ItemAndRate(NewRuneItems.evokerNewRune.get(), 0.02)
+                new ItemAndRate(ModItems.MANA_CREST_0.get(), 0.4),
+                new ItemAndRate(ModItems.MANA_CREST_1.get(), 0.1),
+                new ItemAndRate(ModItems.MANA_CREST_2.get(), 0.02),
+                new ItemAndRate(ModItems.MANA_CREST_3.get(), 0.004),
+                new ItemAndRate(ModItems.LIGHTNING_ELEMENT_PIECE_0.get(), 4),
+                new ItemAndRate(C2LootItems.EVOKER_SCEPTRE.get(), 0.02),
+                new ItemAndRate(NewRuneItems.EVOKER_NEW_RUNE.get(), 0.02)
         );
     }
 

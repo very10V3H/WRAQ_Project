@@ -80,7 +80,7 @@ public class NetherArmor extends WraqArmor implements OnHitEffectEquip, ForgeIte
     @Override
     public void onHit(Player player, Mob mob) {
         StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.percentDefence, "NetherArmor passive",
-                -SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 8, ModItems.netherSkeletonSoul.get());
+                -SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 8, ModItems.NETHER_SKELETON_SOUL.get());
     }
 
     @Override
@@ -88,29 +88,29 @@ public class NetherArmor extends WraqArmor implements OnHitEffectEquip, ForgeIte
         if (type.equals(Type.HELMET)) {
             return List.of(
                     new ItemStack(ModItems.WITHER_RUNE.get(), 8),
-                    new ItemStack(ModItems.NetherRune.get(), 2),
-                    new ItemStack(ModItems.QuartzRune.get(), 1)
+                    new ItemStack(ModItems.NETHER_RUNE.get(), 2),
+                    new ItemStack(ModItems.QUARTZ_RUNE.get(), 1)
             );
         }
         if (type.equals(Type.CHESTPLATE)) {
             return List.of(
                     new ItemStack(ModItems.NETHER_SKELETON_RUNE.get(), 8),
-                    new ItemStack(ModItems.NetherRune.get(), 2),
-                    new ItemStack(ModItems.QuartzRune.get(), 1)
+                    new ItemStack(ModItems.NETHER_RUNE.get(), 2),
+                    new ItemStack(ModItems.QUARTZ_RUNE.get(), 1)
             );
         }
         if (type.equals(Type.LEGGINGS)) {
             return List.of(
-                    new ItemStack(ModItems.MagmaRune.get(), 8),
-                    new ItemStack(ModItems.NetherRune.get(), 2),
-                    new ItemStack(ModItems.QuartzRune.get(), 1)
+                    new ItemStack(ModItems.MAGMA_RUNE.get(), 8),
+                    new ItemStack(ModItems.NETHER_RUNE.get(), 2),
+                    new ItemStack(ModItems.QUARTZ_RUNE.get(), 1)
             );
         }
         if (type.equals(Type.BOOTS)) {
             return List.of(
                     new ItemStack(ModItems.PIGLIN_RUNE.get(), 8),
-                    new ItemStack(ModItems.NetherRune.get(), 2),
-                    new ItemStack(ModItems.QuartzRune.get(), 1)
+                    new ItemStack(ModItems.NETHER_RUNE.get(), 2),
+                    new ItemStack(ModItems.QUARTZ_RUNE.get(), 1)
             );
         }
         return List.of();

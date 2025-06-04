@@ -108,8 +108,8 @@ public class Ore2SpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return List.of(
-                new ItemAndRate(ModItems.StoneElementPiece0.get(), 0.03),
-                new ItemAndRate(ModItems.WaterElementPiece0.get(), 0.03),
+                new ItemAndRate(ModItems.STONE_ELEMENT_PIECE_0.get(), 0.03),
+                new ItemAndRate(ModItems.WATER_ELEMENT_PIECE_0.get(), 0.03),
                 new ItemAndRate(Items.RAW_GOLD, 0.08),
                 new ItemAndRate(Items.DIAMOND, 0.05),
                 new ItemAndRate(Items.EMERALD, 0.05),

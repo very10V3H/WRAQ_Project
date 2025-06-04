@@ -94,7 +94,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
 
     @Override
     protected void reward(Player player) {
-        ItemStack stack = new ItemStack(ModItems.RevelationBook.get());
+        ItemStack stack = new ItemStack(ModItems.REVELATION_BOOK.get());
         stack.setCount(5 + Math.min(20, getKillCount() / 15));
         InventoryOperation.giveItemStackWithMSG(player, stack);
         if (player.experienceLevel >= 180) {

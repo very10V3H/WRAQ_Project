@@ -108,7 +108,7 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
                 new ItemStack(HarbingerItems.HARBINGER_WEAPON_CORE.get()),
                 new ItemStack(HarbingerItems.HARBINGER_SWORD_BLADE.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 48),
-                new ItemStack(ModItems.ReputationMedal.get(), 160),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 160),
                 new ItemStack(PickaxeItems.TINKER_GOLD.get(), 20),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 12)
         );

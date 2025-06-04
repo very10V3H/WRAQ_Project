@@ -49,7 +49,7 @@ public class EarthBook extends WraqOffHandItem {
     }
 
     public static double getManaCostRate(Player player) {
-        if (player.getOffhandItem().is(ModItems.EarthBook.get())) {
+        if (player.getOffhandItem().is(ModItems.EARTH_BOOK.get())) {
             return -0.2;
         }
         return 0;

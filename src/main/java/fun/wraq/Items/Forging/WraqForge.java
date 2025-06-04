@@ -167,9 +167,9 @@ public class WraqForge extends Item {
             Set<Item> iceKnightEquips = Set.of(ModItems.ICE_SWORD.get(),
                     ModItems.ICE_BOW.get(), ModItems.ICE_SCEPTRE.get());
             Set<Item> moonEquips = Set.of(ModItems.MOON_SWORD.get(), ModItems.MOON_BOW.get(),
-                    ModItems.MOON_SCEPTRE.get(), ModItems.MoonShield.get(),
-                    ModItems.MoonKnife.get(), ModItems.MoonBook.get(),
-                    ModItems.MoonBelt.get());
+                    ModItems.MOON_SCEPTRE.get(), ModItems.MOON_SHIELD.get(),
+                    ModItems.MOON_KNIFE.get(), ModItems.MOON_BOOK.get(),
+                    ModItems.MOON_BELT.get());
             Set<Item> castleEquips = Set.of(ModItems.CASTLE_SWORD.get(),
                     ModItems.CASTLE_BOW.get(), ModItems.CASTLE_SCEPTRE.get());
             Set<Item> divineWeapons = Set.of(DivineIslandItems.DIVINE_SWORD_0.get(),
@@ -189,33 +189,33 @@ public class WraqForge extends Item {
             }
 
             // 引导触发
-            Set<Item> forestEquips = Set.of(ModItems.ForestArmorHelmet.get(), ModItems.ForestArmorChest.get(),
-                    ModItems.ForestArmorLeggings.get(), ModItems.ForestArmorBoots.get(),
-                    ModItems.ForestSword0.get(), ModItems.ForestBow0.get());
+            Set<Item> forestEquips = Set.of(ModItems.FOREST_HELMET.get(), ModItems.FOREST_CHEST.get(),
+                    ModItems.FOREST_LEGGINGS.get(), ModItems.FOREST_BOOTS.get(),
+                    ModItems.FOREST_SWORD_0.get(), ModItems.FOREST_BOW_0.get());
             if (forestEquips.contains(item)) {
                 Guide.trigV2(player, Guide.StageV2.FOREST_EQUIP);
             }
-            Set<Item> lakeEquips = Set.of(ModItems.LakeArmorHelmet.get(), ModItems.LakeArmorChest.get(),
-                    ModItems.LakeArmorLeggings.get(), ModItems.LakeArmorBoots.get(),
-                    ModItems.LakeSword0.get(), ModItems.lakeBow0.get(), ModItems.lakeSceptre0.get());
+            Set<Item> lakeEquips = Set.of(ModItems.LAKE_HELMET.get(), ModItems.LAKE_CHEST.get(),
+                    ModItems.LAKE_LEGGINGS.get(), ModItems.LAKE_BOOTS.get(),
+                    ModItems.LAKE_SWORD_0.get(), ModItems.LAKE_BOW_0.get(), ModItems.LAKE_SCEPTRE_0.get());
             if (lakeEquips.contains(item)) {
                 Guide.trigV2(player, Guide.StageV2.LAKE_EQUIP);
             }
-            Set<Item> mineEquips = Set.of(ModItems.MineArmorHelmet.get(), ModItems.MineArmorChest.get(),
-                    ModItems.MineArmorLeggings.get(), ModItems.MineArmorBoots.get(),
-                    ModItems.MineSword0.get(), ModItems.MineBow0.get());
+            Set<Item> mineEquips = Set.of(ModItems.MINE_HELMET.get(), ModItems.MINE_CHEST.get(),
+                    ModItems.MINE_LEGGINGS.get(), ModItems.MINE_BOOTS.get(),
+                    ModItems.MINE_SWORD_0.get(), ModItems.MINE_BOW_0.get());
             if (mineEquips.contains(item)) {
                 Guide.trigV2(player, Guide.StageV2.MINE_EQUIP);
             }
-            Set<Item> volcanoEquips = Set.of(ModItems.VolcanoArmorHelmet.get(), ModItems.VolcanoArmorChest.get(),
-                    ModItems.VolcanoArmorLeggings.get(), ModItems.VolcanoArmorBoots.get(),
-                    ModItems.VolcanoSword0.get(), ModItems.VolcanoBow0.get());
+            Set<Item> volcanoEquips = Set.of(ModItems.VOLCANO_HELMET.get(), ModItems.VOLCANO_CHEST.get(),
+                    ModItems.VOLCANO_LEGGINGS.get(), ModItems.VOLCANO_BOOTS.get(),
+                    ModItems.VOLCANO_SWORD_0.get(), ModItems.VOLCANO_BOW_0.get());
             if (volcanoEquips.contains(item)) {
                 Guide.trigV2(player, Guide.StageV2.VOLCANO_EQUIP);
             }
-            Set<Item> enhanceEquips = Set.of(ModItems.SKY_ARMOR_HELMET.get(),
-                    ModItems.SKY_ARMOR_CHEST.get(), ModItems.SKY_ARMOR_LEGGINGS.get(), ModItems.SKY_ARMOR_BOOTS.get(),
-                    ModItems.SkyBow.get(), ModItems.SKY_SWORD.get());
+            Set<Item> enhanceEquips = Set.of(ModItems.SKY_HELMET.get(),
+                    ModItems.SKY_CHEST.get(), ModItems.SKY_LEGGINGS.get(), ModItems.SKY_BOOTS.get(),
+                    ModItems.SKY_BOW.get(), ModItems.SKY_SWORD.get());
             if (enhanceEquips.contains(item)) {
                 Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
             }
@@ -254,7 +254,7 @@ public class WraqForge extends Item {
         if (playerMSGSendDelayMap1.containsKey(name)) {
             if (playerMSGSendDelayMap1.get(name) < tick) {
                 playerMSGSendDelayMap1.remove(name);
-                ItemStack itemStack = new ItemStack(ModItems.PlainRune.get(), 2);
+                ItemStack itemStack = new ItemStack(ModItems.PLAIN_RUNE.get(), 2);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
                 InventoryOperation.giveItemStack(serverPlayer, itemStack);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);

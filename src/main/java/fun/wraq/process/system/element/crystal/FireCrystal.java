@@ -94,10 +94,10 @@ public class FireCrystal extends SwordItem implements ActiveItem {
         if (!player.getCooldowns().isOnCooldown(this)) {
             int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.getPlayerFireElementValue(player)));
             List<Item> itemList = new ArrayList<>() {{
-                add(ModItems.FireCrystal0.get());
-                add(ModItems.FireCrystal1.get());
-                add(ModItems.FireCrystal2.get());
-                add(ModItems.FireCrystal3.get());
+                add(ModItems.FIRE_CRYSTAL_0.get());
+                add(ModItems.FIRE_CRYSTAL_1.get());
+                add(ModItems.FIRE_CRYSTAL_2.get());
+                add(ModItems.FIRE_CRYSTAL_3.get());
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);

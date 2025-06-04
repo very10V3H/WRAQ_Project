@@ -62,7 +62,7 @@ public class TabooSwiftArmor extends WraqArmor implements ForgeItem {
     }
 
     public static boolean IsOn(Player player) {
-        return player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.TabooSwiftHelmet.get());
+        return player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.TABOO_SWIFT_HELMET.get());
     }
 
     public static double ExDamage(Player player) {
@@ -77,8 +77,8 @@ public class TabooSwiftArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.ConstrainTaboo.get(), 1),
-                new ItemStack(ModItems.PurpleIronArmorHelmet.get(), 1),
+                new ItemStack(ModItems.CONSTRAINT_TABOO.get(), 1),
+                new ItemStack(ModItems.PURPLE_IRON_HELMET.get(), 1),
                 new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
         );
     }

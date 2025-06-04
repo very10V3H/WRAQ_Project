@@ -65,6 +65,6 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
                 "SkyBow passive critDamage", 0.1, Tick.get() + 60);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
                 "SkyBow passive critDamage", 0.2, Tick.get() + 60);
-        Compute.sendEffectLastTime(player, ModItems.SkyBow.get(), 60);
+        Compute.sendEffectLastTime(player, ModItems.SKY_BOW.get(), 60);
     }
 }

@@ -1,8 +1,8 @@
 package fun.wraq.process.system.cooking.item;
 
 import fun.wraq.process.system.cooking.CookingItems;
-import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
-import fun.wraq.render.gui.trade.SingleItemChangeRecipe;
+import fun.wraq.render.gui.trade.single.SingleItemChangePurchaseLimit;
+import fun.wraq.render.gui.trade.single.SingleItemChangeRecipe;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;

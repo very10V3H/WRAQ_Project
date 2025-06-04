@@ -29,10 +29,10 @@ public class MineSuitDescription {
         Player player = Minecraft.getInstance().player;
         Style MainStyle = CustomStyle.styleOfMine;
         Item[] items = {
-                ModItems.MineArmorHelmet.get(),
-                ModItems.MineArmorChest.get(),
-                ModItems.MineArmorLeggings.get(),
-                ModItems.MineArmorBoots.get()
+                ModItems.MINE_HELMET.get(),
+                ModItems.MINE_CHEST.get(),
+                ModItems.MINE_LEGGINGS.get(),
+                ModItems.MINE_BOOTS.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

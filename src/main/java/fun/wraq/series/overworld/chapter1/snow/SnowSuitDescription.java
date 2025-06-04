@@ -34,11 +34,11 @@ public class SnowSuitDescription {
         Player player = Minecraft.getInstance().player;
         Style MainStyle = CustomStyle.styleOfSnow;
         Item[] items = {
-                ModItems.SnowArmorHelmet.get(),
-                ModItems.SnowArmorChest.get(),
-                ModItems.SnowBossArmorChest.get(),
-                ModItems.SnowArmorLeggings.get(),
-                ModItems.SnowArmorBoots.get()
+                ModItems.SNOW_HELMET.get(),
+                ModItems.SNOW_CHEST.get(),
+                ModItems.SNOW_BOSS_CHEST.get(),
+                ModItems.SNOW_LEGGINGS.get(),
+                ModItems.SNOW_BOOTS.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

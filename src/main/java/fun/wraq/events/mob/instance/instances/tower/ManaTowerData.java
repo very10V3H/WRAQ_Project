@@ -56,7 +56,7 @@ public class ManaTowerData {
         recordList.sort(new Comparator<TimeRecord>() {
             @Override
             public int compare(TimeRecord o1, TimeRecord o2) {
-                return o1.usedTick - o2.usedTick;
+                return (int) (getUsedTime(o1) - getUsedTime(o2));
             }
         });
         Compute.formatBroad(Te.s("炼魔塔", CustomStyle.MANA_TOWER_STYLE),
@@ -238,44 +238,52 @@ public class ManaTowerData {
         }
     }
 
+    public static double getUsedTime(int usedTick, int count) {
+        return usedTick / (1 + 0.1 * count);
+    }
+
+    public static double getUsedTime(TimeRecord record) {
+        return getUsedTime(record.usedTick, record.count);
+    }
+
     public static void onPlayerFinishedChallenge(Player player, int usedTick) {
         List<TimeRecord> recordList = getRecords();
         List<TimeRecord> oldList = new ArrayList<>(getRecords());
         boolean change = false;
         boolean refreshSelf = false;
+        int count = getPlayerManaTowerPieceGetCount(player);
         if (recordList.stream().anyMatch(timeRecord -> timeRecord.playerName.equals(Name.get(player)))) {
             TimeRecord timeRecord = recordList.stream().filter(record -> record.playerName.equals(Name.get(player)))
                     .findFirst().orElse(null);
             if (timeRecord != null) {
-                if (timeRecord.usedTick > usedTick) {
+                if (getUsedTime(timeRecord) > getUsedTime(usedTick, count)) {
                     recordList.remove(timeRecord);
-                    recordList.add(new TimeRecord(Name.get(player), usedTick,
-                            getPlayerManaTowerPieceGetCount(player)));
+                    recordList.add(new TimeRecord(Name.get(player), usedTick, count));
                     change = true;
                     refreshSelf = true;
                 }
             }
         } else {
             if (recordList.size() < 8) {
-                recordList.add(new TimeRecord(Name.get(player), usedTick, getPlayerManaTowerPieceGetCount(player)));
+                recordList.add(new TimeRecord(Name.get(player), usedTick, count));
                 change = true;
             } else {
-                int longestTickInRecord = -1;
+                double longestTickInRecord = -1;
                 for (TimeRecord record : recordList) {
-                    if (record.usedTick > longestTickInRecord) {
-                        longestTickInRecord = record.usedTick;
+                    if (getUsedTime(record) > longestTickInRecord) {
+                        longestTickInRecord = getUsedTime(record);
                     }
                 }
-                if (longestTickInRecord > usedTick) {
+                if (longestTickInRecord > getUsedTime(usedTick, count)) {
                     change = true;
                 }
-                recordList.add(new TimeRecord(Name.get(player), usedTick, getPlayerManaTowerPieceGetCount(player)));
+                recordList.add(new TimeRecord(Name.get(player), usedTick, count));
             }
         }
         recordList.sort(new Comparator<TimeRecord>() {
             @Override
             public int compare(TimeRecord o1, TimeRecord o2) {
-                return o1.usedTick - o2.usedTick;
+                return (int) (getUsedTime(o1) - getUsedTime(o2));
             }
         });
         sendMSG(player, Te.s("本次挑战的纪录为:", getRecordTickDescription(usedTick)));

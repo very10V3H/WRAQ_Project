@@ -86,7 +86,7 @@ public class WindSkeletonSpawnController extends MobSpawnController {
             tag.put("display", tag1);
             skeleton.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
-        skeleton.setItemInHand(InteractionHand.MAIN_HAND, ModItems.KazeSword0.get().getDefaultInstance());
+        skeleton.setItemInHand(InteractionHand.MAIN_HAND, ModItems.KAZE_SWORD_0.get().getDefaultInstance());
 
         // 设置掉落
         List<ItemAndRate> list = getDropList();
@@ -106,12 +106,12 @@ public class WindSkeletonSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.KazeSoul.get(), 1));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.4375));
+            add(new ItemAndRate(ModItems.KAZE_SOUL.get(), 1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.4375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.WindElementPiece0.get(), 0.2));
-            add(new ItemAndRate(C2LootItems.windSkeletonSword.get(), 0.005));
-            add(new ItemAndRate(NewRuneItems.kazeNewRune.get(), 0.001));
+            add(new ItemAndRate(ModItems.WIND_ELEMENT_PIECE_0.get(), 0.2));
+            add(new ItemAndRate(C2LootItems.WIND_SKELETON_SWORD.get(), 0.005));
+            add(new ItemAndRate(NewRuneItems.KAZE_NEW_RUNE.get(), 0.001));
         }};
     }
 

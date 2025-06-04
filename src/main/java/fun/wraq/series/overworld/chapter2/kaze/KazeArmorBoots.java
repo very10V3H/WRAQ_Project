@@ -48,7 +48,7 @@ public class KazeArmorBoots extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.KazeRune.get(), 8),
+                new ItemStack(ModItems.KAZE_RUNE.get(), 8),
                 new ItemStack(Items.EMERALD, 16)
         );
     }

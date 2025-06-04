@@ -89,7 +89,7 @@ public class MoontainCommon2ExSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(MoontainItems.LEATHER.get(), 0.12));
             add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.36));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 1.1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1.1));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065));
         }};
     }

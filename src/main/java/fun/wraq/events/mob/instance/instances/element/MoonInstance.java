@@ -87,12 +87,12 @@ public class MoonInstance extends NoTeamInstance {
                 0.4, 3, 0.25, 55, 0,
                 maxHealth, 0.3);
         attackMob.setHealth(attackMob.getMaxHealth());
-        attackMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonAttack.get().getDefaultInstance());
-        attackMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorMoonChest.get().getDefaultInstance());
-        attackMob.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorMoonLeggings.get().getDefaultInstance());
-        attackMob.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorMoonBoots.get().getDefaultInstance());
-        attackMob.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MoonShield.get().getDefaultInstance());
-        attackMob.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MoonKnife.get().getDefaultInstance());
+        attackMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_MOON_ATTACK.get().getDefaultInstance());
+        attackMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_MOON_CHEST.get().getDefaultInstance());
+        attackMob.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_MOON_LEGGINGS.get().getDefaultInstance());
+        attackMob.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_MOON_BOOTS.get().getDefaultInstance());
+        attackMob.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MOON_SHIELD.get().getDefaultInstance());
+        attackMob.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MOON_KNIFE.get().getDefaultInstance());
         attackMob.moveTo(1747.5, 127.5, -491.5);
         attackMob.setTarget(players.stream().findFirst().orElse(null));
         level.addFreshEntity(attackMob);
@@ -111,10 +111,10 @@ public class MoonInstance extends NoTeamInstance {
                 0.4, 3, 0.25, 55, 0,
                 maxHealth, 0.3);
         manaMob.setHealth(manaMob.getMaxHealth());
-        manaMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonMana.get().getDefaultInstance());
-        manaMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorMoonChest.get().getDefaultInstance());
-        manaMob.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorMoonLeggings.get().getDefaultInstance());
-        manaMob.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorMoonBoots.get().getDefaultInstance());
+        manaMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_MOON_MANA.get().getDefaultInstance());
+        manaMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_MOON_CHEST.get().getDefaultInstance());
+        manaMob.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_MOON_LEGGINGS.get().getDefaultInstance());
+        manaMob.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_MOON_BOOTS.get().getDefaultInstance());
         manaMob.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
         manaMob.moveTo(new Vec3(1773.5, 122.5, -498.5));
         manaMob.setTarget(players.stream().findFirst().orElse(null));
@@ -148,12 +148,12 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.MoonLoot.get(), 1),
-                new ItemAndRate(GemItems.moonAttackGem.get(), 0.01),
-                new ItemAndRate(GemItems.moonManaGem.get(), 0.01),
+        return List.of(new ItemAndRate(ModItems.MOON_LOOT.get(), 1),
+                new ItemAndRate(GemItems.MOON_ATTACK_GEM.get(), 0.01),
+                new ItemAndRate(GemItems.MOON_MANA_GEM.get(), 0.01),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
-                new ItemAndRate(NewRuneItems.moonNewRune.get(), 0.015));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1),
+                new ItemAndRate(NewRuneItems.MOON_NEW_RUNE.get(), 0.015));
     }
 
     public static void Skill1(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
@@ -280,7 +280,7 @@ public class MoonInstance extends NoTeamInstance {
 
     public static boolean isMoonAttackImmune(Player player, Mob mob) {
         if (player.isCreative()) return false;
-        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonAttack.get())) {
+        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MOB_ARMOR_MOON_ATTACK.get())) {
             if (player.distanceTo(mob) > 6 && attackImmuneMSGMap.getOrDefault(player, 0) < Tick.get()) {
                 attackImmuneMSGMap.put(player, Tick.get() + 100);
                 Compute.sendFormatMSG(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),
@@ -295,7 +295,7 @@ public class MoonInstance extends NoTeamInstance {
 
     public static boolean isMoonManaImmune(Player player, Mob mob) {
         if (player.isCreative()) return false;
-        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonMana.get())) {
+        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MOB_ARMOR_MOON_MANA.get())) {
             if (player.distanceTo(mob) < 6 && manaImmuneMSGMap.getOrDefault(player, 0) < Tick.get()) {
                 manaImmuneMSGMap.put(player, Tick.get() + 100);
                 Compute.sendFormatMSG(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),

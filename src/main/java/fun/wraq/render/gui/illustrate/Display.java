@@ -56,21 +56,21 @@ public class Display {
 
     public static void setBrewingList() {
         Item[] items = {
-                ModItems.WaterBottle.get(),
-                ModItems.Purifier.get(),
-                ModItems.PurifiedWater.get(),
-                ModItems.BrewingNote.get(),
-                ModItems.PlainSolidifiedSoul.get(),
-                ModItems.ForestSolidifiedSoul.get(),
-                ModItems.LakeSolidifiedSoul.get(),
-                ModItems.VolcanoSolidifiedSoul.get(),
-                ModItems.SnowSolidifiedSoul.get(),
-                ModItems.SkySolidifiedSoul.get(),
-                ModItems.EvokerSolidifiedSoul.get(),
-                ModItems.NetherSolidifiedSoul.get(),
-                ModItems.Solidifier.get(),
-                ModItems.Stabilizer.get(),
-                ModItems.Concentrater.get()
+                ModItems.WATER_BOTTLE.get(),
+                ModItems.PURIFIER.get(),
+                ModItems.PURIFIED_WATER.get(),
+                ModItems.BREWING_NOTE.get(),
+                ModItems.PLAIN_SOLIDIFIED_SOUL.get(),
+                ModItems.FOREST_SOLIDIFIED_SOUL.get(),
+                ModItems.LAKE_SOLIDIFIED_SOUL.get(),
+                ModItems.VOLCANO_SOLIDIFIED_SOUL.get(),
+                ModItems.SNOW_SOLIDIFIED_SOUL.get(),
+                ModItems.SKY_SOLIDIFIED_SOUL.get(),
+                ModItems.EVOKER_SOLIDIFIED_SOUL.get(),
+                ModItems.NETHER_SOLIDIFIED_SOUL.get(),
+                ModItems.SOLIDIFIER.get(),
+                ModItems.STABILIZER.get(),
+                ModItems.CONCENTRATER.get()
         };
         BrewingList.addAll(List.of(items));
         for (RegistryObject<Item> registryObject : ModItems.ITEMS.getEntries()) {

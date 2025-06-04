@@ -87,8 +87,8 @@ public class BloodManaArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.BloodManaRune.get(), 8));
-            add(new ItemStack(ModItems.wolfLeather.get(), 320));
+            add(new ItemStack(ModItems.BLOOD_MANA_RUNE.get(), 8));
+            add(new ItemStack(ModItems.WOLF_LEATHER.get(), 320));
             add(new ItemStack(Items.LEATHER, 192));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};

@@ -795,5 +795,12 @@ public class CommandHandler {
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher86 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd86 = dispatcher86.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("bounding")
+                                .executes(BoundingCommand.instance)
+                )
+        );
     }
 }

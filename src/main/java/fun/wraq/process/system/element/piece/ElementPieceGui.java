@@ -104,9 +104,9 @@ public class ElementPieceGui extends Screen {
 
     public List<Component> getTooltip(int index0, int index1) {
         List<Component> components = new ArrayList<>();
-        Item rainbowPowder = ModItems.RainbowPowder.get();
-        Item rainbowCrystal = ModItems.RainbowCrystal.get();
-        Item weakPiece0 = ElementItems.weakPiece0.get();
+        Item rainbowPowder = ModItems.RAINBOW_POWDER.get();
+        Item rainbowCrystal = ModItems.RAINBOW_CRYSTAL.get();
+        Item weakPiece0 = ElementItems.WEAK_PIECE_0.get();
         if (index0 < 7) {
             String elementType = Element.elementList.get(index0);
             Item piece0Item = Element.getPiece0Items().get(index0);

@@ -69,8 +69,8 @@ public class StarArmor extends WraqArmor {
     }
 
     public static double DamageEnhance(Player player, Mob mob) {
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.StarLeggings.get())
-                || player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.StarHelmet.get())) {
+        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.STAR_LEGGINGS.get())
+                || player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.STAR_HELMET.get())) {
             Item weapon = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
             if (Utils.swordTag.containsKey(weapon) && mob.distanceTo(player) <= 5)
                 return SuitCount.getStarSuitCount(player) * 0.25;

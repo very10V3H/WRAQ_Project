@@ -94,11 +94,11 @@ public class StarSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.StarSoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.StarRune.get(), 0.1));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.87));
+            add(new ItemAndRate(ModItems.STAR_SOUL.get(), 0.8));
+            add(new ItemAndRate(ModItems.STAR_RUNE.get(), 0.1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.87));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
-            add(new ItemAndRate(C7LootItems.starSword.get(), 0.005));
+            add(new ItemAndRate(C7LootItems.STAR_LOOT_SWORD.get(), 0.005));
         }};
     }
 

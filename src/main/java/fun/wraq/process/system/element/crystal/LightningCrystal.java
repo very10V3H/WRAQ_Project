@@ -94,10 +94,10 @@ public class LightningCrystal extends SwordItem implements ActiveItem {
         if (!player.getCooldowns().isOnCooldown(this)) {
             int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.getPlayerLightningElementValue(player)));
             List<Item> itemList = new ArrayList<>() {{
-                add(ModItems.LightningCrystal0.get());
-                add(ModItems.LightningCrystal1.get());
-                add(ModItems.LightningCrystal2.get());
-                add(ModItems.LightningCrystal3.get());
+                add(ModItems.LIGHTNING_CRYSTAL_0.get());
+                add(ModItems.LIGHTNING_CRYSTAL_1.get());
+                add(ModItems.LIGHTNING_CRYSTAL_2.get());
+                add(ModItems.LIGHTNING_CRYSTAL_3.get());
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);

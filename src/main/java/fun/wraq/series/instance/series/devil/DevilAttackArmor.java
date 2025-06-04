@@ -65,12 +65,12 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     public static WeakHashMap<Player, Integer> DevilAttackArmorPassiveTickMap = new WeakHashMap<>();
 
     public static void DevilAttackArmorPassive(Player player, Mob mob) {
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.DevilAttackChest.get())) {
+        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.DEVIL_ATTACK_CHEST.get())) {
             int TickCount = Tick.get();
             DevilAttackArmorPassiveNumMap.put(player,
                     MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.attackDamage) * 0.5);
             DevilAttackArmorPassiveTickMap.put(player, TickCount + 40);
-            Compute.sendEffectLastTime(player, ModItems.DevilBlood.get().getDefaultInstance(), 40);
+            Compute.sendEffectLastTime(player, ModItems.DEVIL_BLOOD.get().getDefaultInstance(), 40);
         }
     }
 
@@ -85,7 +85,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.DevilAttackSoul.get(), 48),
+                new ItemStack(ModItems.DEVIL_ATTACK_SOUL.get(), 48),
                 new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
         );
     }

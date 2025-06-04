@@ -50,7 +50,7 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.plainNewRune.get());
+        return Compute.hasCurios(player, NewRuneItems.PLAIN_NEW_RUNE.get());
     }
 
     public static double playerHealthRecover(Player player) {

@@ -53,7 +53,7 @@ public class WindRune extends WraqCurios implements RuneItem {
 
     @Override
     public void tick(Player player) {
-        Compute.sendEffectLastTime(player, NewRuneItems.skyNewRune.get(), 0, true);
+        Compute.sendEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get(), 0, true);
     }
 
     @Override

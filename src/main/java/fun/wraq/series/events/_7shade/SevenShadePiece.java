@@ -52,7 +52,7 @@ public class SevenShadePiece extends WraqItem {
                 sendMSG(player, Te.s("你已经使用过这个七影碎片了."));
             } else {
                 data.putBoolean(this.toString(), true);
-                sendMSG(player, Te.s(this, "已被激活，在", ModItems.ID_Card.get(), "上方可查看已激活的七影碎片."));
+                sendMSG(player, Te.s(this, "已被激活，在", ModItems.ID_CARD.get(), "上方可查看已激活的七影碎片."));
                 Compute.playerItemUseWithRecord(player);
                 sendDataToClient(player);
             }

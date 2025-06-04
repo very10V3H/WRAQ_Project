@@ -27,12 +27,14 @@ public class MushroomItems {
 
     public static final RegistryObject<Item> BROWN_MUSHROOM = ITEMS.register("brown_mushroom",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY)));
+    public static final RegistryObject<Item> BROWN_MUSHROOM_POCKET = ITEMS.register("brown_mushroom_pocket",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY)));
 
     public static final RegistryObject<Item> RED_MUSHROOM = ITEMS.register("red_mushroom",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), true, true,
                     List.of(Te.s("菌菇屋二楼", CustomStyle.MUSHROOM_STYLE, "似乎有它的用武之处"))));
 
-    public static final RegistryObject<Item> NETHER_MUSHROOM = ITEMS.register("nether_mushroom",
+    public static final RegistryObject<Item> NETHER_MUSHROOM = ITEMS.register("nether_mushroom_new",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.RedItalic)));
 
     public static final RegistryObject<Item> UNKNOWN_GEM = ITEMS.register("unknown_gem",

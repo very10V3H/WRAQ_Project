@@ -66,9 +66,9 @@ public class SakuraBow extends WraqBow implements OnHitEffectEquip {
             Compute.playerHeal(player, player.getMaxHealth() * 0.05);
         } else {
             StableTierAttributeModifier.addM(player, StableTierAttributeModifier.defence, "SakuraBow passive",
-                    3, Tick.get() + 120, 8, ModItems.SakuraBow.get());
+                    3, Tick.get() + 120, 8, ModItems.SAKURA_BOW.get());
             StableTierAttributeModifier.addM(player, StableTierAttributeModifier.manaDefence, "SakuraBow passive",
-                    3, Tick.get() + 120, 8, ModItems.SakuraBow.get());
+                    3, Tick.get() + 120, 8, ModItems.SAKURA_BOW.get());
         }
         passiveMap.put(player, !isSecond);
     }

@@ -254,13 +254,13 @@ public abstract class NewTeamInstance {
                 clear();
             }
             if (allMobIsClear() && !players.isEmpty()) {
-                Compute.formatBroad(level, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+/*                Compute.formatBroad(level, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(players.stream().toList().get(random.nextInt(players.size())).getDisplayName()).
                                 append(Component.literal("等" + players.size() + "名玩家用时 ").withStyle(ChatFormatting.WHITE)).
                                 append(Component.literal(String.format("%.2f", lastTick * 0.05) + "s").withStyle(ChatFormatting.AQUA)).
                                 append(Component.literal(" 通关了").withStyle(ChatFormatting.WHITE)).
-                                append(description));
+                                append(description));*/
                 players.forEach(player -> {
                     if (Reason.getPlayerReasonValue(player) < reasonCost) {
                         Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),

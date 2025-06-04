@@ -1,8 +1,8 @@
 package fun.wraq.events.client;
 
 import fun.wraq.Items.MainStory_1.BackSpawn;
-import fun.wraq.Items.MainStory_1.Mission.Main0;
-import fun.wraq.Items.Money.U_Disk;
+import fun.wraq.Items.MainStory_1.Main0;
+import fun.wraq.Items.money.UDisk;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
@@ -14,7 +14,6 @@ import fun.wraq.common.util.struct.ManaAttackParticle;
 import fun.wraq.common.util.struct.OldMission;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AttributePackets.MobAttributeC2SPacket;
-import fun.wraq.networking.misc.CodeSceptrePackets.CodeC2SPacket;
 import fun.wraq.networking.misc.EarthPower.EarthPowerC2SPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedFullC2SPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillRequestC2SPacket;
@@ -44,6 +43,7 @@ import fun.wraq.render.gui.team.PlayerRequestScreen;
 import fun.wraq.render.gui.team.TeamInfoScreen;
 import fun.wraq.render.gui.team.TeamManageScreen;
 import fun.wraq.render.gui.team.TeamSearchScreen;
+import fun.wraq.render.gui.villagerTrade.TradeListNew;
 import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import fun.wraq.render.hud.main.ItemAndExpGetHud;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
@@ -76,7 +76,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
@@ -208,14 +207,14 @@ public class ClientPlayerTickEvent {
             ClientUtils.debuffTimes.removeIf(effectTimeLast -> effectTimeLast.lastTick < 0);
 
 
-            if (event.player.tickCount % 20 == 0 && event.player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MineHat.get())) {
+            if (event.player.tickCount % 20 == 0 && event.player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MINE_HAT.get())) {
                 if (event.player.level().getLightEngine().getRawBrightness(event.player.blockPosition(), 0) <= 8) {
                     ModNetworking.sendToServer(new MineHatConfirmC2SPacket());
                 }
             }
 
             if (event.player.tickCount % 20 == 0) {
-                if (event.player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.ShipSceptre.get())) {
+                if (event.player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SHIP_SCEPTRE.get())) {
                     Player player = event.player;
                     Level level = player.level();
                     int X = player.getBlockX();
@@ -237,13 +236,13 @@ public class ClientPlayerTickEvent {
             if (event.player.tickCount % 20 == 0) {
                 Inventory inventory = event.player.getInventory();
                 boolean hasUDisk = InventoryOperation
-                        .checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1);
+                        .checkPlayerHasItem(inventory, ModItems.U_DISK.get(), 1);
                 Screen screen = Minecraft.getInstance().screen;
                 if (hasUDisk) {
                     if (!(screen instanceof TradeScreen)) {
-                        if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
+                        if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.COPPER_COIN.get(), 1)
                                 || InventoryOperation.checkPlayerHasItem(inventory, ModItems.GOLD_COIN.get(), 1)
-                                || InventoryOperation.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
+                                || InventoryOperation.checkPlayerHasItem(inventory, ModItems.SILVER_COIN.get(), 1)) {
                             ModNetworking.sendToServer(new AllCurrencyC2SPacket(false));
                         }
                         if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WORLD_SOUL_1.get(), 64)) {
@@ -255,8 +254,8 @@ public class ClientPlayerTickEvent {
                         for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
                             ItemStack stack = inventory.getItem(i);
                             Item item = stack.getItem();
-                            if (item instanceof U_Disk) {
-                                open = U_Disk.getElementCollectionStatus(stack);
+                            if (item instanceof UDisk) {
+                                open = UDisk.getElementCollectionStatus(stack);
                                 break;
                             }
                         }
@@ -323,6 +322,7 @@ public class ClientPlayerTickEvent {
                     case 7 -> mc.setScreen(new ElementPieceGui());
                     case 8 -> mc.setScreen(new FoodCoinStore());
                     case 9 -> mc.setScreen(new DragonBoatStore());
+                    case 10 -> mc.setScreen(new TradeScreen(true, TradeListNew.WEEKLY_STORE_VILLAGER_NAME));
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }
@@ -395,7 +395,7 @@ public class ClientPlayerTickEvent {
                 ClientUtils.ChargedCountsBowSkill12 += Speed;
             if (ClientUtils.ChargedCountsManaSkill12 < 100 && player.getDeltaMovement().length() > 0.1 && ClientUtils.ManaSkillPoint.Point[13] > 0)
                 ClientUtils.ChargedCountsManaSkill12 += Speed;
-            if (ClientUtils.ChargedCountsSakuraDemonSword < 100 && MainHand.equals(ModItems.SakuraDemonSword.get())
+            if (ClientUtils.ChargedCountsSakuraDemonSword < 100 && MainHand.equals(ModItems.SAKURA_SWORD.get())
                     && ClientUtils.Demon_Image[1] != null && ClientUtils.Demon_Image[1].getTickTime() == 0) {
                 if (player.getDeltaMovement().length() > 0.1) ClientUtils.ChargedCountsSakuraDemonSword += Speed;
                 ClientUtils.ChargedCountsSakuraDemonSword += 0.5;
@@ -429,24 +429,6 @@ public class ClientPlayerTickEvent {
                 ClientUtils.ChargedFlagZeusSword = true;
             }
 
-            if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CodeSceptre.get())) {
-                Inventory inventory = player.getInventory();
-                ClientUtils.PowerInSlot.put(0, 0);
-                ClientUtils.PowerInSlot.put(1, ClientUtils.ItemToNum.getOrDefault(inventory.getItem(5).getItem(), 0));
-
-                ClientUtils.PowerInSlot.put(2, ClientUtils.ItemToNum.getOrDefault(inventory.getItem(6).getItem(), 0));
-                ClientUtils.PowerInSlot.put(3, ClientUtils.ItemToNum.getOrDefault(inventory.getItem(7).getItem(), 0));
-                ClientUtils.PowerInSlot.put(4, ClientUtils.ItemToNum.getOrDefault(inventory.getItem(8).getItem(), 0));
-                ClientUtils.IsHandlingPower = true;
-                int power1 = 0, power2 = 0, power3 = 0, power4 = 0;
-                Iterator<Integer> iterator = ClientUtils.PowerQueue.iterator();
-                if (iterator.hasNext()) power1 = iterator.next();
-                if (iterator.hasNext()) power2 = iterator.next();
-                if (iterator.hasNext()) power3 = iterator.next();
-                if (iterator.hasNext()) power4 = iterator.next();
-                ModNetworking.sendToServer(new CodeC2SPacket(ClientUtils.PowerInSlot.get(power1), ClientUtils.PowerInSlot.get(power2),
-                        ClientUtils.PowerInSlot.get(power3), ClientUtils.PowerInSlot.get(power4)));
-            } else ClientUtils.IsHandlingPower = false;
             if (ClientUtils.SkillCacheFlag) {
                 ModNetworking.sendToServer(new SkillRequestC2SPacket());
                 ClientUtils.SkillCacheFlag = !ClientUtils.SkillCacheFlag;

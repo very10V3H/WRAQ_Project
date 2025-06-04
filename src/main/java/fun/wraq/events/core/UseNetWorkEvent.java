@@ -71,7 +71,7 @@ public class UseNetWorkEvent {
             }
             if (ClientUtils.UseOfLakeSword) {
                 ClientUtils.UseOfLakeSword = false;
-                if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.LakeSword3.get()))
+                if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.LAKE_SWORD_3.get()))
                     player.playSound(SoundEvents.AMBIENT_UNDERWATER_EXIT);
                 player.setDeltaMovement(2 * player.getViewVector(5).x, 2 * player.getViewVector(5).y, 2 * player.getViewVector(5).z);
             }

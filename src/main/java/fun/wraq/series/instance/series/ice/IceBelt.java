@@ -75,6 +75,6 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.IceSoul.get(), 3);
+        return new ItemStack(ModItems.ICE_BOSS_SOUL.get(), 3);
     }
 }

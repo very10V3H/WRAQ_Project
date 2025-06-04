@@ -98,11 +98,11 @@ public class SnowRecallEvent {
                             if (Utils.SnowRecallStray != null)
                                 Utils.SnowRecallStray.remove(Entity.RemovalReason.KILLED);
                             Utils.SnowRecallStray = new Stray(EntityType.STRAY, level1);
-                            MobSpawn.setMobCustomName(Utils.SnowRecallStray, ModItems.ArmorSnowRecall.get(), Component.literal("模糊记忆中的冰川流浪者").withStyle(style));
-                            Utils.SnowRecallStray.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorSnowRecall.get().getDefaultInstance());
-                            Utils.SnowRecallStray.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorLZChest.get().getDefaultInstance());
-                            Utils.SnowRecallStray.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorLZLeggings.get().getDefaultInstance());
-                            Utils.SnowRecallStray.setItemSlot(EquipmentSlot.FEET, ModItems.ArmorLZBoots.get().getDefaultInstance());
+                            MobSpawn.setMobCustomName(Utils.SnowRecallStray, ModItems.ARMOR_SNOW_RECALL.get(), Component.literal("模糊记忆中的冰川流浪者").withStyle(style));
+                            Utils.SnowRecallStray.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_SNOW_RECALL.get().getDefaultInstance());
+                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.IRON_CHESTPLATE));
+                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.LEGS, Compute.getSimpleFoiledItemStack(Items.IRON_LEGGINGS));
+                            Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.FEET, Compute.getSimpleFoiledItemStack(Items.IRON_BOOTS));
                             Utils.SnowRecallStray.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
                             Utils.SnowRecallStray.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.SnowRecallStray.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(800.0D);
@@ -150,7 +150,7 @@ public class SnowRecallEvent {
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.SnowRecallSoul.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.SNOW_RECALL_SOUL.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.snowRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 3);
@@ -167,7 +167,7 @@ public class SnowRecallEvent {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.SnowRune.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.SNOW_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.snowRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 3);

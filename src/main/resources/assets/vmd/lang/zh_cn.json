@@ -1992,7 +1992,7 @@
 
   "item.vmd.brown_mushroom": "棕蘑菇",
   "item.vmd.red_mushroom": "红蘑菇",
-  "item.vmd.nether_mushroom": "炼狱菌菇",
+  "item.vmd.nether_mushroom_new": "炼狱菌菇",
   "item.vmd.unknown_gem": "诡异宝石",
   "item.vmd.unknown_mushroom": "诡异菌菇",
   "item.vmd.parasitism_gem_mushroom": "寄生蘑菇",
@@ -2229,6 +2229,11 @@
   "item.vmd.kanupus_core_z": "卡纽帕斯之核\uD835\uDE55",
 
   "item.vmd.refined_divine_piece": "圣光团露",
+
+  "item.vmd.sakura_petal_pocket": "一袋樱花",
+  "item.vmd.ship_piece_pocket": "一袋破损船锚碎片",
+  "item.vmd.wolf_leather_material": "森林狼布料",
+  "item.vmd.brown_mushroom_pocket": "一袋棕蘑菇",
 
   "item.vmd.splasher": "膨热剂",
 

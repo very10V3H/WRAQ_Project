@@ -62,7 +62,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         playerLastTickMap.put(player, Tick.get() + 100);
         int counts = Math.min(5, playerCountsMap.getOrDefault(player, 0) + 1);
         playerCountsMap.put(player, counts);
-        Compute.sendEffectLastTime(player, UniformItems.AttackCurios1.get(), 100, counts, false);
+        Compute.sendEffectLastTime(player, UniformItems.ATTACK_CURIOS_1.get(), 100, counts, false);
     }
 
     public static double playerCritDamageUp(Player player) {

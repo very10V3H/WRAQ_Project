@@ -18,7 +18,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.attack.AttackCurios1;
 import fun.wraq.customized.uniform.attack.AttackCurios3;
 import fun.wraq.customized.uniform.attack.AttackCurios4;
-import fun.wraq.events.fight.HurtEvent;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.networking.ModNetworking;
@@ -112,7 +111,6 @@ public class AttackEvent {
                     (mobList.size() == 1 ? 1 + SwordNewSkillPassive0.exTargetsDamageRate(player) : 1),
                     true, crit);
             HurtEventModule.ForestRune3Judge(player, nearestMob.get(), PlayerAttributes.attackDamage(player));
-            HurtEvent.BlazeReflectDamage(nearestMob.get(), player);
             AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, nearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
             AttackEventModule.SwordSkill12Attack(player.getPersistentData(), player); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
             mobList.forEach(mob -> {

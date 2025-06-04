@@ -15,7 +15,9 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
+import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
+import fun.wraq.render.gui.villagerTrade.TradeListNew;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -130,6 +132,12 @@ public class RightClickEvent {
                 }
                 case "粽子大王" -> {
                     ModNetworking.sendToClient(new ScreenSetS2CPacket(9), player);
+                    event.setCanceled(true);
+                    return;
+                }
+                case TradeListNew.WEEKLY_STORE_VILLAGER_NAME -> {
+                    WeeklyStorePlayerData.sendDataToClient(player);
+                    ModNetworking.sendToClient(new ScreenSetS2CPacket(10), player);
                     event.setCanceled(true);
                     return;
                 }

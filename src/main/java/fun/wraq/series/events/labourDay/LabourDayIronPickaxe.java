@@ -41,7 +41,7 @@ public class LabourDayIronPickaxe extends Item {
         if (player.tickCount % 20 != 0) return;
         Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
-            if (inventory.getItem(i).is(SpecialEventItems.LabourDayIronPickaxe.get())) {
+            if (inventory.getItem(i).is(SpecialEventItems.LABOUR_DAY_IRON_PICKAXE.get())) {
                 playerIsIn.put(player, true);
                 return;
             }

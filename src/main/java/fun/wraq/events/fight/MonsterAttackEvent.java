@@ -150,7 +150,6 @@ public class MonsterAttackEvent {
 
             SnowArmorEffect(player, monster);
             SnowStrayAttackEffect(player, monster);
-            mineMonsterAttack(monster, player);
             mineShield(player);
             DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
@@ -216,7 +215,7 @@ public class MonsterAttackEvent {
 
     public static double ScarecrowChestPlate(Player player) {
         double DamageDecrease = 0;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.WheatArmorChest.get())) {
+        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.WHEAT_CHEST.get())) {
             DamageDecrease += 0.3;
         }
         return DamageDecrease;
@@ -251,18 +250,10 @@ public class MonsterAttackEvent {
         }
     }
 
-    public static void mineMonsterAttack(Mob monster, Player player) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorMine.get())) {
-            int TickCount = Tick.get();
-            CompoundTag data = player.getPersistentData();
-            data.putInt(StringUtils.MineMonsterEffect, TickCount + 60);
-        }
-    }
-
     public static void mineShield(Player player) {
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MineShield.get())) {
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MINE_SHIELD.get())) {
             Utils.MineShieldEffect.put(player, Tick.get() + 100);
-            Compute.sendEffectLastTime(player, ModItems.OreRune.get().getDefaultInstance(), 100);
+            Compute.sendEffectLastTime(player, ModItems.ORE_RUNE.get().getDefaultInstance(), 100);
         }
     }
 }

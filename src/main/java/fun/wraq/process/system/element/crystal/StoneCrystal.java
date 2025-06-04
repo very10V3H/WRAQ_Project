@@ -95,10 +95,10 @@ public class StoneCrystal extends SwordItem implements ActiveItem {
         if (!player.getCooldowns().isOnCooldown(this)) {
             int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.getPlayerStoneElementValue(player)));
             List<Item> itemList = new ArrayList<>() {{
-                add(ModItems.StoneCrystal0.get());
-                add(ModItems.StoneCrystal1.get());
-                add(ModItems.StoneCrystal2.get());
-                add(ModItems.StoneCrystal3.get());
+                add(ModItems.STONE_CRYSTAL_0.get());
+                add(ModItems.STONE_CRYSTAL_1.get());
+                add(ModItems.STONE_CRYSTAL_2.get());
+                add(ModItems.STONE_CRYSTAL_3.get());
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);

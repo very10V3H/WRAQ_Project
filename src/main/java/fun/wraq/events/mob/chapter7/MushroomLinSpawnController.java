@@ -110,10 +110,9 @@ public class MushroomLinSpawnController extends MobSpawnController {
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(MushroomItems.BROWN_MUSHROOM.get(), 0.8));
-            add(new ItemAndRate(MushroomItems.NETHER_MUSHROOM.get(), 0.01));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.95));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.95));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
-            add(new ItemAndRate(ModItems.LifeElementPiece0.get(), 0.5));
+            add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.5));
         }};
     }
 

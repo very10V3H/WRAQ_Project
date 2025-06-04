@@ -84,13 +84,13 @@ public class NetherInstance extends NoTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.NetherQuartz.get(), 8),
+        return List.of(new ItemAndRate(ModItems.NETHER_QUARTZ.get(), 8),
                 new ItemAndRate(ModItems.NETHER_IMPRINT.get(), 0.25),
-                new ItemAndRate(ModItems.Ruby.get(), 8),
+                new ItemAndRate(ModItems.RUBY.get(), 8),
                 new ItemAndRate(ModItems.REVENANT_GOLDEN_HELMET.get(), 0.01),
-                new ItemAndRate(ModItems.netherHand.get(), 0.08),
+                new ItemAndRate(ModItems.NETHER_HAND.get(), 0.08),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1));
     }
 
     @Override

@@ -63,7 +63,7 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
     }
 
     public static boolean passive(Player player, Mob mob) {
-        return player.getOffhandItem().is(fun.wraq.series.overworld.chapter7.C7Items.boneImpKnife.get()) && player.position().y > mob.position().y;
+        return player.getOffhandItem().is(fun.wraq.series.overworld.chapter7.C7Items.BONE_IMP_KNIFE.get()) && player.position().y > mob.position().y;
     }
 
     public static double exTrueDamage(Player player, Mob mob) {
@@ -81,11 +81,11 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.manaKnife.get(), 1));
-            add(new ItemStack(C7Items.boneImpSoul.get(), 576));
+            add(new ItemStack(ModItems.MANA_KNIFE.get(), 1));
+            add(new ItemStack(C7Items.BONE_IMP_SOUL.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 288));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 16));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 64));
+            add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 64));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
         }};

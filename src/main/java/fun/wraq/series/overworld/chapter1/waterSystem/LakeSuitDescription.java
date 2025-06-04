@@ -39,10 +39,10 @@ public class LakeSuitDescription {
         Player player = Minecraft.getInstance().player;
         ChatFormatting mainStyle = ChatFormatting.BLUE;
         Item[] items = {
-                ModItems.LakeArmorHelmet.get(),
-                ModItems.LakeArmorChest.get(),
-                ModItems.LakeArmorLeggings.get(),
-                ModItems.LakeArmorBoots.get()
+                ModItems.LAKE_HELMET.get(),
+                ModItems.LAKE_CHEST.get(),
+                ModItems.LAKE_LEGGINGS.get(),
+                ModItems.LAKE_BOOTS.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

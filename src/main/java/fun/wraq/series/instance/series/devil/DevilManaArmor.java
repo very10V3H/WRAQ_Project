@@ -56,7 +56,7 @@ public class DevilManaArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.DevilManaSoul.get(), 48),
+                new ItemStack(ModItems.DEVIL_MANA_SOUL.get(), 48),
                 new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
         );
     }

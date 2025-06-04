@@ -20,33 +20,33 @@ public class BonusChestContent {
     public record ItemAndMaxNum(Item item, int maxNum) {}
 
     private final static List<ItemAndMaxNum> tier0Loot = List.of(
-            new ItemAndMaxNum(ModItems.RevelationBook.get(), 3),
+            new ItemAndMaxNum(ModItems.REVELATION_BOOK.get(), 3),
             new ItemAndMaxNum(ModItems.GOLD_COIN.get(), 1),
             new ItemAndMaxNum(Items.IRON_INGOT, 2),
             new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 1),
             new ItemAndMaxNum(ModItems.GEM_PIECE.get(), 4),
-            new ItemAndMaxNum(ModItems.LifeElementPiece0.get(), 4),
+            new ItemAndMaxNum(ModItems.LIFE_ELEMENT_PIECE_0.get(), 4),
             new ItemAndMaxNum(ModItems.ATTACK_UP_POTION_BAG.get(), 2),
-            new ItemAndMaxNum(ModItems.ForgingStone0.get(), 2)
+            new ItemAndMaxNum(ModItems.FORGING_STONE_0.get(), 2)
     );
 
     private final static List<ItemAndMaxNum> tier1Loot = List.of(
             new ItemAndMaxNum(OreItems.WRAQ_ORE_1_ITEM.get(), 2),
-            new ItemAndMaxNum(SpurItems.minePiece.get(), 2),
-            new ItemAndMaxNum(ModItems.ForgingStone1.get(), 2),
-            new ItemAndMaxNum(ModItems.equipPiece0.get(), 2),
+            new ItemAndMaxNum(SpurItems.MINE_PIECE.get(), 2),
+            new ItemAndMaxNum(ModItems.FORGING_STONE_1.get(), 2),
+            new ItemAndMaxNum(ModItems.EQUIP_PIECE_0.get(), 2),
             new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 2),
             new ItemAndMaxNum(ModItems.WORLD_SOUL_2.get(), 2),
             new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 1)
     );
 
     private final static List<ItemAndMaxNum> tier2Loot = List.of(
-            new ItemAndMaxNum(ModItems.KillPaperLoot.get(), 1),
-            new ItemAndMaxNum(ModItems.UnCommonLotteries.get(), 1),
-            new ItemAndMaxNum(ModItems.GoldCoinBag.get(), 1),
-            new ItemAndMaxNum(ModItems.ForgeEnhance3.get(), 1),
-            new ItemAndMaxNum(ModItems.ForgingStone2.get(), 1),
-            new ItemAndMaxNum(ModItems.Pearl1.get(), 1),
+            new ItemAndMaxNum(ModItems.KILL_PAPER_LOOT.get(), 1),
+            new ItemAndMaxNum(ModItems.UNCOMMON_LOTTERIES.get(), 1),
+            new ItemAndMaxNum(ModItems.GOLD_COIN_BAG.get(), 1),
+            new ItemAndMaxNum(ModItems.FORGE_ENHANCE_3.get(), 1),
+            new ItemAndMaxNum(ModItems.FORGING_STONE_2.get(), 1),
+            new ItemAndMaxNum(ModItems.PEARL_1.get(), 1),
             new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 3),
             new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 2)
     );
@@ -55,14 +55,14 @@ public class BonusChestContent {
             new ItemAndMaxNum(ModItems.WORLD_FORGE_STONE.get(), 1),
             new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 4),
             new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 4),
-            new ItemAndMaxNum(ModItems.ForgeEnhance3.get(), 1),
-            new ItemAndMaxNum(ModItems.ForgingStone2.get(), 1),
-            new ItemAndMaxNum(ModItems.Pearl1.get(), 1)
+            new ItemAndMaxNum(ModItems.FORGE_ENHANCE_3.get(), 1),
+            new ItemAndMaxNum(ModItems.FORGING_STONE_2.get(), 1),
+            new ItemAndMaxNum(ModItems.PEARL_1.get(), 1)
     );
 
     private final static Map<Item, List<Item>> specificItemMap = new HashMap<>() {{
         put(Items.IRON_INGOT, MineSpur.getVanillaIngotItems());
-        put(ModItems.LifeElementPiece0.get(), Element.getPiece0Items());
+        put(ModItems.LIFE_ELEMENT_PIECE_0.get(), Element.getPiece0Items());
         put(ModItems.ATTACK_UP_POTION_BAG.get(), PotionBag.getPotionBagItems());
         put(OreItems.WRAQ_ORE_1_ITEM.get(), List.of(
                 OreItems.WRAQ_ORE_1_ITEM.get(),
@@ -70,13 +70,13 @@ public class BonusChestContent {
                 OreItems.WRAQ_ORE_3_ITEM.get(),
                 OreItems.WRAQ_ORE_4_ITEM.get()
         ));
-        put(SpurItems.minePiece.get(), List.of(
-                SpurItems.minePiece.get(),
-                SpurItems.cropPiece.get(),
-                SpurItems.logPiece.get(),
-                SpurItems.seaPiece.get()
+        put(SpurItems.MINE_PIECE.get(), List.of(
+                SpurItems.MINE_PIECE.get(),
+                SpurItems.CROP_PIECE.get(),
+                SpurItems.LOG_PIECE.get(),
+                SpurItems.SEA_PIECE.get()
         ));
-        put(ModItems.equipPiece0.get(), ForgeEquipUtils.getEquipPieceList().subList(0, 6));
+        put(ModItems.EQUIP_PIECE_0.get(), ForgeEquipUtils.getEquipPieceList().subList(0, 6));
     }};
 
     private static @NotNull List<ItemStack> getItemStacks(int count, List<ItemAndMaxNum> loot) {

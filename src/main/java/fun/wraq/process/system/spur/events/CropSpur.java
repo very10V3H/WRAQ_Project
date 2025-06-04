@@ -124,9 +124,9 @@ public class CropSpur {
         Random random = new Random();
         if (random.nextDouble() < 0.035) {
             data.putInt(cropPieceGetTimes, data.getInt(cropPieceGetTimes) + 1);
-            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.cropPiece.get()));
+            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.CROP_PIECE.get()));
         }
-        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.cropPiece.get()), 0.035)) {
+        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.CROP_PIECE.get()), 0.035)) {
             data.putInt(cropPieceGetTimes, data.getInt(cropPieceGetTimes) + 1);
         }
     }

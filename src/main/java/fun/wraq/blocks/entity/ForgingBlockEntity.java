@@ -180,7 +180,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             return;
         }
         if (hasRecipe(blockEntity) || hasRecipeOfOpenSlot(blockEntity) || hasRecipe2(blockEntity)
-                || hasRecipe8(blockEntity) || hasRecipeOfDismantle(blockEntity) || hasRecipeOfCastleArmor(blockEntity)
+                 || hasRecipeOfDismantle(blockEntity) || hasRecipeOfCastleArmor(blockEntity)
                 || hasRecipeOfForgePaper(blockEntity) || hasRecipeOfEquipPiece(blockEntity) || hasRecipeOfEquipPieceForge(blockEntity)) {
             /*blockEntity.progress++;*/
             setChanged(level, pos, blockState);
@@ -238,11 +238,11 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             ItemStack north = blockEntity.itemStackHandler.getStackInSlot(3);
             ItemStack south = blockEntity.itemStackHandler.getStackInSlot(4);
             if (equip.getItem() instanceof CastleAttackArmor) {
-                CastleAttackArmor.ForgeArmor(equip, north.is(ModItems.CastleCrystalNorth.get()), south.is(ModItems.CastleCrystalSouth.get()));
+                CastleAttackArmor.ForgeArmor(equip, north.is(ModItems.CASTLE_CRYSTAL_NORTH.get()), south.is(ModItems.CASTLE_CRYSTAL_SOUTH.get()));
             } else if (equip.getItem() instanceof CastleSwiftArmor) {
-                CastleSwiftArmor.ForgeArmor(equip, north.is(ModItems.CastleCrystalNorth.get()), south.is(ModItems.CastleCrystalSouth.get()));
+                CastleSwiftArmor.ForgeArmor(equip, north.is(ModItems.CASTLE_CRYSTAL_NORTH.get()), south.is(ModItems.CASTLE_CRYSTAL_SOUTH.get()));
             } else if (equip.getItem() instanceof CastleManaArmor) {
-                CastleManaArmor.ForgeArmor(equip, north.is(ModItems.CastleCrystalNorth.get()), south.is(ModItems.CastleCrystalSouth.get()));
+                CastleManaArmor.ForgeArmor(equip, north.is(ModItems.CASTLE_CRYSTAL_NORTH.get()), south.is(ModItems.CASTLE_CRYSTAL_SOUTH.get()));
             }
 
             if (player != null) {
@@ -258,8 +258,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
-            if (north.is(ModItems.CastleCrystalNorth.get())) blockEntity.itemStackHandler.extractItem(3, 1, false);
-            if ((south.is(ModItems.CastleCrystalSouth.get()))) blockEntity.itemStackHandler.extractItem(4, 1, false);
+            if (north.is(ModItems.CASTLE_CRYSTAL_NORTH.get())) blockEntity.itemStackHandler.extractItem(3, 1, false);
+            if ((south.is(ModItems.CASTLE_CRYSTAL_SOUTH.get()))) blockEntity.itemStackHandler.extractItem(4, 1, false);
         }
 
         // 拆卸
@@ -374,16 +374,16 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
 
             ItemStack slot3Stack = blockEntity.itemStackHandler.getStackInSlot(3);
             ItemStack slot4Stack = blockEntity.itemStackHandler.getStackInSlot(4);
-            if (slot3Stack.is(ModItems.ForgeProtect.get())) protect = slot3Stack;
-            if (slot4Stack.is(ModItems.ForgeProtect.get())) protect = slot4Stack;
+            if (slot3Stack.is(ModItems.FORGE_PROTECT.get())) protect = slot3Stack;
+            if (slot4Stack.is(ModItems.FORGE_PROTECT.get())) protect = slot4Stack;
             if (slot3Stack.getItem() instanceof ForgeEnhancePaper) enhancePaper = slot3Stack;
             if (slot4Stack.getItem() instanceof ForgeEnhancePaper) enhancePaper = slot4Stack;
 
             Map<Item, Double> enhanceRateMap = ImmutableMap.of(
-                    ModItems.ForgeEnhance0.get(), 1.25,
-                    ModItems.ForgeEnhance1.get(), 1.5,
-                    ModItems.ForgeEnhance2.get(), 2d,
-                    ModItems.ForgeEnhance3.get(), 2.5d
+                    ModItems.FORGE_ENHANCE_0.get(), 1.25,
+                    ModItems.FORGE_ENHANCE_1.get(), 1.5,
+                    ModItems.FORGE_ENHANCE_2.get(), 2d,
+                    ModItems.FORGE_ENHANCE_3.get(), 2.5d
             );
             double enhanceRate = enhanceRateMap.getOrDefault(enhancePaper.getItem(), 1d);
 
@@ -436,7 +436,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             boolean useProtect = false;
             if (player != null) {
                 if (flag) {
-                    if (forgeLevel >= 24 && !protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel >= 24 && !protect.is(ModItems.FORGE_PROTECT.get())) {
                         int level = Math.max(forgeLevel - 2, 23);
                         data.putInt("Forging", level);
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
@@ -447,22 +447,22 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
                                         append(Component.literal("时失败，装备等级掉至 ").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal("+" + level).withStyle(CustomStyle.styleOfWorld)));
                     }
-                    if (forgeLevel >= 17 && forgeLevel < 19 && !protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel >= 17 && forgeLevel < 19 && !protect.is(ModItems.FORGE_PROTECT.get())) {
                         data.putInt("Forging", 16);
                         Compute.sendFormatMSG(player, Te.s("强化", ChatFormatting.AQUA),
                                 Te.s("强化失败，未使用保护符，装备强化等级已退至16."));
                     }
-                    if (forgeLevel >= 20 && forgeLevel < 22 && !protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel >= 20 && forgeLevel < 22 && !protect.is(ModItems.FORGE_PROTECT.get())) {
                         data.putInt("Forging", 19);
                         Compute.sendFormatMSG(player, Te.s("强化", ChatFormatting.AQUA),
                                 Te.s("强化失败，未使用保护符，装备强化等级已退至19."));
                     }
-                    if (forgeLevel == 23 && !protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel == 23 && !protect.is(ModItems.FORGE_PROTECT.get())) {
                         data.putInt("Forging", 22);
                         Compute.sendFormatMSG(player, Te.s("强化", ChatFormatting.AQUA),
                                 Te.s("强化失败，未使用保护符，装备强化等级已退至22."));
                     }
-                    if (forgeLevel >= 17 && protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel >= 17 && protect.is(ModItems.FORGE_PROTECT.get())) {
                         useProtect = true;
                     }
                     Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
@@ -497,10 +497,10 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
                 }
             }
             if (useProtect && protect.getItem() instanceof ForgeProtect) {
-                if (slot3Stack.is(ModItems.ForgeProtect.get())) {
+                if (slot3Stack.is(ModItems.FORGE_PROTECT.get())) {
                     blockEntity.itemStackHandler.extractItem(3, 1, false);
                 }
-                else if (slot4Stack.is(ModItems.ForgeProtect.get())) {
+                else if (slot4Stack.is(ModItems.FORGE_PROTECT.get())) {
                     blockEntity.itemStackHandler.extractItem(4, 1, false);
                 }
             }
@@ -585,8 +585,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             if (data.getInt("newSlot") == 0) return false;
         }
 
-        boolean correctType = (!gem.getItem().equals(GemItems.castleWeaponGem.get()) || Utils.mainHandTag.containsKey(equip.getItem()))
-                && (!gem.getItem().equals(GemItems.castleArmorGem.get()) || Utils.armorTag.containsKey(equip.getItem()));
+        boolean correctType = (!gem.getItem().equals(GemItems.CASTLE_WEAPON_GEM.get()) || Utils.mainHandTag.containsKey(equip.getItem()))
+                && (!gem.getItem().equals(GemItems.CASTLE_ARMOR_GEM.get()) || Utils.armorTag.containsKey(equip.getItem()));
         return hasGemInFirstSlot && canInsertItemIntoOutPutSlot(inventory) && hasSwordBowSceptreInSecondSlot &&
                 inventory.getItem(2).isEmpty() && correctType;
     }   //镶嵌
@@ -630,9 +630,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         }
 
         Item forgeStone = blockEntity.itemStackHandler.getStackInSlot(0).getItem();
-        boolean hasGemInFirstSlot = (forgeStone.equals(ModItems.ForgingStone0.get())
-                || forgeStone.equals(ModItems.ForgingStone1.get())
-                || forgeStone.equals(ModItems.ForgingStone2.get())
+        boolean hasGemInFirstSlot = (forgeStone.equals(ModItems.FORGING_STONE_0.get())
+                || forgeStone.equals(ModItems.FORGING_STONE_1.get())
+                || forgeStone.equals(ModItems.FORGING_STONE_2.get())
                 || forgeStone.equals(ModItems.WORLD_FORGE_STONE.get()));
 
         boolean hasSwordInSecondSlot = false;
@@ -650,33 +650,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
                 inventory.getItem(2).isEmpty() && !Compute.IsSoulEquip(equip);
     }   //强化
 
-    private static boolean hasRecipe8(ForgingBlockEntity blockEntity) { //涂附
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getSlots());
-        for (int i = 0; i < blockEntity.itemStackHandler.getSlots(); i++) {
-            inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
-        }
-        ItemStack Ointment = blockEntity.itemStackHandler.getStackInSlot(0);
-        ItemStack Equip = blockEntity.itemStackHandler.getStackInSlot(1);
-        boolean OintmentCorrect = Ointment.is(ModItems.SunOintment0.get()) || Ointment.is(ModItems.SunOintment1.get()) || Ointment.is(ModItems.SunOintment2.get())
-                || Ointment.is(ModItems.LakeOintment0.get()) || Ointment.is(ModItems.LakeOintment1.get()) || Ointment.is(ModItems.LakeOintment2.get())
-                || Ointment.is(ModItems.VolcanoOintment0.get()) || Ointment.is(ModItems.VolcanoOintment1.get()) || Ointment.is(ModItems.VolcanoOintment2.get())
-                || Ointment.is(ModItems.SnowOintment0.get()) || Ointment.is(ModItems.SnowOintment1.get()) || Ointment.is(ModItems.SnowOintment2.get())
-                || Ointment.is(ModItems.SkyOintment0.get()) || Ointment.is(ModItems.SkyOintment1.get()) || Ointment.is(ModItems.SkyOintment2.get())
-                || Ointment.is(ModItems.ManaOintment0.get()) || Ointment.is(ModItems.ManaOintment1.get()) || Ointment.is(ModItems.ManaOintment2.get())
-                || Ointment.is(ModItems.NetherOintment0.get()) || Ointment.is(ModItems.NetherOintment1.get()) || Ointment.is(ModItems.NetherOintment2.get());
-        boolean EquipCorrect = Equip.is(ModItems.SBoots.get()) || Equip.is(ModItems.SLeggings.get())
-                || Equip.is(ModItems.SChest.get()) || Equip.is(ModItems.SHelmet.get())
-                || Equip.is(ModItems.ISArmorBoots.get()) || Equip.is(ModItems.ISArmorLeggings.get())
-                || Equip.is(ModItems.ISArmorChest.get()) || Equip.is(ModItems.ISArmorHelmet.get());
-        return OintmentCorrect && EquipCorrect && canInsertItemIntoOutPutSlot(inventory);
-    }
-
     private static boolean hasRecipeOfCastleArmor(ForgingBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getSlots());
         for (int i = 0; i < blockEntity.itemStackHandler.getSlots(); i++) {
             inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
         }
-        return blockEntity.itemStackHandler.getStackInSlot(0).is(ModItems.CastleCrystal.get())
+        return blockEntity.itemStackHandler.getStackInSlot(0).is(ModItems.CASTLE_CRYSTAL.get())
                 && (blockEntity.itemStackHandler.getStackInSlot(1).getItem() instanceof CastleAttackArmor
                 || blockEntity.itemStackHandler.getStackInSlot(1).getItem() instanceof CastleSwiftArmor
                 || blockEntity.itemStackHandler.getStackInSlot(1).getItem() instanceof CastleManaArmor);
@@ -723,7 +702,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         }
         Item nextTirePiece = ForgeEquipUtils.getEquipPiece(materialTier + 1);
         boolean canInsertIntoProductSlot = (product.is(nextTirePiece) || product.is(Items.AIR)) && product.getCount() < 64;
-        return hasNextTierAndCountIsEnough && canInsertIntoProductSlot && equipPiece0Stack.is(ModItems.equipPiece0.get());
+        return hasNextTierAndCountIsEnough && canInsertIntoProductSlot && equipPiece0Stack.is(ModItems.EQUIP_PIECE_0.get());
     }
 
     private static boolean hasRecipeOfEquipPieceForge(ForgingBlockEntity blockEntity) {
@@ -783,6 +762,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         ItemStackHandler stackHandler = blockEntity.itemStackHandler;
         ItemStack equip = stackHandler.getStackInSlot(3);
         ItemStack forgeTemplate = stackHandler.getStackInSlot(4);
+        ForgePaper.forgePapers.forEach(forgePaper -> {
+            if (equip.getOrCreateTagElement(Utils.MOD_ID).contains(forgePaper.getTag())) {
+                equip.getOrCreateTagElement(Utils.MOD_ID).remove(forgePaper.getTag());
+                forgeTemplate.getOrCreateTagElement(Utils.MOD_ID).putBoolean(forgePaper.getTag(), true);
+            }
+        });
         ForgeEquipUtils.setForgeLevel(forgeTemplate, ForgeEquipUtils.getForgeLevel(equip));
         ForgeEquipUtils.setForgeLevel(equip, 0);
         stackHandler.setStackInSlot(2, forgeTemplate);
@@ -796,6 +781,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         ItemStackHandler stackHandler = blockEntity.itemStackHandler;
         ItemStack equip = stackHandler.getStackInSlot(0);
         ItemStack forgeTemplate = stackHandler.getStackInSlot(1);
+        ForgePaper.forgePapers.forEach(forgePaper -> {
+            if (forgeTemplate.getOrCreateTagElement(Utils.MOD_ID).contains(forgePaper.getTag())) {
+                forgeTemplate.getOrCreateTagElement(Utils.MOD_ID).remove(forgePaper.getTag());
+                equip.getOrCreateTagElement(Utils.MOD_ID).putBoolean(forgePaper.getTag(), true);
+            }
+        });
         ForgeEquipUtils.setForgeLevel(equip, ForgeEquipUtils.getForgeLevel(forgeTemplate));
         stackHandler.setStackInSlot(2, equip);
         stackHandler.setStackInSlot(0, Items.AIR.getDefaultInstance());

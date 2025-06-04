@@ -188,9 +188,9 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem, OnShootArr
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.CastleArmorPiece.get(), 24));
-            add(new ItemStack(ModItems.CastlePiece.get(), 128));
-            add(new ItemStack(ModItems.BeaconRune.get(), 24));
+            add(new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get(), 24));
+            add(new ItemStack(ModItems.CASTLE_PIECE.get(), 128));
+            add(new ItemStack(ModItems.BEACON_RUNE.get(), 24));
         }};
     }
 

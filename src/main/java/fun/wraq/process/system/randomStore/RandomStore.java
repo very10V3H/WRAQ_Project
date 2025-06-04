@@ -18,8 +18,8 @@ public class RandomStore {
     public static Map<ItemStack, List<ItemStack>> defaultTradeList = new HashMap<>() {{
         put(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 2),
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 32),
-                        new ItemStack(ModItems.silverCoin.get(), 32),
-                        new ItemStack(ModItems.copperCoin.get(), 32)));
+                        new ItemStack(ModItems.SILVER_COIN.get(), 32),
+                        new ItemStack(ModItems.COPPER_COIN.get(), 32)));
     }};
 
     public static void createRandomTradeList(Player player) {

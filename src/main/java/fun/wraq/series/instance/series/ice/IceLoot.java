@@ -30,10 +30,10 @@ public class IceLoot extends Item {
     private List<ItemAndWeight> itemAndWeightList = new ArrayList<>();
 
     private void setItemAndWeightList() {
-        itemAndWeightList.add(new ItemAndWeight(ModItems.IceCompleteGem.get(), 2));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 10));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.UnCommonLotteries.get(), 25));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.IceSoul.get(), 115));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.ICE_COMPLETE_GEM.get(), 2));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.KILL_PAPER_LOOT.get(), 10));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.UNCOMMON_LOTTERIES.get(), 25));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.ICE_BOSS_SOUL.get(), 115));
     }
 
     private int TotalWeight() {

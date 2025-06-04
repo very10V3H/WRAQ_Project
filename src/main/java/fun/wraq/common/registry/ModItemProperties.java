@@ -1,22 +1,21 @@
 package fun.wraq.common.registry;
 
-import fun.wraq.common.registry.ModItems;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 public class ModItemProperties {
     public static void addCustomBowProperties() {
-        MakeBow(fun.wraq.common.registry.ModItems.ForestBow0.get());
-        MakeBow(fun.wraq.common.registry.ModItems.PlainBow0.get());
-        MakeBow(fun.wraq.common.registry.ModItems.VolcanoBow0.get());
-        MakeBow(fun.wraq.common.registry.ModItems.SkyBow.get());
-        MakeBow(fun.wraq.common.registry.ModItems.NetherBow.get());
-        MakeBow(fun.wraq.common.registry.ModItems.SkyBossBow.get());
-        MakeBow(fun.wraq.common.registry.ModItems.WitherBow0.get());
-        MakeBow(fun.wraq.common.registry.ModItems.WitherBow1.get());
-        MakeBow(fun.wraq.common.registry.ModItems.WitherBow2.get());
-        MakeBow(ModItems.WitherBow3.get());
+        MakeBow(fun.wraq.common.registry.ModItems.FOREST_BOW_0.get());
+        MakeBow(fun.wraq.common.registry.ModItems.PLAIN_BOW_0.get());
+        MakeBow(fun.wraq.common.registry.ModItems.VOLCANO_BOW_0.get());
+        MakeBow(fun.wraq.common.registry.ModItems.SKY_BOW.get());
+        MakeBow(fun.wraq.common.registry.ModItems.NETHER_BOW.get());
+        MakeBow(fun.wraq.common.registry.ModItems.SKY_BOSS_BOW.get());
+        MakeBow(fun.wraq.common.registry.ModItems.WITHER_BOW_0.get());
+        MakeBow(fun.wraq.common.registry.ModItems.WITHER_BOW_1.get());
+        MakeBow(fun.wraq.common.registry.ModItems.WITHER_BOW_2.get());
+        MakeBow(ModItems.WITHER_BOW_3.get());
     }
 
     private static void MakeBow(Item item) {

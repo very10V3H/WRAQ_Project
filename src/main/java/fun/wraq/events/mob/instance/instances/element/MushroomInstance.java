@@ -9,9 +9,11 @@ import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -150,7 +152,7 @@ public class MushroomInstance extends NoTeamInstance {
         return List.of(
                 new ItemAndRate(MushroomItems.RED_MUSHROOM.get(), 1),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1),
                 new ItemAndRate(MushroomItems.NETHER_MUSHROOM.get(), 0.01)
         );
     }
@@ -207,5 +209,16 @@ public class MushroomInstance extends NoTeamInstance {
         components.add(Te.s("3.", style, "每10s对所有玩家造成持续2s的禁锢效果。"));
         components.add(Te.s("4.", style, "免疫90%非真实伤害。"));
         return components;
+    }
+
+    public static void bugCompensate(Player player) {
+        int killCount = MobSpawn.getPlayerKillCount(player, mobName);
+        if (killCount / 100 > 0) {
+            Compute.sendFormatMSG(player, Te.s("补偿", ChatFormatting.LIGHT_PURPLE),
+                    Te.s("基于你的", mobName, style, "击杀数:", killCount,
+                            "为你提供了", killCount / 100, "个", MushroomItems.NETHER_MUSHROOM));
+            InventoryOperation.giveItemStackWithMSG(player,
+                    new ItemStack(MushroomItems.NETHER_MUSHROOM.get(), killCount / 100));
+        }
     }
 }

@@ -218,7 +218,7 @@ public class MobKillEntrustment {
         if (currentFinishedTime == 20) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
             Tower.givePlayerStar(player, 10, "委托任务每周进度奖励");
-            InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.supplyBoxTier0.get()));
+            InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SUPPLY_BOX_TIER_0.get()));
         }
         if (currentFinishedTime == 40) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
@@ -251,7 +251,7 @@ public class MobKillEntrustment {
                 "20 ", ChatFormatting.GREEN,
                 " -> ", ModItems.SPECIAL_BOND, " * 1",
                 " + ", ModItems.WORLD_SOUL_5, " * 10",
-                " + ", ModItems.supplyBoxTier0, " * 1"));
+                " + ", ModItems.SUPPLY_BOX_TIER_0, " * 1"));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 40),
                 "40 ", ChatFormatting.AQUA,
                 " -> ", ModItems.SPECIAL_BOND, " * 1",

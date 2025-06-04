@@ -103,7 +103,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
     private static void countAdd(Player player) {
         if (PlayerIsInCollectMode(player) && playerLastBattleTick.containsKey(player) && playerLastBattleTick.get(player) + 100 > Tick.get()) {
             playerCountsMap.put(player, Math.min(70, playerCountsMap.getOrDefault(player, 0) + 1));
-            Compute.sendEffectLastTime(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
+            Compute.sendEffectLastTime(player, ModItems.STAR_BOTTLE.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
         }
     }
 
@@ -117,7 +117,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
                 ParticleProvider.createLineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });
-        Compute.sendEffectLastTime(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
+        Compute.sendEffectLastTime(player, ModItems.STAR_BOTTLE.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
     }
 
     @Override

@@ -78,8 +78,8 @@ public class NetherKnife extends WraqOffHandItem implements OnShootArrowEquip, F
     public List<ItemStack> forgeRecipe() {
         if (tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.NetherRune.get(), 2),
-                    new ItemStack(ModItems.QuartzRune.get(), 1),
+                    new ItemStack(ModItems.NETHER_RUNE.get(), 2),
+                    new ItemStack(ModItems.QUARTZ_RUNE.get(), 1),
                     new ItemStack(ModItems.GOLD_COIN.get(), 192),
                     new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4)
             );
@@ -87,7 +87,7 @@ public class NetherKnife extends WraqOffHandItem implements OnShootArrowEquip, F
         return List.of(
                 new ItemStack(ModItems.NETHER_KNIFE.get(), 1),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
-                new ItemStack(ModItems.ReputationMedal.get(), 8)
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 8)
         );
     }
 

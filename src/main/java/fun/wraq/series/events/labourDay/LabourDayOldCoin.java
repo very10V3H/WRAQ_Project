@@ -53,9 +53,9 @@ public class LabourDayOldCoin extends WraqItem {
             if (count < 512) {
                 if (count > 500) {
                     Compute.sendFormatMSG(player, Te.s("劳动节活动", CustomStyle.styleOfGold),
-                            Te.s("今日还可获取", (512 - count) + "个", SpecialEventItems.OldSilverCoin.get()));
+                            Te.s("今日还可获取", (512 - count) + "个", SpecialEventItems.OLD_SILVER_COIN.get()));
                 }
-                ItemAndRate.send(player, SpecialEventItems.OldSilverCoin.get());
+                ItemAndRate.send(player, SpecialEventItems.OLD_SILVER_COIN.get());
                 Compute.getTempTag(player).putInt(GET_OLD_SILVER_COIN_COUNT_KEY, count + 1);
             }
         }
@@ -64,7 +64,7 @@ public class LabourDayOldCoin extends WraqItem {
     public static void onFinishMobKillEntrustment(Player player, int count) {
         if (isInActivityDate()) {
             if (count <= 20 && count > 0 && count % 5 == 0) {
-                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.OldGoldCoin.get(), 2);
+                InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.OLD_GOLD_COIN.get(), 2);
             }
         }
     }

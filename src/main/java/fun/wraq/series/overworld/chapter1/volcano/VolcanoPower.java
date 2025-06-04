@@ -78,8 +78,8 @@ public class VolcanoPower extends WraqPower {
 
     @Override
     public void release(Player player) {
-        List.of(ModItems.VolcanoPower.get(), ModItems.VolcanoPower1.get(),
-                ModItems.VolcanoPower2.get(), ModItems.VolcanoPower3.get()).
+        List.of(ModItems.VOLCANO_POWER.get(), ModItems.VOLCANO_POWER_1.get(),
+                ModItems.VOLCANO_POWER_2.get(), ModItems.VOLCANO_POWER_3.get()).
                 forEach(item -> {
                     playerItemCoolDown(player, item, VolcanoPower.CoolDownTime[tier] - SuitCount.getObsiManaESuitCount(player) * 0.75);
                 });

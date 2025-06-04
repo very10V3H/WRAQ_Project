@@ -62,7 +62,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     @Override
     public void tick(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.evokerNewRune.get())) {
+        if (Compute.hasCurios(player, NewRuneItems.EVOKER_NEW_RUNE.get())) {
             int tick = Tick.get();
             if (tick % 80 == 0) {
                 List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),
@@ -75,7 +75,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                                 player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
                     });
                     Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.02);
-                    Compute.sendCoolDownTime(player, NewRuneItems.evokerNewRune.get(), 80);
+                    Compute.sendCoolDownTime(player, NewRuneItems.EVOKER_NEW_RUNE.get(), 80);
                 }
             }
         }

@@ -22,11 +22,11 @@ public class CuriosCommand implements Command<CommandSourceStack> {
     public static CuriosCommand instance = new CuriosCommand();
 
     public static Map<String, Item> map = ImmutableMap.of(
-            "NetherHand", ModItems.netherHand.get(),
-            "PlainNecklace", ModItems.plainNecklace.get(),
-            "CastleNecklace", ModItems.CastleNecklace.get(),
-            "IceBelt", ModItems.iceBelt.get(),
-            "LavenderBracelet", ModItems.lavenderBracelet.get(),
+            "NetherHand", ModItems.NETHER_HAND.get(),
+            "PlainNecklace", ModItems.PLAIN_NECKLACE.get(),
+            "CastleNecklace", ModItems.CASTLE_NECKLACE.get(),
+            "IceBelt", ModItems.ICE_BELT.get(),
+            "LavenderBracelet", ModItems.LAVENDER_BRACELET.get(),
             "MoontainChest", MoontainItems.CHEST_CURIOS.get(),
             "MoontainBracelet", MoontainItems.BRACELET.get(),
             "MoontainHand", MoontainItems.HAND.get(),

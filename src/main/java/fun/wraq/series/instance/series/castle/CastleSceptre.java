@@ -102,16 +102,16 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem,
     public List<ItemStack> forgeRecipe() {
         if (tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.CastleSceptrePiece.get(), 12),
-                    new ItemStack(ModItems.CastlePiece.get(), 192),
-                    new ItemStack(ModItems.TreeRune.get(), 8),
+                    new ItemStack(ModItems.CASTLE_SCEPTRE_PIECE.get(), 12),
+                    new ItemStack(ModItems.CASTLE_PIECE.get(), 192),
+                    new ItemStack(ModItems.TREE_RUNE.get(), 8),
                     new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12)
             );
         }
         return List.of(
                 new ItemStack(ModItems.CASTLE_SCEPTRE.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 26),
-                new ItemStack(ModItems.ReputationMedal.get(), 104),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 104),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 6)
         );
     }

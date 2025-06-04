@@ -11,12 +11,12 @@ public class ForgeMaterials {
 
     public static void setChapter1() {
         Item[] items = {
-                ModItems.PlainSoul.get(),
-                ModItems.ForestSoul.get(),
-                ModItems.LakeSoul.get(),
-                ModItems.VolcanoSoul.get(),
-                ModItems.MineSoul.get(),
-                ModItems.SnowSoul.get()
+                ModItems.PLAIN_SOUL.get(),
+                ModItems.FOREST_SOUL.get(),
+                ModItems.LAKE_SOUL.get(),
+                ModItems.VOLCANO_SOUL.get(),
+                ModItems.MINE_SOUL.get(),
+                ModItems.SNOW_SOUL.get()
         };
         chapter1.addAll(List.of(items));
     }
@@ -25,12 +25,12 @@ public class ForgeMaterials {
 
     public static void setChapter2() {
         Item[] items = {
-                ModItems.SkySoul.get(),
-                ModItems.EvokerSoul.get(),
-                ModItems.SeaSoul.get(),
-                ModItems.huskSoul.get(),
-                ModItems.KazeSoul.get(),
-                ModItems.LightningSoul.get(),
+                ModItems.SKY_SOUL.get(),
+                ModItems.EVOKER_SOUL.get(),
+                ModItems.SEA_SOUL.get(),
+                ModItems.HUSK_SOUL.get(),
+                ModItems.KAZE_SOUL.get(),
+                ModItems.LIGHTNING_SOUL.get(),
         };
         chapter2.addAll(List.of(items));
     }
@@ -39,10 +39,10 @@ public class ForgeMaterials {
 
     public static void setChapter3() {
         Item[] items = {
-                ModItems.witherSkeletonSoul.get(),
-                ModItems.PigLinSoul.get(),
-                ModItems.netherSkeletonSoul.get(),
-                ModItems.magmaSoul.get()
+                ModItems.WITHER_SKELETON_SOUL.get(),
+                ModItems.PIGLIN_SOUL.get(),
+                ModItems.NETHER_SKELETON_SOUL.get(),
+                ModItems.MAGMA_SOUL.get()
         };
         chapter3.addAll(List.of(items));
     }
@@ -52,9 +52,9 @@ public class ForgeMaterials {
     public static void setChapter4() {
         Item[] items = {
                 /*ModItems.toEnd.get(),*/
-                ModItems.RecallPiece.get(),
-                ModItems.ShulkerSoul.get(),
-                ModItems.EnderMiteSoul.get()
+                ModItems.RECALL_PIECE.get(),
+                ModItems.SHULKER_SOUL.get(),
+                ModItems.ENDER_MITE_SOUL.get()
         };
         chapter4.addAll(List.of(items));
     }
@@ -63,11 +63,11 @@ public class ForgeMaterials {
 
     public static void setChapter5() {
         Item[] items = {
-                ModItems.SakuraPetal.get(),
+                ModItems.SAKURA_PETAL.get(),
                 /*ModItems.Wheat.get(),*/
-                ModItems.PurpleIronPiece.get(),
-                ModItems.EarthManaSoul.get(),
-                ModItems.BloodManaSoul.get()
+                ModItems.PURPLE_IRON_PIECE.get(),
+                ModItems.EARTH_MANA_SOUL.get(),
+                ModItems.BLOOD_MANA_SOUL.get()
         };
         chapter5.addAll(List.of(items));
     }
@@ -76,16 +76,16 @@ public class ForgeMaterials {
 
     public static void setChapter6() {
         Item[] items = {
-                ModItems.PlainBossSoul.get(),
+                ModItems.PLAIN_BOSS_SOUL.get(),
                 /*ModItems.Main1Crystal.get(),*/
                 /*ModItems.Boss2Piece.get(),*/
-                ModItems.IceSoul.get(),
+                ModItems.ICE_BOSS_SOUL.get(),
                 /*ModItems.DevilBlood.get(),*/
-                ModItems.MoonSoul.get(),
-                ModItems.TabooPiece.get(),
-                ModItems.CastlePiece.get(),
+                ModItems.MOON_SOUL.get(),
+                ModItems.TABOO_PIECE.get(),
+                ModItems.CASTLE_PIECE.get(),
                 /*ModItems.CastleSoul.get(),*/
-                ModItems.PurpleIronBud1.get()
+                ModItems.PURPLE_IRON_BUD_1.get()
         };
         chapter6.addAll(List.of(items));
     }

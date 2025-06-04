@@ -24,6 +24,7 @@ import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.gui.mission.OldMissionScreen;
 import fun.wraq.render.gui.mission.ReputationStore;
 import fun.wraq.render.gui.testAndHelper.OpenSkillTreeGui;
+import fun.wraq.render.gui.trade.weekly.WeeklyStoreScreenC2SPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import net.minecraft.ChatFormatting;
@@ -213,6 +214,10 @@ public class IdCardGui extends Screen {
             this.minecraft.setScreen(new VpStoreScreen());
         }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18 * 2).size(48, 16).build());
 
+        this.addRenderableWidget(Button.builder(Te.s("研发采购", CustomStyle.styleOfWorld), (p_280814_) -> {
+            ModNetworking.sendToServer(new WeeklyStoreScreenC2SPacket());
+        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18 * 3).size(48, 16).build());
+
         this.addRenderableWidget(Button.builder(Component.literal("图鉴").withStyle(CustomStyle.styleOfSunIsland), (p_280814_) -> {
             this.minecraft.setScreen(new Illustrate(true, 0));
             ModNetworking.sendToServer(new GuideFinishC2SPacket(Guide.StageV2.ILLUSTRATE));
@@ -243,9 +248,10 @@ public class IdCardGui extends Screen {
             if (renderable instanceof Button button) {
                 if (button.getMessage().getString().contains("vp商店")
                         || button.getMessage().getString().contains("声望商店")
-                        || button.getMessage().getString().contains("全球市场")) {
+                        || button.getMessage().getString().contains("全球市场")
+                        || button.getMessage().getString().contains("研发采购")) {
                     if (x > this.width / 2 - 18 && x < this.width / 2 - 18 + 48 && y > this.height / 2 + 113 - 40
-                            && y < this.height / 2 + 113 - 40 + 18 * 2 + 16) {
+                            && y < this.height / 2 + 113 - 40 + 18 * 3 + 16) {
                         renderable.render(graphics, x, y, v);
                     } else {
                         guiGraphics.drawString(fontRenderer, Component.literal("「市场/商店」")
