@@ -33,6 +33,7 @@ import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
+import fun.wraq.series.overworld.extraordinary.equip.KanupusSword;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -207,6 +208,10 @@ public class ManaAttackModule {
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
                 player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
                 player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
+            }
+
+            if (player.getMainHandItem().getItem() instanceof KanupusSword) {
+                AttackEvent.attackToMonster(monster, player, 0.5, true, false);
             }
         }
     }

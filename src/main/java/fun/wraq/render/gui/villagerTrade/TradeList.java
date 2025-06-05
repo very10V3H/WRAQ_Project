@@ -26,7 +26,7 @@ import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
-import fun.wraq.series.overworld.mt.ManaTowerItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
@@ -544,7 +544,7 @@ public class TradeList {
     }
 
     public static void SoulEquipment() {
-        ItemStack kanupusWingF = new ItemStack(ManaTowerItems.KANUPUS_WING_F.get());
+        ItemStack kanupusWingF = new ItemStack(ExtraordinaryItems.KANUPUS_WING_F.get());
         ItemStack[] itemStacks = {
                 ModItems.WORLD_SOUL_NOTE.get().getDefaultInstance(),
                 ModItems.SOUL_SWORD.get().getDefaultInstance(),
@@ -559,10 +559,10 @@ public class TradeList {
                 ModItems.SCEPTRE_LOTTERY.get().getDefaultInstance(),
                 ModItems.SCEPTRE_LOTTERY_1.get().getDefaultInstance(),
                 ModItems.FORGE_TEMPLATE.get().getDefaultInstance(),
-                ManaTowerItems.RUNE.get().getDefaultInstance(),
-                ManaTowerItems.NAN_HAI_A.get().getDefaultInstance(),
-                ManaTowerItems.NAN_HAI_M.get().getDefaultInstance(),
-                ManaTowerItems.TONG_TIAN.get().getDefaultInstance(),
+                ExtraordinaryItems.RUNE.get().getDefaultInstance(),
+                ExtraordinaryItems.NAN_HAI_A.get().getDefaultInstance(),
+                ExtraordinaryItems.NAN_HAI_M.get().getDefaultInstance(),
+                ExtraordinaryItems.TONG_TIAN.get().getDefaultInstance(),
                 kanupusWingF
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -578,7 +578,7 @@ public class TradeList {
         tradeContent.put(StringUtils.VillagerName.WorldSoul, contentList);
 
         tradeRecipeMap.put(kanupusWingF, List.of(
-                new ItemStack(ManaTowerItems.RUNE.get(), 21),
+                new ItemStack(ExtraordinaryItems.RUNE.get(), 21),
                 new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 40),
                 new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 32),
                 new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get(), 128),
@@ -610,17 +610,17 @@ public class TradeList {
                 }});
                 case 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 100));
-                    add(new ItemStack(ManaTowerItems.PIECE.get()));
+                    add(new ItemStack(ExtraordinaryItems.PIECE.get()));
                 }});
                 case 14, 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ManaTowerItems.RUNE.get(), 14));
+                    add(new ItemStack(ExtraordinaryItems.RUNE.get(), 14));
                     add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
                     add(new ItemStack(ModItems.SEA_RUNE.get(), 16));
                     add(new ItemStack(ModItems.SHIP_PIECE.get(), 512));
                     add(new ItemStack(ModItems.LIGHTNING_RUNE.get(), 16));
                 }});
                 case 16 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ManaTowerItems.RUNE.get(), 14));
+                    add(new ItemStack(ExtraordinaryItems.RUNE.get(), 14));
                     add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
                     add(new ItemStack(ModItems.SKY_RUNE.get(), 16));
                     add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 8));
@@ -1459,8 +1459,7 @@ public class TradeList {
                 new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 1),
                 new ItemStack(ModItems.PS_BOTTLE_2.get(), 1),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
-                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1),
-                new ItemStack(ModItems.CROP_BAG.get(), 1),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1)
         };
 
         List<ItemStack> contentList = new ArrayList<>();
@@ -1475,7 +1474,7 @@ public class TradeList {
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PARKOUR_MEDAL.get(), 4));
                 }});
-                case 2, 3, 4, 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 2, 3, 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PARKOUR_MEDAL.get(), 2));
                 }});
             }

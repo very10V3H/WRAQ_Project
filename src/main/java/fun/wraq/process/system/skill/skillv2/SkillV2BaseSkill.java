@@ -6,6 +6,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -67,6 +68,12 @@ public abstract class SkillV2BaseSkill extends SkillV2 {
             case 9 -> {
                 return List.of(new ItemStack(ModItems.GOLD_COIN.get(), 128),
                         new ItemStack(ModItems.GOLDEN_BEANS.get(), 9));
+            }
+            case 10 -> {
+                return List.of(new ItemStack(ExtraordinaryItems.DAZZLING_DIAMOND.get(), 1));
+            }
+            case 11 -> {
+                return List.of(new ItemStack(ExtraordinaryItems.DAZZLING_DIAMOND.get(), 2));
             }
             default -> {
                 if (skillLevel < 3) {

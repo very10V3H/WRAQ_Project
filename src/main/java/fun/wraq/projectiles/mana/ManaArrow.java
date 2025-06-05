@@ -1,5 +1,6 @@
 package fun.wraq.projectiles.mana;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.core.ManaAttackModule;
@@ -49,7 +50,10 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
                      double rate, double manaPenetration, double manaPenetration0, String particleType,
                      ManaArrowHitEntity manaArrowHitEntity) {
-        super(entityType, shooter, level);
+        super(entityType, Compute.getPlayerHandItemPos(shooter, true).x,
+                Compute.getPlayerHandItemPos(shooter, true).y,
+                Compute.getPlayerHandItemPos(shooter, true).z, level);
+        this.setOwner(shooter);
         this.player = (Player) shooter;
         this.rate = rate;
         this.manaPenetration = manaPenetration;

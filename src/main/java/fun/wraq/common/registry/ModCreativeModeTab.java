@@ -15,7 +15,7 @@ import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
-import fun.wraq.series.overworld.mt.ManaTowerItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.core.registries.Registries;
@@ -119,7 +119,7 @@ public class ModCreativeModeTab {
                             .title(Te.s("维瑞阿契 | 新区域")).build());
     public static RegistryObject<CreativeModeTab> MANA_TOWER = CREATIVE_MODE_TAB.register("aa_wraq_zc_mana_tower",
             () -> CreativeModeTab.builder().icon(
-                                    () -> new ItemStack(ManaTowerItems.NAN_HAI_A.get()))
+                                    () -> new ItemStack(ExtraordinaryItems.NAN_HAI_A.get()))
                             .title(Te.s("维瑞阿契 | 炼魔塔")).build());
     public static RegistryObject<CreativeModeTab> COOKING = CREATIVE_MODE_TAB.register("aa_wraq_zd_cooking",
             () -> CreativeModeTab.builder().icon(

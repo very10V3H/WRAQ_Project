@@ -63,9 +63,12 @@ public class MyArrow extends AbstractArrow {
         this.whetherShootByPlayer = whetherShootByPlayer;
     }
 
-    public MyArrow(EntityType<? extends AbstractArrow> p_36717_, Level level, Player player,
+    public MyArrow(EntityType<? extends AbstractArrow> entityType, Level level, Player player,
                    boolean whetherShootByPlayer, double rate) {
-        super(p_36717_, player, level);
+        super(entityType, Compute.getPlayerHandItemPos(player, true).x,
+                Compute.getPlayerHandItemPos(player, true).y,
+                Compute.getPlayerHandItemPos(player, true).z, level);
+        this.setOwner(player);
         this.player = player;
         this.BaseDamage = PlayerAttributes.attackDamage(player) * rate;
         this.whetherShootByPlayer = whetherShootByPlayer;
@@ -126,6 +129,11 @@ public class MyArrow extends AbstractArrow {
 
     public static void causeDamage(Player player, Mob mob, double rate) {
         MyArrow myArrow = new MyArrow(player, true, rate, false);
+        causeDamage(myArrow, mob, rate);
+    }
+
+    public static void causeDamage(Player player, Mob mob, double rate, boolean isMainShoot) {
+        MyArrow myArrow = new MyArrow(player, isMainShoot, rate, false);
         causeDamage(myArrow, mob, rate);
     }
 

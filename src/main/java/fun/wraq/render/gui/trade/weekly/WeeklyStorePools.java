@@ -14,6 +14,7 @@ import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.world.item.ItemStack;
 
@@ -26,9 +27,9 @@ public class WeeklyStorePools {
         if (BASIC_REWARD_LIST.isEmpty()) {
             BASIC_REWARD_LIST.add(new ItemStack(ModItems.COMPLETE_GEM.get(), 3));
             BASIC_REWARD_LIST.add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
-            BASIC_REWARD_LIST.add(new ItemStack(ModItems.DIAMOND_COIN.get(), 10));
+            BASIC_REWARD_LIST.add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 10));
             BASIC_REWARD_LIST.add(new ItemStack(ModItems.NOTE_PAPER.get(), 24));
-            BASIC_REWARD_LIST.add(new ItemStack(ModItems.EQUIP_PIECE_4.get(), 4));
+            BASIC_REWARD_LIST.add(new ItemStack(ModItems.EQUIP_PIECE_5.get(), 1));
             BASIC_REWARD_LIST.add(new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 2));
             BASIC_REWARD_LIST.add(new ItemStack(ModItems.TP_PASS_3DAY.get(), 1));
             BASIC_REWARD_LIST.add(new ItemStack(ModItems.SENIOR_POTION_SUPPLY.get(), 2));
@@ -46,8 +47,8 @@ public class WeeklyStorePools {
             SENIOR_REWARD_LIST.add(new ItemStack(ModItems.RAINBOW_CRYSTAL.get(), 2));
             SENIOR_REWARD_LIST.add(new ItemStack(ModItems.SENIOR_SUPPLY.get(), 2));
             SENIOR_REWARD_LIST.add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
-            SENIOR_REWARD_LIST.add(new ItemStack(ModItems.EQUIP_PIECE_5.get(), 4));
-            SENIOR_REWARD_LIST.add(new ItemStack(ModItems.ORE_SUPPLY.get(), 2));
+            SENIOR_REWARD_LIST.add(new ItemStack(ModItems.EQUIP_PIECE_6.get(), 1));
+            SENIOR_REWARD_LIST.add(new ItemStack(ModItems.ORE_SUPPLY.get(), 1));
         }
         return SENIOR_REWARD_LIST;
     }
@@ -59,6 +60,10 @@ public class WeeklyStorePools {
             SPECIAL_REWARD_LIST.add(new ItemStack(IceHolyItems.PIECE_CHEST_2.get()));
             SPECIAL_REWARD_LIST.add(new ItemStack(ModItems.SUPPLY_BOX_TIER_2.get()));
             SPECIAL_REWARD_LIST.add(new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get()));
+            SPECIAL_REWARD_LIST.add(new ItemStack(ExtraordinaryItems.KANUPUS_SWORD_SOUL.get()));
+            SPECIAL_REWARD_LIST.add(new ItemStack(ExtraordinaryItems.SHIRO_BOW_SOUL.get()));
+            SPECIAL_REWARD_LIST.add(new ItemStack(ExtraordinaryItems.NETHER_SCEPTRE_EX_SOUL.get()));
+            SPECIAL_REWARD_LIST.add(new ItemStack(ExtraordinaryItems.DAZZLING_DIAMOND.get()));
         }
         return SPECIAL_REWARD_LIST;
     }
@@ -97,10 +102,10 @@ public class WeeklyStorePools {
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.BEACON_RUNE.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.TREE_RUNE.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.BLAZE_RUNE.get(), 8));
-            BASIC_MATERIAL_LIST.add(new ItemStack(C7Items.VD_SOUL.get(), 64));
-            BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 64));
-            BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.LEATHER.get(), 64));
-            BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.FALLING_SOUL.get(), 64));
+            BASIC_MATERIAL_LIST.add(new ItemStack(C7Items.VD_SOUL_POCKET.get(), 1));
+            BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.SOUL_FRAGMENT_POCKET.get(), 1));
+            BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.LEATHER_POCKET.get(), 1));
+            BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.FALLING_SOUL_POCKET.get(), 1));
             BASIC_MATERIAL_LIST.add(new ItemStack(BunkerItems.BUNKER_RUNE.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.SAKURA_PETAL_POCKET.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.SHIP_PIECE_POCKET.get(), 8));

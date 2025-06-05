@@ -4,7 +4,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
 import fun.wraq.series.events.SpecialEventItems;
-import fun.wraq.series.overworld.mt.ManaTowerItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -94,7 +94,7 @@ public class Display {
                     SpecialEventItems.SEVEN_SHADE_PIECE_DRAGON_BOAT.get(),
                     SpecialEventItems.DRAGON_BOAT_FES_FORGE_PAPER.get(),
                     SpecialEventItems.DRAGON_DIAMOND.get(),
-                    ManaTowerItems.KANUPUS_WING_F.get()
+                    ExtraordinaryItems.KANUPUS_WING_F.get()
             ));
         }
         return newItemList;

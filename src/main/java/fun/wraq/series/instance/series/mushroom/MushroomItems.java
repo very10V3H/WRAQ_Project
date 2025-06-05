@@ -2,6 +2,7 @@ package fun.wraq.series.instance.series.mushroom;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
+import fun.wraq.items.misc.PocketItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
@@ -28,7 +29,7 @@ public class MushroomItems {
     public static final RegistryObject<Item> BROWN_MUSHROOM = ITEMS.register("brown_mushroom",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY)));
     public static final RegistryObject<Item> BROWN_MUSHROOM_POCKET = ITEMS.register("brown_mushroom_pocket",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY)));
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_RARITY), BROWN_MUSHROOM.get()));
 
     public static final RegistryObject<Item> RED_MUSHROOM = ITEMS.register("red_mushroom",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), true, true,

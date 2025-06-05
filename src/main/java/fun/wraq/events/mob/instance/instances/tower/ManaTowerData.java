@@ -11,7 +11,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.mt.ManaTowerItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -226,14 +226,14 @@ public class ManaTowerData {
         }
         if (tier >= 7 && !getManaTowerPieceDailyGetFlag(player)) {
             setManaTowerPieceDailyGetFlag(player, true);
-            InventoryOperation.giveItemStackWithMSG(player, ManaTowerItems.PIECE.get());
+            InventoryOperation.giveItemStackWithMSG(player, ExtraordinaryItems.PIECE.get());
             incrementPlayerManaTowerPieceGetCount(player);
         } else {
             if (!getManaTowerPieceDailyGetFlag(player)) {
                 sendMSG(player, Te.s("在", "90s(A)", ChatFormatting.RED,
-                        "内通关可获取", ManaTowerItems.PIECE.get()));
+                        "内通关可获取", ExtraordinaryItems.PIECE.get()));
             } else {
-                sendMSG(player, Te.s("明日方能再次获取", ManaTowerItems.PIECE.get()));
+                sendMSG(player, Te.s("明日方能再次获取", ExtraordinaryItems.PIECE.get()));
             }
         }
     }

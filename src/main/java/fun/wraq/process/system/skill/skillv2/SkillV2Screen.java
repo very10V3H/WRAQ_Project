@@ -68,29 +68,32 @@ public class SkillV2Screen extends Screen {
         }
 
         this.addRenderableWidget(Button.builder(Te.s("剑术", CustomStyle.styleOfPower), (p_280814_) -> {
-            if (!ClientUtils.isInBattle) {
+            if (ClientUtils.clientPlayer.isCreative() || !ClientUtils.isInBattle) {
                 ModNetworking.sendToServer(
                         new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(0));
             } else {
-                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离", "战斗状态", ChatFormatting.RED, "5s后重试"));
+                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离",
+                        "战斗状态", ChatFormatting.RED, "5s后重试"));
             }
         }).pos(X + xOffset, Y + yOffset - 16).size(24, 12).build());
 
         this.addRenderableWidget(Button.builder(Te.s("弓术", CustomStyle.styleOfFlexible), (p_280814_) -> {
-            if (!ClientUtils.isInBattle) {
+            if (ClientUtils.clientPlayer.isCreative() || !ClientUtils.isInBattle) {
                 ModNetworking.sendToServer(
                         new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(1));
             } else {
-                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离", "战斗状态", ChatFormatting.RED, "5s后重试"));
+                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离",
+                        "战斗状态", ChatFormatting.RED, "5s后重试"));
             }
         }).pos(X + xOffset + xDifference, Y + yOffset - 16).size(24, 12).build());
 
         this.addRenderableWidget(Button.builder(Te.s("法术", CustomStyle.styleOfMana), (p_280814_) -> {
-            if (!ClientUtils.isInBattle) {
+            if (ClientUtils.clientPlayer.isCreative() || !ClientUtils.isInBattle) {
                 ModNetworking.sendToServer(
                         new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(2));
             } else {
-                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离", "战斗状态", ChatFormatting.RED, "5s后重试"));
+                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离",
+                        "战斗状态", ChatFormatting.RED, "5s后重试"));
             }
         }).pos(X + xOffset + xDifference * 2, Y + yOffset - 16).size(24, 12).build());
     }
@@ -149,7 +152,7 @@ public class SkillV2Screen extends Screen {
                 }
             }
             guiGraphics.drawCenteredString(font, SkillV2.getTypeName(skillType),
-                    X + xOffset - 20, Y + yOffset + i * yDifference + 12, 0);
+                    X + xOffset - 24, Y + yOffset + i * yDifference + 12, 0);
         }
 
         this.renderables.forEach(renderable -> {

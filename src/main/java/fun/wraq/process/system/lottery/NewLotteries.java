@@ -136,14 +136,20 @@ public class NewLotteries extends Item {
         if (getRewardSerial.isEmpty()) setGetRewardSerial();
         if (guaranteeTimes.isEmpty()) setGuaranteeTimes();
         if (guaranteeRange.isEmpty()) setGuaranteeRange();
+        double rateSum = 0;
         for (int i = 0; i < loots.size(); i++) {
             Loot loot = loots.get(i);
+            rateSum += loot.rate;
             ChatFormatting style = ChatFormatting.AQUA;
             if (getRewardSerial.containsKey(item) && i < getRewardSerial.get(item)) style = ChatFormatting.RED;
+            double rate = loot.rate;
+            if (i == loots.size() - 1) {
+                rate = 1 - (rateSum - loot.rate);
+            }
             components.add(Component.literal(" " + (i + 1) + ".").withStyle(style).
                     append(loot.itemStack.getDisplayName()).
                     append(Component.literal(" *" + loot.itemStack.getCount()).withStyle(style)).
-                    append(Component.literal(" 「" + String.format("%.2f%%", loot.rate * 100) + "」").withStyle(style)));
+                    append(Component.literal(" 「" + String.format("%.2f%%", rate * 100) + "」").withStyle(style)));
         }
         if (guaranteeTimes.containsKey(item)) {
             components.add(Component.literal(""));
@@ -274,9 +280,7 @@ public class NewLotteries extends Item {
                             append(Component.literal(" *" + reward.getCount()).withStyle(ChatFormatting.AQUA)).
                             append(Component.literal(guaranteeRange.containsKey(lottery) ? " (" + times + ")" : "").withStyle(ChatFormatting.GRAY)));
         }
-        if (InventoryCheck.getBoundingList().contains(reward.getItem())) {
-            InventoryCheck.addOwnerTagToItemStack(player, reward);
-        }
+        InventoryCheck.addOwnerTagToItemStack(player, reward);
         InventoryOperation.giveItemStack(player, reward);
     }
 
@@ -295,6 +299,9 @@ public class NewLotteries extends Item {
         }
         lootList.add(new Loot(curio.getDefaultInstance(), 0.005));
         lootList.add(new Loot(elementCurio.getDefaultInstance(), 0.005));
+        lootList.add(new Loot(new ItemStack(ModItems.WORLD_FORGE_STONE.get()), 0.1));
+        lootList.add(new Loot(new ItemStack(ModItems.FORGE_ENHANCE_3.get()), 0.1));
+        lootList.add(new Loot(new ItemStack(ModItems.EQUIP_PIECE_5.get()), 0.1));
         lootList.add(new Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2));
         lootList.add(new Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1));
         lootList.add(new Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1));

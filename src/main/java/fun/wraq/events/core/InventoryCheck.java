@@ -18,7 +18,7 @@ import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
-import fun.wraq.series.overworld.mt.ManaTowerItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -226,7 +226,7 @@ public class InventoryCheck {
                 .stream()
                 .map(entry -> entry.get().asItem())
                 .forEach(item -> boundingList.add(item));
-        ManaTowerItems.ITEMS.getEntries()
+        ExtraordinaryItems.ITEMS.getEntries()
                 .stream()
                 .map(entry -> entry.get().asItem())
                 .forEach(item -> boundingList.add(item));

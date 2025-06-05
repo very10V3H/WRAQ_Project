@@ -172,46 +172,11 @@ public class Compute {
     }
 
     public static void forgingHoverName(ItemStack stack) {
-        CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-
         MutableComponent suffix = Component.literal("");
         MutableComponent prefix = Component.literal("");
-
-        if (Utils.sceptreTag.containsKey(stack.getItem())) {
-            if (data.contains(StringUtils.ManaCore.ManaCore)) {
-                String ManaCore = data.getString(StringUtils.ManaCore.ManaCore);
-                if (ManaCore.equals(StringUtils.ManaCore.SeaCore))
-                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
-                            append(Component.literal("●").withStyle(CustomStyle.styleOfSea)).
-                            append(Component.literal(">").withStyle(ChatFormatting.GRAY));
-                if (ManaCore.equals(StringUtils.ManaCore.BlackForestCore))
-                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
-                            append(Component.literal("●").withStyle(CustomStyle.styleOfHusk)).
-                            append(Component.literal(">").withStyle(ChatFormatting.GRAY));
-                if (ManaCore.equals(StringUtils.ManaCore.KazeCore))
-                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
-                            append(Component.literal("●").withStyle(CustomStyle.styleOfKaze)).
-                            append(Component.literal(">").withStyle(ChatFormatting.GRAY));
-                if (ManaCore.equals(StringUtils.ManaCore.SakuraCore))
-                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
-                            append(Component.literal("●").withStyle(CustomStyle.styleOfDemon)).
-                            append(Component.literal(">").withStyle(ChatFormatting.GRAY));
-            }
-        }
-
-        MutableComponent quality = Te.m("");
-
-        if (Utils.armorTag.containsKey(stack.getItem()) || Utils.mainHandTag.containsKey(stack.getItem())) {
-            int forgeQuality = ForgeEquipUtils.getForgeQualityOnEquip(stack);
-
-            quality = Te.m("").append(ForgeEquipUtils.getDescription(forgeQuality)).
-                    append(Te.m(" - ", ForgeEquipUtils.getStyle(forgeQuality)));
-        }
-
         Component defaultName = stack.getItem().getDefaultInstance().getHoverName();
         stack.setHoverName(Component.literal("")
                 .append(prefix)
-                .append(quality)
                 .append(suffix)
                 .append(defaultName));
     }
@@ -1353,16 +1318,15 @@ public class Compute {
         Level level = player.level();
         int TickCount = Tick.get();
         Vec3 targetPos = location;
-        Vec3 startPos = player.pick(0.5, 0, false).getLocation();
-        Vec3 PosVec = targetPos.subtract(startPos).normalize();
-        double Distance = targetPos.distanceTo(startPos);
-        ParticleProvider.createLineParticle(level, (int) Distance * 5, startPos, targetPos, particleOptions);
+        Vec3 startPos = getPlayerHandItemPos(player, true);
+        double distance = targetPos.distanceTo(startPos);
+        ParticleProvider.createLineParticle(level, (int) distance * 5, startPos, targetPos, particleOptions);
         if (!Utils.playerLaserCoolDown.containsKey(Name.get(player))) {
             Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
         }
         Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(Name.get(player));
 
-        getPlayerRayMobList(player, 0.5, 0.5, Distance).forEach(mob -> {
+        getPlayerRayMobList(player, 0.5, 0.5, distance).forEach(mob -> {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
                 laserCoolDownMap.put(mob, TickCount + tickCoolDown);
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
@@ -1663,6 +1627,11 @@ public class Compute {
         vec3 = player.pick(-1, 0, false).getLocation().
                 add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()));
         return vec3;
+    }
+
+    public static Vec3 getPlayerHandItemPos(LivingEntity livingEntity, boolean isRight) {
+        return livingEntity.pick(0.5, 0, false).getLocation().
+                add(livingEntity.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(isRight ? 1 : -1));
     }
 
     public static class PassiveEquip {

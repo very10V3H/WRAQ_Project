@@ -15,6 +15,7 @@ import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.customized.uniform.attack.AttackCurios1;
 import fun.wraq.customized.uniform.attack.AttackCurios3;
 import fun.wraq.customized.uniform.attack.AttackCurios4;
@@ -35,6 +36,7 @@ import fun.wraq.series.nether.equip.attack.sword.ManaSword;
 import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
 import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
+import fun.wraq.series.overworld.extraordinary.equip.KanupusSword;
 import fun.wraq.series.overworld.sakura.SakuraMob.SakuraSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -53,6 +55,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MinecartItem;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -104,20 +107,26 @@ public class AttackEvent {
             }
         });
         mobList.removeIf(mob -> mob instanceof Allay || mob instanceof Animal);
-
         if (nearestMob.get() != null) {
+            ItemStack itemStack = player.getMainHandItem();
+            if (itemStack.getItem() instanceof KanupusSword) {
+                rate *= 0.5;
+            }
             boolean crit = AttackEvent.crit(player, nearestMob.get(), false);
             AttackEvent.attackToMonster(nearestMob.get(), player, rate *
                     (mobList.size() == 1 ? 1 + SwordNewSkillPassive0.exTargetsDamageRate(player) : 1),
                     true, crit);
+            MyArrow.causeDamage(player, nearestMob.get(), 0.5, true);
             HurtEventModule.ForestRune3Judge(player, nearestMob.get(), PlayerAttributes.attackDamage(player));
             AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, nearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
             AttackEventModule.SwordSkill12Attack(player.getPersistentData(), player); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
+            double finalRate = rate;
             mobList.forEach(mob -> {
                 if (mob != nearestMob.get()) {
                     AttackEvent.attackToMonster(mob, player,
-                            rate * Math.min(1, SwordNewSkillPassive0.exTargetsDamageRate(player)),
+                            finalRate * Math.min(1, SwordNewSkillPassive0.exTargetsDamageRate(player)),
                             false, crit);
+                    MyArrow.causeDamage(player, mob, 0.5, false);
                 }
             });
         }

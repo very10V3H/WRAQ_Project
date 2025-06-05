@@ -1,6 +1,6 @@
 package fun.wraq.common.util;
 
-import fun.wraq.Items.Forging.WraqForge;
+import fun.wraq.items.forge.WraqForge;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;

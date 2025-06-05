@@ -1,29 +1,29 @@
 package fun.wraq.common.registry;
 
-import fun.wraq.Items.DevelopmentTools.*;
-import fun.wraq.Items.DevelopmentTools.equip.ManageBow;
-import fun.wraq.Items.DevelopmentTools.equip.ManageSceptre;
-import fun.wraq.Items.DevelopmentTools.equip.ManageSword;
-import fun.wraq.Items.DevelopmentTools.rail.RailwayPillarSetTool;
-import fun.wraq.Items.Forging.ForgeEnhancePaper;
-import fun.wraq.Items.Forging.ForgeProtect;
-import fun.wraq.Items.KillPaper.KillPaper;
-import fun.wraq.Items.LevelReward.VariousBag.GoldCoinBag;
-import fun.wraq.Items.LevelReward.VariousBag.LogBag;
-import fun.wraq.Items.Lotteries.CommonLotteries;
-import fun.wraq.Items.Lotteries.ExpItem;
-import fun.wraq.Items.Lotteries.FantasyCurio;
-import fun.wraq.Items.Lotteries.UnCommonLotteries;
-import fun.wraq.Items.MainStory_1.BackSpawn;
-import fun.wraq.Items.MainStory_1.ForNew;
-import fun.wraq.Items.MainStory_1.Main0;
-import fun.wraq.Items.Mission.Daily;
-import fun.wraq.Items.Mission.IronLove;
-import fun.wraq.Items.MobItem.MobArmor;
-import fun.wraq.Items.Ps.PsBottle;
-import fun.wraq.Items.SkillItems.ID_Card;
-import fun.wraq.Items.SkyCity.TicketToSkyCity;
-import fun.wraq.Items.money.UDisk;
+import fun.wraq.items.dev.*;
+import fun.wraq.items.dev.equip.ManageBow;
+import fun.wraq.items.dev.equip.ManageSceptre;
+import fun.wraq.items.dev.equip.ManageSword;
+import fun.wraq.items.dev.rail.RailwayPillarSetTool;
+import fun.wraq.items.forge.ForgeEnhancePaper;
+import fun.wraq.items.forge.ForgeProtect;
+import fun.wraq.items.kill.KillPaper;
+import fun.wraq.items.misc.PocketItem;
+import fun.wraq.items.money.GoldCoinBag;
+import fun.wraq.items.lotteries.CommonLotteries;
+import fun.wraq.items.lotteries.ExpItem;
+import fun.wraq.items.lotteries.FantasyCurio;
+import fun.wraq.items.lotteries.UnCommonLotteries;
+import fun.wraq.items.m.BackSpawn;
+import fun.wraq.items.m.ForNew;
+import fun.wraq.items.m.Main0;
+import fun.wraq.items.mission.Daily;
+import fun.wraq.items.mission.IronLove;
+import fun.wraq.items.mob.MobArmor;
+import fun.wraq.items.ps.PsBottle;
+import fun.wraq.items.skill.ID_Card;
+import fun.wraq.items.ticket.TicketToSkyCity;
+import fun.wraq.items.money.UDisk;
 import fun.wraq.blocks.blocks.brew.*;
 import fun.wraq.blocks.blocks.brew.solidifiedSouls.*;
 import fun.wraq.common.Compute;
@@ -126,7 +126,6 @@ import fun.wraq.series.nether.power.PiglinPower;
 import fun.wraq.series.nether.power.WitherBoneMealPower;
 import fun.wraq.series.nether.power.WitherBonePower;
 import fun.wraq.series.overworld.IceSeries.LeatherArmor;
-import fun.wraq.series.overworld.WorldBoss.CropPackets;
 import fun.wraq.series.overworld.castle.BeaconBow;
 import fun.wraq.series.overworld.castle.BlazeSword;
 import fun.wraq.series.overworld.castle.TreeSceptre;
@@ -1223,7 +1222,7 @@ public class ModItems {
     public static final RegistryObject<Item> SAKURA_PETAL = ITEMS.register("sakura_petal",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.SakuraBold)));
     public static final RegistryObject<Item> SAKURA_PETAL_POCKET = ITEMS.register("sakura_petal_pocket",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.SakuraBold)));
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.SakuraBold), SAKURA_PETAL.get()));
     public static final RegistryObject<Item> SAKURA_SWORD = ITEMS.register("sakura_demon_sword",
             () -> new SakuraSword(new Item.Properties().rarity(CustomStyle.SakuraItalic)));
     public static final RegistryObject<Item> SAKURA_POWER = ITEMS.register("sakura_power",
@@ -1574,7 +1573,7 @@ public class ModItems {
     public static final RegistryObject<Item> SHIP_PIECE = ITEMS.register("ship_piece",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.ShipBold)));
     public static final RegistryObject<Item> SHIP_PIECE_POCKET = ITEMS.register("ship_piece_pocket",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.ShipBold)));
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.ShipBold), SHIP_PIECE.get()));
 
     public static final RegistryObject<Item> ICE_LOOT = ITEMS.register("ice_loot",
             () -> new IceLoot(new Item.Properties().rarity(CustomStyle.Ice)));
@@ -1636,12 +1635,6 @@ public class ModItems {
     public static final RegistryObject<Item> RANDOM_EVENT_MEDAL = ITEMS.register("random_event_medal",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 
-    public static final RegistryObject<Item> CROP_BAG = ITEMS.register("crop_bag",
-            () -> new CropPackets(new Item.Properties().rarity(CustomStyle.FieldBold)));
-
-    public static final RegistryObject<Item> LOG_BAG = ITEMS.register("log_bag",
-            () -> new LogBag(new Item.Properties().rarity(CustomStyle.FieldBold)));
-
     public static final RegistryObject<Item> EARTH_MANA_SOUL = ITEMS.register("earth_mana_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.EvokerBold)));
     public static final RegistryObject<Item> BLOOD_MANA_SOUL = ITEMS.register("blood_mana_soul",
@@ -1661,7 +1654,7 @@ public class ModItems {
     public static final RegistryObject<Item> WOLF_LEATHER = ITEMS.register("wolf_leather",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.ForestBold)));
     public static final RegistryObject<Item> WOLF_LEATHER_POCKET = ITEMS.register("wolf_leather_material",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.ForestBold)));
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.ForestBold), WOLF_LEATHER.get()));
 
     public static final RegistryObject<Item> BLOOD_MANA_HELMET = ITEMS.register("blood_mana_helmet",
             () -> new BloodManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
@@ -2257,84 +2250,6 @@ public class ModItems {
             () -> new MobArmor(ModArmorMaterials.IceElement, ArmorItem.Type.HELMET, StringUtils.MobName.Tower5Floor));
     public static final RegistryObject<Item> MOB_ARMOR_TOWER_6_FLOOR_HELMET = ITEMS.register("mob_armor_tower_6floor_helmet",
             () -> new MobArmor(ModArmorMaterials.LightningElement, ArmorItem.Type.HELMET, StringUtils.MobName.Tower6Floor));
-
-    public static final RegistryObject<Item> SWORD_LOTTERY = ITEMS.register("sword_lottery",
-            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
-                List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_4.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
-                );
-                addAll(loots);
-            }}));
-
-    public static final RegistryObject<Item> SWORD_LOTTERY_1 = ITEMS.register("sword_lottery_1",
-            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
-                List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_5.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
-                );
-                addAll(loots);
-            }}, null, SWORD_LOTTERY.get(), false));
-
-    public static final RegistryObject<Item> BOW_LOTTERY = ITEMS.register("bow_lottery",
-            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
-                List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_4.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
-                );
-                addAll(loots);
-            }}));
-
-    public static final RegistryObject<Item> BOW_LOTTERY_1 = ITEMS.register("bow_lottery_1",
-            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
-                List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_5.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
-                );
-                addAll(loots);
-            }}, null, BOW_LOTTERY.get(), false));
-
-    public static final RegistryObject<Item> SCEPTRE_LOTTERY = ITEMS.register("sceptre_lottery",
-            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
-                List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_4.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
-                );
-                addAll(loots);
-            }}));
-
-    public static final RegistryObject<Item> SCEPTRE_LOTTERY_1 = ITEMS.register("sceptre_lottery_1",
-            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
-                List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_5.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
-                );
-                addAll(loots);
-            }}, null, SCEPTRE_LOTTERY.get(), false));
 
     public static final RegistryObject<Item> WATER_BOTTLE = ITEMS.register("water_bottle",
             () -> new Item(new Item.Properties().rarity(CustomStyle.Water)));
@@ -2987,4 +2902,100 @@ public class ModItems {
 
     public static final RegistryObject<Item> REAL_ESTATE_KEY = ITEMS.register("real_estate_key",
             () -> new EstateKey(new Item.Properties().rarity(CustomStyle.Gold), 1));
+
+    public static final RegistryObject<Item> SWORD_LOTTERY = ITEMS.register("sword_lottery",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_4.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WORLD_FORGE_STONE.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FORGE_ENHANCE_3.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.EQUIP_PIECE_5.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}));
+
+    public static final RegistryObject<Item> SWORD_LOTTERY_1 = ITEMS.register("sword_lottery_1",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_5.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WORLD_FORGE_STONE.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FORGE_ENHANCE_3.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.EQUIP_PIECE_5.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}, null, SWORD_LOTTERY.get(), false));
+
+    public static final RegistryObject<Item> BOW_LOTTERY = ITEMS.register("bow_lottery",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_4.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WORLD_FORGE_STONE.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FORGE_ENHANCE_3.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.EQUIP_PIECE_5.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}));
+
+    public static final RegistryObject<Item> BOW_LOTTERY_1 = ITEMS.register("bow_lottery_1",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_5.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WORLD_FORGE_STONE.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FORGE_ENHANCE_3.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.EQUIP_PIECE_5.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}, null, BOW_LOTTERY.get(), false));
+
+    public static final RegistryObject<Item> SCEPTRE_LOTTERY = ITEMS.register("sceptre_lottery",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_4.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WORLD_FORGE_STONE.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FORGE_ENHANCE_3.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.EQUIP_PIECE_5.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}));
+
+    public static final RegistryObject<Item> SCEPTRE_LOTTERY_1 = ITEMS.register("sceptre_lottery_1",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
+                List<NewLotteries.Loot> loots = List.of(
+                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_5.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.STONE_CURIOS_0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(ModItems.WORLD_FORGE_STONE.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.FORGE_ENHANCE_3.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.EQUIP_PIECE_5.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.KILL_PAPER_LOOT.get(), 4), 0.2),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.REPUTATION_MEDAL.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN_BAG.get(), 4), 0.1)
+                );
+                addAll(loots);
+            }}, null, SCEPTRE_LOTTERY.get(), false));
 }

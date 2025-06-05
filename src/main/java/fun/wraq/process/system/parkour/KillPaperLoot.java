@@ -1,6 +1,6 @@
 package fun.wraq.process.system.parkour;
 
-import fun.wraq.Items.KillPaper.KillPaper;
+import fun.wraq.items.kill.KillPaper;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;

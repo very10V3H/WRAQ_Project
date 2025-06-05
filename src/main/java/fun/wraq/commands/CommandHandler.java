@@ -194,14 +194,6 @@ public class CommandHandler {
                                 .executes(GiantCommand.instance)
                 )
         );
-        CommandDispatcher<CommandSourceStack> dispatcher21 = event.getDispatcher();
-        LiteralCommandNode<CommandSourceStack> cmd21 = dispatcher21.register(
-                Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("log")
-                                .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
-                                .executes(LogCommand.instance)
-                )
-        );
         CommandDispatcher<CommandSourceStack> dispatcher22 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd22 = dispatcher22.register(
                 Commands.literal(Utils.MOD_ID).then(
@@ -800,6 +792,15 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("bounding")
                                 .executes(BoundingCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher87 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd87 = dispatcher87.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("setWeeklyStoreIssueCount").then(
+                                Commands.argument("count", IntegerArgumentType.integer())
+                                        .executes(WeeklyStoreIssueCountCommand.instance)
+                        )
                 )
         );
     }

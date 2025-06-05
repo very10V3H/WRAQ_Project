@@ -1,6 +1,6 @@
 package fun.wraq.events.core;
 
-import fun.wraq.Items.Prefix.PrefixInfo;
+import fun.wraq.items.prefix.PrefixInfo;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;

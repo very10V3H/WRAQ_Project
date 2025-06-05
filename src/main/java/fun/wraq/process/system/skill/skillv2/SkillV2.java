@@ -270,7 +270,7 @@ public abstract class SkillV2 {
         data.putInt(getAllSkillSerialDataKey().get(skillType), serial);
     }
 
-    public static int maxSkillLevel = 10;
+    public static int maxSkillLevel = 12;
 
     public static int getProfessionSkillLevel(Player player, int profession, int skillType, int serial) {
         CompoundTag data = getProfessionSkillData(player, profession);

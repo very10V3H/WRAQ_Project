@@ -5,6 +5,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -75,6 +76,12 @@ public abstract class SkillV2PassiveSkill extends SkillV2 {
                     case 2 -> items.add(new ItemStack(ModItems.CASTLE_SCEPTRE_PIECE.get()));
                 }
                 return items;
+            }
+            case 10 -> {
+                return List.of(new ItemStack(ExtraordinaryItems.DAZZLING_DIAMOND.get(), 1));
+            }
+            case 11 -> {
+                return List.of(new ItemStack(ExtraordinaryItems.DAZZLING_DIAMOND.get(), 2));
             }
             default -> {
                 return List.of(new ItemStack(ModItems.GOLD_COIN.get()));

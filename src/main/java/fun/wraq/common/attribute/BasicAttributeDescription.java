@@ -50,7 +50,9 @@ public class BasicAttributeDescription {
 
     public static void NewAttributeDescription(RenderTooltipEvent.GatherComponents event) throws CommandSyntaxException {
         LocalPlayer localPlayer = Minecraft.getInstance().player;
-        if (localPlayer == null) return;
+        if (localPlayer == null) {
+            return;
+        }
         int index = 4;
         ItemStack itemStack = event.getItemStack();
         Item item = itemStack.getItem();
@@ -58,9 +60,12 @@ public class BasicAttributeDescription {
         if (item instanceof SevenShadePiece) index = 6;
         if (!(item instanceof WraqCurios || item instanceof WraqUniformCurios
                 || item instanceof SevenShadePiece)
-                && itemStack.getTagElement(Utils.MOD_ID) == null && !Utils.offHandTag.containsKey(item))
+                && itemStack.getTagElement(Utils.MOD_ID) == null && !Utils.offHandTag.containsKey(item)) {
             return;
-        if (event.getTooltipElements().size() < 5) return;
+        }
+        if (event.getTooltipElements().size() < 5) {
+            return;
+        }
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
 
         if (data.contains(StringUtils.ForgeLevel)) {

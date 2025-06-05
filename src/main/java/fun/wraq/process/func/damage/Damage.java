@@ -56,7 +56,7 @@ import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
-import fun.wraq.series.overworld.mt.ManaTowerItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -657,7 +657,7 @@ public class Damage {
     public static double defenceDamageDecreaseRate(Player player, Mob mob, double defence,
                                                    double defencePenetration, double defencePenetration0) {
         double defenceAfterCompute = Math.max(0, defence * (1 - defencePenetration) - defencePenetration0);
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ManaTowerItems.NAN_HAI_A.get())
+        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ExtraordinaryItems.NAN_HAI_A.get())
                 && mob.getHealth() / mob.getMaxHealth() < 0.4) {
             defenceAfterCompute = 0;
         }

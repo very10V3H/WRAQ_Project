@@ -971,4 +971,8 @@ public class ComponentUtils {
     public static Component getSuffixOfCooking() {
         return Te.s("维瑞乐事", ChatFormatting.ITALIC, CustomStyle.MUSHROOM_STYLE);
     }
+
+    public static Component getSuffixOfShiro() {
+        return Te.s("Childish White", ChatFormatting.ITALIC, CustomStyle.SHIRO_STYLE);
+    }
 }

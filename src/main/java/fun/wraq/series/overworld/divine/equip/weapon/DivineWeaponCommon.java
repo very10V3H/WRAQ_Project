@@ -51,10 +51,10 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
                                                 double maxActiveDistance) {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionActive(components, Te.s("透体圣光", style));
-        components.add(Te.s(" 释放一道", "圣光", style));
+        components.add(Te.s(" 释放一道", "圣光", style,
+                " 长度可及:", String.format("%.0f", maxActiveDistance), style));
         components.add(Te.s(" 对路径的敌人造成一次", isAd ? "普攻伤害" : "法球伤害",
                 isAd ? CustomStyle.styleOfPower : CustomStyle.styleOfMana));
-        components.add(Te.s(" 长度可及:", String.format("%.0f", maxActiveDistance), style));
         ComponentUtils.getStableCoolDownTimeDescription(components, 2);
         components.add(Te.s(" 圣光", CustomStyle.DIVINE_STYLE, "若击杀怪物，则", "无冷却时间", ChatFormatting.AQUA));
         ComponentUtils.descriptionPassive(components, Te.s("光域剥离", style));
@@ -67,17 +67,14 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
         components.add(Te.s(" 击杀怪物将会受", countName, style));
         components.add(Te.s(" ", countName, "将存储在这件物品内"));
         components.add(Te.s(" ", countName, "至多为你提供:"));
-        components.add(Te.s(" 1.", style,
-                ComponentUtils.AttributeDescription.getElementStrength(String.format("%.0f%%", upperLimitRate * 100))));
-        components.add(Te.s(" 2.", style,
-                isAd ?
+        components.add(Te.s(ComponentUtils.AttributeDescription.getElementStrength(String.format("%.0f%%", upperLimitRate * 100)),
+                "与", isAd ?
                         ComponentUtils.AttributeDescription.attackDamage(String.format("%.0f%%", upperLimitRate * 100))
                         : ComponentUtils.AttributeDescription.manaDamage(String.format("%.0f%%", upperLimitRate * 100))));
         int count = getDivineCount(stack);
         components.add(Te.s(" 圣光充盈度:"
                 + String.format("%.0f%%", Math.min(count, maxCount) * 100.0 / maxCount), style,
-                "(" + count + ")", ChatFormatting.GRAY));
-        components.add(Te.s(" ".repeat(4),
+                "(" + count + ")", ChatFormatting.GRAY, " ".repeat(4),
                 ComponentUtils.getProgressBar(20, count, maxCount, style)));
         components.add(Te.s(" 在收集", maxCount + "层", style, countName, "后达最大值"));
         components.add(Te.s(" ", countName, "每日将会清空", ChatFormatting.ITALIC, ChatFormatting.GRAY));

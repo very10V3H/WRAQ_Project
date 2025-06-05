@@ -222,7 +222,7 @@ public class TradeScreen extends Screen {
                     this.width / 2 - 60, this.height / 2 + 83, 0);
         }
 
-        guiGraphics.drawCenteredString(fontRenderer, Te.s("" + page + 1),
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("" + (page + 1)),
                 this.width / 2, this.height / 2 + 83, 0);
         guiGraphics.drawCenteredString(fontRenderer,
                 Te.s("共" + ((size - 1) / 10 + 1) + "页 " + (size) + "件物品"),
@@ -230,8 +230,9 @@ public class TradeScreen extends Screen {
 
         if (villagerName.equals(TradeListNew.WEEKLY_STORE_VILLAGER_NAME)) {
             guiGraphics.drawCenteredString(fontRenderer,
-                    Te.s("研发采购 - 第", WeeklyStorePlayerData.clientIssueCount, ChatFormatting.RED,
-                            "期" + " 每周五更新"), this.width / 2, this.height / 2 - 96, 0);
+                    Te.s("研发采购 - 第",
+                            WeeklyStorePlayerData.clientIssueCount, ChatFormatting.RED, "期" + " 每周五更新(测试阶段)"),
+                    this.width / 2, this.height / 2 - 96, 0);
         }
         super.render(p_96310_, x, y, v);
     }

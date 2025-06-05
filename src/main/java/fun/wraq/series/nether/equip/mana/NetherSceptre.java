@@ -35,15 +35,26 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
     private final int tier;
     public NetherSceptre(Properties properties, int tier) {
         super(properties.rarity(CustomStyle.NetherItalic));
-        if (tier > 0) {
-            Utils.critRate.put(this, 0.25);
+        if (tier < 2) {
+            if (tier > 0) {
+                Utils.critRate.put(this, 0.25);
+            }
+            Utils.manaDamage.put(this, 480d);
+            Utils.manaRecover.put(this, 20d);
+            Utils.coolDownDecrease.put(this, 0.35);
+            Utils.manaPenetration0.put(this, 24d);
+            Element.FireElementValue.put(this, 1d);
+            Utils.levelRequire.put(this, 80);
+        } else {
+            Utils.manaDamage.put(this, 6000d);
+            Utils.critRate.put(this, 0.4);
+            Utils.critDamage.put(this, 0.1);
+            Utils.manaRecover.put(this, 40d);
+            Utils.manaPenetration0.put(this, 60d);
+            Utils.coolDownDecrease.put(this, 0.3);
+            Element.FireElementValue.put(this, 1.5);
+            Utils.levelRequire.put(this, 225);
         }
-        Utils.manaDamage.put(this, 480d);
-        Utils.manaRecover.put(this, 20d);
-        Utils.coolDownDecrease.put(this, 0.35);
-        Utils.manaPenetration0.put(this, 24d);
-        Element.FireElementValue.put(this, 1d);
-        Utils.levelRequire.put(this, 80);
         this.tier = tier;
     }
 
@@ -60,13 +71,27 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Te.m("解构射线", CustomStyle.styleOfNether));
-        components.add(Te.s("你的", "普通法球攻击", CustomStyle.styleOfMana, "被替换为", "解构射线", ChatFormatting.RED));
-        components.add(Te.s("解构射线", ChatFormatting.RED, "具有以下特征:"));
-        components.add(Te.s("1.", ChatFormatting.RED, "最远可达30格"));
-        components.add(Te.s("2.", ChatFormatting.RED, "对沿途的所有敌人每0.5s造成一次伤害"));
-        components.add(Te.s("3.", ChatFormatting.RED, "伤害被视为", "普通法球攻击", CustomStyle.styleOfMana));
-        components.add(Te.s(" 解构射线", ChatFormatting.RED, "每秒消耗", "90法力", CustomStyle.styleOfMana));
+        if (tier < 2) {
+            ComponentUtils.descriptionPassive(components, Te.m("解构射线", CustomStyle.styleOfNether));
+            components.add(Te.s("你的", "普通法球攻击", CustomStyle.styleOfMana,
+                    "被替换为", "解构射线", ChatFormatting.RED));
+            components.add(Te.s("解构射线", ChatFormatting.RED, "具有以下特征:"));
+            components.add(Te.s(" 1.", ChatFormatting.RED, "最远可达24格"));
+            components.add(Te.s(" 2.", ChatFormatting.RED, "对沿途的所有敌人每0.5s造成一次伤害"));
+            components.add(Te.s(" 3.", ChatFormatting.RED, "伤害被视为",
+                    "普通法球攻击", CustomStyle.styleOfMana));
+            components.add(Te.s(" 解构射线", ChatFormatting.RED, "每秒消耗",
+                    "90法力", CustomStyle.styleOfMana));
+        } else {
+            ComponentUtils.descriptionPassive(components, Te.m("解构射线-EX", CustomStyle.styleOfNether));
+            components.add(Te.s("你的", "普通法球攻击", CustomStyle.styleOfMana,
+                    "被替换为", "解构射线", ChatFormatting.RED));
+            components.add(Te.s("解构射线", ChatFormatting.RED, "具有以下特征:"));
+            components.add(Te.s(" 1.", ChatFormatting.RED, "最远可达40格"));
+            components.add(Te.s(" 2.", ChatFormatting.RED, "对沿途的所有敌人每0.5s造成一次伤害"));
+            components.add(Te.s(" 3.", ChatFormatting.RED, "伤害被视为",
+                    "普通法球攻击", CustomStyle.styleOfMana));
+        }
         return components;
     }
 
@@ -79,7 +104,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        if (!level.isClientSide && Mana.getPlayerCurrentManaNum(player) > 45) {
+        if (!level.isClientSide && (tier >= 2 || Mana.getPlayerCurrentManaNum(player) > 45)) {
             passiveLastTickMap.put(player, Tick.get() + 8);
         }
         return super.use(level, player, interactionHand);
@@ -88,11 +113,11 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
     @Override
     public void tick(Player player) {
         if (passiveLastTickMap.getOrDefault(player, 0) > Tick.get()
-                && Mana.getPlayerCurrentManaNum(player) > 45) {
-            if (Tick.get() % 10 == 0) {
+                && (tier >= 2 || Mana.getPlayerCurrentManaNum(player) > 45)) {
+            if (tier < 2 && Tick.get() % 10 == 0) {
                 Mana.addOrCostPlayerMana(player, -45);
             }
-            Compute.TargetLocationLaser(player, player.pick(30, 0, false).getLocation(),
+            Compute.TargetLocationLaser(player, Compute.getPickLocationIgnoreBlock(player, tier >= 2 ? 40 : 24),
                     ModParticles.YSR1.get(), 1, 10);
         }
     }
@@ -106,12 +131,14 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
                     new ItemStack(ModItems.GOLD_COIN.get(), 192),
                     new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4)
             );
+        } else if (tier == 1) {
+            return List.of(
+                    new ItemStack(ModItems.NETHER_SCEPTRE.get()),
+                    new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
+                    new ItemStack(ModItems.REPUTATION_MEDAL.get(), 8)
+            );
         }
-        return List.of(
-                new ItemStack(ModItems.NETHER_SCEPTRE.get()),
-                new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
-                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 8)
-        );
+        return List.of();
     }
 
     @Override

@@ -2,7 +2,6 @@ package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
@@ -89,11 +88,6 @@ public class WoodSpur {
         Compute.givePercentExpToPlayer(player, 0.005, 0, Math.min(player.experienceLevel, 50));
 
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
-
-        if (data.contains(StringUtils.Lop.Xp) && !data.contains(StringUtils.LogReward)) {
-            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.LOG_BAG.get(), data.getInt(StringUtils.Lop.Xp) / 256));
-            data.putBoolean(StringUtils.LogReward, true);
-        }
 
         Random random = new Random();
         if (random.nextDouble() < 0.05) {

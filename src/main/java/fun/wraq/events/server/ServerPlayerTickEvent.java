@@ -1,6 +1,6 @@
 package fun.wraq.events.server;
 
-import fun.wraq.Items.Forging.WraqForge;
+import fun.wraq.items.forge.WraqForge;
 import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;

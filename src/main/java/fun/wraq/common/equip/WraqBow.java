@@ -1,6 +1,7 @@
 package fun.wraq.common.equip;
 
-import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
+import fun.wraq.items.dev.equip.ManageEquip;
+import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
@@ -29,8 +30,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public abstract class WraqBow extends WraqMainHandEquip {
 
@@ -68,8 +72,8 @@ public abstract class WraqBow extends WraqMainHandEquip {
             OnShootArrowEquip.shoot(player);
             Damage.onPlayerReleaseNormalAttack(player);
             WraqQuiver.shootQuiverExArrow(player);
-
-            MyArrowHitBlock myArrowHit = BowNewSkillBase2_0.nextHitEffectMap.getOrDefault(Name.get(player), null);
+            MyArrowHitBlock myArrowHit
+                    = BowNewSkillBase2_0.nextHitEffectMap.getOrDefault(Name.get(player), null);
             if (myArrowHit != null) {
                 myArrow.myArrowHitBlock = myArrowHit;
                 myArrow.myArrowHitBlockEntity = myArrowHit;
@@ -102,9 +106,23 @@ public abstract class WraqBow extends WraqMainHandEquip {
 
     protected MyArrow summonArrow(Player player, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, player.level(), player, true, rate);
-        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
-                getArrowSpeed() + PlayerAttributes.getArrowExFlySpeed(player), 1.0f);
-        arrow.setCritArrow(true);
+/*        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
+                getArrowSpeed() + PlayerAttributes.getArrowExFlySpeed(player), 1.0f);*/
+        Vec3 targetPos = Compute.getPickLocationIgnoreBlock(player, 32);
+        Vec3 startPos = player.getEyePosition();
+        Vec3 delta = targetPos.subtract(startPos);
+        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, 32);
+        if (!set.isEmpty()) {
+            Mob mob = set.stream().min(new Comparator<Mob>() {
+                @Override
+                public int compare(Mob o1, Mob o2) {
+                    return (int) (o1.distanceTo(player) - o2.distanceTo(player));
+                }
+            }).orElse(null);
+            delta = mob.getEyePosition().subtract(Compute.getPlayerHandItemPos(player, true));
+        }
+        arrow.shoot(delta.x, delta.y, delta.z,
+                getArrowSpeed() + PlayerAttributes.getArrowExFlySpeed(player), 1);
         arrow.setNoGravity(hasGravity());
         player.level().addFreshEntity(arrow);
         MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);

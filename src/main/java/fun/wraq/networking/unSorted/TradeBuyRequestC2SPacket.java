@@ -56,6 +56,9 @@ public class TradeBuyRequestC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
+            if (serverPlayer == null) {
+                return;
+            }
             ItemStack targetItemStack = TradeList.tradeContent.get(this.name).get(index);
             ItemStack product = new ItemStack(targetItemStack.getItem(), targetItemStack.getCount());
             List<ItemStack> requireItemList = TradeList.tradeRecipeMap.get(targetItemStack);
@@ -85,10 +88,12 @@ public class TradeBuyRequestC2SPacket {
             // 判断玩家背包中是否拥有足够的货币 若有则直接使用即可
             boolean playerHasEnoughMoney = itemList.stream().noneMatch(TradeBuyRequestC2SPacket::itemStackIsCurrency);
 
-            if (!playerHasEnoughMoney) for (ItemStack itemStack : itemList) {
-                if (itemStackIsCurrency(itemStack)) {
-                    if (InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount())) {
-                        playerHasEnoughMoney = true;
+            if (!playerHasEnoughMoney) {
+                for (ItemStack itemStack : itemList) {
+                    if (itemStackIsCurrency(itemStack)) {
+                        if (InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount())) {
+                            playerHasEnoughMoney = true;
+                        }
                     }
                 }
             }
@@ -110,11 +115,10 @@ public class TradeBuyRequestC2SPacket {
                     playerHasItem.set(InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount()));
             });
 
-            if (playerHasEnoughMoney && playerHasItem.get()) {
+            if (serverPlayer.isCreative() || (playerHasEnoughMoney && playerHasItem.get())) {
                 itemList.forEach(itemStack -> {
                     InventoryOperation.removeItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount());
                 });
-
                 if (requireVBCount > 0 && needToTransform) {
                     int income = removeAllCurrencyInInventoryAndGiveVB(serverPlayer);
                     if (income > 0)
@@ -125,14 +129,15 @@ public class TradeBuyRequestC2SPacket {
                                         append(Component.literal(requireVBCount + "vb").withStyle(ChatFormatting.GOLD)));
                     Compute.VBExpenseAndMSGSend(serverPlayer, requireVBCount);
                 }
-
-                if (product.is(Items.POTION))
+                if (product.is(Items.POTION)) {
                     product.getOrCreateTag().putString("Potion", "minecraft:long_night_vision");
-
-                if (product.is(PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide")).getItem()))
+                }
+                if (product.is(PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide")).getItem())) {
                     product = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
-
-                if (NewLotteries.getRewardSerial.isEmpty()) NewLotteries.setGetRewardSerial();
+                }
+                if (NewLotteries.getRewardSerial.isEmpty()) {
+                    NewLotteries.setGetRewardSerial();
+                }
                 if (NewLotteries.getRewardSerial.containsKey(product.getItem())) {
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, product);
                 }
@@ -154,7 +159,6 @@ public class TradeBuyRequestC2SPacket {
                 if (product.is(ModItems.EVOKER_SWORD.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.ENHANCE_EQUIP);
                 }
-
                 Item productItem = product.getItem();
                 if (Utils.mainHandTag.containsKey(productItem) || Utils.armorTag.containsKey(productItem)) {
                     ForgeEquipUtils.setForgeQualityOnEquip(product, 4);

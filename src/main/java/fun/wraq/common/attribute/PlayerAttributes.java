@@ -1,7 +1,7 @@
 package fun.wraq.common.attribute;
 
-import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
-import fun.wraq.Items.DevelopmentTools.equip.OpsAttributes;
+import fun.wraq.items.dev.equip.ManageEquip;
+import fun.wraq.items.dev.equip.OpsAttributes;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;

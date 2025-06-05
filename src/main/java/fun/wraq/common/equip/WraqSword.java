@@ -1,6 +1,6 @@
 package fun.wraq.common.equip;
 
-import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
+import fun.wraq.items.dev.equip.ManageEquip;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.render.gui.illustrate.Display;

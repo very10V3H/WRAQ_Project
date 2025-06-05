@@ -109,7 +109,7 @@ public abstract class WraqPower extends Item implements ActiveItem {
     public static Vec3 getDefaultTargetPos(Player player, double maxDistance) {
         Mob mob = Compute.detectPlayerPickMob(player);
         if (mob != null) {
-            return mob.position();
+            return mob.getEyePosition();
         }
         return player.pick(maxDistance, 0, false).getLocation();
     }

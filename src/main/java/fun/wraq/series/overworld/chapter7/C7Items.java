@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter7;
 
 import fun.wraq.common.util.Utils;
+import fun.wraq.items.misc.PocketItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import fun.wraq.series.overworld.chapter7.vd.VdBow;
@@ -17,19 +18,18 @@ public class C7Items {
 
     public static final RegistryObject<Item> BONE_IMP_SOUL = ITEMS.register("bone_imp_soul", () ->
             new WraqItem(new Item.Properties().rarity(CustomStyle.WitherBold)));
-
     public static final RegistryObject<Item> BONE_IMP_KNIFE = ITEMS.register("bone_imp_knife", () ->
             new BoneImpKnife(new Item.Properties().rarity(CustomStyle.WitherBold), Component.literal("利刃短匕").withStyle(CustomStyle.styleOfBloodMana)));
 
     public static final RegistryObject<Item> VD_SOUL = ITEMS.register("vd_soul", () ->
             new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
+    public static final RegistryObject<Item> VD_SOUL_POCKET = ITEMS.register("vd_soul_pocket", () ->
+            new PocketItem(new Item.Properties().rarity(CustomStyle.WorldBold), VD_SOUL.get()));
 
     public static final RegistryObject<Item> VD_SWORD = ITEMS.register("vd_sword",
             () -> new VdSword(new Item.Properties().rarity(CustomStyle.WorldItalic)));
-
     public static final RegistryObject<Item> VD_BOW = ITEMS.register("vd_bow",
             () -> new VdBow(new Item.Properties().rarity(CustomStyle.WorldItalic)));
-
     public static final RegistryObject<Item> VD_SCEPTRE = ITEMS.register("vd_sceptre",
             () -> new VdSceptre(new Item.Properties().rarity(CustomStyle.WorldItalic)));
 }

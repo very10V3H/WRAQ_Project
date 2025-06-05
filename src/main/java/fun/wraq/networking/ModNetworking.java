@@ -1,7 +1,7 @@
 package fun.wraq.networking;
 
-import fun.wraq.Items.DevelopmentTools.rail.RailwayPillarSetToolModeC2SPacket;
-import fun.wraq.Items.MainStory_1.NearestSpawnPointS2CPacket;
+import fun.wraq.items.dev.rail.RailwayPillarSetToolModeC2SPacket;
+import fun.wraq.items.m.NearestSpawnPointS2CPacket;
 import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;

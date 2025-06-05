@@ -1,6 +1,6 @@
 package fun.wraq.common.equip;
 
-import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
+import fun.wraq.items.dev.equip.ManageEquip;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.impl.onshoot.OnShootManaArrowCurios;
@@ -31,8 +31,11 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public abstract class WraqSceptre extends WraqMainHandEquip {
 
@@ -93,8 +96,23 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                 getParticleType());
         manaArrow.setSilent(true);
         manaArrow.setNoGravity(true);
-        manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
-                getManaArrowSpeed() + PlayerAttributes.getManaArrowExFlySpeed(player), 1.0f);
+/*        manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
+                getManaArrowSpeed() + PlayerAttributes.getManaArrowExFlySpeed(player), 1.0f);*/
+        Vec3 targetPos = Compute.getPickLocationIgnoreBlock(player, 32);
+        Vec3 startPos = player.getEyePosition();
+        Vec3 delta = targetPos.subtract(startPos);
+        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, 32);
+        if (!set.isEmpty()) {
+            Mob mob = set.stream().min(new Comparator<Mob>() {
+                @Override
+                public int compare(Mob o1, Mob o2) {
+                    return (int) (o1.distanceTo(player) - o2.distanceTo(player));
+                }
+            }).orElse(null);
+            delta = mob.getEyePosition().subtract(Compute.getPlayerHandItemPos(player, true));
+        }
+        manaArrow.shoot(delta.x, delta.y, delta.z,
+                getManaArrowSpeed() + PlayerAttributes.getManaArrowExFlySpeed(player), 1);
         ProjectileUtil.rotateTowardsMovement(manaArrow, 0);
         WraqSceptre.adjustOrb(manaArrow, player);
         level.addFreshEntity(manaArrow);

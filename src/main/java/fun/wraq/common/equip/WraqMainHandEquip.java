@@ -1,6 +1,6 @@
 package fun.wraq.common.equip;
 
-import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
+import fun.wraq.items.dev.equip.ManageEquip;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;

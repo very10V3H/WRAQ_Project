@@ -2,6 +2,7 @@ package fun.wraq.process.func.plan;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.tower.Tower;
@@ -45,6 +46,7 @@ public class SupplyBox extends Item {
         if (!level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             supplyItems.forEach(supply -> {
                 ItemStack itemStack = new ItemStack(supply.getItem(), supply.getCount());
+                InventoryCheck.addOwnerTagToItemStack(player, itemStack);
                 if (itemStack.is(ModItems.WORLD_SOUL_5.get())) {
                     Tower.givePlayerStar(player, itemStack.getCount(), "月卡/计划补给箱");
                 } else {

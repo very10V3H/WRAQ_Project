@@ -78,7 +78,7 @@ import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
-import fun.wraq.series.overworld.mt.ManaTowerItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
@@ -154,7 +154,7 @@ public class VMD {
         HolyItems.ITEMS.register(modEvenBus);
         IceHolyItems.ITEMS.register(modEvenBus);
         NewAreaItems.ITEMS.register(modEvenBus);
-        ManaTowerItems.ITEMS.register(modEvenBus);
+        ExtraordinaryItems.ITEMS.register(modEvenBus);
         MopUpPaperItems.ITEMS.register(modEvenBus);
         CookingItems.ITEMS.register(modEvenBus);
 
@@ -647,7 +647,7 @@ public class VMD {
                     .forEach(event::accept);
         }
         if (event.getTabKey().equals(ModCreativeModeTab.MANA_TOWER.getKey())) {
-            ManaTowerItems.ITEMS.getEntries()
+            ExtraordinaryItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

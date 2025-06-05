@@ -2,8 +2,8 @@ package fun.wraq.blocks.entity;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.Items.Forging.ForgeEnhancePaper;
-import fun.wraq.Items.Forging.ForgeProtect;
+import fun.wraq.items.forge.ForgeEnhancePaper;
+import fun.wraq.items.forge.ForgeProtect;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;

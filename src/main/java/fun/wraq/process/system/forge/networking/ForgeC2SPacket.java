@@ -1,6 +1,6 @@
 package fun.wraq.process.system.forge.networking;
 
-import fun.wraq.Items.Forging.WraqForge;
+import fun.wraq.items.forge.WraqForge;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;

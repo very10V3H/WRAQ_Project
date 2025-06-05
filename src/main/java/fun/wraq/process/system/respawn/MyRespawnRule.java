@@ -1,6 +1,6 @@
 package fun.wraq.process.system.respawn;
 
-import fun.wraq.Items.MainStory_1.NearestSpawnPointS2CPacket;
+import fun.wraq.items.m.NearestSpawnPointS2CPacket;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;

@@ -3,6 +3,7 @@ package fun.wraq.series.moontain;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.Utils;
+import fun.wraq.items.misc.PocketItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import fun.wraq.series.moontain.equip.armor.MoontainArmor;
@@ -25,12 +26,18 @@ public class MoontainItems {
     // 望山孤魂残躯
     public static final RegistryObject<Item> SOUL_FRAGMENT = ITEMS.register("moontain_soul_fragment",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), true, true));
+    public static final RegistryObject<Item> SOUL_FRAGMENT_POCKET = ITEMS.register("moontain_soul_fragment_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), SOUL_FRAGMENT.get()));
     // 望山魂革
     public static final RegistryObject<Item> LEATHER = ITEMS.register("moontain_leather",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), true, true));
+    public static final RegistryObject<Item> LEATHER_POCKET = ITEMS.register("moontain_leather_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), LEATHER.get()));
     // 望山阁灵落
     public static final RegistryObject<Item> FALLING_SOUL = ITEMS.register("moontain_falling_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), true, true));
+    public static final RegistryObject<Item> FALLING_SOUL_POCKET = ITEMS.register("moontain_falling_soul_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), FALLING_SOUL.get()));
     // 望山屑 - 武器
     public static final RegistryObject<Item> FRAGMENT = ITEMS.register("moontain_fragment",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), true, true));

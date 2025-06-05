@@ -5,6 +5,7 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.items.misc.PocketItem;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
@@ -55,21 +56,22 @@ public class RightClickEvent {
                 }
             }
         }
-
         if (itemStack.getTagElement(Utils.MOD_ID) != null) {
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-            if (data.contains(fun.wraq.events.core.InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString()))
+            if (data.contains(fun.wraq.events.core.InventoryCheck.owner)
+                    && !data.getString(InventoryCheck.owner).equals(player.getName().getString())) {
                 event.setCanceled(true);
+            }
         }
-        if (disallowToRightClickItems.contains(event.getItemStack().getItem()) && !player.isCreative())
+        if (disallowToRightClickItems.contains(event.getItemStack().getItem()) && !player.isCreative()) {
             event.setCanceled(true);
-
+        }
         // 需要判断当前与哪个手的物品上交互，否则将会执行两次
         if (event.getSide().isServer() && event.getHand().equals(InteractionHand.MAIN_HAND)) {
             NoTeamInstanceModule.handlePlayerRightClick(player);
             RightClickActiveHandler.handleOnPlayerRightClick(player);
+            PocketItem.onRightClick(itemStack, player);
         }
-
         if (event.getHand().equals(InteractionHand.MAIN_HAND)) {
             if (item instanceof ArmorItem || item.equals(Items.EGG)) {
                 event.setCanceled(true);

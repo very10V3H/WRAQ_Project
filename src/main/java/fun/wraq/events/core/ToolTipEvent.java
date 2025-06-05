@@ -17,10 +17,12 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.InjectingRecipe;
+import fun.wraq.items.misc.PocketItem;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.system.cooking.CookingValue;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
@@ -334,5 +336,14 @@ public class ToolTipEvent {
             }
         }
         CookingValue.handleToolTip(event.getItemStack(), tooltip);
+        PocketItem.addTooltip(stack, tooltip);
+
+        List<Item> betaItems = List.of(ExtraordinaryItems.KANUPUS_WING_F.get(),
+                ExtraordinaryItems.KANUPUS_SWORD.get(),
+                ExtraordinaryItems.SHIRO_BOW.get(),
+                ExtraordinaryItems.NETHER_SCEPTRE_EX.get());
+        if (betaItems.contains(item)) {
+            tooltip.add(Te.s("该物品处于测试阶段，未来有较大改动可能性.", CustomStyle.styleOfWorld));
+        }
     }
 }

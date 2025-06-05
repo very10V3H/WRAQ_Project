@@ -1,6 +1,6 @@
 package fun.wraq.entities.armor;
 
-import fun.wraq.Items.MobItem.HolyArmor;
+import fun.wraq.items.mob.HolyArmor;
 import fun.wraq.common.util.Utils;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;

@@ -3,7 +3,7 @@ package fun.wraq.commands.changeable;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.Items.Prefix.PrefixInfo;
+import fun.wraq.items.prefix.PrefixInfo;
 import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
