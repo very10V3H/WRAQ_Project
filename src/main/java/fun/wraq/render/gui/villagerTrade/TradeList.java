@@ -560,6 +560,7 @@ public class TradeList {
                 ModItems.SCEPTRE_LOTTERY_1.get().getDefaultInstance(),
                 ModItems.FORGE_TEMPLATE.get().getDefaultInstance(),
                 ExtraordinaryItems.RUNE.get().getDefaultInstance(),
+                new ItemStack(ExtraordinaryItems.RUNE.get(), 20),
                 ExtraordinaryItems.NAN_HAI_A.get().getDefaultInstance(),
                 ExtraordinaryItems.NAN_HAI_M.get().getDefaultInstance(),
                 ExtraordinaryItems.TONG_TIAN.get().getDefaultInstance(),
@@ -612,14 +613,18 @@ public class TradeList {
                     add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 100));
                     add(new ItemStack(ExtraordinaryItems.PIECE.get()));
                 }});
-                case 14, 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(UniformItems.UNIFORM_PIECE.get(), 1));
+                    add(new ItemStack(ExtraordinaryItems.PIECE.get(), 20));
+                }});
+                case 15, 16 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ExtraordinaryItems.RUNE.get(), 14));
                     add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
                     add(new ItemStack(ModItems.SEA_RUNE.get(), 16));
                     add(new ItemStack(ModItems.SHIP_PIECE.get(), 512));
                     add(new ItemStack(ModItems.LIGHTNING_RUNE.get(), 16));
                 }});
-                case 16 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 17 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ExtraordinaryItems.RUNE.get(), 14));
                     add(new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 28));
                     add(new ItemStack(ModItems.SKY_RUNE.get(), 16));
@@ -1104,9 +1109,7 @@ public class TradeList {
     public static void Sakura() {
         ItemStack[] itemStacks = {
                 new ItemStack(GemItems.SAKURA_GEM.get(), 1),
-                new ItemStack(GemItems.SHIP_GEM.get(), 1),
-                new ItemStack(ModItems.SAKURA_PETAL_POCKET.get(), 1),
-                new ItemStack(ModItems.SHIP_PIECE_POCKET.get(), 1)
+                new ItemStack(GemItems.SHIP_GEM.get(), 1)
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -1122,15 +1125,6 @@ public class TradeList {
                     add(new ItemStack(ModItems.COMPLETE_GEM.get(), 10));
                     add(new ItemStack(ModItems.SHIP_PIECE.get(), 256));
                 }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
-                    add(new ItemStack(ModItems.SAKURA_PETAL.get(), 64));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
-                    add(new ItemStack(ModItems.SHIP_PIECE.get(), 64));
-                }});
-
             }
         }
     }
@@ -1934,11 +1928,9 @@ public class TradeList {
         ItemStack forestManaBook = new ItemStack(ModItems.FOREST_MANA_BOOK.get());
         ItemStack originKnifeForest = new ItemStack(ModItems.ORIGIN_KNIFE_FOREST.get());
         ItemStack silverCoin = new ItemStack(ModItems.SILVER_COIN.get(), 8);
-        ItemStack wolfLeatherPocket = new ItemStack(ModItems.WOLF_LEATHER_POCKET.get());
         ItemStack[] itemStacks = {
                 leather, forestRune, forestManaBook,
-                originKnifeForest, silverCoin, oakLog4, oakLog16,
-                wolfLeatherPocket
+                originKnifeForest, silverCoin, oakLog4, oakLog16
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -1966,9 +1958,6 @@ public class TradeList {
                         new ItemStack(ModItems.GOLD_COIN.get(), 5)));
         tradeRecipeMap.put(silverCoin,
                 List.of(new ItemStack(ModItems.FOREST_SOUL.get(), 64)));
-        tradeRecipeMap.put(wolfLeatherPocket,
-                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 5),
-                        new ItemStack(ModItems.WOLF_LEATHER.get(), 64)));
     }
 
     public static void riverTool() {
@@ -2943,7 +2932,6 @@ public class TradeList {
         ItemStack sputterGem = new ItemStack(GemItems.MUSHROOM_SPUTTER_GEM.get());
         ItemStack parasitismGem = new ItemStack(GemItems.MUSHROOM_PARASITISM_GEM.get());
         ItemStack splitGem = new ItemStack(GemItems.MUSHROOM_SPLIT_GEM.get());
-        ItemStack brownMushroomPocket = new ItemStack(MushroomItems.BROWN_MUSHROOM_POCKET.get());
         ItemStack[] itemStacks = {
                 unknownMushroom,
                 sputterGem, parasitismGem, splitGem
@@ -2960,9 +2948,6 @@ public class TradeList {
                 List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 12)));
         tradeRecipeMap.put(splitGem,
                 List.of(new ItemStack(MushroomItems.MUSHROOM_GEM_PIECE.get(), 12)));
-        tradeRecipeMap.put(brownMushroomPocket,
-                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 5),
-                        new ItemStack(MushroomItems.BROWN_MUSHROOM.get(), 64)));
     }
 
     public static void divineGem() {

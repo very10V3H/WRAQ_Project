@@ -50,6 +50,7 @@ public class ShiroBow extends WraqBow {
         ComponentUtils.descriptionPassive(components, Te.s("灵弹!", getMainStyle()));
         components.add(Te.s(" 射击时，", "不会释放箭矢", getMainStyle()));
         components.add(Te.s(" 转而对前方线形范围的所有敌人造成一次", "箭矢伤害", CustomStyle.styleOfFlexible));
+        components.add(Te.s(" 线形范围:以视角射线为中轴线的半径1格圆柱", getMainStyle()));
         return components;
     }
 
@@ -68,7 +69,7 @@ public class ShiroBow extends WraqBow {
             Damage.onPlayerReleaseNormalAttack(player);
             WraqQuiver.shootQuiverExArrow(player);
         }
-        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 0.5, 40);
+        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, 40);
         double finalRate = rate;
         set.forEach(mob -> {
             MyArrow.causeDamage(player, mob, finalRate);
