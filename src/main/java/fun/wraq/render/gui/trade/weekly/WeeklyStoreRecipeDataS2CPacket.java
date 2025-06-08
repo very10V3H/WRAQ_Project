@@ -48,6 +48,7 @@ public class WeeklyStoreRecipeDataS2CPacket {
         context.enqueueWork(() -> {
             WeeklyStore.recipes.clear();
             WeeklyStore.recipes.addAll(recipeList);
+            TradeList.setTradeContent();
             recipeList.forEach(recipe -> {
                 TradeList.tradeRecipeMap.put(recipe.product, recipe.getMaterialList());
             });
