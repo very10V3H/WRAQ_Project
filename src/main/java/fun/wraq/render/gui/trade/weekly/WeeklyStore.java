@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.render.gui.villagerTrade.TradeList;
+import fun.wraq.render.gui.villagerTrade.TradeListNew;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -19,9 +20,7 @@ public class WeeklyStore {
     public static Set<Item> productSet = new HashSet<>();
 
     public static void handleServerTick() throws ParseException {
-        if (recipes.isEmpty()) {
-            init();
-        } else {
+        if (!recipes.isEmpty()) {
             WeeklyStoreServerData serverData = WeeklyStoreServerData.getInstance();
             Calendar lastRefreshTime = Compute.StringToCalendar(serverData.getLastRefreshTime());
             Calendar calendar = Calendar.getInstance();
@@ -42,12 +41,13 @@ public class WeeklyStore {
                 WeeklyStoreRecipe weeklyStoreRecipe = WeeklyStoreRecipe.getRecipeByString(s);
                 recipes.add(weeklyStoreRecipe);
                 productSet.add(weeklyStoreRecipe.product.getItem());
+                TradeList.tradeRecipeMap.put(weeklyStoreRecipe.product, weeklyStoreRecipe.getMaterialList());
             });
+            TradeList.tradeContent.put(TradeListNew.WEEKLY_STORE_VILLAGER_NAME,
+                    recipes.stream().map(recipe -> recipe.product).toList());
             issueCount = serverData.getIssueCount();
         }
     }
-
-    public static String WEEKLY_STORE_DATA_KEY = "WeeklyStoreData";
 
     public static void takeTurns() {
         recipes.clear();
@@ -82,9 +82,11 @@ public class WeeklyStore {
             serverData.getWeeklyStoreDataList().add(recipe.toString());
             TradeList.tradeRecipeMap.put(recipe.product, recipe.getMaterialList());
         });
-        TradeList.tradeContent.put(WEEKLY_STORE_DATA_KEY, recipes.stream().map(recipe -> recipe.product).toList());
+        TradeList.tradeContent.put(TradeListNew.WEEKLY_STORE_VILLAGER_NAME,
+                recipes.stream().map(recipe -> recipe.product).toList());
         serverData.setIssueCount(serverData.getIssueCount() + 1);
         issueCount = serverData.getIssueCount();
+        serverData.setLastRefreshTime(Compute.castCalendarToString(Calendar.getInstance()));
         serverData.setDirty();
         Compute.formatBroad(Te.s("商店", CustomStyle.styleOfGold),
                 Te.s("商店已轮换.", CustomStyle.styleOfGold));
@@ -100,7 +102,9 @@ public class WeeklyStore {
             indexSet.add(RandomUtils.nextInt(0, from.size()));
         }
         for (Integer i : indexSet) {
-            target.add(new ItemStack(from.get(i).getItem(), from.get(i).getCount() * count));
+            ItemStack stack = new ItemStack(from.get(i).getItem(), from.get(i).getCount() * count);
+            stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+            target.add(stack);
         }
         return target;
     }

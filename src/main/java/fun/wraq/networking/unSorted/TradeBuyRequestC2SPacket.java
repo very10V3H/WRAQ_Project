@@ -68,11 +68,9 @@ public class TradeBuyRequestC2SPacket {
                 return;
             }
             List<ItemStack> itemList = new ArrayList<>();
-
             requireItemList.forEach(itemStack -> {
                 itemList.add(new ItemStack(itemStack.getItem(), itemStack.getCount()));
             });
-
             for (int i = 0; i < itemList.size(); i++) {
                 for (int j = 0; j < itemList.size(); j++) {
                     if (i != j && itemList.get(j).is(itemList.get(i).getItem())) {
@@ -81,13 +79,10 @@ public class TradeBuyRequestC2SPacket {
                     }
                 }
             }
-
             AtomicBoolean playerHasItem = new AtomicBoolean(true);
             itemList.removeIf(itemStack -> itemStack.getCount() == 0);
-
             // 判断玩家背包中是否拥有足够的货币 若有则直接使用即可
             boolean playerHasEnoughMoney = itemList.stream().noneMatch(TradeBuyRequestC2SPacket::itemStackIsCurrency);
-
             if (!playerHasEnoughMoney) {
                 for (ItemStack itemStack : itemList) {
                     if (itemStackIsCurrency(itemStack)) {
@@ -97,7 +92,6 @@ public class TradeBuyRequestC2SPacket {
                     }
                 }
             }
-
             int requireVBCount = requireItemListVBCount(itemList);
             boolean needToTransform = false;
             // 若无足够的货币 检测背包中货币总和 + 当前账户vb数是否大于需求数
@@ -109,12 +103,10 @@ public class TradeBuyRequestC2SPacket {
                     itemList.removeIf(TradeBuyRequestC2SPacket::itemStackIsCurrency);
                 }
             }
-
             itemList.forEach(itemStack -> {
                 if (playerHasItem.get())
                     playerHasItem.set(InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount()));
             });
-
             if (serverPlayer.isCreative() || (playerHasEnoughMoney && playerHasItem.get())) {
                 itemList.forEach(itemStack -> {
                     InventoryOperation.removeItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount());

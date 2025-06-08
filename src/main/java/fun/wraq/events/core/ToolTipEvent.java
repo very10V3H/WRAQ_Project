@@ -150,8 +150,9 @@ public class ToolTipEvent {
             event.getToolTip().add(Component.literal(" 用于装备的24+增幅").withStyle(CustomStyle.styleOfWorld));
         }
         if (stack.getTagElement(Utils.MOD_ID) != null) {
-            if (item instanceof SwordItem || item instanceof BowItem || item instanceof ArmorItem || item instanceof PickaxeItem)
+            if (item instanceof SwordItem || item instanceof BowItem || item instanceof ArmorItem || item instanceof PickaxeItem) {
                 stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+            }
             CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
             if (stack.is(ModItems.BREWING_NOTE.get())) {
                 Component[] Name = {

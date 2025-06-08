@@ -62,25 +62,20 @@ public class TradeScreen extends Screen {
     }
 
     private void createMenu() {
-
         this.addRenderableWidget(Button.builder(Component.translatable("←"), (p_280814_) -> {
             if (page > 0) page--;
         }).pos(this.width / 2 - 39 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-
             List<ItemStack> targetItemList = new ArrayList<>();
             if (fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.containsKey(villagerName))
                 targetItemList = fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.get(villagerName);
             int size = targetItemList.size();
             if (page < (size - 1) / 10) page++;
         }).pos(this.width / 2 + 14, this.height / 2 - 20 + 97).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
             this.minecraft.setScreen((Screen) null);
             this.minecraft.mouseHandler.grabMouse();
         }).pos(this.width / 2 + 136, this.height / 2 - 98).size(12, 12).build());
-
         if (!isWeeklyStore) {
             for (int i = 0; i < 7; i++) {
                 int finalI = i;
@@ -96,43 +91,33 @@ public class TradeScreen extends Screen {
                     }
                 }).pos(this.width / 2 + 256, this.height / 2 - 78 + 24 * i).size(24, 16).build());
             }
-
             this.addRenderableWidget(Button.builder(Component.translatable("VB兑1金币"), (p_280814_) -> {
                 ModNetworking.sendToServer(new GoldCoinC2SPacket(1));
             }).pos(this.width / 2 - 146, this.height / 2 - 116).size(48, 16).build());
-
             this.addRenderableWidget(Button.builder(Component.translatable("x10"), (p_280814_) -> {
                 ModNetworking.sendToServer(new GoldCoinC2SPacket(2));
             }).pos(this.width / 2 - 146 + 50, this.height / 2 - 116).size(24, 16).build());
-
             this.addRenderableWidget(Button.builder(Component.translatable("VB兑10银币"), (p_280814_) -> {
                 ModNetworking.sendToServer(new SilverCoinC2SPacket(1));
             }).pos(this.width / 2 - 146 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
-
             this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
                 ModNetworking.sendToServer(new SilverCoinC2SPacket(2));
             }).pos(this.width / 2 - 146 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
-
             this.addRenderableWidget(Button.builder(Component.translatable("VB兑10铜币"), (p_280814_) -> {
                 ModNetworking.sendToServer(new CopperCoinC2SPacket(1));
             }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
-
             this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
                 ModNetworking.sendToServer(new CopperCoinC2SPacket(2));
             }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
-
             this.addRenderableWidget(Button.builder(Component.translatable("兑换VB").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
                 ModNetworking.sendToServer(new AllCurrencyC2SPacket(true));
             }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
-
         }
-
         for (int i = 0; i < 5; i++) {
             int finalI = i;
             this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
                 ModNetworking.sendToServer(new TradeBuyRequestC2SPacket(villagerName, page * 10 + finalI));
             }).pos(this.width / 2 - 61, this.height / 2 - 75 + 32 * i).size(32, 16).build());
-
             this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
                 ModNetworking.sendToServer(new TradeBuyRequestC2SPacket(villagerName, page * 10 + finalI + 5));
             }).pos(this.width / 2 - 61 + 144, this.height / 2 - 75 + 32 * i).size(32, 16).build());
@@ -226,7 +211,7 @@ public class TradeScreen extends Screen {
                 this.width / 2, this.height / 2 + 83, 0);
         guiGraphics.drawCenteredString(fontRenderer,
                 Te.s("共" + ((size - 1) / 10 + 1) + "页 " + (size) + "件物品"),
-                 this.width / 2 + 80, this.height / 2 + 83, 0);
+                this.width / 2 + 80, this.height / 2 + 83, 0);
 
         if (villagerName.equals(TradeListNew.WEEKLY_STORE_VILLAGER_NAME)) {
             guiGraphics.drawCenteredString(fontRenderer,
@@ -239,7 +224,6 @@ public class TradeScreen extends Screen {
 
     private void renderTradeRecipe(ItemStack targetItemStack, int i, int x, int y, GuiGraphics guiGraphics, int xOffset) {
         targetItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-
         guiGraphics.renderItem(targetItemStack,
                 this.width / 2 - 100 - 33 + 206 + xOffset, this.height / 2 - 75 + 32 * i);
         guiGraphics.drawCenteredString(font, Component.literal("" + targetItemStack.getCount()).withStyle(ChatFormatting.WHITE),
@@ -252,7 +236,6 @@ public class TradeScreen extends Screen {
             }
             guiGraphics.renderTooltip(font, targetItemStack, x, y);
         }
-
         List<ItemStack> recipeList = TradeList.tradeRecipeMap.get(targetItemStack);
         if (recipeList.size() <= 3) {
             for (int j = 0; j < recipeList.size(); j++) {
@@ -270,15 +253,18 @@ public class TradeScreen extends Screen {
                         && x < this.width / 2 - 100 - 33 + 32 + 150 + 20 + xOffset
                         && y > this.height / 2 - 75 + 32 * i
                         && y < this.height / 2 - 75 + 32 * i + 16) {
-                    WeeklyStoreRecipe weeklyStoreRecipe = WeeklyStore.recipes.stream()
+                    WeeklyStore.recipes.stream()
                             .filter(recipe -> recipe.isSameRecipe(recipeList, targetItemStack))
-                            .findAny().orElse(null);
-                    if (weeklyStoreRecipe != null) {
-                        guiGraphics.renderTooltip(font, Te.s("限购: ", CustomStyle.styleOfGold,
-                                WeeklyStorePlayerData.clientPlayerChangedCount.getOrDefault(weeklyStoreRecipe.toString(), 0),
-                                CustomStyle.styleOfWorld, " / ", CustomStyle.styleOfStone,
-                                weeklyStoreRecipe.count, " - ", "每期"), x, y);
-                    }
+                            .findAny().ifPresent(weeklyStoreRecipe
+                                    -> WeeklyStorePlayerData.clientPlayerChangedCount.keySet().stream().filter(s -> {
+                                return WeeklyStoreRecipe.getRecipeByString(s)
+                                        .isSameRecipe(weeklyStoreRecipe.getMaterialList(), targetItemStack);
+                            }).findAny().ifPresent(key
+                                    -> guiGraphics.renderTooltip(font,
+                                    Te.s("限购: ", CustomStyle.styleOfGold,
+                                    WeeklyStorePlayerData.clientPlayerChangedCount.getOrDefault(key, 0),
+                                    CustomStyle.styleOfWorld, " / ", CustomStyle.styleOfStone,
+                                    weeklyStoreRecipe.count, " - ", "每期"), x, y)));
                 }
                 if (material.getCount() > 9) {
                     guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
@@ -288,8 +274,7 @@ public class TradeScreen extends Screen {
                             this.width / 2 - 100 - 33 + 150 - j * 28 + 19 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
                 }
             }
-        }
-        else {
+        } else {
             ItemStack chestStack = new ItemStack(Items.CHEST);
             guiGraphics.renderItem(chestStack,
                     this.width / 2 - 100 - 33 + 150 + xOffset, this.height / 2 - 75 + 32 * i);
@@ -304,7 +289,6 @@ public class TradeScreen extends Screen {
                 }
                 guiGraphics.renderComponentTooltip(font, components, x, y);
             }
-
             for (int j = 1; j < 3; j++) {
                 ItemStack material = recipeList.get((ClientUtils.clientPlayerTick / 30 + j) % recipeList.size());
                 material.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
