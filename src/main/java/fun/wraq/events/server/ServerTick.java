@@ -76,6 +76,9 @@ public class ServerTick {
                 TradeList.setTradeContent();
             }
 
+            if (tickCount == 98) {
+                WeeklyStore.init();
+            }
             if (tickCount % 200 == 98) {
                 WeeklyStore.handleServerTick();
             }

@@ -57,7 +57,6 @@ import fun.wraq.render.gui.blocks.FurnaceScreen;
 import fun.wraq.render.gui.blocks.InjectBlockScreen;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.gui.testAndHelper.ModMenuTypes;
-import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
@@ -188,7 +187,6 @@ public class VMD {
         VpDataHandler.firstRead();
         WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
         TowerTimeRecord.readFromWorldRecordInfo();
-        WeeklyStore.init();
     }
 
     @SubscribeEvent
