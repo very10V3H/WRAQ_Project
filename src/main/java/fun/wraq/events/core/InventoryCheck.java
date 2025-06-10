@@ -30,6 +30,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -57,6 +58,9 @@ public class InventoryCheck {
                 ItemStack itemStack = inventory.getItem(i);
                 DragonDiamond.handleEachStack(itemStack, player);
                 Item item = itemStack.getItem();
+                if (item.equals(Items.AIR)) {
+                    continue;
+                }
                 if (item instanceof TickItem tickItem) {
                     tickItem.handleTick(player, itemStack);
                 }
