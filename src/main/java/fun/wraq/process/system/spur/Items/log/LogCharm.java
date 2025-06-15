@@ -1,4 +1,4 @@
-package fun.wraq.process.system.spur.Items;
+package fun.wraq.process.system.spur.Items.log;
 
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -10,23 +10,23 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class MineCharm extends WraqCurios {
+public class LogCharm extends WraqCurios {
 
-    public MineCharm(Properties properties, int serial) {
+    public LogCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
-        double[] defencePenetration0 = {1, 2, 3, 4, 6, 9, 13};
-        double[] manaPenetration0 = {1, 2, 3, 4, 6, 9, 13};
+        double[] defence = {2, 3, 4, 6, 8, 12, 15};
+        double[] manaDefence = {2, 3, 4, 6, 8, 12, 15};
         Utils.levelRequire.put(this, levelRequires[serial]);
-        Utils.defencePenetration.put(this, defencePenetration0[serial] * 0.01);
-        Utils.defencePenetration0.put(this, defencePenetration0[serial]);
-        Utils.manaPenetration.put(this, manaPenetration0[serial] * 0.01);
-        Utils.manaPenetration0.put(this, manaPenetration0[serial]);
+        Utils.defence.put(this, defence[serial]);
+        Utils.percentDefenceEnhance.put(this, defence[serial] * 0.01);
+        Utils.manaDefence.put(this, manaDefence[serial]);
+        Utils.percentManaDefenceEnhance.put(this, manaDefence[serial] * 0.01);
     }
 
     @Override
     public Component getTypeDescription() {
-        return ComponentUtils.getAttackTypeDescriptionOfCurios();
+        return ComponentUtils.getDefenceTypeDescriptionOfCurios();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MineCharm extends WraqCurios {
 
     @Override
     public Style hoverMainStyle() {
-        return CustomStyle.styleOfMine;
+        return CustomStyle.styleOfHusk;
     }
 
     @Override

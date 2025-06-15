@@ -10,6 +10,7 @@ import fun.wraq.process.system.cooking.item.FoodMedal;
 import fun.wraq.process.system.cooking.item.FoodPackage;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
 import fun.wraq.series.instance.series.mushroom.gem.MushroomSplitGem;
 import fun.wraq.series.instance.series.mushroom.gem.MushroomSputterGem;
@@ -27,6 +28,7 @@ import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CookingItems {
 
@@ -77,7 +79,10 @@ public class CookingItems {
     public static List<Item> getCookingProducts() {
         if (cookingProducts.isEmpty()) {
             for (Item item : ForgeRegistries.ITEMS) {
-                if (CookingValue.getMealValue(item) > 0) {
+                if (CookingValue.getMealValue(item) > 0
+                        || !SpecialEventItems.ITEMS.getEntries().stream()
+                        .map(RegistryObject::get).collect(Collectors.toSet())
+                        .contains(item)) {
                     cookingProducts.add(item);
                 }
             }

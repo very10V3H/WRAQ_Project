@@ -50,14 +50,14 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                 PersistentRangeEffect.addEffect(player, targetPos, radius, new PersistentRangeEffectOperation() {
                     @Override
                     public void operation(PersistentRangeEffect effect) {
-                        Compute.getNearEntity(effect.level(), effect.center(), Mob.class, finalRadius)
+                        Compute.getNearEntity(effect.level, effect.center, Mob.class, finalRadius)
                                 .stream().map(mob -> (Mob) mob)
                                 .forEach(mob -> {
                                     Damage.causeRateApDamageWithElement(player, mob,
                                             damage * (1 + ManaCurios5.getExBaseDamageRate(player, mob)), true);
                                     Compute.addSlowDownEffect(mob, Tick.s(1), 2);
                                 });
-                        ParticleProvider.dustParticle(player, effect.center(),
+                        ParticleProvider.dustParticle(player, effect.center,
                                 finalRadius, 120, Element.getManaSkillParticleStyle(player).getColor().getValue());
                         Element.giveResonanceElement(player);
                     }

@@ -148,7 +148,7 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
 
     @Override
     protected float getStandingEyeHeight(@NotNull Pose p_21131_, @NotNull EntityDimensions p_21132_) {
-        return 3.0f;
+        return 2.0f;
     }
 
     public void setInvulnerableTicks(int p_31511_) {

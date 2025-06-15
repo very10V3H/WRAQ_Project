@@ -81,7 +81,6 @@ public class BrewingNote extends Item {
         components.add(Component.literal("·材料-酿造").withStyle(CustomStyle.styleOfBrew));
         components.add(Component.literal("酿造师的酿造笔记。"));
         components.add(Component.literal("在笔记中记录了酿造师的酿造尝试。"));
-
         super.appendHoverText(itemStack, level, components, flag);
     }
 

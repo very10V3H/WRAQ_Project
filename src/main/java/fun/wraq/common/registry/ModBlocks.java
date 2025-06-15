@@ -48,15 +48,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> WRAQ_ORE_1 = registerBlock("wraq_ore_1",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).destroyTime(3).sound(SoundType.STONE)),
             CreativeModeTabs.getDefaultTab());
-
     public static final RegistryObject<Block> WRAQ_ORE_2 = registerBlock("wraq_ore_2",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).destroyTime(6).sound(SoundType.STONE)),
             CreativeModeTabs.getDefaultTab());
-
     public static final RegistryObject<Block> WRAQ_ORE_3 = registerBlock("wraq_ore_3",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).destroyTime(12).sound(SoundType.STONE)),
             CreativeModeTabs.getDefaultTab());
-
     public static final RegistryObject<Block> WRAQ_ORE_4 = registerBlock("wraq_ore_4",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).destroyTime(24).sound(SoundType.STONE)),
             CreativeModeTabs.getDefaultTab());

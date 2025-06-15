@@ -1,4 +1,4 @@
-package fun.wraq.process.system.spur.Items;
+package fun.wraq.process.system.spur.Items.crop;
 
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -10,18 +10,17 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class LogCharm extends WraqCurios {
+public class CropCharm extends WraqCurios {
 
-    public LogCharm(Properties properties, int serial) {
+    public CropCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
-        double[] defence = {2, 3, 4, 6, 8, 12, 15};
-        double[] manaDefence = {2, 3, 4, 6, 8, 12, 15};
+        double[] maxHealth = {800, 3200, 2800, 4400, 6400, 8800, 11500};
+        double[] healthRecover = {5, 10, 20, 35, 55, 80, 110};
         Utils.levelRequire.put(this, levelRequires[serial]);
-        Utils.defence.put(this, defence[serial]);
-        Utils.percentDefenceEnhance.put(this, defence[serial] * 0.01);
-        Utils.manaDefence.put(this, manaDefence[serial]);
-        Utils.percentManaDefenceEnhance.put(this, manaDefence[serial] * 0.01);
+        Utils.maxHealth.put(this, maxHealth[serial]);
+        Utils.percentMaxHealthEnhance.put(this, new double[]{1, 2, 3, 4, 6, 9, 13}[serial] * 0.01);
+        Utils.healthRecover.put(this, healthRecover[serial]);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class LogCharm extends WraqCurios {
 
     @Override
     public Style hoverMainStyle() {
-        return CustomStyle.styleOfHusk;
+        return CustomStyle.styleOfField;
     }
 
     @Override

@@ -1,14 +1,13 @@
 package fun.wraq.items.m;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.series.end.citadel.CitadelItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
 
 public class Main0 extends Item {
 
@@ -45,9 +44,6 @@ public class Main0 extends Item {
         super.appendHoverText(stack, p_41422_, components, flag);
     }
 
-    public static int index = 0;
-    public static List<SoundEvent> soundEventList = new ArrayList<>();
-
     public List<ItemAndRate> getRewardList() {
         return List.of(
                 new ItemAndRate(CitadelItems.CITADEL_CURIO_0.get(), 0.01),
@@ -58,15 +54,14 @@ public class Main0 extends Item {
         );
     }
 
-    public static Set<UUID> uuidSet = new HashSet<>();
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            WeeklyStore.takeTurns();
+            player.sendSystemMessage(
+                    Te.s("" + player.level().getBiome(player.getOnPos()).get().getBaseTemperature()));
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
@@ -85,10 +80,6 @@ public class Main0 extends Item {
     }
 
     public static void clientTick(Player player) {
-        if (player.tickCount % 30 == 0 && index < soundEventList.size()) {
-            player.playSound(soundEventList.get(index));
-            player.sendSystemMessage(Component.literal("" + soundEventList.get(index).getLocation()));
-            index++;
-        }
+
     }
 }

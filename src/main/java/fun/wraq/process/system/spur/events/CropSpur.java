@@ -94,7 +94,9 @@ public class CropSpur {
             Player player = event.getEntity();
             BlockPos blockPos = event.getHitVec().getBlockPos();
             BlockState blockState = player.level().getBlockState(blockPos);
-            if (!player.isShiftKeyDown() && blockState.is(Blocks.SWEET_BERRY_BUSH) && (blockState.getValue(SweetBerryBushBlock.AGE) == SweetBerryBushBlock.MAX_AGE || blockState.getValue(SweetBerryBushBlock.AGE) == 2)) {
+            if (!player.isShiftKeyDown() && blockState.is(Blocks.SWEET_BERRY_BUSH)
+                    && (blockState.getValue(SweetBerryBushBlock.AGE) == SweetBerryBushBlock.MAX_AGE
+                    || blockState.getValue(SweetBerryBushBlock.AGE) == 2)) {
                 cropsReward(player, blockState);
             }
         }
@@ -116,11 +118,9 @@ public class CropSpur {
             data.putInt(StringUtils.Gardening.Torch, data.getInt(StringUtils.Gardening.Torch) + 1);
         if (blockState.is(Blocks.SWEET_BERRY_BUSH))
             data.putInt(StringUtils.Gardening.SweetBerries, data.getInt(StringUtils.Gardening.SweetBerries) + 1);
-
         addPlayerGardeningExp(player, 2);
         Compute.givePercentExpToPlayer(player, 0.0025, 0, Math.min(player.experienceLevel, 50));
         Utils.dayCropCount.put(player.getName().getString(), Utils.dayCropCount.getOrDefault(player.getName().getString(), 0) + 1);
-
         Random random = new Random();
         if (random.nextDouble() < 0.035) {
             data.putInt(cropPieceGetTimes, data.getInt(cropPieceGetTimes) + 1);
@@ -160,5 +160,4 @@ public class CropSpur {
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSetActionBarTextPacket);
     }
-
 }

@@ -10,6 +10,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -125,7 +126,11 @@ public class ModCreativeModeTab {
             () -> CreativeModeTab.builder().icon(
                                     () -> new ItemStack(CookingItems.FOOD_PACKAGE_0.get()))
                             .title(Te.s("维瑞阿契 | 烹饪")).build());
-    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_ze_all",
+    public static RegistryObject<CreativeModeTab> CRYSTAL = CREATIVE_MODE_TAB.register("aa_wraq_ze_crystal",
+            () -> CreativeModeTab.builder().icon(
+                            () -> new ItemStack(CrystalItems.PURPLE_CRYSTAL_PP.get()))
+                    .title(Te.s("维瑞阿契 | 宝石")).build());
+    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zf_all",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.DEVIL_SWORD.get()))
                     .title(Te.s("维瑞阿契 | 总集")).build());

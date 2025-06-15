@@ -60,6 +60,7 @@ import fun.wraq.render.gui.testAndHelper.ModMenuTypes;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
+import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
@@ -156,6 +157,7 @@ public class VMD {
         ExtraordinaryItems.ITEMS.register(modEvenBus);
         MopUpPaperItems.ITEMS.register(modEvenBus);
         CookingItems.ITEMS.register(modEvenBus);
+        CrystalItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -658,6 +660,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.COOKING.getKey())) {
             CookingItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.CRYSTAL.getKey())) {
+            CrystalItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

@@ -69,7 +69,7 @@ public class IcePower extends WraqPower {
         PersistentRangeEffect.addEffect(player, getDefaultTargetPos(player), 6, new PersistentRangeEffectOperation() {
             @Override
             public void operation(PersistentRangeEffect effect) {
-                Compute.getNearEntity(effect.level(), effect.center(), Mob.class, 6)
+                Compute.getNearEntity(effect.level, effect.center, Mob.class, 6)
                         .stream().map(mob -> (Mob) mob)
                         .forEach(mob -> {
                             Damage.causeRateApDamageWithElement(player, mob,
@@ -77,16 +77,16 @@ public class IcePower extends WraqPower {
                                     1 + ElementValue.getPlayerIceElementValue(player));
                             ParticleProvider.createBreakBlockParticle(mob, Blocks.ICE);
                         });
-                Compute.getNearEntity(effect.level(), effect.center(), Player.class, 6)
+                Compute.getNearEntity(effect.level, effect.center, Player.class, 6)
                         .stream().map(eachPlayer -> (Player) eachPlayer)
                         .forEach(eachPlayer -> {
                             Shield.providePlayerShield(eachPlayer, 50,
                                     player.getPersistentData().getInt(StringUtils.Ability.Intelligent) * 20);
                             ParticleProvider.createBreakBlockParticle(eachPlayer, Blocks.SNOW_BLOCK);
                         });
-                ParticleProvider.dustParticle(player, effect.center(),
+                ParticleProvider.dustParticle(player, effect.center,
                         6, 36, CustomStyle.styleOfIce.getColor().getValue());
-                ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), effect.center(),
+                ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), effect.center,
                         6, 36, ParticleTypes.SNOWFLAKE);
             }
         }, 20, 60);

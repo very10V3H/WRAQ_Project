@@ -1,9 +1,11 @@
 package fun.wraq.series.overworld.sakura.bunker;
 
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
 import fun.wraq.series.overworld.sakura.bunker.crest.BunkerAttackCrest;
 import fun.wraq.series.overworld.sakura.bunker.crest.BunkerManaCrest;
 import fun.wraq.series.overworld.sakura.bunker.weapon.main.BunkerBow;
@@ -13,6 +15,7 @@ import fun.wraq.series.overworld.sakura.bunker.weapon.off.BunkerBook;
 import fun.wraq.series.overworld.sakura.bunker.weapon.off.BunkerKnife;
 import fun.wraq.series.overworld.sakura.bunker.weapon.off.BunkerShield;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.registries.DeferredRegister;
@@ -76,4 +79,29 @@ public class BunkerItems {
             () -> new BunkerManaCrest(new Item.Properties().rarity(Rarity.EPIC), 3));
     public static final RegistryObject<Item> BUNKER_MANA_CREST_4 = ITEMS.register("bunker_mana_crest_4",
             () -> new BunkerManaCrest(new Item.Properties().rarity(CustomStyle.Red), 4));
+
+    public static final RegistryObject<Item> BUNKER_HELMET_0 = ITEMS.register("bunker_helmet_0",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 0));
+    public static final RegistryObject<Item> BUNKER_HELMET_1 = ITEMS.register("bunker_helmet_1",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 1));
+    public static final RegistryObject<Item> BUNKER_CHEST_0 = ITEMS.register("bunker_chest_0",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 0));
+    public static final RegistryObject<Item> BUNKER_CHEST_1 = ITEMS.register("bunker_chest_1",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 1));
+    public static final RegistryObject<Item> BUNKER_LEGGINGS_0 = ITEMS.register("bunker_leggings_0",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 0));
+    public static final RegistryObject<Item> BUNKER_LEGGINGS_1 = ITEMS.register("bunker_leggings_1",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 1));
+    public static final RegistryObject<Item> BUNKER_BOOTS_0 = ITEMS.register("bunker_boots_0",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 0));
+    public static final RegistryObject<Item> BUNKER_BOOTS_1 = ITEMS.register("bunker_boots_1",
+            () -> new BunkerArmor(ModArmorMaterials.FireElement,
+                    ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BUNKER_BOLD_RARITY), 1));
 }

@@ -24,7 +24,7 @@ public class PlayerIsNearbyCampfireC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
-            ColdData.PlayerColdNumAddOrCost(serverPlayer, -2);
+            ColdData.addPlayerColdValue(serverPlayer, -2);
         });
         return true;
     }

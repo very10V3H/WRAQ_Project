@@ -3,8 +3,7 @@ package fun.wraq.common.attribute;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.util.Either;
 import fun.wraq.common.Compute;
-import fun.wraq.common.equip.WraqCurios;
-import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.equip.*;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
@@ -59,8 +58,11 @@ public class BasicAttributeDescription {
         if (item instanceof WraqCurios) index = 5;
         if (item instanceof SevenShadePiece) index = 6;
         if (!(item instanceof WraqCurios || item instanceof WraqUniformCurios
-                || item instanceof SevenShadePiece)
-                && itemStack.getTagElement(Utils.MOD_ID) == null && !Utils.offHandTag.containsKey(item)) {
+                || item instanceof SevenShadePiece || item instanceof WraqPassiveEquip
+                || item instanceof WraqPickaxe || item instanceof WraqMainHandEquip
+                || item instanceof WraqArmor)
+                && itemStack.getTagElement(Utils.MOD_ID) == null
+                && !Utils.offHandTag.containsKey(item)) {
             return;
         }
         if (event.getTooltipElements().size() < 5) {

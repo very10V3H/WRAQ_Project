@@ -1,8 +1,10 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -11,10 +13,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -60,17 +59,12 @@ public class WoodSpur {
                         do {
                             blockPos1 = blockPos1.below();
                         } while (level.getBlockState(blockPos1).getBlock().toString().contains("stripped"));
-
                         logReward(player);
                         InventoryOperation.giveItemStack(player, new ItemStack(blockState.getBlock().asItem(), 2));
                         Utils.worldWoodList.add(new BlockAndResetTime(blockState, blockPos1, Tick.get() + 36000));
-
                         level.setBlockAndUpdate(blockPos1, getStrippedLog(level.getBlockState(blockPos1).getBlock()).defaultBlockState());
-
                         Random random = new Random();
                         if (random.nextDouble() < Compute.playerExHarvest(player)) {
-                            Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
-                                    Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
                             logReward(player);
                             InventoryOperation.giveItemStack(player, new ItemStack(blockState.getBlock().asItem(), 2));
                         }
@@ -86,9 +80,7 @@ public class WoodSpur {
         CompoundTag data = player.getPersistentData();
         addPlayerLopExp(player, 2);
         Compute.givePercentExpToPlayer(player, 0.005, 0, Math.min(player.experienceLevel, 50));
-
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
-
         Random random = new Random();
         if (random.nextDouble() < 0.05) {
             data.putInt(logPieceGetTimes, data.getInt(logPieceGetTimes) + 1);
@@ -117,26 +109,37 @@ public class WoodSpur {
         return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(namespace));
     }
 
+    public static final String EXP_DATA_KEY = "LopXp";
+    public static int getPlayerLopExp(Player player) {
+        return player.getPersistentData().getInt(EXP_DATA_KEY);
+    }
+
     public static int getPlayerLopLevel(Player player) {
-        CompoundTag data = player.getPersistentData();
-        int MineXp = data.getInt(StringUtils.Lop.Xp);
-        if (MineXp <= 100) return 1;
-        else if (MineXp <= 1000) return 2;
-        else if (MineXp <= 5000) return 3;
-        else if (MineXp <= 20000) return 4;
-        else if (MineXp <= 100000) return 5;
+        int mineXp = getPlayerLopExp(player);
+        if (mineXp <= 100) return 1;
+        else if (mineXp <= 1000) return 2;
+        else if (mineXp <= 5000) return 3;
+        else if (mineXp <= 20000) return 4;
+        else if (mineXp <= 100000) return 5;
         return 0;
     }
 
-    public static void addPlayerLopExp(Player player, int Num) {
+    public static void addPlayerLopExp(Player player, int num) {
         CompoundTag data = player.getPersistentData();
-        data.putInt(StringUtils.Lop.Xp, data.getInt(StringUtils.Lop.Xp) + Num);
-        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("伐木经验").withStyle(ChatFormatting.LIGHT_PURPLE).
-                append(Component.literal(" + ").withStyle(CustomStyle.styleOfHusk)).
-                append(Component.literal("" + Num).withStyle(CustomStyle.styleOfHusk)).
-                append(Component.literal(" (" + data.getInt(StringUtils.Lop.Xp) + ")").withStyle(ChatFormatting.GRAY)));
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+        data.putInt(EXP_DATA_KEY, data.getInt(EXP_DATA_KEY) + num);
     }
 
+    public static void handleTick(Player player) {
+        ItemStack stack = player.getMainHandItem();
+        if (stack.getItem() instanceof WraqPickaxe && player.tickCount % 5 == 1) {
+            int exp = getPlayerLopExp(player);
+            int level = getPlayerLopLevel(player);
+            Compute.sendActionBarTextContentToPlayer(player,
+                    Te.s("伐木经验 ", CustomStyle.styleOfHusk, exp, ChatFormatting.YELLOW,
+                            "  伐木等级 ", CustomStyle.styleOfHusk, level, ChatFormatting.LIGHT_PURPLE,
+                            "  挖掘速度 ", CustomStyle.styleOfMine,
+                            String.format("%.0f%%", (1 + PlayerAttributes.getMineSpeedEnhanceRate(player)) * 100),
+                            ChatFormatting.AQUA));
+        }
+    }
 }

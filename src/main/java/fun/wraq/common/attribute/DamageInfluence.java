@@ -15,13 +15,13 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
+import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
-import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
@@ -62,7 +62,6 @@ public class DamageInfluence {
         double rate = 0;
         rate += AttackEventModule.SwordSkill5DamageEnhance(player); // 双刃剑
         rate += AttackEventModule.ManaSkill5DamageEnhance(player); // 法术专注
-        rate += ColdData.PlayerColdEffect(player); // 寒冷
         rate += FireEquip.DamageEnhance(player); // 炽焰元素武器
         rate += MineNewRune.damageEnhance(player);
         rate += HuskNewRune.damageEnhance(player);
@@ -156,6 +155,7 @@ public class DamageInfluence {
     public static double getPlayerTotalDamageRate(Player player) {
         double rate = 1;
         rate += MySeason.playerTotalDamageRate();
+        rate += ColdSystem.getMovementSpeedAndDamageEffectRate(player);
         return rate;
     }
 

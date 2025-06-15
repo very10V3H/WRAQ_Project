@@ -7,6 +7,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
+import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.SwiftData;
 import fun.wraq.series.newrunes.chapter1.LakeNewRune;
@@ -47,6 +48,7 @@ public class AttributeSet {
                     serverPlayer.teleportTo(pos.x, pos.y, pos.z);
                 }
             }
+            finalMovementSpeed *= (1 + ColdSystem.getMovementSpeedAndDamageEffectRate(player));
             player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(finalMovementSpeed);
 
             // 游泳速度

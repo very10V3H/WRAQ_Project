@@ -1449,9 +1449,11 @@ public class PlayerAttributes {
 
     public static double getMineSpeedEnhanceRate(Player player) {
         double rate = 0;
+        if (player.getMainHandItem().getItem() instanceof WraqPickaxe) {
+            rate += MineSpur.getPlayerMineLevel(player);
+        }
         rate += computeAllEquipSlotBaseAttributeValue(player, WraqPickaxe.mineSpeed, false);
         rate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, WraqPickaxe.mineSpeed);
-        rate += MineSpur.getPlayerMineLevel(player);
         return rate;
     }
 

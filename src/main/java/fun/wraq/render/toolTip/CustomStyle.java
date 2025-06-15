@@ -92,6 +92,7 @@ public class CustomStyle {
     public static Style PRIMEVAL_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#fc9300"));
     public static Style DRAGON_BOAT_FES_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#6fc301"));
     public static Style SHIRO_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#ceecff"));
+    public static Style SILVER_DRAGON_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#ceecff"));
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
         return style.applyFormat(ChatFormatting.GRAY).withItalic(true).withBold(true);

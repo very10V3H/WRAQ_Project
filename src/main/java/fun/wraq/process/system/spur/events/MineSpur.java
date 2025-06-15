@@ -1,10 +1,11 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.struct.BlockAndResetTime;
@@ -16,8 +17,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -42,30 +41,33 @@ public class MineSpur {
         Block block = blockState.getBlock();
         Level level = player.level();
         if (!player.isCreative() && blockState.getBlock().toString().length() > 12
-                && blockState.getBlock().toString().startsWith("create", 6)) event.setCanceled(true);
-
+                && blockState.getBlock().toString().startsWith("create", 6)) {
+            event.setCanceled(true);
+        }
         if (!player.isCreative() && !level.isClientSide) {
             if (level.dimension().equals(Level.NETHER)) {
                 if (mineRewardMap.containsKey(block)) {
-                    BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, Tick.get() + 36000);
+                    BlockAndResetTime blockAndResetTime
+                            = new BlockAndResetTime(blockState, blockPos, Tick.get() + 36000);
                     Utils.netherMineList.add(blockAndResetTime);
                     destroyLevelBlockAndRewardPlayer(player, blockPos, blockState, block, level);
                 }
             }
-
             if (level.dimension().equals(Level.OVERWORLD)) {
                 int tickCount = Tick.get();
                 if (blockPos.getY() <= 11 || mineRewardMap.containsKey(block)) {
                     if (canBeDigBlockList.contains(block)) {
                         if (mineRewardMap.containsKey(block)) {
-                            BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, tickCount + 36000);
+                            BlockAndResetTime blockAndResetTime
+                                    = new BlockAndResetTime(blockState, blockPos, tickCount + 36000);
                             if (!Utils.posEvenBeenDigOrPlace.contains(blockPos)) {
                                 Utils.worldMineList.add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
                             destroyLevelBlockAndRewardPlayer(player, blockPos, blockState, block, level);
                         } else {
-                            BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, tickCount + 1200);
+                            BlockAndResetTime blockAndResetTime
+                                    = new BlockAndResetTime(blockState, blockPos, tickCount + 1200);
                             String name = player.getName().getString();
                             if (!Utils.noMineDigMap.containsKey(name))
                                 Utils.noMineDigMap.put(name, new LinkedList<>());
@@ -106,28 +108,26 @@ public class MineSpur {
         mineReward(player, blockState, blockPos);
         Random random = new Random();
         if (random.nextDouble() < Compute.playerExHarvest(player)) {
-            Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
-                    Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
             InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
             mineReward(player, blockState, blockPos);
         }
     }
 
     public static String minePieceGetTimes = "minePieceGetTimes";
-
     public static String fromMineReward = "fromMineReward";
+    public static final String EXP_DATA_KEY = "MineExp";
 
     public static void mineReward(Player player, BlockState blockState, BlockPos blockPos) {
         double rate = mineRewardMap.get(blockState.getBlock()).exp();
         addPlayerMineExp(player, (int) (rate * 100));
         rate *= (1 + getPlayerMineLevel(player)) * 0.25;
         ItemAndRate.dropOrbs(Math.min(player.experienceLevel, 50), rate, player.level(), blockPos.getCenter(), fromMineReward);
-
-        ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.EXPERIENCE_ORB_PICKUP), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.5f, 1, 1);
+        ClientboundSoundPacket clientboundSoundPacket
+                = new ClientboundSoundPacket(Holder.direct(SoundEvents.EXPERIENCE_ORB_PICKUP), SoundSource.PLAYERS,
+                player.getX(), player.getY(), player.getZ(), 0.5f, 1, 1);
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSoundPacket);
         Utils.dayMineCount.put(player.getName().getString(), Utils.dayMineCount.getOrDefault(player.getName().getString(), 0) + 1);
-
         Random random = new Random();
         if (random.nextDouble() < 0.08) {
             CompoundTag tag = player.getPersistentData();
@@ -142,35 +142,22 @@ public class MineSpur {
 
     public static int getPlayerMineLevel(Player player) {
         CompoundTag data = player.getPersistentData();
-        int MineXp = data.getInt(StringUtils.Mine.Exp);
-        if (MineXp <= 100) return 1;
-        else if (MineXp <= 500) return 2;
-        else if (MineXp <= 2000) return 3;
-        else if (MineXp <= 5000) return 4;
-        else if (MineXp <= 10000) return 5;
+        int mineXp = data.getInt(EXP_DATA_KEY);
+        if (mineXp <= 100) return 1;
+        else if (mineXp <= 500) return 2;
+        else if (mineXp <= 2000) return 3;
+        else if (mineXp <= 5000) return 4;
+        else if (mineXp <= 10000) return 5;
         return 0;
     }
 
-    public static Map<Player, Integer> lastMineTickMap = new WeakHashMap<>();
-
     public static void addPlayerMineExp(Player player, int Num) {
         CompoundTag data = player.getPersistentData();
-        data.putInt(StringUtils.Mine.Exp, data.getInt(StringUtils.Mine.Exp) + Num);
-        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
-                new ClientboundSetActionBarTextPacket(Component.literal("采矿经验").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal(" + ").withStyle(ChatFormatting.DARK_GREEN)).
-                        append(Component.literal("" + Num).withStyle(ChatFormatting.GREEN)).
-                        append(Component.literal(" (" + data.getInt(StringUtils.Mine.Exp) + ")").withStyle(ChatFormatting.GRAY)));
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+        data.putInt(EXP_DATA_KEY, data.getInt(EXP_DATA_KEY) + Num);
+    }
 
-        if (getPlayerMineLevel(player) > 0
-                && (!lastMineTickMap.containsKey(player) || lastMineTickMap.get(player) + 12000 < Tick.get())) {
-            Compute.sendFormatMSG(player, Te.s("采矿", CustomStyle.styleOfStone),
-                    Te.s("你丰富的采矿经验为你额外提供了",
-                            getPlayerMineLevel(player) * 100 + "%挖掘速度", CustomStyle.styleOfStone));
-            lastMineTickMap.put(player, Tick.get());
-        }
+    public static int getPlayerMineExp(Player player) {
+        return player.getPersistentData().getInt(EXP_DATA_KEY);
     }
 
     public record DropAndExp(ItemStack itemStack, double exp) {
@@ -263,4 +250,18 @@ public class MineSpur {
         this.addAll(Arrays.asList(blocks));
         this.addAll(mineRewardMap.keySet());
     }};
+
+    public static void handleTick(Player player) {
+        ItemStack stack = player.getMainHandItem();
+        if (stack.getItem() instanceof WraqPickaxe && player.tickCount % 5 == 1) {
+            int exp = getPlayerMineExp(player);
+            int level = getPlayerMineLevel(player);
+            Compute.sendActionBarTextContentToPlayer(player,
+                    Te.s("挖掘经验 ", CustomStyle.styleOfMine, exp, ChatFormatting.GRAY,
+                            "  挖掘等级 ", CustomStyle.styleOfMine, level, ChatFormatting.LIGHT_PURPLE,
+                            "  挖掘速度 ", CustomStyle.styleOfMine,
+                            String.format("%.0f%%", (1 + PlayerAttributes.getMineSpeedEnhanceRate(player)) * 100),
+                            ChatFormatting.AQUA));
+        }
+    }
 }

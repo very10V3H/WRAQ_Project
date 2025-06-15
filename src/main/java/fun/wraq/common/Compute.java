@@ -1502,24 +1502,20 @@ public class Compute {
 
     public static void damageActionBarPacketSend(Player player, double baseDamage, double ignoreDefenceDamage,
                                                  boolean isMana, boolean isCrit) {
-
         String string = "";
         String Crit = " ";
         if (isCrit) Crit = Utils.Emoji.CritRate;
         if (ignoreDefenceDamage > 0) {
             string = "+ [" + String.format("%.0f", ignoreDefenceDamage) + "]";
         }
-
         Style critStyle = isMana ? CustomStyle.styleOfEntropy : CustomStyle.styleOfPower;
         ChatFormatting damageStyle = isMana ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.YELLOW;
-
         ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
                 new ClientboundSetActionBarTextPacket(Component.literal(Crit).withStyle(critStyle).
                         append(Component.literal(String.format("%.0f", baseDamage) + " ").withStyle(damageStyle)).
                         append(Component.literal(string).withStyle(CustomStyle.styleOfSea)));
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSetActionBarTextPacket);
-
     }
 
     public static void damageActionBarPacketSend(Player player, double baseDamage, double ignoreDefenceDamage,
@@ -1534,10 +1530,8 @@ public class Compute {
         if (elementDamageValue != 0) {
             elementDamageValueString = "「" + String.format("%.0f", elementDamageValue) + "」";
         }
-
         Style critStyle = isMana ? CustomStyle.styleOfEntropy : CustomStyle.styleOfPower;
         ChatFormatting damageStyle = isMana ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.YELLOW;
-
         ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
                 new ClientboundSetActionBarTextPacket(Component.literal(crit).withStyle(critStyle).
                         append(Component.literal(String.format("%.0f", baseDamage) + " ").withStyle(damageStyle)).
@@ -1545,7 +1539,13 @@ public class Compute {
                         append(Component.literal(elementDamageValueString).withStyle(Element.styleMap.get(elementType))));
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+    }
 
+    public static void sendActionBarTextContentToPlayer(Player player, Component content) {
+        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket
+                = new ClientboundSetActionBarTextPacket(content);
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
     }
 
     public static boolean PlayerCanChallengeThisInstance(Player player, int instanceNum) {
@@ -1919,6 +1919,13 @@ public class Compute {
                 .toList();
     }
 
+    public static List<Mob> getNearMob(Level level, Vec3 pos, double distance) {
+        return getNearEntity(level, pos, Mob.class, distance).stream()
+                .filter(entity -> entity instanceof Mob)
+                .map(entity -> (Mob) entity)
+                .toList();
+    }
+
     public static Set<Player> getNearPlayer(Level level, Vec3 center, double radius) {
         return getNearEntity(level, center, Player.class, radius).stream()
                 .filter(entity -> entity instanceof Player)
@@ -2177,7 +2184,7 @@ public class Compute {
                                             int trigTick, int lastTick) {
         // 造成伤害
         PersistentRangeEffect.addEffect(boss, pos, radius, (effect -> {
-            Compute.getNearEntity(boss.level(), effect.center(), Player.class, radius)
+            Compute.getNearEntity(boss.level(), effect.center, Player.class, radius)
                     .stream().filter(e -> e instanceof Player)
                     .map(e -> (Player) e)
                     .forEach(eachPlayer -> {
@@ -2198,7 +2205,7 @@ public class Compute {
                                             int startTick, int trigTick, int lastTick) {
         // 造成伤害
         PersistentRangeEffect.addEffect(level, pos, radius, (effect -> {
-            Compute.getNearEntity(level, effect.center(), Player.class, radius)
+            Compute.getNearEntity(level, effect.center, Player.class, radius)
                     .stream().filter(e -> e instanceof Player)
                     .map(e -> (Player) e)
                     .forEach(cause::causeDamage);

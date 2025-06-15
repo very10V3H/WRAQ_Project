@@ -213,7 +213,7 @@ public class IceInstance extends NoTeamInstance {
                 case 2 -> {
                     playerList.forEach(player -> {
                         if (player.distanceTo(mob) < 50) {
-                            if (ColdData.PlayerCurrentColdNum(player) >= 50) {
+                            if (ColdData.getPlayerCurrentColdValue(player) >= 50) {
                                 Damage.causeAttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
                             }
                             Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("迸晶裂玉", style),

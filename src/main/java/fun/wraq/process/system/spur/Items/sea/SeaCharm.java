@@ -1,4 +1,4 @@
-package fun.wraq.process.system.spur.Items;
+package fun.wraq.process.system.spur.Items.sea;
 
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -10,22 +10,25 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class CropCharm extends WraqCurios {
+public class SeaCharm extends WraqCurios {
 
-    public CropCharm(Properties properties, int serial) {
+    public SeaCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
-        double[] maxHealth = {800, 3200, 2800, 4400, 6400, 8800, 11500};
-        double[] healthRecover = {5, 10, 20, 35, 55, 80, 110};
+        double[] healthRecover = {5, 8, 12, 17, 23, 30, 38};
+        double[] manaRecover = {5, 8, 12, 17, 23, 30, 38};
+        double[] cooldown = {0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.15};
+        double[] swiftnessUp = {0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.5};
         Utils.levelRequire.put(this, levelRequires[serial]);
-        Utils.maxHealth.put(this, maxHealth[serial]);
-        Utils.percentMaxHealthEnhance.put(this, new double[]{1, 2, 3, 4, 6, 9, 13}[serial] * 0.01);
         Utils.healthRecover.put(this, healthRecover[serial]);
+        Utils.manaRecover.put(this, manaRecover[serial]);
+        Utils.coolDownDecrease.put(this, cooldown[serial]);
+        Utils.swiftnessUp.put(this, swiftnessUp[serial]);
     }
 
     @Override
     public Component getTypeDescription() {
-        return ComponentUtils.getDefenceTypeDescriptionOfCurios();
+        return ComponentUtils.getComprehensiveTypeDescriptionOfCurios();
     }
 
     @Override
@@ -35,7 +38,7 @@ public class CropCharm extends WraqCurios {
 
     @Override
     public Style hoverMainStyle() {
-        return CustomStyle.styleOfField;
+        return CustomStyle.styleOfSea;
     }
 
     @Override

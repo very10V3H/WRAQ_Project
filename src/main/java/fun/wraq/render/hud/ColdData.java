@@ -9,56 +9,54 @@ import net.minecraft.world.entity.player.Player;
 
 public class ColdData {
 
-    private static double MaxCold;
-    private static double CurrentCold;
+    private static double maxCold;
+    private static double currentCold;
 
     public static void setMaxCold(double mana) {
-        ColdData.MaxCold = mana;
+        ColdData.maxCold = mana;
     }
 
     public static double getMaxCold() {
-        return MaxCold;
+        return maxCold;
     }
 
     public static void setCurrentCold(double Value) {
-        ColdData.CurrentCold = Value;
+        ColdData.currentCold = Value;
     }
 
     public static double getCurrentCold() {
-        return CurrentCold;
+        return currentCold;
     }
 
-    public static void PlayerColdNumAddOrCost(Player player, double Num) {
+    public static void addPlayerColdValue(Player player, double value) {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(StringUtils.MaxCold) || !data.contains(StringUtils.CurrentCold)) {
             data.putDouble(StringUtils.MaxCold, 100);
             data.putDouble(StringUtils.CurrentCold, 0);
         } else {
-            double MaxCold = data.getDouble(StringUtils.MaxCold);
-            double CurrentCold = data.getDouble(StringUtils.CurrentCold);
-            if (Num > 0) data.putDouble(StringUtils.CurrentCold, Math.min(100, CurrentCold + Num));
-            else data.putDouble(StringUtils.CurrentCold, Math.max(0, CurrentCold + Num));
+            double maxCold = data.getDouble(StringUtils.MaxCold);
+            double currentCold = data.getDouble(StringUtils.CurrentCold);
+            if (value > 0) {
+                data.putDouble(StringUtils.CurrentCold, Math.min(100, currentCold + value));
+            } else {
+                data.putDouble(StringUtils.CurrentCold, Math.max(0, currentCold + value));
+            }
         }
-        PlayerColdNumStatusUpdate(player);
+        updatePlayerColdNumStatus(player);
     }
 
-    public static void PlayerColdNumStatusUpdate(Player player) {
+    public static void updatePlayerColdNumStatus(Player player) {
         CompoundTag data = player.getPersistentData();
         ModNetworking.sendToClient(new ColdSyncS2CPacket(data.getDouble(StringUtils.MaxCold), data.getDouble(StringUtils.CurrentCold)), (ServerPlayer) player);
     }
 
-    public static double PlayerCurrentColdNum(Player player) {
+    public static double getPlayerCurrentColdValue(Player player) {
         CompoundTag data = player.getPersistentData();
         return data.getDouble(StringUtils.CurrentCold);
     }
 
-    public static double PlayerMaxColdNum(Player player) {
+    public static double getPlayerMaxColdValue(Player player) {
         CompoundTag data = player.getPersistentData();
         return data.getDouble(StringUtils.MaxCold);
-    }
-
-    public static double PlayerColdEffect(Player player) {
-        if (PlayerCurrentColdNum(player) > 90) return -0.5;
-        return 0;
     }
 }

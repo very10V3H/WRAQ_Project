@@ -1,6 +1,5 @@
 package fun.wraq.events.server;
 
-import fun.wraq.items.forge.WraqForge;
 import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
@@ -20,6 +19,7 @@ import fun.wraq.customized.Customize;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.moontain.MoontainFloorTitle;
+import fun.wraq.items.forge.WraqForge;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AttributePackets.*;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
@@ -39,6 +39,7 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.border.WorldBorder;
+import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow;
@@ -56,12 +57,13 @@ import fun.wraq.process.system.restzone.RestZone;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.smelt.Smelt;
+import fun.wraq.process.system.spur.events.FishEvent;
+import fun.wraq.process.system.spur.events.MineSpur;
+import fun.wraq.process.system.spur.events.WoodSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
-import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
-import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.curios.EndCrystal;
 import fun.wraq.series.events._7shade.SevenShadePiece;
@@ -168,6 +170,11 @@ public class ServerPlayerTickEvent {
             HarbingerMainHand.fix(player);
             Security.fixDuplicatedBackpack(player);
             SevenShadePiece.sendDataToClient(player);
+            MineSpur.handleTick(player);
+            FishEvent.handleTick(player);
+            WoodSpur.handleTick(player);
+            ColdSystem.handleTick(player);
+            ModNetworking.sendToClient(new TimeS2CPacket(Compute.CalendarToString(Calendar.getInstance())), player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
@@ -177,69 +184,56 @@ public class ServerPlayerTickEvent {
                             Te.s("被火焰吞没了", CustomStyle.styleOfPower));
                 }
             }
-
             if (player.tickCount % 20 == 0) {
                 ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Compute.playerIsInBattle(player)), serverPlayer);
             }
-
             if (player.tickCount % 6000 == 0) {
                 Smelt.checkIfAnyProgressFinished(player);
             }
-
             // 探索点数发包
             if (Tick.get() % 20 == 0) {
                 Point.sendDataToClient(player);
             }
-
             if (player.tickCount % 5 == 3) {
                 CompoundTag data = player.getPersistentData();
                 ModNetworking.sendToClient(new SmartPhoneS2CPacket(data.getDouble("VB"), data.getDouble("security0"),
                         data.getDouble("security1"), data.getDouble("security2"), data.getDouble("security3"), data.getDouble("securityGet")), serverPlayer);
             }
-
             if (player.tickCount % 5 == 1) {
                 TeamInfoRequestC2SPacket.module(serverPlayer);
             }
-
             if (player.tickCount % 20 == 0 && TowerMob.playerIsChallenging3FloorAndInFire(player)) {
                 Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1, Component.literal("被烈焰吞噬了").withStyle(CustomStyle.styleOfFire));
             }
-
             if (player.level().equals(player.getServer().getLevel(Level.END))) {
                 Vec3 vec3 = new Vec3(24.5, 88, -135.5);
                 if (player.position().distanceTo(vec3) < 1) {
                     serverPlayer.teleportTo(player.getServer().getLevel(Level.END), 137.5, 50, 0.5, 90, -45);
                 }
             }
-
             if (player.tickCount % 20 == 0) {
                 Guide.sendStageToClientV2(player);
             }
-
             if (player.tickCount % 40 == 0) {
                 ModNetworking.sendToClient(new PacketLimitS2CPacket(200), serverPlayer);
             }
-
             if (player.tickCount % 100 == 27) {
                 if (SlimeBoots.IsOn(player))
                     player.addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 2, false, false, false));
                 List<MyArrow> arrowList = player.level().getEntitiesOfClass(MyArrow.class, AABB.ofSize(player.position(), 100, 100, 100));
                 arrowList.removeIf(arrow -> arrow.tickCount > 100);
             }
-
             if (player.tickCount % 20 == 0) {
                 List<ItemEntity> list = player.level().getEntitiesOfClass(ItemEntity.class, AABB.ofSize(player.position(), 15, 15, 15));
                 list.forEach(itemEntity -> {
                     if (itemEntity.getItem().is(ModItems.VALUE.get())
                             && itemEntity.tickCount > 20) itemEntity.remove(Entity.RemovalReason.KILLED);
                 });
-
                 List<SwordAir> list1 = player.level().getEntitiesOfClass(SwordAir.class, AABB.ofSize(player.position(), 15, 15, 15));
                 list1.forEach(swordAir -> {
                     if (swordAir.tickCount > 200) swordAir.remove(Entity.RemovalReason.KILLED);
                 });
             }
-
             if (player.tickCount % 10 == 0 && Utils.EndRune2Pos.containsKey(player)) {
                 PosAndLastTime posAndLastTime = Utils.EndRune2Pos.get(player);
                 List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,
@@ -253,14 +247,6 @@ public class ServerPlayerTickEvent {
                 posAndLastTime.TickCount -= 10;
                 if (posAndLastTime.TickCount < 0) Utils.EndRune2Pos.remove(player);
             }
-
-            /*if (player.tickCount % 20 == 0) ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);*/
-
-/*            if (TickCount % 200 == 0 && player.level().equals(serverPlayer.getServer().getLevel(Level.OVERWORLD))
-                    && (!Utils.PlayerFireWorkFightCoolDown.containsKey(player) || Utils.PlayerFireWorkFightCoolDown.get(player) < TickCount)) {
-                FireWorkGun.RandomSummonFireworkRocket(player.level(),player);
-            }*/
-
             if (TickCount % 60 == 5 && SuitCount.getIceSuitCount(player) > 0 && player.isAlive()) {
                 Level level = player.level();
                 List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
@@ -306,26 +292,6 @@ public class ServerPlayerTickEvent {
                 serverPlayer.connection.send(clientboundSetEntityMotionPacket);
             }
 
-/*            if (!player.isCreative() && !player.isSpectator() && event.player.level().equals(event.player.getServer().getLevel(Level.OVERWORLD))
-                    && (player.getZ() > 2550 || player.getZ() < 100 || player.getX() > 2225 || player.getX() < -500)) {
-                if (player.getZ() > 2550) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),player.getX(),player.getY(),2550,0,0);
-                if (player.getZ() < 100) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),player.getX(),player.getY(),100,0,0);
-                if (player.getX() > 2550) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),2550,player.getY(),player.getZ(),0,0);
-                if (player.getX() < -500) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),-500,player.getY(),player.getZ(),0,0);
-                Compute.FormatMSGSend(player,Component.literal("边界").withStyle(ChatFormatting.RED),
-                        Component.literal("前面的区域，以后再来探索吧!").withStyle(ChatFormatting.WHITE));
-            }
-
-            if (!player.isCreative() && !player.isSpectator() && event.player.level().equals(event.player.getServer().getLevel(Level.END))
-                    && (player.getZ() > 150 || player.getZ() < -300 || player.getX() > 128 || player.getX() < -80)) {
-                if (player.getZ() > 150) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),player.getX(),player.getY(),150,0,0);
-                if (player.getZ() < -100) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),player.getX(),player.getY(),-100,0,0);
-                if (player.getX() > 110) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),110,player.getY(),player.getZ(),0,0);
-                if (player.getX() < -90) ((ServerPlayer) player).teleportTo((ServerLevel) player.level(),-90,player.getY(),player.getZ(),0,0);
-                Compute.FormatMSGSend(player,Component.literal("边界").withStyle(ChatFormatting.RED),
-                        Component.literal("前面的区域，以后再来探索吧!").withStyle(ChatFormatting.WHITE));
-            }*/
-
             if (player.tickCount % 1200 == 0) {
                 Utils.dayOnlineCount.put(player.getName().getString(), Utils.dayOnlineCount.getOrDefault(player.getName().getString(), 0) + 1);
             }
@@ -335,75 +301,8 @@ public class ServerPlayerTickEvent {
                 Shield.providePlayerShield(player, 100, player.getMaxHealth() * 0.1 * Rate);
                 Compute.sendEffectLastTime(player, ModItems.PURPLE_IRON_INGOT.get().getDefaultInstance(), 100);
             }
-
-            if (player.tickCount % 10 == 0) ColdData.PlayerColdNumStatusUpdate(player);
-
-            if (player.tickCount % 20 == 0) {
-                if ((player.level().getBiome(player.getOnPos()).get().coldEnoughToSnow(player.getOnPos())
-                        || player.isUnderWater()) && player.getEffect(ModEffects.WARM.get()) == null) {
-                    if (player.isUnderWater()) ColdData.PlayerColdNumAddOrCost(player, 0.1);
-                    else {
-                        if (SuitCount.getLeatherSuitCount(player) > 0) ColdData.PlayerColdNumAddOrCost(player, 0.1);
-                        else ColdData.PlayerColdNumAddOrCost(player, 1);
-                    }
-                } else ColdData.PlayerColdNumAddOrCost(player, -1);
-
-                ModNetworking.sendToClient(new TimeS2CPacket(Compute.CalendarToString(Calendar.getInstance())), serverPlayer);
-            }
-
-            if (player.tickCount % 200 == 0 && !player.isCreative()) {
-                if (ColdData.PlayerCurrentColdNum(player) >= ColdData.PlayerMaxColdNum(player)) {
-                    Compute.sendFormatMSG(player, Component.literal("寒冷").withStyle(CustomStyle.styleOfIce),
-                            Component.literal("你的体温正在急剧下降！").withStyle(ChatFormatting.WHITE));
-                    player.setHealth(player.getHealth() - player.getMaxHealth() * 0.1f);
-                }
-            }
-
-/*            if (player.tickCount % 20 == 0) {
-                if (player.blockPosition().equals(new BlockPos(52,-53,1039))) {
-                    Utils.VolcanoTpCounts.put(player,Utils.VolcanoTpCounts.getOrDefault(player,0) + 1);
-                    ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                            new ClientboundSetTitleTextPacket(
-                                    Component.literal("传送将在" + (3 - Utils.VolcanoTpCounts.get(player) + "s内开始。。。")).
-                                            withStyle(ChatFormatting.RESET).withStyle(CustomStyle.styleOfSky));
-                    serverPlayer.connection.send(clientboundSetTitleTextPacket);
-                    if (Utils.VolcanoTpCounts.get(player).equals(3)) {
-                        serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD),Utils.WorldEntropyPos.get(1).getVec3().x,
-                                Utils.WorldEntropyPos.get(1).getVec3().y,
-                                Utils.WorldEntropyPos.get(1).getVec3().z,
-                                0,0);
-                    }
-                }
-                else Utils.VolcanoTpCounts.remove(player);
-            }*/
-
-/*            if (player.tickCount % 36000 == 0) {
-                Compute.addOrCostPlayerPsValue(player, 10);
-            }*/
-
-/*            if (player.tickCount % 55 == 0) {
-                ModNetworking.sendToClient(new PsValueS2CPacket(Compute.getPlayerPsValue(player)),serverPlayer);
-            }*/
-
             CompoundTag data = player.getPersistentData();
             int TmpNum = player.tickCount;
-
-/*            if(TmpNum % 1200 == 0) {
-                if(Utils.GemsForPlain) serverPlayer.connection.disconnect(Component.literal("Null"));
-                if(Utils.GemsForForest) serverPlayer.connection.disconnect(Component.literal("Null"));
-            }*/
-
-/*            if (TmpNum % 12000 == 0) {
-                if (data.contains("XRot") && data.contains("YRot")) {
-                    if (player.getXRot() == data.getDouble("XRot")
-                            && player.getYRot() == data.getDouble("YRot")) {
-                        Utils.PlayerAFKMap.put(serverPlayer,true);
-                    }
-                }
-                data.putDouble("XRot", player.getXRot());
-                data.putDouble("YRot", player.getYRot());
-            }*/
-
             if (TmpNum % 20 == 0 && Utils.PlayerAFKMap.containsKey(serverPlayer)) {
                 if (player.getXRot() != data.getDouble("XRot")
                         || player.getYRot() != data.getDouble("YRot")) {
@@ -531,7 +430,6 @@ public class ServerPlayerTickEvent {
                         PlayerAttributes.manaHealthSteal(player),
                         PlayerAttributes.dodgeRate(player)), (ServerPlayer) player);
             }
-
             List<Shield> shieldQueue = Utils.playerShieldQueue.get(player.getName().getString());
             boolean flag = true;
             if (shieldQueue != null && !shieldQueue.isEmpty()) // 护盾值持续时间计算
@@ -544,13 +442,10 @@ public class ServerPlayerTickEvent {
                 }
             }
             if (flag && shieldQueue != null) shieldQueue.clear();
-
             Shield.computePlayerShield(player);
-
             if (SuitCount.getSkySuitCount(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
                 Shield.providePlayerShield(player, 200, PlayerAttributes.attackDamage(player) * 0.1 * Compute.SkySuitEffectRate(player));
             }
-
             if (TmpNum % 20 == 0) {
                 if (data.getInt(StringUtils.MineMonsterEffect) >= TickCount) {
                     if ((player.getMaxHealth() * 0.02f + 10) > player.getHealth()) {
@@ -562,7 +457,6 @@ public class ServerPlayerTickEvent {
                     ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
                 }
             }
-
             if (TmpNum % 60 == 0) {
                 if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SNOW_BOSS_CHEST.get())) {
                     Level level = player.level();
