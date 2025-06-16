@@ -1,20 +1,28 @@
-package fun.wraq.series.overworld.newarea.stone;
+package fun.wraq.series.overworld.cold.sc2.stone;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
+import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -28,16 +36,20 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     public static StoneSpiderSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(872, 67, 2357),
-                    new Vec3(866, 66, 2380),
-                    new Vec3(875, 71, 2370),
-                    new Vec3(892, 96, 2368),
-                    new Vec3(912, 102, 2387),
-                    new Vec3(920, 102, 2393),
-                    new Vec3(931, 101, 2392),
-                    new Vec3(935, 102, 2408)
+                    new Vec3(2236, 104, -3200),
+                    new Vec3(2190, 107, -3177),
+                    new Vec3(2207, 109, -3184),
+                    new Vec3(2224, 106, -3182),
+                    new Vec3(2197, 106, -3163),
+                    new Vec3(2212, 107, -3163),
+                    new Vec3(2227, 107, -3167),
+                    new Vec3(2240, 104, -3160),
+                    new Vec3(2198, 105, -3145),
+                    new Vec3(2210, 105, -3145),
+                    new Vec3(2225, 104, -3145),
+                    new Vec3(2242, 103, -3146)
             );
-            instance = new StoneSpiderSpawnController(spawnPos, 948, 2418, 846, 2332, world, 300);
+            instance = new StoneSpiderSpawnController(spawnPos, 2261, -3136, 2172, -3222, world, 300);
         }
         return instance;
     }
@@ -68,6 +80,9 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     public void tick() {
         mobList.forEach(mob -> {
             Element.provideElement(mob, Element.stone, 8);
+            if (mob.tickCount % 20 == (mobList.indexOf(mob) % 20)) {
+                commonAttack(mob);
+            }
         });
     }
 
@@ -84,5 +99,49 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     @Override
     public String getKillCountDataKey() {
         return "StoneSpider";
+    }
+
+    public static void onMobDead(Mob mob) {
+        if (!MobSpawn.getMobOriginName(mob).equals(mobName)) {
+            return;
+        }
+        if (RandomUtils.nextDouble(0, 1) < 0.1) {
+            if (RandomUtils.nextBoolean()) {
+                skill1(mob);
+            } else {
+                skill2(mob);
+            }
+        }
+    }
+
+    // 亡语:网拽
+    public static void skill1(Mob mob) {
+        Compute.getNearPlayer(mob.level(), mob.position(), 16).forEach(player -> {
+            Compute.causeGatherEffect(player, 10, mob.position());
+        });
+    }
+
+    // 亡语:束缚
+    public static void skill2(Mob mob) {
+        Compute.getNearPlayer(mob.level(), mob.position(), 16).forEach(player -> {
+            for (int i = 0; i < 3; i++ ) {
+                for (int j = 0; j < 3; j ++) {
+                    BlockPos blockPos = player.blockPosition().west(1).south(1).east(i).north(j);
+                    if (mob.level().getBlockState(blockPos).is(Blocks.AIR)) {
+                        BlockAndResetTime.createThenDestroy(mob.level(),
+                                new BlockAndResetTime(Blocks.COBWEB.defaultBlockState(),
+                                        blockPos, Tick.get() + Tick.s(10)));
+                    }
+                }
+            }
+        });
+    }
+
+    // 普通毒液攻击
+    public void commonAttack(Mob mob) {
+        Compute.getNearPlayer(mob.level(), mob.position(), 16).forEach(player -> {
+            Damage.causeManaDamageToPlayer(mob, player, player.getMaxHealth() * 0.03);
+            ParticleProvider.createLineEffectParticle(mob.level(), mob, player, CustomStyle.styleOfStone);
+        });
     }
 }

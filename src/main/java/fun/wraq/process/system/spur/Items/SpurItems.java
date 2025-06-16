@@ -3,8 +3,11 @@ package fun.wraq.process.system.spur.Items;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.spur.Items.crop.CropCharm;
+import fun.wraq.process.system.spur.Items.crop.INaRiBow;
 import fun.wraq.process.system.spur.Items.log.LogCharm;
 import fun.wraq.process.system.spur.Items.mine.MineCharm;
+import fun.wraq.process.system.spur.Items.mine.SilverDragonAssassinPickaxe;
+import fun.wraq.process.system.spur.Items.sea.DeepSeaLegendary;
 import fun.wraq.process.system.spur.Items.sea.SeaCharm;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
@@ -106,4 +109,52 @@ public class SpurItems {
             )));
     public static final RegistryObject<Item> LOG_PIECE_1 = ITEMS.register("log_piece1",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.HuskBold)));
+
+    public static final RegistryObject<Item> SILVER_DRAGON_ASSASSIN_PICKAXE_E =
+            ITEMS.register("silver_dragon_assassin_pickaxe_e", () -> new SilverDragonAssassinPickaxe(
+                    new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_ITALIC_RARITY), 0));
+    public static final RegistryObject<Item> SILVER_DRAGON_ASSASSIN_PICKAXE_D =
+            ITEMS.register("silver_dragon_assassin_pickaxe_d", () -> new SilverDragonAssassinPickaxe(
+                    new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_ITALIC_RARITY), 1));
+    public static final RegistryObject<Item> SILVER_DRAGON_ASSASSIN_PICKAXE_C =
+            ITEMS.register("silver_dragon_assassin_pickaxe_c", () -> new SilverDragonAssassinPickaxe(
+                    new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_ITALIC_RARITY), 2));
+    public static final RegistryObject<Item> SILVER_DRAGON_ASSASSIN_PICKAXE_B =
+            ITEMS.register("silver_dragon_assassin_pickaxe_b", () -> new SilverDragonAssassinPickaxe(
+                    new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_ITALIC_RARITY), 3));
+    public static final RegistryObject<Item> SILVER_DRAGON_ASSASSIN_PICKAXE_A =
+            ITEMS.register("silver_dragon_assassin_pickaxe_a", () -> new SilverDragonAssassinPickaxe(
+                    new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_ITALIC_RARITY), 4));
+
+    public static final RegistryObject<Item> INARI_BOW_E =
+            ITEMS.register("inari_bow_e", () -> new INaRiBow(
+                    new Item.Properties().rarity(CustomStyle.FieldItalic), 0));
+    public static final RegistryObject<Item> INARI_BOW_D =
+            ITEMS.register("inari_bow_d", () -> new INaRiBow(
+                    new Item.Properties().rarity(CustomStyle.FieldItalic), 1));
+    public static final RegistryObject<Item> INARI_BOW_C =
+            ITEMS.register("inari_bow_c", () -> new INaRiBow(
+                    new Item.Properties().rarity(CustomStyle.FieldItalic), 2));
+    public static final RegistryObject<Item> INARI_BOW_B =
+            ITEMS.register("inari_bow_b", () -> new INaRiBow(
+                    new Item.Properties().rarity(CustomStyle.FieldItalic), 3));
+    public static final RegistryObject<Item> INARI_BOW_A =
+            ITEMS.register("inari_bow_a", () -> new INaRiBow(
+                    new Item.Properties().rarity(CustomStyle.FieldItalic), 4));
+
+    public static final RegistryObject<Item> DEEP_SEA_LEGENDARY_E =
+            ITEMS.register("deep_sea_legendary_e", () -> new DeepSeaLegendary(
+                    new Item.Properties().rarity(CustomStyle.SeaItalic), 0));
+    public static final RegistryObject<Item> DEEP_SEA_LEGENDARY_D =
+            ITEMS.register("deep_sea_legendary_d", () -> new DeepSeaLegendary(
+                    new Item.Properties().rarity(CustomStyle.SeaItalic), 1));
+    public static final RegistryObject<Item> DEEP_SEA_LEGENDARY_C =
+            ITEMS.register("deep_sea_legendary_c", () -> new DeepSeaLegendary(
+                    new Item.Properties().rarity(CustomStyle.SeaItalic), 2));
+    public static final RegistryObject<Item> DEEP_SEA_LEGENDARY_B =
+            ITEMS.register("deep_sea_legendary_b", () -> new DeepSeaLegendary(
+                    new Item.Properties().rarity(CustomStyle.SeaItalic), 3));
+    public static final RegistryObject<Item> DEEP_SEA_LEGENDARY_A =
+            ITEMS.register("deep_sea_legendary_a", () -> new DeepSeaLegendary(
+                    new Item.Properties().rarity(CustomStyle.SeaItalic), 4));
 }

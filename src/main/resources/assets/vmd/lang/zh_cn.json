@@ -2276,6 +2276,44 @@
   "item.vmd.purple_crystal_p": "千载难逢的紫宝石",
   "item.vmd.purple_crystal_pp": "万里挑一的紫宝石",
 
+  "item.vmd.silver_dragon_blood_sword": "银龙血刃",
+  "item.vmd.silver_dragon_blood_bow": "银龙血弓",
+  "item.vmd.silver_dragon_blood_sceptre": "银龙血杖",
+
+  "item.vmd.silver_dragon_assassin_pickaxe": "银龙刺客之击",
+  "item.vmd.inari_bow": "稻荷神",
+  "item.vmd.deep_sea_legendary": "深海神话",
+
+  "item.vmd.silver_dragon_assassin_pickaxe_e": "银龙刺客之击\uD835\uDE40",
+  "item.vmd.silver_dragon_assassin_pickaxe_d": "银龙刺客之击\uD835\uDE3F",
+  "item.vmd.silver_dragon_assassin_pickaxe_c": "银龙刺客之击\uD835\uDE3E",
+  "item.vmd.silver_dragon_assassin_pickaxe_b": "银龙刺客之击\uD835\uDE3D",
+  "item.vmd.silver_dragon_assassin_pickaxe_a": "银龙刺客之击\uD835\uDE3C",
+
+  "item.vmd.inari_bow_e": "稻荷神\uD835\uDE40",
+  "item.vmd.inari_bow_d": "稻荷神\uD835\uDE3F",
+  "item.vmd.inari_bow_c": "稻荷神\uD835\uDE3E",
+  "item.vmd.inari_bow_b": "稻荷神\uD835\uDE3D",
+  "item.vmd.inari_bow_a": "稻荷神\uD835\uDE3C",
+
+  "item.vmd.deep_sea_legendary_e": "深海神话\uD835\uDE40",
+  "item.vmd.deep_sea_legendary_d": "深海神话\uD835\uDE3F",
+  "item.vmd.deep_sea_legendary_c": "深海神话\uD835\uDE3E",
+  "item.vmd.deep_sea_legendary_b": "深海神话\uD835\uDE3D",
+  "item.vmd.deep_sea_legendary_a": "深海神话\uD835\uDE3C",
+
+  "item.vmd.bunker_helmet_0": "热能头盔",
+  "item.vmd.bunker_helmet_1": "热能头盔H",
+  "item.vmd.bunker_chest_0": "热能胸甲",
+  "item.vmd.bunker_chest_1": "热能胸甲H",
+  "item.vmd.bunker_leggings_0": "热能护腿",
+  "item.vmd.bunker_leggings_1": "热能护腿H",
+  "item.vmd.bunker_boots_0": "热能靴子",
+  "item.vmd.bunker_boots_1": "热能靴子H",
+  "item.vmd.bunker_armor_piece": "稳定热能",
+
+  "item.vmd.super_cold_flower": "极寒花",
+
   "item.vmd.splasher": "膨热剂",
 
   "item.vmd.attackup_potion": "攻击提升药水",

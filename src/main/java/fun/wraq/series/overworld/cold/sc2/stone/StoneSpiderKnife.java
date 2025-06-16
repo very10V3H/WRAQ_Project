@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.newarea.stone;
+package fun.wraq.series.overworld.cold.sc2.stone;
 
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Te;

@@ -12,6 +12,7 @@ import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.*;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.composites.CompositesItems;
 import fun.wraq.entities.entities.Boss2.Boss2;
@@ -61,6 +62,7 @@ import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.crystal.CrystalItems;
+import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
@@ -77,6 +79,7 @@ import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.overworld.cold.sc2.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
@@ -158,6 +161,8 @@ public class VMD {
         MopUpPaperItems.ITEMS.register(modEvenBus);
         CookingItems.ITEMS.register(modEvenBus);
         CrystalItems.ITEMS.register(modEvenBus);
+        SilverDragonItems.ITEMS.register(modEvenBus);
+        SuperColdItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -193,7 +198,7 @@ public class VMD {
 
     @SubscribeEvent
     public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
-        BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
+        BlockEvent.mineAndWoodReset(event.getServer().overworld());
         BlockEvent.netherMineReset(event.getServer().getLevel(Level.NETHER));
         MobSpawn.removeAllMob();
         JungleMobSpawn.removeAllMobs();
@@ -204,6 +209,7 @@ public class VMD {
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
         PurpleIronCommon.destroyOnServerStop();
         MushroomParasitismGem.clearItemEntity();
+        BlockAndResetTime.onServerStop();
 
         Connection connection = DataBase.createNewDatabaseConnection();
         Statement statement = connection.createStatement();
@@ -666,6 +672,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.CRYSTAL.getKey())) {
             CrystalItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.SILVER_DRAGON.getKey())) {
+            SilverDragonItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

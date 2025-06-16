@@ -2,6 +2,8 @@ package fun.wraq.networking.unSorted;
 
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -15,6 +17,7 @@ import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -103,9 +106,23 @@ public class TradeBuyRequestC2SPacket {
                     itemList.removeIf(TradeBuyRequestC2SPacket::itemStackIsCurrency);
                 }
             }
+            CompoundTag equipData = new CompoundTag();
+            if ((targetItemStack.getItem() instanceof WraqArmor
+                    || targetItemStack.getItem() instanceof WraqMainHandEquip)) {
+                ItemStack stack = itemList.stream().filter(itemStack -> itemStack.getItem() instanceof WraqArmor
+                                || itemStack.getItem() instanceof WraqMainHandEquip).findAny().orElse(null);
+                if (stack != null) {
+                    ItemStack playerStack = InventoryOperation.findFirstItem(serverPlayer, stack.getItem());
+                    if (playerStack != null) {
+                        equipData.merge(playerStack.getOrCreateTagElement(Utils.MOD_ID));
+                    }
+                }
+            }
             itemList.forEach(itemStack -> {
-                if (playerHasItem.get())
-                    playerHasItem.set(InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount()));
+                if (playerHasItem.get()) {
+                    playerHasItem.set(InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(),
+                            itemStack.getItem(), itemStack.getCount()));
+                }
             });
             if (serverPlayer.isCreative() || (playerHasEnoughMoney && playerHasItem.get())) {
                 itemList.forEach(itemStack -> {
@@ -157,6 +174,11 @@ public class TradeBuyRequestC2SPacket {
                 }
                 WeeklyStore.afterPlayerBuy(serverPlayer, product, itemList);
                 LogUtils.getLogger().info("村民 {} 购买了 {} 出售的 {} ", Name.get(serverPlayer), name, product);
+                if (!equipData.isEmpty()) {
+                    product.getOrCreateTagElement(Utils.MOD_ID).merge(equipData);
+                    Compute.sendFormatMSG(serverPlayer, Te.s("交易", ChatFormatting.GREEN),
+                            Te.s("已保留装备的强化/品质/宝石等信息."));
+                }
                 InventoryOperation.giveItemStack(serverPlayer, product);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {

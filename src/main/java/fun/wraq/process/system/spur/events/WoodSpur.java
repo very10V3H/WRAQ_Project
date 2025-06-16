@@ -2,7 +2,6 @@ package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
@@ -15,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -131,7 +131,7 @@ public class WoodSpur {
 
     public static void handleTick(Player player) {
         ItemStack stack = player.getMainHandItem();
-        if (stack.getItem() instanceof WraqPickaxe && player.tickCount % 5 == 1) {
+        if (stack.getItem() instanceof AxeItem && player.tickCount % 5 == 1) {
             int exp = getPlayerLopExp(player);
             int level = getPlayerLopLevel(player);
             Compute.sendActionBarTextContentToPlayer(player,

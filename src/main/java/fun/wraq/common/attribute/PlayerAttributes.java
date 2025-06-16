@@ -32,6 +32,8 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSce
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.profession.alchemy.AlchemyPlayerData;
+import fun.wraq.process.system.spur.Items.crop.INaRiBow;
+import fun.wraq.process.system.spur.Items.mine.SilverDragonAssassinPickaxe;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
@@ -406,6 +408,8 @@ public class PlayerAttributes {
         exRate += BowCurios2.playerCritDamageEnhance(player);
         exRate += SkyNewRune.critDamageInfluence(player);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.critDamage);
+        exRate += SilverDragonAssassinPickaxe.getCritDamageEnhanceRate(player);
+        exRate += INaRiBow.getCritDamageEnhanceRate(player);
         critDamage *= (1 + exRate);
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MANA_SHIELD.get())) {

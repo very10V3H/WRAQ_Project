@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.IceSeries;
+package fun.wraq.series.overworld.cold.hunter;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;

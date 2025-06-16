@@ -15,6 +15,7 @@ import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.process.system.spur.Items.mine.SilverDragonAssassinPickaxe;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
@@ -2178,7 +2179,6 @@ public class TradeList {
         ItemStack stonePickaxe = new ItemStack(PickaxeItems.STONE_PICKAXE_0.get());
         ItemStack potion = new ItemStack(Items.POTION);
         potion.getOrCreateTag().putString("Potion", "minecraft:long_night_vision");
-
         ItemStack minePiece1 = new ItemStack(SpurItems.MINE_PIECE_1.get());
         ItemStack mineCharm0 = new ItemStack(SpurItems.MINE_CHARM_0.get());
         ItemStack mineCharm1 = new ItemStack(SpurItems.MINE_CHARM_1.get());
@@ -2188,42 +2188,55 @@ public class TradeList {
         ItemStack mineCharm5 = new ItemStack(SpurItems.MINE_CHARM_5.get());
         ItemStack mineCharm6 = new ItemStack(SpurItems.MINE_CHARM_6.get());
         ItemStack oreRune = new ItemStack(ModItems.ORE_RUNE.get(), 1);
+        ItemStack silverDragonAssassinPickaxeE = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_E.get());
+        ItemStack silverDragonAssassinPickaxeD = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_D.get());
+        ItemStack silverDragonAssassinPickaxeC = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_C.get());
+        ItemStack silverDragonAssassinPickaxeB = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_B.get());
+        ItemStack silverDragonAssassinPickaxeA = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_A.get());
         ItemStack[] itemStacks = {
                 stonePickaxe, minePiece1, potion, oreRune,
-                mineCharm0, mineCharm1, mineCharm2, mineCharm3, mineCharm4, mineCharm5, mineCharm6,
-
+                mineCharm0, mineCharm1, mineCharm2,
+                silverDragonAssassinPickaxeE, silverDragonAssassinPickaxeD,
+                mineCharm3, mineCharm4, mineCharm5, mineCharm6,
+                silverDragonAssassinPickaxeC, silverDragonAssassinPickaxeB, silverDragonAssassinPickaxeA
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         MyVillagerData.setMyVillagerData("采矿大师", "mineCharm", CustomStyle.styleOfMine, VillagerType.PLAINS,
                 VillagerProfession.WEAPONSMITH, contentList);
-
         tradeRecipeMap.put(stonePickaxe, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
         tradeRecipeMap.put(potion, List.of(new ItemStack(ModItems.SILVER_COIN.get(), 1)));
         tradeRecipeMap.put(oreRune, List.of(new ItemStack(Items.EMERALD, 2), new ItemStack(Items.DIAMOND, 2),
                 new ItemStack(Items.REDSTONE, 8), new ItemStack(Items.LAPIS_LAZULI, 8)));
-
         tradeRecipeMap.put(minePiece1, List.of(new ItemStack(SpurItems.MINE_PIECE.get(), 16)));
-
         tradeRecipeMap.put(mineCharm0, List.of(new ItemStack(SpurItems.MINE_PIECE_1.get(), 1)));
-
         tradeRecipeMap.put(mineCharm1, List.of(new ItemStack(SpurItems.MINE_PIECE_1.get(), 2),
                 new ItemStack(SpurItems.MINE_CHARM_0.get())));
-
         tradeRecipeMap.put(mineCharm2, List.of(new ItemStack(SpurItems.MINE_PIECE_1.get(), 4),
                 new ItemStack(SpurItems.MINE_CHARM_1.get())));
-
         tradeRecipeMap.put(mineCharm3, List.of(new ItemStack(SpurItems.MINE_PIECE_1.get(), 8),
                 new ItemStack(SpurItems.MINE_CHARM_2.get())));
-
         tradeRecipeMap.put(mineCharm4, List.of(new ItemStack(SpurItems.MINE_PIECE_1.get(), 16),
                 new ItemStack(SpurItems.MINE_CHARM_3.get())));
-
         tradeRecipeMap.put(mineCharm5, List.of(new ItemStack(SpurItems.MINE_PIECE_1.get(), 32),
                 new ItemStack(SpurItems.MINE_CHARM_4.get())));
-
         tradeRecipeMap.put(mineCharm6, List.of(new ItemStack(SpurItems.MINE_PIECE_1.get(), 64),
                 new ItemStack(SpurItems.MINE_CHARM_5.get())));
+        tradeRecipeMap.put(silverDragonAssassinPickaxeE,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        Items.AIR.getDefaultInstance(), minePiece1.getItem(), 0));
+        tradeRecipeMap.put(silverDragonAssassinPickaxeD,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_E.get()), minePiece1.getItem(), 1));
+        tradeRecipeMap.put(silverDragonAssassinPickaxeC,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_D.get()), minePiece1.getItem(), 2));
+        tradeRecipeMap.put(silverDragonAssassinPickaxeB,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_C.get()), minePiece1.getItem(), 3));
+        tradeRecipeMap.put(silverDragonAssassinPickaxeA,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_B.get()), minePiece1.getItem(), 4));
     }
 
     public static void seaCharm() {
@@ -2236,38 +2249,52 @@ public class TradeList {
         ItemStack seaCharm4 = new ItemStack(SpurItems.SEA_CHARM_4.get());
         ItemStack seaCharm5 = new ItemStack(SpurItems.SEA_CHARM_5.get());
         ItemStack seaCharm6 = new ItemStack(SpurItems.SEA_CHARM_6.get());
+        ItemStack seaLegendaryE = new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_E.get());
+        ItemStack seaLegendaryD = new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_D.get());
+        ItemStack seaLegendaryC = new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_C.get());
+        ItemStack seaLegendaryB = new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_B.get());
+        ItemStack seaLegendaryA = new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_A.get());
         ItemStack[] itemStacks = {
                 fishingRod, seaPiece1,
-                seaCharm0, seaCharm1, seaCharm2, seaCharm3, seaCharm4, seaCharm5, seaCharm6
+                seaCharm0, seaCharm1, seaCharm2,
+                seaLegendaryE, seaLegendaryD,
+                seaCharm3, seaCharm4, seaCharm5, seaCharm6,
+                seaLegendaryC, seaLegendaryB, seaLegendaryA
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         MyVillagerData.setMyVillagerData("钓鱼大师", "seaCharm", CustomStyle.styleOfSea, VillagerType.SWAMP,
                 VillagerProfession.FISHERMAN, contentList);
-
         tradeRecipeMap.put(fishingRod, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
-
         tradeRecipeMap.put(seaPiece1, List.of(new ItemStack(SpurItems.SEA_PIECE.get(), 64)));
-
         tradeRecipeMap.put(seaCharm0, List.of(new ItemStack(SpurItems.SEA_PIECE_1.get(), 1)));
-
         tradeRecipeMap.put(seaCharm1, List.of(new ItemStack(SpurItems.SEA_PIECE_1.get(), 2),
                 new ItemStack(SpurItems.SEA_CHARM_0.get())));
-
         tradeRecipeMap.put(seaCharm2, List.of(new ItemStack(SpurItems.SEA_PIECE_1.get(), 4),
                 new ItemStack(SpurItems.SEA_CHARM_1.get())));
-
         tradeRecipeMap.put(seaCharm3, List.of(new ItemStack(SpurItems.SEA_PIECE_1.get(), 8),
                 new ItemStack(SpurItems.SEA_CHARM_2.get())));
-
         tradeRecipeMap.put(seaCharm4, List.of(new ItemStack(SpurItems.SEA_PIECE_1.get(), 16),
                 new ItemStack(SpurItems.SEA_CHARM_3.get())));
-
         tradeRecipeMap.put(seaCharm5, List.of(new ItemStack(SpurItems.SEA_PIECE_1.get(), 32),
                 new ItemStack(SpurItems.SEA_CHARM_4.get())));
-
         tradeRecipeMap.put(seaCharm6, List.of(new ItemStack(SpurItems.SEA_PIECE_1.get(), 64),
                 new ItemStack(SpurItems.SEA_CHARM_5.get())));
+        tradeRecipeMap.put(seaLegendaryE,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        Items.AIR.getDefaultInstance(), seaPiece1.getItem(), 0));
+        tradeRecipeMap.put(seaLegendaryD,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_E.get()), seaPiece1.getItem(), 1));
+        tradeRecipeMap.put(seaLegendaryC,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_D.get()), seaPiece1.getItem(), 2));
+        tradeRecipeMap.put(seaLegendaryB,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_C.get()), seaPiece1.getItem(), 3));
+        tradeRecipeMap.put(seaLegendaryA,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.DEEP_SEA_LEGENDARY_B.get()), seaPiece1.getItem(), 4));
     }
 
     public static void cropCharm() {
@@ -2280,43 +2307,57 @@ public class TradeList {
         ItemStack cropCharm5 = new ItemStack(SpurItems.CROP_CHARM_5.get());
         ItemStack cropCharm6 = new ItemStack(SpurItems.CROP_CHARM_6.get());
         ItemStack natureCore = new ItemStack(ModItems.NATURAL_CORE.get());
+        ItemStack iNaRiBowE = new ItemStack(SpurItems.INARI_BOW_E.get());
+        ItemStack iNaRiBowD = new ItemStack(SpurItems.INARI_BOW_D.get());
+        ItemStack iNaRiBowC = new ItemStack(SpurItems.INARI_BOW_C.get());
+        ItemStack iNaRiBowB = new ItemStack(SpurItems.INARI_BOW_B.get());
+        ItemStack iNaRiBowA = new ItemStack(SpurItems.INARI_BOW_A.get());
         ItemStack[] itemStacks = {
                 cropPiece1, natureCore,
-                cropCharm0, cropCharm1, cropCharm2, cropCharm3, cropCharm4, cropCharm5, cropCharm6
+                cropCharm0, cropCharm1, cropCharm2,
+                iNaRiBowE, iNaRiBowD,
+                cropCharm3, cropCharm4, cropCharm5, cropCharm6,
+                iNaRiBowC, iNaRiBowB, iNaRiBowA
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         MyVillagerData.setMyVillagerData("农耕大师", "cropCharm", CustomStyle.styleOfField, VillagerType.PLAINS,
                 VillagerProfession.FARMER, contentList);
-
         tradeRecipeMap.put(cropPiece1, List.of(new ItemStack(SpurItems.CROP_PIECE.get(), 64)));
-
         tradeRecipeMap.put(natureCore, List.of(new ItemStack(Items.WHEAT, 24),
                 new ItemStack(Items.CARROT, 24),
                 new ItemStack(Items.POTATO, 24),
                 new ItemStack(Items.BEETROOT, 24),
                 new ItemStack(Items.TORCHFLOWER, 24),
                 new ItemStack(Items.SWEET_BERRIES, 24)));
-
         tradeRecipeMap.put(cropCharm0, List.of(new ItemStack(SpurItems.CROP_PIECE_1.get(), 1)));
-
         tradeRecipeMap.put(cropCharm1, List.of(new ItemStack(SpurItems.CROP_PIECE_1.get(), 2),
                 new ItemStack(SpurItems.CROP_CHARM_0.get())));
-
         tradeRecipeMap.put(cropCharm2, List.of(new ItemStack(SpurItems.CROP_PIECE_1.get(), 4),
                 new ItemStack(SpurItems.CROP_CHARM_1.get())));
-
         tradeRecipeMap.put(cropCharm3, List.of(new ItemStack(SpurItems.CROP_PIECE_1.get(), 8),
                 new ItemStack(SpurItems.CROP_CHARM_2.get())));
-
         tradeRecipeMap.put(cropCharm4, List.of(new ItemStack(SpurItems.CROP_PIECE_1.get(), 16),
                 new ItemStack(SpurItems.CROP_CHARM_3.get())));
-
         tradeRecipeMap.put(cropCharm5, List.of(new ItemStack(SpurItems.CROP_PIECE_1.get(), 32),
                 new ItemStack(SpurItems.CROP_CHARM_4.get())));
-
         tradeRecipeMap.put(cropCharm6, List.of(new ItemStack(SpurItems.CROP_PIECE_1.get(), 64),
                 new ItemStack(SpurItems.CROP_CHARM_5.get())));
+        tradeRecipeMap.put(iNaRiBowE,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        Items.AIR.getDefaultInstance(), cropPiece1.getItem(), 0));
+        tradeRecipeMap.put(iNaRiBowD,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.INARI_BOW_E.get()), cropPiece1.getItem(), 1));
+        tradeRecipeMap.put(iNaRiBowC,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.INARI_BOW_D.get()), cropPiece1.getItem(), 2));
+        tradeRecipeMap.put(iNaRiBowB,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.INARI_BOW_C.get()), cropPiece1.getItem(), 3));
+        tradeRecipeMap.put(iNaRiBowA,
+                SilverDragonAssassinPickaxe.getCommonUpgradeMaterials(
+                        new ItemStack(SpurItems.INARI_BOW_B.get()), cropPiece1.getItem(), 4));
     }
 
     public static void logCharm() {

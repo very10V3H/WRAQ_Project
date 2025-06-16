@@ -129,8 +129,12 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> CRYSTAL = CREATIVE_MODE_TAB.register("aa_wraq_ze_crystal",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(CrystalItems.PURPLE_CRYSTAL_PP.get()))
-                    .title(Te.s("维瑞阿契 | 宝石")).build());
-    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zf_all",
+                    .title(Te.s("维瑞阿契 | 各色宝石")).build());
+    public static RegistryObject<CreativeModeTab> SILVER_DRAGON = CREATIVE_MODE_TAB.register("aa_wraq_zf_silver_dragon",
+            () -> CreativeModeTab.builder().icon(
+                            () -> new ItemStack(SpecialEventItems.DRAGON_DIAMOND.get()))
+                    .title(Te.s("维瑞阿契 | 银龙传说装备")).build());
+    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zg_all",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.DEVIL_SWORD.get()))
                     .title(Te.s("维瑞阿契 | 总集")).build());

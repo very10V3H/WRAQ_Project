@@ -10,6 +10,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import fun.wraq.networking.unSorted.TradeBuyRequestC2SPacket;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.randomStore.RandomStore;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
@@ -154,7 +155,6 @@ public class TradeScreen extends Screen {
                     new ItemStack(ModItems.COPPER_COIN.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()),
                     new ItemStack(ModItems.COPPER_COIN.get(), 12), new ItemStack(ModItems.SILVER_COIN.get()),
                     new ItemStack(ModItems.GEM_PIECE.get(), 64), new ItemStack(ModItems.COMPLETE_GEM.get()));
-
             for (int i = 0; i < coinList.size(); i++) {
                 ItemStack coin = coinList.get(i);
                 if (i % 2 == 0) {
@@ -178,16 +178,13 @@ public class TradeScreen extends Screen {
                 }
             }
         }
-
         int size = 0;
         if (!Objects.equals(villagerName, RandomStore.villagerName)) {
-
             List<ItemStack> targetItemList = new ArrayList<>();
             if (TradeList.tradeContent.containsKey(villagerName)) {
                 targetItemList = TradeList.tradeContent.get(villagerName);
             }
             size = targetItemList.size();
-
             for (int i = 0; i < 10; i++) {
                 if (page * 10 + i < targetItemList.size()) {
                     ItemStack targetItemStack = targetItemList.get(page * 10 + i);
@@ -199,20 +196,17 @@ public class TradeScreen extends Screen {
                 }
             }
         }
-
         if (!isWeeklyStore) {
             guiGraphics.drawCenteredString(fontRenderer, Te.s("当前VB余额:"),
                     this.width / 2 - 110, this.height / 2 + 83, 0);
             guiGraphics.drawCenteredString(fontRenderer, Te.s(String.format("%.2f", ClientUtils.VBNUM)),
                     this.width / 2 - 60, this.height / 2 + 83, 0);
         }
-
         guiGraphics.drawCenteredString(fontRenderer, Te.s("" + (page + 1)),
                 this.width / 2, this.height / 2 + 83, 0);
         guiGraphics.drawCenteredString(fontRenderer,
                 Te.s("共" + ((size - 1) / 10 + 1) + "页 " + (size) + "件物品"),
                 this.width / 2 + 80, this.height / 2 + 83, 0);
-
         if (villagerName.equals(TradeListNew.WEEKLY_STORE_VILLAGER_NAME)) {
             guiGraphics.drawCenteredString(fontRenderer,
                     Te.s("研发采购 - 第",
@@ -225,7 +219,17 @@ public class TradeScreen extends Screen {
     private void renderTradeRecipe(ItemStack targetItemStack, int i, int x, int y, GuiGraphics guiGraphics, int xOffset) {
         targetItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         guiGraphics.renderItem(targetItemStack,
-                this.width / 2 - 100 - 33 + 206 + xOffset, this.height / 2 - 75 + 32 * i);
+                this.width / 2 - 100 - 33 + 206 + xOffset,
+                this.height / 2 - 75 + 32 * i);
+        int count = 0;
+        if (getMinecraft().player != null) {
+            count = InventoryOperation.itemStackCount(getMinecraft().player, targetItemStack.getItem());
+            if (count > 0) {
+                guiGraphics.drawCenteredString(font, Te.s(count, CustomStyle.styleOfWorld),
+                        this.width / 2 - 100 - 33 + 206 + xOffset,
+                        this.height / 2 - 75 + 32 * i - 4, 0);
+            }
+        }
         guiGraphics.drawCenteredString(font, Component.literal("" + targetItemStack.getCount()).withStyle(ChatFormatting.WHITE),
                 this.width / 2 - 100 - 33 + 206 + 20 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
         if (x > this.width / 2 - 100 - 33 + 206 + xOffset && x < this.width / 2 - 100 - 33 + 16 + 206 + xOffset
@@ -242,7 +246,17 @@ public class TradeScreen extends Screen {
                 ItemStack material = recipeList.get(j);
                 material.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                 guiGraphics.renderItem(material,
-                        this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset, this.height / 2 - 75 + 32 * i);
+                        this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset,
+                        this.height / 2 - 75 + 32 * i);
+                count = 0;
+                if (getMinecraft().player != null) {
+                    count = InventoryOperation.itemStackCount(getMinecraft().player, material.getItem());
+                    if (count > 0) {
+                        guiGraphics.drawCenteredString(font, Te.s(count, CustomStyle.styleOfWorld),
+                                this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset,
+                                this.height / 2 - 75 + 32 * i - 4, 0);
+                    }
+                }
                 if (x > this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset
                         && x < this.width / 2 - 100 - 33 + 16 + 150 - j * 28 + xOffset
                         && y > this.height / 2 - 75 + 32 * i

@@ -975,4 +975,16 @@ public class ComponentUtils {
     public static Component getSuffixOfShiro() {
         return Te.s("Childish White", ChatFormatting.ITALIC, CustomStyle.SHIRO_STYLE);
     }
+
+    public static Component getSuffixOfSilverDragon() {
+        return Te.s("银龙传说", ChatFormatting.ITALIC, CustomStyle.SILVER_DRAGON_STYLE);
+    }
+
+    public static Component getSuffixOfINaRI() {
+        return Te.s("稻荷神", ChatFormatting.ITALIC, CustomStyle.styleOfField);
+    }
+
+    public static Component getSuffixOfDeepSea() {
+        return Te.s("深海神话", ChatFormatting.ITALIC, CustomStyle.styleOfSea);
+    }
 }

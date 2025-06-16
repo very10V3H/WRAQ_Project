@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.common.util.struct.Gather;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -95,6 +96,7 @@ public class LevelEvents {
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             PersistentRangeEffect.levelTick(event.level);
+            BlockAndResetTime.handleTick(event.level);
         }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && Tick.get() % 18000 == 0) {
@@ -110,12 +112,19 @@ public class LevelEvents {
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
                 && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
-            MobEffectAndDamageMethods.Tick(event.level);
+            Level level = event.level;
+            MobEffectAndDamageMethods.Tick(level);
             int tick = Tick.get();
-            if (tick % 100 == 0) tryToRemoveMobInMap();
-            if (tick % 20 == 0) Element.Tick(event.level);
+            if (tick % 100 == 0) {
+                tryToRemoveMobInMap();
+            }
+            if (tick % 20 == 0) {
+                Element.Tick(level);
+            }
             Compute.gather(tick); // 聚集
-            if (tick % 20 == 1) UnknownGem.handleLevelTick(event.level);
+            if (tick % 20 == 1) {
+                UnknownGem.handleLevelTick(level);
+            }
         }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {

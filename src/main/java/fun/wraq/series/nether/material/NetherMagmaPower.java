@@ -1,6 +1,7 @@
 package fun.wraq.series.nether.material;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -36,7 +37,7 @@ public class NetherMagmaPower extends Item {
         components.add(Component.literal(" "));
         components.add(Component.literal(" -右键使用以获取持续3min的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("'温暖'").withStyle(CustomStyle.styleOfPower)));
-        components.add(Component.literal("Items-Nether").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
+        components.add(Te.s(" 温暖", CustomStyle.styleOfPower, "提供", "产热 + 1", CustomStyle.BUNKER_STYLE));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

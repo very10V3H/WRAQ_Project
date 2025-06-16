@@ -125,7 +125,7 @@ import fun.wraq.series.nether.power.MagmaPower;
 import fun.wraq.series.nether.power.PiglinPower;
 import fun.wraq.series.nether.power.WitherBoneMealPower;
 import fun.wraq.series.nether.power.WitherBonePower;
-import fun.wraq.series.overworld.IceSeries.LeatherArmor;
+import fun.wraq.series.overworld.cold.hunter.LeatherArmor;
 import fun.wraq.series.overworld.castle.BeaconBow;
 import fun.wraq.series.overworld.castle.BlazeSword;
 import fun.wraq.series.overworld.castle.TreeSceptre;
@@ -2998,4 +2998,11 @@ public class ModItems {
                 );
                 addAll(loots);
             }}, null, SCEPTRE_LOTTERY.get(), false));
+
+    public static final RegistryObject<Item> SELL_ITEM = ITEMS.register("sell_item",
+            () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> BUY_ITEM = ITEMS.register("buy_item",
+            () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+
+
 }

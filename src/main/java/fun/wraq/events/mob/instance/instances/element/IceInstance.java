@@ -220,7 +220,8 @@ public class IceInstance extends NoTeamInstance {
                                     Te.m("对寒冷值低的玩家造成致命伤害", style), 0, 20, 10);
                         }
                     });
-                    ParticleProvider.createBallDisperseParticle(ModParticles.LONG_SKY.get(), (ServerLevel) level, mob.position(), 1, 40);
+                    ParticleProvider.createBallDisperseParticle(ModParticles.LONG_SKY.get(),
+                            (ServerLevel) level, mob.position(), 1, 40);
                 } // 迸晶裂玉
                 case 3 -> {
                     playerList.forEach(player -> {

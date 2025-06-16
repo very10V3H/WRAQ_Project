@@ -136,7 +136,7 @@ public class MobInfoGui extends Screen {
                         description.add(Te.m("  ").append(itemAndRate.getItemStack().getDisplayName())
                                 .append(Te.m(" * " + itemAndRate.getItemStack().getCount(), ChatFormatting.AQUA))
                                 .append(Te.m(" [", ChatFormatting.AQUA))
-                                .append(Te.m(BasicAttributeDescription.getDecimal(itemAndRate.getRate() * 100, 2) + "%"))
+                                .append(Te.m(BasicAttributeDescription.getDecimal(itemAndRate.getRate() * 100, 3) + "%"))
                                 .append(Te.m("]", ChatFormatting.AQUA)));
                     });
                     guiGraphics.renderComponentTooltip(fontRenderer, description, x, y);

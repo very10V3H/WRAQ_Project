@@ -76,7 +76,6 @@ public class WeeklyStorePools {
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.LAKE_RUNE.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.MINE_RUNE.get(), 8));
-            /*BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.FIELD_RUNE.get(), 8));*/
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.SNOW_RUNE.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.SKY_RUNE.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.EVOKER_RUNE.get(), 8));
@@ -106,11 +105,8 @@ public class WeeklyStorePools {
             BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.SOUL_FRAGMENT_POCKET.get(), 1));
             BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.LEATHER_POCKET.get(), 1));
             BASIC_MATERIAL_LIST.add(new ItemStack(MoontainItems.FALLING_SOUL_POCKET.get(), 1));
-            /*BASIC_MATERIAL_LIST.add(new ItemStack(BunkerItems.BUNKER_RUNE.get(), 8));*/
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.SAKURA_PETAL_POCKET.get(), 8));
             BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.SHIP_PIECE_POCKET.get(), 8));
-            /*BASIC_MATERIAL_LIST.add(new ItemStack(ModItems.WOLF_LEATHER_POCKET.get(), 8));*/
-            /*BASIC_MATERIAL_LIST.add(new ItemStack(MushroomItems.BROWN_MUSHROOM_POCKET.get(), 8));*/
         }
         return BASIC_MATERIAL_LIST;
     }

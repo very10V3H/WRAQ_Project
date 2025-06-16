@@ -62,6 +62,7 @@ import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.projectiles.mana.ManaArrow;
+import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
@@ -79,6 +80,7 @@ import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -1829,6 +1831,8 @@ public class Compute {
         NoTeamInstanceModule.onDead(player);
         AncientEchoGem.lastRecordSumMap.remove(player);
         AncientEchoGem.withstandDamageSumMap.remove(player);
+        BunkerArmor.onPlayerDead(player);
+        ColdData.addPlayerColdValue(player, -100);
     }
 
     public static void manaDamageExEffect(Player player, Mob mob, double damage) {
@@ -2209,8 +2213,7 @@ public class Compute {
                     .stream().filter(e -> e instanceof Player)
                     .map(e -> (Player) e)
                     .forEach(cause::causeDamage);
-        }), startTick, trigTick, startTick + lastTick);
-
+        }), startTick, trigTick, lastTick);
         // 制造粒子
         ParticleProvider.createSpaceEffectParticle(level, pos, radius,
                 100, style, lastTick + (startTick - Tick.get()));

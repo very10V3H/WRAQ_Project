@@ -48,6 +48,7 @@ import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import fun.wraq.render.hud.main.ItemAndExpGetHud;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
+import fun.wraq.series.crystal.CrystalScreen;
 import fun.wraq.series.events.dragonboat.DragonBoatStore;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import net.minecraft.client.Minecraft;
@@ -323,6 +324,7 @@ public class ClientPlayerTickEvent {
                     case 8 -> mc.setScreen(new FoodCoinStore());
                     case 9 -> mc.setScreen(new DragonBoatStore());
                     case 10 -> mc.setScreen(new TradeScreen(true, TradeListNew.WEEKLY_STORE_VILLAGER_NAME));
+                    case 11 -> mc.setScreen(new CrystalScreen());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

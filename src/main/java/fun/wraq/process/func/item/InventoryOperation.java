@@ -251,4 +251,15 @@ public class InventoryOperation {
         }
         return distinctAllEquipSlotItems;
     }
+
+    public static ItemStack findFirstItem(Player player, Item item) {
+        Inventory inventory = player.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack.is(item)) {
+                return stack;
+            }
+        }
+        return null;
+    }
 }

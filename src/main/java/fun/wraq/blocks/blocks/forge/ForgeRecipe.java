@@ -35,8 +35,10 @@ public class ForgeRecipe {
         ItemStack itemStack = event.getItemStack();
         Item item = itemStack.getItem();
         List<Component> tooltip = event.getToolTip();
+        boolean flag1 = recipes.containsKey(item);
+        boolean flag2 = ForgeEquipUtils.itemForgePlaceMap.containsKey(item);
         if (itemStack.getTagElement(Utils.MOD_ID) != null
-                && (itemStack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG))
+                && itemStack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG)
                 && recipes.containsKey(item) && ForgeEquipUtils.itemForgePlaceMap.containsKey(item)
                 && !Screen.hasControlDown() && !Screen.hasShiftDown()) {
             if (!Screen.hasAltDown()) {

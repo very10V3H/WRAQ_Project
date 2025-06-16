@@ -2,7 +2,7 @@ package fun.wraq.events.mob.jungle;
 
 import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob0SpawnController;
 import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob1SpawnController;
-import fun.wraq.series.overworld.newarea.stone.StoneSpiderKingSpawnController;
+import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderKingSpawnController;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;

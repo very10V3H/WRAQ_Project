@@ -92,7 +92,7 @@ public class CustomStyle {
     public static Style PRIMEVAL_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#fc9300"));
     public static Style DRAGON_BOAT_FES_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#6fc301"));
     public static Style SHIRO_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#ceecff"));
-    public static Style SILVER_DRAGON_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#ceecff"));
+    public static Style SILVER_DRAGON_STYLE = Style.EMPTY.withColor(TextColor.parseColor("#c87272"));
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
         return style.applyFormat(ChatFormatting.GRAY).withItalic(true).withBold(true);
@@ -734,5 +734,15 @@ public class CustomStyle {
     });
     public static final Rarity SHIRO_ITALIC_RARITY = Rarity.create("shiro_italic", style -> {
         return style.applyTo(CustomStyle.SHIRO_STYLE).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity SILVER_DRAGON_RARITY = Rarity.create("silver_dragon", style -> {
+        return style.applyTo(CustomStyle.SILVER_DRAGON_STYLE);
+    });
+    public static final Rarity SILVER_DRAGON_BOLD_RARITY = Rarity.create("silver_dragon_bold", style -> {
+        return style.applyTo(CustomStyle.SILVER_DRAGON_STYLE).withBold(true);
+    });
+    public static final Rarity SILVER_DRAGON_ITALIC_RARITY = Rarity.create("silver_dragon_italic", style -> {
+        return style.applyTo(CustomStyle.SILVER_DRAGON_STYLE).withBold(true).withItalic(true);
     });
 }

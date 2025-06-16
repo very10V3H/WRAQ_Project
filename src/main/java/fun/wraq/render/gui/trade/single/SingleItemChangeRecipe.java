@@ -3,6 +3,7 @@ package fun.wraq.render.gui.trade.single;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.item.FoodCoinStoreRecipe;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.events.dragonboat.DragonBoatStoreRecipe;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.ItemStack;
@@ -11,16 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleItemChangeRecipe {
-
+    public record VBSellOrBuy(boolean isSell, int price) {}
     public ItemStack needStack;
     public ItemStack goods;
     public String limitType;
     public int limitTimes;
-    public SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, String limitType, int limitTimes) {
+    public VBSellOrBuy vbSellOrBuy;
+    public SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, String limitType, int limitTimes,
+                                  VBSellOrBuy vbSellOrBuy) {
         this.needStack = needStack;
         this.goods = goods;
         this.limitType = limitType;
         this.limitTimes = limitTimes;
+        this.vbSellOrBuy = vbSellOrBuy;
+    }
+
+    public SingleItemChangeRecipe(ItemStack goods, VBSellOrBuy vbSellOrBuy) {
+        this(vbSellOrBuy.isSell
+                ? ModItems.SELL_ITEM.get().getDefaultInstance() : ModItems.BUY_ITEM.get().getDefaultInstance(),
+                goods, SingleItemChangePurchaseLimit.Type.NULL, 0, vbSellOrBuy);
+    }
+
+    public SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, String limitType, int limitTimes) {
+        this(needStack, goods, limitType, limitTimes, null);
     }
 
     public SingleItemChangeRecipe(ItemStack needStack, ItemStack goods) {
@@ -72,6 +86,7 @@ public class SingleItemChangeRecipe {
             recipeList.addAll(endlessCoreStoreRecipe);
             recipeList.addAll(FoodCoinStoreRecipe.recipes);
             recipeList.addAll(DragonBoatStoreRecipe.recipes);
+            recipeList.addAll(CrystalItem.getRecipes());
         }
         return recipeList;
     }

@@ -54,11 +54,12 @@ import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.cold.sc2.stray.SuperColdStraySpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
 import fun.wraq.series.overworld.divine.mob.common.GhastlyCreeperSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.GhastlyHuskSpawnController;
-import fun.wraq.series.overworld.newarea.stone.StoneSpiderSpawnController;
+import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
@@ -192,6 +193,7 @@ public class MobSpawn {
         overWolrdList.add(BunkerAttackMobSpawnController.getInstance(overWorld));
         overWolrdList.add(BunkerBlazeSpawnController.getInstance(overWorld));
         overWolrdList.add(StoneSpiderSpawnController.getInstance(overWorld));
+        overWolrdList.add(SuperColdStraySpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();

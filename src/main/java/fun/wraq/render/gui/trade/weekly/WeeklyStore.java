@@ -121,7 +121,7 @@ public class WeeklyStore {
                     .filter(recipe -> recipe.isSameRecipe(material, product))
                     .findAny().orElse(null);
             if (weeklyStoreRecipe == null) {
-                return false;
+                return true;
             }
             return WeeklyStorePlayerData
                     .getSpecificRecipeCount(player, weeklyStoreRecipe.toString()) < weeklyStoreRecipe.count;

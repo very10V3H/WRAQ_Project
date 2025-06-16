@@ -52,15 +52,25 @@ public class ColdSystem {
             }
             if (player.tickCount % 20 == 0) {
                 int coldLevel = getPlayerColdLevel(player);
+                int heatTier = getPlayerHeatTier(player);
+                if (heatTier > 0) {
+                    Compute.sendEffectLastTime(player, "item/bunker_curio", heatTier, true);
+                } else {
+                    Compute.removeEffectLastTime(player, "item/bunker_curio");
+                }
                 if (coldLevel > 0) {
+                    Compute.sendDebuffTime(player, "hud/cold", 8888, coldLevel, true);
                     if (player.getEffect(ModEffects.WARM.get()) != null) {
-                        if (coldLevel >= 2 && getPlayerHeatTier(player) < coldLevel - 1) {
+                        if (heatTier < coldLevel) {
                             ColdData.addPlayerColdValue(player, 1);
+                        } else {
+                            ColdData.addPlayerColdValue(player, -1);
                         }
                     } else {
                         ColdData.addPlayerColdValue(player, 1);
                     }
                 } else {
+                    Compute.removeDebuffTime(player, "hud/cold");
                     ColdData.addPlayerColdValue(player, -1);
                 }
             }
@@ -71,7 +81,7 @@ public class ColdSystem {
                     SpecialEffectOnPlayer.addHealingReduction(player, "coldEffect", Tick.s(2));
                     if (currentColdValue >= 75) {
                         Compute.decreasePlayerHealth(player,
-                                player.getMaxHealth() * currentColdValue == 100 ? 0.2 : 0.1,
+                                player.getMaxHealth() * (currentColdValue == 100 ? 0.2 : 0.1),
                                 Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
                     }
                 }
@@ -95,6 +105,9 @@ public class ColdSystem {
             if (armor.getItem() instanceof BunkerArmor bunkerArmor) {
                 tier += bunkerArmor.tier + 1;
             }
+        }
+        if (player.getEffect(ModEffects.WARM.get()) != null) {
+            ++tier;
         }
         return tier;
     }

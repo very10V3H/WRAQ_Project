@@ -392,6 +392,11 @@ public class ParticleProvider {
         });
     }
 
+    public static void createLineEffectParticle(Level level, LivingEntity start, LivingEntity end, Style style) {
+        ParticleProvider.createLineEffectParticle(level, (int) start.distanceTo(end) * 5,
+                start.getEyePosition(), end.getEyePosition(), style);
+    }
+
     public static void createLineSpaceEffectParticle(Level level, int num, Vec3 startVec, Vec3 endVec,
                                                      double spaceRange, Style style) {
         List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();

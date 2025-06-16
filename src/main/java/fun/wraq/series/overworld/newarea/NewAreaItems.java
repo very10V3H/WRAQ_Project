@@ -6,7 +6,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import fun.wraq.series.gems.WraqGem;
-import fun.wraq.series.overworld.newarea.stone.StoneSpiderKnife;
+import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderKnife;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -69,10 +69,4 @@ public class NewAreaItems {
                 add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 40));
             }}, CustomStyle.styleOfStone, Te.s("锋石锯齿", CustomStyle.styleOfStone),
                     ComponentUtils.getSuffixOfStoneSpider()));
-
-    public static final RegistryObject<Item> ORCHARD_FRUIT = ITEMS.register("orchard_fruit",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.ORCHARD_RARITY)));
-
-    public static final RegistryObject<Item> PRIMEVAL_FLUORITE = ITEMS.register("primeval_fluorite",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PRIMEVAL_RARITY)));
 }

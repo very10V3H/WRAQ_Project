@@ -6,6 +6,8 @@ import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.crystal.CrystalItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -42,6 +44,16 @@ public class SingleItemChangeC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
+            if (serverPlayer == null) {
+                return;
+            }
+            if (goods.is(CrystalItems.ORIGIN_STONE.get())) {
+                if (Compute.getCurrentVB(serverPlayer) < 5280000) {
+                    Compute.sendFormatMSG(serverPlayer, Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
+                            Te.s("需要至少拥有500w的保底资金才能进行赌石."));
+                    return;
+                }
+            }
             List<SingleItemChangeRecipe> recipeList = SingleItemChangeRecipe.getRecipeList();
             SingleItemChangeRecipe recipe = null;
             boolean containRecipe = false;
@@ -61,16 +73,40 @@ public class SingleItemChangeC2SPacket {
                 }
             }
             if (recipe != null) {
-                if (InventoryOperation.checkItemRemoveIfHas(serverPlayer, List.of(material))) {
-                    InventoryOperation.giveItemStack(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
-                    Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                            Te.s("完成了一笔交易!"));
-                    SingleItemChangePurchaseLimit.addTimes(serverPlayer, recipe);
-                    LogUtils.getLogger().info("村民 {} 使用 {} 购买了 {} ", Name.get(serverPlayer),
-                            material.getItem() + " * " + material.getCount(), goods.getItem());
+                if (recipe.vbSellOrBuy != null) {
+                    if (recipe.vbSellOrBuy.isSell()) {
+                        if (Compute.getCurrentVB(serverPlayer) >= recipe.vbSellOrBuy.price()) {
+                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                                    Te.s("完成了一笔交易!"));
+                            Compute.VBExpenseAndMSGSend(serverPlayer, recipe.vbSellOrBuy.price());
+                            InventoryOperation.giveItemStack(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
+                        } else {
+                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                                    Te.s("当前没有足够的VB用于购买!"));
+                        }
+                    } else {
+                        if (InventoryOperation.checkItemRemoveIfHas(serverPlayer,
+                                List.of(new ItemStack(goods.getItem(), goods.getCount())))) {
+                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                                    Te.s("成功出售了物品!"));
+                            Compute.VBIncomeAndMSGSend(serverPlayer, recipe.vbSellOrBuy.price());
+                        } else {
+                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                                    Te.s("背包中没有足够的物品用于出售!"));
+                        }
+                    }
                 } else {
-                    Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                            Te.s("所需的物品不足。"));
+                    if (InventoryOperation.checkItemRemoveIfHas(serverPlayer, List.of(material))) {
+                        InventoryOperation.giveItemStack(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
+                        Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                                Te.s("完成了一笔交易!"));
+                        SingleItemChangePurchaseLimit.addTimes(serverPlayer, recipe);
+                        LogUtils.getLogger().info("村民 {} 使用 {} 购买了 {} ", Name.get(serverPlayer),
+                                material.getItem() + " * " + material.getCount(), goods.getItem());
+                    } else {
+                        Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                                Te.s("所需的物品不足。"));
+                    }
                 }
             } else {
                 if (!containRecipe) {

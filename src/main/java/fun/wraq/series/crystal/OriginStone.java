@@ -32,6 +32,7 @@ public class OriginStone extends WraqItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+        components.add(Te.s("当拥有500w+VB时，才能购买/使用该物品."));
         components.add(Te.s("还未切开的宝石原石，右键切开概率获得:"));
         components.add(Te.s(" · 紫水晶", ChatFormatting.LIGHT_PURPLE, " 3%"));
         components.add(Te.s(" · 红宝石", ChatFormatting.RED, " 6%"));
@@ -64,34 +65,39 @@ public class OriginStone extends WraqItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            Compute.playerItemUseWithRecord(player);
-            int typeIndex;
-            int tierIndex;
-            double typeRandomNum = RandomUtils.nextDouble(0, 1);
-            typeIndex = getIndex(typeRandomNum);
-            double tierRandomNum = RandomUtils.nextDouble(0, 1);
-            tierIndex = getIndex(tierRandomNum);
-            Item crystal = CrystalItem.map.get(typeIndex).get(tierIndex);
-            InventoryOperation.giveItemStackWithMSG(player, crystal);
-            int singleProfit = (int) (Math.pow(2, typeIndex + tierIndex) - 7);
-            if (expiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
-                expiredTickMap.put(Name.get(player), Tick.get() + Tick.min(1));
-                valueMap.put(Name.get(player), singleProfit);
-                startRecordTimeMap.put(Name.get(player), Calendar.getInstance());
+            if (Compute.getCurrentVB(player) < 5000000) {
+                Compute.sendFormatMSG(player, Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
+                        Te.s("需要至少拥有500w的保底资金才能进行赌石."));
             } else {
-                expiredTickMap.put(Name.get(player), Tick.get() + Tick.min(1));
-                valueMap.compute(Name.get(player),
-                        (k, v) -> v == null ? singleProfit : v + singleProfit);
+                Compute.playerItemUseWithRecord(player);
+                int typeIndex;
+                int tierIndex;
+                double typeRandomNum = RandomUtils.nextDouble(0, 1);
+                typeIndex = getIndex(typeRandomNum);
+                double tierRandomNum = RandomUtils.nextDouble(0, 1);
+                tierIndex = getIndex(tierRandomNum);
+                Item crystal = CrystalItem.map.get(typeIndex).get(tierIndex);
+                InventoryOperation.giveItemStackWithMSG(player, crystal);
+                int singleProfit = (int) (Math.pow(2, typeIndex + tierIndex) - 7);
+                if (expiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
+                    expiredTickMap.put(Name.get(player), Tick.get() + Tick.min(1));
+                    valueMap.put(Name.get(player), singleProfit);
+                    startRecordTimeMap.put(Name.get(player), Calendar.getInstance());
+                } else {
+                    expiredTickMap.put(Name.get(player), Tick.get() + Tick.min(1));
+                    valueMap.compute(Name.get(player),
+                            (k, v) -> v == null ? singleProfit : v + singleProfit);
+                }
+                SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
+                Compute.sendFormatMSG(player, Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
+                        Te.s("自", tmpDate.format(startRecordTimeMap.get(Name.get(player)).getTime()),
+                                "开始的折合利润为: ", (valueMap.get(Name.get(player)) * 4) + "w",
+                                valueMap.get(Name.get(player)) >= 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
+                addProfit(player, singleProfit * 4);
+                Compute.sendFormatMSG(player, Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
+                        Te.s("当前总的折合利润为: ", getProfit(player) + "w",
+                                getProfit(player) >= 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
             }
-            SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
-            Compute.sendFormatMSG(player, Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
-                    Te.s("自", tmpDate.format(startRecordTimeMap.get(Name.get(player)).getTime()),
-                            "开始的折合利润为: ", (valueMap.get(Name.get(player)) * 4) + "w",
-                            valueMap.get(Name.get(player)) >= 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
-            addProfit(player, singleProfit * 4);
-            Compute.sendFormatMSG(player, Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
-                    Te.s("当前总的折合利润为: ", getProfit(player) + "w",
-                            getProfit(player) >= 0 ? ChatFormatting.GREEN : ChatFormatting.RED));
         }
         return super.use(level, player, interactionHand);
     }

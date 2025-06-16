@@ -1,11 +1,14 @@
-package fun.wraq.series.overworld.newarea.stone;
+package fun.wraq.series.overworld.cold.sc2.stone;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.jungle.JungleMobSpawnController;
+import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
@@ -17,6 +20,7 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
 
@@ -31,9 +35,9 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
     public static StoneSpiderKingSpawnController getInstance() {
         if (instance == null) {
             instance = new StoneSpiderKingSpawnController(Te.s(MOB_NAME, STYLE),
-                    new Vec3(903, 101, 2378),
+                    new Vec3(2182, 82, -3147),
                     new Vec3(916, 110, 2388),
-                    new Vec3(888, 64, 2358), XP_LEVEL, 48, Tick.min(3));
+                    new Vec3(2163, 69, -3167), XP_LEVEL, 48, Tick.min(3));
         }
         return instance;
     }
@@ -59,7 +63,7 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 200, 35, 35,
                 0.3, 2, 0.1, 3, 10,
                 4500, 0.3);
-        mob.moveTo(new Vec3(903, 101, 2378));
+        mob.moveTo(new Vec3(2182, 82, -3147));
         level.addFreshEntity(mob);
         mobs.add(mob);
     }
@@ -67,6 +71,19 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
     @Override
     public void handleMobTick(Mob mob) {
         Element.provideElement(mob, Element.stone, 8);
+        if (mob.tickCount % 100 == 99 && RandomUtils.nextDouble(0, 1) < 0.2) {
+            if (RandomUtils.nextBoolean()) {
+                StoneSpiderSpawnController.skill1(mob);
+            } else {
+                StoneSpiderSpawnController.skill2(mob);
+            }
+        }
+        if (mob.tickCount % 20 == 0) {
+            Compute.getNearPlayer(mob.level(), mob.position(), 16).forEach(player -> {
+                Damage.causeManaDamageToPlayer(mob, player, player.getMaxHealth() * 0.15);
+                ParticleProvider.createLineEffectParticle(mob.level(), mob, player, CustomStyle.styleOfStone);
+            });
+        }
         super.handleMobTick(mob);
     }
 

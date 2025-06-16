@@ -23,6 +23,7 @@ import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
+import fun.wraq.series.dragon.SilverDragonBloodWeapon;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.holy.ice.curio.IceHolyRune;
@@ -163,10 +164,12 @@ public class DamageInfluence {
         double rate = 1;
         rate += TowerMob.playerIsChallenging3FloorAndInFire(player) ? -0.5 : 0;
         rate -= TowerMob.playerIsChallenging5FloorDamageDecrease(player);
-        if (Tower.mobIsTowerMob(mob) != -1 && Tower.playerIsChallengingTower(player) != Tower.mobIsTowerMob(mob))
+        if (Tower.mobIsTowerMob(mob) != -1 && Tower.playerIsChallengingTower(player) != Tower.mobIsTowerMob(mob)) {
             return 0;
+        }
         if (MobSpawn.getMobOriginName(mob).contains("本源") && player.distanceTo(mob) >= 16) rate += -0.6;
         rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMonsterControlDamageEffect);
+        rate += SilverDragonBloodWeapon.getMobWithstandDamageRate(mob);
         return rate;
     }
 
