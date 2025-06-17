@@ -67,6 +67,14 @@ public abstract class JungleMobSpawnController {
             } else {
                 mobs.stream().filter(LivingEntity::isAlive)
                         .forEach(this::handleMobTick);
+                mobs.forEach(mob -> {
+                    if (mob != null && mob.isAlive()) {
+                        Player player = Compute.getNearestPlayer(mob, 32);
+                        if (player != null) {
+                            mob.setTarget(player);
+                        }
+                    }
+                });
             }
         }
     }

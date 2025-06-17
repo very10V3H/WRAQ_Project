@@ -60,9 +60,9 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
         Spider mob = new Spider(EntityType.SPIDER, level);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
         MobSpawn.setMobCustomName(mob, Te.s(name, STYLE), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 200, 35, 35,
-                0.3, 2, 0.1, 3, 10,
-                4500, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 24000, 1100, 1100,
+                0.4, 3, 0.6, 750, 25,
+                20 * Math.pow(10, 8), 0.45);
         mob.moveTo(new Vec3(2182, 82, -3147));
         level.addFreshEntity(mob);
         mobs.add(mob);
@@ -70,6 +70,9 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
 
     @Override
     public void handleMobTick(Mob mob) {
+        if (mob.isDeadOrDying()) {
+            return;
+        }
         Element.provideElement(mob, Element.stone, 8);
         if (mob.tickCount % 100 == 99 && RandomUtils.nextDouble(0, 1) < 0.2) {
             if (RandomUtils.nextBoolean()) {
@@ -84,6 +87,7 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
                 ParticleProvider.createLineEffectParticle(mob.level(), mob, player, CustomStyle.styleOfStone);
             });
         }
+        Compute.mobHealthRecover(mob, 0.02);
         super.handleMobTick(mob);
     }
 

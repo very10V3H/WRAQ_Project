@@ -8,6 +8,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.crystal.CrystalItems;
@@ -61,9 +62,17 @@ public class SilverDragonAssassinPickaxe extends WraqSword implements ActiveItem
         }
         ComponentUtils.descriptionActive(components, Te.s("刺杀", getMainStyle()));
         components.add(Te.s(" 位移至准星选定目标后"));
-        components.add(Te.s(" 下一次普通攻击倍率将调整为", "500%", CustomStyle.styleOfPower));
+        components.add(Te.s(" 下一次普通攻击倍率将调整为",
+                String.format("%.0f%%", (getRate() + 1) * 100), CustomStyle.styleOfPower));
         components.add(Te.s(" · 冷却时间 4s", ChatFormatting.AQUA));
         return components;
+    }
+
+    public double getRate() {
+        if (tier < 2) {
+            return 0;
+        }
+        return tier;
     }
 
     @Override
@@ -95,7 +104,7 @@ public class SilverDragonAssassinPickaxe extends WraqSword implements ActiveItem
             serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z,
                     yRot > 0 ? yRot - 180 : yRot + 180, -xRot);
             EnhanceNormalAttackModifier.addModifier(player,
-                    new EnhanceNormalAttackModifier("SilverDragonAssassinPickaxeActive", 4, 0));
+                    new EnhanceNormalAttackModifier("SilverDragonAssassinPickaxeActive", getRate(), 0));
             Compute.playerItemCoolDown(player, this, 4);
         }
     }
@@ -117,31 +126,35 @@ public class SilverDragonAssassinPickaxe extends WraqSword implements ActiveItem
         if (!baseEquip.is(Items.AIR)) {
             list.add(baseEquip);
         }
+        int times = 1;
+        if (piece1.equals(SpurItems.CROP_PIECE_1.get())) {
+            times = 4;
+        }
         switch (tier) {
             case 0 -> {
                 list.add(new ItemStack(CrystalItems.GREEN_CRYSTAL_A.get(), 3));
-                list.add(new ItemStack(piece1, 2));
+                list.add(new ItemStack(piece1, 2 * times));
             }
             case 1 -> {
                 list.add(new ItemStack(CrystalItems.BLUE_CRYSTAL_A.get(), 3));
-                list.add(new ItemStack(piece1, 4));
+                list.add(new ItemStack(piece1, 4 * times));
             }
             case 2 -> {
                 list.add(new ItemStack(CrystalItems.YELLOW_CRYSTAL_P.get()));
                 list.add(new ItemStack(CrystalItems.RED_CRYSTAL_C.get()));
-                list.add(new ItemStack(piece1, 8));
+                list.add(new ItemStack(piece1, 8 * times));
                 list.add(new ItemStack(SpecialEventItems.DRAGON_DIAMOND.get()));
             }
             case 3 -> {
                 list.add(new ItemStack(CrystalItems.RED_CRYSTAL_A.get()));
                 list.add(new ItemStack(CrystalItems.YELLOW_CRYSTAL_A.get()));
-                list.add(new ItemStack(piece1, 16));
+                list.add(new ItemStack(piece1, 16 * times));
                 list.add(new ItemStack(SpecialEventItems.DRAGON_DIAMOND.get(), 3));
             }
             case 4 -> {
                 list.add(new ItemStack(CrystalItems.PURPLE_CRYSTAL_A.get()));
                 list.add(new ItemStack(CrystalItems.RED_CRYSTAL_B.get()));
-                list.add(new ItemStack(piece1, 32));
+                list.add(new ItemStack(piece1, 32 * times));
                 list.add(new ItemStack(SpecialEventItems.DRAGON_DIAMOND.get(), 9));
             }
         }

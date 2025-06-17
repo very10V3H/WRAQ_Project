@@ -114,21 +114,19 @@ public abstract class WraqOffHandItem extends SwordItem {
 
     private void shieldDescription(Item item, List<Component> components) {
         if (Utils.shieldTag.containsKey(item)) {
-            ComponentUtils.descriptionPassive(components, Component.literal("坚盾").withStyle(CustomStyle.styleOfStone));
-            components.add(Te.s(" 手持近战武器", CustomStyle.styleOfPower, "时，", "提升", ChatFormatting.AQUA,
-                    ComponentUtils.AttributeDescription.defence("25%"),
-                    "与", ComponentUtils.AttributeDescription.manaDefence("25%")));
-            components.add(Te.m(" 并基于").
+            ComponentUtils.descriptionPassive(components, Te.s("坚盾", CustomStyle.styleOfStone));
+            components.add(Te.s(" 手持近战武器", CustomStyle.styleOfPower, "时:"));
+            components.add(Te.s(" · ", ComponentUtils.AttributeDescription.defence("+25%")));
+            components.add(Te.s(" · ", ComponentUtils.AttributeDescription.manaDefence("+25%")));
+            components.add(Te.m(" 基于").
                     append(ComponentUtils.AttributeDescription.defence("100%")).
                     append(Te.m("与")).
                     append(ComponentUtils.AttributeDescription.manaDefence("100%")).
                     append(Te.m("之和，在受击时提供等额")).
                     append(Te.m("直接伤害减免", CustomStyle.styleOfStone)));
-            Compute.DescriptionPassive(components, Component.literal("盾击").withStyle(CustomStyle.styleOfStone));
-            components.add(Component.literal(" 基于").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.defence("")).
-                    append(Component.literal("为你至多提供").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("75%近战攻击增幅").withStyle(CustomStyle.styleOfPower)));
+            Compute.DescriptionPassive(components, Te.s("盾击", CustomStyle.styleOfStone));
+            components.add(Te.s(" 基于", ComponentUtils.AttributeDescription.defence(""), "提供至多",
+                    "75%近战攻击增幅", CustomStyle.styleOfPower));
         }
     }
 }

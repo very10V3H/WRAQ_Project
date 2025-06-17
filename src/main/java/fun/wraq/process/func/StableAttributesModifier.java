@@ -50,6 +50,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentMaxHealth = new HashMap<>();
 
     public static Map<LivingEntity, List<StableAttributesModifier>> mobDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobManaDefenceModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentDefenceModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentManaDefenceModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobHealAmplifierModifier = new HashMap<>();

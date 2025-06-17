@@ -35,13 +35,13 @@ public class HuskEx1SpawnController extends MobSpawnController {
                     new Vec3(1067, 69, 334),
                     new Vec3(1106, 67, 324)
             );
-            instance = new HuskEx1SpawnController(spawnPos, spawnPos.size() * 2, world, 1, 84);
+            instance = new HuskEx1SpawnController(spawnPos, world, 1, 84);
         }
         return instance;
     }
 
-    public HuskEx1SpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, Level level, int mobPlayerRate, int averageLevel) {
-        super(Te.s("脆弱的岩灵", CustomStyle.styleOfHusk), canSpawnPos, oneZoneMaxMobNum, 16, level, mobPlayerRate, averageLevel,
+    public HuskEx1SpawnController(List<Vec3> canSpawnPos, Level level, int mobPlayerRate, int averageLevel) {
+        super(Te.s("脆弱的岩灵", CustomStyle.styleOfHusk), canSpawnPos,16, level, mobPlayerRate, averageLevel,
                 List.of(new Boundary(new Vec3(933, 1000, 415), new Vec3(760, -100, 289)),
                         new Boundary(new Vec3(1230, 1000, 453), new Vec3(1034, -100, 270))));
     }

@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -22,10 +23,15 @@ public class StoneSpiderKnife extends WraqSword implements OnHitEffectEquip {
     public StoneSpiderKnife(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
+        Utils.defencePenetration.put(this, 0.8);
     }
 
     public double getEffectRate() {
-        return new double[]{0.2, 0.25, 0.3, 0.4}[tier];
+        return new double[]{0, 0, 0.1, 0.25}[tier];
+    }
+
+    public int getPenetration0() {
+        return new int[]{0, 100, 200, 400}[tier];
     }
 
     @Override
@@ -36,10 +42,18 @@ public class StoneSpiderKnife extends WraqSword implements OnHitEffectEquip {
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Te.s(""));
-        components.add(Te.s(" 对怪物造成伤害时，可以",
-                "击碎" + String.format("%.0f%%", getEffectRate() * 100), getMainStyle(),
-                "怪物抗性与特殊抗性"));
+        if (tier < 1) {
+            return components;
+        }
+        ComponentUtils.descriptionPassive(components, Te.s("切割", getMainStyle()));
+        components.add(Te.s(" 对怪物造成伤害时，击碎其:"));
+        if (tier > 1) {
+            components.add(Te.s(" · ",
+                    getPenetration0(), "+", String.format("%.0f%%", getEffectRate() * 100) + "双抗", getMainStyle()));
+        } else {
+            components.add(Te.s(" · ", getPenetration0() + "双抗", getMainStyle()));
+        }
+        components.add(Te.s(" 效果持续8s."));
         return components;
     }
 
@@ -50,10 +64,16 @@ public class StoneSpiderKnife extends WraqSword implements OnHitEffectEquip {
 
     @Override
     public void onHit(Player player, Mob mob) {
-        StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentDefenceModifier,
-                "StoneSpiderKnife", getEffectRate(), Tick.get() + Tick.s(8),
-                "item/stone_spider_knife");
-        StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentManaDefenceModifier,
-                "StoneSpiderKnife", getEffectRate(), Tick.get() + Tick.s(8));
+        if (tier > 0) {
+            StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentDefenceModifier,
+                    "StoneSpiderKnifePercentDefencePenetration", -getEffectRate(), Tick.get() + Tick.s(8),
+                    "item/stone_spider_knife");
+            StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentManaDefenceModifier,
+                    "StoneSpiderKnifePercentManaPenetration", -getEffectRate(), Tick.get() + Tick.s(8));
+            StableAttributesModifier.addM(mob, StableAttributesModifier.mobDefenceModifier,
+                    "StoneSpiderKnifeDefencePenetration0", -getPenetration0(), Tick.get() + Tick.s(8));
+            StableAttributesModifier.addM(mob, StableAttributesModifier.mobManaDefenceModifier,
+                    "StoneSpiderKnifeManaPenetration0", -getPenetration0(), Tick.get() + Tick.s(8));
+        }
     }
 }

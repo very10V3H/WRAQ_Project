@@ -47,6 +47,10 @@ public class INaRiBow extends WraqBow implements ActiveItem {
         return CustomStyle.styleOfField;
     }
 
+    public double getArrowAttackDamageRate() {
+        return 0.2 + (tier - 1) * 0.05;
+    }
+
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
@@ -58,7 +62,8 @@ public class INaRiBow extends WraqBow implements ActiveItem {
         }
         ComponentUtils.descriptionActive(components, Te.s("稻荷神赋", getMainStyle()));
         components.add(Te.s(" 制造一片", "稻荷领域", getMainStyle()));
-        components.add(Te.s(" · ", "对范围内的敌方持续造成", "箭矢攻击伤害", CustomStyle.styleOfFlexible));
+        components.add(Te.s(" · ", "对范围内的敌方持续造成",
+                String.format("%.0f%%", getArrowAttackDamageRate() * 100) + "箭矢攻击伤害", CustomStyle.styleOfFlexible));
         components.add(Te.s(" · ", "对范围内的玩家提供", "治疗",
                 "与", ComponentUtils.getCommonDamageEnhance("25%")));
         components.add(Te.s(" · 冷却时间 8s", ChatFormatting.AQUA));
@@ -80,7 +85,7 @@ public class INaRiBow extends WraqBow implements ActiveItem {
             @Override
             public void operation(PersistentRangeEffect effect) {
                 effect.getRangeMob().forEach(mob -> {
-                    MyArrow.causeDamage(player, mob, 0.25);
+                    MyArrow.causeDamage(player, mob, getArrowAttackDamageRate());
                 });
                 effect.getRangePlayer().forEach(eachPlayer -> {
                     StableAttributesModifier.addM(eachPlayer,

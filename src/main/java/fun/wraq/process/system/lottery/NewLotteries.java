@@ -16,6 +16,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -48,6 +49,9 @@ public class NewLotteries extends Item {
         getRewardSerial.put(ModItems.SWORD_LOTTERY_1.get(), 2);
         getRewardSerial.put(ModItems.BOW_LOTTERY_1.get(), 2);
         getRewardSerial.put(ModItems.SCEPTRE_LOTTERY_1.get(), 2);
+        getRewardSerial.put(SilverDragonItems.SILVER_DRAGON_SWORD_LOTTERY.get(), 2);
+        getRewardSerial.put(SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(), 2);
+        getRewardSerial.put(SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(), 2);
     }
 
     public static Map<Item, Integer> getGetRewardSerial() {
@@ -64,6 +68,9 @@ public class NewLotteries extends Item {
         guaranteeTimes.put(ModItems.SWORD_LOTTERY_1.get(), 90);
         guaranteeTimes.put(ModItems.BOW_LOTTERY_1.get(), 90);
         guaranteeTimes.put(ModItems.SCEPTRE_LOTTERY_1.get(), 90);
+        guaranteeTimes.put(SilverDragonItems.SILVER_DRAGON_SWORD_LOTTERY.get(), 90);
+        guaranteeTimes.put(SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(), 90);
+        guaranteeTimes.put(SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(), 90);
     }
 
     public static Map<Item, Double> guaranteeRange = new HashMap<>();
@@ -75,6 +82,9 @@ public class NewLotteries extends Item {
         guaranteeRange.put(ModItems.SWORD_LOTTERY_1.get(), 0.01);
         guaranteeRange.put(ModItems.BOW_LOTTERY_1.get(), 0.01);
         guaranteeRange.put(ModItems.SCEPTRE_LOTTERY_1.get(), 0.01);
+        guaranteeRange.put(SilverDragonItems.SILVER_DRAGON_SWORD_LOTTERY.get(), 0.01);
+        guaranteeRange.put(SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(), 0.01);
+        guaranteeRange.put(SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(), 0.01);
     }
 
     public record Loot(ItemStack itemStack, double rate) {

@@ -1,5 +1,6 @@
 package fun.wraq.series.dragon;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.ComponentUtils;
@@ -16,12 +17,13 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class SilverDragonBloodSceptre extends WraqSceptre implements SilverDragonBloodWeapon {
+public class SilverDragonBloodSceptre extends WraqSceptre implements SilverDragonBloodWeapon, Decomposable {
 
     public final int tier;
     public SilverDragonBloodSceptre(Properties properties, int tier) {
         super(properties);
         Utils.xpLevelManaDamage.put(this, 20d);
+        Utils.percentManaDamageEnhance.put(this, 0.2);
         Utils.manaPenetration.put(this, 0.3);
         Utils.xpLevelManaPenetration0.put(this, 0.3);
         Utils.manaHealthSteal.put(this, 0.08);
@@ -78,5 +80,13 @@ public class SilverDragonBloodSceptre extends WraqSceptre implements SilverDrago
     @Override
     protected String getParticleType() {
         return StringUtils.ParticleTypes.Sea;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        if (tier > 0) {
+            return null;
+        }
+        return new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 3);
     }
 }

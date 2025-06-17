@@ -74,6 +74,7 @@ import fun.wraq.series.instance.mixture.WraqMixture;
 import fun.wraq.series.instance.quiver.WraqQuiver;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -175,6 +176,7 @@ public class ServerPlayerTickEvent {
             WoodSpur.handleTick(player);
             ColdSystem.handleTick(player);
             ModNetworking.sendToClient(new TimeS2CPacket(Compute.CalendarToString(Calendar.getInstance())), player);
+            MushroomParasitismGem.handlePlayerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

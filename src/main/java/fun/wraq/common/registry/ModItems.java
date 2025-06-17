@@ -1,29 +1,5 @@
 package fun.wraq.common.registry;
 
-import fun.wraq.items.dev.*;
-import fun.wraq.items.dev.equip.ManageBow;
-import fun.wraq.items.dev.equip.ManageSceptre;
-import fun.wraq.items.dev.equip.ManageSword;
-import fun.wraq.items.dev.rail.RailwayPillarSetTool;
-import fun.wraq.items.forge.ForgeEnhancePaper;
-import fun.wraq.items.forge.ForgeProtect;
-import fun.wraq.items.kill.KillPaper;
-import fun.wraq.items.misc.PocketItem;
-import fun.wraq.items.money.GoldCoinBag;
-import fun.wraq.items.lotteries.CommonLotteries;
-import fun.wraq.items.lotteries.ExpItem;
-import fun.wraq.items.lotteries.FantasyCurio;
-import fun.wraq.items.lotteries.UnCommonLotteries;
-import fun.wraq.items.m.BackSpawn;
-import fun.wraq.items.m.ForNew;
-import fun.wraq.items.m.Main0;
-import fun.wraq.items.mission.Daily;
-import fun.wraq.items.mission.IronLove;
-import fun.wraq.items.mob.MobArmor;
-import fun.wraq.items.ps.PsBottle;
-import fun.wraq.items.skill.ID_Card;
-import fun.wraq.items.ticket.TicketToSkyCity;
-import fun.wraq.items.money.UDisk;
 import fun.wraq.blocks.blocks.brew.*;
 import fun.wraq.blocks.blocks.brew.solidifiedSouls.*;
 import fun.wraq.common.Compute;
@@ -35,6 +11,32 @@ import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.instance.item.NetherHand;
 import fun.wraq.events.mob.instance.item.PlainNecklace;
 import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
+import fun.wraq.items.dev.BarrierSet;
+import fun.wraq.items.dev.ClearTree;
+import fun.wraq.items.dev.WaterSet;
+import fun.wraq.items.dev.equip.ManageBow;
+import fun.wraq.items.dev.equip.ManageSceptre;
+import fun.wraq.items.dev.equip.ManageSword;
+import fun.wraq.items.dev.rail.RailwayPillarSetTool;
+import fun.wraq.items.forge.ForgeEnhancePaper;
+import fun.wraq.items.forge.ForgeProtect;
+import fun.wraq.items.kill.KillPaper;
+import fun.wraq.items.lotteries.CommonLotteries;
+import fun.wraq.items.lotteries.ExpItem;
+import fun.wraq.items.lotteries.FantasyCurio;
+import fun.wraq.items.lotteries.UnCommonLotteries;
+import fun.wraq.items.m.BackSpawn;
+import fun.wraq.items.m.ForNew;
+import fun.wraq.items.m.Main0;
+import fun.wraq.items.misc.PocketItem;
+import fun.wraq.items.mission.Daily;
+import fun.wraq.items.mission.IronLove;
+import fun.wraq.items.mob.MobArmor;
+import fun.wraq.items.money.GoldCoinBag;
+import fun.wraq.items.money.UDisk;
+import fun.wraq.items.ps.PsBottle;
+import fun.wraq.items.skill.ID_Card;
+import fun.wraq.items.ticket.TicketToSkyCity;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
@@ -125,7 +127,6 @@ import fun.wraq.series.nether.power.MagmaPower;
 import fun.wraq.series.nether.power.PiglinPower;
 import fun.wraq.series.nether.power.WitherBoneMealPower;
 import fun.wraq.series.nether.power.WitherBonePower;
-import fun.wraq.series.overworld.cold.hunter.LeatherArmor;
 import fun.wraq.series.overworld.castle.BeaconBow;
 import fun.wraq.series.overworld.castle.BlazeSword;
 import fun.wraq.series.overworld.castle.TreeSceptre;
@@ -194,7 +195,10 @@ import fun.wraq.series.overworld.sakura.EarthMana.EarthManaCurios;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import fun.wraq.series.overworld.sakura.MineWorker.MinePants;
 import fun.wraq.series.overworld.sakura.MineWorker.PurpleIronArmor;
-import fun.wraq.series.overworld.sakura.SakuraMob.*;
+import fun.wraq.series.overworld.sakura.SakuraMob.SakuraArmorHelmet;
+import fun.wraq.series.overworld.sakura.SakuraMob.SakuraBow;
+import fun.wraq.series.overworld.sakura.SakuraMob.SakuraCore;
+import fun.wraq.series.overworld.sakura.SakuraMob.SakuraSword;
 import fun.wraq.series.overworld.sakura.Scarecrow.Wheat;
 import fun.wraq.series.overworld.sakura.Scarecrow.WheatChest;
 import fun.wraq.series.overworld.sakura.Ship.ShipBow;
@@ -908,7 +912,7 @@ public class ModItems {
                 Compute.sendEffectLastTimeByItemId(player, "phoenix_leather", 0, true);
                 EnhanceNormalAttackModifier.addModifier(player,
                         new EnhanceNormalAttackModifier("PHOENIX_LEATHER", true, 1, 1, (p, mob) -> {
-                            Compute.removeEffectLastTimeByItemId(p, "phoenix_leather" );
+                            Compute.removeEffectLastTimeByItemId(p, "phoenix_leather");
                         }));
             }));
 
@@ -1518,19 +1522,6 @@ public class ModItems {
             () -> new ExpItem(new Item.Properties().rarity(CustomStyle.Fantasy), 0.05, 0.1));
     public static final RegistryObject<Item> REVELATION_HEART = ITEMS.register("revelation_heart",
             () -> new ExpItem(new Item.Properties().rarity(CustomStyle.Fantasy), 0.9, 1.1));
-
-    public static final RegistryObject<Item> LEATHER_HELMET = ITEMS.register("leather_armor_helmet",
-            () -> new LeatherArmor(ModArmorMaterials.ArmorLeather, ArmorItem.Type.HELMET, 0));
-    public static final RegistryObject<Item> LEATHER_CHEST = ITEMS.register("leather_armor_chest",
-            () -> new LeatherArmor(ModArmorMaterials.ArmorLeather, ArmorItem.Type.CHESTPLATE, 1));
-    public static final RegistryObject<Item> LEATHER_LEGGINGS = ITEMS.register("leather_armor_leggings",
-            () -> new LeatherArmor(ModArmorMaterials.ArmorLeather, ArmorItem.Type.LEGGINGS, 2));
-    public static final RegistryObject<Item> LEATHER_BOOTS = ITEMS.register("leather_armor_boots",
-            () -> new LeatherArmor(ModArmorMaterials.ArmorLeather, ArmorItem.Type.BOOTS, 3));
-    public static final RegistryObject<Item> LEATHER_SOUL = ITEMS.register("leather_soul",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Ice)));
-    public static final RegistryObject<Item> LEATHER_RUNE = ITEMS.register("leather_rune",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.IceBold)));
 
     public static final RegistryObject<Item> MOB_ARMOR_ICE_HUNTER_HELMET = ITEMS.register("mob_armor_ice_hunter_helmet",
             () -> new MobArmor(ModArmorMaterials.ArmorLeather, ArmorItem.Type.HELMET, StringUtils.MobName.IceHunter));
@@ -3003,6 +2994,4 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> BUY_ITEM = ITEMS.register("buy_item",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-
-
 }

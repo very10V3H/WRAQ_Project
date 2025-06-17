@@ -317,7 +317,6 @@ public class LoginInEvent {
             Reason.sendReasonValuePacketToClient(player);
             MobKillEntrustment.sendPacketToClient(player);
             Guide.sendGuideCloseStatusToClient(player);
-            ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
             SkillV2.syncSkillV2Data(player);
             SkillV2.sendInfoToClient(player);
             SkillV2.afterVerUpdateLogin(player);
@@ -351,6 +350,9 @@ public class LoginInEvent {
             SevenShadePiece.sendDataToClient(player);
             DragonBoatFes.onLogin(player);
             WeeklyStorePlayerData.sendDataToClient(player);
+
+            // 更新检查，放在最后吧
+            ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
         }
     }
 

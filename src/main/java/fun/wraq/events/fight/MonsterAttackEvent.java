@@ -160,9 +160,29 @@ public class MonsterAttackEvent {
         CitadelGuardianInstance.playerWithstandDamage(player, monster);
     }
 
+    public static void causeCommonAttackToPlayer(Mob mob, Player player) {
+        player.setLastHurtByMob(mob);
+        double defencePenetration = MobAttributes.defencePenetration(mob);
+        double defencePenetration0 = MobAttributes.defencePenetration0(mob);
+        double critRate = MobAttributes.critRate(mob);
+        double critDamage = MobAttributes.critDamage(mob);
+        double baseDamage = MobAttributes.attackDamage(mob);
+        double exDamage = 0;
+        double playerDefence = PlayerAttributes.defence(player);
+        double CritDamageDecrease = PlayerAttributes.decreasePlayerCritDamage(player);
+        double finalDamage = ((baseDamage + exDamage) * CritDamage(critRate, critDamage, CritDamageDecrease) *
+                Damage.defenceDamageDecreaseRate(playerDefence, defencePenetration, defencePenetration0));
+        monsterAttack(mob, player, finalDamage);
+    }
+
     @SubscribeEvent
     public static void monsterAttackEvent(LivingAttackEvent event) {
         if (!event.getEntity().level().isClientSide) {
+            if (event.getEntity() instanceof Player player && event.getSource().getEntity() instanceof Mob monster
+                    && player.invulnerableTime == 0) {
+                event.setCanceled(true);
+                causeCommonAttackToPlayer(monster, player);
+            }
             if (event.getEntity() instanceof Civil civil && event.getSource().getEntity() instanceof Mob monster) {
                 event.setCanceled(true);
                 double damage = 0;
@@ -181,28 +201,6 @@ public class MonsterAttackEvent {
                 playerList.forEach(player -> {
                     ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
                 });
-            }
-
-            if (event.getEntity() instanceof Player player && event.getSource().getEntity() instanceof Mob monster
-                    && player.invulnerableTime == 0) {
-                event.setCanceled(true);
-                player.setLastHurtByMob(monster);
-
-                double defencePenetration = MobAttributes.defencePenetration(monster);
-                double defencePenetration0 = MobAttributes.defencePenetration0(monster);
-                double critRate = MobAttributes.critRate(monster);
-                double critDamage = MobAttributes.critDamage(monster);
-
-                double baseDamage = MobAttributes.attackDamage(monster);
-                double exDamage = 0;
-
-                double playerDefence = PlayerAttributes.defence(player);
-                double CritDamageDecrease = PlayerAttributes.decreasePlayerCritDamage(player);
-
-                double finalDamage = ((baseDamage + exDamage) * CritDamage(critRate, critDamage, CritDamageDecrease) *
-                        Damage.defenceDamageDecreaseRate(playerDefence, defencePenetration, defencePenetration0));
-
-                monsterAttack(monster, player, finalDamage);
             }
         }
     }

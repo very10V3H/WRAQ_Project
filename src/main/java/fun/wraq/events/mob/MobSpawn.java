@@ -78,6 +78,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import org.apache.commons.lang3.RandomUtils;
@@ -90,14 +91,15 @@ public class MobSpawn {
     public static void tick(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             int tick = Tick.get();
-
             if (event.level.dimension().equals(Level.OVERWORLD)) {
-                if (overWolrdList.isEmpty()) setOverWorldList(event.level);
+                if (overWolrdList.isEmpty()) {
+                    setOverWorldList(event.level);
+                }
                 overWolrdList.forEach(mobSpawnController -> {
-                    if (tick % 240 == overWolrdList.indexOf(mobSpawnController)) {
-                        mobSpawnController.detectAndSpawn();
+                    if (tick % Tick.s(36) == (overWolrdList.indexOf(mobSpawnController) % Tick.s(36))) {
+                        mobSpawnController.spawnFlag = true;
                     }
-                    mobSpawnController.tick();
+                    mobSpawnController.handleTick();
                 });
                 mountsMap.forEach((k, v) -> {
                     if (v.isRemoved()) {
@@ -113,24 +115,22 @@ public class MobSpawn {
                 mountsMap.entrySet()
                         .removeIf(entry -> entry.getKey().isDeadOrDying() && entry.getValue().isDeadOrDying());
             }
-
             if (event.level.dimension().equals(Level.NETHER)) {
                 if (netherList.isEmpty()) setNetherList(event.level);
                 netherList.forEach(mobSpawnController -> {
-                    if (tick % 240 == netherList.indexOf(mobSpawnController) + 50) {
-                        mobSpawnController.detectAndSpawn();
+                    if (tick % Tick.s(36) == ((netherList.indexOf(mobSpawnController) + 50) % Tick.s(36))) {
+                        mobSpawnController.spawnFlag = true;
                     }
-                    mobSpawnController.tick();
+                    mobSpawnController.handleTick();
                 });
             }
-
             if (event.level.dimension().equals(Level.END)) {
                 if (endList.isEmpty()) setEndList(event.level);
                 endList.forEach(mobSpawnController -> {
-                    if (tick % 240 == endList.indexOf(mobSpawnController) + 25) {
-                        mobSpawnController.detectAndSpawn();
+                    if (tick % Tick.s(36) == ((endList.indexOf(mobSpawnController) + 25) % Tick.s(36))) {
+                        mobSpawnController.spawnFlag = true;
                     }
-                    mobSpawnController.tick();
+                    mobSpawnController.handleTick();
                 });
             }
         }
@@ -288,6 +288,7 @@ public class MobSpawn {
             CompoundTag tag1 = new CompoundTag();
             tag1.putInt("color", style.getColor().getValue());
             tag.put("display", tag1);
+            itemStacks[i].enchant(Enchantments.UNBREAKING, 10);
             mob.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
     }

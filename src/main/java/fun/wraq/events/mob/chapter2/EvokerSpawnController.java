@@ -46,14 +46,14 @@ public class EvokerSpawnController extends MobSpawnController {
                     new Vec3(1473, 69, -318),
                     new Vec3(1433, 69, -309)
             );
-            instance = new EvokerSpawnController(spawnPos, spawnPos.size() * 2, 1649, -137, 1374, -381, world, 1, 56);
+            instance = new EvokerSpawnController(spawnPos, 1649, -137, 1374, -381, world, 1, 56);
         }
         return instance;
     }
 
-    public EvokerSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
+    public EvokerSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                  int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(Te.s("唤魔者", CustomStyle.styleOfMana), canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ,
+        super(Te.s("唤魔者", CustomStyle.styleOfMana), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ,
                 16, level, mobPlayerRate, averageLevel);
     }
 

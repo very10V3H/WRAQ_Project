@@ -2,6 +2,7 @@ package fun.wraq.process.system.vp;
 
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import net.minecraft.world.item.Item;
@@ -28,6 +29,9 @@ public class VpStore {
                         ModItems.SIMPLE_TIER_1_PAPER.get(),
                         ModItems.SIMPLE_TIER_2_PAPER.get(),
                         ModItems.SIMPLE_TIER_3_PAPER.get(),
+                        SilverDragonItems.SILVER_DRAGON_SWORD_LOTTERY.get(),
+                        SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(),
+                        SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(),
                         ModItems.SENIOR_POTION_SUPPLY.get(), ModItems.ORE_SUPPLY.get(),
                         ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get()
                 ));
@@ -73,6 +77,9 @@ public class VpStore {
             priceMap.put(ModItems.BOW_LOTTERY_1.get(), 5);
             priceMap.put(ModItems.SCEPTRE_LOTTERY.get(), 5);
             priceMap.put(ModItems.SCEPTRE_LOTTERY_1.get(), 5);
+            priceMap.put(SilverDragonItems.SILVER_DRAGON_SWORD_LOTTERY.get(), 5);
+            priceMap.put(SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(), 5);
+            priceMap.put(SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(), 5);
             priceMap.put(ModItems.SIMPLE_TIER_1_PAPER.get(), 68);
             priceMap.put(ModItems.SIMPLE_TIER_2_PAPER.get(), 168);
             priceMap.put(ModItems.SIMPLE_TIER_3_PAPER.get(), 298);
@@ -102,6 +109,9 @@ public class VpStore {
             worldSoul5PriceMap.put(ModItems.BOW_LOTTERY_1.get(), 40);
             worldSoul5PriceMap.put(ModItems.SCEPTRE_LOTTERY.get(), 40);
             worldSoul5PriceMap.put(ModItems.SCEPTRE_LOTTERY_1.get(), 40);
+            worldSoul5PriceMap.put(SilverDragonItems.SILVER_DRAGON_SWORD_LOTTERY.get(), 40);
+            worldSoul5PriceMap.put(SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(), 40);
+            worldSoul5PriceMap.put(SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(), 40);
             worldSoul5PriceMap.put(ModItems.GEM_PIECE.get(), 40);
         }
         return worldSoul5PriceMap;
@@ -115,6 +125,9 @@ public class VpStore {
             countMap.put(ModItems.SWORD_LOTTERY_1.get(), 1);
             countMap.put(ModItems.BOW_LOTTERY_1.get(), 1);
             countMap.put(ModItems.SCEPTRE_LOTTERY_1.get(), 1);
+            countMap.put(SilverDragonItems.SILVER_DRAGON_SWORD_LOTTERY.get(), 1);
+            countMap.put(SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(), 1);
+            countMap.put(SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(), 1);
             countMap.put(ModItems.SIMPLE_TIER_1_PAPER.get(), 1);
             countMap.put(ModItems.SIMPLE_TIER_2_PAPER.get(), 1);
             countMap.put(ModItems.SIMPLE_TIER_3_PAPER.get(), 1);

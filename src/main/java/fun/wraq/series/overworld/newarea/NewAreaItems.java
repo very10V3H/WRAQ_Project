@@ -35,38 +35,38 @@ public class NewAreaItems {
     public static final RegistryObject<Item> STONE_SPIDER_GEM_ATTACK_0
             = ITEMS.register("stone_spider_gem_attack_0",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.StoneBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 20));
+                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 15));
             }}, CustomStyle.styleOfStone, Te.s("锋石锯齿", CustomStyle.styleOfStone),
                     ComponentUtils.getSuffixOfStoneSpider()));
     public static final RegistryObject<Item> STONE_SPIDER_GEM_ATTACK_1
             = ITEMS.register("stone_spider_gem_attack_1",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.StoneBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 30));
+                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 35));
             }}, CustomStyle.styleOfStone, Te.s("锋石锯齿", CustomStyle.styleOfStone),
                     ComponentUtils.getSuffixOfStoneSpider()));
     public static final RegistryObject<Item> STONE_SPIDER_GEM_ATTACK_2
             = ITEMS.register("stone_spider_gem_attack_2",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.StoneBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 40));
+                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 80));
             }}, CustomStyle.styleOfStone, Te.s("锋石锯齿", CustomStyle.styleOfStone),
                     ComponentUtils.getSuffixOfStoneSpider()));
 
     public static final RegistryObject<Item> STONE_SPIDER_GEM_MANA_0
             = ITEMS.register("stone_spider_gem_mana_0",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.StoneBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 20));
+                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 15));
             }}, CustomStyle.styleOfStone, Te.s("锋石锯齿", CustomStyle.styleOfStone),
                     ComponentUtils.getSuffixOfStoneSpider()));
     public static final RegistryObject<Item> STONE_SPIDER_GEM_MANA_1
             = ITEMS.register("stone_spider_gem_mana_1",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.StoneBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 30));
+                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 35));
             }}, CustomStyle.styleOfStone, Te.s("锋石锯齿", CustomStyle.styleOfStone),
                     ComponentUtils.getSuffixOfStoneSpider()));
     public static final RegistryObject<Item> STONE_SPIDER_GEM_MANA_2
             = ITEMS.register("stone_spider_gem_mana_2",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.StoneBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 40));
+                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 80));
             }}, CustomStyle.styleOfStone, Te.s("锋石锯齿", CustomStyle.styleOfStone),
                     ComponentUtils.getSuffixOfStoneSpider()));
 }

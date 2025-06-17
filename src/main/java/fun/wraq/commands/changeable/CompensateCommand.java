@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 44;
+    public static int rewardNum = 45;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -28,11 +28,13 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
-            ItemStack itemStack = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 1);
-            InventoryOperation.giveItemStackWithMSG(player, itemStack);
-            Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                    Component.literal("你成功领取了补偿!").withStyle(ChatFormatting.AQUA));
-            MushroomInstance.bugCompensate(player);
+            if (player.experienceLevel >= 75) {
+                ItemStack itemStack = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 2);
+                InventoryOperation.giveItemStackWithMSG(player, itemStack);
+                Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                        Component.literal("你成功领取了补偿!").withStyle(ChatFormatting.AQUA));
+                MushroomInstance.bugCompensate(player);
+            }
             return 0;
         }
         Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),

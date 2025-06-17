@@ -30,24 +30,24 @@ public class BunkerArmor extends WraqArmor implements Decomposable, ForgeItem {
         super(armorMaterial, type, properties);
         this.tier = tier;
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, new double[]{0.015, 0.025}[tier]);
-            Utils.healthRecover.put(this, new double[]{200, 300}[tier]);
-            Utils.defence.put(this, new double[]{75d, 100d}[tier]);
-            Utils.manaDefence.put(this, new double[]{40d, 55d}[tier]);
+            Utils.percentHealthRecover.put(this, new double[]{0.012, 0.025}[tier]);
+            Utils.healthRecover.put(this, new double[]{140, 300}[tier]);
+            Utils.defence.put(this, new double[]{60, 100d}[tier]);
+            Utils.manaDefence.put(this, new double[]{30, 55d}[tier]);
         }
         if (type.equals(Type.CHESTPLATE)) {
-            Utils.defence.put(this, new double[]{150d, 200d}[tier]);
-            Utils.manaDefence.put(this, new double[]{80d, 110d}[tier]);
-            Utils.maxHealth.put(this, new double[]{30000, 40000d}[tier]);
+            Utils.defence.put(this, new double[]{100, 200d}[tier]);
+            Utils.manaDefence.put(this, new double[]{50, 110d}[tier]);
+            Utils.maxHealth.put(this, new double[]{21000, 40000d}[tier]);
         }
         if (type.equals(Type.LEGGINGS)) {
-            Utils.maxHealth.put(this, new double[]{60000, 80000d}[tier]);
-            Utils.defence.put(this, new double[]{75d, 100d}[tier]);
-            Utils.manaDefence.put(this, new double[]{40d, 60d}[tier]);
+            Utils.maxHealth.put(this, new double[]{42000, 80000d}[tier]);
+            Utils.defence.put(this, new double[]{60, 100d}[tier]);
+            Utils.manaDefence.put(this, new double[]{30, 60d}[tier]);
         }
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.16);
-            Utils.maxHealth.put(this, new double[]{30000, 40000d}[tier]);
+            Utils.maxHealth.put(this, new double[]{21000, 40000d}[tier]);
         }
         Utils.levelRequire.put(this, 225);
     }

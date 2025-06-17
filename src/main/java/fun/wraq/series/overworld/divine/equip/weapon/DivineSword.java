@@ -36,6 +36,8 @@ public class DivineSword extends WraqSword implements DivineWeaponCommon {
         Utils.critRate.put(this, 0.35);
         Utils.levelRequire.put(this, new int[]{230, 240, 250}[tier]);
         DivineWeaponCommon.weaponList.add(this);
+        Utils.maxHealth.put(this, 14000d);
+        Utils.coolDownDecrease.put(this, 0.33);
     }
 
     @Override

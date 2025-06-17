@@ -1996,7 +1996,7 @@
   "item.vmd.unknown_gem": "诡异宝石",
   "item.vmd.unknown_mushroom": "诡异菌菇",
   "item.vmd.parasitism_gem_mushroom": "寄生蘑菇",
-  "item.vmd.parasitism_gem_enhance_mushroom": "增强寄生蘑菇",
+  "item.vmd.parasitism_gem_enhanced_mushroom": "增强寄生蘑菇",
   "item.vmd.mushroom_curio": "哞菇印记",
   "item.vmd.mushroom_sputter_gem": "菌菇散孢宝石",
   "item.vmd.mushroom_parasitism_gem": "菌菇寄生宝石",
@@ -2249,7 +2249,8 @@
   "item.vmd.moontain_leather_pocket": "一袋望山魂革",
   "item.vmd.moontain_falling_soul_pocket": "一袋望山阁灵落",
 
-  "item.vmd.origin_stone": "原石",
+  "item.vmd.origin_stone": "宝石原石",
+  "item.vmd.origin_stone_discount": "宝石原石折扣券",
   "item.vmd.green_crystal_c": "普通的绿宝石",
   "item.vmd.green_crystal_b": "罕见的绿宝石",
   "item.vmd.green_crystal_a": "稀有的绿宝石",
@@ -2276,9 +2277,15 @@
   "item.vmd.purple_crystal_p": "千载难逢的紫宝石",
   "item.vmd.purple_crystal_pp": "万里挑一的紫宝石",
 
+  "item.vmd.silver_dragon_weapon_piece": "银龙武器碎片",
+
   "item.vmd.silver_dragon_blood_sword": "银龙血刃",
   "item.vmd.silver_dragon_blood_bow": "银龙血弓",
   "item.vmd.silver_dragon_blood_sceptre": "银龙血杖",
+
+  "item.vmd.silver_dragon_sword_lottery": "『龙牙』补给包",
+  "item.vmd.silver_dragon_bow_lottery": "『龙脊』补给包",
+  "item.vmd.silver_dragon_sceptre_lottery": "『龙息』补给包",
 
   "item.vmd.silver_dragon_assassin_pickaxe": "银龙刺客之击",
   "item.vmd.inari_bow": "稻荷神",

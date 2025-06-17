@@ -37,6 +37,7 @@ public class StableTierAttributeModifier {
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerCommonDamageEnhance = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerWithstandDamageReduce = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerMaxHealthExValue = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerPercentMaxHealthExValue = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> monsterWithstandDamageEnhance = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerExAttackDamage = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerAttackDamageEnhance = new HashMap<>();

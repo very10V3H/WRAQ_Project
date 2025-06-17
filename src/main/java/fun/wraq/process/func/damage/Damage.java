@@ -350,7 +350,7 @@ public class Damage {
 
         beforeCauseDamage(player, monster, totalDamage);
         causeDirectDamageToMob(player, monster, totalDamage);
-        Compute.playerHeal(player, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.1 * 0.33);
+        Compute.healByHealthSteal(player, monster, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.33);
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {

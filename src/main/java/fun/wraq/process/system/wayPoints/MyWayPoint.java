@@ -436,6 +436,9 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1376, 81, -272), "唤魔大师", colorMap.get(purple), CustomStyle.styleOfMana, 0));
         add(new MyWayPoint(new Vec3(1057, 80, -41), "玉林小饭店", colorMap.get(purple), CustomStyle.MUSHROOM_STYLE, 0));
         add(new MyWayPoint(new Vec3(1052, 80, -81), "玉林公共厨房", colorMap.get(purple), CustomStyle.MUSHROOM_STYLE, 0));
+        // 极寒地区
+        add(new MyWayPoint(new Vec3(2267, 100, -3182), "石岸蜘蛛刷怪点", colorMap.get(gray), CustomStyle.styleOfIce, 0));
+        add(new MyWayPoint(new Vec3(2210, 141, -3279), "极寒流浪者刷怪点", colorMap.get(blue), CustomStyle.styleOfIce, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

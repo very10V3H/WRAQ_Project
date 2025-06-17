@@ -975,22 +975,20 @@ public class PlayerAttributes {
         maxHealth += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.maxHealth);
         maxHealth += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxHealth);
         if (SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 800;
-
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
             maxHealth += vitalityAbilityPoint * 40;
         }
-
-        maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth, StringUtils.RandomCuriosAttribute.maxHealth); // 新版饰品属性加成
-
+        maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth,
+                StringUtils.RandomCuriosAttribute.maxHealth); // 新版饰品属性加成
         maxHealth += Compute.PassiveEquip.getAttribute(player, Utils.maxHealth); // 器灵属性加成
         maxHealth += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExMaxHealth);
         maxHealth += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExMaxHealth);
         maxHealth += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExMaxHealth);
         maxHealth += PlainArmor.exMaxHealth(player);
-        maxHealth += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerMaxHealthExValue);
+        maxHealth += StableTierAttributeModifier.getModifierValue(player,
+                StableTierAttributeModifier.playerMaxHealthExValue);
         maxHealth += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMaxHealth);
-
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1004,9 +1002,9 @@ public class PlayerAttributes {
         exRate += SevenShadePiece.getEnhanceValue(player, Utils.percentMaxHealthEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentMaxHealth);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentMaxHealthEnhance, false);
-
+        exRate += StableTierAttributeModifier.getModifierValue(player,
+                StableTierAttributeModifier.playerPercentMaxHealthExValue);
         maxHealth *= (1 + exRate);
-
         writeToCache(player, Utils.maxHealth, maxHealth);
         return maxHealth;
     }

@@ -200,15 +200,6 @@ public class SuitCount {
         return Math.min(count, 4);
     }
 
-    public static int getLeatherSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LEATHER_HELMET.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LEATHER_CHEST.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LEATHER_LEGGINGS.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LEATHER_BOOTS.get())) count++;
-        return count;
-    }
-
     public static int getPurpleIronSuitCount(Player player) {
         int count = 0;
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.PURPLE_IRON_HELMET.get())) count++;

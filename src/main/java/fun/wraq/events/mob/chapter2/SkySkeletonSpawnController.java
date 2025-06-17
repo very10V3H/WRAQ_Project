@@ -43,7 +43,7 @@ public class SkySkeletonSpawnController extends MobSpawnController {
                     new Vec3(941, 286, -4),
                     new Vec3(941, 289, 9)
             );
-            instance = new SkySkeletonSpawnController(spawnPos, spawnPos.size(), 954, 293, 18, 925, 279, -29, 0, 40,
+            instance = new SkySkeletonSpawnController(spawnPos, spawnPos.size() * 3, 954, 293, 18, 925, 279, -29, 0, 40,
                     world, 2, 60);
         }
         return instance;

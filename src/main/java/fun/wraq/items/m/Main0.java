@@ -1,10 +1,10 @@
 package fun.wraq.items.m;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
+import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.series.end.citadel.CitadelItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -61,7 +61,28 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            ModNetworking.sendToClient(new ScreenSetS2CPacket(11), player);
+            int total = 0;
+            int tier0 = 0;
+            int tier1 = 0;
+            int tier2 = 0;
+            int tier3 = 0;
+            for (BonusChestInfo value : BonusChestInfo.values()) {
+                ++total;
+                if (value.tier == 0) {
+                    ++tier0;
+                } else if (value.tier == 1) {
+                    ++tier1;
+                } else if (value.tier == 2) {
+                    ++tier2;
+                } else if (value.tier == 3) {
+                    ++tier3;
+                }
+            }
+            player.sendSystemMessage(Te.s("total:", total));
+            player.sendSystemMessage(Te.s("tier0:", tier0));
+            player.sendSystemMessage(Te.s("tier1:", tier1));
+            player.sendSystemMessage(Te.s("tier2:", tier2));
+            player.sendSystemMessage(Te.s("tier3:", tier3));
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

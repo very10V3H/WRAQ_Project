@@ -794,7 +794,7 @@ public class Compute {
     }
 
     public static void playerHeal(Player player, double num) {
-        if (num < 0) return;
+        if (num <= 0) return;
         double healNum = num * (PlayerAttributes.getHealingAmplification(player));
         if (AttackCurios5.onHealHealthRecover(player, healNum)) return;
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
@@ -809,19 +809,29 @@ public class Compute {
         mob.heal((float) healNum);
     }
 
+    public static void mobHealthRecover(Mob mob, double percent) {
+        if (mob.tickCount % 20 == 5) {
+            mobHeal(mob, mob.getMaxHealth() * percent);
+        }
+    }
+
     public static Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();
     public static void healByHealthSteal(Player player, Mob mob, double damage) {
         double rate = PlayerAttributes.healthSteal(player);
+        double distance = player.distanceTo(mob);
+        if (distance > 5) {
+            rate *= (1 - (Math.min(20, distance) - 5) / 15);
+        }
         if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)) {
             rate = Math.max(0, rate - 0.2);
         }
         double healNum = damage * rate * 0.1;
-        if (healNum > player.getMaxHealth() * 0.05) {
-            healNum = Math.min(healNum, player.getMaxHealth() * 0.05);
+        if (healNum > player.getMaxHealth() * 0.02) {
+            healNum = Math.min(healNum, player.getMaxHealth() * 0.02);
             if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
                 sendFormatMSG(player, Te.s("治疗承受", CustomStyle.styleOfHealth),
                         Te.s("单次生命偷取的数额将不会超过",
-                                ComponentUtils.AttributeDescription.maxHealth("5%")));
+                                ComponentUtils.AttributeDescription.maxHealth("2%")));
                 nextAllowSendMSGTickMap.put(Name.get(player), Tick.get() + Tick.min(10));
             }
         }
@@ -1935,6 +1945,15 @@ public class Compute {
                 .filter(entity -> entity instanceof Player)
                 .map(entity -> (Player) entity)
                 .collect(Collectors.toSet());
+    }
+
+    public static Player getNearestPlayer(LivingEntity livingEntity, double radius) {
+        return getNearPlayer(livingEntity.level(), livingEntity.position(), radius).stream().min(new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return (int) (o1.distanceTo(livingEntity) - o2.distanceTo(livingEntity));
+            }
+        }).orElse(null);
     }
 
     public static void sendMobEffectHudToNearPlayer(Mob mob, Item icon, String tag, int lastTick, int level, boolean forever) {

@@ -10,10 +10,13 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.crystal.CrystalItems;
+import fun.wraq.series.crystal.OriginStone;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -101,6 +104,16 @@ public abstract class RandomEvent {
                 players.forEach(player -> {
                     if (random.nextDouble() < 0.5) {
                         InventoryOperation.giveItemStack(player, new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get()));
+                    }
+                    if (random.nextDouble() < 0.25) {
+                        InventoryOperation.giveItemStackWithMSG(player,
+                                new ItemStack(CrystalItems.ORIGIN_STONE_DISCOUNT.get()));
+                    }
+                    if (random.nextDouble() < 0.01) {
+                        Item crystal = OriginStone.getCrystalRandomly();
+                        Compute.formatBroad(Te.s("随机事件", CustomStyle.styleOfFlexible),
+                                Te.s(player, "通过随机事件获得了 ", crystal));
+                        InventoryOperation.giveItemStackWithMSG(player, crystal);
                     }
                     rewardList.forEach(itemAndRate -> itemAndRate.sendWithMSG(player, 1));
                     if (randomAdditionalRewardEvent != null) {

@@ -4,6 +4,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.cooking.CookingValue;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.crystal.OriginStone;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Style;
@@ -28,6 +29,7 @@ public class TradeListNew {
         cooking();
         dragonBoat();
         weeklyStore();
+        OriginStone.setVillagerData();
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -190,4 +192,6 @@ public class TradeListNew {
                 "weeklyStore", CustomStyle.styleOfWorld, VillagerType.SAVANNA,
                 VillagerProfession.LIBRARIAN, List.of());
     }
+
+
 }

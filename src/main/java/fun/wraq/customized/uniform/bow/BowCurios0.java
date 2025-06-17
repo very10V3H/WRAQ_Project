@@ -66,8 +66,8 @@ public class BowCurios0 extends WraqBowUniformCurios {
     }
 
     public static double SwiftnessUp(Player player) {
-        if (!IsOn(player)) return 1;
-        if (activeLastTick > Tick.get()) return 1.15;
-        return 1;
+        if (!IsOn(player)) return 0;
+        if (activeLastTick > Tick.get()) return 0.15;
+        return 0;
     }
 }

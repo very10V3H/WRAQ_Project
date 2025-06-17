@@ -1,5 +1,6 @@
 package fun.wraq.events.mob;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import net.minecraft.network.chat.Component;
@@ -33,6 +34,7 @@ public abstract class MobSpawnController {
     public final double summonOffset;
     public List<Boundary> multiBoundaryList = new ArrayList<>();
     public int preventRefreshDistance = 8;
+    public boolean spawnFlag = false;
 
     public record Boundary(Vec3 upPos, Vec3 downPos) {
     }
@@ -40,7 +42,8 @@ public abstract class MobSpawnController {
     public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownY, int boundaryDownZ,
-                              double summonOffset, int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
+                              double summonOffset, int detectionRange, Level level,
+                              int mobPlayerRate, int averageLevel, int preventRefreshDistance) {
         this.canSpawnPos = canSpawnPos;
         this.oneZoneMaxMobNum = oneZoneMaxMobNum;
         this.boundaryUpX = boundaryUpX;
@@ -55,13 +58,34 @@ public abstract class MobSpawnController {
         this.mobPlayerRate = mobPlayerRate;
         this.averageLevel = averageLevel;
         this.mobName = mobName;
+        this.preventRefreshDistance = preventRefreshDistance;
+    }
+
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
+                              int boundaryUpX, int boundaryUpY, int boundaryUpZ,
+                              int boundaryDownX, int boundaryDownY, int boundaryDownZ,
+                              double summonOffset, int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
+        this(mobName, canSpawnPos, oneZoneMaxMobNum,
+                boundaryUpX, boundaryUpY, boundaryUpZ,
+                boundaryDownX, boundaryDownY, boundaryDownZ,
+                summonOffset, detectionRange, level,
+                mobPlayerRate, averageLevel, 8);
     }
 
     public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int boundaryUpX, int boundaryUpZ, int boundaryDownX, int boundaryDownZ,
-                              int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
+                              int detectionRange, Level level, int mobPlayerRate, int averageLevel,
+                              int preventRefreshDistance) {
         this(mobName, canSpawnPos, oneZoneMaxMobNum, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
-                boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 1, detectionRange,
+                boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 2, detectionRange,
+                level, mobPlayerRate, averageLevel, preventRefreshDistance);
+    }
+
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos,
+                              int boundaryUpX, int boundaryUpZ, int boundaryDownX, int boundaryDownZ,
+                              int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
+        this(mobName, canSpawnPos, canSpawnPos.size() * 3, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
+                boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 2, detectionRange,
                 level, mobPlayerRate, averageLevel);
     }
 
@@ -69,8 +93,8 @@ public abstract class MobSpawnController {
                               int boundaryUpX, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownZ,
                               Level level, int averageLevel) {
-        this(mobName, canSpawnPos, canSpawnPos.size() * 2, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
-                boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 1, 16,
+        this(mobName, canSpawnPos, canSpawnPos.size() * 3, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
+                boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 2, 16,
                 level, 1, averageLevel);
     }
 
@@ -78,8 +102,8 @@ public abstract class MobSpawnController {
                               int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownY, int boundaryDownZ,
                               Level level, int averageLevel) {
-        this(mobName, canSpawnPos, canSpawnPos.size() * 2, boundaryUpX, boundaryUpY, boundaryUpZ,
-                boundaryDownX, boundaryDownY, boundaryDownZ, 1, 16,
+        this(mobName, canSpawnPos, canSpawnPos.size() * 3, boundaryUpX, boundaryUpY, boundaryUpZ,
+                boundaryDownX, boundaryDownY, boundaryDownZ, 2, 16,
                 level, 1, averageLevel);
     }
 
@@ -87,97 +111,109 @@ public abstract class MobSpawnController {
                               int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownY, int boundaryDownZ,
                               int preventRefreshDistance, Level level, int averageLevel) {
-        this(mobName, canSpawnPos, canSpawnPos.size() * 2, boundaryUpX, boundaryUpY, boundaryUpZ,
-                boundaryDownX, boundaryDownY, boundaryDownZ, 1, 16,
+        this(mobName, canSpawnPos, canSpawnPos.size() * 3, boundaryUpX, boundaryUpY, boundaryUpZ,
+                boundaryDownX, boundaryDownY, boundaryDownZ, 2, 16,
                 level, 1, averageLevel);
         this.preventRefreshDistance = preventRefreshDistance;
     }
 
-    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos,
                               int detectionRange, Level level, int mobPlayerRate, int averageLevel,
                               List<Boundary> multiBoundaryList) {
-        this(mobName, canSpawnPos, oneZoneMaxMobNum, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
-                -Integer.MAX_VALUE, -Integer.MAX_VALUE, -Integer.MAX_VALUE, 1, detectionRange,
+        this(mobName, canSpawnPos, canSpawnPos.size() * 3,
+                Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
+                -Integer.MAX_VALUE, -Integer.MAX_VALUE, -Integer.MAX_VALUE, 2, detectionRange,
                 level, mobPlayerRate, averageLevel);
         this.multiBoundaryList = multiBoundaryList;
     }
 
-    public void detectAndSpawn() {
+    public void handleTick() {
         mobList.removeIf(mob -> !mob.isAlive());
-
-        if (this.level.getServer().getPlayerList().getPlayers().stream()
-                .anyMatch(player -> canSpawnPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 80))) {
-            // 若怪物越过边界 则将怪物随机传送至可重生地点
-            mobList.forEach(mob -> {
-                if (!multiBoundaryList.isEmpty()) {
-                    boolean mobIsInBoundary = false;
-                    for (Boundary boundary : multiBoundaryList) {
-                        if (mob.getX() > boundary.downPos.x && mob.getY() > boundary.downPos.y
-                                && mob.getZ() > boundary.downPos.z && mob.getX() < boundary.upPos.x
-                                && mob.getY() < boundary.upPos.y && mob.getZ() < boundary.upPos.z) {
-                            mobIsInBoundary = true;
-                            break;
+        mobList.forEach(mob -> {
+            if (mob != null && mob.isAlive()) {
+                Player player = Compute.getNearestPlayer(mob, 32);
+                if (player != null) {
+                    mob.setTarget(player);
+                }
+            }
+        });
+        if (spawnFlag) {
+            if (this.level.getServer().getPlayerList().getPlayers().stream()
+                    .anyMatch(player -> canSpawnPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 80))) {
+                spawnFlag = false;
+                // 若怪物越过边界 则将怪物随机传送至可重生地点
+                mobList.forEach(mob -> {
+                    if (!multiBoundaryList.isEmpty()) {
+                        boolean mobIsInBoundary = false;
+                        for (Boundary boundary : multiBoundaryList) {
+                            if (mob.getX() > boundary.downPos.x && mob.getY() > boundary.downPos.y
+                                    && mob.getZ() > boundary.downPos.z && mob.getX() < boundary.upPos.x
+                                    && mob.getY() < boundary.upPos.y && mob.getZ() < boundary.upPos.z) {
+                                mobIsInBoundary = true;
+                                break;
+                            }
                         }
-                    }
-                    if (!mobIsInBoundary) {
+                        if (!mobIsInBoundary) {
+                            mob.moveTo(canSpawnPos.get(new Random().nextInt(canSpawnPos.size())));
+                        }
+                    } else if (mob.getX() > boundaryUpX || mob.getX() < boundaryDownX
+                            || mob.getY() > boundaryUpY || mob.getY() < boundaryDownY
+                            || mob.getZ() > boundaryUpZ || mob.getZ() < boundaryDownZ) {
                         mob.moveTo(canSpawnPos.get(new Random().nextInt(canSpawnPos.size())));
                     }
-                } else if (mob.getX() > boundaryUpX || mob.getX() < boundaryDownX
-                        || mob.getY() > boundaryUpY || mob.getY() < boundaryDownY
-                        || mob.getZ() > boundaryUpZ || mob.getZ() < boundaryDownZ) {
-                    mob.moveTo(canSpawnPos.get(new Random().nextInt(canSpawnPos.size())));
-                }
-            });
-
-            // 怪物数量未超上限，则开始全部生成
-            if (this.mobList.size() < oneZoneMaxMobNum) {
-                // 对每个刷新点附近进行探测，若满足生成条件，则生成
-                canSpawnPos.forEach(pos -> {
-                    // 该点探测附近玩家列表
-                    List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
-                                    detectionRange * 2, detectionRange * 2, detectionRange * 2))
-                            .stream().filter(player -> player.position().distanceTo(pos) < detectionRange)
-                            .toList();
-                    // 玩家距离此刷新点距离小于指定格则不生成怪物
-                    if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < preventRefreshDistance))
-                        return;
-                    int summonTimes = 1;
-                    if (canSpawnPos.size() == 1) {
-                        summonTimes = 2 + playerList.size();
-                    }
-                    for (int i = 0; i < summonTimes; i++) {
-                        Mob mob = this.mobItemAndAttributeSet();
-                        DragonBoatFes.handleOnMobSpawn(mob);
-                        Random r = new Random();
-                        Vec3 offset = Vec3.ZERO;
-                        if (summonOffset > 0) {
-                            offset = new Vec3(
-                                    r.nextDouble(summonOffset) - summonOffset / 2,
-                                    r.nextDouble(summonOffset) - summonOffset / 2,
-                                    r.nextDouble(summonOffset) - summonOffset / 2
-                            );
-                        }
-                        mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
-                        this.mobList.add(mob);
-                        this.level.addFreshEntity(mob);
-
-                        LivingEntity mounts = getMounts();
-                        if (mounts != null) {
-                            mounts.moveTo(mob.position());
-                            level.addFreshEntity(mounts);
-                            mob.startRiding(mounts);
-                            MobSpawn.mountsMap.put(mounts, mob);
-                        }
-                    }
                 });
+
+                // 怪物数量未超上限，则开始全部生成
+                if (this.mobList.size() < oneZoneMaxMobNum) {
+                    // 对每个刷新点附近进行探测，若满足生成条件，则生成
+                    canSpawnPos.forEach(pos -> {
+                        // 该点探测附近玩家列表
+                        List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
+                                        detectionRange * 2, detectionRange * 2, detectionRange * 2))
+                                .stream().filter(player -> player.position().distanceTo(pos) < detectionRange)
+                                .toList();
+                        // 玩家距离此刷新点距离小于指定格则不生成怪物
+                        if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < preventRefreshDistance))
+                            return;
+                        int summonTimes = 3;
+                        if (canSpawnPos.size() == 1) {
+                            summonTimes = 3 + playerList.size();
+                        }
+                        for (int i = 0; i < summonTimes; i++) {
+                            Mob mob = this.mobItemAndAttributeSet();
+                            DragonBoatFes.handleOnMobSpawn(mob);
+                            Random r = new Random();
+                            Vec3 offset = Vec3.ZERO;
+                            if (summonOffset > 0) {
+                                offset = new Vec3(
+                                        r.nextDouble(summonOffset) - summonOffset / 2,
+                                        r.nextDouble(summonOffset) - summonOffset / 2,
+                                        r.nextDouble(summonOffset) - summonOffset / 2
+                                );
+                            }
+                            mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
+                            this.mobList.add(mob);
+                            this.level.addFreshEntity(mob);
+
+                            LivingEntity mounts = getMounts();
+                            if (mounts != null) {
+                                mounts.moveTo(mob.position());
+                                level.addFreshEntity(mounts);
+                                mob.startRiding(mounts);
+                                MobSpawn.mountsMap.put(mounts, mob);
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+                mobList.forEach(mob -> {
+                    mob.remove(Entity.RemovalReason.KILLED);
+                });
+                mobList.clear();
             }
         }
-        else {
-            mobList.forEach(mob -> {
-                mob.remove(Entity.RemovalReason.KILLED);
-            });
-            mobList.clear();
-        }
+        tick();
     }
 
     public LivingEntity getMounts() {

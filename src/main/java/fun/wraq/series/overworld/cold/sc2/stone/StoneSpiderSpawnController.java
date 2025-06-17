@@ -6,9 +6,9 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.struct.BlockAndResetTime;
+import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
@@ -56,8 +57,8 @@ public class StoneSpiderSpawnController extends MobSpawnController {
 
     public StoneSpiderSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                       int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s(mobName, style), canSpawnPos, 1, boundaryUpX, boundaryUpZ,
-                boundaryDownX, boundaryDownZ, 16, level, 1, averageLevel);
+        super(Te.s(mobName, style), canSpawnPos, canSpawnPos.size() * 3, boundaryUpX, boundaryUpZ,
+                boundaryDownX, boundaryDownZ, 32, level, 1, averageLevel, 24);
     }
 
     @Override
@@ -67,9 +68,9 @@ public class StoneSpiderSpawnController extends MobSpawnController {
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
-                9000, 600, 600,
-                0.4, 3, 0.6, 400, 25,
-                5000 * Math.pow(10, 4), 0.4);
+                14000, 850, 850,
+                0.4, 3, 0.6, 650, 25,
+                10000 * Math.pow(10, 4), 0.45);
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(mob), list);
@@ -79,10 +80,14 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
+            if (mob.isDeadOrDying()) {
+                return;
+            }
             Element.provideElement(mob, Element.stone, 8);
             if (mob.tickCount % 20 == (mobList.indexOf(mob) % 20)) {
                 commonAttack(mob);
             }
+            Compute.mobHealthRecover(mob, 0.02);
         });
     }
 
@@ -116,14 +121,16 @@ public class StoneSpiderSpawnController extends MobSpawnController {
 
     // 亡语:网拽
     public static void skill1(Mob mob) {
-        Compute.getNearPlayer(mob.level(), mob.position(), 16).forEach(player -> {
+        Player player = Compute.getNearestPlayer(mob, 24);
+        if (player != null) {
             Compute.causeGatherEffect(player, 10, mob.position());
-        });
+        }
     }
 
     // 亡语:束缚
     public static void skill2(Mob mob) {
-        Compute.getNearPlayer(mob.level(), mob.position(), 16).forEach(player -> {
+        Player player = Compute.getNearestPlayer(mob, 24);
+        if (player != null) {
             for (int i = 0; i < 3; i++ ) {
                 for (int j = 0; j < 3; j ++) {
                     BlockPos blockPos = player.blockPosition().west(1).south(1).east(i).north(j);
@@ -134,14 +141,15 @@ public class StoneSpiderSpawnController extends MobSpawnController {
                     }
                 }
             }
-        });
+        }
     }
 
     // 普通毒液攻击
     public void commonAttack(Mob mob) {
-        Compute.getNearPlayer(mob.level(), mob.position(), 16).forEach(player -> {
-            Damage.causeManaDamageToPlayer(mob, player, player.getMaxHealth() * 0.03);
+        Player player = Compute.getNearestPlayer(mob, 24);
+        if (player != null) {
+            MonsterAttackEvent.causeCommonAttackToPlayer(mob, player);
             ParticleProvider.createLineEffectParticle(mob.level(), mob, player, CustomStyle.styleOfStone);
-        });
+        }
     }
 }

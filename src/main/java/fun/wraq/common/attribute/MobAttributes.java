@@ -62,6 +62,7 @@ public class MobAttributes {
         exDefence += defence * EarthPower.MobManaDefenceDecrease(monster); // 地蕴法术
         exDefence += TowerMob.mobManaDefenceUp(monster);
         exDefence += StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.manaDefence);
+        exDefence += StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobManaDefenceModifier);
 
         if (Utils.MobSpringManaTick.containsKey(monster) && Utils.MobSpringManaTick.get(monster) > tick)
             rate *= (1 - Utils.SpringEffect[Utils.MobSpringManaEffect.get(monster) - 1]);

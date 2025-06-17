@@ -6,8 +6,6 @@ import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.crystal.CrystalItems;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -46,13 +44,6 @@ public class SingleItemChangeC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
             if (serverPlayer == null) {
                 return;
-            }
-            if (goods.is(CrystalItems.ORIGIN_STONE.get())) {
-                if (Compute.getCurrentVB(serverPlayer) < 5280000) {
-                    Compute.sendFormatMSG(serverPlayer, Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
-                            Te.s("需要至少拥有500w的保底资金才能进行赌石."));
-                    return;
-                }
             }
             List<SingleItemChangeRecipe> recipeList = SingleItemChangeRecipe.getRecipeList();
             SingleItemChangeRecipe recipe = null;

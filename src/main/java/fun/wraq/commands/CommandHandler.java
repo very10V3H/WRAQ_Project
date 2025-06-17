@@ -16,6 +16,7 @@ import fun.wraq.process.system.cooking.CookingOperationCommand;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
 import fun.wraq.process.system.estate.*;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
+import fun.wraq.series.crystal.CrystalOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -801,6 +802,15 @@ public class CommandHandler {
                                 Commands.argument("count", IntegerArgumentType.integer())
                                         .executes(WeeklyStoreIssueCountCommand.instance)
                         )
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher88 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd88 = dispatcher88.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("crystal").then(
+                                Commands.argument("operation", StringArgumentType.string())
+                                        .executes(CrystalOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
     }

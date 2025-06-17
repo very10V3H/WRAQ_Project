@@ -31,6 +31,8 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
         Utils.critRate.put(this, 0.35);
         Utils.critDamage.put(this, 0.05);
         Utils.levelRequire.put(this, 225);
+        Utils.maxHealth.put(this, 10000d);
+        Utils.coolDownDecrease.put(this, 0.28);
     }
 
     @Override

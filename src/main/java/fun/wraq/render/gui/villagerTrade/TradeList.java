@@ -17,6 +17,8 @@ import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.spur.Items.mine.SilverDragonAssassinPickaxe;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.crystal.CrystalItems;
+import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
@@ -99,7 +101,6 @@ public class TradeList {
         forgeMaster();
         SoulEquipment();
         PurpleIron();
-        Ice();
         BossItem();
         NetherBow();
         NetherSwordModel();
@@ -546,6 +547,9 @@ public class TradeList {
 
     public static void SoulEquipment() {
         ItemStack kanupusWingF = new ItemStack(ExtraordinaryItems.KANUPUS_WING_F.get());
+        ItemStack silverDragonBloodSword = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD.get());
+        ItemStack silverDragonBloodBow = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_BOW.get());
+        ItemStack silverDragonBloodSceptre = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE.get());
         ItemStack[] itemStacks = {
                 ModItems.WORLD_SOUL_NOTE.get().getDefaultInstance(),
                 ModItems.SOUL_SWORD.get().getDefaultInstance(),
@@ -565,7 +569,8 @@ public class TradeList {
                 ExtraordinaryItems.NAN_HAI_A.get().getDefaultInstance(),
                 ExtraordinaryItems.NAN_HAI_M.get().getDefaultInstance(),
                 ExtraordinaryItems.TONG_TIAN.get().getDefaultInstance(),
-                kanupusWingF
+                kanupusWingF,
+                silverDragonBloodSword, silverDragonBloodBow, silverDragonBloodSceptre
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -592,6 +597,15 @@ public class TradeList {
                 new ItemStack(ModItems.REPUTATION_MEDAL.get(), 64),
                 new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get(), 64),
                 new ItemStack(ModItems.MILLION_MONEY.get(), 1)
+        ));
+        tradeRecipeMap.put(silverDragonBloodSword, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 3)
+        ));
+        tradeRecipeMap.put(silverDragonBloodBow, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 3)
+        ));
+        tradeRecipeMap.put(silverDragonBloodSceptre, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 3)
         ));
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
@@ -665,40 +679,6 @@ public class TradeList {
             }
         }
 
-    }
-
-    public static void Ice() {
-        ItemStack[] itemStacks = {
-                ModItems.LEATHER_RUNE.get().getDefaultInstance(),
-                ModItems.LEATHER_HELMET.get().getDefaultInstance(),
-                ModItems.LEATHER_CHEST.get().getDefaultInstance(),
-                ModItems.LEATHER_LEGGINGS.get().getDefaultInstance(),
-                ModItems.LEATHER_BOOTS.get().getDefaultInstance(),
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.Ice, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LEATHER_SOUL.get(), 64));
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 10));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LEATHER_RUNE.get(), 5));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LEATHER_RUNE.get(), 8));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LEATHER_RUNE.get(), 7));
-                }});
-                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LEATHER_RUNE.get(), 4));
-                }});
-            }
-        }
     }
 
     public static void BossItem() {
@@ -2851,6 +2831,11 @@ public class TradeList {
         ItemStack bunkerRune = new ItemStack(BunkerItems.BUNKER_RUNE.get());
         ItemStack bunkerBossRune = new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get());
 
+        ItemStack bunkerHelmet = new ItemStack(BunkerItems.BUNKER_HELMET_0.get());
+        ItemStack bunkerChest = new ItemStack(BunkerItems.BUNKER_CHEST_0.get());
+        ItemStack bunkerLeggings = new ItemStack(BunkerItems.BUNKER_LEGGINGS_0.get());
+        ItemStack bunkerBoots = new ItemStack(BunkerItems.BUNKER_BOOTS_0.get());
+
         ItemStack bunkerAttackCrest0 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_0.get());
         ItemStack bunkerAttackCrest1 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_1.get());
         ItemStack bunkerAttackCrest1_E = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_1.get());
@@ -2872,6 +2857,8 @@ public class TradeList {
         ItemStack bunkerManaCrest4_E = new ItemStack(BunkerItems.BUNKER_MANA_CREST_4.get());
         ItemStack[] itemStacks = {
                 bunkerRune, bunkerBossRune,
+                bunkerHelmet, bunkerChest,
+                bunkerLeggings, bunkerBoots,
                 bunkerAttackCrest0,
                 bunkerAttackCrest1, bunkerAttackCrest1_E,
                 bunkerAttackCrest2, bunkerAttackCrest2_E,
@@ -2895,6 +2882,15 @@ public class TradeList {
                 List.of(new ItemStack(BunkerItems.BUNKER_BOSS_SOUL.get(), 15),
                         new ItemStack(ModItems.EARTH_MANA_RUNE.get(), 1),
                         new ItemStack(ModItems.BLOOD_MANA_RUNE.get(), 1)));
+
+        tradeRecipeMap.put(bunkerHelmet,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
+        tradeRecipeMap.put(bunkerChest,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
+        tradeRecipeMap.put(bunkerLeggings,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
+        tradeRecipeMap.put(bunkerBoots,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
 
         tradeRecipeMap.put(bunkerAttackCrest0,
                 List.of(new ItemStack(ModItems.VOLCANO_CREST_0.get(), 4),
@@ -3039,6 +3035,7 @@ public class TradeList {
     }
 
     public static void stoneSpider() {
+        ItemStack stoneSpiderRune = new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get());
         ItemStack stoneSpiderKnife1 = new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_1.get());
         ItemStack stoneSpiderKnife2 = new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_2.get());
         ItemStack stoneSpiderKnife3 = new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_3.get());
@@ -3047,6 +3044,7 @@ public class TradeList {
         ItemStack stoneSpiderGemMana1 = new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_1.get());
         ItemStack stoneSpiderGemMana2 = new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_2.get());
         ItemStack[] itemStacks = {
+                stoneSpiderRune,
                 stoneSpiderKnife1, stoneSpiderKnife2, stoneSpiderKnife3,
                 stoneSpiderGemAttack1, stoneSpiderGemAttack2,
                 stoneSpiderGemMana1, stoneSpiderGemMana2
@@ -3055,27 +3053,45 @@ public class TradeList {
         Collections.addAll(contentList, itemStacks);
         MyVillagerData.setMyVillagerData("石岸蜘蛛兑换", "stoneSpider",
                 CustomStyle.styleOfStone, VillagerType.PLAINS, VillagerProfession.WEAPONSMITH, contentList);
+        tradeRecipeMap.put(stoneSpiderRune,
+                List.of(new ItemStack(NewAreaItems.STONE_SPIDER_PIECE.get(), 32),
+                        new ItemStack(ModItems.VOLCANO_RUNE.get())));
         tradeRecipeMap.put(stoneSpiderKnife1,
                 List.of(new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_0.get(), 1),
-                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 5),
+                        new ItemStack(CrystalItems.GREEN_CRYSTAL_B.get(), 4)));
         tradeRecipeMap.put(stoneSpiderKnife2,
                 List.of(new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_1.get(), 1),
-                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 12),
+                        new ItemStack(CrystalItems.BLUE_CRYSTAL_B.get(), 4),
+                        new ItemStack(CrystalItems.GREEN_CRYSTAL_C.get(), 4)));
         tradeRecipeMap.put(stoneSpiderKnife3,
                 List.of(new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_2.get(), 1),
-                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 20),
+                        new ItemStack(CrystalItems.YELLOW_CRYSTAL_B.get(), 4),
+                        new ItemStack(CrystalItems.BLUE_CRYSTAL_C.get(), 4)));
         tradeRecipeMap.put(stoneSpiderGemAttack1,
                 List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_ATTACK_0.get(), 1),
-                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 16),
+                        new ItemStack(CrystalItems.BLUE_CRYSTAL_A.get()),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 16)));
         tradeRecipeMap.put(stoneSpiderGemAttack2,
                 List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_ATTACK_1.get(), 1),
-                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 24),
+                        new ItemStack(CrystalItems.YELLOW_CRYSTAL_A.get()),
+                        new ItemStack(CrystalItems.BLUE_CRYSTAL_B.get(), 4),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 32)));
         tradeRecipeMap.put(stoneSpiderGemMana1,
                 List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_0.get(), 1),
-                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 16),
+                        new ItemStack(CrystalItems.BLUE_CRYSTAL_A.get()),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 16)));
         tradeRecipeMap.put(stoneSpiderGemMana2,
                 List.of(new ItemStack(NewAreaItems.STONE_SPIDER_GEM_MANA_1.get(), 1),
-                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 64)));
+                        new ItemStack(NewAreaItems.STONE_SPIDER_RUNE.get(), 24),
+                        new ItemStack(CrystalItems.YELLOW_CRYSTAL_A.get()),
+                        new ItemStack(CrystalItems.BLUE_CRYSTAL_B.get(), 4),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 32)));
     }
 
     public static void labourDay() {

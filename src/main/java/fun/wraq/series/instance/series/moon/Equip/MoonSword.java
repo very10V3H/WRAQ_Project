@@ -43,6 +43,8 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         Utils.critRate.put(this, 0.3);
         this.activeRate = activeRate;
         Utils.levelRequire.put(this, 160);
+        Utils.maxHealth.put(this, 8000d);
+        Utils.coolDownDecrease.put(this, 0.15);
         this.tier = tier;
     }
 

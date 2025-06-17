@@ -3,8 +3,14 @@ package fun.wraq.render.gui.illustrate;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
+import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.series.crystal.CrystalItems;
+import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.overworld.cold.sc2.SuperColdItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
+import fun.wraq.series.overworld.newarea.NewAreaItems;
+import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -82,20 +88,27 @@ public class Display {
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
             newItemList.addAll(List.of(
-                    SpecialEventItems.ZONG_LEAF.get(),
-                    SpecialEventItems.SWEET_ZONG_ZI.get(),
-                    SpecialEventItems.MEAT_ZONG_ZI.get(),
-                    SpecialEventItems.GOLDEN_ZONG_ZI_CONDIMENT.get(),
-                    SpecialEventItems.GOLDEN_ZONG_LEAF.get(),
-                    SpecialEventItems.GOLDEN_ZONG_ZI.get(),
-                    SpecialEventItems.DRAGON_BOAT_FES_PREFIX.get(),
-                    SpecialEventItems.SEVEN_SHADE_PIECE_RICE.get(),
-                    SpecialEventItems.SEVEN_SHADE_PIECE_GOLDEN_LEAF.get(),
-                    SpecialEventItems.SEVEN_SHADE_PIECE_DRAGON_BOAT.get(),
-                    SpecialEventItems.DRAGON_BOAT_FES_FORGE_PAPER.get(),
-                    SpecialEventItems.DRAGON_DIAMOND.get(),
-                    ExtraordinaryItems.KANUPUS_WING_F.get()
+                    SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_A.get(),
+                    SpurItems.INARI_BOW_A.get(),
+                    SpurItems.DEEP_SEA_LEGENDARY_A.get(),
+                    NewAreaItems.STONE_SPIDER_KNIFE_3.get(),
+                    NewAreaItems.STONE_SPIDER_GEM_ATTACK_2.get(),
+                    NewAreaItems.STONE_SPIDER_GEM_MANA_2.get(),
+                    ExtraordinaryItems.KANUPUS_SWORD.get(),
+                    ExtraordinaryItems.SHIRO_BOW.get(),
+                    ExtraordinaryItems.NETHER_SCEPTRE_EX.get(),
+                    SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD.get(),
+                    SilverDragonItems.SILVER_DRAGON_BLOOD_BOW.get(),
+                    SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE.get(),
+                    BunkerItems.BUNKER_HELMET_1.get(),
+                    BunkerItems.BUNKER_CHEST_1.get(),
+                    BunkerItems.BUNKER_LEGGINGS_1.get(),
+                    BunkerItems.BUNKER_BOOTS_1.get(),
+                    SuperColdItems.FLOWER.get()
             ));
+            for (RegistryObject<Item> entry : CrystalItems.ITEMS.getEntries()) {
+                newItemList.add(entry.get());
+            }
         }
         return newItemList;
     }

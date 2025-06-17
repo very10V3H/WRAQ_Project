@@ -1,5 +1,6 @@
 package fun.wraq.series.dragon;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -12,12 +13,13 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class SilverDragonBloodBow extends WraqBow implements SilverDragonBloodWeapon {
+public class SilverDragonBloodBow extends WraqBow implements SilverDragonBloodWeapon, Decomposable {
 
     public final int tier;
     public SilverDragonBloodBow(Properties properties, int tier) {
         super(properties);
         Utils.xpLevelAttackDamage.put(this, 10d);
+        Utils.percentAttackDamageEnhance.put(this, 0.2);
         Utils.defencePenetration.put(this, 0.3);
         Utils.xpLevelDefencePenetration0.put(this, 0.3);
         Utils.critRate.put(this, 0.35);
@@ -63,5 +65,13 @@ public class SilverDragonBloodBow extends WraqBow implements SilverDragonBloodWe
     @Override
     public void tick(Player player) {
         SilverDragonBloodWeapon.handleTick(player);
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        if (tier > 0) {
+            return null;
+        }
+        return new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 3);
     }
 }

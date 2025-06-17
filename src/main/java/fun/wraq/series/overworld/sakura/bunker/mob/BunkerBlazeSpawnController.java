@@ -47,7 +47,7 @@ public class BunkerBlazeSpawnController extends MobSpawnController {
 
     public BunkerBlazeSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                       int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s(mobName, style), canSpawnPos, 1, boundaryUpX, boundaryUpZ,
+        super(Te.s(mobName, style), canSpawnPos, boundaryUpX, boundaryUpZ,
                 boundaryDownX, boundaryDownZ, 16, level, 1, averageLevel);
     }
 

@@ -50,7 +50,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
         components.add(Te.s(" 每过3s，切换一次", "明暗效果", getMainStyle()));
         components.add(Te.s(" 明:", CustomStyle.styleOfSunIsland, "提供持续3s的"));
         components.add(Te.s(" 1.", ComponentUtils.AttributeDescription.swiftness("10")));
-        components.add(Te.s(" 2.", ComponentUtils.AttributeDescription.healAmplification("40%")));
+        components.add(Te.s(" 2.", ComponentUtils.AttributeDescription.healAmplification("20%")));
         components.add(Te.s(" 3.", ComponentUtils.AttributeDescription.manaRecover("100")));
         components.add(Te.s(" 暗:", getMainStyle(), "在3s内对怪物造成的", "33%伤害", ChatFormatting.RED, "将被存储"));
         components.add(Te.s(" 在下次", "切换明暗", getMainStyle(), "时，会将存储的伤害再次施加至怪物"));
@@ -119,7 +119,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
             StableAttributesModifier.addM(player, StableAttributesModifier.playerSwiftnessModifier,
                     "WardenOffHandSwiftness", 10, Tick.get() + 60);
             StableAttributesModifier.addM(player, StableAttributesModifier.playerHealAmplifierModifier,
-                    "WardenOffHandHealAmplifier", 0.4, Tick.get() + 60);
+                    "WardenOffHandHealAmplifier", 0.2, Tick.get() + 60);
             StableAttributesModifier.addM(player, StableAttributesModifier.playerManaRecoverModifier,
                     "WardenOffHandManaRecover", 100, Tick.get() + 60);
             Compute.sendEffectLastTime(player, WardenItems.WARDEN_HEART.get(), 60);

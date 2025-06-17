@@ -6,13 +6,12 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.struct.BlockAndResetTime;
+import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.sc2.SuperColdItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
@@ -58,8 +57,8 @@ public class SuperColdStraySpawnController extends MobSpawnController {
 
     public SuperColdStraySpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                          int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s(mobName, style), canSpawnPos, 1, boundaryUpX, boundaryUpZ,
-                boundaryDownX, boundaryDownZ, 16, level, 1, averageLevel);
+        super(Te.s(mobName, style), canSpawnPos, canSpawnPos.size() * 3, boundaryUpX, boundaryUpZ,
+                boundaryDownX, boundaryDownZ, 32, level, 1, averageLevel, 24);
     }
 
     @Override
@@ -68,22 +67,14 @@ public class SuperColdStraySpawnController extends MobSpawnController {
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSnow;
-        MobSpawn.setMobCustomName(stray, Component.literal(mobName).withStyle(style), xpLevel);
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 500, 60, 60, 0.35,
-                3, 0.2, 5, 15, 30000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, Component.literal(mobName).withStyle(style), xpLevel,
+                56000, 850, 850,
+                0.4, 3, 0.6, 650, 25,
+                10000 * Math.pow(10, 4), 0.45);
         // 设置物品
-        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
-                new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
-        EquipmentSlot[] equipmentSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-        for (int i = 0; i < itemStacks.length; i++) {
-            CompoundTag tag = itemStacks[i].getTag();
-            CompoundTag tag1 = new CompoundTag();
-            tag1.putInt("color", style.getColor().getValue());
-            tag.put("display", tag1);
-            stray.setItemSlot(equipmentSlots[i], itemStacks[i]);
-        }
+        MobSpawn.setStainArmorOnMob(stray, style);
         stray.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.DIAMOND_CHESTPLATE));
         stray.setItemSlot(EquipmentSlot.FEET, Compute.getSimpleFoiledItemStack(Items.DIAMOND_BOOTS));
         stray.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.BOW));
@@ -97,20 +88,23 @@ public class SuperColdStraySpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
+            if (mob.isDeadOrDying()) {
+                return;
+            }
             Element.provideElement(mob, Element.ice, 8);
             if (mob.tickCount % 100 == 99 && RandomUtils.nextDouble(0, 1) < 0.1) {
                 skill(mob);
             }
+            Compute.mobHealthRecover(mob, 0.02);
         });
     }
 
     public void skill(Mob mob) {
-        Compute.getNearPlayer(mob.level(), mob.position(), 20).forEach(player -> {
+        Compute.getNearPlayer(mob.level(), mob.position(), 24).forEach(player -> {
             Compute.createRangeEffectDot(mob.level(), player.position(), 4, new Compute.CauseDamageToPlayer() {
                 @Override
                 public void causeDamage(Player player) {
-                    Damage.causeAttackDamageToPlayer(mob, player, 50000);
-                    Damage.causeManaDamageToPlayer(mob, player, 50000);
+                    MonsterAttackEvent.causeCommonAttackToPlayer(mob, player);
                     Compute.createIceParticle(player);
                 }
             }, CustomStyle.styleOfIce, Tick.get() + Tick.s(2), 20, Tick.s(10));

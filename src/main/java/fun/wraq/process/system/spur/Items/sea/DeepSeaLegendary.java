@@ -66,9 +66,14 @@ public class DeepSeaLegendary extends WraqSceptre implements ActiveItem, InCurio
         components.add(Te.s(" 制造一个领域，使领域内的怪物"));
         components.add(Te.s(" · ", ComponentUtils.AttributeDescription.movementSpeed("降低")));
         components.add(Te.s(" · ", "造成伤害 -25%", ChatFormatting.RED));
-        components.add(Te.s(" · ", ComponentUtils.AttributeDescription.manaDefence("-25%")));
+        components.add(Te.s(" · ", ComponentUtils.AttributeDescription
+                .manaDefence(String.format("%.0f%%", getReductionRate() * 100))));
         components.add(Te.s(" · 冷却时间 10s", ChatFormatting.AQUA));
         return components;
+    }
+
+    public double getReductionRate() {
+        return 0.2 + (tier - 1) * 0.05;
     }
 
     @Override
@@ -91,7 +96,7 @@ public class DeepSeaLegendary extends WraqSceptre implements ActiveItem, InCurio
                             "DeepSeaLegendaryCauseDamageReduction",
                             -0.25, Tick.get() + 20, "item/deep_sea_legendary");
                     StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentManaDefenceModifier,
-                            "DeepSeaLegendaryManaDefenceReduction", -0.25, Tick.get() + 20);
+                            "DeepSeaLegendaryManaDefenceReduction", -getReductionRate(), Tick.get() + 20);
                 });
             }
         }, 10, Tick.s(3));

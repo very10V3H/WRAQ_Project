@@ -235,6 +235,13 @@ public abstract class NewTeamInstance {
                         hasSummonedMobs.add(mob);
                         level.addFreshEntity(mob);
                     }
+                } else {
+                    if (mob != null && mob.isAlive()) {
+                        Player player = Compute.getNearestPlayer(mob, 32);
+                        if (player != null) {
+                            mob.setTarget(player);
+                        }
+                    }
                 }
             });
             if (mobList.size() - hasKilledMobs.size() == 0 && !allMobIsClear()) {

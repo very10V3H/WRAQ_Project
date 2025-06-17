@@ -18,6 +18,8 @@ public class BunkerSword extends HarbingerSword implements BunkerMainHand {
         super(properties);
         Utils.attackDamage.put(this, 2800d);
         Utils.defencePenetration0.put(this, 60d);
+        Utils.maxHealth.put(this, 12000d);
+        Utils.coolDownDecrease.put(this, 0.3);
     }
 
     @Override

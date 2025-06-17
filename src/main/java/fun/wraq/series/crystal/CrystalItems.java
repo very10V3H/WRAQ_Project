@@ -1,11 +1,16 @@
 package fun.wraq.series.crystal;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
+import fun.wraq.series.WraqItem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class CrystalItems {
 
@@ -13,6 +18,12 @@ public class CrystalItems {
 
     public static final RegistryObject<Item> ORIGIN_STONE = ITEMS.register("origin_stone",
             () -> new OriginStone(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> ORIGIN_STONE_DISCOUNT = ITEMS.register("origin_stone_discount",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), true, true, List.of(
+                    Te.s("可在与多彩宝石商人购买", ORIGIN_STONE.get(), "时"),
+                    Te.s("消耗该物品，折扣", "5%", ChatFormatting.LIGHT_PURPLE, "，相当于",
+                            "(14000VB)", ChatFormatting.GOLD)
+            )));
 
     public static final RegistryObject<Item> GREEN_CRYSTAL_C = ITEMS.register("green_crystal_c",
             () -> new CrystalItem(new Item.Properties().rarity(Rarity.COMMON), 0, 0));

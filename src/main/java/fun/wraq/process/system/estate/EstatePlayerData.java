@@ -120,7 +120,7 @@ public class EstatePlayerData {
     }
 
     public static void onLogin(Player player) {
-        if (hasEstate(player)) {
+/*        if (hasEstate(player)) {
             int serial = getEstateSerial(player);
             if (!EstateServerData.getEstateServerData(serial).ownerId.equals(Name.get(player))) {
                 EstateInfo estateInfo = EstateInfo.values()[serial];
@@ -137,7 +137,7 @@ public class EstatePlayerData {
                 EstateUtil.sendMSG(player, Te.s("你已失去",
                         estateInfo.estateName.getString(), CustomStyle.styleOfGold, "的所有权."));
             }
-        }
+        }*/
         sendDataToClient(player);
     }
 
