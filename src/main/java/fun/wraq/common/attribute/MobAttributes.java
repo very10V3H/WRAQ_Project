@@ -18,6 +18,33 @@ import java.util.List;
 import java.util.Map;
 
 public class MobAttributes {
+
+    public final double attackDamage;
+    public final double defence;
+    public final double manaDefence;
+    public final double critRate;
+    public final double critDamage;
+    public final double defencePenetration;
+    public final double defencePenetration0;
+    public final double healthSteal;
+    public final double maxHealth;
+    public final double movementSpeed;
+
+    public MobAttributes(double attackDamage, double defence, double manaDefence, double critRate, double critDamage,
+                         double defencePenetration, double defencePenetration0, double healthSteal,
+                         double maxHealth, double movementSpeed) {
+        this.attackDamage = attackDamage;
+        this.defence = defence;
+        this.manaDefence = manaDefence;
+        this.critRate = critRate;
+        this.critDamage = critDamage;
+        this.defencePenetration = defencePenetration;
+        this.defencePenetration0 = defencePenetration0;
+        this.healthSteal = healthSteal;
+        this.maxHealth = maxHealth;
+        this.movementSpeed = movementSpeed;
+    }
+
     public static double defence(Mob monster) {
         int tickCount = Tick.get();
         double defence = MobSpawn.MobBaseAttributes.defence.getOrDefault(MobSpawn.getMobOriginName(monster), 0d);

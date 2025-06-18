@@ -33,7 +33,8 @@ public class VpStore {
                         SilverDragonItems.SILVER_DRAGON_BOW_LOTTERY.get(),
                         SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(),
                         ModItems.SENIOR_POTION_SUPPLY.get(), ModItems.ORE_SUPPLY.get(),
-                        ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get()
+                        ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
+                        ModItems.FORGE_SUPPLY.get()
                 ));
             }};
             if (DragonBoatFes.isInActivate()) {
@@ -83,10 +84,11 @@ public class VpStore {
             priceMap.put(ModItems.SIMPLE_TIER_1_PAPER.get(), 68);
             priceMap.put(ModItems.SIMPLE_TIER_2_PAPER.get(), 168);
             priceMap.put(ModItems.SIMPLE_TIER_3_PAPER.get(), 298);
-            priceMap.put(ModItems.ORE_SUPPLY.get(), 25);
-            priceMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 15);
-            priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 15);
-            priceMap.put(ModItems.SENIOR_SUPPLY.get(), 45);
+            priceMap.put(ModItems.ORE_SUPPLY.get(), 8);
+            priceMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 8);
+            priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 8);
+            priceMap.put(ModItems.SENIOR_SUPPLY.get(), 12);
+            priceMap.put(ModItems.FORGE_SUPPLY.get(), 8);
             getGoodsList().forEach(item -> {
                 if (!priceMap.containsKey(item)) {
                     priceMap.put(item, 300);
@@ -135,6 +137,7 @@ public class VpStore {
             countMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 1);
             countMap.put(ModItems.JUNIOR_SUPPLY.get(), 1);
             countMap.put(ModItems.SENIOR_SUPPLY.get(), 1);
+            countMap.put(ModItems.FORGE_SUPPLY.get(), 1);
         }
         goodsList.forEach(item -> {
             if (!countMap.containsKey(item)) {

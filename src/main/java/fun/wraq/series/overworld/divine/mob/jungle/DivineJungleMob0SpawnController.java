@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.divine.mob.jungle;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -60,19 +61,20 @@ public class DivineJungleMob0SpawnController extends JungleMobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(20000, 1000, 1000, 0.4, 3, 0.6, 700, 25, 15 * Math.pow(10, 8), 0.45);
+    }
+
+    @Override
     public void spawnMob(Level level) {
         WitherSkeleton mob = new WitherSkeleton(EntityType.WITHER_SKELETON, level);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, STYLE), XP_LEVEL,
-                20000, 1000, 1000, 0.4, 3,
-                0.6, 700, 25,
-                15 * Math.pow(10, 8), 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, STYLE), XP_LEVEL, getMobAttributes());
         mob.setItemSlot(EquipmentSlot.HEAD,
                 Compute.getSimpleFoiledItemStack(DivineIslandItems.MOB_FANVER_IRON_HELMET.get()));
         mob.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.IRON_SWORD));
         mob.moveTo(spawnPos);
         level.addFreshEntity(mob);
         mobs.add(mob);
-
         Horse horse = new Horse(EntityType.HORSE, level);
         horse.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 88888));
         horse.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.45);

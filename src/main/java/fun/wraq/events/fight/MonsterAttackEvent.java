@@ -117,7 +117,8 @@ public class MonsterAttackEvent {
         // 副手盾受到伤害削减
         if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())
                 && Utils.swordTag.containsKey(player.getMainHandItem().getItem())) {
-            double damageDecreaseValue = PlayerAttributes.defence(player) + PlayerAttributes.manaDefence(player);
+            double damageDecreaseValue = PlayerAttributes.defence(player)
+                    + PlayerAttributes.manaDefence(player) + PlayerAttributes.maxHealth(player) * 0.01;
             if (damageDecreaseValue > damage * 0.75) {
                 MySound.soundToPlayer(player, SoundEvents.SHIELD_BLOCK);
             }
@@ -161,12 +162,16 @@ public class MonsterAttackEvent {
     }
 
     public static void causeCommonAttackToPlayer(Mob mob, Player player) {
+        causeCommonAttackToPlayer(mob, player, 1);
+    }
+
+    public static void causeCommonAttackToPlayer(Mob mob, Player player, double rate) {
         player.setLastHurtByMob(mob);
         double defencePenetration = MobAttributes.defencePenetration(mob);
         double defencePenetration0 = MobAttributes.defencePenetration0(mob);
         double critRate = MobAttributes.critRate(mob);
         double critDamage = MobAttributes.critDamage(mob);
-        double baseDamage = MobAttributes.attackDamage(mob);
+        double baseDamage = MobAttributes.attackDamage(mob) * rate;
         double exDamage = 0;
         double playerDefence = PlayerAttributes.defence(player);
         double CritDamageDecrease = PlayerAttributes.decreasePlayerCritDamage(player);

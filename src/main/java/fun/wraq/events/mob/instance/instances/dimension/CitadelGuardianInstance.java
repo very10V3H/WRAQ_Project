@@ -3,6 +3,7 @@ package fun.wraq.events.mob.instance.instances.dimension;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ender_Guardian_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -45,7 +46,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
     public static CitadelGuardianInstance getInstance() {
         if (instance == null) {
             instance = new CitadelGuardianInstance(new Vec3(1075, 39, -704), 30, 100, new Vec3(1075, 39, -704),
-                    Component.literal(mobName).withStyle(style));
+                    Te.s(mobName, style));
         }
         return instance;
     }
@@ -75,16 +76,19 @@ public class CitadelGuardianInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(5000, 480, 480, 0.4, 3, 0.6, 225, 25, maxHealth, 0.35);
+    }
+
+    @Override
     public void summonModule(Level level) {
         dimension = level;
         Ender_Guardian_Entity entity =
                 new Ender_Guardian_Entity(ModEntities.ENDER_GUARDIAN.get(), level);
-        MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), this.level);
+        MobSpawn.setMobCustomName(entity, Te.s(mobName, style), this.level);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), this.level);
-        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 5000, 480, 480,
-                0.4, 3, 0.6, 225, 25,
-                maxHealth, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
 
         entity.moveTo(pos);

@@ -5,6 +5,7 @@ import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.The_Pro
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.The_Watcher_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -249,12 +250,15 @@ public class HarbingerInstance extends NewTeamInstance {
     public Mob setAttributesThenSpawnOfHarbinger(Level level, Vec3 pos) {
         The_Harbinger_Entity entity = new The_Harbinger_Entity(ModEntities.THE_HARBINGER.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(THE_HARBINGER_NAME, CustomStyle.styleOfHarbinger), 260);
-        double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 9000, 600, 600, 0.4,
-                3, 0.6, 400, 25,
-                maxHealth, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.moveTo(pos);
         return entity;
+    }
+
+    @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        return new MobAttributes(9000, 600, 600, 0.4, 3, 0.6, 400, 25, maxHealth, 0.35);
     }
 
     public static final String THE_BLAZE_NAME = "鹰眼工厂实验体";

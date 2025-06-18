@@ -1,6 +1,7 @@
 package fun.wraq.process.system.teamInstance;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
@@ -305,6 +306,10 @@ public abstract class NewTeamInstance {
     public abstract double judgeDamage(Player player, Mob mob, double originDamage);
 
     public abstract String getKillCountDataKey();
+
+    public MobAttributes getMainMobAttributes() {
+        return null;
+    }
 
     public boolean allMobIsClear() {
         for (ConditionSummonMob conditionSummonMob : mobList) {

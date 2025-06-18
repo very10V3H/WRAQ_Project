@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter1;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -55,19 +56,20 @@ public class MineSkeletonSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(100, 10, 10, 0.2, 1, 0, 0, 0, 1250, 0.2);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Skeleton skeleton = new Skeleton(EntityType.SKELETON, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfMine;
-
-        MobSpawn.setMobCustomName(skeleton, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(skeleton, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 100, 10, 10, 0.2, 1, 0, 0, 0, 1250, 0.2);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE),
                 new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_BOOTS)};
@@ -76,19 +78,15 @@ public class MineSkeletonSpawnController extends MobSpawnController {
             skeleton.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
         skeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.STONE_PICKAXE.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(skeleton), list);
         return skeleton;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.stone, 1);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.stone, 1);
     }
 
     @Override

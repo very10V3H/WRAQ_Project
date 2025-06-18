@@ -23,7 +23,7 @@ public class IceHolyRune extends IceHolyCurio {
         super(tier);
         this.tier = tier;
         Utils.percentMaxHealthEnhance.put(this, rate[tier]);
-        Utils.percentHealthRecover.put(this, rate[tier]);
+        Utils.percentHealthRecover.put(this, rate[tier] * 0.1);
     }
 
     @Override

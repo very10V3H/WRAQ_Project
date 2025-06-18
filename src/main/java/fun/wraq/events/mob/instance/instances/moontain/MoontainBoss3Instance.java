@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance.instances.moontain;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -54,7 +55,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     public static MoontainBoss3Instance getInstance() {
         if (instance == null) {
             instance = new MoontainBoss3Instance(new Vec3(1983, 239, -881), 20, 200, new Vec3(1983, 239, -881),
-                    Component.literal(mobName).withStyle(style));
+                    Te.s(mobName, style));
         }
         return instance;
     }
@@ -165,15 +166,18 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(3800, 360, 360, 0.4, 3, 0.6, 175, 0, maxHealth, 0.45);
+    }
+
+    @Override
     public void summonModule(Level level) {
         LordTheHeadlessEntity entity =
                 new LordTheHeadlessEntity(BornInChaosV1ModEntities.LORD_THE_HEADLESS.get(), level);
-        MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 240);
+        MobSpawn.setMobCustomName(entity, Te.s(mobName, style), 240);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 240);
-        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3800, 360, 360,
-                0.4, 3, 0.6, 175, 0,
-                maxHealth, 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);
         level.addFreshEntity(entity);

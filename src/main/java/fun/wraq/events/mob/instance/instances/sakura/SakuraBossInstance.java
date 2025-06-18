@@ -1,5 +1,7 @@
 package fun.wraq.events.mob.instance.instances.sakura;
 
+import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -39,28 +41,21 @@ public class SakuraBossInstance extends NoTeamInstance {
     }
 
     @Override
-    public void tickModule() {
-        if (mobList.isEmpty()) return;
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 100 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(1500, 110, 110, 0.4, 3, 0.25, 50, 0, maxHealth, 0.35);
     }
 
     @Override
     public void summonModule(Level level) {
         Boss2 sakuraBoss = new Boss2(ModEntityType.Boss2.get(), level);
-
         sakuraBoss.setBaby(true);
-        MobSpawn.setMobCustomName(sakuraBoss, Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura), 150);
-
+        MobSpawn.setMobCustomName(sakuraBoss, Te.s(mobName, CustomStyle.styleOfSakura), 150);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraBoss), 150);
-        double maxHealth = 100 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, 1500, 110, 110,
-                0.4, 3, 0.25, 50, 0,
-                maxHealth, 0.35);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, getMainMobAttributes());
         sakuraBoss.setHealth(sakuraBoss.getMaxHealth());
-
         sakuraBoss.moveTo(pos);
         level.addFreshEntity(sakuraBoss);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(sakuraBoss.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);

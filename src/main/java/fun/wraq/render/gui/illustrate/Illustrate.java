@@ -47,7 +47,6 @@ public class Illustrate extends Screen {
     }
 
     private void createMenu() {
-
         int X = this.width / 2;
         int Y = this.height / 2;
         this.addRenderableWidget(Button.builder(Component.translatable("←"), (p_280814_) -> {
@@ -55,117 +54,94 @@ public class Illustrate extends Screen {
                 page--;
             }
         }).pos(X - 39 + 5, Y - 20 + 97).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
             if (page < ((getItems().size() - 1) / 45)) {
                 page++;
             }
         }).pos(X + 20 + 5, Y - 20 + 97).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
             this.minecraft.setScreen((Screen) null);
             this.minecraft.mouseHandler.grabMouse();
         }).pos(X + 136, Y - 98).size(12, 12).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("怪物及其掉落"), (p_280814_) -> {
             this.minecraft.setScreen(new MobInfoGui());
         }).pos(X + 150 - 88, Y - 98 - 20).size(28 * 3, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("武器"), (p_280814_) -> {
             this.type = 0;
             this.page = 0;
         }).pos(X + 150, Y - 98).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("防具"), (p_280814_) -> {
             this.type = 1;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("饰品"), (p_280814_) -> {
             this.type = 2;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 2).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("符石"), (p_280814_) -> {
             this.type = 7;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 3).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("宝石"), (p_280814_) -> {
             this.type = 6;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 4).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("制式"), (p_280814_) -> {
             this.type = 3;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 5).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("酿造"), (p_280814_) -> {
             this.type = 4;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 6).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("材料"), (p_280814_) -> {
             this.type = 5;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 7).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("镐子"), (p_280814_) -> {
             this.type = 17;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 8).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("近战", CustomStyle.styleOfPower), (p_280814_) -> {
             this.type = 8;
             this.page = 0;
         }).pos(X - 178, Y - 98).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("弓", CustomStyle.styleOfFlexible), (p_280814_) -> {
             this.type = 9;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("法杖", CustomStyle.styleOfMana), (p_280814_) -> {
             this.type = 10;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 2).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("法术", CustomStyle.styleOfMana), (p_280814_) -> {
             this.type = 16;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 3).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("副手", CustomStyle.styleOfGold), (p_280814_) -> {
             this.type = 11;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 4).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("头盔", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 12;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 5).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("胸甲", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 13;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 6).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("护腿", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 14;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 7).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("靴子", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 15;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 8).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("纪念", CustomStyle.styleOfGold), (p_280814_) -> {
             this.type = 18;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 9).size(28, 16).build());
-
         this.addRenderableWidget(Button.builder(Te.s("新品", CustomStyle.styleOfRed), (p_280814_) -> {
             this.type = 19;
             this.page = 0;

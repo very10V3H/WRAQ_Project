@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter2;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -52,36 +53,31 @@ public class JorogumoSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(450, 55, 55, 0.35, 3, 0.2, 5, 15, 18000, 0.3);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         JorogumoEntity jorogumoEntity = new JorogumoEntity(ModEntityTypes.JOROGUMO.get(), this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfJacaranda;
-        MobSpawn.setMobCustomName(jorogumoEntity, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(jorogumoEntity, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(jorogumoEntity), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(jorogumoEntity, 450, 55, 55, 0.35, 3, 0.2, 5, 15, 18000, 0.3);
-
-        // 设置物品
-
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(jorogumoEntity, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(jorogumoEntity), list);
         return jorogumoEntity;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.stone, 2);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.stone, 2);
     }
 
     @Override

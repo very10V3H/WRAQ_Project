@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.jungle;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -63,12 +64,16 @@ public class EvokerMasterSpawnController extends JungleMobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(200, 40, 40, 0.3, 2, 0.1, 3, 10, 5500, 0.3);
+    }
+
+    @Override
     public void spawnMob(Level level) {
         Evoker evoker = new Evoker(EntityType.EVOKER, level);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(evoker), XP_LEVEL);
         MobSpawn.setMobCustomName(evoker, Te.s(name, STYLE), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(evoker, 200, 40, 40, 0.3,
-                2, 0.1, 3, 10, 5500, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(evoker, getMobAttributes());
         evoker.moveTo(new Vec3(1376, 81, -272));
         level.addFreshEntity(evoker);
         mobs.add(evoker);

@@ -2,6 +2,7 @@ package fun.wraq.events.mob.instance.instances.element;
 
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Amethyst_Crab_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -56,13 +57,17 @@ public class PurpleIronInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 150000 * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(1000, 120, 120, 0.35, 3, 0.2, 25, 0, maxHealth, 0.3);
+    }
+
+    @Override
     public void summonModule(Level level) {
         Amethyst_Crab_Entity amethystCrabEntity = new Amethyst_Crab_Entity(ModEntities.AMETHYST_CRAB.get(), level);
         MobSpawn.setMobCustomName(amethystCrabEntity, Component.literal("紫水晶巨蟹").withStyle(CustomStyle.styleOfPurpleIron), 120);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(amethystCrabEntity), 120);
-        double maxHealth = 150000 * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, 1000, 120, 120,
-                0.35, 3, 0.2, 25, 0, maxHealth, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, getMainMobAttributes());
         amethystCrabEntity.setHealth(amethystCrabEntity.getMaxHealth());
         amethystCrabEntity.moveTo(pos);
         level.addFreshEntity(amethystCrabEntity);
@@ -72,7 +77,7 @@ public class PurpleIronInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
-
+        double maxHealth = 150000 * (1 + 0.75 * (Math.max(1, players.size()) - 1));
         Utils.fourPosOffset.forEach(offset -> {
             spawnEndermite(level, maxHealth * 0.25, pos.add(offset));
         });

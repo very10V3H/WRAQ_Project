@@ -2,12 +2,14 @@ package fun.wraq.events.mob.instance.instances.dimension;
 
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ignited_Revenant_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -40,8 +42,14 @@ public class NetherInstance extends NoTeamInstance {
     }
 
     @Override
-    public void tickModule() {
-        if (mobList.isEmpty()) return;
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 125000 * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(400, 55, 55, 0.35, 3, 0.2, 20, 0, maxHealth, 0.3);
+    }
+
+    @Override
+    public Element.Unit getElementUnit() {
+        return new Element.Unit(Element.fire, 3);
     }
 
     @Override
@@ -50,9 +58,7 @@ public class NetherInstance extends NoTeamInstance {
         entity.setBaby(true);
         MobSpawn.setMobCustomName(entity, Component.literal("燃魂").withStyle(CustomStyle.styleOfPower), 90);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 90);
-        double maxHealth = 125000 * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 400, 55, 55, 0.35,
-                3, 0.2, 20, 0, maxHealth, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),

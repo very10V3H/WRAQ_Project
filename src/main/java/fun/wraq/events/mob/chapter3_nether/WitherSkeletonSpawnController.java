@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter3_nether;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -54,36 +55,33 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWither;
-        MobSpawn.setMobCustomName(witherSkeleton, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(witherSkeleton, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(witherSkeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, getMobAttributes());
         // 设置物品
         witherSkeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.STONE_SWORD.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(witherSkeleton), list);
         return witherSkeleton;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 4);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.fire, 4);
     }
 
     @Override

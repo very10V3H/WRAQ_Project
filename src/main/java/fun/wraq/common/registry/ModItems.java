@@ -2859,6 +2859,15 @@ public class ModItems {
                 add(new ItemStack(TP_TICKET.get(), 24));
             }}));
 
+    public static final RegistryObject<Item> FORGE_SUPPLY = ITEMS.register("forge_supply",
+            () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
+                add(new ItemStack(FORGE_ENHANCE_3.get(), 1));
+                add(new ItemStack(WORLD_FORGE_STONE.get(), 1));
+                add(new ItemStack(FORGE_ENHANCE_3.get(), 3));
+                add(new ItemStack(FORGING_STONE_2.get(), 3));
+                add(new ItemStack(EQUIP_PIECE_5.get(), 1));
+            }}));
+
     public static final RegistryObject<Item> SIMPLE_TIER_1_PAPER = ITEMS.register("simple_tier_1_paper",
             () -> new SimpleTierPaper(new Item.Properties().rarity(CustomStyle.Green), 1));
     public static final RegistryObject<Item> SIMPLE_TIER_2_PAPER = ITEMS.register("simple_tier_2_paper",

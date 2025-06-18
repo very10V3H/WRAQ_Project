@@ -1,9 +1,11 @@
 package fun.wraq.events.mob.jungle;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -73,6 +75,9 @@ public abstract class JungleMobSpawnController {
                         if (player != null) {
                             mob.setTarget(player);
                         }
+                        if (getElementUnit() != null) {
+                            Element.provideElement(mob, getElementUnit().type(), getElementUnit().value());
+                        }
                     }
                 });
             }
@@ -124,5 +129,13 @@ public abstract class JungleMobSpawnController {
 
     public void sendMSG(Player player, Component content) {
         Compute.sendFormatMSG(player, Te.s("野怪", CustomStyle.styleOfRed), content);
+    }
+
+    public MobAttributes getMobAttributes() {
+        return null;
+    }
+
+    public Element.Unit getElementUnit() {
+        return null;
     }
 }

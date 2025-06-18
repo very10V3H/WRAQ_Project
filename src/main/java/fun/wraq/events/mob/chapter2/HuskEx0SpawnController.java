@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter2;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -48,46 +49,33 @@ public class HuskEx0SpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(400, 50, 50, 0.35, 3, 0.2, 5, 15, 12000, 0.3);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Husk husk = new Husk(EntityType.HUSK, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfHusk;
-        MobSpawn.setMobCustomName(husk, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(husk, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(husk), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(husk, 400, 50, 50, 0.35, 3, 0.2, 5, 15, 12000, 0.3);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(husk, getMobAttributes());
         // 设置物品
-/*        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
-                new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
-        EquipmentSlot[] equipmentSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-        for (int i = 0; i < itemStacks.length; i++) {
-            CompoundTag tag = itemStacks[i].getTag();
-            CompoundTag tag1 = new CompoundTag();
-            tag1.putInt("color", style.getColor().getValue());
-            tag.put("display", tag1);
-            husk.setItemSlot(equipmentSlots[i], itemStacks[i]);
-        }*/
         husk.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(husk), list);
         return husk;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.stone, 2);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.stone, 2);
     }
 
     @Override

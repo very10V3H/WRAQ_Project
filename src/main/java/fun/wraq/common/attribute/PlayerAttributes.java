@@ -954,6 +954,8 @@ public class PlayerAttributes {
         healthRecover += Compute.CuriosAttribute
                 .attributeValue(player, Utils.percentHealthRecover,
                         StringUtils.RandomCuriosAttribute.percentHealthRecover) * player.getMaxHealth();
+        healthRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentHealthRecover)
+                * player.getMaxHealth();
 
         // 请在上方添加
         double exRate = 0;

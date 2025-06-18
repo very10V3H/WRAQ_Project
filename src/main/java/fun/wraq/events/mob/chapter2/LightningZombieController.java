@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter2;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -58,20 +59,21 @@ public class LightningZombieController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(450, 55, 55, 0.35, 3, 0.2, 5, 15, 20000, 0.3);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfLightning;
-        MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(zombie, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 450, 55, 55, 0.35, 3, 0.2, 5, 15, 20000, 0.3);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE),
                 new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_BOOTS)};
@@ -80,20 +82,16 @@ public class LightningZombieController extends MobSpawnController {
             zombie.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
         zombie.setItemInHand(InteractionHand.MAIN_HAND, Items.IRON_SWORD.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(zombie), list);
         return zombie;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.lightning, 2);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.lightning, 2);
     }
 
     @Override

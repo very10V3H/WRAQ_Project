@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -54,7 +55,7 @@ public class MushroomInstance extends NoTeamInstance {
     public static MushroomInstance getInstance() {
         if (instance == null) {
             instance = new MushroomInstance(new Vec3(2011, 129, -1788), 60, 60, new Vec3(2011, 129, -1788),
-                    Component.literal(mobName).withStyle(style));
+                    Te.s(mobName, style));
         }
         return instance;
     }
@@ -67,16 +68,13 @@ public class MushroomInstance extends NoTeamInstance {
     public void tickModule() {
         if (mobList.isEmpty()) return;
         if (boss == null || boss.tickCount == 0) return;
-
         int tick = boss.tickCount;
         if (tick % 20 == 0) {
             commonAttack();
         }
-
         if (tick % 40 == 10) {
             skill1();
         }
-
         if (tick % 200 == 70) {
             skill2();
         }
@@ -91,19 +89,20 @@ public class MushroomInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        return new MobAttributes(3750, 340, 340, 0.4, 3, 0.55, 160, 25, MAX_HEALTH, 0.45);
+    }
+
+    @Override
     public void summonModule(Level level) {
         cow = new Cow(EntityType.MOOSHROOM, level);
         cow.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.45);
         cow.moveTo(pos);
         level.addFreshEntity(cow);
-
         Piglin mob = new Piglin(EntityType.PIGLIN_BRUTE, level);
-        MobSpawn.setMobCustomName(mob, Component.literal(mobName).withStyle(style), XP_LEVEL);
-
+        MobSpawn.setMobCustomName(mob, Te.s(mobName, style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 3750, 340, 340, 0.4,
-                3, 0.55, 160, 25, MAX_HEALTH, 0.45);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMainMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
                 new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
@@ -117,19 +116,16 @@ public class MushroomInstance extends NoTeamInstance {
         }
         mob.setItemSlot(EquipmentSlot.HEAD, Compute.getSkullByName("MHF_MushroomCow"));
         mob.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.GOLDEN_AXE));
-
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         mobList.add(mob);
         boss = mob;
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(mob.getDisplayName(),
                 BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
-
         mob.startRiding(cow);
     }
 

@@ -1,7 +1,7 @@
 package fun.wraq.events.mob.moontain;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -51,43 +51,41 @@ public class MoontainChickenSpawnController extends MobSpawnController {
     }
 
     public MoontainChickenSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
-                                          int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("望山翎凤", CustomStyle.styleOfMoontain), canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ, level, averageLevel);
+                                          int boundaryDownX, int boundaryDownY, int boundaryDownZ,
+                                          Level level, int averageLevel) {
+        super(Te.s("望山翎凤", CustomStyle.styleOfMoontain), canSpawnPos,
+                boundaryUpX, boundaryUpY, boundaryUpZ,
+                boundaryDownX, boundaryDownY, boundaryDownZ, level, averageLevel);
+    }
+
+    @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(0, 190, 190, 0.4, 3, 0.3, 65, 25, 400 * Math.pow(10, 4), 0.1);
     }
 
     @Override
     public Mob mobItemAndAttributeSet() {
         Chicken chicken = new Chicken(EntityType.CHICKEN, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMoontain;
-        MobSpawn.setMobCustomName(chicken, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(chicken, xpLevel, 0, 190,
-                190, 0.4, 3, 0.3, 65, 25,
-                400 * Math.pow(10, 4), 0.1);
-
+        MobSpawn.setMobCustomName(chicken, Te.s(mobName, style), xpLevel);
+        // 设置属性
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(chicken, xpLevel, getMobAttributes());
         // 设置物品
         chicken.setItemSlot(EquipmentSlot.HEAD, Items.EMERALD_BLOCK.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(chicken), list);
         return chicken;
     }
 
     @Override
-    public void tick() {
-        if (Tick.get() % 100 == 0) {
-            mobList.forEach(mob -> {
-                mob.addEffect(new MobEffectInstance(MobEffects.LUCK, 200));
-            });
+    public void eachMobTick(Mob mob) {
+        if (mob.tickCount % 100 == 0) {
+            mob.addEffect(new MobEffectInstance(MobEffects.LUCK, 200));
         }
     }
 

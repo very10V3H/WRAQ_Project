@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -108,13 +109,17 @@ public class IceInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 40 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(1250, 90, 90, 0.35, 3, 0.2, 30, 0, maxHealth, 0.35);
+    }
+
+    @Override
     public void summonModule(Level level) {
         Stray stray = new Stray(EntityType.STRAY, level);
         MobSpawn.setMobCustomName(stray, Component.literal(mobName).withStyle(CustomStyle.styleOfIce), 135);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 135);
-        double maxHealth = 40 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 1250, 90, 90, 0.35,
-                3, 0.2, 30, 0, maxHealth, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, getMainMobAttributes());
         stray.setHealth(stray.getMaxHealth());
         stray.setItemSlot(EquipmentSlot.HEAD, Compute.getSimpleFoiledItemStack(Items.DIAMOND_HELMET));
         stray.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.DIAMOND_CHESTPLATE));
@@ -124,16 +129,13 @@ public class IceInstance extends NoTeamInstance {
         stray.moveTo(pos);
         level.addFreshEntity(stray);
         mobList.add(stray);
-
         Horse horse = new Horse(EntityType.HORSE, level);
         horse.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35);
         horse.setItemSlot(EquipmentSlot.CHEST, Items.DIAMOND_HORSE_ARMOR.getDefaultInstance());
         horse.moveTo(pos);
         level.addFreshEntity(horse);
         mobList.add(horse);
-
         stray.startRiding(horse);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(stray.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);

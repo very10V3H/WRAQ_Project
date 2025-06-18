@@ -83,8 +83,12 @@ public class OriginStone extends WraqItem {
                 double tierRandomNum = RandomUtils.nextDouble(0, 1);
                 tierIndex = getIndex(tierRandomNum);
                 Item crystal = CrystalItem.map.get(typeIndex).get(tierIndex);
-                InventoryOperation.giveItemStackWithMSG(player, crystal);
                 int singleProfit = (int) (Math.pow(2, typeIndex + tierIndex) - 7);
+                if (singleProfit > 100) {
+                    Compute.formatBroad(Te.s("赌石", ChatFormatting.LIGHT_PURPLE),
+                            Te.s(player, "通过赌石获得了", crystal));
+                }
+                InventoryOperation.giveItemStackWithMSG(player, crystal);
                 if (expiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
                     expiredTickMap.put(Name.get(player), Tick.get() + Tick.min(1));
                     valueMap.put(Name.get(player), singleProfit);

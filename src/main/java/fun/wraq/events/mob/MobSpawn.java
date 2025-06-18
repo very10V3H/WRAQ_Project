@@ -1,6 +1,7 @@
 package fun.wraq.events.mob;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
@@ -311,9 +312,27 @@ public class MobSpawn {
             return map.getOrDefault(getMobOriginName(mob), 0d);
         }
 
+        public static void setMobBaseAttributes(Mob mob, MobAttributes attributes) {
+            String mobOriginName = getMobOriginName(mob);
+            MobBaseAttributes.attackDamage.put(mobOriginName, attributes.attackDamage * 2);
+            MobBaseAttributes.defence.put(mobOriginName, attributes.defence);
+            MobBaseAttributes.manaDefence.put(mobOriginName, attributes.manaDefence);
+            MobBaseAttributes.critRate.put(mobOriginName, attributes.critRate);
+            MobBaseAttributes.critDamage.put(mobOriginName, attributes.critDamage);
+            MobBaseAttributes.defencePenetration.put(mobOriginName, attributes.defencePenetration);
+            MobBaseAttributes.defencePenetration0.put(mobOriginName, attributes.defencePenetration0);
+            MobBaseAttributes.healthSteal.put(mobOriginName, attributes.healthSteal * 0.2);
+            mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(attributes.maxHealth);
+            mob.setHealth(mob.getMaxHealth());
+            MobBaseAttributes.movementSpeed.put(mobOriginName, attributes.movementSpeed);
+            mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(attributes.movementSpeed);
+            mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
+        }
+
         public static void setMobBaseAttributes(Mob mob, double attackDamage, double defence, double manaDefence,
                                                 double critRate, double critDamage, double defencePenetration,
-                                                double defencePenetration0, double healthSteal, double maxHealth, double movementSpeed) {
+                                                double defencePenetration0, double healthSteal, double maxHealth,
+                                                double movementSpeed) {
             String mobOriginName = getMobOriginName(mob);
 
             if (fromCSVAttributes.isEmpty()) {
@@ -358,6 +377,11 @@ public class MobSpawn {
                     defencePenetration0, healthSteal, maxHealth, movementSpeed);
         }
 
+        public static void setMobBaseAttributes(Mob mob, int xpLevel, MobAttributes attributes) {
+            MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
+            setMobBaseAttributes(mob, attributes);
+        }
+
         public static void setMobBaseAttributes(Mob mob, double attackDamage, double defence, double manaDefence,
                                                 double maxHealth, double movementSpeed) {
             setMobBaseAttributes(mob, attackDamage, defence, manaDefence, 0, 0, 0, 0, 0, maxHealth, movementSpeed);
@@ -371,6 +395,11 @@ public class MobSpawn {
             MobSpawn.setMobCustomName(mob, mobName, xpLevel);
             setMobBaseAttributes(mob, xpLevel, attackDamage, defence, manaDefence, critRate, critDamage,
                     defencePenetration, defencePenetration0, healthSteal, maxHealth, movementSpeed);
+        }
+
+        public static void setMobBaseAttributes(Mob mob, Component mobName, int xpLevel, MobAttributes attributes) {
+            MobSpawn.setMobCustomName(mob, mobName, xpLevel);
+            setMobBaseAttributes(mob, xpLevel, attributes);
         }
     }
 

@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.sakura.bunker.mob;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -57,15 +58,17 @@ public class BunkerBowMobSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(6500, 450, 450, 0.4, 3, 0.5, 350, 25, 2500 * Math.pow(10, 4), 0.4);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         WitherSkeleton mob = new WitherSkeleton(EntityType.WITHER_SKELETON, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
-                6500, 450, 450,
-                0.4, 3, 0.5, 350, 25,
-                2500 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);
         mob.setItemSlot(EquipmentSlot.HEAD, Compute.getSkullByName("MHF_LavaSlime"));
@@ -89,10 +92,8 @@ public class BunkerBowMobSpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 5);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.fire, 5);
     }
 
     @Override

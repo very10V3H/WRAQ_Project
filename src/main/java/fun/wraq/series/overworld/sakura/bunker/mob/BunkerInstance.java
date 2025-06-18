@@ -2,6 +2,7 @@ package fun.wraq.series.overworld.sakura.bunker.mob;
 
 import com.github.L_Ender.cataclysm.entity.InternalAnimationMonster.Ignited_Berserker_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -36,7 +37,7 @@ public class BunkerInstance extends NoTeamInstance {
         if (instance == null) {
             instance = new BunkerInstance(new Vec3(3912, -8, 2001), 50, 60,
                     new Vec3(3912, -8, 2001),
-                    Component.literal(mobName).withStyle(STYLE));
+                    Te.s(mobName, STYLE));
         }
         return instance;
     }
@@ -46,12 +47,8 @@ public class BunkerInstance extends NoTeamInstance {
     }
 
     @Override
-    public void tickModule() {
-        if (mobList.isEmpty()) return;
-
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 6);
-        });
+    public Element.Unit getElementUnit() {
+        return new Element.Unit(Element.fire, 6);
     }
 
     @Override
@@ -65,14 +62,17 @@ public class BunkerInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 3 * Math.pow(10, 8) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(10000, 700, 700, 0.35, 3, 0.6, 500, 25, maxHealth, 0.6);
+    }
+
+    @Override
     public void summonModule(Level level) {
         Ignited_Berserker_Entity entity = new Ignited_Berserker_Entity(ModEntities.IGNITED_BERSERKER.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(mobName, STYLE), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), XP_LEVEL);
-        double maxHealth = 3 * Math.pow(10, 8) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 10000, 700, 700,
-                0.35, 3, 0.6, 500, 25,
-                maxHealth, 0.6);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),

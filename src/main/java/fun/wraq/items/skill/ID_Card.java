@@ -39,6 +39,7 @@ public class ID_Card extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (level.isClientSide) {
             ModNetworking.sendToServer(new SkillRequestC2SPacket());
+            player.getInventory().selected = 0;
         }
         if (!level.isClientSide) {
             String name = player.getName().getString();

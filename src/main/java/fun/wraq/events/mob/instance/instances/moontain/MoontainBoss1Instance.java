@@ -1,5 +1,7 @@
 package fun.wraq.events.mob.instance.instances.moontain;
 
+import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -31,7 +33,7 @@ public class MoontainBoss1Instance extends NoTeamInstance {
     public static MoontainBoss1Instance getInstance() {
         if (instance == null) {
             instance = new MoontainBoss1Instance(new Vec3(1995, 199, -877), 15, 60, new Vec3(1995, 199, -877),
-                    Component.literal(mobName).withStyle(style));
+                    Te.s(mobName, style));
         }
         return instance;
     }
@@ -41,20 +43,18 @@ public class MoontainBoss1Instance extends NoTeamInstance {
     }
 
     @Override
-    public void tickModule() {
-        if (mobList.isEmpty()) return;
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 750 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(2800, 240, 240, 0.4, 3, 0.4, 70, 0, maxHealth, 0.45);
     }
 
     @Override
     public void summonModule(Level level) {
         SirPumpkinheadWithoutHorseEntity entity =
                 new SirPumpkinheadWithoutHorseEntity(BornInChaosV1ModEntities.SIR_PUMPKINHEAD_WITHOUT_HORSE.get(), level);
-        MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 200);
-        double maxHealth = 750 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        MobSpawn.setMobCustomName(entity, Te.s(mobName, style), 200);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 200);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 2800, 240, 240,
-                0.4, 3, 0.4, 70, 0,
-                maxHealth, 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);
         level.addFreshEntity(entity);

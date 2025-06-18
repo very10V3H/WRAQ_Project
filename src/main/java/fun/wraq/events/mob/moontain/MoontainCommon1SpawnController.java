@@ -1,7 +1,7 @@
 package fun.wraq.events.mob.moontain;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -58,37 +58,31 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(1600, 130, 130, 0.4, 3, 0.3, 45, 20, 250 * Math.pow(10, 4), 0.35);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         MrPumpkinEntity mrPumpkin = new MrPumpkinEntity(BornInChaosV1ModEntities.MR_PUMPKIN.get(), this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMoontain;
-        MobSpawn.setMobCustomName(mrPumpkin, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mrPumpkin, xpLevel, 1600, 130,
-                130, 0.4, 3, 0.3, 45, 20,
-                250 * Math.pow(10, 4), 0.35);
-
-        // 设置物品
-
+        MobSpawn.setMobCustomName(mrPumpkin, Te.s(mobName, style), xpLevel);
+        // 设置属性
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mrPumpkin, xpLevel, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(mrPumpkin), list);
         return mrPumpkin;
     }
 
     @Override
-    public void tick() {
-        if (Tick.get() % 100 == 0) {
-            mobList.forEach(mob -> {
-                mob.addEffect(new MobEffectInstance(MobEffects.LUCK, 200));
-            });
+    public void eachMobTick(Mob mob) {
+        if (mob.tickCount % 100 == 0) {
+            mob.addEffect(new MobEffectInstance(MobEffects.LUCK, 200));
         }
     }
 

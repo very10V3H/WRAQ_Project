@@ -943,12 +943,14 @@ public class BasicAttributeDescription {
                     if (!wraqGem.getAttributeMapValues().isEmpty()) {
                         List<WraqGem.AttributeMapValue> list = wraqGem.getAttributeMapValues();
                         for (WraqGem.AttributeMapValue attributeMapValue : list) {
-                            ToolTipParameter toolTipParameter = toolTipParameterMap.get(System.identityHashCode(attributeMapValue.attributeMap()));
-                            Component component = Component.literal(" " + toolTipParameter.attributeName).withStyle(toolTipParameter.style).
-                                    append(Component.literal((attributeMapValue.value() > 0 ? "+" : "") + String.format(toolTipParameter.valueFormat,
-                                                    attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).
-                                            withStyle(attributeMapValue.value() > 0 ? ChatFormatting.WHITE : ChatFormatting.RED));
-                            event.getTooltipElements().add(index++, Either.right(new NewTooltip.MyNewTooltip(component, toolTipParameter.resourceLocation)));
+                            if (toolTipParameterMap.containsKey(System.identityHashCode(attributeMapValue.attributeMap()))) {
+                                ToolTipParameter toolTipParameter = toolTipParameterMap.get(System.identityHashCode(attributeMapValue.attributeMap()));
+                                Component component = Component.literal(" " + toolTipParameter.attributeName).withStyle(toolTipParameter.style).
+                                        append(Component.literal((attributeMapValue.value() > 0 ? "+" : "") + String.format(toolTipParameter.valueFormat,
+                                                        attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).
+                                                withStyle(attributeMapValue.value() > 0 ? ChatFormatting.WHITE : ChatFormatting.RED));
+                                event.getTooltipElements().add(index++, Either.right(new NewTooltip.MyNewTooltip(component, toolTipParameter.resourceLocation)));
+                            }
                         }
                     }
                     if (wraqGem instanceof WraqPassiveGem wraqPassiveGem) {
@@ -1040,6 +1042,8 @@ public class BasicAttributeDescription {
                 Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, TraditionalTooltip.stoneElement));
         put(System.identityHashCode(Utils.elementStrength), new ToolTipParameter("元素强度",
                 CustomStyle.styleOfWorld, "%.0f%%", true, TraditionalTooltip.element));
+        put(System.identityHashCode(Utils.percentHealthRecover), new ToolTipParameter("生命回复",
+                CustomStyle.styleOfLife, "%.1f%%", true, TraditionalTooltip.healthRecover));
     }};
 
     // 新的属性描述模板，仅需按照参数进行配置即可，但是需要注意的是，仅接受不能被强化增幅的属性。

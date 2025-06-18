@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.cold.sc2.stone;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -56,13 +57,21 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(24000, 1100, 1100, 0.4, 3, 0.6, 750, 25, 20 * Math.pow(10, 8), 0.45);
+    }
+
+    @Override
+    public Element.Unit getElementUnit() {
+        return new Element.Unit(Element.stone, 8);
+    }
+
+    @Override
     public void spawnMob(Level level) {
         Spider mob = new Spider(EntityType.SPIDER, level);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
         MobSpawn.setMobCustomName(mob, Te.s(name, STYLE), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 24000, 1100, 1100,
-                0.4, 3, 0.6, 750, 25,
-                20 * Math.pow(10, 8), 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes());
         mob.moveTo(new Vec3(2182, 82, -3147));
         level.addFreshEntity(mob);
         mobs.add(mob);
@@ -73,7 +82,6 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
         if (mob.isDeadOrDying()) {
             return;
         }
-        Element.provideElement(mob, Element.stone, 8);
         if (mob.tickCount % 100 == 99 && RandomUtils.nextDouble(0, 1) < 0.2) {
             if (RandomUtils.nextBoolean()) {
                 StoneSpiderSpawnController.skill1(mob);

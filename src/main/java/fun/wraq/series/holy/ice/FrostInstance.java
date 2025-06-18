@@ -2,12 +2,14 @@ package fun.wraq.series.holy.ice;
 
 import com.bobmowzie.mowziesmobs.server.entity.EntityHandler;
 import com.bobmowzie.mowziesmobs.server.entity.frostmaw.EntityFrostmaw;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -47,7 +49,6 @@ public class FrostInstance extends NoTeamInstance {
     public void tickModule() {
         if (mobList.isEmpty()) return;
         if (boss == null || boss.tickCount == 0 || boss.isDeadOrDying()) return;
-
         if (boss.tickCount % 20 == 0) {
             players.stream().min(new Comparator<Player>() {
                 @Override
@@ -66,14 +67,19 @@ public class FrostInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        return new MobAttributes(24000, 1100, 1100, 0.4, 3, 0.6, 750, 25, 20 * Math.pow(10, 8), 0.45);
+    }
+
+    @Override
+    public Element.Unit getElementUnit() {
+        return new Element.Unit(Element.ice, 8);
+    }
+
+    @Override
     public void summonModule(Level level) {
         EntityFrostmaw mob = new EntityFrostmaw(EntityHandler.FROSTMAW.get(), level);
-
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, style), XP_LEVEL,
-                24000, 1100, 1100, 0.4, 3,
-                0.6, 750, 25,
-                20 * Math.pow(10, 8), 0.45);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, style), XP_LEVEL, getMainMobAttributes());
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         mobList.add(mob);

@@ -1,5 +1,6 @@
 package fun.wraq.series.overworld.divine.mob.common;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -9,7 +10,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -52,15 +52,17 @@ public class GhastlyCreeperSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(11000, 700, 700, 0.4, 3, 0.6, 500, 25, 7000 * Math.pow(10, 4), 0.6);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Creeper mob = new Creeper(EntityType.CREEPER, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
-                11000, 700, 700,
-                0.4, 3, 0.6, 500, 25,
-                7000 * Math.pow(10, 4), 0.6);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(mob), list);
@@ -68,10 +70,8 @@ public class GhastlyCreeperSpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            DivineUtils.handleMobTick(mob);
-        });
+    public void eachMobTick(Mob mob) {
+        DivineUtils.handleMobTick(mob);
     }
 
     @Override

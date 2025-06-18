@@ -1,10 +1,12 @@
 package fun.wraq.events.mob.jungle;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.network.chat.Component;
@@ -49,12 +51,19 @@ public class BunkerGhastSpawnController extends JungleMobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(7500, 500, 500, 0.4, 3, 0.6, 500, 25, 10 * Math.pow(10, 8), 0.6);
+    }
+
+    @Override
+    public Element.Unit getElementUnit() {
+        return new Element.Unit(Element.fire, 7);
+    }
+
+    @Override
     public void spawnMob(Level level) {
         Ghast ghast = new Ghast(EntityType.GHAST, level);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(ghast, Te.s(MOB_NAME, STYLE), 270,
-                7500, 500, 500, 0.4, 3,
-                0.6, 500, 25,
-                10 * Math.pow(10, 8), 0.6);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(ghast, Te.s(MOB_NAME, STYLE), 270, getMobAttributes());
         ghast.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.GRASS_BLOCK));
         ghast.moveTo(new Vec3(3841, -5, 2001));
         level.addFreshEntity(ghast);

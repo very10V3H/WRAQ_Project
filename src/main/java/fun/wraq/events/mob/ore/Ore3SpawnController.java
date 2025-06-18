@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.ore;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -8,15 +9,12 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -55,34 +53,24 @@ public class Ore3SpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(1500, 110, 110, 0.4, 3, 0.25, 50, 20, 100 * Math.pow(10, 4), 0.35);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSakura;
-
-        MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(zombie, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1500, 110, 110, 0.4,
-                3, 0.25, 50, 20, 100 * Math.pow(10, 4), 0.35);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMobAttributes());
         zombie.setBaby(true);
         // 设置物品
         zombie.setItemInHand(InteractionHand.MAIN_HAND, Items.NETHERITE_PICKAXE.getDefaultInstance());
-        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
-                new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
-        EquipmentSlot[] equipmentSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-        for (int i = 0; i < itemStacks.length; i++) {
-            CompoundTag tag = itemStacks[i].getTag();
-            CompoundTag tag1 = new CompoundTag();
-            tag1.putInt("color", style.getColor().getValue());
-            tag.put("display", tag1);
-            zombie.setItemSlot(equipmentSlots[i], itemStacks[i]);
-        }
-
+        MobSpawn.setStainArmorOnMob(zombie, style);
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(zombie), list);
@@ -90,10 +78,8 @@ public class Ore3SpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.stone, 3);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.stone, 3);
     }
 
     @Override

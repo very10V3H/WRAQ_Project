@@ -46,7 +46,7 @@ public class EasternTower extends DailyEndlessInstance {
                 0.5, 10, 0.01 * levelDifference, 2000 * 100 * levelDifference,
                 0, getMobMaxHealth(), 0.2);
         Style style = CustomStyle.styleOfHusk;
-        MobSpawn.setMobCustomName(mob, Component.literal(mobName).withStyle(style), getPlayerXpLevel());
+        MobSpawn.setMobCustomName(mob, Te.s(mobName, style), getPlayerXpLevel());
         Random random = new Random();
         mob.moveTo(getPos().add(0.5 - random.nextDouble(),
                 0.5 - random.nextDouble(), 0.5 - random.nextDouble()));

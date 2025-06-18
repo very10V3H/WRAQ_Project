@@ -1,5 +1,6 @@
 package fun.wraq.series.overworld.divine.mob.common;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -9,7 +10,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -54,15 +54,17 @@ public class GhastlyHuskSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(12000, 750, 750, 0.4, 3, 0.6, 550, 25, 8000 * Math.pow(10, 4), 0.4);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Husk mob = new Husk(EntityType.HUSK, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
-                12000, 750, 750,
-                0.4, 3, 0.6, 550, 25,
-                8000 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);
         mob.setItemInHand(InteractionHand.MAIN_HAND, ModItems.SKY_SWORD.get().getDefaultInstance());
@@ -78,10 +80,8 @@ public class GhastlyHuskSpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            DivineUtils.handleMobTick(mob);
-        });
+    public void eachMobTick(Mob mob) {
+        DivineUtils.handleMobTick(mob);
     }
 
     @Override

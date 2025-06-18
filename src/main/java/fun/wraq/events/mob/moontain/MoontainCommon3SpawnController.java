@@ -1,7 +1,7 @@
 package fun.wraq.events.mob.moontain;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -60,37 +60,31 @@ public class MoontainCommon3SpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(2400, 160, 160, 0.4, 3, 0.3, 65, 20, 400 * Math.pow(10, 4), 0.45);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         SenorPumpkinEntity senorPumpkinEntity = new SenorPumpkinEntity(BornInChaosV1ModEntities.SENOR_PUMPKIN.get(), this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMoontain;
-        MobSpawn.setMobCustomName(senorPumpkinEntity, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(senorPumpkinEntity, xpLevel, 2400, 160,
-                160, 0.4, 3, 0.3, 65, 20,
-                400 * Math.pow(10, 4), 0.45);
-
-        // 设置物品
-
+        MobSpawn.setMobCustomName(senorPumpkinEntity, Te.s(mobName, style), xpLevel);
+        // 设置属性
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(senorPumpkinEntity, xpLevel, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(senorPumpkinEntity), list);
         return senorPumpkinEntity;
     }
 
     @Override
-    public void tick() {
-        if (Tick.get() % 100 == 0) {
-            mobList.forEach(mob -> {
-                mob.addEffect(new MobEffectInstance(MobEffects.LUCK, 200));
-            });
+    public void eachMobTick(Mob mob) {
+        if (mob.tickCount % 100 == 0) {
+            mob.addEffect(new MobEffectInstance(MobEffects.LUCK, 200));
         }
     }
 

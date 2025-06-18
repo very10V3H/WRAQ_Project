@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.jungle;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -9,6 +10,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.func.damage.Dot;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import net.mcreator.borninchaosv.entity.SearedSpiritEntity;
@@ -72,13 +74,21 @@ public class BlazePowerSpawnController extends JungleMobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(200, 35, 35, 0.3, 2, 0.1, 3, 10, 4500, 0.3);
+    }
+
+    @Override
+    public Element.Unit getElementUnit() {
+        return new Element.Unit(Element.fire, 2);
+    }
+
+    @Override
     public void spawnMob(Level level) {
         SearedSpiritEntity mob = new SearedSpiritEntity(BornInChaosV1ModEntities.SEARED_SPIRIT.get(), level);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
         MobSpawn.setMobCustomName(mob, Te.s(name, STYLE), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 200, 35, 35,
-                0.3, 2, 0.1, 3, 10,
-                4500, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes());
         mob.moveTo(new Vec3(1363, 78, 100));
         level.addFreshEntity(mob);
         mobs.add(mob);

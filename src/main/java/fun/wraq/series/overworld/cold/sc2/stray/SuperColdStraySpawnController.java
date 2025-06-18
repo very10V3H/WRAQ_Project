@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.cold.sc2.stray;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -12,7 +13,6 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.sc2.SuperColdItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -62,17 +62,19 @@ public class SuperColdStraySpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(56000, 850, 850, 0.4, 3, 0.6, 650, 25, 10000 * Math.pow(10, 4), 0.45);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Stray stray = new Stray(EntityType.STRAY, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSnow;
-        // 需要验证
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, Component.literal(mobName).withStyle(style), xpLevel,
-                56000, 850, 850,
-                0.4, 3, 0.6, 650, 25,
-                10000 * Math.pow(10, 4), 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(stray, style);
         stray.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.DIAMOND_CHESTPLATE));
@@ -86,17 +88,19 @@ public class SuperColdStraySpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            if (mob.isDeadOrDying()) {
-                return;
-            }
-            Element.provideElement(mob, Element.ice, 8);
-            if (mob.tickCount % 100 == 99 && RandomUtils.nextDouble(0, 1) < 0.1) {
-                skill(mob);
-            }
-            Compute.mobHealthRecover(mob, 0.02);
-        });
+    public void eachMobTick(Mob mob) {
+        if (mob.isDeadOrDying()) {
+            return;
+        }
+        if (mob.tickCount % 100 == 99 && RandomUtils.nextDouble(0, 1) < 0.1) {
+            skill(mob);
+        }
+        Compute.mobHealthRecover(mob, 0.02);
+    }
+
+    @Override
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.ice, 8);
     }
 
     public void skill(Mob mob) {

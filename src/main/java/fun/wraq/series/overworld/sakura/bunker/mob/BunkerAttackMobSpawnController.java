@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.sakura.bunker.mob;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -9,7 +10,6 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -55,15 +55,17 @@ public class BunkerAttackMobSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(7500, 500, 500, 0.4, 3, 0.5, 375, 25, 3500 * Math.pow(10, 4), 0.4);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         WitherSkeleton mob = new WitherSkeleton(EntityType.WITHER_SKELETON, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
-                7500, 500, 500,
-                0.4, 3, 0.5, 375, 25,
-                3500 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);
         mob.setItemSlot(EquipmentSlot.HEAD, Compute.getSkullByName("MHF_LavaSlime"));
@@ -87,10 +89,8 @@ public class BunkerAttackMobSpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 5);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.fire, 5);
     }
 
     @Override

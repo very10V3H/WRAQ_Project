@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter3_nether;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -56,20 +57,21 @@ public class NetherSkeletonSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Skeleton skeleton = new Skeleton(EntityType.SKELETON, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfNether;
-        MobSpawn.setMobCustomName(skeleton, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(skeleton, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.NETHERITE_CHESTPLATE),
                 new ItemStack(Items.NETHERITE_LEGGINGS), new ItemStack(Items.NETHERITE_BOOTS)};
@@ -78,20 +80,16 @@ public class NetherSkeletonSpawnController extends MobSpawnController {
             skeleton.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
         skeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(skeleton), list);
         return skeleton;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 4);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.fire, 4);
     }
 
     @Override

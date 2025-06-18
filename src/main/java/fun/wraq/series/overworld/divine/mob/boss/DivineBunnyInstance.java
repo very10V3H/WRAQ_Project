@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.divine.mob.boss;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -55,7 +56,6 @@ public class DivineBunnyInstance extends NoTeamInstance {
     public void tickModule() {
         if (mobList.isEmpty()) return;
         if (boss == null || boss.tickCount == 0) return;
-
         int tick = boss.tickCount;
         DivineUtils.handleMobTick(boss);
         if (tick % 60 == 0) {
@@ -67,13 +67,17 @@ public class DivineBunnyInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        return new MobAttributes(15000, 800, 800, 0.4, 3, 0.6, 600, 25, MAX_HEALTH, 0.3);
+    }
+
+    @Override
     public void summonModule(Level level) {
         Rabbit mob = new Rabbit(EntityType.RABBIT, level);
         mob.setVariant(Rabbit.Variant.EVIL);
-        MobSpawn.setMobCustomName(mob, Component.literal(mobName).withStyle(style), XP_LEVEL);
+        MobSpawn.setMobCustomName(mob, Te.s(mobName, style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 15000, 800, 800, 0.4,
-                3, 0.6, 600, 25, MAX_HEALTH, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMainMobAttributes());
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         mobList.add(mob);

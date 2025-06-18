@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -99,13 +100,17 @@ public class WardenInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 5000 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(6500, 600, 600, 0.4, 3, 0.6, 300, 25, maxHealth, 0.35);
+    }
+
+    @Override
     public void summonModule(Level level) {
         Warden warden = new Warden(EntityType.WARDEN, level);
         MobSpawn.setMobCustomName(warden, Component.literal("坚守者").withStyle(style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), XP_LEVEL);
-        double maxHealth = 5000 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, 6500, 600, 600, 0.4,
-                3, 0.6, 300, 25, maxHealth, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, getMainMobAttributes());
         warden.setHealth(warden.getMaxHealth());
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 12000L);
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);

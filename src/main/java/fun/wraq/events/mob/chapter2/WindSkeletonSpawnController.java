@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter2;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -9,16 +10,12 @@ import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -61,46 +58,34 @@ public class WindSkeletonSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(400, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.3);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Skeleton skeleton = new Skeleton(EntityType.SKELETON, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWind;
-        MobSpawn.setMobCustomName(skeleton, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(skeleton, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 400, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.3);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, getMobAttributes());
         // 设置物品
-        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
-                new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
-        EquipmentSlot[] equipmentSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-        for (int i = 0; i < itemStacks.length; i++) {
-            CompoundTag tag = itemStacks[i].getTag();
-            CompoundTag tag1 = new CompoundTag();
-            tag1.putInt("color", style.getColor().getValue());
-            tag.put("display", tag1);
-            skeleton.setItemSlot(equipmentSlots[i], itemStacks[i]);
-        }
+        MobSpawn.setStainArmorOnMob(skeleton, style);
         skeleton.setItemInHand(InteractionHand.MAIN_HAND, ModItems.KAZE_SWORD_0.get().getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(skeleton), list);
         return skeleton;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.wind, 2);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.wind, 2);
     }
 
     @Override

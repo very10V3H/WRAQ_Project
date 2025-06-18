@@ -1,7 +1,9 @@
 package fun.wraq.events.mob;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -135,6 +137,10 @@ public abstract class MobSpawnController {
                 if (player != null) {
                     mob.setTarget(player);
                 }
+                if (getElement() != null) {
+                    Element.provideElement(mob, getElement().type(), getElement().value());
+                }
+                eachMobTick(mob);
             }
         });
         if (spawnFlag) {
@@ -213,7 +219,6 @@ public abstract class MobSpawnController {
                 mobList.clear();
             }
         }
-        tick();
     }
 
     public LivingEntity getMounts() {
@@ -223,10 +228,18 @@ public abstract class MobSpawnController {
     // 生成怪物
     public abstract Mob mobItemAndAttributeSet();
 
-    // 怪物tick
-    public abstract void tick();
+    // 每只怪物的tick
+    public void eachMobTick(Mob mob) {
+
+    }
 
     public abstract List<ItemAndRate> getDropList();
 
     public abstract String getKillCountDataKey();
+
+    public abstract MobAttributes getMobAttributes();
+
+    public Element.Unit getElement() {
+        return null;
+    }
 }

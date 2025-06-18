@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter7;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -11,13 +12,9 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import net.mcreator.borninchaosv.entity.BoneImpEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -51,51 +48,36 @@ public class BoneImpSpawnController extends MobSpawnController {
 
     public BoneImpSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("炽鬼", CustomStyle.styleOfVolcano), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);;
+        super(Te.s("炽鬼", CustomStyle.styleOfVolcano), canSpawnPos, boundaryUpX, boundaryUpZ,
+                boundaryDownX, boundaryDownZ, level, averageLevel);;
+    }
+
+    @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(2800, 190, 190, 0.4, 3, 0.3, 70, 20, 400 * Math.pow(10, 4), 0.4);
     }
 
     @Override
     public Mob mobItemAndAttributeSet() {
         BoneImpEntity boneImp = new BoneImpEntity(BornInChaosV1ModEntities.BONE_IMP.get(), this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfVolcano;
-        MobSpawn.setMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(boneImp, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 2800, 190, 190,
-                0.4, 3, 0.3, 70, 20,
-                400 * Math.pow(10, 4), 0.4);
-
-        // 设置物品
-        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
-                new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
-        EquipmentSlot[] equipmentSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-        for (int i = 0; i < itemStacks.length; i++) {
-            CompoundTag tag = itemStacks[i].getTag();
-            CompoundTag tag1 = new CompoundTag();
-            tag1.putInt("color", style.getColor().getValue());
-            tag.put("display", tag1);
-            boneImp.setItemSlot(equipmentSlots[i], itemStacks[i]);
-        }
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(boneImp), list);
         return boneImp;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 5);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.fire, 5);
     }
 
     @Override

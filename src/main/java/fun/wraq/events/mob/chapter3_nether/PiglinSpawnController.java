@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter3_nether;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -53,20 +54,21 @@ public class PiglinSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Piglin piglin = new Piglin(EntityType.PIGLIN, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfGold;
-        MobSpawn.setMobCustomName(piglin, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(piglin, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(piglin), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(piglin, 200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(piglin, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.GOLDEN_CHESTPLATE),
                 new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_BOOTS)};
@@ -75,20 +77,16 @@ public class PiglinSpawnController extends MobSpawnController {
             piglin.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
         piglin.setItemInHand(InteractionHand.MAIN_HAND, Items.GOLDEN_SWORD.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(piglin), list);
         return piglin;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.fire, 4);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.fire, 4);
     }
 
     @Override

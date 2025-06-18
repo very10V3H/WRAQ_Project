@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance.instances.sakura;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -72,15 +73,18 @@ public class DevilInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 50 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(1700, 120, 120, 0.4, 3, 0.25, 50, 0, maxHealth, 0.35);
+    }
+
+    @Override
     public void summonModule(Level level) {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
         zombie.setBaby(true);
         MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
-        double maxHealth = 50 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1700, 120, 120,
-                0.4, 3, 0.25, 50, 0,
-                maxHealth, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMainMobAttributes());
         zombie.setHealth(zombie.getMaxHealth());
         zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_DEVIL_HELMET.get().getDefaultInstance());
         zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_EARTH_MANA_CHEST.get().getDefaultInstance());

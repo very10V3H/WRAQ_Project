@@ -2,6 +2,7 @@ package fun.wraq.events.mob.chapter7;
 
 import com.obscuria.aquamirae.common.entities.TorturedSoul;
 import com.obscuria.aquamirae.registry.AquamiraeEntities;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -48,39 +49,31 @@ public class TorturedSoulSpawnController extends MobSpawnController {
 
     public TorturedSoulSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                        int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("被折磨的灵魂", CustomStyle.styleOfWorld), canSpawnPos, boundaryUpX, 210, boundaryUpZ, boundaryDownX, 188, boundaryDownZ, level, averageLevel);
+        super(Te.s("被折磨的灵魂", CustomStyle.styleOfWorld), canSpawnPos, boundaryUpX, 210,
+                boundaryUpZ, boundaryDownX, 188, boundaryDownZ, level, averageLevel);
+    }
+
+    @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(3200, 200, 200, 0.4, 3, 0.3, 70, 25, 500 * Math.pow(10, 4), 0.4);
     }
 
     @Override
     public Mob mobItemAndAttributeSet() {
         TorturedSoul boneImp = new TorturedSoul(AquamiraeEntities.TORTURED_SOUL.get(), this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWorld;
-        MobSpawn.setMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(boneImp, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 3200, 200, 200,
-                0.4, 3, 0.3, 70, 25,
-                500 * Math.pow(10, 4), 0.4);
-
-        // 设置物品
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(boneImp), list);
         return boneImp;
-    }
-
-    @Override
-    public void tick() {
-
     }
 
     @Override

@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.ore;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -62,20 +63,20 @@ public class Ore2SpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(500, 60, 60, 0.35, 3, 0.2, 5, 15, 100000, 0.3);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         ZombieVillager zombieVillager = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfIce;
-
-        MobSpawn.setMobCustomName(zombieVillager, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(zombieVillager, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombieVillager), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieVillager, 500, 60, 60, 0.35,
-                3, 0.2, 5, 15, 100000, 0.3);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieVillager, getMobAttributes());
         zombieVillager.getAttribute(ForgeMod.SWIM_SPEED.get()).setBaseValue(3);
         // 设置物品
         zombieVillager.setItemSlot(EquipmentSlot.HEAD, Items.DIAMOND_HELMET.getDefaultInstance());
@@ -90,7 +91,6 @@ public class Ore2SpawnController extends MobSpawnController {
             zombieVillager.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
         zombieVillager.setVillagerData(new VillagerData(VillagerType.SNOW, VillagerProfession.TOOLSMITH, 3));
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(zombieVillager), list);
@@ -98,11 +98,9 @@ public class Ore2SpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Tick.get() % 100 < 50 ? Element.water : Element.stone, 3);
-            mob.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING));
-        });
+    public void eachMobTick(Mob mob) {
+        Element.provideElement(mob, Tick.get() % 100 < 50 ? Element.water : Element.stone, 3);
+        mob.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING));
     }
 
     @Override

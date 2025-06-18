@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter4_end;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -47,36 +48,26 @@ public class EndermiteSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
-        Endermite endermite = new Endermite(EntityType.ENDERMITE, this.level);
-
-        Random random = new Random();
-        int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
-        // 设置颜色与名称
-        Style style = CustomStyle.styleOfEnd;
-        MobSpawn.setMobCustomName(endermite, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(endermite), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(endermite, 1200, 100, 100,
-                0.45, 3, 0.3, 30, 25,
-                32 * Math.pow(10, 4), 0.4);
-
-        // 设置物品
-
-
-        // 设置掉落
-        List<ItemAndRate> list = getDropList();
-
-        // 添加至掉落物列表
-        MobSpawn.dropList.put(MobSpawn.getMobOriginName(endermite), list);
-        return endermite;
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(1200, 100, 100, 0.45, 3, 0.3, 30, 25, 32 * Math.pow(10, 4), 0.4);
     }
 
     @Override
-    public void tick() {
-
+    public Mob mobItemAndAttributeSet() {
+        Endermite endermite = new Endermite(EntityType.ENDERMITE, this.level);
+        Random random = new Random();
+        int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
+        // 设置颜色与名称
+        Style style = CustomStyle.styleOfEnd;
+        MobSpawn.setMobCustomName(endermite, Te.s(mobName, style), xpLevel);
+        // 设置属性
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(endermite), xpLevel);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(endermite, getMobAttributes());
+        // 设置掉落
+        List<ItemAndRate> list = getDropList();
+        // 添加至掉落物列表
+        MobSpawn.dropList.put(MobSpawn.getMobOriginName(endermite), list);
+        return endermite;
     }
 
     @Override

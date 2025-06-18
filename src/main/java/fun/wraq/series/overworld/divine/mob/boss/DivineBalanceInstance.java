@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.divine.mob.boss;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -58,10 +59,8 @@ public class DivineBalanceInstance extends NoTeamInstance {
     public void tickModule() {
         if (mobList.isEmpty()) return;
         if (boss == null || boss.tickCount == 0 || boss.isDeadOrDying()) return;
-
         DivineUtils.handleMobTick(boss);
         setMobElement(boss);
-
         if (boss.tickCount % 10 == 0) {
             players.forEach(player -> {
                 DivineUtils.createDivineParticle(player.level(), boss.getEyePosition(),
@@ -72,13 +71,15 @@ public class DivineBalanceInstance extends NoTeamInstance {
     }
 
     @Override
+    public MobAttributes getMainMobAttributes() {
+        return new MobAttributes(24000, 1100, 1100, 0.4, 3, 0.6, 750, 25, 20 * Math.pow(10, 8), 0.45);
+    }
+
+    @Override
     public void summonModule(Level level) {
         Zombie mob = new Zombie(EntityType.ZOMBIE, level);
         mob.setBaby(true);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, style), XP_LEVEL,
-                24000, 1100, 1100, 0.4, 3,
-                0.6, 750, 25,
-                20 * Math.pow(10, 8), 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, style), XP_LEVEL, getMainMobAttributes());
         mob.setItemSlot(EquipmentSlot.HEAD,
                 Compute.getSimpleFoiledItemStack(DivineIslandItems.DIVINE_HELMET_0.get()));
         mob.setItemSlot(EquipmentSlot.CHEST,

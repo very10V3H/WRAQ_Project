@@ -1,5 +1,7 @@
 package fun.wraq.events.mob.instance.instances.moontain;
 
+import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -31,7 +33,7 @@ public class MoontainBoss2Instance extends NoTeamInstance {
     public static MoontainBoss2Instance getInstance() {
         if (instance == null) {
             instance = new MoontainBoss2Instance(new Vec3(1978, 215, -881), 15, 60, new Vec3(1978, 215, -881),
-                    Component.literal(mobName).withStyle(style));
+                    Te.s(mobName, style));
         }
         return instance;
     }
@@ -41,20 +43,18 @@ public class MoontainBoss2Instance extends NoTeamInstance {
     }
 
     @Override
-    public void tickModule() {
-        if (mobList.isEmpty()) return;
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 1500 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        return new MobAttributes(3200, 300, 300, 0.4, 3, 0.5, 125, 0, maxHealth, 0.45);
     }
 
     @Override
     public void summonModule(Level level) {
         SirPumpkinheadEntity entity =
                 new SirPumpkinheadEntity(BornInChaosV1ModEntities.SIR_PUMPKINHEAD.get(), level);
-        MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 220);
+        MobSpawn.setMobCustomName(entity, Te.s(mobName, style), 220);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 215);
-        double maxHealth = 1500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3200, 300, 300,
-                0.4, 3, 0.5, 125, 0,
-                maxHealth, 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);
         level.addFreshEntity(entity);

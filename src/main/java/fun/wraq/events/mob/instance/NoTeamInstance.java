@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -10,6 +11,7 @@ import fun.wraq.common.util.items.AdjustStackBeforeGive;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.reason.Reason;
@@ -110,13 +112,22 @@ public abstract class NoTeamInstance {
                             mob.moveTo(pos);
                         }
                         lastMob = mob;
+                        if (getElementUnit() != null) {
+                            Element.provideElement(mob, getElementUnit().type(), getElementUnit().value());
+                        }
                     }
                 }
             }
         }
     }
 
-    public abstract void tickModule();
+    public void tickModule() {
+
+    }
+
+    public Element.Unit getElementUnit() {
+        return null;
+    }
 
     public abstract void summonModule(Level level);
 
@@ -333,6 +344,10 @@ public abstract class NoTeamInstance {
     }
 
     public List<Component> getIntroduction() {
+        return null;
+    }
+
+    public MobAttributes getMainMobAttributes() {
         return null;
     }
 }

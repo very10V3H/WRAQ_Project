@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -72,7 +73,6 @@ public class PlainInstance extends NoTeamInstance {
             ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
                     1.5, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
         }
-
         if (mob.tickCount % 100 == 50) {
             players.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
@@ -82,13 +82,22 @@ public class PlainInstance extends NoTeamInstance {
                     player.heal(100);
                 }
             });
-
             ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
                     1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
             ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
                     1.5, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
         }
-        Element.provideElement(mob, Element.life, 2);
+    }
+
+    @Override
+    public MobAttributes getMainMobAttributes() {
+        double maxHealth = 10000 * (1 + 0.75 * (Math.max(1, players.size())) - 1);
+        return new MobAttributes(400, 40, 40, 0.2, 1, 0, 0, 0, maxHealth, 0.2);
+    }
+
+    @Override
+    public Element.Unit getElementUnit() {
+        return new Element.Unit(Element.life, 2);
     }
 
     @Override
@@ -97,9 +106,7 @@ public class PlainInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(zombie, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
         zombie.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LIBRARIAN, 0));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 50);
-        double maxHealth = 10000 * (1 + 0.75 * (players.size()) - 1);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 400, 40, 40, 0.2,
-                1, 0, 0, 0, maxHealth, 0.2);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMainMobAttributes());
         zombie.setHealth(zombie.getMaxHealth());
         MobSpawn.setStainArmorOnMob(zombie, CustomStyle.styleOfLife);
         zombie.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.GOLDEN_HOE));

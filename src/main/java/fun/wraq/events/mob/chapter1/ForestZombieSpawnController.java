@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter1;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -53,35 +54,32 @@ public class ForestZombieSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(60, 5, 5, 0.2, 1, 0, 0, 0, 300, 0.2);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfForest;
-
-        MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(style), xpLevel);
-
-        // 需要验证
+        MobSpawn.setMobCustomName(zombie, Te.s(mobName, style), xpLevel);
+        // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 60, 5, 5, 0.2, 1, 0, 0, 0, 300, 0.2);
-
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(zombie, style);
         zombie.setItemInHand(InteractionHand.MAIN_HAND, Items.WOODEN_AXE.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(zombie), list);
         return zombie;
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            Element.provideElement(mob, Element.life, 1);
-        });
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.life, 1);
     }
 
     public List<ItemAndRate> getDropList() {

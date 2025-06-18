@@ -2,12 +2,15 @@ package fun.wraq.render.gui.illustrate.mobinfo;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.jungle.JungleMobSpawn;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -57,23 +60,16 @@ public class MobInfoGui extends Screen {
         this.addRenderableWidget(Button.builder(Component.translatable("←"), (p_280814_) -> {
             if (page > 0) page --;
         }).pos(X - 39 + 5, Y - 20 + 97).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
             if (page < 100) page ++;
         }).pos(X + 20 + 5, Y - 20 + 97).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
             this.minecraft.setScreen((Screen) null);
             this.minecraft.mouseHandler.grabMouse();
         }).pos(X + 136, Y - 98).size(12, 12).build());
-
         this.addRenderableWidget(Button.builder(Component.literal("返回图鉴"), (p_280814_) -> {
             this.minecraft.setScreen(new Illustrate(true, 0));
         }).pos(X + 150 - 60, Y - 98 - 20).size(28 * 2, 16).build());
-    }
-
-    public void tick() {
-        super.tick();
     }
 
     public void render(GuiGraphics p_96310_, int x, int y, float v) {
@@ -128,6 +124,51 @@ public class MobInfoGui extends Screen {
                         guiGraphics.renderComponentTooltip(fontRenderer, description, x, y);
                     }
                 }
+                if (mobInfo.attributes != null) {
+                    guiGraphics.drawCenteredString(font, Te.s("「属性」", ChatFormatting.GREEN),
+                            this.width / 2 + 50, this.height / 2 - 73 + 32 * i,0);
+                    if (x > this.width / 2 + 50 - 20 && x < this.width / 2 + 50 + 20
+                            && y > this.height / 2 - 73 + 32 * i - 4 && y < this.height / 2 - 73 + 32 * i + 8) {
+                        List<Component> description = new ArrayList<>();
+                        description.add(Te.s("怪物(主要)属性", CustomStyle.styleOfRed));
+                        MobAttributes attributes = mobInfo.attributes;
+                        description.add(Te.s(" · 基础攻击 ", CustomStyle.styleOfVolcano,
+                                String.format("%.0f", attributes.attackDamage)));
+                        description.add(Te.s(" · 基础护甲 ", CustomStyle.styleOfStone,
+                                String.format("%.0f", attributes.defence)));
+                        description.add(Te.s(" - 以你目前的穿透属性，对其造成的物理伤害倍率为",
+                                String.format("%.1f%%", Damage.defenceDamageDecreaseRate(attributes.defence,
+                                        ClientUtils.BreakDefenceC, ClientUtils.BreakDefence0C) * 100),
+                                CustomStyle.styleOfVolcano));
+                        description.add(Te.s(" · 基础魔抗 ", ChatFormatting.BLUE,
+                                String.format("%.0f", attributes.manaDefence)));
+                        description.add(Te.s(" - 以你目前的穿透属性，对其造成的魔法伤害倍率为",
+                                String.format("%.1f%%", Damage.defenceDamageDecreaseRate(attributes.defence,
+                                        ClientUtils.BreakManaDefenceC, ClientUtils.BreakManaDefence0C) * 100),
+                                CustomStyle.styleOfMana));
+                        description.add(Te.s(" · 暴击几率 ", ChatFormatting.LIGHT_PURPLE,
+                                String.format("%.0f%%", attributes.critRate * 100)));
+                        description.add(Te.s(" · 暴击伤害 ", ChatFormatting.BLUE,
+                                String.format("%.0f%%", attributes.critDamage * 100)));
+                        description.add(Te.s(" · 护甲穿透 ", CustomStyle.styleOfStone,
+                                String.format("%.0f%%", attributes.defencePenetration * 100)));
+                        description.add(Te.s(" · 护甲穿透 ", CustomStyle.styleOfStone,
+                                String.format("%.0f", attributes.defencePenetration0)));
+                        description.add(Te.s(" - 以你目前的抗性，其对你造成的物理伤害倍率为",
+                                String.format("%.1f%%", Damage.defenceDamageDecreaseRate(ClientUtils.DefenceC,
+                                        attributes.defencePenetration, attributes.defencePenetration0) * 100),
+                                CustomStyle.styleOfVolcano));
+                        description.add(Te.s(" · 生命偷取 ", CustomStyle.styleOfRed,
+                                String.format("%.0f%%", attributes.healthSteal * 100)));
+                        description.add(Te.s(" · 最大生命值 ", CustomStyle.styleOfLife,
+                                String.format("%.0f", attributes.maxHealth)));
+                        description.add(Te.s(" · 额外移速 ", CustomStyle.styleOfFlexible,
+                                String.format("%.0f%%", (1 + attributes.movementSpeed * 100))));
+                        description.add(Te.s(" - 若想更精确比对穿透数值，可以将主武器放在物品栏第一位"));
+                        description.add(Te.s(" - 打开身份卡时会自动将当前选定物品切换至物品栏第一格"));
+                        guiGraphics.renderComponentTooltip(fontRenderer, description, x, y);
+                    }
+                }
                 if (x > this.width / 2 - 20 && x < this.width / 2 + 20
                         && y > this.height / 2 - 73 + 32 * i - 4 && y < this.height / 2 - 73 + 32 * i + 8) {
                     List<Component> description = new ArrayList<>();
@@ -168,7 +209,8 @@ public class MobInfoGui extends Screen {
         return false;
     }
 
-    public record MobInfo(Component name, int mobLevel, List<ItemAndRate> dropList, List<Component> introduction) {}
+    public record MobInfo(Component name, int mobLevel, List<ItemAndRate> dropList,
+                          List<Component> introduction, MobAttributes attributes) {}
 
     public static List<MobInfo> mobInfoList = new ArrayList<>();
 
@@ -178,21 +220,23 @@ public class MobInfoGui extends Screen {
                 mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
                         Utils.getLevelDescription(noTeamInstance.level), " ",
                         noTeamInstance.name), noTeamInstance.level,
-                        noTeamInstance.getRewardList(), noTeamInstance.getIntroduction()));
+                        noTeamInstance.getRewardList(), noTeamInstance.getIntroduction(),
+                        noTeamInstance.getMainMobAttributes()));
             });
             MobSpawn.getAllControllers(false).forEach(mobSpawnController -> {
                 mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(mobSpawnController.averageLevel),
                         " ", mobSpawnController.mobName),
-                        mobSpawnController.averageLevel, mobSpawnController.getDropList(), null));
+                        mobSpawnController.averageLevel, mobSpawnController.getDropList(), null,
+                        mobSpawnController.getMobAttributes()));
             });
             NewTeamInstanceHandler.instances.forEach(newTeamInstance -> {
                 mobInfoList.add(new MobInfo(newTeamInstance.description, newTeamInstance.levelRequire,
-                        newTeamInstance.getRewardList(), null));
+                        newTeamInstance.getRewardList(), null, newTeamInstance.getMainMobAttributes()));
             });
             JungleMobSpawn.getOverworldController().forEach(controller -> {
                 mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(controller.mobXpLevel),
                         " ", controller.name),
-                        controller.mobXpLevel, controller.getRewardItemList(), null));
+                        controller.mobXpLevel, controller.getRewardItemList(), null, controller.getMobAttributes()));
             });
         }
         return mobInfoList;

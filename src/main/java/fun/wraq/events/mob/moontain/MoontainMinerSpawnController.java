@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.moontain;
 
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -62,22 +63,21 @@ public class MoontainMinerSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(3500, 210, 210, 0.4, 3, 0.3, 80, 25, 600 * Math.pow(10, 4), 0.4);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         ZombieVillager zombieVillager = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, this.level);
-
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMoontain;
-        MobSpawn.setMobCustomName(zombieVillager, Component.literal(mobName).withStyle(style), xpLevel);
+        MobSpawn.setMobCustomName(zombieVillager, Te.s(mobName, style), xpLevel);
         zombieVillager.setVillagerData(new VillagerData(VillagerType.SNOW, VillagerProfession.ARMORER, 0));
-
-        // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieVillager, xpLevel, 3500, 210,
-                210, 0.4, 3, 0.3, 80, 25,
-                600 * Math.pow(10, 4), 0.4);
-
+        // 设置属性
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieVillager, xpLevel, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),
                 new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
@@ -89,23 +89,15 @@ public class MoontainMinerSpawnController extends MobSpawnController {
             tag.put("display", tag1);
             zombieVillager.setItemSlot(equipmentSlots[i], itemStacks[i]);
         }
-
         ItemStack diamondPickaxe = Items.DIAMOND_PICKAXE.getDefaultInstance();
         diamondPickaxe.enchant(Enchantments.UNBREAKING, 5);
         zombieVillager.setItemSlot(EquipmentSlot.MAINHAND, diamondPickaxe);
         zombieVillager.setItemSlot(EquipmentSlot.OFFHAND, Items.TORCH.getDefaultInstance());
-
         // 设置掉落
         List<ItemAndRate> list = getDropList();
-
         // 添加至掉落物列表
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(zombieVillager), list);
         return zombieVillager;
-    }
-
-    @Override
-    public void tick() {
-
     }
 
     @Override

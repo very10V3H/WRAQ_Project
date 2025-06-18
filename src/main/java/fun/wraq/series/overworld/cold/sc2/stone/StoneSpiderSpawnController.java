@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.cold.sc2.stone;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -14,7 +15,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -62,15 +62,17 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     }
 
     @Override
+    public MobAttributes getMobAttributes() {
+        return new MobAttributes(14000, 850, 850, 0.4, 3, 0.6, 650, 25, 10000 * Math.pow(10, 4), 0.45);
+    }
+
+    @Override
     public Mob mobItemAndAttributeSet() {
         Spider mob = new Spider(EntityType.SPIDER, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Component.literal(mobName).withStyle(style), xpLevel,
-                14000, 850, 850,
-                0.4, 3, 0.6, 650, 25,
-                10000 * Math.pow(10, 4), 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(mob), list);
@@ -78,17 +80,19 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     }
 
     @Override
-    public void tick() {
-        mobList.forEach(mob -> {
-            if (mob.isDeadOrDying()) {
-                return;
-            }
-            Element.provideElement(mob, Element.stone, 8);
-            if (mob.tickCount % 20 == (mobList.indexOf(mob) % 20)) {
-                commonAttack(mob);
-            }
-            Compute.mobHealthRecover(mob, 0.02);
-        });
+    public void eachMobTick(Mob mob) {
+        if (mob.isDeadOrDying()) {
+            return;
+        }
+        if (mob.tickCount % 20 == (mobList.indexOf(mob) % 20)) {
+            commonAttack(mob);
+        }
+        Compute.mobHealthRecover(mob, 0.02);
+    }
+
+    @Override
+    public Element.Unit getElement() {
+        return new Element.Unit(Element.stone, 8);
     }
 
     @Override
@@ -131,8 +135,8 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     public static void skill2(Mob mob) {
         Player player = Compute.getNearestPlayer(mob, 24);
         if (player != null) {
-            for (int i = 0; i < 3; i++ ) {
-                for (int j = 0; j < 3; j ++) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
                     BlockPos blockPos = player.blockPosition().west(1).south(1).east(i).north(j);
                     if (mob.level().getBlockState(blockPos).is(Blocks.AIR)) {
                         BlockAndResetTime.createThenDestroy(mob.level(),
