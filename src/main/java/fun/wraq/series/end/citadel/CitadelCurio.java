@@ -88,7 +88,7 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Decom
     public static List<Item> citadelCurios = new ArrayList<>();
 
     public static void onNormalAttackOrSkillHit(Player player, Mob mob, double damage, boolean isAd) {
-        Compute.CuriosAttribute.getClientCuriosSet(player).stream()
+        Compute.CuriosAttribute.getDistinctCuriosSet(player).stream()
                 .filter(curio -> citadelCurios.contains(curio))
                 .findAny()
                 .ifPresent(citadelCurio -> {
