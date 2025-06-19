@@ -2,21 +2,15 @@ package fun.wraq.process.system.element;
 
 import com.mojang.datafixers.util.Pair;
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.struct.ItemEntityAndResetTime;
-import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ElementEffectTimeS2CPacket;
-import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
-import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.ElementParticle.*;
-import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.season.MySeason;
@@ -26,21 +20,17 @@ import fun.wraq.series.overworld.divine.equip.armor.DivineArmorCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -145,19 +135,15 @@ public class Element {
             entityElementUnit.put(passive, new Unit(life, 0));
         }
         Unit passiveUnit = entityElementUnit.get(passive);
-
         if (passiveUnit.value == 0 && value == 0) return 1;
         if (passiveUnit.value == 0) {
             entityElementUnit.put(passive, new Unit(type, value));
             ElementParticleProvider(passive);
             return 1;
         }
-
         double reactionElementValue = Math.min(passiveUnit.value, value);
-
         double strongRate = 0.2 * reactionElementValue;
         double weakRate = -0.2 * reactionElementValue;
-
         if (passiveUnit.type.equals(type)) {
             if (passiveUnit.value < value) entityElementUnit.put(passive, new Unit(type, value));
             return 1;
@@ -166,13 +152,12 @@ public class Element {
                 entityElementUnit.put(passive, new Unit(passiveUnit.type, passiveUnit.value - value));
             else entityElementUnit.put(passive, new Unit(type, value - passiveUnit.value));
         }
-
         if (type.equals(life)) {
             if (passiveUnit.type.equals(water)) {
                 return 1 + strongRate;
             }
             if (passiveUnit.type.equals(fire)) {
-                return 1 + (weakRate * LifeAndFire(reactionElementValue));
+                return 1 + weakRate;
             }
             if (passiveUnit.type.equals(stone)) {
                 return 1 + strongRate;
@@ -193,35 +178,27 @@ public class Element {
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(fire)) {
-                return 1 + (WaterAndFire(reactionElementValue) * strongRate);
-            }
-            if (passiveUnit.type.equals(stone)) {
-                WaterAndStone(passive, reactionElementValue);
-            }
-            if (passiveUnit.type.equals(ice)) {
-                WaterAndIce(passive, reactionElementValue);
+                return 1 + strongRate;
             }
             if (passiveUnit.type.equals(lightning)) {
-                WaterAndLightning(passive, reactionElementValue);
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(wind)) {
-                WaterAndWind(passive, reactionElementValue);
                 return 1 + strongRate;
             }
         }
         if (type.equals(fire)) {
             if (passiveUnit.type.equals(life)) {
-                return 1 + (LifeAndFire(reactionElementValue) * strongRate);
+                return 1 + strongRate;
             }
             if (passiveUnit.type.equals(water)) {
-                return 1 + (WaterAndFire(reactionElementValue) * weakRate);
+                return 1 + weakRate;
             }
             if (passiveUnit.type.equals(stone)) {
-                return 1 + (FireAndStone(reactionElementValue) * weakRate);
+                return 1 + weakRate;
             }
             if (passiveUnit.type.equals(ice)) {
-                return 1 + (FireAndIce(reactionElementValue) * strongRate);
+                return 1 + strongRate;
             }
             if (passiveUnit.type.equals(lightning)) {
                 return 1 + weakRate;
@@ -234,58 +211,36 @@ public class Element {
             if (passiveUnit.type.equals(life)) {
                 return 1 + weakRate;
             }
-            if (passiveUnit.type.equals(water)) {
-
-            }
             if (passiveUnit.type.equals(fire)) {
-                return 1 + (FireAndStone(reactionElementValue) * strongRate);
+                return 1 + strongRate;
             }
             if (passiveUnit.type.equals(ice)) {
                 return 1 + weakRate;
-            }
-            if (passiveUnit.type.equals(lightning)) {
-
             }
             if (passiveUnit.type.equals(wind)) {
                 return 1 + strongRate;
             }
         }
         if (type.equals(ice)) {
-            if (passiveUnit.type.equals(life)) {
-
-            }
-            if (passiveUnit.type.equals(water)) {
-
-            }
             if (passiveUnit.type.equals(fire)) {
-                return 1 + (FireAndIce(reactionElementValue) * weakRate);
+                return 1 + weakRate;
             }
             if (passiveUnit.type.equals(stone)) {
-
+                return 1 + strongRate;
             }
-            if (passiveUnit.type.equals(lightning)) {
-
-            }
-            if (passiveUnit.type.equals(wind)) {
-
+            if (passiveUnit.type.equals(life)) {
+                return 1 + strongRate;
             }
         }
         if (type.equals(lightning)) {
             if (passiveUnit.type.equals(life)) {
-
                 return 1 + weakRate;
             }
             if (passiveUnit.type.equals(water)) {
-
+                return 1 + strongRate;
             }
             if (passiveUnit.type.equals(fire)) {
                 return 1 + strongRate;
-            }
-            if (passiveUnit.type.equals(stone)) {
-                return 1 + strongRate;
-            }
-            if (passiveUnit.type.equals(ice)) {
-
             }
             if (passiveUnit.type.equals(wind)) {
                 return 1 + weakRate;
@@ -304,372 +259,12 @@ public class Element {
             if (passiveUnit.type.equals(stone)) {
                 return 1 + weakRate;
             }
-            if (passiveUnit.type.equals(ice)) {
-
-            }
             if (passiveUnit.type.equals(lightning)) {
                 return 1 + strongRate;
             }
         }
         ElementParticleProvider(passive);
         return 1;
-    }
-
-    // 滋养
-    public static void LifeAndWaterReaction(LivingEntity passive, double reactionElementValue) {
-        if (passive instanceof Player player)
-            Compute.playerHeal(player, player.getMaxHealth() * reactionElementValue * 0.1);
-        else passive.heal((float) (passive.getMaxHealth() * reactionElementValue * 0.1));
-    }
-
-    // 燃料
-    public static double LifeAndFire(double reactionElementValue) {
-        return reactionElementValue;
-    }
-
-    // 汲取
-    public static void LifeAndStone(LivingEntity active, double reactionElementValue) {
-        if (active instanceof Player player)
-            Compute.playerHeal(player, player.getMaxHealth() * reactionElementValue * 0.1);
-        else active.heal((float) (active.getMaxHealth() * reactionElementValue * 0.1));
-    }
-
-    // 霜冻
-    public static WeakHashMap<Entity, Integer> lifeAndIceTickMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> lifeAndIceEffectMap = new WeakHashMap<>();
-
-    public static void LifeAndIce(LivingEntity passive, double reactionElementValue) {
-        if (lifeAndIceTickMap.containsKey(passive) && lifeAndIceTickMap.get(passive) > Tick.get()) {
-            lifeAndIceTickMap.put(passive, Tick.get() + 100);
-        } else {
-            lifeAndIceTickMap.put(passive, Tick.get() + 100);
-            lifeAndIceEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static double LifeAndIceWithStandDamageEnhance(LivingEntity passive) {
-        if (lifeAndIceTickMap.containsKey(passive) && lifeAndIceTickMap.get(passive) > Tick.get()) {
-            return lifeAndIceEffectMap.get(passive);
-        }
-        return 0;
-    }
-
-    // 氮化
-    public static WeakHashMap<Entity, Integer> lifeAndLightningTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> lifeAndLightningEffectMap = new WeakHashMap<>();
-
-    public static void LifeAndLightning(LivingEntity passive, double reactionElementValue) {
-        if (lifeAndLightningTimesMap.containsKey(passive) && lifeAndLightningTimesMap.get(passive) > 0) {
-            lifeAndLightningTimesMap.put(passive, 3);
-        } else {
-            lifeAndLightningTimesMap.put(passive, 3);
-            lifeAndLightningEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static void LifeAndLightningTick() {
-        lifeAndLightningTimesMap.forEach((entity, integer2) -> {
-            if (entity instanceof LivingEntity livingEntity) {
-                if (integer2 > 0) {
-                    if (livingEntity instanceof Player player) {
-                        Compute.playerHeal(player, 0.05 * lifeAndLightningEffectMap.get(entity));
-                    } else livingEntity.heal((float) (0.05 * lifeAndLightningEffectMap.get(entity)));
-                    lifeAndLightningTimesMap.put(entity, integer2 - 1);
-                }
-            }
-        });
-        lifeAndLightningTimesMap.entrySet().removeIf(entry -> entry.getValue() == 0);
-    }
-
-    // 断裂
-    public static WeakHashMap<Entity, Integer> lifeAndWindTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> lifeAndWindEffectMap = new WeakHashMap<>();
-
-    public static void LifeAndWind(LivingEntity passive, double reactionElementValue) {
-        if (lifeAndWindTimesMap.containsKey(passive) && lifeAndWindTimesMap.get(passive) > Tick.get()) {
-            lifeAndWindTimesMap.put(passive, Tick.get() + 100);
-        } else {
-            lifeAndWindTimesMap.put(passive, Tick.get() + 100);
-            lifeAndWindEffectMap.put(passive, reactionElementValue);
-        }
-        List<Player> players = passive.level().getEntitiesOfClass(Player.class, AABB.ofSize(passive.position(), 50, 50, 50));
-        players.removeIf(player -> player.distanceTo(passive) > 20);
-        players.forEach(player -> ModNetworking.sendToClient(new ManaDefencePenetrationParticleS2CPacket(passive.getId(), 100), (ServerPlayer) player));
-        players.forEach(player -> ModNetworking.sendToClient(new DefencePenetrationParticleS2CPacket(passive.getId(), 100), (ServerPlayer) player));
-    }
-
-    public static double LifeAndWindDefenceDecrease(LivingEntity passive) {
-        if (lifeAndWindTimesMap.containsKey(passive) && lifeAndWindTimesMap.get(passive) > Tick.get()) {
-            return lifeAndWindEffectMap.get(passive) * 0.1;
-        }
-        return 0;
-    }
-
-    // 蒸发
-    public static double WaterAndFire(double reactionElementValue) {
-        return reactionElementValue;
-    }
-
-    // 泥化
-    public static WeakHashMap<Entity, Integer> waterAndStoneTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> waterAndStoneEffectMap = new WeakHashMap<>();
-
-    public static void WaterAndStone(LivingEntity passive, double reactionElementValue) {
-        if (waterAndStoneTimesMap.containsKey(passive) && waterAndStoneTimesMap.get(passive) > 0) {
-            waterAndStoneTimesMap.put(passive, 3);
-        } else {
-            waterAndStoneTimesMap.put(passive, 3);
-            waterAndStoneEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static double WaterAndStoneWithStandDamageDecrease(LivingEntity passive) {
-        if (waterAndStoneTimesMap.containsKey(passive) && waterAndStoneTimesMap.get(passive) > 0) {
-            waterAndStoneTimesMap.put(passive, waterAndStoneTimesMap.get(passive) - 1);
-            return waterAndStoneEffectMap.get(passive);
-        }
-        if (waterAndStoneTimesMap.containsKey(passive) && waterAndStoneTimesMap.get(passive) == 0) {
-            waterAndStoneTimesMap.remove(passive);
-            waterAndStoneEffectMap.remove(passive);
-        }
-        return 0;
-    }
-
-    // 冰水
-    public static WeakHashMap<Entity, Integer> waterAndIceTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> waterAndIceEffectMap = new WeakHashMap<>();
-
-    public static void WaterAndIce(LivingEntity passive, double reactionElementValue) {
-        if (waterAndIceTimesMap.containsKey(passive) && waterAndIceTimesMap.get(passive) > 0) {
-            waterAndIceTimesMap.put(passive, 3);
-        } else {
-            waterAndIceTimesMap.put(passive, 3);
-            waterAndIceEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static void WaterAndIceReflection(LivingEntity active, LivingEntity passive) {
-        if (active instanceof Player player) {
-            if (waterAndIceTimesMap.getOrDefault(passive, 0) > 0) {
-                waterAndIceTimesMap.put(passive, waterAndIceTimesMap.getOrDefault(passive, 0) - 1);
-                Compute.decreasePlayerHealth(player,
-                        PlayerAttributes.getMainDamage(player) * waterAndIceEffectMap.getOrDefault(passive, 0d),
-                        Te.m("被自己造成的元素反应击杀了"));
-            }
-        }
-    }
-
-    // 感电
-    public static WeakHashMap<Entity, Integer> waterAndLightningTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> waterAndLightningEffectMap = new WeakHashMap<>();
-
-    public static void WaterAndLightning(LivingEntity passive, double reactionElementValue) {
-        if (waterAndLightningTimesMap.containsKey(passive) && waterAndLightningTimesMap.get(passive) > 0) {
-            waterAndLightningTimesMap.put(passive, 3);
-        } else {
-            waterAndLightningTimesMap.put(passive, 3);
-            waterAndLightningEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static void WaterAndLightning() {
-        waterAndLightningTimesMap.forEach((entity, integer2) -> {
-            if (entity instanceof Mob mob) {
-                if (integer2 > 0) {
-                    if (MobSpawn.MobBaseAttributes.xpLevel.containsKey(MobSpawn.getMobOriginName(mob))) {
-                        int xpLevel = MobSpawn.MobBaseAttributes.xpLevel.get(MobSpawn.getMobOriginName(mob));
-                        mob.setHealth((float) Math.max(1, mob.getHealth() - xpLevel * waterAndLightningEffectMap.get(entity) * 500));
-                    }
-                    waterAndLightningTimesMap.put(entity, integer2 - 1);
-                }
-            }
-        });
-        waterAndLightningTimesMap.entrySet().removeIf(entry -> entry.getValue() == 0);
-    }
-
-    // 风浪
-    public static void WaterAndWind(LivingEntity passive, double reactionElementValue) {
-        passive.addDeltaMovement(new Vec3(0, reactionElementValue * 2, 0));
-    }
-
-    // 灰化
-    public static double FireAndStone(double reactionElementValue) {
-        return reactionElementValue;
-    }
-
-    // 融化
-    public static double FireAndIce(double reactionElementValue) {
-        return reactionElementValue;
-    }
-
-    // 爆裂
-    public static void FireAndLightning(LivingEntity active, LivingEntity passive, double reactionElementValue, double damage, boolean isAd) {
-        List<LivingEntity> list = passive.level().getEntitiesOfClass(LivingEntity.class, AABB.ofSize(passive.position(), 15, 15, 15));
-        if (active instanceof Player player) {
-            list.forEach(livingEntity -> {
-                if (livingEntity instanceof Mob mob) {
-                    if (isAd) {
-                        Damage.causeAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
-                    } else {
-                        Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
-                    }
-                }
-            });
-        }
-    }
-
-    // 旺盛
-    public static WeakHashMap<Entity, Integer> fireAndWindTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> fireAndWindEffectMap = new WeakHashMap<>();
-
-    public static void FireAndWind(LivingEntity passive, double reactionElementValue) {
-        if (fireAndWindTimesMap.containsKey(passive) && fireAndWindTimesMap.get(passive) > Tick.get()) {
-            fireAndWindTimesMap.put(passive, Tick.get() + 100);
-        } else {
-            fireAndWindTimesMap.put(passive, Tick.get() + 100);
-            fireAndWindEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static double FireAndWindDamageEnhance(LivingEntity passive) {
-        if (fireAndWindTimesMap.containsKey(passive) && fireAndWindTimesMap.get(passive) > Tick.get()) {
-            return fireAndWindEffectMap.get(passive) * 0.1;
-        }
-        return 0;
-    }
-
-    // 冻土
-    public static WeakHashMap<Entity, Integer> stoneAndIceTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> stoneAndIceEffectMap = new WeakHashMap<>();
-
-    public static void StoneAndIce(LivingEntity passive, double reactionElementValue) {
-        if (stoneAndIceTimesMap.containsKey(passive) && stoneAndIceTimesMap.get(passive) > Tick.get()) {
-            stoneAndIceTimesMap.put(passive, Tick.get() + 100);
-        } else {
-            stoneAndIceTimesMap.put(passive, Tick.get() + 100);
-            stoneAndIceEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static double StoneAndIceWithstandDamageEnhance(LivingEntity passive) {
-        if (stoneAndIceTimesMap.containsKey(passive) && stoneAndIceTimesMap.get(passive) > Tick.get()) {
-            return stoneAndIceEffectMap.get(passive) * 0.1;
-        }
-        return 0;
-    }
-
-    // 接地
-    public static WeakHashMap<Entity, Integer> stoneAndLightningTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> stoneAndLightningEffectMap = new WeakHashMap<>();
-
-    public static void StoneAndLightning(LivingEntity passive, double reactionElementValue) {
-        if (stoneAndLightningTimesMap.containsKey(passive) && stoneAndLightningTimesMap.get(passive) > Tick.get()) {
-            stoneAndLightningTimesMap.put(passive, Tick.get() + 100);
-        } else {
-            stoneAndLightningTimesMap.put(passive, Tick.get() + 100);
-            stoneAndLightningEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static double StoneAndLightningDamageEnhance(LivingEntity passive) {
-        if (stoneAndLightningTimesMap.containsKey(passive) && stoneAndLightningTimesMap.get(passive) > Tick.get()) {
-            return stoneAndLightningEffectMap.get(passive) * 0.1;
-        }
-        return 0;
-    }
-
-    // 风化
-    public static WeakHashMap<Entity, Integer> stoneAndWindTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> stoneAndWindEffectMap = new WeakHashMap<>();
-
-    public static void StoneAndWind(LivingEntity passive, double reactionElementValue) {
-        if (stoneAndWindTimesMap.containsKey(passive) && stoneAndWindTimesMap.get(passive) > Tick.get()) {
-            stoneAndWindTimesMap.put(passive, Tick.get() + 100);
-        } else {
-            stoneAndWindTimesMap.put(passive, Tick.get() + 100);
-            stoneAndWindEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static double StoneAndWindWithstandDamageEnhance(LivingEntity passive) {
-        if (stoneAndWindTimesMap.containsKey(passive) && stoneAndWindTimesMap.get(passive) > Tick.get()) {
-            return stoneAndWindEffectMap.get(passive) * 0.1;
-        }
-        return 0;
-    }
-
-    // 超导
-    public static WeakHashMap<Entity, Integer> iceAndLightningTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> iceAndLightningEffectMap = new WeakHashMap<>();
-
-    public static void IceAndLightning(LivingEntity passive, double reactionElementValue) {
-        if (iceAndLightningTimesMap.containsKey(passive) && iceAndLightningTimesMap.get(passive) > Tick.get()) {
-            iceAndLightningTimesMap.put(passive, Tick.get() + 100);
-        } else {
-            iceAndLightningTimesMap.put(passive, Tick.get() + 100);
-            iceAndLightningEffectMap.put(passive, reactionElementValue);
-        }
-        List<Player> players = passive.level().getEntitiesOfClass(Player.class, AABB.ofSize(passive.position(), 50, 50, 50));
-        players.removeIf(player -> player.distanceTo(passive) > 20);
-        players.forEach(player -> ModNetworking.sendToClient(new ManaDefencePenetrationParticleS2CPacket(passive.getId(), 100), (ServerPlayer) player));
-        players.forEach(player -> ModNetworking.sendToClient(new DefencePenetrationParticleS2CPacket(passive.getId(), 100), (ServerPlayer) player));
-    }
-
-    public static double IceAndLightningDefenceDecrease(LivingEntity passive) {
-        if (iceAndLightningTimesMap.containsKey(passive) && iceAndLightningTimesMap.get(passive) > Tick.get()) {
-            return iceAndLightningEffectMap.get(passive) * 0.1;
-        }
-        return 0;
-    }
-
-    // 风寒
-    public static WeakHashMap<Entity, Integer> iceAndWindTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Entity, Double> iceAndWindEffectMap = new WeakHashMap<>();
-
-    public static void IceAndWind(LivingEntity passive, double reactionElementValue) {
-        if (iceAndWindTimesMap.containsKey(passive) && iceAndWindTimesMap.get(passive) > Tick.get()) {
-            iceAndWindTimesMap.put(passive, Tick.get() + 100);
-        } else {
-            iceAndWindTimesMap.put(passive, Tick.get() + 100);
-            iceAndWindEffectMap.put(passive, reactionElementValue);
-        }
-    }
-
-    public static double IceAndWindHealDecrease(LivingEntity passive) {
-        if (iceAndWindTimesMap.containsKey(passive) && iceAndWindTimesMap.get(passive) > Tick.get()) {
-            return iceAndWindEffectMap.get(passive) * 0.1;
-        }
-        return 0;
-    }
-
-    // 灾难
-    public static void LightningAndWind(LivingEntity active, LivingEntity passive, double reactionElementValue, double damage, boolean isAd) {
-        List<LivingEntity> list = passive.level().getEntitiesOfClass(LivingEntity.class, AABB.ofSize(passive.position(), 15, 15, 15));
-        if (active instanceof Player player) {
-            list.forEach(livingEntity -> {
-                if (livingEntity instanceof Mob mob) {
-                    if (isAd) {
-                        Damage.causeAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
-                    } else {
-                        Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
-                    }
-                }
-            });
-        }
-    }
-
-    public static void SummonReactionTypeItem(LivingEntity passive, MutableComponent component) {
-        Level level = passive.level();
-        ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
-        itemEntity.setItem(ModItems.VALUE.get().getDefaultInstance());
-        itemEntity.setCustomName(component);
-        itemEntity.setCustomNameVisible(true);
-        itemEntity.moveTo(passive.getEyePosition().add(0, 0.2, 0));
-        itemEntity.setNoGravity(true);
-        itemEntity.setPickUpDelay(200);
-        itemEntity.setDeltaMovement(new Vec3(0, 0.1, 0));
-        Utils.valueItemEntity.add(new ItemEntityAndResetTime(itemEntity, Tick.get() + 12));
-        level.addFreshEntity(itemEntity);
     }
 
     public static void ElementParticleProvider(LivingEntity passive) {
@@ -707,44 +302,12 @@ public class Element {
         }
     }
 
-    public static void Tick(Level level) {
-        LifeAndLightningTick();
-        WaterAndLightning();
-    }
-
-    public static double ElementDamageEnhance(LivingEntity passive) {
-        double rate = 1;
-        rate += FireAndWindDamageEnhance(passive);
-        rate += StoneAndLightningDamageEnhance(passive);
-        return rate;
-    }
-
-    public static double ElementWithstandDamageEnhance(LivingEntity passive) {
-        double rate = 0;
-        rate += LifeAndIceWithStandDamageEnhance(passive);
-        rate += WaterAndStoneWithStandDamageDecrease(passive);
-        rate += StoneAndIceWithstandDamageEnhance(passive);
-        rate += StoneAndWindWithstandDamageEnhance(passive);
-        return rate;
-    }
-
-    public static double ElementDefenceDecrease(LivingEntity passive) {
-        double rate = 1;
-        rate -= LifeAndWindDefenceDecrease(passive);
-        rate -= IceAndLightningDefenceDecrease(passive);
-        return rate;
-    }
-
-    public static double ElementHealDecrease(LivingEntity passive) {
-        double rate = 1;
-        rate -= IceAndWindHealDecrease(passive);
-        return rate;
-    }
-
     public static void PlayerTick(Player player) {
         ElementParticleCreate(player);
         if (player.tickCount % 5 == 0) {
-            if (!ElementPieceOnWeapon(player)) giveResonanceElement(player);
+            if (!ElementPieceOnWeapon(player)) {
+                giveResonanceElement(player);
+            }
         }
     }
 

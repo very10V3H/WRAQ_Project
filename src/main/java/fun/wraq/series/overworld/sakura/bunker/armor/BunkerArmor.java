@@ -26,28 +26,30 @@ import java.util.List;
 public class BunkerArmor extends WraqArmor implements Decomposable, ForgeItem {
 
     public final int tier;
-    public BunkerArmor(ArmorMaterial armorMaterial, Type type, Properties properties, int tier) {
+    public final int heatTier;
+    public BunkerArmor(ArmorMaterial armorMaterial, Type type, Properties properties, int tier, int heatTier) {
         super(armorMaterial, type, properties);
         this.tier = tier;
+        this.heatTier = heatTier;
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, new double[]{0.012, 0.025}[tier]);
-            Utils.healthRecover.put(this, new double[]{140, 300}[tier]);
-            Utils.defence.put(this, new double[]{60, 100d}[tier]);
-            Utils.manaDefence.put(this, new double[]{30, 55d}[tier]);
+            Utils.percentHealthRecover.put(this, new double[]{0.012, 0.018, 0.025}[tier]);
+            Utils.healthRecover.put(this, new double[]{140, 220, 300}[tier]);
+            Utils.defence.put(this, new double[]{60, 80, 100}[tier]);
+            Utils.manaDefence.put(this, new double[]{30, 40, 55}[tier]);
         }
         if (type.equals(Type.CHESTPLATE)) {
-            Utils.defence.put(this, new double[]{100, 200d}[tier]);
-            Utils.manaDefence.put(this, new double[]{50, 110d}[tier]);
-            Utils.maxHealth.put(this, new double[]{21000, 40000d}[tier]);
+            Utils.defence.put(this, new double[]{100, 150, 200}[tier]);
+            Utils.manaDefence.put(this, new double[]{50, 80, 110}[tier]);
+            Utils.maxHealth.put(this, new double[]{21000, 30000, 40000}[tier]);
         }
         if (type.equals(Type.LEGGINGS)) {
-            Utils.maxHealth.put(this, new double[]{42000, 80000d}[tier]);
-            Utils.defence.put(this, new double[]{60, 100d}[tier]);
-            Utils.manaDefence.put(this, new double[]{30, 60d}[tier]);
+            Utils.maxHealth.put(this, new double[]{42000, 65000, 80000}[tier]);
+            Utils.defence.put(this, new double[]{60, 80, 100}[tier]);
+            Utils.manaDefence.put(this, new double[]{30, 45, 60}[tier]);
         }
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.16);
-            Utils.maxHealth.put(this, new double[]{21000, 40000d}[tier]);
+            Utils.maxHealth.put(this, new double[]{21000, 30000, 40000}[tier]);
         }
         Utils.levelRequire.put(this, 225);
     }
@@ -61,7 +63,7 @@ public class BunkerArmor extends WraqArmor implements Decomposable, ForgeItem {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("聚变能量", getMainStyle()));
-        components.add(Te.s(" 产热 + ", (tier + 1), getMainStyle()));
+        components.add(Te.s(" 产热 + ", heatTier, getMainStyle()));
         ComponentUtils.descriptionPassive(components, Te.s("枯竭", getMainStyle()));
         components.add(Te.s(" 在极寒地区死亡，此装备将会消失.", ChatFormatting.RED));
         return components;
@@ -94,13 +96,15 @@ public class BunkerArmor extends WraqArmor implements Decomposable, ForgeItem {
     public ItemStack getProduct() {
         if (tier == 0) {
             return new ItemStack(BunkerItems.BUNKER_ARMOR_PIECE.get());
+        } else if (tier == 1) {
+            return new ItemStack(BunkerItems.BUNKER_ARMOR_PIECE.get(), 4);
         }
         return null;
     }
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        if (tier == 0) {
+        if (tier < 2) {
             return List.of();
         }
         return List.of(

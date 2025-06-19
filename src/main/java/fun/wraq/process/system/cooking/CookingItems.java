@@ -80,7 +80,7 @@ public class CookingItems {
         if (cookingProducts.isEmpty()) {
             for (Item item : ForgeRegistries.ITEMS) {
                 if (CookingValue.getMealValue(item) > 0
-                        || !SpecialEventItems.ITEMS.getEntries().stream()
+                        && !SpecialEventItems.ITEMS.getEntries().stream()
                         .map(RegistryObject::get).collect(Collectors.toSet())
                         .contains(item)) {
                     cookingProducts.add(item);

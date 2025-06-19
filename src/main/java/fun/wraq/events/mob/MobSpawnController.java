@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -133,9 +134,11 @@ public abstract class MobSpawnController {
         mobList.removeIf(mob -> !mob.isAlive());
         mobList.forEach(mob -> {
             if (mob != null && mob.isAlive()) {
-                Player player = Compute.getNearestPlayer(mob, 32);
-                if (player != null) {
-                    mob.setTarget(player);
+                if (!(mob instanceof Animal)) {
+                    Player player = Compute.getNearestPlayer(mob, 32);
+                    if (player != null) {
+                        mob.setTarget(player);
+                    }
                 }
                 if (getElement() != null) {
                     Element.provideElement(mob, getElement().type(), getElement().value());

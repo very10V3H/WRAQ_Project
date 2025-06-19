@@ -29,6 +29,7 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
@@ -256,7 +257,6 @@ public class AttackEvent {
         double ElementDamageEffect = 1;
         String elementType = "";
 
-        ElementDamageEnhance += Element.ElementWithstandDamageEnhance(monster);
         Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
         elementType = playerUnit.type();
         if (playerUnit.value() > 0) {
@@ -274,11 +274,12 @@ public class AttackEvent {
         // Health steal
         Compute.healByHealthSteal(player, monster, damage);
         // Display
-        if (crit)
+        if (crit) {
             Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
-        else
+        }
+        else {
             Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
-
+        }
         if (mainAttack) {
             if (elementDamage != 0 && !elementType.isEmpty())
                 Compute.damageActionBarPacketSend(player, damage, trueDamage, false, crit, elementType, elementDamage);
@@ -288,8 +289,8 @@ public class AttackEvent {
             OnHitEffectCurios.hit(player, monster);
             OnHitEffectPassiveEquip.hit(player, monster);
             EnhanceNormalAttackModifier.onHitEffect(player, monster, 0);
+            CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, true);
         }
-
         // effect
         Compute.ChargingModule(data, player);
         CastleSword.onNormalAttack(player, monster, damage);

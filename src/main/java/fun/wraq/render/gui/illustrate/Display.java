@@ -100,10 +100,10 @@ public class Display {
                     SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD.get(),
                     SilverDragonItems.SILVER_DRAGON_BLOOD_BOW.get(),
                     SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE.get(),
-                    BunkerItems.BUNKER_HELMET_1.get(),
-                    BunkerItems.BUNKER_CHEST_1.get(),
-                    BunkerItems.BUNKER_LEGGINGS_1.get(),
-                    BunkerItems.BUNKER_BOOTS_1.get(),
+                    BunkerItems.BUNKER_HELMET_2.get(),
+                    BunkerItems.BUNKER_CHEST_2.get(),
+                    BunkerItems.BUNKER_LEGGINGS_2.get(),
+                    BunkerItems.BUNKER_BOOTS_2.get(),
                     SuperColdItems.FLOWER.get()
             ));
             for (RegistryObject<Item> entry : CrystalItems.ITEMS.getEntries()) {

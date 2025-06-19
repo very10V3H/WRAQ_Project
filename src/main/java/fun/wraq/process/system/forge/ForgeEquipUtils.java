@@ -322,10 +322,10 @@ public class ForgeEquipUtils {
                 BunkerItems.BUNKER_KNIFE.get(),
                 BunkerItems.BUNKER_BOOK.get(),
                 BunkerItems.BUNKER_CURIO_1.get(),
-                BunkerItems.BUNKER_HELMET_1.get(),
-                BunkerItems.BUNKER_CHEST_1.get(),
-                BunkerItems.BUNKER_LEGGINGS_1.get(),
-                BunkerItems.BUNKER_BOOTS_1.get()
+                BunkerItems.BUNKER_HELMET_2.get(),
+                BunkerItems.BUNKER_CHEST_2.get(),
+                BunkerItems.BUNKER_LEGGINGS_2.get(),
+                BunkerItems.BUNKER_BOOTS_2.get()
         );
         zoneForgeItemListMap.put(NORTH_VILLAGE, new ArrayList<>() {{
             northVillage.forEach(item -> add(item.getDefaultInstance()));

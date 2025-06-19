@@ -15,7 +15,6 @@ import fun.wraq.process.func.EffectOnMob;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -117,9 +116,6 @@ public class LevelEvents {
             int tick = Tick.get();
             if (tick % 100 == 0) {
                 tryToRemoveMobInMap();
-            }
-            if (tick % 20 == 0) {
-                Element.Tick(level);
             }
             Compute.gather(tick); // 聚集
             if (tick % 20 == 1) {

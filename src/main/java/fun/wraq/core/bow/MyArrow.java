@@ -23,6 +23,7 @@ import fun.wraq.process.system.skill.BowSkillTree;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
@@ -237,7 +238,6 @@ public class MyArrow extends AbstractArrow {
             double ElementDamageEffect = 1;
             String elementType = "";
             if (shootByPlayer) {
-                ElementDamageEnhance += Element.ElementWithstandDamageEnhance(monster);
                 Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
                 elementType = playerUnit.type();
                 if (playerUnit.value() > 0) {
@@ -245,15 +245,11 @@ public class MyArrow extends AbstractArrow {
                 }
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 1);
             }
-
             double elementDamage = (damage + trueDamage) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
-
             damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             trueDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-
             Damage.beforeCauseDamage(player, monster, damage + trueDamage);
             Damage.causeDirectDamageToMob(player, entity, damage + trueDamage);
-
             if (critFlag)
                 Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
             else
@@ -261,17 +257,14 @@ public class MyArrow extends AbstractArrow {
             if (elementDamage != 0 && !elementType.isEmpty())
                 Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
             else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
-
             // Health steal
             Compute.healByHealthSteal(player, monster, damage);
-
             AttackEventModule.BowSkill3Attack(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
             AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
             Compute.ChargingModule(data, player);
             SeaSword.checkSeaSwordEffect(player, monster);
             HuskSword.checkHuskSwordEffect(player, monster);
-
             if (shootByPlayer) {
                 CastleBow.onNormalAttack(player, monster, damage);
                 Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
@@ -281,6 +274,7 @@ public class MyArrow extends AbstractArrow {
                 SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + trueDamage);
                 BowSkillTree.skillIndex13(player);
                 BowNewSkillPassive0.onArrowHit(player, monster);
+                CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, true);
             }
             if (myArrow.mainShoot) {
                 OnHitEffectPassiveEquip.hit(player, monster);

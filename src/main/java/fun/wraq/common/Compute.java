@@ -1314,7 +1314,7 @@ public class Compute {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
                 laserCoolDownMap.put(mob, TickCount + TickCoolDown);
                 if (isPower) {
-                    Damage.causeManaDamageToMonster_ApDamage(player, mob, rate, true);
+                    Damage.causeManaDamageToMonster(player, mob, rate, true);
                 } else {
                     ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
                             rate, PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
@@ -1800,9 +1800,9 @@ public class Compute {
         }
         mobList.forEach(mob -> {
             if (isAd) {
-                Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage);
+                Damage.causeAttackDamageToMonster(player, mob, damage);
             } else {
-                Damage.causeManaDamageToMonster_ApDamage(player, mob, damage);
+                Damage.causeManaDamageToMonster(player, mob, damage);
             }
         });
         return mobList;

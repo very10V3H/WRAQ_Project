@@ -199,22 +199,18 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnCauseF
                         ComponentUtils.AttributeDescription.attackDamage("1%总")
                         : ComponentUtils.AttributeDescription.manaDamage("1%总")));
         ComponentUtils.descriptionPassive(components, Te.s("熔炼", style));
-        components.add(Te.s(" 造成伤害将使目标陷入", "熔融状态", style));
-        components.add(Te.s(" 使目标抗性削减", "25%", style, "，持续5s"));
+        components.add(Te.s(" 造成伤害将使目标陷入", "熔融状态", style, "-25%双抗", CustomStyle.styleOfStone));
         ComponentUtils.descriptionActive(components, Te.s("锤炼", style));
-        components.add(Te.s(" 获得5层", "「匠」", style));
-        ComponentUtils.coolDownTimeDescription(components, 10);
+        components.add(Te.s(" 获得5层", "「匠」", style, "冷却时间 10s", ChatFormatting.AQUA));
         ComponentUtils.descriptionActive(components, Te.s("淬火", style));
-        components.add(Te.s(" 按下shift释放，翻倍", "「匠」", style, "的层数"));
-        ComponentUtils.coolDownTimeDescription(components, 30);
+        components.add(Te.s(" 按下shift释放，翻倍", "「匠」", style, "的层数",
+                " 冷却时间 30s", ChatFormatting.AQUA));
         components.add(Te.s(" 该主动效果的冷却时间不会被技能急速削减", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         components.add(Te.s(" 未手持该武器时，也能触发增益", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         ComponentUtils.descriptionPassive(components, Te.s("铸造", style));
-        components.add(Te.s(" 可以使用",
-                HarbingerItems.HARBINGER_INGOT.get().getDefaultInstance().getDisplayName(), "来提升最大层数"));
-        components.add(Te.s(" 至多可提升至", "50", style, "层"));
-        components.add(Te.s(" 铸造材料:", style));
-        components.addAll(getMaterial(stack));
+        components.add(Te.s(" 使用",
+                HarbingerItems.HARBINGER_INGOT.get().getDefaultInstance().getDisplayName(), "来提升最大层数",
+                "(至多50)", CustomStyle.BUNKER_STYLE));
         return components;
     }
 

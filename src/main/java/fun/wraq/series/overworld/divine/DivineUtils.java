@@ -40,7 +40,7 @@ public class DivineUtils {
     public static Style style = CustomStyle.DIVINE_STYLE;
     public static String currentDayElement = Element.life;
     public static final Vec3 ToDivineIslandBoatPos = new Vec3(1899.5, 70, 295.5);
-    public static final Vec3 InDivineIslandBoatPos = new Vec3(2279.5, 67, 874.5);
+    public static final Vec3 InDivineIslandBoatPos = new Vec3(2294.5, 82, 980.5);
     public static final Vec3 ToSunIslandBoatPos = new Vec3(2270.5, 70, 874.5);
     public static final Vec3 InSunIslandBoatPos = new Vec3(1899.5, 67, 304.5);
 

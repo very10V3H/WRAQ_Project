@@ -2312,12 +2312,16 @@
 
   "item.vmd.bunker_helmet_0": "热能头盔",
   "item.vmd.bunker_helmet_1": "热能头盔H",
+  "item.vmd.bunker_helmet_2": "热能头盔H+",
   "item.vmd.bunker_chest_0": "热能胸甲",
   "item.vmd.bunker_chest_1": "热能胸甲H",
+  "item.vmd.bunker_chest_2": "热能胸甲H+",
   "item.vmd.bunker_leggings_0": "热能护腿",
   "item.vmd.bunker_leggings_1": "热能护腿H",
+  "item.vmd.bunker_leggings_2": "热能护腿H+",
   "item.vmd.bunker_boots_0": "热能靴子",
   "item.vmd.bunker_boots_1": "热能靴子H",
+  "item.vmd.bunker_boots_2": "热能靴子H+",
   "item.vmd.bunker_armor_piece": "稳定热能",
 
   "item.vmd.super_cold_flower": "极寒花",

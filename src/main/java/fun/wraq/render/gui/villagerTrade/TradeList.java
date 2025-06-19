@@ -2831,10 +2831,15 @@ public class TradeList {
         ItemStack bunkerRune = new ItemStack(BunkerItems.BUNKER_RUNE.get());
         ItemStack bunkerBossRune = new ItemStack(BunkerItems.BUNKER_BOSS_RUNE.get());
 
-        ItemStack bunkerHelmet = new ItemStack(BunkerItems.BUNKER_HELMET_0.get());
-        ItemStack bunkerChest = new ItemStack(BunkerItems.BUNKER_CHEST_0.get());
-        ItemStack bunkerLeggings = new ItemStack(BunkerItems.BUNKER_LEGGINGS_0.get());
-        ItemStack bunkerBoots = new ItemStack(BunkerItems.BUNKER_BOOTS_0.get());
+        ItemStack bunkerHelmet0 = new ItemStack(BunkerItems.BUNKER_HELMET_0.get());
+        ItemStack bunkerChest0 = new ItemStack(BunkerItems.BUNKER_CHEST_0.get());
+        ItemStack bunkerLeggings0 = new ItemStack(BunkerItems.BUNKER_LEGGINGS_0.get());
+        ItemStack bunkerBoots0 = new ItemStack(BunkerItems.BUNKER_BOOTS_0.get());
+
+        ItemStack bunkerHelmet1 = new ItemStack(BunkerItems.BUNKER_HELMET_1.get());
+        ItemStack bunkerChest1 = new ItemStack(BunkerItems.BUNKER_CHEST_1.get());
+        ItemStack bunkerLeggings1 = new ItemStack(BunkerItems.BUNKER_LEGGINGS_1.get());
+        ItemStack bunkerBoots1 = new ItemStack(BunkerItems.BUNKER_BOOTS_1.get());
 
         ItemStack bunkerAttackCrest0 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_0.get());
         ItemStack bunkerAttackCrest1 = new ItemStack(BunkerItems.BUNKER_ATTACK_CREST_1.get());
@@ -2857,8 +2862,10 @@ public class TradeList {
         ItemStack bunkerManaCrest4_E = new ItemStack(BunkerItems.BUNKER_MANA_CREST_4.get());
         ItemStack[] itemStacks = {
                 bunkerRune, bunkerBossRune,
-                bunkerHelmet, bunkerChest,
-                bunkerLeggings, bunkerBoots,
+                bunkerHelmet0, bunkerHelmet1,
+                bunkerChest0, bunkerChest1,
+                bunkerLeggings0, bunkerLeggings1,
+                bunkerBoots0, bunkerBoots1,
                 bunkerAttackCrest0,
                 bunkerAttackCrest1, bunkerAttackCrest1_E,
                 bunkerAttackCrest2, bunkerAttackCrest2_E,
@@ -2883,14 +2890,23 @@ public class TradeList {
                         new ItemStack(ModItems.EARTH_MANA_RUNE.get(), 1),
                         new ItemStack(ModItems.BLOOD_MANA_RUNE.get(), 1)));
 
-        tradeRecipeMap.put(bunkerHelmet,
+        tradeRecipeMap.put(bunkerHelmet0,
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
-        tradeRecipeMap.put(bunkerChest,
+        tradeRecipeMap.put(bunkerChest0,
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
-        tradeRecipeMap.put(bunkerLeggings,
+        tradeRecipeMap.put(bunkerLeggings0,
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
-        tradeRecipeMap.put(bunkerBoots,
+        tradeRecipeMap.put(bunkerBoots0,
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 384)));
+
+        tradeRecipeMap.put(bunkerHelmet1,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1440)));
+        tradeRecipeMap.put(bunkerChest1,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1440)));
+        tradeRecipeMap.put(bunkerLeggings1,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1440)));
+        tradeRecipeMap.put(bunkerBoots1,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1440)));
 
         tradeRecipeMap.put(bunkerAttackCrest0,
                 List.of(new ItemStack(ModItems.VOLCANO_CREST_0.get(), 4),

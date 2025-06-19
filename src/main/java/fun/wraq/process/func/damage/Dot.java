@@ -46,17 +46,17 @@ public record Dot(int type, double value, int frequency, int stopTick, String pl
                         case 1 -> {
                             if (dot.computeCrit) {
                                 if (random.nextDouble() < PlayerAttributes.critRate(serverPlayer)) {
-                                    Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob,
+                                    Damage.causeAttackDamageToMonster(serverPlayer, mob,
                                             dot.value * (1 + PlayerAttributes.critDamage(serverPlayer)));
-                                } else Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob, dot.value);
+                                } else Damage.causeAttackDamageToMonster(serverPlayer, mob, dot.value);
                             }
                         }
                         case 2 -> {
                             if (dot.computeCrit) {
                                 if (random.nextDouble() < PlayerAttributes.critRate(serverPlayer)) {
-                                    Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob,
+                                    Damage.causeManaDamageToMonster(serverPlayer, mob,
                                             dot.value * (1 + PlayerAttributes.critDamage(serverPlayer)));
-                                } else Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob, dot.value);
+                                } else Damage.causeManaDamageToMonster(serverPlayer, mob, dot.value);
                             }
                         }
                     }

@@ -6,7 +6,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
@@ -50,33 +49,24 @@ public class MobAttributes {
         double defence = MobSpawn.MobBaseAttributes.defence.getOrDefault(MobSpawn.getMobOriginName(monster), 0d);
         double exDefence = 0;
         double rate = 1;
-
         // 固定
         exDefence += TowerMob.mobDefenceUp(monster);
         exDefence += StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobDefenceModifier);
-
         CompoundTag data = monster.getPersistentData();
         // 百分比
         if (data.getInt(StringUtils.Entropy.Snow) > tickCount)
             rate *= (1 - data.getDouble(StringUtils.SnowBossSwordActive.Pare));
         if (Utils.MobSpringAttackTick.containsKey(monster) && Utils.MobSpringAttackTick.get(monster) > tickCount)
             rate *= (1 - Utils.SpringEffect[Utils.MobSpringAttackEffect.get(monster) - 1]);
-
         if (Utils.MobSpringSwiftTick.containsKey(monster) && Utils.MobSpringSwiftTick.get(monster) > tickCount)
             rate *= (1 - Utils.SpringEffect[Utils.MobSpringSwiftEffect.get(monster) - 1]);
-
         if (Utils.SnowShieldMobEffectMap.containsKey(monster) && Utils.SnowShieldMobEffectMap.get(monster) > tickCount)
             rate *= 0.75;
-
         rate *= (1 + StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.percentDefence));
         rate *= (1 + StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobPercentDefenceModifier));
-
         rate *= WaterElementSword.MobDefenceDecrease(monster);
-        rate *= Element.ElementDefenceDecrease(monster);
-
         defence += exDefence;
         defence *= rate;
-
         return Math.max(defence, 0);
     }
 
@@ -85,21 +75,15 @@ public class MobAttributes {
         double defence = MobSpawn.MobBaseAttributes.manaDefence.getOrDefault(MobSpawn.getMobOriginName(monster), 0d);
         double exDefence = 0;
         double rate = 1;
-
         exDefence += defence * EarthPower.MobManaDefenceDecrease(monster); // 地蕴法术
         exDefence += TowerMob.mobManaDefenceUp(monster);
         exDefence += StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.manaDefence);
         exDefence += StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobManaDefenceModifier);
-
         if (Utils.MobSpringManaTick.containsKey(monster) && Utils.MobSpringManaTick.get(monster) > tick)
             rate *= (1 - Utils.SpringEffect[Utils.MobSpringManaEffect.get(monster) - 1]);
-
         rate *= (1 + StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobPercentManaDefenceModifier));
         rate *= (1 + StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.percentManaDefence));
-
-        rate *= Element.ElementDefenceDecrease(monster);
         rate *= WaterElementSword.MobDefenceDecrease(monster);
-
         defence += exDefence;
         defence *= rate;
 
