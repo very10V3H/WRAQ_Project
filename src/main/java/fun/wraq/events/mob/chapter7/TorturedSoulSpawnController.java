@@ -10,7 +10,6 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
@@ -80,7 +79,7 @@ public class TorturedSoulSpawnController extends MobSpawnController {
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(C7Items.VD_SOUL.get(), 0.1));
-            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1.3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
         }};
     }

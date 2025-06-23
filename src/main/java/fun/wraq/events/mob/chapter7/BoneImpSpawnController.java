@@ -12,7 +12,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import net.mcreator.borninchaosv.entity.BoneImpEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
@@ -84,7 +83,7 @@ public class BoneImpSpawnController extends MobSpawnController {
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(C7Items.BONE_IMP_SOUL.get(), 0.8));
-            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.87));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1.3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
             add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.5));
             add(new ItemAndRate(C7LootItems.BONE_IMP_HELMET.get(), 0.005));

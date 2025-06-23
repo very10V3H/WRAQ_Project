@@ -2160,6 +2160,10 @@ public class TradeList {
         ItemStack potion = new ItemStack(Items.POTION);
         potion.getOrCreateTag().putString("Potion", "minecraft:long_night_vision");
         ItemStack minePiece1 = new ItemStack(SpurItems.MINE_PIECE_1.get());
+        ItemStack ore1 = new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get());
+        ItemStack ore2 = new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get());
+        ItemStack ore3 = new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get());
+        ItemStack ore4 = new ItemStack(OreItems.WRAQ_ORE_4_ITEM.get());
         ItemStack mineCharm0 = new ItemStack(SpurItems.MINE_CHARM_0.get());
         ItemStack mineCharm1 = new ItemStack(SpurItems.MINE_CHARM_1.get());
         ItemStack mineCharm2 = new ItemStack(SpurItems.MINE_CHARM_2.get());
@@ -2174,7 +2178,9 @@ public class TradeList {
         ItemStack silverDragonAssassinPickaxeB = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_B.get());
         ItemStack silverDragonAssassinPickaxeA = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_A.get());
         ItemStack[] itemStacks = {
-                stonePickaxe, minePiece1, potion, oreRune,
+                stonePickaxe, minePiece1, potion,
+                ore1, ore2, ore3, ore4,
+                oreRune,
                 mineCharm0, mineCharm1, mineCharm2,
                 silverDragonAssassinPickaxeE, silverDragonAssassinPickaxeD,
                 mineCharm3, mineCharm4, mineCharm5, mineCharm6,
@@ -2184,6 +2190,10 @@ public class TradeList {
         Collections.addAll(contentList, itemStacks);
         MyVillagerData.setMyVillagerData("采矿大师", "mineCharm", CustomStyle.styleOfMine, VillagerType.PLAINS,
                 VillagerProfession.WEAPONSMITH, contentList);
+        tradeRecipeMap.put(ore1, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 12)));
+        tradeRecipeMap.put(ore2, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 24)));
+        tradeRecipeMap.put(ore3, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 36)));
+        tradeRecipeMap.put(ore4, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 48)));
         tradeRecipeMap.put(stonePickaxe, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
         tradeRecipeMap.put(potion, List.of(new ItemStack(ModItems.SILVER_COIN.get(), 1)));
         tradeRecipeMap.put(oreRune, List.of(new ItemStack(Items.EMERALD, 2), new ItemStack(Items.DIAMOND, 2),

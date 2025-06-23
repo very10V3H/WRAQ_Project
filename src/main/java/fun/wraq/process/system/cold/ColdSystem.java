@@ -24,6 +24,10 @@ import java.util.Map;
 
 public class ColdSystem {
 
+    public static List<Pair<Vec2, Vec2>> cold_0_zone = new ArrayList<>() {{
+        add(new Pair<>(new Vec2(428, -1724), new Vec2(2840, 1436)));
+    }};
+
     public static List<Pair<Vec2, Vec2>> cold_2_zone = new ArrayList<>() {{
         add(new Pair<>(new Vec2(1991, -3416), new Vec2(2358, -3126)));
     }};
@@ -39,6 +43,9 @@ public class ColdSystem {
     }
 
     public static int getPlayerColdLevel(Player player) {
+        if (isIn(player, cold_0_zone)) {
+            return 0;
+        }
         if (isIn(player, cold_5_zone)) {
             return 5;
         } else if (isIn(player, cold_4_zone)) {

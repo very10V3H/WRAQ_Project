@@ -10,7 +10,6 @@ import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -105,7 +104,7 @@ public class MoontainMinerSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(OreItems.MOONTAIN_ORE_ITEM.get(), 0.1));
             add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.4));
-            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1.3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
         }};
     }

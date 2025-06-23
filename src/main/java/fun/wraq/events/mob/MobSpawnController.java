@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -200,7 +202,12 @@ public abstract class MobSpawnController {
                                         r.nextDouble(summonOffset) - summonOffset / 2
                                 );
                             }
-                            mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
+                            Vec3 targetPos = pos.add(0.5, 0.5, 0.5).add(offset);
+                            if (level.getBlockState(new BlockPos((int) targetPos.x, (int) targetPos.y, (int) targetPos.z)).is(Blocks.AIR)) {
+                                mob.moveTo(targetPos);
+                            } else {
+                                mob.moveTo(pos.add(0.5, 0.5, 0.5));
+                            }
                             this.mobList.add(mob);
                             this.level.addFreshEntity(mob);
 

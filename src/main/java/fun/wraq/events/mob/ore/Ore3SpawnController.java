@@ -9,7 +9,6 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -54,7 +53,7 @@ public class Ore3SpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(1500, 110, 110, 0.4, 3, 0.25, 50, 20, 100 * Math.pow(10, 4), 0.35);
+        return new MobAttributes(800, 100, 100, 0.4, 3, 0.15, 30, 20, 30 * Math.pow(10, 4), 0.25);
     }
 
     @Override

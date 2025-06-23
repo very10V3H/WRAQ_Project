@@ -100,7 +100,7 @@ public class PurpleIronInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        if (MobSpawn.getPlayerKillCount(player, NetherInstance.mobName) >= 50) {
+        if (MobSpawn.getPlayerKillCount(player, NetherInstance.mobName) >= 32) {
             NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron, true);
         }
         return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron);
@@ -109,7 +109,7 @@ public class PurpleIronInstance extends NoTeamInstance {
     @Override
     public Component allowRewardCondition() {
         return Component.literal("需要击杀").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("50次").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("32次").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("燃魂").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("，方能获取奖励").withStyle(ChatFormatting.WHITE));
     }

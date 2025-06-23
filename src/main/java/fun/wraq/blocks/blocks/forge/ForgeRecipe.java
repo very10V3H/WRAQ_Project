@@ -433,7 +433,7 @@ public class ForgeRecipe {
         }});
 
         recipes.put(ModItems.MOON_BELT.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 16));
+            add(new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 12));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 384));
             add(new ItemStack(ModItems.COMPLETE_GEM.get(), 20));
             add(new ItemStack(ModItems.REPUTATION_MEDAL.get(), 80));

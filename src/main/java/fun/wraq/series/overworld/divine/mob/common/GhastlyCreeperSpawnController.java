@@ -79,7 +79,7 @@ public class GhastlyCreeperSpawnController extends MobSpawnController {
         return List.of(
                 new ItemAndRate(DivineIslandItems.GHASTLY_NUGGET.get(), 0.08),
                 new ItemAndRate(DivineIslandItems.GHASTLY_GUN_POWDER.get(), 0.2),
-                new ItemAndRate(ModItems.SILVER_COIN.get(), 1),
+                new ItemAndRate(ModItems.SILVER_COIN.get(), 1.6),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.07),
                 new ItemAndRate(Element.getPiece0ItemMap().get(DivineUtils.currentDayElement), 0.5)
         );

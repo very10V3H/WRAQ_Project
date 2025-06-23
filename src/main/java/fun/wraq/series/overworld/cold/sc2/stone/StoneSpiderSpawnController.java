@@ -99,7 +99,7 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     public List<ItemAndRate> getDropList() {
         return List.of(
                 new ItemAndRate(NewAreaItems.STONE_SPIDER_PIECE.get(), 0.08),
-                new ItemAndRate(ModItems.SILVER_COIN.get(), 1),
+                new ItemAndRate(ModItems.SILVER_COIN.get(), 3),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065),
                 new ItemAndRate(ModItems.STONE_ELEMENT_PIECE_0.get(), 0.5)
         );

@@ -86,7 +86,7 @@ public class MoonArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 12),
+                new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 8),
                 new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 64)
         );
     }

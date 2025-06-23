@@ -10,7 +10,6 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -95,7 +94,7 @@ public class MushroomLinSpawnController extends MobSpawnController {
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(MushroomItems.BROWN_MUSHROOM.get(), 0.8));
-            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.95));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1.3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.5));
         }};
