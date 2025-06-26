@@ -987,4 +987,8 @@ public class ComponentUtils {
     public static Component getSuffixOfDeepSea() {
         return Te.s("深海神话", ChatFormatting.ITALIC, CustomStyle.styleOfSea);
     }
+
+    public static Component getSuffixOfSuperCold() {
+        return Te.s("极寒之地", ChatFormatting.ITALIC, CustomStyle.styleOfIce);
+    }
 }

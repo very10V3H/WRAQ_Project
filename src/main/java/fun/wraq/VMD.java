@@ -79,7 +79,7 @@ import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
-import fun.wraq.series.overworld.cold.sc2.SuperColdItems;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
@@ -678,6 +678,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.SILVER_DRAGON.getKey())) {
             SilverDragonItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.SUPER_COLD.getKey())) {
+            SuperColdItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

@@ -13,9 +13,12 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.IPlantable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,7 +206,11 @@ public abstract class MobSpawnController {
                                 );
                             }
                             Vec3 targetPos = pos.add(0.5, 0.5, 0.5).add(offset);
-                            if (level.getBlockState(new BlockPos((int) targetPos.x, (int) targetPos.y, (int) targetPos.z)).is(Blocks.AIR)) {
+                            Block block = level.getBlockState(
+                                    new BlockPos((int) targetPos.x, (int) targetPos.y, (int) targetPos.z)).getBlock();
+                            if (block instanceof IPlantable
+                                    || block instanceof SnowLayerBlock
+                                    || block.equals(Blocks.AIR)) {
                                 mob.moveTo(targetPos);
                             } else {
                                 mob.moveTo(pos.add(0.5, 0.5, 0.5));
@@ -251,5 +258,9 @@ public abstract class MobSpawnController {
 
     public Element.Unit getElement() {
         return null;
+    }
+
+    public List<Component> getIntroduction() {
+        return List.of();
     }
 }

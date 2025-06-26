@@ -1,10 +1,10 @@
 package fun.wraq.items.m;
 
-import fun.wraq.common.fast.Te;
+import com.github.alexthe666.iceandfire.entity.EntityPixie;
+import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.series.end.citadel.CitadelItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -61,7 +61,11 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            int total = 0;
+            EntityPixie mob = new EntityPixie(IafEntityRegistry.PIXIE.get(), level);
+            mob.setColor(2);
+            mob.moveTo(player.position());
+            level.addFreshEntity(mob);
+/*            int total = 0;
             int tier0 = 0;
             int tier1 = 0;
             int tier2 = 0;
@@ -82,7 +86,7 @@ public class Main0 extends Item {
             player.sendSystemMessage(Te.s("tier0:", tier0));
             player.sendSystemMessage(Te.s("tier1:", tier1));
             player.sendSystemMessage(Te.s("tier2:", tier2));
-            player.sendSystemMessage(Te.s("tier3:", tier3));
+            player.sendSystemMessage(Te.s("tier3:", tier3));*/
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

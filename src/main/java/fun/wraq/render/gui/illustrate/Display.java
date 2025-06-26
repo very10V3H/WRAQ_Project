@@ -7,7 +7,7 @@ import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.events.SpecialEventItems;
-import fun.wraq.series.overworld.cold.sc2.SuperColdItems;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;

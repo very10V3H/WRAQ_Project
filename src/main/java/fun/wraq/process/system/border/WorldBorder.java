@@ -22,7 +22,7 @@ public class WorldBorder {
     public record BorderRegion(Vec2 up, Vec2 down) {}
 
     public static List<BorderRegion> overworldBorders = List.of(
-            new BorderRegion(new Vec2(4500, 2500), new Vec2(0, -4000))
+            new BorderRegion(new Vec2(4500, 2500), new Vec2(0, -4500))
     );
 
     public static List<BorderRegion> netherBorders = List.of(

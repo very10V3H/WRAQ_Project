@@ -3,6 +3,7 @@ package fun.wraq.common.attribute;
 import fun.wraq.common.Compute;
 import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
+import fun.wraq.common.impl.onhit.OnHitDamageInfluenceEquip;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.ManaAttackModule;
@@ -37,6 +38,7 @@ import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter6.MoonNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarArmor;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.divine.equip.boss.DivineKnife;
 import fun.wraq.series.overworld.sun.DevilPowerCurio;
@@ -53,6 +55,7 @@ public class DamageInfluence {
         rate += StarArmor.DamageEnhance(player, monster); // 梦月
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
         rate += OnHitDamageInfluenceCurios.damageInfluence(player, monster);
+        rate += OnHitDamageInfluenceEquip.damageInfluence(player, monster);
         rate += ManaAttackModule.getManaSkill3DamageEnhance(player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
         rate += getPlayerCommonDamageUpOrDown(player);
         rate += EstateUtil.getExCommonDamageRate(player);
@@ -181,6 +184,7 @@ public class DamageInfluence {
                 .getModifierValue(player, StableTierAttributeModifier.playerWithstandDamageReduce);
         rate += DivineUtils.getPlayerWithstandDamageExRate(player);
         rate -= IceHolyRune.getExDamageDecreaseRate(player);
+        rate -= ColdIronArmor.getWithstandDamageReductionRate(player);
         return rate;
     }
 

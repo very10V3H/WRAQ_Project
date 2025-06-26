@@ -98,7 +98,6 @@ public class AttackEvent {
 
     public static void module(Player player, double rate) {
         List<Mob> mobList = new ArrayList<>(getPlayerNormalAttackRangeMobList(player));
-
         AtomicReference<Mob> nearestMob = new AtomicReference<>();
         AtomicReference<Double> distance = new AtomicReference<>((double) 20);
         mobList.forEach(mob -> {
@@ -117,8 +116,9 @@ public class AttackEvent {
             AttackEvent.attackToMonster(nearestMob.get(), player, rate *
                     (mobList.size() == 1 ? 1 + SwordNewSkillPassive0.exTargetsDamageRate(player) : 1),
                     true, crit);
-            MyArrow.causeDamage(player, nearestMob.get(), 0.5, true);
-            HurtEventModule.ForestRune3Judge(player, nearestMob.get(), PlayerAttributes.attackDamage(player));
+            if (player.getMainHandItem().getItem() instanceof KanupusSword) {
+                MyArrow.causeDamage(player, nearestMob.get(), 0.5, true);
+            }
             AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, nearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
             AttackEventModule.SwordSkill12Attack(player.getPersistentData(), player); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
             double finalRate = rate;
@@ -127,7 +127,9 @@ public class AttackEvent {
                     AttackEvent.attackToMonster(mob, player,
                             finalRate * Math.min(1, SwordNewSkillPassive0.exTargetsDamageRate(player)),
                             false, crit);
-                    MyArrow.causeDamage(player, mob, 0.5, false);
+                    if (player.getMainHandItem().getItem() instanceof KanupusSword) {
+                        MyArrow.causeDamage(player, mob, 0.5, false);
+                    }
                 }
             });
         }

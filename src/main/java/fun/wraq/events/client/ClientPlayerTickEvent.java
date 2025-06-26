@@ -50,6 +50,7 @@ import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.crystal.CrystalScreen;
 import fun.wraq.series.events.dragonboat.DragonBoatStore;
+import fun.wraq.series.overworld.cold.sc4.BlizzardBoots;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
@@ -84,17 +85,19 @@ import java.util.List;
 public class ClientPlayerTickEvent {
     @SubscribeEvent
     public static void ClientTick(TickEvent.PlayerTickEvent event) {
-        if (!event.player.equals(Minecraft.getInstance().player)) return;
+        Player player = event.player;
+        if (!player.equals(Minecraft.getInstance().player)) return;
         MyWayPoint.clientTick(event);
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) {
-            Main0.clientTick(event.player);
-            Compute.setDownDeltaInLowGravityEnvironment(event.player);
+            Main0.clientTick(player);
+            Compute.setDownDeltaInLowGravityEnvironment(player);
             ItemAndExpGetHud.clientTick();
             if (SpecialEffectOnPlayer.clientSilentTick > 0) --SpecialEffectOnPlayer.clientSilentTick;
             if (SpecialEffectOnPlayer.clientBlindTick > 0) --SpecialEffectOnPlayer.clientBlindTick;
             ParticleProvider.spaceEffectParticleHandleClientTick();
             SkillV2.clientTick();
-            WraqBgm.handleClientPlayerTick(event.player);
+            WraqBgm.handleClientPlayerTick(player);
+            BlizzardBoots.handleTick(player);
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
@@ -216,7 +219,6 @@ public class ClientPlayerTickEvent {
 
             if (event.player.tickCount % 20 == 0) {
                 if (event.player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SHIP_SCEPTRE.get())) {
-                    Player player = event.player;
                     Level level = player.level();
                     int X = player.getBlockX();
                     int Y = player.getBlockY();
@@ -339,7 +341,6 @@ public class ClientPlayerTickEvent {
             if (ClientUtils.oldMissionList.size() > 0 && ClientUtils.NavigateIndex != -1) {
                 OldMission oldMission = ClientUtils.oldMissionList.get(ClientUtils.ListIndex);
                 Vec3 Des = oldMission.getDes();
-                Player player = event.player;
                 Vec3 Pick = player.pick(0.5, 0, true).getLocation();
                 Vec3 Pos = Des.subtract(Pick).normalize();
                 for (int i = 0; i < 4; i++) {
@@ -355,7 +356,6 @@ public class ClientPlayerTickEvent {
             if (ClientUtils.Mission && ClientUtils.MissionIndex > 0) ClientUtils.MissionIndex -= 5;
             if (!ClientUtils.Mission && ClientUtils.MissionIndex < 100) ClientUtils.MissionIndex += 5;
             if (ClientUtils.RollingFlag) {
-                Player player = Minecraft.getInstance().player;
                 Vec3 CurrentDeltaMovement = player.getDeltaMovement();
                 Vec3 Pick = player.pick(2, 0, true).getLocation();
                 Vec3 MoveVec = Pick.subtract(player.getEyePosition());

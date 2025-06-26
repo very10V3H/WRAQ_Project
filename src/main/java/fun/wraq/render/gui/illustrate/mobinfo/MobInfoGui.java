@@ -113,7 +113,7 @@ public class MobInfoGui extends Screen {
                         this.height / 2 - 73 + 32 * i,0);
                 guiGraphics.drawCenteredString(font, Te.s("「掉落物表」", ChatFormatting.AQUA),
                         this.width / 2, this.height / 2 - 73 + 32 * i,0);
-                if (mobInfo.introduction != null) {
+                if (!mobInfo.introduction.isEmpty()) {
                     guiGraphics.drawCenteredString(font, Te.s("「特殊机制」", ChatFormatting.RED),
                             this.width / 2 + 100, this.height / 2 - 73 + 32 * i,0);
                     if (x > this.width / 2 + 100 - 20 && x < this.width / 2 + 100 + 20
@@ -218,25 +218,34 @@ public class MobInfoGui extends Screen {
         if (mobInfoList.isEmpty()) {
             NoTeamInstanceModule.getAllInstance().forEach(noTeamInstance -> {
                 mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
-                        Utils.getLevelDescription(noTeamInstance.level), " ",
-                        noTeamInstance.name), noTeamInstance.level,
-                        noTeamInstance.getRewardList(), noTeamInstance.getIntroduction(),
+                        Utils.getLevelDescription(noTeamInstance.level), " ", noTeamInstance.name),
+                        noTeamInstance.level,
+                        noTeamInstance.getRewardList(),
+                        noTeamInstance.getIntroduction(),
                         noTeamInstance.getMainMobAttributes()));
             });
             MobSpawn.getAllControllers(false).forEach(mobSpawnController -> {
                 mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(mobSpawnController.averageLevel),
                         " ", mobSpawnController.mobName),
-                        mobSpawnController.averageLevel, mobSpawnController.getDropList(), null,
+                        mobSpawnController.averageLevel,
+                        mobSpawnController.getDropList(),
+                        List.of(),
                         mobSpawnController.getMobAttributes()));
             });
             NewTeamInstanceHandler.instances.forEach(newTeamInstance -> {
-                mobInfoList.add(new MobInfo(newTeamInstance.description, newTeamInstance.levelRequire,
-                        newTeamInstance.getRewardList(), null, newTeamInstance.getMainMobAttributes()));
+                mobInfoList.add(new MobInfo(newTeamInstance.description,
+                        newTeamInstance.levelRequire,
+                        newTeamInstance.getRewardList(),
+                        List.of(),
+                        newTeamInstance.getMainMobAttributes()));
             });
             JungleMobSpawn.getOverworldController().forEach(controller -> {
                 mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(controller.mobXpLevel),
                         " ", controller.name),
-                        controller.mobXpLevel, controller.getRewardItemList(), null, controller.getMobAttributes()));
+                        controller.mobXpLevel,
+                        controller.getRewardItemList(),
+                        List.of(),
+                        controller.getMobAttributes()));
             });
         }
         return mobInfoList;

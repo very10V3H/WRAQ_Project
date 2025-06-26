@@ -15,6 +15,7 @@ import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.holy.ice.IceHolyItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
@@ -134,7 +135,11 @@ public class ModCreativeModeTab {
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(SpecialEventItems.DRAGON_DIAMOND.get()))
                     .title(Te.s("维瑞阿契 | 银龙传说装备")).build());
-    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zg_all",
+    public static RegistryObject<CreativeModeTab> SUPER_COLD = CREATIVE_MODE_TAB.register("aa_wraq_zg_super_cold",
+            () -> CreativeModeTab.builder().icon(
+                            () -> new ItemStack(SuperColdItems.FLOWER.get()))
+                    .title(Te.s("维瑞阿契 | 极寒地区")).build());
+    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zh_all",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.DEVIL_SWORD.get()))
                     .title(Te.s("维瑞阿契 | 总集")).build());

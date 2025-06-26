@@ -59,6 +59,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     MOONTAIN("moontain", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
     FANVER_IRON("fanver_iron", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_IRON),
     FANVER_DIAMOND("fanver_diamond", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
+    COLD("cold", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
     DIVINE("divine", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND);
 
     private final int Durability;

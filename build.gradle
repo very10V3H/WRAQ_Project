@@ -237,6 +237,7 @@ dependencies {
     implementation fg.deobf("curse.maven:jade-324717:6271651")
     implementation fg.deobf("curse.maven:neapolitan-382016:6248885")
     implementation fg.deobf("curse.maven:seasonals-416471:6058164")
+    implementation fg.deobf("curse.maven:goety-586095:6660730")
     // client :
     implementation fg.deobf("curse.maven:iceberg-520110:4953572")
     implementation fg.deobf("curse.maven:prism-lib-638111:4650325")

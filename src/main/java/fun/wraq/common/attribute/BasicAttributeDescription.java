@@ -1077,7 +1077,7 @@ public class BasicAttributeDescription {
 
             handleExBaseAttributeValue(itemStack, mutableComponent, map, decimalScale, isPercent);
 
-            if (computeForge) {
+            if (computeForge && value > 0) {
                 double exForgingValue = 0;
                 if (data.contains(StringUtils.ForgeLevel)) {
                     exForgingValue = Compute.forgingValue(data, value);

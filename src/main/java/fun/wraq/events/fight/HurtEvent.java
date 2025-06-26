@@ -10,7 +10,6 @@ import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.MinecartItem;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -18,7 +17,6 @@ import net.minecraftforge.fml.common.Mod;
 public class HurtEvent {
     @SubscribeEvent
     public static void Hurt(LivingHurtEvent event) {
-        event.setPhase(EventPriority.LOWEST);
         if (!event.getEntity().level().isClientSide) {
             Entity attacker = event.getSource().getEntity();
             Entity hurter = event.getEntity();
@@ -45,7 +43,6 @@ public class HurtEvent {
                         event.setCanceled(true);
                         return;
                     }
-
                     if (hurter instanceof Player) {
                         event.setCanceled(true);
                     }

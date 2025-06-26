@@ -55,12 +55,17 @@ import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderSpawnController;
 import fun.wraq.series.overworld.cold.sc2.stray.SuperColdStraySpawnController;
+import fun.wraq.series.overworld.cold.sc3.aurora.AuroraSheepSpawnController;
+import fun.wraq.series.overworld.cold.sc3.fir.FirElfSpawnController;
+import fun.wraq.series.overworld.cold.sc3.maple.MapleHunterSpawnController;
+import fun.wraq.series.overworld.cold.sc4.SuperColdIronGolemSpawnController;
+import fun.wraq.series.overworld.cold.sc4.SuperColdSnowGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
 import fun.wraq.series.overworld.divine.mob.common.GhastlyCreeperSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.GhastlyHuskSpawnController;
-import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
@@ -195,6 +200,11 @@ public class MobSpawn {
         overWolrdList.add(BunkerBlazeSpawnController.getInstance(overWorld));
         overWolrdList.add(StoneSpiderSpawnController.getInstance(overWorld));
         overWolrdList.add(SuperColdStraySpawnController.getInstance(overWorld));
+        overWolrdList.add(AuroraSheepSpawnController.getInstance(overWorld));
+        overWolrdList.add(FirElfSpawnController.getInstance(overWorld));
+        overWolrdList.add(MapleHunterSpawnController.getInstance(overWorld));
+        overWolrdList.add(SuperColdIronGolemSpawnController.getInstance(overWorld));
+        overWolrdList.add(SuperColdSnowGolemSpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();
@@ -439,17 +449,14 @@ public class MobSpawn {
         }
         LabourDayOldCoin.onPlayerKillMob(player);
         DragonBoatFes.onKillMob(mob, player);
-
         recall(mob, player);
         if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) return;
         List<ItemAndRate> list = MobSpawn.dropList.get(MobSpawn.getMobOriginName(mob));
-
+        AuroraSheepSpawnController.handleColorItemDrop(mob, list);
         if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName)) {
             Guide.trigV2(player, Guide.StageV2.FIRST_KILL);
         }
-
         double num = getNum(player);
-
         // 直接送至背包或掉落
         if (dropsDirectToInventory.containsKey(MobSpawn.getMobOriginName(mob))
                 || Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(NewRuneItems.END_NEW_RUNE.get())) {

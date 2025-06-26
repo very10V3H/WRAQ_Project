@@ -46,6 +46,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ShulkerBullet;
+import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -451,7 +453,9 @@ public class VariousEvents {
         Projectile projectile = event.getProjectile();
         if (!(projectile instanceof MyArrow)
                 && !(projectile instanceof ManaArrow)
-                && !(projectile instanceof SwordAir)) {
+                && !(projectile instanceof SwordAir)
+                && !(projectile instanceof ThrownPotion)
+                && !(projectile instanceof ShulkerBullet)) {
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.STOP_AT_CURRENT);
             projectile.remove(Entity.RemovalReason.KILLED);
         }

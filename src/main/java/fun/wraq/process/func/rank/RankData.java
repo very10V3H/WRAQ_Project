@@ -35,6 +35,13 @@ public class RankData {
         sendAllDataToPlayer(player);
     }
 
+    public static void onPlayerDailyLogin(Player player) {
+        if (getRankSerial(player) >= rankSerialList.indexOf("13C")) {
+            Compute.VBIncomeAndMSGSend(player, rankWagesMap.get(getCurrentRank(player)) * 1000);
+            sendFormatMSG(player, Te.s("你的", "日薪", CustomStyle.styleOfGold, "已到账!"));
+        }
+    }
+
     public static void sendChangeToAllPlayer(UUID uuid, String rank, PlayerList playerList) {
         playerList.getPlayers().forEach(serverPlayer -> {
             ModNetworking.sendToClient(new RankChangeS2CPacket(uuid, rank), serverPlayer);
@@ -214,10 +221,6 @@ public class RankData {
             List.of(new ItemStack(ModItems.SENIOR_POTION_SUPPLY.get()), new ItemStack(ModItems.REVELATION_HEART.get()))
                     .forEach(stack -> InventoryOperation.giveItemStackWithMSG(player, stack));
             sendFormatMSG(player, Te.s("你的", "职权", ChatFormatting.AQUA, "为你额外提供了奖励!"));
-        }
-        if (getRankSerial(player) >= rankSerialList.indexOf("13C")) {
-            Compute.VBIncomeAndMSGSend(player, rankWagesMap.get(getCurrentRank(player)) * 1000);
-            sendFormatMSG(player, Te.s("你的", "日薪", CustomStyle.styleOfGold, "已到账!"));
         }
     }
 

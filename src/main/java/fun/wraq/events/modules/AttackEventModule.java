@@ -399,7 +399,6 @@ public class AttackEventModule {
                     player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> serverPlayer.connection.send(clientboundLevelParticlesPacket));
                 }
             }
-
             Utils.SwordSkill12.put(name, false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(0), (ServerPlayer) player);
             ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.PLAYER_ATTACK_SWEEP), SoundSource.PLAYERS, player.getX(), player.getY() + 1, player.getZ(), 1, 1, 0);

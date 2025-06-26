@@ -63,6 +63,7 @@ import fun.wraq.series.overworld.chapter1.plain.PlainArmor;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoArmor;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeArmor;
 import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
+import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import fun.wraq.series.overworld.sun.TabooPaper;
@@ -423,10 +424,13 @@ public class PlayerAttributes {
     }
 
     public static double decreasePlayerCritDamage(Player player) {
-        double withstandCritDamageReduction = 0.0d;
-        withstandCritDamageReduction += computeAllEquipSlotBaseAttributeValue(player, Utils.critDamageDecrease, false);
-        if (SuitCount.getMineSuitCount(player) >= 2) withstandCritDamageReduction += 0.5;
-        return withstandCritDamageReduction;
+        double rate = 0.0d;
+        rate += computeAllEquipSlotBaseAttributeValue(player, Utils.critDamageDecrease, false);
+        if (SuitCount.getMineSuitCount(player) >= 2) {
+            rate += 0.5;
+        }
+        rate -= ColdIronArmor.getPlayerCritDamageReductionRate(player);
+        return rate;
     }
 
     public static double movementSpeedCommon(Player player) {

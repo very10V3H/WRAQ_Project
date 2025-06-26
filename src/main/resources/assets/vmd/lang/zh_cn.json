@@ -2326,6 +2326,44 @@
 
   "item.vmd.super_cold_flower": "极寒花",
 
+  "item.vmd.green_wool": "极光绿羊毛",
+  "item.vmd.blue_wool": "极光蓝羊毛",
+  "item.vmd.yellow_wool": "极光黄羊毛",
+  "item.vmd.red_wool": "极光红羊毛",
+  "item.vmd.purple_wool": "极光紫羊毛",
+
+  "item.vmd.maple_soul": "极寒枫木材",
+  "item.vmd.maple_rune": "精制极寒枫木材",
+  "item.vmd.maple_knife_0": "极寒枫刃",
+  "item.vmd.maple_knife_1": "极寒枫刃¹",
+  "item.vmd.maple_knife_2": "极寒枫刃²",
+  "item.vmd.maple_knife_3": "极寒枫刃³",
+
+  "item.vmd.fir_soul": "极寒冷杉精灵石",
+  "item.vmd.fir_rune": "极寒冷杉精灵精华",
+  "item.vmd.fir_crystal_0": "极寒冷杉晶石",
+  "item.vmd.fir_crystal_1": "极寒冷杉晶石¹",
+  "item.vmd.fir_crystal_2": "极寒冷杉晶石²",
+  "item.vmd.fir_crystal_3": "极寒冷杉晶石³",
+
+  "item.vmd.blizzard_soul": "吹雪傀儡的雪球",
+  "item.vmd.blizzard_rune": "吹雪雪晶球",
+  "item.vmd.blizzard_boots_0": "吹雪靴子",
+  "item.vmd.blizzard_boots_1": "吹雪靴子′",
+  "item.vmd.blizzard_boots_2": "吹雪靴子′′",
+
+  "item.vmd.cold_iron_golem_soul": "寒铁锭",
+  "item.vmd.cold_iron_golem_rune": "寒铁板",
+  "item.vmd.cold_iron_helmet_0": "寒铁头盔",
+  "item.vmd.cold_iron_chest_0": "寒铁胸甲",
+  "item.vmd.cold_iron_leggings_0": "寒铁护腿",
+  "item.vmd.cold_iron_helmet_1": "寒铁头盔′",
+  "item.vmd.cold_iron_chest_1": "寒铁胸甲′",
+  "item.vmd.cold_iron_leggings_1": "寒铁护腿′",
+  "item.vmd.cold_iron_helmet_2": "寒铁头盔′′",
+  "item.vmd.cold_iron_chest_2": "寒铁胸甲′′",
+  "item.vmd.cold_iron_leggings_2": "寒铁护腿′′",
+
   "item.vmd.splasher": "膨热剂",
 
   "item.vmd.attackup_potion": "攻击提升药水",

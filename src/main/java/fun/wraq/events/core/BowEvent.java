@@ -3,19 +3,25 @@ package fun.wraq.events.core;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.bow.MyArrow;
+import fun.wraq.events.fight.MonsterAttackEvent;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.ManaAttackParticleS2CPacket;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
+import fun.wraq.series.overworld.cold.sc4.SuperColdSnowGolemSpawnController;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -42,22 +48,29 @@ public class BowEvent {
     @SubscribeEvent
     public static void Projectile(ProjectileImpactEvent event) {
         Entity entity = event.getProjectile();
+        if (entity instanceof ThrownPotion) {
+            return;
+        }
         Level level = event.getEntity().level();
         List<Entity> list = level.getEntitiesOfClass(Entity.class, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D));
         List<LivingEntity> list0 = list.stream()
                 .filter(entity1 -> entity1 instanceof LivingEntity livingEntity && livingEntity.isAlive())
                 .map(entity1 -> (LivingEntity) entity1)
                 .toList();
-
         if (entity.level().isClientSide) {
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
         }
-
+        if (!level.isClientSide
+                && entity instanceof Snowball snowball
+                && snowball.getOwner() instanceof SnowGolem snowGolem
+                && MobSpawn.getMobOriginName(snowGolem).equals(SuperColdSnowGolemSpawnController.mobName)
+                && !list.isEmpty() && list.get(0) instanceof Player player) {
+            MonsterAttackEvent.causeCommonAttackToPlayer(snowGolem, player);
+        }
         if (!list.isEmpty() && (list.get(0) instanceof ArmorStand || list.get(0) instanceof Allay)) {
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
             return;
         }
-
         if (!entity.level().isClientSide && entity instanceof MyArrow myArrow) {
             if (!list0.isEmpty()) {
                 if (myArrow.player != null) {
@@ -113,7 +126,6 @@ public class BowEvent {
                 }
             }
         }
-
         if (!entity.level().isClientSide && entity instanceof ManaArrow manaArrow && !manaArrow.shootFromMob()) {
             if (!list0.isEmpty()) {
                 if (manaArrow.player != null) {
@@ -142,7 +154,6 @@ public class BowEvent {
                 }
             }
         }
-
         if (entity instanceof SwordAir swordAir) {
             if (swordAir.player != null) {
                 if (!causeDamageList.containsKey(entity)) {

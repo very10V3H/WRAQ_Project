@@ -31,8 +31,15 @@ public class ColdSystem {
     public static List<Pair<Vec2, Vec2>> cold_2_zone = new ArrayList<>() {{
         add(new Pair<>(new Vec2(1991, -3416), new Vec2(2358, -3126)));
     }};
-    public static List<Pair<Vec2, Vec2>> cold_3_zone = new ArrayList<>();
-    public static List<Pair<Vec2, Vec2>> cold_4_zone = new ArrayList<>();
+
+    public static List<Pair<Vec2, Vec2>> cold_3_zone = new ArrayList<>() {{
+        add(new Pair<>(new Vec2(2372, -3921), new Vec2(2888, -3393)));
+    }};
+
+    public static List<Pair<Vec2, Vec2>> cold_4_zone = new ArrayList<>() {{
+        add(new Pair<>(new Vec2(2454, -4225), new Vec2(2838, -3923)));
+    }};
+
     public static List<Pair<Vec2, Vec2>> cold_5_zone = new ArrayList<>();
 
     public static boolean isIn(Player player, List<Pair<Vec2, Vec2>> zone) {

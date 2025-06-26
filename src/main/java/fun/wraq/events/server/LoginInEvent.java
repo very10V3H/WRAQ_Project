@@ -521,6 +521,7 @@ public class LoginInEvent {
         LabourDayOldCoin.refreshSilverCoinGetCount(player);
         ManaTowerData.setManaTowerPieceDailyGetFlag(player, false);
         CookingPlayerData.resetDailyFinishedTimesCount(player);
+        RankData.onPlayerDailyLogin(player);
     }
 
     public static void refreshWeeklyContent(Player player) {

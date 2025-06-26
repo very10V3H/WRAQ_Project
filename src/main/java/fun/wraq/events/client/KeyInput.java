@@ -34,6 +34,7 @@ import fun.wraq.render.gui.skills.SkillTreeGui;
 import fun.wraq.render.gui.team.*;
 import fun.wraq.render.gui.trade.single.SingleItemChangeScreen;
 import fun.wraq.render.gui.villagerTrade.TradeScreen;
+import fun.wraq.series.overworld.cold.sc4.BlizzardBoots;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -163,6 +164,7 @@ public class KeyInput {
                 if (Compute.inLowGravityEnvironment(player)) {
                     ModNetworking.sendToServer(new PlayerClickSpaceC2SPacket());
                 }
+                BlizzardBoots.onPressJump(player);
             }
 
             if (KeyBoradInput.TEAM.consumeClick()) {

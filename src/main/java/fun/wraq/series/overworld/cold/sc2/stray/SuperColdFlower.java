@@ -12,10 +12,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -31,6 +34,7 @@ public class SuperColdFlower extends WraqItem implements ActiveItem {
         components.add(Te.s(" · 消耗品", CustomStyle.styleOfMine));
         components.add(Te.s(" 使用来释放一阵", "刺骨寒气", CustomStyle.styleOfIce));
         components.add(Te.s(" 对周围敌方造成", "2s禁锢", CustomStyle.styleOfIce));
+        components.add(Te.s(" 释放的寒气可以清除附近敌人的", "所有投射物", CustomStyle.styleOfFlexible));
         super.appendHoverText(itemStack, level, components, tooltipFlag);
     }
 
@@ -43,6 +47,15 @@ public class SuperColdFlower extends WraqItem implements ActiveItem {
             mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 99));
             Compute.createIceParticle(mob);
         });
+        player.level().getEntitiesOfClass(Projectile.class,
+                        AABB.ofSize(player.position(), 24, 24, 24))
+                .stream().filter(projectile -> {
+                    return projectile.distanceTo(player) <= 12
+                            && projectile.getOwner() != null && !(projectile.getOwner() instanceof Player);
+                }).forEach(projectile -> {
+                    projectile.remove(Entity.RemovalReason.KILLED);
+                    Compute.createIceParticle(projectile);
+                });
     }
 
     @Override

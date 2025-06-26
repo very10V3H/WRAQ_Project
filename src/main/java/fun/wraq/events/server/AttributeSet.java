@@ -11,8 +11,11 @@ import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.SwiftData;
 import fun.wraq.series.newrunes.chapter1.LakeNewRune;
+import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -25,7 +28,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber
 public class AttributeSet {
     @SubscribeEvent
-    public static void SpeedSet(TickEvent.PlayerTickEvent event) {
+    public static void setSpeed(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             ServerPlayer serverPlayer = (ServerPlayer) event.player;
             Player player = event.player;
@@ -37,8 +40,16 @@ public class AttributeSet {
             if (data.contains(StringUtils.MovementSpeedRate)) {
                 speedUp *= data.getInt(StringUtils.MovementSpeedRate) * 0.01;
             }
-            double finalMovementSpeed = (0.1 + 0.1 * (float) speedUp) * SpecialEffectOnPlayer.slowdownEffectValue(player);
-            if (SpecialEffectOnPlayer.inImprison(player)) {
+            double finalMovementSpeed = (0.1 + 0.1 * (float) speedUp);
+            boolean canDefendSlowdown = player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ColdIronArmor;
+            if (!canDefendSlowdown) {
+                finalMovementSpeed *= SpecialEffectOnPlayer.slowdownEffectValue(player);
+            } else {
+                player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
+            }
+            boolean canDefendImprison = player.getItemBySlot(EquipmentSlot.LEGS)
+                    .getItem() instanceof ColdIronArmor armor && armor.tier >= 2;
+            if (SpecialEffectOnPlayer.inImprison(player) && !canDefendImprison) {
                 finalMovementSpeed = 0;
                 Vec3 pos = SpecialEffectOnPlayer.imprisonPosMap.get(name);
                 if (SpecialEffectOnPlayer.inVertigo(player)) {
@@ -48,7 +59,9 @@ public class AttributeSet {
                     serverPlayer.teleportTo(pos.x, pos.y, pos.z);
                 }
             }
-            finalMovementSpeed *= (1 + ColdSystem.getMovementSpeedAndDamageEffectRate(player));
+            if (!canDefendSlowdown) {
+                finalMovementSpeed *= (1 + ColdSystem.getMovementSpeedAndDamageEffectRate(player));
+            }
             player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(finalMovementSpeed);
 
             // 游泳速度

@@ -47,7 +47,7 @@ public class DivineArmor extends WraqArmor implements DivineArmorCommon {
             Utils.movementSpeedCommon.put(this, 0.16);
             Utils.maxHealth.put(this, new double[]{30000, 35000, 40000}[tier]);
         }
-        Utils.levelRequire.put(this, new int[]{230, 240, 250}[tier]);
+        Utils.levelRequire.put(this, 230);
     }
 
     @Override

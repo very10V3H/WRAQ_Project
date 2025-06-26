@@ -12,7 +12,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.cold.sc2.SuperColdItems;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
