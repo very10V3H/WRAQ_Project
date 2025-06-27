@@ -23,7 +23,7 @@ public class RevenantGoldenHelmet extends WraqArmor implements Decomposable {
         super(armorMaterial, type, properties);
         Utils.defence.put(this, 10d);
         Utils.healthRecover.put(this, 15d);
-        Element.FireElementValue.put(this, 1d);
+        Element.fireElementValue.put(this, 1d);
         Utils.levelRequire.put(this, 90);
     }
 

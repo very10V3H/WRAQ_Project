@@ -9,6 +9,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.crystal.OriginStone;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -94,7 +95,7 @@ public class AuroraSheepSpawnController extends MobSpawnController {
     public Mob mobItemAndAttributeSet() {
         Sheep mob = new Sheep(EntityType.SHEEP, this.level);
         Random random = new Random();
-        mob.setColor(getColors().get(random.nextInt(getColors().size())));
+        mob.setColor(getColors().get(OriginStone.getIndex(random.nextDouble())));
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置属性
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);

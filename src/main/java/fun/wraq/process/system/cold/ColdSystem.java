@@ -10,6 +10,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.active.HeatInjection;
 import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
@@ -68,6 +69,19 @@ public class ColdSystem {
     }
 
     public static Map<String, Integer> playerLastColdLevelMap = new HashMap<>();
+
+    public static int getPlayerHeatTier(Player player) {
+        int tier = 0;
+        for (ItemStack armor : player.getArmorSlots()) {
+            if (armor.getItem() instanceof BunkerArmor bunkerArmor) {
+                tier += bunkerArmor.tier + 1;
+            }
+        }
+        if (player.getEffect(ModEffects.WARM.get()) != null) {
+            ++tier;
+        }
+        return Math.max(HeatInjection.getTier(player), tier);
+    }
 
     public static void handleTick(Player player) {
         if (!player.isCreative()) {
@@ -138,18 +152,5 @@ public class ColdSystem {
             return -0.5;
         }
         return 0;
-    }
-
-    public static int getPlayerHeatTier(Player player) {
-        int tier = 0;
-        for (ItemStack armor : player.getArmorSlots()) {
-            if (armor.getItem() instanceof BunkerArmor bunkerArmor) {
-                tier += bunkerArmor.tier + 1;
-            }
-        }
-        if (player.getEffect(ModEffects.WARM.get()) != null) {
-            ++tier;
-        }
-        return tier;
     }
 }

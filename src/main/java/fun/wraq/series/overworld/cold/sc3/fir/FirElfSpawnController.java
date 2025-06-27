@@ -79,8 +79,8 @@ public class FirElfSpawnController extends MobSpawnController {
             return;
         }
         Compute.mobHealthRecover(mob, 0.02);
-        if (mob.tickCount % 50 == 0) {
-            Player player = Compute.getNearestPlayer(mob, 16);
+        if (mob.tickCount % 20 == 0) {
+            Player player = Compute.getNearestPlayer(mob, 24);
             if (player != null) {
                 ShulkerBullet shulkerBullet = new ShulkerBullet(mob.level(), mob, player, mob.getDirection().getAxis());
                 shulkerBullet.shootFromRotation(mob, mob.getXRot(), mob.getYRot(), 1, 1.5f, 1);

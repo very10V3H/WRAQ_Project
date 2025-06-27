@@ -32,6 +32,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.passive.mixture.Mixture;
 import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.overworld.extraordinary.equip.KanupusSword;
@@ -56,12 +57,12 @@ public class ManaAttackModule {
 
     public static void causeBaseAttack(Player player, Mob mob, double rate, boolean mainShoot) {
         ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, rate);
-        BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+        causeBaseAttack(player, mob, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), player.level(), manaArrow, mainShoot);
     }
 
-    public static void BasicAttack(Player player, Entity entity, double defencePenetration,
-                                   double defencePenetration0, Level level, ManaArrow manaArrow, boolean mainShoot) {
+    public static void causeBaseAttack(Player player, Entity entity, double defencePenetration,
+                                       double defencePenetration0, Level level, ManaArrow manaArrow, boolean mainShoot) {
         if (player == null) return;
         CompoundTag data = player.getPersistentData();
 
@@ -194,6 +195,7 @@ public class ManaAttackModule {
                     manaArrow.manaArrowHitEntity.onHit(manaArrow, entity);
                 }
                 CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, false);
+                Mixture.onReleaseNormalAttackOrHit(player);
             }
 
             ManaNewSkillPassive0.onManaArrowHit(player, monster);

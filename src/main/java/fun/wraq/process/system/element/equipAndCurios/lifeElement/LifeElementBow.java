@@ -25,7 +25,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
         Utils.attackDamage.put(this, 600d);
         Utils.defencePenetration0.put(this, 40d);
         Utils.critRate.put(this, 0.25);
-        Element.LifeElementValue.put(this, 2d);
+        Element.lifeElementValue.put(this, 2d);
     }
 
     @Override

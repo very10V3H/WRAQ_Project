@@ -23,6 +23,8 @@ import fun.wraq.process.system.skill.BowSkillTree;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.passive.quiver.Quiver;
+import fun.wraq.series.comsumable.passive.quiver.QuiverAttack;
 import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -164,6 +166,7 @@ public class MyArrow extends AbstractArrow {
                 rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 1);
                 rate += BowCurios0.BaseDamageEnhance(player);
                 rate += BowCurios5.getExArrowDamageRate(player, monster);
+                rate += QuiverAttack.getExAttackRate(player);
             }
 
             rate += StableTierAttributeModifier
@@ -275,6 +278,7 @@ public class MyArrow extends AbstractArrow {
                 BowSkillTree.skillIndex13(player);
                 BowNewSkillPassive0.onArrowHit(player, monster);
                 CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, true);
+                Quiver.onArrowHit(player);
             }
             if (myArrow.mainShoot) {
                 OnHitEffectPassiveEquip.hit(player, monster);

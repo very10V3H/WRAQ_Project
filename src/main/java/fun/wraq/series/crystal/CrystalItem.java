@@ -61,4 +61,8 @@ public class CrystalItem extends WraqItem {
     public int getPrice() {
         return ((int) Math.pow(2, typeTier + tier)) * 40000;
     }
+
+    public int getRate() {
+        return ((int) Math.pow(2, typeTier + tier));
+    }
 }

@@ -1319,7 +1319,7 @@ public class Compute {
                     ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
                             rate, PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
                             StringUtils.ParticleTypes.Lava);
-                    ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                    ManaAttackModule.causeBaseAttack(player, mob, PlayerAttributes.manaPenetration(player),
                             PlayerAttributes.manaPenetration0(player), level, newArrow, true);
                 }
             }
@@ -1344,7 +1344,7 @@ public class Compute {
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
                         rate, PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                ManaAttackModule.causeBaseAttack(player, mob, PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), level, newArrow, true);
             }
         });

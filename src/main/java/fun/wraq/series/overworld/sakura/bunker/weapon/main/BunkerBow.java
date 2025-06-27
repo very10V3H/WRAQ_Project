@@ -2,6 +2,7 @@ package fun.wraq.series.overworld.sakura.bunker.weapon.main;
 
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerBow;
@@ -18,6 +19,7 @@ public class BunkerBow extends HarbingerBow implements BunkerMainHand {
         super(properties);
         Utils.attackDamage.put(this, 2800d);
         Utils.defencePenetration0.put(this, 60d);
+        Element.fireElementValue.put(this, 2d);
     }
 
     @Override

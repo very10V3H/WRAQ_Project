@@ -137,25 +137,28 @@ repositories {
     mavenCentral()
     maven {
         url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
     mavenLocal()
     flatDir {
         dirs "libs"
     }
-
-        maven {
+    maven {
         url = "https://maven.theillusivec4.top/"
     }
-
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
-
+    maven {
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
     maven {
         name "KosmX's maven"
         url 'https://maven.kosmx.dev/'
     }
 
-    maven { url 'https://maven.blamejared.com' }
-
+    maven {
+        url 'https://maven.blamejared.com'
+    }
     maven {
         url 'https://maven.tterrag.com'
     }

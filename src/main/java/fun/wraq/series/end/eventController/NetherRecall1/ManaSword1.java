@@ -28,7 +28,7 @@ public class ManaSword1 extends WraqSword implements ActiveItem {
         Utils.defencePenetration0.put(this, 18d);
         Utils.healthSteal.put(this, 0.1);
         Utils.critRate.put(this, 0.35);
-        Element.FireElementValue.put(this, 1d);
+        Element.fireElementValue.put(this, 1d);
     }
 
     @Override

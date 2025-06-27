@@ -2327,10 +2327,15 @@
   "item.vmd.super_cold_flower": "极寒花",
 
   "item.vmd.green_wool": "极光绿羊毛",
+  "item.vmd.green_wool_pocket": "一袋极光绿羊毛",
   "item.vmd.blue_wool": "极光蓝羊毛",
+  "item.vmd.blue_wool_pocket": "一袋极光蓝羊毛",
   "item.vmd.yellow_wool": "极光黄羊毛",
+  "item.vmd.yellow_wool_pocket": "一袋极光黄羊毛",
   "item.vmd.red_wool": "极光红羊毛",
+  "item.vmd.red_wool_pocket": "一袋极光红羊毛",
   "item.vmd.purple_wool": "极光紫羊毛",
+  "item.vmd.purple_wool_pocket": "一袋极光紫羊毛",
 
   "item.vmd.maple_soul": "极寒枫木材",
   "item.vmd.maple_rune": "精制极寒枫木材",
@@ -2363,6 +2368,31 @@
   "item.vmd.cold_iron_helmet_2": "寒铁头盔′′",
   "item.vmd.cold_iron_chest_2": "寒铁胸甲′′",
   "item.vmd.cold_iron_leggings_2": "寒铁护腿′′",
+
+  "item.vmd.color_loss_crystal": "失色水晶",
+
+  "item.vmd.cold_rune": "极寒冰雪具象",
+
+  "item.vmd.whetstone_attack_0": "磨刀石 - 配重",
+  "item.vmd.whetstone_penetration_0": "磨刀石 - 钝",
+  "item.vmd.whetstone_penetration0_0": "磨刀石 - 利",
+
+  "item.vmd.quiver_attack_0": "箭袋 - 载荷",
+  "item.vmd.quiver_penetration_0": "箭袋 - 长矢",
+  "item.vmd.quiver_penetration0_0": "箭袋 - 锐利",
+
+  "item.vmd.mixture_attack_0": "圣水 - 毁灭",
+  "item.vmd.mixture_penetration_0": "圣水 - 腐蚀",
+  "item.vmd.mixture_penetration0_0": "圣水 - 渗透",
+
+  "item.vmd.heat_injection_0": "产热针剂",
+  "item.vmd.heat_injection_1": "生物能产热针剂",
+  "item.vmd.heat_injection_2": "地壳产热针剂",
+  "item.vmd.heat_injection_3": "恒星产热针剂",
+
+  "item.vmd.heat_device_0": "产热装置",
+  "item.vmd.heat_device_1": "生物能产热装置",
+  "item.vmd.heat_device_2": "地壳产热装置",
 
   "item.vmd.splasher": "膨热剂",
 

@@ -4,6 +4,7 @@ import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -38,6 +39,7 @@ public class ColdIronArmor extends WraqArmor {
             Utils.defence.put(this, new double[]{75d, 85d, 100d}[tier]);
             Utils.manaDefence.put(this, new double[]{40d, 45d, 50d}[tier]);
         }
+        Element.iceElementValue.put(this, new double[]{0.35, 0.5, 0.8}[tier]);
         Utils.movementSpeedCommon.put(this, -0.25);
         Utils.levelRequire.put(this, 230);
     }

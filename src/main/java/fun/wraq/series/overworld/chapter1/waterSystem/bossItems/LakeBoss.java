@@ -31,7 +31,7 @@ public class LakeBoss {
             Utils.defencePenetration.put(this, this.BreakDefence);
             Utils.healthSteal.put(this, this.HealSteal);
             Utils.critRate.put(this, this.CriticalHitRate);
-            Element.WaterElementValue.put(this, 1.25);
+            Element.waterElementValue.put(this, 1.25);
             Utils.mainHandTag.put(this, 1d);
             Utils.weaponList.add(this);
             Utils.swordTag.put(this, 1d);

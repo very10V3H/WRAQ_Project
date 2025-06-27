@@ -18,7 +18,7 @@ public class LightningCurios0 extends WraqElementUniformCurios {
 
     public LightningCurios0(Properties p_41383_) {
         super(p_41383_);
-        Element.LightningElementValue.put(this, 1d);
+        Element.lightningElementValue.put(this, 1d);
     }
 
     @Override

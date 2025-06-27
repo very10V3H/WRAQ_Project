@@ -25,7 +25,7 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
         super(p_40524_);
         Utils.attackDamage.put(this, new double[]{20, 25, 35, 40}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.25}[tier]);
-        Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        Element.lifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     @Override

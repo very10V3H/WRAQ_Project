@@ -35,7 +35,7 @@ public class ShiroBow extends WraqBow {
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.05);
         Utils.movementSpeedCommon.put(this, 0.2);
-        Element.WindElementValue.put(this, 1.5);
+        Element.windElementValue.put(this, 1.5);
         Utils.levelRequire.put(this, 225);
     }
 

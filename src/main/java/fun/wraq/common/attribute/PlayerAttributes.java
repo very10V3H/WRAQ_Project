@@ -38,6 +38,12 @@ import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.passive.mixture.MixturePenetration;
+import fun.wraq.series.comsumable.passive.mixture.MixturePenetration0;
+import fun.wraq.series.comsumable.passive.quiver.QuiverPenetration;
+import fun.wraq.series.comsumable.passive.quiver.QuiverPenetration0;
+import fun.wraq.series.comsumable.passive.whetstone.WhetstonePenetration;
+import fun.wraq.series.comsumable.passive.whetstone.WhetstonePenetration0;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
@@ -856,6 +862,8 @@ public class PlayerAttributes {
         defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.defencePenetration));
         defenceRate *= (1 - MoonCurios.getDefencePenetration(player));
         defenceRate *= (1 - IceHolyCrest.getExDefencePenetration(player));
+        defenceRate *= (1 - WhetstonePenetration.getExPenetration(player));
+        defenceRate *= (1 - QuiverPenetration.getExPenetration(player));
         // 请在上方添加
         writeToCache(player, Utils.defencePenetration, 1 - defenceRate);
         return 1 - defenceRate;
@@ -901,6 +909,8 @@ public class PlayerAttributes {
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
         defencePenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defencePenetration0);
         defencePenetration0 += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration0);
+        defencePenetration0 += WhetstonePenetration0.getExPenetration(player);
+        defencePenetration0 += QuiverPenetration0.getExPenetration(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1363,6 +1373,7 @@ public class PlayerAttributes {
         defenceRate *= (1 - Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration));
         defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
         defenceRate *= (1 - ManaCurios4.getExManaPenetrationRate(player));
+        defenceRate *= (1 - MixturePenetration.getManaPenetration(player));
 
         // 请在上方添加
         writeToCache(player, Utils.manaPenetration, 1 - defenceRate);
@@ -1409,6 +1420,7 @@ public class PlayerAttributes {
         manaPenetration0 += StableAttributesModifier.getModifierValue(player,
                 StableAttributesModifier.playerManaPenetration0Modifier);
         manaPenetration0 += ManaCurios4.getExManaPenetration0(player);
+        manaPenetration0 += MixturePenetration0.getManaPenetration0(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);

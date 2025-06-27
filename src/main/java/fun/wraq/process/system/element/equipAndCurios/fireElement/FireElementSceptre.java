@@ -33,7 +33,7 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
         Utils.manaRecover.put(this, 30d);
         Utils.manaPenetration0.put(this, 40d);
         Utils.coolDownDecrease.put(this, 0.2);
-        Element.FireElementValue.put(this, 2d);
+        Element.fireElementValue.put(this, 2d);
     }
 
     public static void IgniteEffect(Player player, Mob mob) {

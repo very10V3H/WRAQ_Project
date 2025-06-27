@@ -25,6 +25,7 @@ import fun.wraq.process.system.skill.skillv2.network.SkillV2LeftCooldownS2CPacke
 import fun.wraq.process.system.skill.skillv2.sword.*;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.passive.mixture.Mixture;
 import fun.wraq.series.gems.passive.impl.GemEnhanceSkillRate;
 import fun.wraq.series.holy.ice.curio.IceHolySceptre;
 import net.minecraft.ChatFormatting;
@@ -531,6 +532,7 @@ public abstract class SkillV2 {
                 PowerLogic.playerReleasePower(player);
                 OnPowerReleaseEquip.release(player);
                 OnPowerReleaseCurios.release(player);
+                Mixture.onReleaseNormalAttackOrHit(player);
             }
             OnReleaseSkillCurios.release(player);
         }

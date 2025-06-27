@@ -23,7 +23,7 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
 
     public IceBelt(Properties properties) {
         super(properties);
-        Element.IceElementValue.put(this, 0.5);
+        Element.iceElementValue.put(this, 0.5);
         Utils.levelRequire.put(this, 135);
     }
 

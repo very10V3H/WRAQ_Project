@@ -73,7 +73,7 @@ public class ElementValue {
 
     public static double getPlayerLifeElementValue(Player player) {
         double value = 0;
-        value += getCommonRate(player, Element.LifeElementValue, LifeElementValue, Element.life);
+        value += getCommonRate(player, Element.lifeElementValue, LifeElementValue, Element.life);
         // 百分比分割线
         value *= LifeCurios0.playerLifeElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.life));
@@ -82,7 +82,7 @@ public class ElementValue {
 
     public static double getPlayerWaterElementValue(Player player) {
         double value = 0;
-        value += getCommonRate(player, Element.WaterElementValue, WaterElementValue, Element.water);
+        value += getCommonRate(player, Element.waterElementValue, WaterElementValue, Element.water);
         // 百分比分割线
         value *= WaterElementSword.PlayerWaterElementValueEnhance(player);
         value *= WaterCurios0.playerWaterElementValueEnhance(player);
@@ -92,7 +92,7 @@ public class ElementValue {
 
     public static double getPlayerFireElementValue(Player player) {
         double value = 0;
-        value += getCommonRate(player, Element.FireElementValue, FireElementValue, Element.fire);
+        value += getCommonRate(player, Element.fireElementValue, FireElementValue, Element.fire);
         value += FireElementSword.FireElementValueEnhance(player);
         // 百分比分割线
         double enhanceRate = 0;
@@ -105,7 +105,7 @@ public class ElementValue {
 
     public static double getPlayerStoneElementValue(Player player) {
         double value = 0;
-        value += getCommonRate(player, Element.StoneElementValue, StoneElementValue, Element.stone);
+        value += getCommonRate(player, Element.stoneElementValue, StoneElementValue, Element.stone);
         // 百分比分割线
         value *= StoneCurios0.playerStoneElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.stone));
@@ -115,7 +115,7 @@ public class ElementValue {
 
     public static double getPlayerIceElementValue(Player player) {
         double value = 0;
-        value += getCommonRate(player, Element.IceElementValue, IceElementValue, Element.ice);
+        value += getCommonRate(player, Element.iceElementValue, IceElementValue, Element.ice);
         // 百分比分割线
         value *= IceCurios0.playerIceElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.ice));
@@ -125,7 +125,7 @@ public class ElementValue {
 
     public static double getPlayerLightningElementValue(Player player) {
         double value = 0;
-        value += getCommonRate(player, Element.LightningElementValue, LightningElementValue, Element.lightning);
+        value += getCommonRate(player, Element.lightningElementValue, LightningElementValue, Element.lightning);
         // 百分比分割线
         value *= LightningCurios0.playerLightningElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.lightning));
@@ -135,7 +135,7 @@ public class ElementValue {
 
     public static double getPlayerWindElementValue(Player player) {
         double value = 0;
-        value += getCommonRate(player, Element.WindElementValue, WindElementValue, Element.wind);
+        value += getCommonRate(player, Element.windElementValue, WindElementValue, Element.wind);
         // 百分比分割线
         value *= WindCurios0.playerWindElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.wind));

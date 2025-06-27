@@ -8,7 +8,9 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.cold.ColdSystem;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.active.HeatDevice;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
@@ -51,6 +53,7 @@ public class BunkerArmor extends WraqArmor implements Decomposable, ForgeItem {
             Utils.movementSpeedCommon.put(this, 0.16);
             Utils.maxHealth.put(this, new double[]{21000, 30000, 40000}[tier]);
         }
+        Element.fireElementValue.put(this, new double[]{0.25, 0.35, 0.5}[tier]);
         Utils.levelRequire.put(this, 225);
     }
 
@@ -82,12 +85,19 @@ public class BunkerArmor extends WraqArmor implements Decomposable, ForgeItem {
                 if (stack.getItem() instanceof BunkerArmor) {
                     list.add(stack);
                     mutableComponent.append(Te.s(stack));
-                    stack.shrink(1);
+                    if (!HeatDevice.isInEffect(player)) {
+                        stack.shrink(1);
+                    }
                 }
             }
             if (!list.isEmpty()) {
-                Compute.sendFormatMSG(player, Te.s("枯竭", CustomStyle.BUNKER_STYLE),
-                        Te.s("在极寒地区死亡，你失去了", mutableComponent));
+                if (!HeatDevice.isInEffect(player)) {
+                    Compute.sendFormatMSG(player, Te.s("枯竭", CustomStyle.BUNKER_STYLE),
+                            Te.s("在极寒地区死亡，你失去了", mutableComponent));
+                } else {
+                    Compute.sendFormatMSG(player, Te.s("枯竭", CustomStyle.BUNKER_STYLE),
+                            Te.s("产热装置防止了热能装备的枯竭."));
+                }
             }
         }
     }

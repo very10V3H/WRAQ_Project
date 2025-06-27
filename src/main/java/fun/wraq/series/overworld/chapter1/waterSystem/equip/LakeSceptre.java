@@ -34,7 +34,7 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectEquip {
         Utils.manaRecover.put(this, new double[]{10, 11, 12, 13}[num]);
         Utils.manaPenetration0.put(this, new double[]{2, 2, 3, 3}[num]);
         Utils.coolDownDecrease.put(this, new double[]{0.2, 0.2, 0.2, 0.2}[num]);
-        Element.WaterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[num]);
+        Element.waterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[num]);
     }
 
     @Override

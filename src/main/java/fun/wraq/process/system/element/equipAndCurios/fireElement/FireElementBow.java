@@ -28,7 +28,7 @@ public class FireElementBow extends WraqBow implements ActiveItem {
         Utils.attackDamage.put(this, 600d);
         Utils.defencePenetration0.put(this, 40d);
         Utils.critRate.put(this, 0.25);
-        Element.FireElementValue.put(this, 2d);
+        Element.fireElementValue.put(this, 2d);
     }
 
     public static void IgniteEffect(Player player, Mob mob) {

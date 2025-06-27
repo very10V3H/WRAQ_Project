@@ -43,7 +43,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
             Utils.manaRecover.put(this, 20d);
             Utils.coolDownDecrease.put(this, 0.35);
             Utils.manaPenetration0.put(this, 24d);
-            Element.FireElementValue.put(this, 1d);
+            Element.fireElementValue.put(this, 1d);
             Utils.levelRequire.put(this, 80);
         } else {
             Utils.manaDamage.put(this, 6000d);
@@ -52,7 +52,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
             Utils.manaRecover.put(this, 40d);
             Utils.manaPenetration0.put(this, 60d);
             Utils.coolDownDecrease.put(this, 0.3);
-            Element.FireElementValue.put(this, 1.5);
+            Element.fireElementValue.put(this, 1.5);
             Utils.levelRequire.put(this, 225);
         }
         this.tier = tier;

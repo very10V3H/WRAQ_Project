@@ -10,6 +10,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.holy.ice.IceHolyItems;
@@ -18,7 +19,6 @@ import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
-import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -115,10 +115,6 @@ public class ModCreativeModeTab {
             () -> CreativeModeTab.builder().icon(
                                     () -> new ItemStack(IceHolyItems.SWORD_ATTACK_0.get()))
                             .title(Te.s("维瑞阿契 | 圣器")).build());
-    public static RegistryObject<CreativeModeTab> NEW_AREA = CREATIVE_MODE_TAB.register("aa_wraq_zb_new_area",
-            () -> CreativeModeTab.builder().icon(
-                                    () -> new ItemStack(NewAreaItems.STONE_SPIDER_KNIFE_0.get()))
-                            .title(Te.s("维瑞阿契 | 新区域")).build());
     public static RegistryObject<CreativeModeTab> MANA_TOWER = CREATIVE_MODE_TAB.register("aa_wraq_zc_mana_tower",
             () -> CreativeModeTab.builder().icon(
                                     () -> new ItemStack(ExtraordinaryItems.NAN_HAI_A.get()))
@@ -139,7 +135,11 @@ public class ModCreativeModeTab {
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(SuperColdItems.FLOWER.get()))
                     .title(Te.s("维瑞阿契 | 极寒地区")).build());
-    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zh_all",
+    public static RegistryObject<CreativeModeTab> COMSUMABLE = CREATIVE_MODE_TAB.register("aa_wraq_zh_super_cold",
+            () -> CreativeModeTab.builder().icon(
+                            () -> new ItemStack(ComsumableItems.MIXTURE_ATTACK_0.get()))
+                    .title(Te.s("维瑞阿契 | 消耗品")).build());
+    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zi_all",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.DEVIL_SWORD.get()))
                     .title(Te.s("维瑞阿契 | 总集")).build());

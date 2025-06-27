@@ -4,7 +4,10 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.cooking.CookingValue;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.crystal.CrystalItem;
+import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.crystal.OriginStone;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Style;
@@ -30,6 +33,11 @@ public class TradeListNew {
         dragonBoat();
         weeklyStore();
         OriginStone.setVillagerData();
+        colorLossCrystal();
+        mapleKnife();
+        firCrystal();
+        blizzard();
+        coldIron();
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -187,11 +195,255 @@ public class TradeListNew {
     }
 
     public static final String WEEKLY_STORE_VILLAGER_NAME = "联合研院采购";
+
     public static void weeklyStore() {
         MyVillagerData.setMyVillagerData(WEEKLY_STORE_VILLAGER_NAME,
                 "weeklyStore", CustomStyle.styleOfWorld, VillagerType.SAVANNA,
                 VillagerProfession.LIBRARIAN, List.of());
     }
 
+    public static List<ItemStack> getWool(CrystalItem crystalItem) {
+        List<ItemStack> woolStacks = new ArrayList<>();
+        switch (crystalItem.typeTier) {
+            default -> {
+                woolStacks.add(new ItemStack(SuperColdItems.GREEN_WOOL_POCKET.get(),
+                        (int) Math.pow(2, crystalItem.tier)));
+            }
+            case 1 -> {
+                woolStacks.add(new ItemStack(SuperColdItems.BLUE_WOOL_POCKET.get(),
+                        (int) Math.pow(2, crystalItem.tier)));
+            }
+            case 2 -> {
+                woolStacks.add(new ItemStack(SuperColdItems.YELLOW_WOOL_POCKET.get(),
+                        (int) Math.pow(2, crystalItem.tier)));
+            }
+            case 3 -> {
+                woolStacks.add(new ItemStack(SuperColdItems.RED_WOOL_POCKET.get(),
+                        (int) Math.pow(2, crystalItem.tier)));
+            }
+            case 4 -> {
+                woolStacks.add(new ItemStack(SuperColdItems.PURPLE_WOOL_POCKET.get(),
+                        (int) Math.pow(2, crystalItem.tier)));
+            }
+        }
+        return woolStacks;
+    }
 
+    public static void colorLossCrystal() {
+        List<ItemStack> stacks = new ArrayList<>();
+        CrystalItem.list.forEach(crystalItem -> {
+            ItemStack colorLossCrystal = new ItemStack(CrystalItems.COLOR_LOSS_CRYSTAL.get(), crystalItem.getRate());
+            stacks.add(colorLossCrystal);
+            TradeList.tradeRecipeMap.put(colorLossCrystal, List.of(new ItemStack(crystalItem)));
+            ItemStack colorLossCrystalCopyStack = colorLossCrystal.copy();
+            ItemStack crystalStack = new ItemStack(crystalItem);
+            List<ItemStack> needStacks = new ArrayList<>();
+            needStacks.add(colorLossCrystalCopyStack);
+            needStacks.addAll(getWool(crystalItem));
+            stacks.add(crystalStack);
+            TradeList.tradeRecipeMap.put(crystalStack, needStacks);
+        });
+        MyVillagerData.setMyVillagerData("失色宝石商人", "colorLossCrystal",
+                CustomStyle.styleOfIce, VillagerType.SNOW, VillagerProfession.CARTOGRAPHER, stacks);
+    }
+
+    public static void mapleKnife() {
+        ItemStack snowRune = new ItemStack(ModItems.SNOW_RUNE.get());
+        ItemStack coldRune = new ItemStack(SuperColdItems.COLD_RUNE.get());
+        ItemStack mapleRune = new ItemStack(SuperColdItems.MAPLE_RUNE.get());
+        ItemStack mapleRuneByStar = new ItemStack(SuperColdItems.MAPLE_RUNE.get());
+        ItemStack mapleKnife0 = new ItemStack(SuperColdItems.MAPLE_KNIFE_0.get());
+        ItemStack mapleKnife1 = new ItemStack(SuperColdItems.MAPLE_KNIFE_1.get());
+        ItemStack mapleKnife2 = new ItemStack(SuperColdItems.MAPLE_KNIFE_2.get());
+        ItemStack mapleKnife3 = new ItemStack(SuperColdItems.MAPLE_KNIFE_3.get());
+        List<ItemStack> stacks = List.of(
+                snowRune, coldRune, mapleRune, mapleRuneByStar,
+                mapleKnife0, mapleKnife1, mapleKnife2, mapleKnife3
+        );
+        MyVillagerData.setMyVillagerData("枫林护林员", "mapleKnife",
+                CustomStyle.styleOfIce, VillagerType.SNOW, VillagerProfession.WEAPONSMITH, stacks);
+        TradeList.tradeRecipeMap.put(snowRune,
+                List.of(new ItemStack(ModItems.SNOW_SOUL.get(), 64),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 3),
+                        new ItemStack(ModItems.GEM_PIECE.get(), 1)));
+        TradeList.tradeRecipeMap.put(coldRune,
+                List.of(new ItemStack(ModItems.SNOW_RUNE.get(), 64),
+                        new ItemStack(ModItems.ICE_ELEMENT_PIECE_2.get(), 1),
+                        new ItemStack(ModItems.WORLD_SOUL_3.get(), 1)));
+        TradeList.tradeRecipeMap.put(mapleRune,
+                List.of(new ItemStack(SuperColdItems.MAPLE_SOUL.get(), 100),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
+                        new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1),
+                        new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 1)));
+        TradeList.tradeRecipeMap.put(mapleRuneByStar,
+                List.of(new ItemStack(SuperColdItems.MAPLE_SOUL.get(), 100),
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 20)));
+        TradeList.tradeRecipeMap.put(mapleKnife0,
+                List.of(new ItemStack(SuperColdItems.MAPLE_RUNE.get(), 10)));
+        TradeList.tradeRecipeMap.put(mapleKnife1,
+                List.of(new ItemStack(SuperColdItems.MAPLE_KNIFE_0.get(), 1),
+                        new ItemStack(SuperColdItems.MAPLE_RUNE.get(), 15)));
+        TradeList.tradeRecipeMap.put(mapleKnife2,
+                List.of(new ItemStack(SuperColdItems.MAPLE_KNIFE_1.get(), 1),
+                        new ItemStack(SuperColdItems.MAPLE_RUNE.get(), 30)));
+        TradeList.tradeRecipeMap.put(mapleKnife3,
+                List.of(new ItemStack(SuperColdItems.MAPLE_KNIFE_2.get(), 1),
+                        new ItemStack(SuperColdItems.MAPLE_RUNE.get(), 50),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 8)));
+    }
+
+    public static void firCrystal() {
+        ItemStack snowRune = new ItemStack(ModItems.SNOW_RUNE.get());
+        ItemStack coldRune = new ItemStack(SuperColdItems.COLD_RUNE.get());
+        ItemStack firRune = new ItemStack(SuperColdItems.FIR_RUNE.get());
+        ItemStack firRuneByStar = new ItemStack(SuperColdItems.FIR_RUNE.get());
+        ItemStack firCrystal0 = new ItemStack(SuperColdItems.FIR_CRYSTAL_0.get());
+        ItemStack firCrystal1 = new ItemStack(SuperColdItems.FIR_CRYSTAL_1.get());
+        ItemStack firCrystal2 = new ItemStack(SuperColdItems.FIR_CRYSTAL_2.get());
+        ItemStack firCrystal3 = new ItemStack(SuperColdItems.FIR_CRYSTAL_3.get());
+        List<ItemStack> stacks = List.of(
+                snowRune, coldRune, firRune, firRuneByStar,
+                firCrystal0, firCrystal1, firCrystal2, firCrystal3
+        );
+        MyVillagerData.setMyVillagerData("冷杉林护林员", "firCrystal",
+                CustomStyle.styleOfIce, VillagerType.SNOW, VillagerProfession.WEAPONSMITH, stacks);
+        TradeList.tradeRecipeMap.put(snowRune,
+                List.of(new ItemStack(ModItems.SNOW_SOUL.get(), 64),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 3),
+                        new ItemStack(ModItems.GEM_PIECE.get(), 1)));
+        TradeList.tradeRecipeMap.put(coldRune,
+                List.of(new ItemStack(ModItems.SNOW_RUNE.get(), 64),
+                        new ItemStack(ModItems.ICE_ELEMENT_PIECE_2.get(), 1),
+                        new ItemStack(ModItems.WORLD_SOUL_3.get(), 1)));
+        TradeList.tradeRecipeMap.put(firRune,
+                List.of(new ItemStack(SuperColdItems.FIR_SOUL.get(), 100),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
+                        new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1),
+                        new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 1)));
+        TradeList.tradeRecipeMap.put(firRuneByStar,
+                List.of(new ItemStack(SuperColdItems.FIR_SOUL.get(), 100),
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 20)));
+        TradeList.tradeRecipeMap.put(firCrystal0,
+                List.of(new ItemStack(SuperColdItems.FIR_RUNE.get(), 10)));
+        TradeList.tradeRecipeMap.put(firCrystal1,
+                List.of(new ItemStack(SuperColdItems.FIR_CRYSTAL_0.get(), 1),
+                        new ItemStack(SuperColdItems.FIR_RUNE.get(), 15)));
+        TradeList.tradeRecipeMap.put(firCrystal2,
+                List.of(new ItemStack(SuperColdItems.FIR_CRYSTAL_1.get(), 1),
+                        new ItemStack(SuperColdItems.FIR_RUNE.get(), 30)));
+        TradeList.tradeRecipeMap.put(firCrystal3,
+                List.of(new ItemStack(SuperColdItems.FIR_CRYSTAL_2.get(), 1),
+                        new ItemStack(SuperColdItems.FIR_RUNE.get(), 50),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 8)));
+    }
+
+    public static void blizzard() {
+        ItemStack snowRune = new ItemStack(ModItems.SNOW_RUNE.get());
+        ItemStack coldRune = new ItemStack(SuperColdItems.COLD_RUNE.get());
+        ItemStack blizzardRune = new ItemStack(SuperColdItems.BLIZZARD_RUNE.get());
+        ItemStack blizzardRuneByStar = new ItemStack(SuperColdItems.BLIZZARD_RUNE.get());
+        ItemStack blizzardBoots0 = new ItemStack(SuperColdItems.BLIZZARD_BOOTS_0.get());
+        ItemStack blizzardBoots1 = new ItemStack(SuperColdItems.BLIZZARD_BOOTS_1.get());
+        ItemStack blizzardBoots2 = new ItemStack(SuperColdItems.BLIZZARD_BOOTS_2.get());
+        List<ItemStack> stacks = List.of(
+                snowRune, coldRune, blizzardRune, blizzardRuneByStar,
+                blizzardBoots0, blizzardBoots1, blizzardBoots2
+        );
+        MyVillagerData.setMyVillagerData("吹雪", "blizzard",
+                CustomStyle.styleOfIce, VillagerType.SNOW, VillagerProfession.ARMORER, stacks);
+        TradeList.tradeRecipeMap.put(snowRune,
+                List.of(new ItemStack(ModItems.SNOW_SOUL.get(), 64),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 3),
+                        new ItemStack(ModItems.GEM_PIECE.get(), 1)));
+        TradeList.tradeRecipeMap.put(coldRune,
+                List.of(new ItemStack(ModItems.SNOW_RUNE.get(), 64),
+                        new ItemStack(ModItems.ICE_ELEMENT_PIECE_2.get(), 1),
+                        new ItemStack(ModItems.WORLD_SOUL_3.get(), 1)));
+        TradeList.tradeRecipeMap.put(blizzardRune,
+                List.of(new ItemStack(SuperColdItems.BLIZZARD_SOUL.get(), 100),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
+                        new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1),
+                        new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 1)));
+        TradeList.tradeRecipeMap.put(blizzardRuneByStar,
+                List.of(new ItemStack(SuperColdItems.BLIZZARD_SOUL.get(), 100),
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 20)));
+        TradeList.tradeRecipeMap.put(blizzardBoots0,
+                List.of(new ItemStack(SuperColdItems.BLIZZARD_RUNE.get(), 30),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 2)));
+        TradeList.tradeRecipeMap.put(blizzardBoots1,
+                List.of(new ItemStack(SuperColdItems.BLIZZARD_BOOTS_0.get(), 1),
+                        new ItemStack(SuperColdItems.BLIZZARD_RUNE.get(), 35),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 2)));
+        TradeList.tradeRecipeMap.put(blizzardBoots2,
+                List.of(new ItemStack(SuperColdItems.BLIZZARD_BOOTS_1.get(), 1),
+                        new ItemStack(SuperColdItems.BLIZZARD_RUNE.get(), 45),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 3)));
+    }
+
+    public static void coldIron() {
+        ItemStack snowRune = new ItemStack(ModItems.SNOW_RUNE.get());
+        ItemStack coldRune = new ItemStack(SuperColdItems.COLD_RUNE.get());
+        ItemStack coldIronRune = new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get());
+        ItemStack coldIronRuneByStar = new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get());
+        ItemStack coldIronHelmet0 = new ItemStack(SuperColdItems.COLD_IRON_HELMET_0.get());
+        ItemStack coldIronHelmet1 = new ItemStack(SuperColdItems.COLD_IRON_HELMET_1.get());
+        ItemStack coldIronHelmet2 = new ItemStack(SuperColdItems.COLD_IRON_HELMET_2.get());
+        ItemStack coldIronChest0 = new ItemStack(SuperColdItems.COLD_IRON_CHEST_0.get());
+        ItemStack coldIronChest1 = new ItemStack(SuperColdItems.COLD_IRON_CHEST_1.get());
+        ItemStack coldIronChest2 = new ItemStack(SuperColdItems.COLD_IRON_CHEST_2.get());
+        ItemStack coldIronLeggings0 = new ItemStack(SuperColdItems.COLD_IRON_LEGGINGS_0.get());
+        ItemStack coldIronLeggings1 = new ItemStack(SuperColdItems.COLD_IRON_LEGGINGS_1.get());
+        ItemStack coldIronLeggings2 = new ItemStack(SuperColdItems.COLD_IRON_LEGGINGS_2.get());
+        List<ItemStack> stacks = List.of(
+                snowRune, coldRune, coldIronRune, coldIronRuneByStar,
+                coldIronHelmet0, coldIronHelmet1, coldIronHelmet2,
+                coldIronChest0, coldIronChest1, coldIronChest2,
+                coldIronLeggings0, coldIronLeggings1, coldIronLeggings2
+        );
+        MyVillagerData.setMyVillagerData("寒铁", "coldIron",
+                CustomStyle.styleOfIce, VillagerType.SNOW, VillagerProfession.ARMORER, stacks);
+        TradeList.tradeRecipeMap.put(snowRune,
+                List.of(new ItemStack(ModItems.SNOW_SOUL.get(), 64),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 3),
+                        new ItemStack(ModItems.GEM_PIECE.get(), 1)));
+        TradeList.tradeRecipeMap.put(coldRune,
+                List.of(new ItemStack(ModItems.SNOW_RUNE.get(), 64),
+                        new ItemStack(ModItems.ICE_ELEMENT_PIECE_2.get(), 1),
+                        new ItemStack(ModItems.WORLD_SOUL_3.get(), 1)));
+        TradeList.tradeRecipeMap.put(coldIronRune,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_GOLEM_SOUL.get(), 100),
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
+                        new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1),
+                        new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 1)));
+        TradeList.tradeRecipeMap.put(coldIronRuneByStar,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_GOLEM_SOUL.get(), 100),
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 20)));
+        TradeList.tradeRecipeMap.put(coldIronHelmet0,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 20)));
+        TradeList.tradeRecipeMap.put(coldIronHelmet1,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_HELMET_0.get(), 1),
+                        new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 30)));
+        TradeList.tradeRecipeMap.put(coldIronHelmet2,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_HELMET_1.get(), 1),
+                        new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 55),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 8)));
+        TradeList.tradeRecipeMap.put(coldIronChest0,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 20)));
+        TradeList.tradeRecipeMap.put(coldIronChest1,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_CHEST_0.get(), 1),
+                        new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 30)));
+        TradeList.tradeRecipeMap.put(coldIronChest2,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_CHEST_1.get(), 1),
+                        new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 55),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 8)));
+        TradeList.tradeRecipeMap.put(coldIronLeggings0,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 20)));
+        TradeList.tradeRecipeMap.put(coldIronLeggings1,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_LEGGINGS_0.get(), 1),
+                        new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 30)));
+        TradeList.tradeRecipeMap.put(coldIronLeggings2,
+                List.of(new ItemStack(SuperColdItems.COLD_IRON_LEGGINGS_1.get(), 1),
+                        new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 55),
+                        new ItemStack(SuperColdItems.COLD_RUNE.get(), 8)));
+    }
 }

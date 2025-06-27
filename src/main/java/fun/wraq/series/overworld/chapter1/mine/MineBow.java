@@ -32,7 +32,7 @@ public class MineBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, new double[]{50, 55, 60, 75}[tier]);
         Utils.defencePenetration0.put(this, new double[]{3, 4, 5, 6}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.25}[tier]);
-        Element.StoneElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        Element.stoneElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     @Override

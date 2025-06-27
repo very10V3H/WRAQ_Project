@@ -55,24 +55,24 @@ public class Element {
         addAll(List.of(life, water, fire, stone, ice, lightning, wind));
     }};
 
-    public static Map<Item, Double> LifeElementValue = new HashMap<>();
-    public static Map<Item, Double> WaterElementValue = new HashMap<>();
-    public static Map<Item, Double> FireElementValue = new HashMap<>();
-    public static Map<Item, Double> StoneElementValue = new HashMap<>();
-    public static Map<Item, Double> IceElementValue = new HashMap<>();
-    public static Map<Item, Double> LightningElementValue = new HashMap<>();
-    public static Map<Item, Double> WindElementValue = new HashMap<>();
+    public static Map<Item, Double> lifeElementValue = new HashMap<>();
+    public static Map<Item, Double> waterElementValue = new HashMap<>();
+    public static Map<Item, Double> fireElementValue = new HashMap<>();
+    public static Map<Item, Double> stoneElementValue = new HashMap<>();
+    public static Map<Item, Double> iceElementValue = new HashMap<>();
+    public static Map<Item, Double> lightningElementValue = new HashMap<>();
+    public static Map<Item, Double> windElementValue = new HashMap<>();
 
     public static Map<String, Map<Item, Double>> elementValueMap = new HashMap<>();
     public static Map<String, Map<Item, Double>> getElementValueMap() {
         if (elementValueMap.isEmpty()) {
-            elementValueMap.put(life, LifeElementValue);
-            elementValueMap.put(water, WaterElementValue);
-            elementValueMap.put(fire, FireElementValue);
-            elementValueMap.put(stone, StoneElementValue);
-            elementValueMap.put(ice, IceElementValue);
-            elementValueMap.put(lightning, LightningElementValue);
-            elementValueMap.put(wind, WindElementValue);
+            elementValueMap.put(life, lifeElementValue);
+            elementValueMap.put(water, waterElementValue);
+            elementValueMap.put(fire, fireElementValue);
+            elementValueMap.put(stone, stoneElementValue);
+            elementValueMap.put(ice, iceElementValue);
+            elementValueMap.put(lightning, lightningElementValue);
+            elementValueMap.put(wind, windElementValue);
         }
         return elementValueMap;
     }

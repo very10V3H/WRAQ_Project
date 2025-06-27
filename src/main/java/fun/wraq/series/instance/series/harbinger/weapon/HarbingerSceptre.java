@@ -7,6 +7,7 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -29,6 +30,7 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
         Utils.manaRecover.put(this, 40d);
         Utils.manaPenetration0.put(this, 50d);
         Utils.coolDownDecrease.put(this, 0.25);
+        Element.fireElementValue.put(this, 1.6);
         Utils.levelRequire.put(this, 225);
     }
 

@@ -28,7 +28,7 @@ public class LifeElementHolyStone extends Item implements ICurioItem {
             case 1 -> Utils.swiftnessUp.put(this, 1.5);
             case 2 -> Utils.manaDamage.put(this, 400d);
         }
-        Element.LifeElementValue.put(this, 0.7);
+        Element.lifeElementValue.put(this, 0.7);
         Utils.levelRequire.put(this, 200);
     }
 

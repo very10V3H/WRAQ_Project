@@ -863,8 +863,8 @@ public class BasicAttributeDescription {
                 CustomStyle.styleOfMoon, 1, true, itemStack,
                 false, null, event.getTooltipElements());
 
-        if (Element.LifeElementValue.containsKey(item)) {
-            double value = Element.LifeElementValue.get(item);
+        if (Element.lifeElementValue.containsKey(item)) {
+            double value = Element.lifeElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 归一化生机元素强度").withStyle(CustomStyle.styleOfLife).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
@@ -872,8 +872,8 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.lifeElement)));
         }
 
-        if (Element.WaterElementValue.containsKey(item)) {
-            double value = Element.WaterElementValue.get(item);
+        if (Element.waterElementValue.containsKey(item)) {
+            double value = Element.waterElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 归一化碧水元素强度").withStyle(CustomStyle.styleOfWater).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
@@ -881,8 +881,8 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.waterElement)));
         }
 
-        if (Element.FireElementValue.containsKey(item)) {
-            double value = Element.FireElementValue.get(item);
+        if (Element.fireElementValue.containsKey(item)) {
+            double value = Element.fireElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 归一化炽焰元素强度").withStyle(CustomStyle.styleOfFire).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
@@ -890,8 +890,8 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.fireElement)));
         }
 
-        if (Element.StoneElementValue.containsKey(item)) {
-            double value = Element.StoneElementValue.get(item);
+        if (Element.stoneElementValue.containsKey(item)) {
+            double value = Element.stoneElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 归一化层岩元素强度").withStyle(CustomStyle.styleOfStone).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
@@ -899,8 +899,8 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.stoneElement)));
         }
 
-        if (Element.IceElementValue.containsKey(item)) {
-            double value = Element.IceElementValue.get(item);
+        if (Element.iceElementValue.containsKey(item)) {
+            double value = Element.iceElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 归一化凛冰元素强度").withStyle(CustomStyle.styleOfIce).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
@@ -908,8 +908,8 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.iceElement)));
         }
 
-        if (Element.LightningElementValue.containsKey(item)) {
-            double value = Element.LightningElementValue.get(item);
+        if (Element.lightningElementValue.containsKey(item)) {
+            double value = Element.lightningElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 归一化怒雷元素强度").withStyle(CustomStyle.styleOfLightning).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
@@ -917,8 +917,8 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.lightningElement)));
         }
 
-        if (Element.WindElementValue.containsKey(item)) {
-            double value = Element.WindElementValue.get(item);
+        if (Element.windElementValue.containsKey(item)) {
+            double value = Element.windElementValue.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 归一化澄风元素强度").withStyle(CustomStyle.styleOfWind).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));

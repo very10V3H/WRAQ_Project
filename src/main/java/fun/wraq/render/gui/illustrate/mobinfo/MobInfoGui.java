@@ -113,7 +113,7 @@ public class MobInfoGui extends Screen {
                         this.height / 2 - 73 + 32 * i,0);
                 guiGraphics.drawCenteredString(font, Te.s("「掉落物表」", ChatFormatting.AQUA),
                         this.width / 2, this.height / 2 - 73 + 32 * i,0);
-                if (!mobInfo.introduction.isEmpty()) {
+                if (mobInfo.introduction != null && !mobInfo.introduction.isEmpty()) {
                     guiGraphics.drawCenteredString(font, Te.s("「特殊机制」", ChatFormatting.RED),
                             this.width / 2 + 100, this.height / 2 - 73 + 32 * i,0);
                     if (x > this.width / 2 + 100 - 20 && x < this.width / 2 + 100 + 20

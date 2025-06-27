@@ -61,6 +61,7 @@ import fun.wraq.render.gui.testAndHelper.ModMenuTypes;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
+import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.end.citadel.CitadelItems;
@@ -163,6 +164,7 @@ public class VMD {
         CrystalItems.ITEMS.register(modEvenBus);
         SilverDragonItems.ITEMS.register(modEvenBus);
         SuperColdItems.ITEMS.register(modEvenBus);
+        ComsumableItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -646,12 +648,6 @@ public class VMD {
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);
         }
-        if (event.getTabKey().equals(ModCreativeModeTab.NEW_AREA.getKey())) {
-            NewAreaItems.ITEMS.getEntries()
-                    .stream()
-                    .map(entry -> entry.get().asItem())
-                    .forEach(event::accept);
-        }
         if (event.getTabKey().equals(ModCreativeModeTab.MANA_TOWER.getKey())) {
             ExtraordinaryItems.ITEMS.getEntries()
                     .stream()
@@ -683,7 +679,17 @@ public class VMD {
                     .forEach(event::accept);
         }
         if (event.getTabKey().equals(ModCreativeModeTab.SUPER_COLD.getKey())) {
+            NewAreaItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
             SuperColdItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.COMSUMABLE.getKey())) {
+            ComsumableItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

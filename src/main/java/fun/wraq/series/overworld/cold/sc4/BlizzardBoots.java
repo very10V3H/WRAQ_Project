@@ -4,6 +4,7 @@ import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -29,6 +30,7 @@ public class BlizzardBoots extends WraqArmor {
             Utils.movementSpeedCommon.put(this, new double[]{0.18, 0.24, 0.3}[tier]);
             Utils.maxHealth.put(this, new double[]{25000, 27500, 30000}[tier]);
         }
+        Element.iceElementValue.put(this, new double[]{0.35, 0.5, 0.8}[tier]);
         Utils.levelRequire.put(this, 225);
     }
 

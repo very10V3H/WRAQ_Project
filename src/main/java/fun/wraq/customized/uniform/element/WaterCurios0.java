@@ -18,7 +18,7 @@ public class WaterCurios0 extends WraqElementUniformCurios {
 
     public WaterCurios0(Properties p_41383_) {
         super(p_41383_);
-        Element.WaterElementValue.put(this, 1d);
+        Element.waterElementValue.put(this, 1d);
     }
 
     @Override

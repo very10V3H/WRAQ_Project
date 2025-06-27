@@ -3,6 +3,7 @@ package fun.wraq.series.overworld.cold;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.Utils;
+import fun.wraq.items.misc.PocketItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import fun.wraq.series.overworld.cold.sc2.stray.SuperColdFlower;
@@ -26,14 +27,24 @@ public class SuperColdItems {
 
     public static final RegistryObject<Item> GREEN_WOOL = ITEMS.register("green_wool",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GreenBold), true, true));
+    public static final RegistryObject<Item> GREEN_WOOL_POCKET = ITEMS.register("green_wool_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.GreenBold), GREEN_WOOL.get()));
     public static final RegistryObject<Item> BLUE_WOOL = ITEMS.register("blue_wool",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WaterBold), true, true));
+    public static final RegistryObject<Item> BLUE_WOOL_POCKET = ITEMS.register("blue_wool_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.WaterBold), BLUE_WOOL.get()));
     public static final RegistryObject<Item> YELLOW_WOOL = ITEMS.register("yellow_wool",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold), true, true));
+    public static final RegistryObject<Item> YELLOW_WOOL_POCKET = ITEMS.register("yellow_wool_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.GoldBold), YELLOW_WOOL.get()));
     public static final RegistryObject<Item> RED_WOOL = ITEMS.register("red_wool",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.RedBold), true, true));
+    public static final RegistryObject<Item> RED_WOOL_POCKET = ITEMS.register("red_wool_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.RedBold), RED_WOOL.get()));
     public static final RegistryObject<Item> PURPLE_WOOL = ITEMS.register("purple_wool",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.LightPurpleBold), true, true));
+    public static final RegistryObject<Item> PURPLE_WOOL_POCKET = ITEMS.register("purple_wool_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.LightPurpleBold), PURPLE_WOOL.get()));
 
     public static final RegistryObject<Item> MAPLE_SOUL = ITEMS.register("maple_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MAPLE_BOLD_RARITY), true, false));
@@ -114,4 +125,7 @@ public class SuperColdItems {
     public static final RegistryObject<Item> COLD_IRON_LEGGINGS_2 = ITEMS.register("cold_iron_leggings_2",
             () -> new ColdIronArmor(ModArmorMaterials.COLD, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+
+    public static final RegistryObject<Item> COLD_RUNE = ITEMS.register("cold_rune",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
 }

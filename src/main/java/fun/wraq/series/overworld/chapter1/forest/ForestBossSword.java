@@ -34,7 +34,7 @@ public class ForestBossSword extends SwordItem {
         Utils.defencePenetration.put(this, this.BreakDefence);
         Utils.healthSteal.put(this, this.HealSteal);
         Utils.critRate.put(this, this.CriticalHitRate);
-        Element.LifeElementValue.put(this, 1d);
+        Element.lifeElementValue.put(this, 1d);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.swordTag.put(this, 1d);

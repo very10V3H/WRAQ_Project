@@ -24,7 +24,7 @@ public class ForestBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, new double[]{50, 55, 60, 70}[tier]);
         Utils.defencePenetration0.put(this, new double[]{1, 1, 2, 2}[tier]);
         Utils.critRate.put(this, new double[]{0.2f, 0.2f, 0.2f, 0.25f}[tier]);
-        Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        Element.lifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     @Override

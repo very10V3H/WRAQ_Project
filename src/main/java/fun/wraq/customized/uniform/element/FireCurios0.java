@@ -18,7 +18,7 @@ public class FireCurios0 extends WraqElementUniformCurios {
 
     public FireCurios0(Properties p_41383_) {
         super(p_41383_);
-        Element.FireElementValue.put(this, 1d);
+        Element.fireElementValue.put(this, 1d);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class FireElementHolyStone extends Item implements ICurioItem {
             case 1 -> Utils.swiftnessUp.put(this, 1.5);
             case 2 -> Utils.manaDamage.put(this, 400d);
         }
-        Element.FireElementValue.put(this, 0.7);
+        Element.fireElementValue.put(this, 0.7);
         Utils.levelRequire.put(this, 200);
     }
 

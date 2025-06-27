@@ -28,7 +28,7 @@ public class LakeBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, new double[]{50, 60, 70, 80}[tier]);
         Utils.defencePenetration0.put(this, new double[]{2, 2, 3, 3}[tier]);
         Utils.critRate.put(this, new double[]{0.4, 0.4, 0.4, 0.4}[tier]);
-        Element.WaterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        Element.waterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     @Override

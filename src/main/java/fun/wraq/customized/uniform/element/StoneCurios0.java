@@ -18,7 +18,7 @@ public class StoneCurios0 extends WraqElementUniformCurios {
 
     public StoneCurios0(Properties p_41383_) {
         super(p_41383_);
-        Element.StoneElementValue.put(this, 1d);
+        Element.stoneElementValue.put(this, 1d);
     }
 
     @Override

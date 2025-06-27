@@ -27,7 +27,7 @@ public class LifeElementSword extends WraqSword implements ActiveItem {
         Utils.defencePenetration0.put(this, 40d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.30d);
-        Element.LifeElementValue.put(this, 2d);
+        Element.lifeElementValue.put(this, 2d);
     }
 
     @Override

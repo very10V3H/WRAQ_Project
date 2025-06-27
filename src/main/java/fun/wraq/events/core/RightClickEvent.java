@@ -34,7 +34,9 @@ public class RightClickEvent {
         if (event.getSide().isServer()) {
             if (item instanceof ActiveItem) {
                 if (!Utils.bowTag.containsKey(item) && !Utils.sceptreTag.containsKey(item)) {
-                    Compute.use(player, item);
+                    if (event.getHand().equals(InteractionHand.MAIN_HAND)) {
+                        Compute.use(player, item);
+                    }
                 }
             }
         }

@@ -18,7 +18,7 @@ public class IceCurios0 extends WraqElementUniformCurios {
 
     public IceCurios0(Properties p_41383_) {
         super(p_41383_);
-        Element.IceElementValue.put(this, 1d);
+        Element.iceElementValue.put(this, 1d);
     }
 
     @Override

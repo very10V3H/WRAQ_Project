@@ -32,7 +32,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
         Utils.defencePenetration0.put(this, new double[]{9, 10, 11, 12, 15}[tier]);
         Utils.healthSteal.put(this, 0.05);
         Utils.critRate.put(this, 0.3);
-        Element.StoneElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
+        Element.stoneElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
         Utils.levelRequire.put(this, 84);
     }
 

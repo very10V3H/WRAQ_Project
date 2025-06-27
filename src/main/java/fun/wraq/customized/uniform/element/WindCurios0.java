@@ -18,7 +18,7 @@ public class WindCurios0 extends WraqElementUniformCurios {
 
     public WindCurios0(Properties p_41383_) {
         super(p_41383_);
-        Element.WindElementValue.put(this, 1d);
+        Element.windElementValue.put(this, 1d);
     }
 
     @Override

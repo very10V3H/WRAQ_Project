@@ -79,4 +79,7 @@ public class CrystalItems {
             () -> new CrystalItem(new Item.Properties().rarity(Rarity.RARE), 4, 3));
     public static final RegistryObject<Item> PURPLE_CRYSTAL_PP = ITEMS.register("purple_crystal_pp",
             () -> new CrystalItem(new Item.Properties().rarity(Rarity.EPIC), 4, 4));
+
+    public static final RegistryObject<Item> COLOR_LOSS_CRYSTAL = ITEMS.register("color_loss_crystal",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC)));
 }

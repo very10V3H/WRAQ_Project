@@ -34,7 +34,7 @@ public class QuartzSabre extends WraqSword {
         Utils.defencePenetration.put(this, 0.15);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.5);
-        Element.FireElementValue.put(this, 0.8);
+        Element.fireElementValue.put(this, 0.8);
     }
 
     @Override

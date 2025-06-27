@@ -36,7 +36,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
         Utils.manaRecover.put(this, 30d);
         Utils.manaPenetration0.put(this, 40d);
         Utils.coolDownDecrease.put(this, 0.2);
-        Element.WaterElementValue.put(this, 2d);
+        Element.waterElementValue.put(this, 2d);
     }
 
     public static void Passive(LivingEntity livingEntity) {

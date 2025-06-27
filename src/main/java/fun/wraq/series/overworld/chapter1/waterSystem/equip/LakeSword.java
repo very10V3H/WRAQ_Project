@@ -36,7 +36,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         Utils.attackDamage.put(this, new double[]{50, 60, 70, 80}[tier]);
         Utils.defencePenetration0.put(this, new double[]{2, 2.5, 3, 4}[tier]);
         Utils.critRate.put(this, 0.3);
-        Element.WaterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        Element.waterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     private final int[] coolDownSeconds = new int[]{12, 11, 10, 8};

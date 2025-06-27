@@ -29,7 +29,7 @@ public class SnowSword extends WraqSword implements ActiveItem {
         Utils.defencePenetration0.put(this, new double[]{6, 7, 8, 9, 18}[tier]);
         Utils.healthSteal.put(this, new double[]{0.02, 0.03, 0.04, 0.08, 0.08}[tier]);
         Utils.critRate.put(this, new double[]{0.3, 0.33, 0.36, 0.45, 0.45}[tier]);
-        Element.IceElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1d}[tier]);
+        Element.iceElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1d}[tier]);
         Utils.levelRequire.put(this, 100);
     }
 

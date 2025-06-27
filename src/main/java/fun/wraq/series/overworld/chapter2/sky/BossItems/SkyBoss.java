@@ -27,7 +27,7 @@ public class SkyBoss {
             Utils.attackDamage.put(this, this.BaseDamage);
             Utils.defencePenetration.put(this, this.BreakDefence);
             Utils.critRate.put(this, this.CriticalHitRate);
-            Element.WindElementValue.put(this, 1.25);
+            Element.windElementValue.put(this, 1.25);
         }
 
         @Override

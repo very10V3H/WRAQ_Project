@@ -24,6 +24,7 @@ import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
+import fun.wraq.series.comsumable.passive.mixture.MixtureAttack;
 import fun.wraq.series.dragon.SilverDragonBloodWeapon;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
@@ -124,6 +125,7 @@ public class DamageInfluence {
                 .attributeValue(player, Utils.manaDamageEnhance, StringUtils.RandomCuriosAttribute.manaDamageEnhance);
         rate += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player,
                 Utils.manaDamageEnhance, false);
+        rate += MixtureAttack.getManaDamageEnhance(player);
         return rate;
     }
 

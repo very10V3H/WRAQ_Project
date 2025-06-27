@@ -29,6 +29,8 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.passive.whetstone.Whetstone;
+import fun.wraq.series.comsumable.passive.whetstone.WhetstoneAttack;
 import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -109,6 +111,7 @@ public class AttackEvent {
         mobList.removeIf(mob -> mob instanceof Allay || mob instanceof Animal);
         if (nearestMob.get() != null) {
             ItemStack itemStack = player.getMainHandItem();
+            rate += WhetstoneAttack.getExAttackRate(player);
             if (itemStack.getItem() instanceof KanupusSword) {
                 rate *= 0.5;
             }
@@ -132,6 +135,7 @@ public class AttackEvent {
                     }
                 }
             });
+            Whetstone.onReleaseNormalAttackAndHit(player);
         }
     }
 

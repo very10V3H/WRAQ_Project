@@ -7,6 +7,7 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -33,6 +34,7 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
         Utils.levelRequire.put(this, 225);
         Utils.maxHealth.put(this, 10000d);
         Utils.coolDownDecrease.put(this, 0.28);
+        Element.fireElementValue.put(this, 1.6);
     }
 
     @Override

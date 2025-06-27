@@ -25,7 +25,7 @@ public abstract class IceHolyCurio extends WraqCurios implements Decomposable, H
     public IceHolyCurio(int tier) {
         super(new Properties().rarity(rarities.get(tier)), 1);
         Utils.levelRequire.put(this, 230);
-        Element.IceElementValue.put(this, new double[]{0.2, 0.4, 0.6, 1}[tier]);
+        Element.iceElementValue.put(this, new double[]{0.2, 0.4, 0.6, 1}[tier]);
         this.tier = tier;
     }
 

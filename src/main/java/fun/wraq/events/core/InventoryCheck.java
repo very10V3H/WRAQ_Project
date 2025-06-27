@@ -14,6 +14,7 @@ import fun.wraq.process.system.instance.MopUpPaperItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.series.TickItem;
+import fun.wraq.series.comsumable.passive.CountPassiveComsumableItem;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.holy.ice.IceHolyItems;
@@ -54,6 +55,7 @@ public class InventoryCheck {
             }*/
             Inventory inventory = player.getInventory();
             DragonDiamond.countMap.remove(Name.get(player));
+            CountPassiveComsumableItem.beforeCheckClear(player);
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 ItemStack itemStack = inventory.getItem(i);
                 DragonDiamond.handleEachStack(itemStack, player);
@@ -105,6 +107,7 @@ public class InventoryCheck {
                     }
                 }
                 itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+                CountPassiveComsumableItem.onCheck(player, itemStack);
             }
             Compute.CuriosAttribute.getDistinctCuriosList(player).forEach(stack -> {
                 if (LavenderBracelet.resetBugAttributes(stack)) {

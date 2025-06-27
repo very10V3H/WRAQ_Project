@@ -18,7 +18,7 @@ public class LifeCurios0 extends WraqElementUniformCurios {
 
     public LifeCurios0(Properties p_41383_) {
         super(p_41383_);
-        Element.LifeElementValue.put(this, 1d);
+        Element.lifeElementValue.put(this, 1d);
     }
 
     @Override

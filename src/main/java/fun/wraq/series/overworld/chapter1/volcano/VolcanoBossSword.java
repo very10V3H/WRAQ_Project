@@ -35,7 +35,7 @@ public class VolcanoBossSword extends SwordItem {
         Utils.defencePenetration.put(this, this.BreakDefence);
         Utils.healthSteal.put(this, this.HealSteal);
         Utils.critRate.put(this, this.CriticalHitRate);
-        Element.FireElementValue.put(this, 1.25);
+        Element.fireElementValue.put(this, 1.25);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.swordTag.put(this, 1d);

@@ -7,6 +7,7 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -29,6 +30,7 @@ public class HarbingerBow extends WraqBow implements HarbingerMainHand, ActiveIt
         Utils.defencePenetration0.put(this, 50d);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.05);
+        Element.fireElementValue.put(this, 1.6);
         Utils.levelRequire.put(this, 225);
     }
 
