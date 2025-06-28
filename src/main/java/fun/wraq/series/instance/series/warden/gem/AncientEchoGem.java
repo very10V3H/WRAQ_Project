@@ -85,7 +85,7 @@ public class AncientEchoGem extends WraqPassiveGem implements GemWithstandDamage
 
     @Override
     public void onKill(Player player, Mob mob) {
-        Compute.playerHeal(player, (player.getMaxHealth() - player.getHealth() * recoverHealthRate[tier]));
+        Compute.playerHeal(player, (player.getMaxHealth() - player.getHealth()) * recoverHealthRate[tier]);
         clear(player);
     }
 

@@ -239,7 +239,7 @@ public abstract class NewTeamInstance {
                 } else {
                     if (mob != null && mob.isAlive()) {
                         Player player = Compute.getNearestPlayer(mob, 32);
-                        if (player != null) {
+                        if (player != null && !player.isCreative() && !player.isSpectator()) {
                             mob.setTarget(player);
                         }
                     }

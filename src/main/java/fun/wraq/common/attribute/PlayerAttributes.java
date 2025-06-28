@@ -1590,12 +1590,11 @@ public class PlayerAttributes {
     }
 
     public static double dodgeRate(Player player) {
-        double swift = Math.min(PlayerAttributes.extraSwiftness(player), 90);
+        double swift = Math.min(PlayerAttributes.extraSwiftness(player), 50);
         double rate = 0;
         if (swift <= 10) rate = swift * 0.02;
-        else if (swift <= 20) rate = 0.2 + (swift - 10) * 0.015;
-        else if (swift <= 30) rate = 0.35 + (swift - 20) * 0.01;
-        else rate = 0.45 + (swift - 30) * 0.005;
+        else if (swift <= 20) rate = 0.2 + (swift - 10) * 0.01;
+        else rate = 0.3 + (swift - 20) * 0.005;
         return rate;
     }
 

@@ -4,6 +4,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.cooking.CookingValue;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.crystal.OriginStone;
@@ -38,6 +39,8 @@ public class TradeListNew {
         firCrystal();
         blizzard();
         coldIron();
+        outpostEnergy();
+
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -445,5 +448,39 @@ public class TradeListNew {
                 List.of(new ItemStack(SuperColdItems.COLD_IRON_LEGGINGS_1.get(), 1),
                         new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 55),
                         new ItemStack(SuperColdItems.COLD_RUNE.get(), 8)));
+    }
+
+    public static void outpostEnergy() {
+        ItemStack magmaSoul = new ItemStack(ModItems.MAGMA_SOUL.get());
+        ItemStack heatInjection0 = new ItemStack(ComsumableItems.HEAT_INJECTION_0.get());
+        ItemStack heatInjection1 = new ItemStack(ComsumableItems.HEAT_INJECTION_1.get());
+        ItemStack heatInjection2 = new ItemStack(ComsumableItems.HEAT_INJECTION_2.get());
+        ItemStack heatInjection3 = new ItemStack(ComsumableItems.HEAT_INJECTION_3.get());
+        ItemStack heatDevice0 = new ItemStack(ComsumableItems.HEAT_DEVICE_0.get());
+        ItemStack heatDevice1 = new ItemStack(ComsumableItems.HEAT_DEVICE_1.get());
+        ItemStack heatDevice2 = new ItemStack(ComsumableItems.HEAT_DEVICE_2.get());
+        List<ItemStack> stacks = List.of(
+                magmaSoul,
+                heatInjection0, heatInjection1, heatInjection2, heatInjection3,
+                heatDevice0, heatDevice1, heatDevice2
+        );
+        MyVillagerData.setMyVillagerData("极寒前哨所能源学者", "outpostEnergy",
+                CustomStyle.BUNKER_STYLE, VillagerType.SAVANNA, VillagerProfession.TOOLSMITH, stacks);
+        TradeList.tradeRecipeMap.put(magmaSoul,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
+        TradeList.tradeRecipeMap.put(heatInjection0,
+                List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 40)));
+        TradeList.tradeRecipeMap.put(heatInjection1,
+                List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 60)));
+        TradeList.tradeRecipeMap.put(heatInjection2,
+                List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 80)));
+        TradeList.tradeRecipeMap.put(heatInjection3,
+                List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 100)));
+        TradeList.tradeRecipeMap.put(heatDevice0,
+                List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 30)));
+        TradeList.tradeRecipeMap.put(heatDevice1,
+                List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 40)));
+        TradeList.tradeRecipeMap.put(heatDevice2,
+                List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 50)));
     }
 }

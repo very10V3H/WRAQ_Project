@@ -26,10 +26,10 @@ public class MoontainSceptre extends WraqSceptre implements ExBaseAttributeValue
 
     public MoontainSceptre(Properties properties) {
         super(properties);
-        Utils.manaDamage.put(this, 3600d);
-        Utils.manaRecover.put(this, 30d);
-        Utils.manaPenetration0.put(this, 40d);
-        Utils.coolDownDecrease.put(this, 0.2);
+        Utils.manaDamage.put(this, 5400d);
+        Utils.manaRecover.put(this, 45d);
+        Utils.manaPenetration0.put(this, 60d);
+        Utils.coolDownDecrease.put(this, 0.3);
         Utils.levelRequire.put(this, 210);
     }
 
@@ -53,7 +53,8 @@ public class MoontainSceptre extends WraqSceptre implements ExBaseAttributeValue
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("筑造", getMainStyle()));
         components.add(Te.s(" 筑造阶数: ", getMainStyle(),
-                String.valueOf(ExBaseAttributeValueEquip.getForgeTier(stack, MoontainUtils.getTraditionalAttributeMap(stack)))));
+                String.valueOf(ExBaseAttributeValueEquip.getForgeTier(stack,
+                        MoontainUtils.getTraditionalAttributeMap(stack)))));
         return components;
     }
 

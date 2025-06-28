@@ -26,7 +26,8 @@ public class MixtureAttack extends CountPassiveComsumableItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         components.add(Te.s(" 提升",
-                ComponentUtils.getManaDamageEnhance(String.format("%.0f%%", rate * 100))));
+                ComponentUtils.getManaDamageEnhance(String.format("%.0f%%", rate * 100)),
+                "与", ComponentUtils.getManaAttackDamageEnhance(String.format("%.0f%%", rate * 100))));
         super.appendHoverText(itemStack, level, components, tooltipFlag);
         components.add(Te.s(" 在", "释放法术/法球命中", CustomStyle.styleOfMana,
                 "时", "消耗可用次数", CustomStyle.styleOfStone));

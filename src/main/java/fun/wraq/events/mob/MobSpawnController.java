@@ -141,7 +141,7 @@ public abstract class MobSpawnController {
             if (mob != null && mob.isAlive()) {
                 if (!(mob instanceof Animal)) {
                     Player player = Compute.getNearestPlayer(mob, 32);
-                    if (player != null) {
+                    if (player != null && !player.isCreative() && !player.isSpectator()) {
                         mob.setTarget(player);
                     }
                 }

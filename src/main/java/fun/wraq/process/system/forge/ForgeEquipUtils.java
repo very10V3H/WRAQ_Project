@@ -439,7 +439,8 @@ public class ForgeEquipUtils {
         return 5;
     }
 
-    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player, boolean computeForge) {
+    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map,
+                                                      @Nullable Player player, boolean computeTier) {
         double exValue = 0;
         if (player != null
                 && Utils.levelRequire.getOrDefault(equip.getItem(), 0) > player.experienceLevel) return 0;
@@ -448,7 +449,8 @@ public class ForgeEquipUtils {
             CompoundTag data = ExBaseAttributeValueEquip.getStackExBaseAttributeData(equip);
             exValue += exBaseAttributeValueEquip.getTagAndRateMap().get(map).getValueByData(data);
         }
-        return (map.getOrDefault(equip.getItem(), 0d) + exValue) * (computeForge ? getTierValueEffect(equip) : 1);
+        return (map.getOrDefault(equip.getItem(), 0d) + exValue)
+                * (computeTier ? getTierValueEffect(equip) : 1);
     }
 
     public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player) {

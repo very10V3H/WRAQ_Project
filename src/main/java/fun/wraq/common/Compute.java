@@ -1664,10 +1664,14 @@ public class Compute {
                             double baseValue = 0;
                             baseValue += ForgeEquipUtils
                                     .getTraditionalEquipBaseValue(equip, map, player,
-                                            map.equals(Utils.attackDamage) || map.equals(Utils.manaDamage));
+                                            map.equals(Utils.attackDamage)
+                                                    || map.equals(Utils.manaDamage)
+                                                    || map.equals(Utils.maxHealth));
                             computeValue += baseValue;
                             // 只有能被强化的属性才能用这个公式去计算数值
-                            if (map.equals(Utils.attackDamage) || map.equals(Utils.manaDamage)) {
+                            if (map.equals(Utils.attackDamage)
+                                    || map.equals(Utils.manaDamage)
+                                    || map.equals(Utils.maxHealth)) {
                                 computeValue += Compute.forgingValue(equip, baseValue);
                             }
                             computeValue *= wraqMainHandOrPassiveEquip.rate();

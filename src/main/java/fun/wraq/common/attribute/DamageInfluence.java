@@ -128,7 +128,6 @@ public class DamageInfluence {
         rate += MixtureAttack.getManaDamageEnhance(player);
         return rate;
     }
-
     public static double getPlayerNormalSwordAttackDamageEnhance(Player player) {
         double rate = 0;
         rate += AttackEventModule.MineShield(player); // 盾击
@@ -143,7 +142,7 @@ public class DamageInfluence {
 
     public static double getPlayerNormalManaAttackDamageEnhance(Player player) {
         double rate = 0;
-
+        rate += MixtureAttack.getManaDamageEnhance(player);
         return rate;
     }
 
