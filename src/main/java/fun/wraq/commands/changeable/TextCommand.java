@@ -116,6 +116,14 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Te.s("前往:", CustomStyle.styleOfEnd),
                         Te.s("唤魔森林", CustomStyle.styleOfMana)
                 ));
+                put("toStone", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("极寒石岸", CustomStyle.styleOfStone)
+                ));
+                put("toPolarWinter", List.of(
+                        Te.s("前往:", CustomStyle.styleOfEnd),
+                        Te.s("极冬村", CustomStyle.styleOfIce)
+                ));
             }};
             if (nameToTextMap.containsKey(name)) {
                 components = nameToTextMap.get(name);

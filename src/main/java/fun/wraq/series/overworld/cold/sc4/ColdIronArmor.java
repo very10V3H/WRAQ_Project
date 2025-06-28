@@ -6,6 +6,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -86,7 +87,7 @@ public class ColdIronArmor extends WraqArmor {
             } else {
                 components.add(Te.s(" 免疫", "减速效果", CustomStyle.styleOfSnow));
             }
-            components.add(Te.s(" 免疫不包括装备带来的移动速度影响"));
+            components.add(Te.s(" 免疫不包括装备带来的移动速度影响", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }
         return components;
     }

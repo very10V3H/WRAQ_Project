@@ -1,5 +1,6 @@
 package fun.wraq.process.system.skill;
 
+import fun.wraq.common.util.StringUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 
@@ -18,6 +19,23 @@ public class SkillUtil {
             else {
                 return skillData.charAt(index) - 48;
             }
+        }
+    }
+
+    public static int getProficiencyTier(Player player, int type) {
+        return player.getPersistentData().getInt(StringUtils.SkillArray[type]);
+    }
+
+    public static int getMaxType(Player player) {
+        int swordProficiencyTier = getProficiencyTier(player, 0);
+        int bowProficiencyTier = getProficiencyTier(player, 1);
+        int manaProficiencyTier = getProficiencyTier(player, 2);
+        if (swordProficiencyTier > bowProficiencyTier && swordProficiencyTier > manaProficiencyTier) {
+            return 0;
+        } else if (bowProficiencyTier > swordProficiencyTier && bowProficiencyTier > manaProficiencyTier) {
+            return 1;
+        } else {
+            return 2;
         }
     }
 }

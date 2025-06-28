@@ -267,4 +267,13 @@ public class PlanPlayer {
             return "-0%";
         }
     }
+
+    public static void tryToDelayOverDate(Player player, int days) {
+        if (getPlayerTier(player) > 0) {
+            Calendar overDate = Compute.castStringToCalendar(getOverDate(player));
+            overDate.add(Calendar.DATE, days);
+            setOverDate(player, Compute.castCalendarToString(overDate));
+            sendFormatMSG(player, Te.s("计划持续时间已延长", days + "天", CustomStyle.styleOfWorld));
+        }
+    }
 }

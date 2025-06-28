@@ -60,15 +60,14 @@ public class GateWay {
                 new GateWay(
                         new Des(new Vec3(973, 207.5, 23), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
                         new Des(new Vec3(2354, 169, 1752), -90, 0, Component.literal("绯樱村").withStyle(CustomStyle.styleOfSakura))),
-
                 new GateWay(
                         new Des(new Vec3(964, 207.5, -1), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
-                        new Des(new Vec3(1295, 69, -1607), 180, 0, Te.s("北洋村", CustomStyle.styleOfSnow))),
+                        new Des(new Vec3(1327, 70, -1624), 180, 0, Te.s("北洋村", CustomStyle.styleOfSnow))),
                 new GateWay(
                         new Des(new Vec3(968, 207.5, -1), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
                         new Des(new Vec3(2450, 153, -1368), 180, 0, Te.s("暗黑城堡", CustomStyle.styleOfCastle))),
                 new GateWay(
-                        new Des(new Vec3(973, 207.5, 3), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
+                        new Des(new Vec3(973, 207.5, 7), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
                         new Des(new Vec3(2014, 132, -1741), 180, 0, Te.s("菌菇聚落", CustomStyle.MUSHROOM_STYLE))),
                 new GateWay(
                         new Des(new Vec3(960, 207.5, -1), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
@@ -83,18 +82,23 @@ public class GateWay {
                         new Des(new Vec3(956, 207.5, -1), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
                         new Des(new Vec3(922, 64, -416), 180, 0, Te.s("海岸村", CustomStyle.styleOfSea))),
                 new GateWay(
-                        new Des(new Vec3(973, 207.5, 5), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
+                        new Des(new Vec3(973, 207.5, 11), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
                         new Des(new Vec3(2527, 126, -492), 0, 0, Te.s("火山村", CustomStyle.styleOfVolcano))),
                 new GateWay(
                         new Des(new Vec3(964, 207.5, 27), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
                         new Des(new Vec3(1088, 52, 826), 0, 0, Te.s("海底神殿", CustomStyle.styleOfSea))),
                 new GateWay(
-                        new Des(new Vec3(973, 207.5, 7), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
+                        new Des(new Vec3(973, 207.5, 9), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
                         new Des(new Vec3(1493, 75, -125), 180, 0, Te.s("唤魔森林", CustomStyle.styleOfMana))),
-
                 new GateWay(
-                        new Des(new Vec3(973, 207.5, 17), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-                        new Des(new Vec3(1761, 74.5, 329), -90, 0, Component.literal("旭升岛").withStyle(CustomStyle.styleOfSunIsland)))
+                        new Des(new Vec3(973, 207.5, 17), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
+                        new Des(new Vec3(1761, 74.5, 329), -90, 0, Te.s("旭升岛", CustomStyle.styleOfSunIsland))),
+                new GateWay(
+                        new Des(new Vec3(973, 207.5, 5), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
+                        new Des(new Vec3(2137, 105, -3205), 0, 0, Te.s("极寒石岸", CustomStyle.styleOfStone))),
+                new GateWay(
+                        new Des(new Vec3(973, 207.5, 3), 0, 0, Te.s("天空城", CustomStyle.styleOfSky)),
+                        new Des(new Vec3(2731, 134, -3851), 0, 0, Te.s("极冬村", CustomStyle.styleOfIce)))
         );
     }
 

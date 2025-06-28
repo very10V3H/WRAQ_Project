@@ -1,11 +1,10 @@
 package fun.wraq.items.m;
 
-import com.github.alexthe666.iceandfire.entity.EntityPixie;
+import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.series.end.citadel.CitadelItems;
+import fun.wraq.events.mob.MobSpawn;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -45,24 +44,15 @@ public class Main0 extends Item {
         super.appendHoverText(stack, p_41422_, components, flag);
     }
 
-    public List<ItemAndRate> getRewardList() {
-        return List.of(
-                new ItemAndRate(CitadelItems.CITADEL_CURIO_0.get(), 0.01),
-                new ItemAndRate(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 0.05),
-                new ItemAndRate(CitadelItems.CITADEL_PIECE.get(), 0.2),
-                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1)
-        );
-    }
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            EntityPixie mob = new EntityPixie(IafEntityRegistry.PIXIE.get(), level);
-            mob.setColor(2);
+            EntityIceDragon mob = new EntityIceDragon(IafEntityRegistry.ICE_DRAGON.get(), level);
+            MobSpawn.setMobCustomName(mob, Te.s("测试冰龙捏"), 330);
+            mob.setAgeInDays(50);
             mob.moveTo(player.position());
             level.addFreshEntity(mob);
 /*            int total = 0;
