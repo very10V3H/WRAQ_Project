@@ -96,16 +96,24 @@ public class MobInfoGui extends Screen {
             mobInfoList.clear();
             mobInfoList.addAll(newMobInfoList);
         }
-        mobInfoList.sort(new Comparator<MobInfo>() {
-            @Override
-            public int compare(MobInfo o1, MobInfo o2) {
-                if (Math.abs(o1.mobLevel - mc.player.experienceLevel) == Math.abs(o2.mobLevel - mc.player.experienceLevel)) {
+        if (ClientUtils.clientPlayer != null && ClientUtils.clientPlayer.experienceLevel > 230) {
+            mobInfoList.sort(new Comparator<MobInfo>() {
+                @Override
+                public int compare(MobInfo o1, MobInfo o2) {
                     return o2.mobLevel - o1.mobLevel;
                 }
-                return Math.abs(o1.mobLevel - mc.player.experienceLevel) - Math.abs(o2.mobLevel - mc.player.experienceLevel);
-            }
-        });
-
+            });
+        } else {
+            mobInfoList.sort(new Comparator<MobInfo>() {
+                @Override
+                public int compare(MobInfo o1, MobInfo o2) {
+                    if (Math.abs(o1.mobLevel - mc.player.experienceLevel) == Math.abs(o2.mobLevel - mc.player.experienceLevel)) {
+                        return o2.mobLevel - o1.mobLevel;
+                    }
+                    return Math.abs(o1.mobLevel - mc.player.experienceLevel) - Math.abs(o2.mobLevel - mc.player.experienceLevel);
+                }
+            });
+        }
         for (int i = 0 ; i < 5 ; i ++) {
             if (page * 5 + i < mobInfoList.size()) {
                 MobInfo mobInfo = mobInfoList.get(page * 5 + i);

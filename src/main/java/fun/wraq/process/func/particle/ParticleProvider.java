@@ -1,5 +1,6 @@
 package fun.wraq.process.func.particle;
 
+import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -26,9 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static java.lang.Math.*;
 
@@ -363,7 +362,8 @@ public class ParticleProvider {
         });
     }
 
-    public static void createLineParticle(Level level, int num, Vec3 startVec, Vec3 endVec, ParticleOptions particleOptions) {
+    public static void createLineParticle(Level level, int num, Vec3 startVec,
+                                          Vec3 endVec, ParticleOptions particleOptions) {
         List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
         list.forEach(serverPlayer -> {
             if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
@@ -621,4 +621,28 @@ public class ParticleProvider {
                 });
     }
 
+    public static Map<String, EnumParticles> iafParticlesMap = new HashMap<>() {{
+        put(EnumParticles.DragonIce.toString(), EnumParticles.DragonIce);
+    }};
+
+    public static void createIafLineParticle(Level level, int num, Vec3 startVec,
+                                             Vec3 endVec, EnumParticles enumParticles) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new IafLineParticleS2CPacket(
+                            endVec.toVector3f(), startVec.toVector3f(), num / ignoreLevel, enumParticles.toString()),
+                            serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void createIafLineParticle(Level level, LivingEntity start, LivingEntity end,
+                                             EnumParticles enumParticles) {
+       createIafLineParticle(level, (int) start.distanceTo(end) * 5, start.getEyePosition(), end.getEyePosition(),
+               enumParticles);
+    }
 }

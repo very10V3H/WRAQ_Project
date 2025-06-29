@@ -1,10 +1,6 @@
 package fun.wraq.items.m;
 
-import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.events.mob.MobSpawn;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -50,11 +46,6 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            EntityIceDragon mob = new EntityIceDragon(IafEntityRegistry.ICE_DRAGON.get(), level);
-            MobSpawn.setMobCustomName(mob, Te.s("测试冰龙捏"), 330);
-            mob.setAgeInDays(50);
-            mob.moveTo(player.position());
-            level.addFreshEntity(mob);
 /*            int total = 0;
             int tier0 = 0;
             int tier1 = 0;

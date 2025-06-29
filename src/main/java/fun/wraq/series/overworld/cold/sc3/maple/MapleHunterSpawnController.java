@@ -7,14 +7,18 @@ import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -91,6 +95,13 @@ public class MapleHunterSpawnController extends MobSpawnController {
         if (mob.isDeadOrDying()) {
             return;
         }
+        if (mob.getMaxHealth() < 1000) {
+            mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getMobAttributes().maxHealth);
+            mob.heal(mob.getMaxHealth());
+        }
+        if (mob.tickCount % 20 == (mobList.indexOf(mob) % 20)) {
+            commonAttack(mob);
+        }
         Compute.mobHealthRecover(mob, 0.02);
     }
 
@@ -112,5 +123,13 @@ public class MapleHunterSpawnController extends MobSpawnController {
     @Override
     public String getKillCountDataKey() {
         return "MapleHunter";
+    }
+
+    public void commonAttack(Mob mob) {
+        Player player = Compute.getNearestPlayer(mob, 16);
+        if (player != null) {
+            MonsterAttackEvent.causeCommonAttackToPlayer(mob, player);
+            ParticleProvider.createLineEffectParticle(mob.level(), mob, player, CustomStyle.styleOfStone);
+        }
     }
 }

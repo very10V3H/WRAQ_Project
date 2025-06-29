@@ -2863,7 +2863,7 @@ public class ModItems {
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
                 add(new ItemStack(FORGE_ENHANCE_3.get(), 1));
                 add(new ItemStack(WORLD_FORGE_STONE.get(), 1));
-                add(new ItemStack(FORGE_ENHANCE_3.get(), 3));
+                add(new ItemStack(FORGE_ENHANCE_2.get(), 3));
                 add(new ItemStack(FORGING_STONE_2.get(), 3));
                 add(new ItemStack(EQUIP_PIECE_5.get(), 1));
             }}));

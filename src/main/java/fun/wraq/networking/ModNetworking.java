@@ -1377,6 +1377,11 @@ public class ModNetworking {
                 .encoder(WeeklyStoreScreenC2SPacket::toBytes)
                 .consumerMainThread(WeeklyStoreScreenC2SPacket::handle)
                 .add();
+        net.messageBuilder(IafLineParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(IafLineParticleS2CPacket::new)
+                .encoder(IafLineParticleS2CPacket::toBytes)
+                .consumerMainThread(IafLineParticleS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

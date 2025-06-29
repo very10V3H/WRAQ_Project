@@ -2,6 +2,7 @@ package fun.wraq.series.overworld.cold.sc4;
 
 import com.Polarice3.Goety.common.entities.ModEntityType;
 import com.Polarice3.Goety.common.entities.ally.golem.IceGolem;
+import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
@@ -10,10 +11,12 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -76,6 +79,13 @@ public class SuperColdIronGolemSpawnController extends MobSpawnController {
         if (mob.isDeadOrDying()) {
             return;
         }
+        if (mob.getMaxHealth() < 1000) {
+            mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getMobAttributes().maxHealth);
+            mob.heal(mob.getMaxHealth());
+        }
+        if (mob.tickCount % 40 == (mobList.indexOf(mob) % 40)) {
+            commonAttack(mob);
+        }
         Compute.mobHealthRecover(mob, 0.02);
     }
 
@@ -103,5 +113,13 @@ public class SuperColdIronGolemSpawnController extends MobSpawnController {
     @Override
     public String getKillCountDataKey() {
         return "SuperColdSnowGolem";
+    }
+
+    public void commonAttack(Mob mob) {
+        Player player = Compute.getNearestPlayer(mob, 16);
+        if (player != null) {
+            MonsterAttackEvent.causeCommonAttackToPlayer(mob, player);
+            ParticleProvider.createIafLineParticle(mob.level(), mob, player, EnumParticles.DragonIce);
+        }
     }
 }

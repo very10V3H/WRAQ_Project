@@ -43,6 +43,7 @@ public abstract class MobSpawnController {
     public List<Boundary> multiBoundaryList = new ArrayList<>();
     public int preventRefreshDistance = 8;
     public boolean spawnFlag = false;
+    public Vec3 averagePos;
 
     public record Boundary(Vec3 upPos, Vec3 downPos) {
     }
@@ -67,6 +68,21 @@ public abstract class MobSpawnController {
         this.averageLevel = averageLevel;
         this.mobName = mobName;
         this.preventRefreshDistance = preventRefreshDistance;
+
+        if (!canSpawnPos.isEmpty()) {
+            double averageX = 0;
+            double averageY = 0;
+            double averageZ = 0;
+            for (Vec3 canSpawnPo : canSpawnPos) {
+                averageX += canSpawnPo.x;
+                averageY += canSpawnPo.y;
+                averageZ += canSpawnPo.z;
+            }
+            averageX /= canSpawnPos.size();
+            averageY /= canSpawnPos.size();
+            averageZ /= canSpawnPos.size();
+            averagePos = new Vec3(averageX, averageY, averageZ);
+        }
     }
 
     public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
@@ -153,7 +169,7 @@ public abstract class MobSpawnController {
         });
         if (spawnFlag) {
             if (this.level.getServer().getPlayerList().getPlayers().stream()
-                    .anyMatch(player -> canSpawnPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 80))) {
+                    .anyMatch(player -> canSpawnPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 48))) {
                 spawnFlag = false;
                 // 若怪物越过边界 则将怪物随机传送至可重生地点
                 mobList.forEach(mob -> {
@@ -178,6 +194,11 @@ public abstract class MobSpawnController {
                 });
 
                 // 怪物数量未超上限，则开始全部生成
+                if (averagePos != null && level.getEntitiesOfClass(Mob.class,
+                        AABB.ofSize(averagePos, 96, 96, 96)).size()
+                        > oneZoneMaxMobNum * canSpawnPos.size() * 2) {
+                    return;
+                }
                 if (this.mobList.size() < oneZoneMaxMobNum) {
                     // 对每个刷新点附近进行探测，若满足生成条件，则生成
                     canSpawnPos.forEach(pos -> {
@@ -187,8 +208,10 @@ public abstract class MobSpawnController {
                                 .stream().filter(player -> player.position().distanceTo(pos) < detectionRange)
                                 .toList();
                         // 玩家距离此刷新点距离小于指定格则不生成怪物
-                        if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < preventRefreshDistance))
+                        if (playerList.stream()
+                                .anyMatch(player -> player.position().distanceTo(pos) < preventRefreshDistance)) {
                             return;
+                        }
                         int summonTimes = 3;
                         if (canSpawnPos.size() == 1) {
                             summonTimes = 3 + playerList.size();

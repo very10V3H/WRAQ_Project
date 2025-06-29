@@ -88,7 +88,7 @@ public class VpStore {
             priceMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 8);
             priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 8);
             priceMap.put(ModItems.SENIOR_SUPPLY.get(), 12);
-            priceMap.put(ModItems.FORGE_SUPPLY.get(), 8);
+            priceMap.put(ModItems.FORGE_SUPPLY.get(), 5);
             getGoodsList().forEach(item -> {
                 if (!priceMap.containsKey(item)) {
                     priceMap.put(item, 300);
