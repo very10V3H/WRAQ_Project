@@ -3,14 +3,9 @@ package fun.wraq.render.gui.illustrate;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
-import fun.wraq.process.system.spur.Items.SpurItems;
-import fun.wraq.series.crystal.CrystalItems;
-import fun.wraq.series.dragon.SilverDragonItems;
+import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.overworld.cold.SuperColdItems;
-import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
-import fun.wraq.series.overworld.newarea.NewAreaItems;
-import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -87,26 +82,10 @@ public class Display {
 
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
-            newItemList.addAll(List.of(
-                    SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_A.get(),
-                    SpurItems.INARI_BOW_A.get(),
-                    SpurItems.DEEP_SEA_LEGENDARY_A.get(),
-                    NewAreaItems.STONE_SPIDER_KNIFE_3.get(),
-                    NewAreaItems.STONE_SPIDER_GEM_ATTACK_2.get(),
-                    NewAreaItems.STONE_SPIDER_GEM_MANA_2.get(),
-                    ExtraordinaryItems.KANUPUS_SWORD.get(),
-                    ExtraordinaryItems.SHIRO_BOW.get(),
-                    ExtraordinaryItems.NETHER_SCEPTRE_EX.get(),
-                    SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD.get(),
-                    SilverDragonItems.SILVER_DRAGON_BLOOD_BOW.get(),
-                    SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE.get(),
-                    BunkerItems.BUNKER_HELMET_2.get(),
-                    BunkerItems.BUNKER_CHEST_2.get(),
-                    BunkerItems.BUNKER_LEGGINGS_2.get(),
-                    BunkerItems.BUNKER_BOOTS_2.get(),
-                    SuperColdItems.FLOWER.get()
-            ));
-            for (RegistryObject<Item> entry : CrystalItems.ITEMS.getEntries()) {
+            for (RegistryObject<Item> entry : SuperColdItems.ITEMS.getEntries()) {
+                newItemList.add(entry.get());
+            }
+            for (RegistryObject<Item> entry : ComsumableItems.ITEMS.getEntries()) {
                 newItemList.add(entry.get());
             }
         }

@@ -1608,24 +1608,22 @@ public class TradeList {
                 new ItemStack(Items.COOKED_SALMON, 64),
                 new ItemStack(Items.PUMPKIN_PIE, 64),
         };
-
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         tradeContent.put(StringUtils.VillagerName.Food, contentList);
-
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SILVER_COIN.get(), 8));
+                    add(new ItemStack(ModItems.SILVER_COIN.get(), 1));
                 }});
                 case 1, 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SILVER_COIN.get(), 24));
+                    add(new ItemStack(ModItems.SILVER_COIN.get(), 3));
                 }});
                 case 3, 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SILVER_COIN.get(), 32));
+                    add(new ItemStack(ModItems.SILVER_COIN.get(), 4));
                 }});
                 case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SILVER_COIN.get(), 48));
+                    add(new ItemStack(ModItems.SILVER_COIN.get(), 6));
                 }});
             }
         }

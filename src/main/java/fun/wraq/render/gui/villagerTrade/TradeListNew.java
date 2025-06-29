@@ -456,18 +456,42 @@ public class TradeListNew {
         ItemStack heatInjection1 = new ItemStack(ComsumableItems.HEAT_INJECTION_1.get());
         ItemStack heatInjection2 = new ItemStack(ComsumableItems.HEAT_INJECTION_2.get());
         ItemStack heatInjection3 = new ItemStack(ComsumableItems.HEAT_INJECTION_3.get());
+        ItemStack heatInjection0RoseCoin = new ItemStack(ComsumableItems.HEAT_INJECTION_0.get());
+        ItemStack heatInjection1RoseCoin = new ItemStack(ComsumableItems.HEAT_INJECTION_1.get());
+        ItemStack heatInjection2RoseCoin = new ItemStack(ComsumableItems.HEAT_INJECTION_2.get());
+        ItemStack heatInjection3RoseCoin = new ItemStack(ComsumableItems.HEAT_INJECTION_3.get());
         ItemStack heatDevice0 = new ItemStack(ComsumableItems.HEAT_DEVICE_0.get());
         ItemStack heatDevice1 = new ItemStack(ComsumableItems.HEAT_DEVICE_1.get());
         ItemStack heatDevice2 = new ItemStack(ComsumableItems.HEAT_DEVICE_2.get());
+        ItemStack heatDevice0RoseCoin = new ItemStack(ComsumableItems.HEAT_DEVICE_0.get());
+        ItemStack heatDevice1RoseCoin = new ItemStack(ComsumableItems.HEAT_DEVICE_1.get());
+        ItemStack heatDevice2RoseCoin = new ItemStack(ComsumableItems.HEAT_DEVICE_2.get());
         List<ItemStack> stacks = List.of(
                 magmaSoul,
+                heatInjection0RoseCoin, heatInjection1RoseCoin, heatInjection2RoseCoin, heatInjection3RoseCoin,
                 heatInjection0, heatInjection1, heatInjection2, heatInjection3,
+                heatDevice0RoseCoin, heatDevice1RoseCoin, heatDevice2RoseCoin,
                 heatDevice0, heatDevice1, heatDevice2
         );
         MyVillagerData.setMyVillagerData("极寒前哨所能源学者", "outpostEnergy",
                 CustomStyle.BUNKER_STYLE, VillagerType.SAVANNA, VillagerProfession.TOOLSMITH, stacks);
         TradeList.tradeRecipeMap.put(magmaSoul,
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
+        TradeList.tradeRecipeMap.put(heatInjection0RoseCoin,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 40)));
+        TradeList.tradeRecipeMap.put(heatInjection1RoseCoin,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 60)));
+        TradeList.tradeRecipeMap.put(heatInjection2RoseCoin,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 80)));
+        TradeList.tradeRecipeMap.put(heatInjection3RoseCoin,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 100)));
+        TradeList.tradeRecipeMap.put(heatDevice0RoseCoin,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 30)));
+        TradeList.tradeRecipeMap.put(heatDevice1RoseCoin,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 40)));
+        TradeList.tradeRecipeMap.put(heatDevice2RoseCoin,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 50)));
+
         TradeList.tradeRecipeMap.put(heatInjection0,
                 List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 40)));
         TradeList.tradeRecipeMap.put(heatInjection1,
