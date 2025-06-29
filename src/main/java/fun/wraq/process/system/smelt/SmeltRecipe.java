@@ -207,6 +207,15 @@ public enum SmeltRecipe {
             List.of(new ItemStack(MoontainItems.CURIOS_FULL_RATE_ENHANCER.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(MoontainItems.CURIOS_FULL_RATE_ENHANCER.get(), 1), 0.25)),
             60),
+    MOONTAIN_HEART(Te.m("衡望山之心", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.JADEITE.get(), 1),
+                    new ItemStack(MoontainItems.EMERALD.get(), 1),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 64),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 128)),
+            List.of(new ItemStack(MoontainItems.HEART.get(), 2)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.JADEITE.get(), 1), 0.25),
+                    new ItemAndRate(new ItemStack(MoontainItems.EMERALD.get(), 1), 0.25)),
+            30),
 
     HEAT_INJECTION_0(Te.s(ComsumableItems.HEAT_INJECTION_0.get()),
             List.of(new ItemStack(ModItems.VOLCANO_RUNE.get(), 20),
@@ -328,17 +337,7 @@ public enum SmeltRecipe {
                     new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 5)),
             List.of(new ItemStack(ComsumableItems.MIXTURE_PENETRATION0_0.get())),
             List.of(new ItemAndRate(new ItemStack(ComsumableItems.MIXTURE_PENETRATION0_0.get()), 0.25)),
-            60),
-
-    MOONTAIN_HEART(Te.m("衡望山之心", CustomStyle.styleOfMoontain),
-            List.of(new ItemStack(MoontainItems.JADEITE.get(), 1),
-                    new ItemStack(MoontainItems.EMERALD.get(), 1),
-                    new ItemStack(ModItems.GOLD_COIN.get(), 64),
-                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 128)),
-            List.of(new ItemStack(MoontainItems.HEART.get(), 2)),
-            List.of(new ItemAndRate(new ItemStack(MoontainItems.JADEITE.get(), 1), 0.25),
-                    new ItemAndRate(new ItemStack(MoontainItems.EMERALD.get(), 1), 0.25)),
-            30);
+            60);
 
     public final Component name;
     public final List<ItemStack> needMaterialList;
