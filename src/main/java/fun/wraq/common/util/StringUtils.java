@@ -934,6 +934,8 @@ public class StringUtils {
         public static String attackDamageEnhance = "attackDamageEnhance";
         public static String manaDamageEnhance = "manaDamageEnhance";
         public static String commonDamageEnhance = "commonDamageEnhance";
+        public static String attackSpeedEnhance = "attackSpeedEnhance";
+        public static String percentManaRecoverEnhance = "percentManaRecoverEnhance";
     }
 
     public static String PlayerInstanceProgress = "PlayerInstanceProgress";

@@ -63,8 +63,12 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         ComponentUtils.descriptionOfBasic(components);
         Component type = RandomCurios.getTypeDescriptionByTag(stack);
         if (type != null) {
-            components.add(Te.s(type, " v = ", hoverMainStyle(),
-                    String.format("%.1f", RandomCurios.getFullRateByTag(stack)), hoverMainStyle()));
+            if (RandomCurios.getFullRateByTag(stack) != 0) {
+                components.add(Te.s(type, " v = ", hoverMainStyle(),
+                        String.format("%.1f", RandomCurios.getFullRateByTag(stack)), hoverMainStyle()));
+            } else {
+                components.add(Te.s(type));
+            }
         } else {
             if (getTypeDescription() != null) {
                 components.add(getTypeDescription());

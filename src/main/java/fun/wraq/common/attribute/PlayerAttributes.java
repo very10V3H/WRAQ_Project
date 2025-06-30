@@ -1199,11 +1199,14 @@ public class PlayerAttributes {
             manaRecover +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaRecover;
 
-        manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.manaRecover, StringUtils.RandomCuriosAttribute.manaRecover); // 新版饰品属性加成
+        manaRecover += Compute.CuriosAttribute.attributeValue(player,
+                Utils.manaRecover, StringUtils.RandomCuriosAttribute.manaRecover); // 新版饰品属性加成
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
         manaRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaRecover);
         manaRecover += TabooPaper.getExManaRecoverValue(player);
         manaRecover += SevenShadePiece.getEnhanceValue(player, Utils.manaRecover);
+        manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.percentManaRecover,
+                StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance) * PlayerAttributes.maxMana(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1491,9 +1494,9 @@ public class PlayerAttributes {
     public static double getAttackSpeedEnhanceRate(Player player) {
         double rate = 0;
         rate += computeAllEquipSlotBaseAttributeValue(player, Utils.attackSpeedEnhance, false);
-        rate += Compute.CuriosAttribute.attributeValue(player, Utils.attackSpeedEnhance, null);
         rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerExAttackSpeed);
-
+        rate += Compute.CuriosAttribute.attributeValue(player, Utils.attackSpeedEnhance,
+                StringUtils.RandomCuriosAttribute.attackSpeedEnhance);
         CompoundTag data = player.getPersistentData();
         Item mainHandItem = player.getMainHandItem().getItem();
         if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainHandItem)) {

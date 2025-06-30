@@ -2394,6 +2394,33 @@
   "item.vmd.heat_device_1": "生物能产热装置",
   "item.vmd.heat_device_2": "地壳产热装置",
 
+  "item.vmd.super_cold_dragon_sword_0": "极寒龙牙",
+  "item.vmd.super_cold_dragon_bow_0": "极寒龙爪",
+  "item.vmd.super_cold_dragon_sceptre_0": "极寒龙脊",
+  "item.vmd.super_cold_dragon_sword_1": "极寒龙牙'",
+  "item.vmd.super_cold_dragon_bow_1": "极寒龙爪'",
+  "item.vmd.super_cold_dragon_sceptre_1": "极寒龙脊'",
+  "item.vmd.super_cold_dragon_sword_2": "极寒龙牙''",
+  "item.vmd.super_cold_dragon_bow_2": "极寒龙爪''",
+  "item.vmd.super_cold_dragon_sceptre_2": "极寒龙脊''",
+
+  "item.vmd.super_cold_weapon_core": "极寒武器核心",
+  "item.vmd.super_cold_equip": "极寒装备核心",
+
+  "item.vmd.super_cold_dragon_breath_gem_0": "极寒龙息石",
+  "item.vmd.super_cold_dragon_breath_gem_1": "极寒龙息石'",
+  "item.vmd.super_cold_dragon_breath_gem_2": "极寒龙息石''",
+  "item.vmd.super_cold_wind_gem_0": "极寒狂风石",
+  "item.vmd.super_cold_wind_gem_1": "极寒狂风石'",
+  "item.vmd.super_cold_wind_gem_2": "极寒狂风石''",
+  "item.vmd.super_cold_glacier_gem_0": "极寒冰川石",
+  "item.vmd.super_cold_glacier_gem_1": "极寒冰川石'",
+  "item.vmd.super_cold_glacier_gem_2": "极寒冰川石''",
+
+  "item.vmd.super_cold_dragon_curio": "极寒冰龙徽记",
+
+  "item.vmd.super_cold_stone": "极寒之石",
+
   "item.vmd.splasher": "膨热剂",
 
   "item.vmd.attackup_potion": "攻击提升药水",

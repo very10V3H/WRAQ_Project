@@ -28,6 +28,7 @@ import fun.wraq.series.comsumable.passive.mixture.MixtureAttack;
 import fun.wraq.series.dragon.SilverDragonBloodWeapon;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.gems.passive.impl.GemCommonDamageEnhanceRateModifier;
 import fun.wraq.series.holy.ice.curio.IceHolyRune;
 import fun.wraq.series.holy.ice.curio.IceHolySword;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
@@ -60,6 +61,7 @@ public class DamageInfluence {
         rate += ManaAttackModule.getManaSkill3DamageEnhance(player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
         rate += getPlayerCommonDamageUpOrDown(player);
         rate += EstateUtil.getExCommonDamageRate(player);
+        rate += GemCommonDamageEnhanceRateModifier.getCommonDamageEnhanceRate(player, monster);
         return rate;
     }
 

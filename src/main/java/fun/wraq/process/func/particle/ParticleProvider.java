@@ -611,8 +611,8 @@ public class ParticleProvider {
     }
 
     public static void createBallDisperseParticle(ParticleOptions particleOptions, ServerLevel level, Vec3 pos, double radius, int num) {
-        level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, 32, 32, 32))
-                .stream().filter(player -> player.position().distanceTo(pos) <= 16)
+        level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, 64, 64, 64))
+                .stream().filter(player -> player.position().distanceTo(pos) <= 32)
                 .map(player -> (ServerPlayer) player)
                 .forEach(serverPlayer -> {
                     ModNetworking.sendToClient(

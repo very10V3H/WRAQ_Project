@@ -324,7 +324,7 @@ public class ToolTipEvent {
                 event.getToolTip().add(Component.literal("[按住shift查看来源/用途]").withStyle(ChatFormatting.GRAY));
             }
         }
-        if (item instanceof RandomCurios) {
+        if (item instanceof RandomCurios && item.equals(ModItems.NETHER_HAND.get())) {
             tooltip.add(Te.s(""));
             event.getToolTip().add(Component.literal("需要注意的是，除了纹章以外的大多数饰品").withStyle(ChatFormatting.GRAY));
             event.getToolTip().add(Component.literal("同一类物品仅会生效最后装备的一个的效果").withStyle(ChatFormatting.GRAY));

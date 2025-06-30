@@ -12,6 +12,7 @@ import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonWeaponCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -37,15 +38,19 @@ public class SwordNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2All
             @Override
             public void trig() {
                 Vec3 desPos = player.pick(1, 0, false).getLocation();
-                Compute.getNearEntity(player, Mob.class, 8)
+                double range = 8;
+                double exRange = 0;
+                exRange += SuperColdDragonWeaponCommon.getSkillExRange(player);
+                Compute.getNearEntity(player, Mob.class, range + exRange)
                         .stream().map(entity -> (Mob) entity)
                         .forEach(mob -> {
-                            Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 20, mob));
+                            Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 10, mob));
                             Compute.addSlowDownEffect(mob, Tick.s(3), 2);
                             Damage.causeAdDamageToMonsterWithCritJudge(player, mob,
                                     (2 + 0.1 * skillLevel) * (1 + getEnhanceRate(player)));
                             MySound.soundToNearPlayer(player.level(), mob.getEyePosition(), SoundEvents.ANVIL_LAND);
                             mob.setTarget(player);
+                            SuperColdDragonWeaponCommon.addImprisonEffectToMob(player, mob);
                         });
             }
         });

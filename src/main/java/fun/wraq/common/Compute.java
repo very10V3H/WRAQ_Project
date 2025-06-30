@@ -276,8 +276,8 @@ public class Compute {
         });*/
     }
 
-    public static void addSlowDownEffect(Mob mob, int Tick, int Tier) {
-        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Tick, Tier, false, false, false));
+    public static void addSlowDownEffect(Mob mob, int tick, int tier) {
+        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, tick, tier, false, false, false));
 /*        List<ServerPlayer> playerList = livingEntity.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new SlowDownParticleS2CPacket(livingEntity.getId(), Tick), serverPlayer);
@@ -1960,6 +1960,15 @@ public class Compute {
         }).orElse(null);
     }
 
+    public static Mob getNearestMob(Player player, double radius) {
+        return getNearMob(player.level(), player.position(), radius).stream().min(new Comparator<Mob>() {
+            @Override
+            public int compare(Mob o1, Mob o2) {
+                return (int) (o1.distanceTo(player) - o2.distanceTo(player));
+            }
+        }).orElse(null);
+    }
+
     public static void sendMobEffectHudToNearPlayer(Mob mob, Item icon, String tag, int lastTick, int level, boolean forever) {
         List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
         list.stream().filter(e -> e instanceof Player).forEach(p -> {
@@ -2257,5 +2266,23 @@ public class Compute {
         } else {
             player.sendSystemMessage(Te.s(content));
         }
+    }
+
+    public static @Nullable Mob getDefaultTarget(Player player) {
+        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, 32);
+        if (!set.isEmpty()) {
+            return set.stream().min(new Comparator<Mob>() {
+                @Override
+                public int compare(Mob o1, Mob o2) {
+                    return (int) (o1.distanceTo(player) - o2.distanceTo(player));
+                }
+            }).orElse(null);
+        }
+        return null;
+    }
+
+    public static void addImprisonEffectToMob(Mob mob, int lastTick) {
+        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, lastTick, 99, false, false, false));
+        Compute.sendMobEffectHudToNearPlayer(mob, "hud/imprison", "imprison", lastTick, 0, false);
     }
 }

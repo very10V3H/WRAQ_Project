@@ -1,6 +1,9 @@
 package fun.wraq.items.m;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.series.overworld.cold.SuperColdItems;
+import fun.wraq.series.overworld.cold.sc5.dragon.curio.SuperColdDragonCurio;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -46,6 +49,12 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
+            for (int i = 0; i < 9; i++) {
+                ItemStack curios = new ItemStack(SuperColdItems.DRAGON_CURIO.get());
+                SuperColdDragonCurio curio = (SuperColdDragonCurio) curios.getItem();
+                curio.setAttribute(curios);
+                InventoryOperation.giveItemStack(player, curios);
+            }
 /*            int total = 0;
             int tier0 = 0;
             int tier1 = 0;
