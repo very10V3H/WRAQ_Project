@@ -12,6 +12,7 @@ import fun.wraq.series.overworld.cold.sc3.fir.FirCrystal;
 import fun.wraq.series.overworld.cold.sc3.maple.MapleKnife;
 import fun.wraq.series.overworld.cold.sc4.BlizzardBoots;
 import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
+import fun.wraq.series.overworld.cold.sc5.dragon.SuperColdCarrot;
 import fun.wraq.series.overworld.cold.sc5.dragon.curio.SuperColdDragonCurio;
 import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonBow;
 import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonSceptre;
@@ -207,6 +208,12 @@ public class SuperColdItems {
     public static final RegistryObject<Item> DRAGON_CURIO = ITEMS.register("super_cold_dragon_curio",
             () -> new SuperColdDragonCurio(new Item.Properties().rarity(CustomStyle.IceBold)));
 
+    public static final RegistryObject<Item> SUPER_COLD_CRYSTAL = ITEMS.register("super_cold_crystal",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
     public static final RegistryObject<Item> SUPER_COLD_STONE = ITEMS.register("super_cold_stone",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
+    public static final RegistryObject<Item> SUPER_COLD_CARROT = ITEMS.register("super_cold_carrot",
+            () -> new SuperColdCarrot(new Item.Properties().rarity(CustomStyle.IceBold)));
 }

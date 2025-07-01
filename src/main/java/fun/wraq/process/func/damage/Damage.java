@@ -268,7 +268,7 @@ public class Damage {
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
-            Compute.AdditionEffects(player, monster, totalDamage, 1);
+            Compute.additionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
             ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }
@@ -330,7 +330,7 @@ public class Damage {
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
-            Compute.AdditionEffects(player, monster, totalDamage, 1);
+            Compute.additionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
             ManaNewSkillPassive0.onManaPowerHit(player, monster);
             CitadelCurio.onNormalAttackOrSkillHit(player, monster, totalDamage, false);
@@ -416,7 +416,7 @@ public class Damage {
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
-            Compute.AdditionEffects(player, monster, totalDamage, 1);
+            Compute.additionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
             ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }

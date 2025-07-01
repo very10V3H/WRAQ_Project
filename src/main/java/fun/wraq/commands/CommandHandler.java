@@ -689,6 +689,7 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("removeRecords")
                                 .executes(RemoveManaTowerRecordCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
         CommandDispatcher<CommandSourceStack> dispatcher75 = event.getDispatcher();
@@ -696,6 +697,7 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("showRecords")
                                 .executes(ShowManaTowerRecordCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
         CommandDispatcher<CommandSourceStack> dispatcher76 = event.getDispatcher();
@@ -721,6 +723,7 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("resetEstateSignBlockText")
                                 .executes(ResetEstateSignBlockTextCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
         CommandDispatcher<CommandSourceStack> dispatcher79 = event.getDispatcher();
@@ -801,6 +804,7 @@ public class CommandHandler {
                         Commands.literal("setWeeklyStoreIssueCount").then(
                                 Commands.argument("count", IntegerArgumentType.integer())
                                         .executes(WeeklyStoreIssueCountCommand.instance)
+                                        .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                         )
                 )
         );

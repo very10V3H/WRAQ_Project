@@ -435,7 +435,7 @@ public class PlayerAttributes {
         if (SuitCount.getMineSuitCount(player) >= 2) {
             rate += 0.5;
         }
-        rate -= ColdIronArmor.getPlayerCritDamageReductionRate(player);
+        rate += ColdIronArmor.getPlayerCritDamageReductionRate(player);
         return rate;
     }
 

@@ -80,6 +80,7 @@ import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import fun.wraq.series.overworld.cold.sc5.dragon.SuperColdCarrot;
 import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -1095,8 +1096,11 @@ public class Compute {
         level.addFreshEntity(itemEntity);
     }
 
-    public static void AdditionEffects(Player player, Mob mob, double damage, int type) {
-        if (!Element.ElementPieceOnWeapon(player)) Element.giveResonanceElement(player);
+    public static void additionEffects(Player player, Mob mob, double damage, int type) {
+        if (!Element.ElementPieceOnWeapon(player)) {
+            Element.giveResonanceElement(player);
+        }
+        SuperColdCarrot.onHit(player, mob);
     }
 
     public static boolean thisTeamIsChallenging(PlayerTeam playerTeam) {

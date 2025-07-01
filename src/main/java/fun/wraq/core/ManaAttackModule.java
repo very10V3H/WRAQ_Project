@@ -184,7 +184,6 @@ public class ManaAttackModule {
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + trueDamage);
 
             ManaCurios1.ManaDamageExTrueDamage(player, monster, damage);
-            Compute.AdditionEffects(player, monster, damage + trueDamage, 1);
 
             if (mainShoot) {
                 OnHitEffectEquip.hit(player, monster);
@@ -196,6 +195,7 @@ public class ManaAttackModule {
                 }
                 CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, false);
                 Mixture.onReleaseNormalAttackOrHit(player);
+                Compute.additionEffects(player, monster, damage + trueDamage, 1);
             }
 
             ManaNewSkillPassive0.onManaArrowHit(player, monster);

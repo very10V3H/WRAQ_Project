@@ -67,6 +67,9 @@ public interface SuperColdDragonWeaponCommon {
         ParticleProvider.createIafLineParticle(player.level(),
                 (int) pos.distanceTo(startPos) * 5, startPos, pos, EnumParticles.DragonIce);
         double rate = 1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 250);
+        Compute.getNearMob(player.level(), pos, 8).forEach(mob -> {
+            adaptiveNormalAttack(player, mob, rate);
+        });
         PersistentRangeEffect.addEffect(player, pos, 8, new PersistentRangeEffectOperation() {
             @Override
             public void operation(PersistentRangeEffect effect) {
@@ -76,7 +79,7 @@ public interface SuperColdDragonWeaponCommon {
                 ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), pos,
                         8, 100, ParticleTypes.SNOWFLAKE);
             }
-        }, 20, Tick.s(4));
+        }, 20, Tick.s(3));
     }
 
     private static void adaptiveNormalAttack(Player player, Mob eachMob, double rate) {

@@ -10,8 +10,10 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
@@ -86,6 +88,9 @@ public class SpecialEffectOnPlayer {
     public static Map<String, Vec3> imprisonPosMap = new HashMap<>();
     public static Map<String, Pair<Float, Float>> imprisonRotMap = new HashMap<>();
     public static void addImprisonEffect(Player player, int tick) {
+        if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ColdIronArmor) {
+            return;
+        }
         tick -= (int) (tick * PlayerAttributes.playerToughness(player));
         String name = player.getName().getString();
         imprisonTickMap.put(name, Tick.get() + tick);
