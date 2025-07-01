@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.cold.sc5.dragon.weapon;
 
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqBow;
@@ -30,7 +31,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public interface SuperColdDragonWeaponCommon {
+public interface SuperColdDragonWeaponCommon extends Decomposable {
     int getWeaponTier();
     // 共有被动：极寒龙息
     static void handleTick(Player player) {

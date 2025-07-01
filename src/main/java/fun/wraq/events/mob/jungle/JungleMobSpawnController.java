@@ -63,6 +63,10 @@ public abstract class JungleMobSpawnController {
                 }
             }
         } else {
+            players.removeIf(player -> {
+                return player == null || !player.isAlive()
+                        || mobs.stream().allMatch(mob -> mob.distanceTo(player) > detectionRadius);
+            });
             if (mobs.stream().allMatch(LivingEntity::isDeadOrDying)) {
                 players.forEach(this::tryToReward);
                 reset();

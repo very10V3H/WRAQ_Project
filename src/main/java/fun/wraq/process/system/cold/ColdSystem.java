@@ -41,7 +41,9 @@ public class ColdSystem {
         add(new Pair<>(new Vec2(2454, -4225), new Vec2(2838, -3923)));
     }};
 
-    public static List<Pair<Vec2, Vec2>> cold_5_zone = new ArrayList<>();
+    public static List<Pair<Vec2, Vec2>> cold_5_zone = new ArrayList<>() {{
+        add(new Pair<>(new Vec2(1972, -4400), new Vec2(2312, -3979)));
+    }};
 
     public static boolean isIn(Player player, List<Pair<Vec2, Vec2>> zone) {
         return zone.stream().anyMatch(pair -> {

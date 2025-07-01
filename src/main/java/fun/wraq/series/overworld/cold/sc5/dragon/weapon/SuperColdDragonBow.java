@@ -6,6 +6,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
@@ -72,5 +73,13 @@ public class SuperColdDragonBow extends WraqBow implements SuperColdDragonWeapon
     @Override
     public double manaCost(Player player) {
         return 0;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        if (tier == 0) {
+            return new ItemStack(SuperColdItems.WEAPON_CORE.get());
+        }
+        return null;
     }
 }

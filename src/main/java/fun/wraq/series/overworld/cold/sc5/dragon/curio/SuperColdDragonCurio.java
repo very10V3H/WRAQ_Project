@@ -1,10 +1,12 @@
 package fun.wraq.series.overworld.cold.sc5.dragon.curio;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -16,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SuperColdDragonCurio extends WraqCurios implements RandomCurios {
+public class SuperColdDragonCurio extends WraqCurios implements RandomCurios, Decomposable {
 
     public SuperColdDragonCurio(Properties properties) {
         super(properties);
@@ -107,5 +109,10 @@ public class SuperColdDragonCurio extends WraqCurios implements RandomCurios {
     @Override
     public double fullRate() {
         return 0;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(CrystalItems.BLUE_CRYSTAL_B.get());
     }
 }

@@ -1,5 +1,6 @@
 package fun.wraq.process.func.effect;
 
+import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.mojang.datafixers.util.Pair;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
@@ -88,9 +89,6 @@ public class SpecialEffectOnPlayer {
     public static Map<String, Vec3> imprisonPosMap = new HashMap<>();
     public static Map<String, Pair<Float, Float>> imprisonRotMap = new HashMap<>();
     public static void addImprisonEffect(Player player, int tick) {
-        if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ColdIronArmor) {
-            return;
-        }
         tick -= (int) (tick * PlayerAttributes.playerToughness(player));
         String name = player.getName().getString();
         imprisonTickMap.put(name, Tick.get() + tick);
@@ -102,6 +100,13 @@ public class SpecialEffectOnPlayer {
     public static boolean inImprison(Player player) {
         String name = player.getName().getString();
         int tick = Tick.get();
+        if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ColdIronArmor coldIronArmor
+                && coldIronArmor.tier == 2) {
+            EntityDataProvider.getCapability(player).ifPresent(data -> {
+                data.frozenData.frozenTicks = 0;
+                data.frozenData.isFrozen = false;
+            });
+        }
         return inVertigo(player) || imprisonTickMap.getOrDefault(name, 0) > tick;
     }
 

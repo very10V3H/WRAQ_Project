@@ -705,4 +705,14 @@ public class MobSpawn {
     }
 
     public static Map<LivingEntity, Mob> mountsMap = new HashMap<>();
+
+    public static Set<String> canNotBeAddedSlowDownOrImprisonEffectMobSet = new HashSet<>();
+
+    public static boolean canAddSlowDownOrImprison(Mob mob) {
+        return !canNotBeAddedSlowDownOrImprisonEffectMobSet.contains(MobSpawn.getMobOriginName(mob));
+    }
+
+    public static void setCanNotAddSlowDownOrImprison(Mob mob) {
+        canNotBeAddedSlowDownOrImprisonEffectMobSet.add(MobSpawn.getMobOriginName(mob));
+    }
 }

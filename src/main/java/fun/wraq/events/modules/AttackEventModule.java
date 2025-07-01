@@ -30,7 +30,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -66,9 +65,12 @@ public class AttackEventModule {
 
     public static void MineSwordAndSnowSwordSlowDownForce(Item item, Mob monster) {
         if (item instanceof MineSword || item instanceof SnowSword) {
-            if ((item instanceof MineSword mineSword && mineSword.getWraqTier() == 3) || item instanceof SnowSword)
-                monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1, false, false));
-            else monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2, false, false));
+            if ((item instanceof MineSword mineSword && mineSword.getWraqTier() == 3) || item instanceof SnowSword) {
+                Compute.addSlowDownEffect(monster, 40, 1);
+            }
+            else {
+                Compute.addSlowDownEffect(monster, 40, 2);
+            }
             monster.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
                     ModNetworking.sendToClient(new SlowDownParticleS2CPacket(monster.getId(), 40), serverPlayer));
         }
@@ -435,7 +437,7 @@ public class AttackEventModule {
     public static void SnowArmorEffect(Player player, Mob monster) {
         if (SuitCount.getSnowSuitCount(player) >= 4) {
             monster.setDeltaMovement(0, 0, 0);
-            monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
+            Compute.addSlowDownEffect(monster, 5, 1);
             player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
                     ModNetworking.sendToClient(new SlowDownParticleS2CPacket(monster.getId(), 5), serverPlayer));
         }

@@ -8,7 +8,6 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.events.mob.loot.C7LootItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,9 +31,13 @@ public class StarSpawnController extends MobSpawnController {
     public static StarSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(1048, 236, 598)
+                    new Vec3(1048, 236, 598),
+                    new Vec3(1032, 236, 602),
+                    new Vec3(1053, 260, 601),
+                    new Vec3(1052, 223, 604),
+                    new Vec3(1069, 236, 605)
             );
-            instance = new StarSpawnController(spawnPos, spawnPos.size() * 10,
+            instance = new StarSpawnController(spawnPos, spawnPos.size() * 4,
                     1089, 275, 637, 1018, 215, 574, 20, 60, world, 10, 200);
         }
         return instance;

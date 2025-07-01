@@ -116,12 +116,21 @@ public class WoodSpur {
 
     public static int getPlayerLopLevel(Player player) {
         int mineXp = getPlayerLopExp(player);
-        if (mineXp <= 100) return 1;
-        else if (mineXp <= 1000) return 2;
-        else if (mineXp <= 5000) return 3;
-        else if (mineXp <= 20000) return 4;
-        else if (mineXp <= 100000) return 5;
-        return 0;
+        if (mineXp <= 100) {
+            return 1;
+        }
+        else if (mineXp <= 1000) {
+            return 2;
+        }
+        else if (mineXp <= 5000) {
+            return 3;
+        }
+        else if (mineXp <= 20000) {
+            return 4;
+        }
+        else {
+            return 5;
+        }
     }
 
     public static void addPlayerLopExp(Player player, int num) {

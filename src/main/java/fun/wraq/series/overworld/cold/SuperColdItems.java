@@ -5,8 +5,10 @@ import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.items.misc.PocketItem;
+import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.overworld.cold.sc2.stray.SuperColdFlower;
 import fun.wraq.series.overworld.cold.sc3.fir.FirCrystal;
 import fun.wraq.series.overworld.cold.sc3.maple.MapleKnife;
@@ -14,12 +16,12 @@ import fun.wraq.series.overworld.cold.sc4.BlizzardBoots;
 import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import fun.wraq.series.overworld.cold.sc5.dragon.SuperColdCarrot;
 import fun.wraq.series.overworld.cold.sc5.dragon.curio.SuperColdDragonCurio;
-import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonBow;
-import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonSceptre;
-import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonSword;
 import fun.wraq.series.overworld.cold.sc5.dragon.gem.SuperColdDragonBreathGem;
 import fun.wraq.series.overworld.cold.sc5.dragon.gem.SuperColdGlacierGem;
 import fun.wraq.series.overworld.cold.sc5.dragon.gem.SuperColdWindGem;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonBow;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonSceptre;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonSword;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -27,6 +29,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SuperColdItems {
@@ -205,6 +208,9 @@ public class SuperColdItems {
                     CustomStyle.styleOfIce, Te.s("极寒之冰川", CustomStyle.styleOfIce),
                     ComponentUtils.getSuffixOfSuperCold(), 2));
 
+    public static final RegistryObject<Item> SUPER_COLD_GEM_PIECE = ITEMS.register("super_cold_gem_piece",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
     public static final RegistryObject<Item> DRAGON_CURIO = ITEMS.register("super_cold_dragon_curio",
             () -> new SuperColdDragonCurio(new Item.Properties().rarity(CustomStyle.IceBold)));
 
@@ -216,4 +222,23 @@ public class SuperColdItems {
 
     public static final RegistryObject<Item> SUPER_COLD_CARROT = ITEMS.register("super_cold_carrot",
             () -> new SuperColdCarrot(new Item.Properties().rarity(CustomStyle.IceBold)));
+
+    public static final RegistryObject<Item> VD_WEAPON_CORE = ITEMS.register("vd_weapon_core",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
+
+    public static final RegistryObject<Item> SUPER_COLD_DRAGON_LOTTERY
+            = ITEMS.register("super_cold_dragon_lottery",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.IceItalic), new ArrayList<>() {{
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_SWORD_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_BOW_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_SCEPTRE_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.EQUIP_CORE.get().getDefaultInstance(), 0.01));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_BREATH_GEM_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.GLACIER_GEM_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.WIND_GEM_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_CURIO.get().getDefaultInstance(), 0.03));
+                add(new NewLotteries.Loot(CrystalItems.BLUE_CRYSTAL_A.get().getDefaultInstance(), 0.02));
+                add(new NewLotteries.Loot(SuperColdItems.SUPER_COLD_STONE.get().getDefaultInstance(), 0.4));
+                add(new NewLotteries.Loot(SuperColdItems.SUPER_COLD_CARROT.get().getDefaultInstance(), 0.5));
+            }}, 0.03));
 }

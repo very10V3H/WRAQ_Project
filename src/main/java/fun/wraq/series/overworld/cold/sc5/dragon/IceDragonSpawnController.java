@@ -15,9 +15,12 @@ import fun.wraq.events.mob.jungle.JungleMobSpawnController;
 import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.PersistentRangeEffectOperation;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.reason.Reason;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -47,7 +50,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
                     new Vec3(2086, 63, -4219),
                     new Vec3(2236, 111, -4100),
                     new Vec3(2000, 40, -4271),
-                    XP_LEVEL, 64, Tick.s(5));
+                    XP_LEVEL, 64, Tick.min(3));
         }
         return instance;
     }
@@ -60,12 +63,27 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
 
     @Override
     public void tryToReward(Player player) {
-
+        if (Reason.getPlayerReasonValue(player) < 20) {
+            sendMSG(player, Te.s("需要至少", "20理智", "才能获取奖励."));
+            return;
+        }
+        if (Compute.getPlayerReputation(player) < 40) {
+            sendMSG(player, Te.s("需要至少", "40声望", "才能获得奖励."));
+            return;
+        }
+        if (!InventoryOperation.checkPlayerHasItem(player, SuperColdItems.SUPER_COLD_CRYSTAL.get(), 1)) {
+            sendMSG(player, Te.s("需要一个", SuperColdItems.SUPER_COLD_CRYSTAL.get(), "才能获得奖励."));
+            return;
+        }
+        Reason.addOrCostPlayerReasonValue(player, -20);
+        Compute.addOrCostReputation(player, -40);
+        InventoryOperation.removeItem(player, SuperColdItems.SUPER_COLD_CRYSTAL.get(), 1);
+        InventoryOperation.giveItemStackWithMSG(player, SuperColdItems.SUPER_COLD_DRAGON_LOTTERY.get());
     }
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(20000, 1500, 1500, 1, 3, 0.99, 1000, 0, 1000 * Math.pow(10, 8), 0.45);
+        return new MobAttributes(2000, 1500, 1500, 1, 5, 0.99, 1000, 0, 1000 * Math.pow(10, 8), 0.45);
     }
 
     @Override
@@ -76,13 +94,14 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
     @Override
     public void spawnMob(Level level) {
         EntityIceDragon mob  = new EntityIceDragon(IafEntityRegistry.ICE_DRAGON.get(), level);
-        mob.setAgeInDays(50);
+        mob.setAgeInDays(49);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
         MobSpawn.setMobCustomName(mob, Te.s(name, STYLE), XP_LEVEL);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes());
         mob.moveTo(new Vec3(2086, 63, -4219));
         level.addFreshEntity(mob);
         mobs.add(mob);
+        MobSpawn.setCanNotAddSlowDownOrImprison(mob);
     }
 
     @Override
@@ -114,13 +133,13 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
         ParticleProvider.createIafLineParticle(player.level(),
                 (int) pos.distanceTo(startPos) * 5, startPos, pos, EnumParticles.DragonIce);
         Compute.getNearPlayer(mob.level(), pos, 8).forEach(eachPlayer -> {
-            MonsterAttackEvent.causeCommonAttackToPlayer(mob, player, 1);
+            MonsterAttackEvent.causeCommonAttackToPlayer(mob, player, 10);
         });
         PersistentRangeEffect.addEffect(player, pos, 8, new PersistentRangeEffectOperation() {
             @Override
             public void operation(PersistentRangeEffect effect) {
                 effect.getRangePlayer().forEach(eachPlayer -> {
-                    MonsterAttackEvent.causeCommonAttackToPlayer(mob, player, 1);
+                    MonsterAttackEvent.causeCommonAttackToPlayer(mob, player, 10);
                 });
                 ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), pos,
                         8, 100, ParticleTypes.SNOWFLAKE);
@@ -138,7 +157,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
                 return (int) (o1.distanceTo(mob) - o2.distanceTo(mob));
             }
         }).ifPresent(player -> {
-            MonsterAttackEvent.causeCommonAttackToPlayer(mob, player, 1);
+            MonsterAttackEvent.causeCommonAttackToPlayer(mob, player, 10);
             ParticleProvider.createIafLineParticle(player.level(), mob, player, EnumParticles.DragonIce);
             Compute.createIceParticle(player);
             SpecialEffectOnPlayer.addImprisonEffect(player, Tick.s(3));

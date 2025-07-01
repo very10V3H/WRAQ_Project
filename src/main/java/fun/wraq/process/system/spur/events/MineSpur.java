@@ -143,12 +143,21 @@ public class MineSpur {
     public static int getPlayerMineLevel(Player player) {
         CompoundTag data = player.getPersistentData();
         int mineXp = data.getInt(EXP_DATA_KEY);
-        if (mineXp <= 100) return 1;
-        else if (mineXp <= 500) return 2;
-        else if (mineXp <= 2000) return 3;
-        else if (mineXp <= 5000) return 4;
-        else if (mineXp <= 10000) return 5;
-        return 0;
+        if (mineXp <= 100) {
+            return 1;
+        }
+        else if (mineXp <= 500) {
+            return 2;
+        }
+        else if (mineXp <= 2000) {
+            return 3;
+        }
+        else if (mineXp <= 5000) {
+            return 4;
+        }
+        else {
+            return 5;
+        }
     }
 
     public static void addPlayerMineExp(Player player, int Num) {

@@ -21,8 +21,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -91,7 +89,7 @@ public class DeepSeaLegendary extends WraqSceptre implements ActiveItem, InCurio
             @Override
             public void operation(PersistentRangeEffect effect) {
                 effect.getRangeMob().forEach(mob -> {
-                    mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 2));
+                    Compute.addSlowDownEffect(mob, 10, 2);
                     StableAttributesModifier.addM(mob, StableAttributesModifier.mobCauseDamageRateModifier,
                             "DeepSeaLegendaryCauseDamageReduction",
                             -0.25, Tick.get() + 20, "item/deep_sea_legendary");

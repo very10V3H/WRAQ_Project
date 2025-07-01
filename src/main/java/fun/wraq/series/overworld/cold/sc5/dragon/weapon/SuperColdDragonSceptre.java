@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
@@ -86,5 +87,13 @@ public class SuperColdDragonSceptre extends WraqSceptre implements SuperColdDrag
     @Override
     protected String getParticleType() {
         return StringUtils.ParticleTypes.Snow;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        if (tier == 0) {
+            return new ItemStack(SuperColdItems.WEAPON_CORE.get());
+        }
+        return null;
     }
 }

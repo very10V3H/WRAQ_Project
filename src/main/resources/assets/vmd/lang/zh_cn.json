@@ -2405,7 +2405,7 @@
   "item.vmd.super_cold_dragon_sceptre_2": "极寒龙脊''",
 
   "item.vmd.super_cold_weapon_core": "极寒武器核心",
-  "item.vmd.super_cold_equip": "极寒装备核心",
+  "item.vmd.super_cold_equip_core": "极寒装备核心",
 
   "item.vmd.super_cold_dragon_breath_gem_0": "极寒龙息石",
   "item.vmd.super_cold_dragon_breath_gem_1": "极寒龙息石'",
@@ -2416,12 +2416,17 @@
   "item.vmd.super_cold_glacier_gem_0": "极寒冰川石",
   "item.vmd.super_cold_glacier_gem_1": "极寒冰川石'",
   "item.vmd.super_cold_glacier_gem_2": "极寒冰川石''",
+  "item.vmd.super_cold_gem_piece": "极寒原石",
 
   "item.vmd.super_cold_dragon_curio": "极寒冰龙徽记",
 
   "item.vmd.super_cold_stone": "极寒之石",
   "item.vmd.super_cold_crystal": "极寒晶石",
   "item.vmd.super_cold_carrot": "极寒萝卜",
+
+  "item.vmd.super_cold_dragon_lottery": "极寒冰龙战利品",
+
+  "item.vmd.vd_weapon_core": "高级武器样板",
 
   "item.vmd.splasher": "膨热剂",
 

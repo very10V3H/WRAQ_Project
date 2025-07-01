@@ -9,6 +9,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -85,6 +86,7 @@ public class SuperColdSnowGolemSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return List.of(
+                new ItemAndRate(SuperColdItems.BLIZZARD_SOUL.get(), 0.3),
                 new ItemAndRate(ModItems.SILVER_COIN.get(), 3),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.08),
                 new ItemAndRate(ModItems.ICE_ELEMENT_PIECE_0.get(), 0.5)

@@ -1,19 +1,22 @@
 package fun.wraq.series.overworld.cold.sc5.dragon.gem;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemCommonDamageEnhanceRateModifier;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuperColdWindGem extends WraqPassiveGem implements GemCommonDamageEnhanceRateModifier {
+public class SuperColdWindGem extends WraqPassiveGem implements GemCommonDamageEnhanceRateModifier, Decomposable {
 
     public final int tier;
 
@@ -41,5 +44,13 @@ public class SuperColdWindGem extends WraqPassiveGem implements GemCommonDamageE
             return getRate();
         }
         return 0;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        if (tier == 0) {
+            return new ItemStack(SuperColdItems.SUPER_COLD_GEM_PIECE.get());
+        }
+        return null;
     }
 }

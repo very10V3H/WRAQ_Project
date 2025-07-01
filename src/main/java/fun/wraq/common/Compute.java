@@ -278,7 +278,9 @@ public class Compute {
     }
 
     public static void addSlowDownEffect(Mob mob, int tick, int tier) {
-        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, tick, tier, false, false, false));
+        if (MobSpawn.canAddSlowDownOrImprison(mob)) {
+            mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, tick, tier, false, false, false));
+        }
 /*        List<ServerPlayer> playerList = livingEntity.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new SlowDownParticleS2CPacket(livingEntity.getId(), Tick), serverPlayer);
@@ -953,7 +955,7 @@ public class Compute {
         return CalendarToString(calendar);
     }
 
-    public static int playerReputation(Player player) {
+    public static int getPlayerReputation(Player player) {
         CompoundTag data = player.getPersistentData();
         return data.getInt(StringUtils.Reputation);
     }
@@ -980,11 +982,11 @@ public class Compute {
         return tmpDate.format(deltaTime.getTime());
     }
 
-    public static boolean costReputation(Player player, int num) {
+    public static boolean addOrCostReputation(Player player, int num) {
         CompoundTag data = player.getPersistentData();
         ChatFormatting chatFormatting = ChatFormatting.GREEN;
         if (num < 0) {
-            if (playerReputation(player) + num < 0) {
+            if (getPlayerReputation(player) + num < 0) {
                 Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                         Component.literal("当前声望不足。").withStyle(ChatFormatting.WHITE));
                 return false;
@@ -994,7 +996,7 @@ public class Compute {
         data.putInt(StringUtils.Reputation, data.getInt(StringUtils.Reputation) + num);
         Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                 Component.literal("你的声望值:").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("" + playerReputation(player)).withStyle(ChatFormatting.YELLOW)).
+                        append(Component.literal("" + getPlayerReputation(player)).withStyle(ChatFormatting.YELLOW)).
                         append(Component.literal(" (" + num + ")").withStyle(chatFormatting)));
         ModNetworking.sendToClient(new ReputationValueS2CPacket(data.getInt(StringUtils.Reputation)), (ServerPlayer) player);
         return true;
@@ -2286,7 +2288,9 @@ public class Compute {
     }
 
     public static void addImprisonEffectToMob(Mob mob, int lastTick) {
-        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, lastTick, 99, false, false, false));
-        Compute.sendMobEffectHudToNearPlayer(mob, "hud/imprison", "imprison", lastTick, 0, false);
+        if (MobSpawn.canAddSlowDownOrImprison(mob)) {
+            mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, lastTick, 99, false, false, false));
+            Compute.sendMobEffectHudToNearPlayer(mob, "hud/imprison", "imprison", lastTick, 0, false);
+        }
     }
 }

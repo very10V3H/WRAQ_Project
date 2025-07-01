@@ -53,6 +53,7 @@ import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
+import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonSpawnController;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
@@ -123,6 +124,9 @@ public class Damage {
     }
 
     public static double causeTrueDamageToMonster(Player player, Mob monster, double damage) {
+        if (MobSpawn.getMobOriginName(monster).equals(IceDragonSpawnController.MOB_NAME)) {
+            return damage;
+        }
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
         beforeCauseDamage(player, monster, damage);
