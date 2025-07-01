@@ -92,7 +92,8 @@ public class VariousEvents {
         if (!InventoryCheck.itemOwnerCorrect(player, itemStack) && !player.isCreative()) {
             event.setCanceled(true);
         } else {
-            if (itemStack.getTagElement(Utils.MOD_ID) != null) {
+            if (itemStack.getTagElement(Utils.MOD_ID) != null
+                    && InventoryOperation.hasRemainSpaceToPick(player, itemStack)) {
                 CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                 if (!Utils.mainHandTag.containsKey(item) && !Utils.offHandTag.containsKey(item)
                         && !Utils.armorTag.containsKey(item) && !InventoryCheck.getBoundingList().contains(item)) {
@@ -168,7 +169,7 @@ public class VariousEvents {
                         && (data == null || !data.contains(InventoryCheck.owner))) {
                     InventoryCheck.addOwnerTagToItemStack(player, stack);
                 }
-                event.getPlayer().addItem(stack);
+                InventoryOperation.giveItemStackWithMSG(player, stack);
                 event.setCanceled(true);
                 dropped = false;
             }
@@ -296,11 +297,13 @@ public class VariousEvents {
             }
         }).orElse(null);
         if (wayPoint != null && wayPoint.style != null) {
+            if (wayPoint.pos.distanceTo(pos) > 100) {
+                return Te.s("野外", CustomStyle.styleOfFlexible);
+            }
             return Te.s(wayPoint.name, wayPoint.style);
         }
         return null;
     }
-
 
     @SubscribeEvent
     public static void Dimension(PlayerEvent.PlayerChangedDimensionEvent event) {

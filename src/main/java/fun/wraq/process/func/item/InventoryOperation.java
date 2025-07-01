@@ -31,13 +31,18 @@ public class InventoryOperation {
     }
 
     public static int itemStackCount(Inventory inventory, Item item) {
-        int ExistNum = 0;
+        int existNum = 0;
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.is(item) && InventoryCheck.itemOwnerCorrect(inventory.player, itemStack))
-                ExistNum += itemStack.getCount();
+            if (InventoryCheck.containOwnerTag(itemStack)
+                    && !InventoryCheck.itemOwnerCorrect(inventory.player, itemStack)) {
+                return 0;
+            }
+            if (itemStack.is(item) && InventoryCheck.itemOwnerCorrect(inventory.player, itemStack)) {
+                existNum += itemStack.getCount();
+            }
         }
-        return ExistNum;
+        return existNum;
     }
 
     public static boolean checkPlayerHasItem(Player player, Item item, int requirementNum) {
@@ -261,5 +266,21 @@ public class InventoryOperation {
             }
         }
         return null;
+    }
+
+    public static boolean hasRemainSpaceToPick(Player player, ItemStack stack) {
+        Inventory inventory = player.getInventory();
+        if (inventory.getFreeSlot() != -1) {
+            return true;
+        } else {
+            int leftSpaceCount = 0;
+            for (int i = 0; i < inventory.getContainerSize(); i++) {
+                ItemStack stackInSlot = inventory.getItem(i);
+                if (stackInSlot.is(stack.getItem())) {
+                    leftSpaceCount += stack.getItem().getMaxStackSize(stack) - stackInSlot.getCount();
+                }
+            }
+            return leftSpaceCount >= stack.getCount();
+        }
     }
 }

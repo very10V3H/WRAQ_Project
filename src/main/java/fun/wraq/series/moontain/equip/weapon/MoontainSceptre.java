@@ -71,7 +71,7 @@ public class MoontainSceptre extends WraqSceptre implements ExBaseAttributeValue
     @Override
     public Map<Map<Item, Double>, TagAndEachTierValue> getTagAndRateMap() {
         return new HashMap<>() {{
-            put(Utils.manaDamage, new TagAndEachTierValue(MoontainUtils.MOONTAIN_MANA_ATTACK_TAG_KEY, 200));
+            put(Utils.manaDamage, new TagAndEachTierValue(MoontainUtils.MOONTAIN_MANA_ATTACK_TAG_KEY, 300));
         }};
     }
 

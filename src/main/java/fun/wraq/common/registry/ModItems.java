@@ -41,8 +41,7 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
 import fun.wraq.process.func.power.impl.*;
-import fun.wraq.process.system.element.RainbowCrystal;
-import fun.wraq.process.system.element.RainbowPowder;
+import fun.wraq.process.system.element.*;
 import fun.wraq.process.system.element.crystal.*;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementBow;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSceptre;
@@ -53,7 +52,6 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSwo
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementBow;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
-import fun.wraq.process.system.element.holyStone.*;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.enhanceForge.Pearl;
 import fun.wraq.process.system.estate.EstateKey;
@@ -2132,53 +2130,74 @@ public class ModItems {
             () -> new RainbowCrystal(new Item.Properties()));
 
     public static final RegistryObject<Item> LIFE_HOLY_STONE_0 = ITEMS.register("life_holy_stone_0",
-            () -> new LifeElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 0));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 0,
+                    CustomStyle.styleOfLife, Element.lifeElementValue));
     public static final RegistryObject<Item> LIFE_HOLY_STONE_1 = ITEMS.register("life_holy_stone_1",
-            () -> new LifeElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 1));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 1,
+                    CustomStyle.styleOfLife, Element.lifeElementValue));
     public static final RegistryObject<Item> LIFE_HOLY_STONE_2 = ITEMS.register("life_holy_stone_2",
-            () -> new LifeElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 2));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 2,
+                    CustomStyle.styleOfLife, Element.lifeElementValue));
 
     public static final RegistryObject<Item> WATER_HOLY_STONE_0 = ITEMS.register("water_holy_stone_0",
-            () -> new WaterElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 0));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 0,
+                    CustomStyle.styleOfWater, Element.waterElementValue));
     public static final RegistryObject<Item> WATER_HOLY_STONE_1 = ITEMS.register("water_holy_stone_1",
-            () -> new WaterElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 1));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 1,
+                    CustomStyle.styleOfWater, Element.waterElementValue));
     public static final RegistryObject<Item> WATER_HOLY_STONE_2 = ITEMS.register("water_holy_stone_2",
-            () -> new WaterElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 2));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.WaterBold), 2,
+                    CustomStyle.styleOfWater, Element.waterElementValue));
 
     public static final RegistryObject<Item> FIRE_HOLY_STONE_0 = ITEMS.register("fire_holy_stone_0",
-            () -> new FireElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 0));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 0,
+                    CustomStyle.styleOfFire, Element.fireElementValue));
     public static final RegistryObject<Item> FIRE_HOLY_STONE_1 = ITEMS.register("fire_holy_stone_1",
-            () -> new FireElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 1));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 1,
+                    CustomStyle.styleOfFire, Element.fireElementValue));
     public static final RegistryObject<Item> FIRE_HOLY_STONE_2 = ITEMS.register("fire_holy_stone_2",
-            () -> new FireElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 2));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.FireBold), 2,
+                    CustomStyle.styleOfFire, Element.fireElementValue));
 
     public static final RegistryObject<Item> STONE_HOLY_STONE_0 = ITEMS.register("stone_holy_stone_0",
-            () -> new StoneElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 0));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 0,
+                    CustomStyle.styleOfStone, Element.stoneElementValue));
     public static final RegistryObject<Item> STONE_HOLY_STONE_1 = ITEMS.register("stone_holy_stone_1",
-            () -> new StoneElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 1));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 1,
+                    CustomStyle.styleOfStone, Element.stoneElementValue));
     public static final RegistryObject<Item> STONE_HOLY_STONE_2 = ITEMS.register("stone_holy_stone_2",
-            () -> new StoneElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 2));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.StoneBold), 2,
+                    CustomStyle.styleOfStone, Element.stoneElementValue));
 
     public static final RegistryObject<Item> ICE_HOLY_STONE_0 = ITEMS.register("ice_holy_stone_0",
-            () -> new IceElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 0));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 0,
+                    CustomStyle.styleOfIce, Element.iceElementValue));
     public static final RegistryObject<Item> ICE_HOLY_STONE_1 = ITEMS.register("ice_holy_stone_1",
-            () -> new IceElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 1));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 1,
+                    CustomStyle.styleOfIce, Element.iceElementValue));
     public static final RegistryObject<Item> ICE_HOLY_STONE_2 = ITEMS.register("ice_holy_stone_2",
-            () -> new IceElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 2));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.IceBold), 2,
+                    CustomStyle.styleOfIce, Element.iceElementValue));
 
     public static final RegistryObject<Item> LIGHTNING_HOLY_STONE_0 = ITEMS.register("lightning_holy_stone_0",
-            () -> new LightningElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 0));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 0,
+                    CustomStyle.styleOfLightning, Element.lightningElementValue));
     public static final RegistryObject<Item> LIGHTNING_HOLY_STONE_1 = ITEMS.register("lightning_holy_stone_1",
-            () -> new LightningElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 1));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 1,
+                    CustomStyle.styleOfLightning, Element.lightningElementValue));
     public static final RegistryObject<Item> LIGHTNING_HOLY_STONE_2 = ITEMS.register("lightning_holy_stone_2",
-            () -> new LightningElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 2));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.LightningBold), 2,
+                    CustomStyle.styleOfLightning, Element.lightningElementValue));
 
     public static final RegistryObject<Item> WIND_HOLY_STONE_0 = ITEMS.register("wind_holy_stone_0",
-            () -> new WindElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 0));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 0,
+                    CustomStyle.styleOfWind, Element.windElementValue));
     public static final RegistryObject<Item> WIND_HOLY_STONE_1 = ITEMS.register("wind_holy_stone_1",
-            () -> new WindElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 1));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 1,
+                    CustomStyle.styleOfWind, Element.windElementValue));
     public static final RegistryObject<Item> WIND_HOLY_STONE_2 = ITEMS.register("wind_holy_stone_2",
-            () -> new WindElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 2));
+            () -> new ElementHolyStone(new Item.Properties().rarity(CustomStyle.WindBold), 2,
+                    CustomStyle.styleOfWind, Element.windElementValue));
 
     public static final RegistryObject<Item> LIFE_ELEMENT_SWORD = ITEMS.register("life_element_sword",
             () -> new LifeElementSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.LifeItalic)));

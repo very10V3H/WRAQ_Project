@@ -2166,8 +2166,12 @@ public class Compute {
     }
 
     public static void teleportPlayerToPos(Player player, Vec3 pos) {
+        teleportPlayerToPos(player, pos, 0, 0);
+    }
+
+    public static void teleportPlayerToPos(Player player, Vec3 pos, float rotX, float rotY) {
         ServerPlayer serverPlayer = (ServerPlayer) player;
-        serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z, 0, 0);
+        serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z, rotX, rotY);
     }
 
     public static final String CHALLENGE_RECORD_KEY = "ChallengeRecord";

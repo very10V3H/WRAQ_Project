@@ -40,7 +40,7 @@ public class DivineUtils {
     public static Style style = CustomStyle.DIVINE_STYLE;
     public static String currentDayElement = Element.life;
     public static final Vec3 ToDivineIslandBoatPos = new Vec3(1899.5, 70, 295.5);
-    public static final Vec3 InDivineIslandBoatPos = new Vec3(2294.5, 82, 980.5);
+    public static final Vec3 InDivineIslandBoatPos = new Vec3(2279, 67, 873);
     public static final Vec3 ToSunIslandBoatPos = new Vec3(2270.5, 70, 874.5);
     public static final Vec3 InSunIslandBoatPos = new Vec3(1899.5, 67, 304.5);
 
@@ -70,10 +70,13 @@ public class DivineUtils {
         Compute.decreasePlayerHealth(player, value, Te.s("被", "圣光", style, "辐照飞升"));
     }
 
+    public static Map<String, Integer> nextTpTickMap = new HashMap<>();
+
     public static void handlePlayerTick(Player player) {
         if (player.level().dimension().equals(Level.OVERWORLD)) {
             if (player.position().distanceTo(ToDivineIslandBoatPos) < 2) {
-                Compute.teleportPlayerToPos(player, InDivineIslandBoatPos);
+                Compute.teleportPlayerToPos(player, InDivineIslandBoatPos, 180, 0);
+                nextTpTickMap.put(Name.get(player), Tick.get() + 20);
             } else if (player.position().distanceTo(ToSunIslandBoatPos) < 2) {
                 Compute.teleportPlayerToPos(player, InSunIslandBoatPos);
             }
@@ -95,6 +98,10 @@ public class DivineUtils {
             }
         }
         handleHolyLightTick(player);
+        if (nextTpTickMap.containsKey(Name.get(player)) && nextTpTickMap.get(Name.get(player)) < Tick.get()) {
+            nextTpTickMap.remove(Name.get(player));
+            Compute.teleportPlayerToPos(player, InDivineIslandBoatPos, 180, 0);
+        }
     }
 
     public static void handleMobTick(Mob mob) {

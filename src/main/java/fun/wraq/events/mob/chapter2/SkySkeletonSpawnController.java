@@ -10,7 +10,6 @@ import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -109,6 +108,13 @@ public class SkySkeletonSpawnController extends MobSpawnController {
             add(new ItemAndRate(C2LootItems.SKY_VEX_BOW.get(), 0.005));
             add(new ItemAndRate(NewRuneItems.SKY_NEW_RUNE.get(), 0.001));
         }};
+    }
+
+    public static double getDamageRate(Mob mob) {
+        if (MobSpawn.getMobOriginName(mob).equals(mobName) && mob.getY() < 240) {
+            return 0;
+        }
+        return 1;
     }
 
     @Override

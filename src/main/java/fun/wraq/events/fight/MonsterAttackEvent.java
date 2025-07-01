@@ -13,6 +13,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.chapter2.SkySkeletonSpawnController;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.networking.ModNetworking;
@@ -82,6 +83,7 @@ public class MonsterAttackEvent {
         damage *= TabooAttackArmor.Passive(player);
 
         damage *= DamageInfluence.getPlayerWithstandDamageInfluence(player, monster);
+        damage *= SkySkeletonSpawnController.getDamageRate(monster);
 
         if (Utils.witherBonePowerCCMonster.contains(monster)) damage *= 0.8;
         if (data.contains(StringUtils.SakuraDemonSword)
