@@ -1,6 +1,7 @@
 package fun.wraq.process.func.particle;
 
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
+import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -412,8 +413,22 @@ public class ParticleProvider {
         });
     }
 
+    public static void createLineDustParticle(Level level, int num, Vec3 startVec, Vec3 endVec, Style style) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new LineDustParticleS2CPacket(
+                            endVec.toVector3f(), startVec.toVector3f(), num / ignoreLevel, style.getColor().getValue()
+                    ), serverPlayer);
+                }
+            }
+        });
+    }
+
     public static void createLineSpaceDustParticle(Level level, int num, Vec3 startVec, Vec3 endVec,
-                                                     double spaceRange, Style style) {
+                                                   double range, Style style) {
         List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
         list.forEach(serverPlayer -> {
             if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
@@ -421,7 +436,7 @@ public class ParticleProvider {
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new LineSpaceDustParticleS2CPacket(
                             endVec.toVector3f(), startVec.toVector3f(),
-                            num / ignoreLevel, style.getColor().getValue(), spaceRange), serverPlayer);
+                            num / ignoreLevel, style.getColor().getValue(), range), serverPlayer);
                 }
             }
         });
@@ -644,5 +659,11 @@ public class ParticleProvider {
                                              EnumParticles enumParticles) {
        createIafLineParticle(level, (int) start.distanceTo(end) * 5, start.getEyePosition(), end.getEyePosition(),
                enumParticles);
+    }
+
+    public static void createLineDustParticleFromRightHand(Player player, Vec3 pos, Style style) {
+        Vec3 startPos = Compute.getPlayerHandItemPos(player, true);
+        ParticleProvider.createLineDustParticle(player.level(),
+                (int) pos.distanceTo(startPos) * 5, startPos, pos, style);
     }
 }

@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class StarSpawnController extends MobSpawnController {
+public class StarVexSpawnController extends MobSpawnController {
 
     public static String mobName = "梦灵";
-    private static StarSpawnController instance;
+    private static StarVexSpawnController instance;
 
-    public static StarSpawnController getInstance(Level world) {
+    public static StarVexSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
                     new Vec3(1048, 236, 598),
@@ -37,17 +37,17 @@ public class StarSpawnController extends MobSpawnController {
                     new Vec3(1052, 223, 604),
                     new Vec3(1069, 236, 605)
             );
-            instance = new StarSpawnController(spawnPos, spawnPos.size() * 4,
-                    1089, 275, 637, 1018, 215, 574, 20, 60, world, 10, 200);
+            instance = new StarVexSpawnController(spawnPos, spawnPos.size() * 4,
+                    1089, 275, 637, 1018, 215, 574, 3, 60, world, 15, 200);
         }
         return instance;
     }
 
-    public StarSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
-                               int boundaryUpX, int boundaryUpY, int boundaryUpZ,
-                               int boundaryDownX, int boundaryDownY, int boundaryDownZ,
-                               double summonOffset, int detectionRange, Level level,
-                               int mobPlayerRate, int averageLevel) {
+    public StarVexSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
+                                  int boundaryUpX, int boundaryUpY, int boundaryUpZ,
+                                  int boundaryDownX, int boundaryDownY, int boundaryDownZ,
+                                  double summonOffset, int detectionRange, Level level,
+                                  int mobPlayerRate, int averageLevel) {
         super(Te.s("梦灵", CustomStyle.styleOfMoon1), canSpawnPos, oneZoneMaxMobNum,
                 boundaryUpX, boundaryUpY, boundaryUpZ,
                 boundaryDownX, boundaryDownY, boundaryDownZ,

@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.jungle;
 
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonSpawnController;
+import fun.wraq.series.overworld.cold.sc5.dragon.SimulateIceDragonSpawnController;
 import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob0SpawnController;
 import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob1SpawnController;
 import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderKingSpawnController;
@@ -25,6 +26,7 @@ public class JungleMobSpawn {
             overworldController.add(DivineJungleMob1SpawnController.getInstance());
             overworldController.add(StoneSpiderKingSpawnController.getInstance());
             overworldController.add(IceDragonSpawnController.getInstance());
+            overworldController.add(SimulateIceDragonSpawnController.getInstance());
         }
         return overworldController;
     }

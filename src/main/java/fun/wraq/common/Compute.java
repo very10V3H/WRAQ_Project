@@ -2185,6 +2185,11 @@ public class Compute {
         serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z, 0, 0);
     }
 
+    public static void teleportPlayerToPos(Player player, Vec3 pos, float rotX, float rotY) {
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z, rotX, rotY);
+    }
+
     public static final String CHALLENGE_RECORD_KEY = "ChallengeRecord";
 
     public static CompoundTag getChallengeRecordData(Player player) {

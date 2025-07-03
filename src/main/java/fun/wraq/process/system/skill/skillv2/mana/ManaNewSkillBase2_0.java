@@ -68,8 +68,10 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                     }
                 }, 10, Tick.s(3 + (enhanced ? 1 : 0)));
                 ParticleProvider.createLastVerticalCircleParticles(player,
-                        targetPos.add(0, 0.5, 0), radius, 100,
+                        targetPos.add(0, 0.5, 0), radius, 200,
                         ModParticles.EVOKER.get(), Tick.s(3 + (enhanced ? 1 : 0)));
+                ParticleProvider.createLineDustParticleFromRightHand(player, targetPos,
+                        Element.getManaSkillParticleStyle(player));
             }
         });
     }

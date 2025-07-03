@@ -241,4 +241,7 @@ public class SuperColdItems {
                 add(new NewLotteries.Loot(SuperColdItems.SUPER_COLD_STONE.get().getDefaultInstance(), 0.4));
                 add(new NewLotteries.Loot(SuperColdItems.SUPER_COLD_CARROT.get().getDefaultInstance(), 0.5));
             }}, 0.03));
+
+    public static final RegistryObject<Item> ICE_DRAGON_MEDAL = ITEMS.register("ice_dragon_medal",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold)));
 }

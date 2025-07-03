@@ -447,6 +447,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1323, 63, -1658), "极寒前哨所", colorMap.get(aqua), CustomStyle.styleOfIce, 0));
         add(new MyWayPoint(new Vec3(2742, 131, -3862), "极冬村", colorMap.get(aqua), CustomStyle.styleOfIce, 0));
         add(new MyWayPoint(new Vec3(2086, 63, -4219), "极寒冰龙", colorMap.get(aqua), CustomStyle.styleOfIce, 0));
+        add(new MyWayPoint(new Vec3(1053, 66, -2758), "驯化过的极寒冰龙", colorMap.get(aqua), CustomStyle.styleOfIce, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

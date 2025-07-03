@@ -35,6 +35,7 @@ import org.apache.commons.lang3.RandomUtils;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class IceDragonSpawnController extends JungleMobSpawnController {
 
@@ -50,7 +51,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
                     new Vec3(2086, 63, -4219),
                     new Vec3(2236, 111, -4100),
                     new Vec3(2000, 40, -4271),
-                    XP_LEVEL, 64, Tick.min(3));
+                    XP_LEVEL, 64, Tick.s(3));
         }
         return instance;
     }
@@ -81,9 +82,13 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
         InventoryOperation.giveItemStackWithMSG(player, SuperColdItems.SUPER_COLD_DRAGON_LOTTERY.get());
     }
 
+    public static MobAttributes getAttributes() {
+        return new MobAttributes(2000, 1500, 1500, 1, 5, 0.99, 1000, 0, 1000 * Math.pow(10, 8), 0.45);
+    }
+
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(2000, 1500, 1500, 1, 5, 0.99, 1000, 0, 1000 * Math.pow(10, 8), 0.45);
+        return getAttributes();
     }
 
     @Override
@@ -109,7 +114,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
         if (mob.isDeadOrDying()) {
             return;
         }
-        if (mob.tickCount % 40 == 15) {
+        if (mob.tickCount % 80 == 15) {
             rangeEffectAttack(mob);
         }
         if (mob.tickCount % 100 == 88 || mob.tickCount % 100 == 90 || mob.tickCount % 100 == 92) {
@@ -118,8 +123,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
         super.handleMobTick(mob);
     }
 
-    // 每2s一次，随机选定玩家
-    public void rangeEffectAttack(Mob mob) {
+    public static void skill1(Mob mob, Set<Player> players) {
         if (players.isEmpty()) {
             return;
         }
@@ -139,15 +143,21 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
             @Override
             public void operation(PersistentRangeEffect effect) {
                 effect.getRangePlayer().forEach(eachPlayer -> {
-                    MonsterAttackEvent.causeCommonAttackToPlayer(mob, player, 10);
+                    MonsterAttackEvent.causeCommonAttackToPlayer(mob, eachPlayer, 20);
+                    SpecialEffectOnPlayer.addImprisonEffect(eachPlayer, 10);
                 });
                 ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), pos,
                         8, 100, ParticleTypes.SNOWFLAKE);
             }
-        }, 20, Tick.s(4));
+        }, 10, Tick.s(4));
     }
 
-    public void commonAttack(Mob mob) {
+    // 每2s一次，随机选定玩家
+    public void rangeEffectAttack(Mob mob) {
+        skill1(mob, players);
+    }
+
+    public static void skill2(Mob mob, Set<Player> players) {
         if (players.isEmpty()) {
             return;
         }
@@ -162,6 +172,10 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
             Compute.createIceParticle(player);
             SpecialEffectOnPlayer.addImprisonEffect(player, Tick.s(3));
         });
+    }
+
+    public void commonAttack(Mob mob) {
+        skill2(mob, players);
     }
 
     @Override

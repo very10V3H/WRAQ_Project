@@ -10,6 +10,7 @@ import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.crystal.OriginStone;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
+import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonTpUtil;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Style;
@@ -42,6 +43,7 @@ public class TradeListNew {
         coldIron();
         outpostEnergy();
         iceDragon();
+        IceDragonTpUtil.setVillagerData();
     }
 
     public static List<ItemStack> getCoinList(int vb) {

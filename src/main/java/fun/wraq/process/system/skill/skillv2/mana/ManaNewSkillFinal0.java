@@ -41,10 +41,13 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2Allo
     @Override
     protected void releaseOperation(Player player) {
         countMap.put(player, 3);
-        nextReleaseTickMap.put(player, Tick.get() + 3);
+        nextReleaseTickMap.put(player, Tick.get() + 1);
         rateMap.put(player, ManaNewSkill.modifyDamage(player,
                 5 + getPlayerSkillLevel(player) * 0.5) * (1 + getEnhanceRate(player)));
-        targetPosMap.put(player, WraqPower.getDefaultTargetPos(player));
+        Vec3 targetPos = WraqPower.getDefaultTargetPos(player);
+        targetPosMap.put(player, targetPos);
+        ParticleProvider.createLineDustParticleFromRightHand(player, targetPos,
+                Element.getManaSkillParticleStyle(player));
     }
 
     public static void handleServerPlayerTickEvent(ServerPlayer player) {
@@ -59,7 +62,7 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2Allo
             ParticleProvider.createSingleParticleToNearPlayer(player, player.level(), pos,
                     ParticleTypes.EXPLOSION_EMITTER);
             ParticleProvider.createRandomMoveParticle(player, pos, 1, 1, 6, ParticleTypes.ASH);
-            ParticleProvider.dustParticle(player, pos, 6 * (1 + ManaCurios5.getExSkillRangeRate(player)), 40,
+            ParticleProvider.dustParticle(player, pos, 6 * (1 + ManaCurios5.getExSkillRangeRate(player)), 80,
                     Element.getManaSkillParticleStyle(player).getColor().getValue());
             double radius = 10 * (1 + ManaCurios5.getExSkillRangeRate(player));
             player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, radius, radius, radius))

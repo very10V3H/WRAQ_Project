@@ -17,6 +17,7 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationComman
 import fun.wraq.process.system.estate.*;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
 import fun.wraq.series.crystal.CrystalOperationCommand;
+import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -814,6 +815,15 @@ public class CommandHandler {
                         Commands.literal("crystal").then(
                                 Commands.argument("operation", StringArgumentType.string())
                                         .executes(CrystalOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher89 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd89 = dispatcher89.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("iceDragon").then(
+                                Commands.argument("operation", StringArgumentType.string())
+                                        .executes(IceDragonOperationCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
