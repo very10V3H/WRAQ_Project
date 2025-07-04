@@ -142,4 +142,8 @@ public abstract class JungleMobSpawnController {
     public Element.Unit getElementUnit() {
         return null;
     }
+
+    public List<Component> getSpecialDescription() {
+        return null;
+    }
 }

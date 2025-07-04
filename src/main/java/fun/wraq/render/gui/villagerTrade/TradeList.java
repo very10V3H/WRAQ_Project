@@ -1466,12 +1466,16 @@ public class TradeList {
         ItemStack castleSwordPiece = new ItemStack(ModItems.CASTLE_SWORD_PIECE.get());
         ItemStack castleBowPiece = new ItemStack(ModItems.CASTLE_BOW_PIECE.get());
         ItemStack castleSceptrePiece = new ItemStack(ModItems.CASTLE_SCEPTRE_PIECE.get());
+        ItemStack armorPiece1 = new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get());
+        ItemStack armorPiece2 = new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get());
+        ItemStack armorPiece3 = new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get());
         ItemStack castleWeaponGem = new ItemStack(GemItems.CASTLE_WEAPON_GEM.get());
         ItemStack castleArmorGem = new ItemStack(GemItems.CASTLE_ARMOR_GEM.get());
         ItemStack[] itemStacks = {
                 blazeRune, beaconRune, treeRune,
                 blazeSword, beaconBow, treeSceptre,
                 castleSwordPiece, castleBowPiece, castleSceptrePiece,
+                armorPiece1, armorPiece2, armorPiece3,
                 castleWeaponGem, castleArmorGem
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -1515,6 +1519,15 @@ public class TradeList {
         tradeRecipeMap.put(castleSceptrePiece, List.of(
                 new ItemStack(ModItems.CASTLE_SWORD_PIECE.get(), 2),
                 new ItemStack(ModItems.CASTLE_BOW_PIECE.get(), 2)
+        ));
+        tradeRecipeMap.put(armorPiece1, List.of(
+                new ItemStack(ModItems.CASTLE_SWORD_PIECE.get(), 3)
+        ));
+        tradeRecipeMap.put(armorPiece2, List.of(
+                new ItemStack(ModItems.CASTLE_BOW_PIECE.get(), 3)
+        ));
+        tradeRecipeMap.put(armorPiece3, List.of(
+                new ItemStack(ModItems.CASTLE_SCEPTRE_PIECE.get(), 3)
         ));
         tradeRecipeMap.put(castleWeaponGem, List.of(
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 10),

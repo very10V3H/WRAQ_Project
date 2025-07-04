@@ -8,7 +8,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
@@ -30,7 +29,6 @@ import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.spur.events.CropSpur;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.spur.events.WoodSpur;
-import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -58,9 +56,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 @Mod.EventBusSubscriber
 public class BlockEvent {
@@ -104,58 +103,8 @@ public class BlockEvent {
             Player player = event.getEntity();
             BlockPos blockPos = event.getHitVec().getBlockPos();
             BlockState blockState = player.level().getBlockState(blockPos);
-
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            AtomicReference<Double> mediumNum = new AtomicReference<>(0.125);
-
-            if (blockState.getBlock() instanceof WorldSoulBlock) {
-
-                if (Utils.SoulList.isEmpty()) Utils.SoulListInit();
-                if (Utils.SoulList.contains(itemStack.getItem())) {
-                    AtomicBoolean flag = new AtomicBoolean(true);
-                    Utils.WorldEntropyPos.forEach(worldEntropy -> {
-                        if (worldEntropy.getVec3().equals(new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()))) {
-                            mediumNum.set(worldEntropy.getMediumNum());
-                            flag.set(false);
-                        }
-                    });
-                    if (flag.get()) return;
-
-                    ItemStack worldSoul1 = ModItems.WORLD_SOUL_1.get().getDefaultInstance();
-                    int TransformSuccessNum = 0;
-                    int OriginalItemNum = itemStack.getCount();
-                    for (int i = 0; i < itemStack.getCount(); i++) {
-                        Random random = new Random();
-                        if (random.nextDouble(1) < (Utils.WorldEntropyIncreaseSpeed + mediumNum.get()))
-                            TransformSuccessNum++;
-                    }
-                    Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
-                            Component.literal("你在解析成功概率为").withStyle(ChatFormatting.WHITE).
-                                    append(Component.literal(String.format("%.2f%%", (Utils.WorldEntropyIncreaseSpeed + mediumNum.get()) * 100)).withStyle(CustomStyle.styleOfWorld))
-                                    .append(Component.literal("的介质中,用" + OriginalItemNum + "个").withStyle(ChatFormatting.WHITE))
-                                    .append(itemStack.getDisplayName())
-                                    .append(Component.literal("成功解析出了").withStyle(ChatFormatting.WHITE))
-                                    .append(Component.literal(String.valueOf(TransformSuccessNum)).withStyle(CustomStyle.styleOfWorld))
-                                    .append(Component.literal("个").withStyle(ChatFormatting.WHITE))
-                                    .append(worldSoul1.getDisplayName()));
-
-                    worldSoul1.setCount(TransformSuccessNum);
-                    Compute.playerItemUseWithRecord(player, itemStack.getCount());
-                    InventoryOperation.giveItemStack(player, worldSoul1);
-                } else {
-                    if (Utils.WorldSoulMap.isEmpty()) Utils.WorldSoulMapInit();
-                    if (itemStack.getCount() == 64 && Utils.WorldSoulMap.containsKey(itemStack.getItem())) {
-                        Item NextTireSoul = Utils.WorldSoulMap.get(itemStack.getItem());
-                        Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
-                                Component.literal("你将").withStyle(ChatFormatting.WHITE).
-                                        append(itemStack.getDisplayName()).
-                                        append(Component.literal("转换成为").withStyle(ChatFormatting.WHITE)).
-                                        append(NextTireSoul.getDefaultInstance().getDisplayName()));
-                        Compute.playerItemUseWithRecord(player, 64);
-                        InventoryOperation.giveItemStack(player, NextTireSoul.getDefaultInstance());
-                    }
-                }
-            }
+            WorldSoulBlock.onRightClickSoulBlock(blockState, blockPos, itemStack, player);
         }
     }
 

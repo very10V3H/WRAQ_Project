@@ -85,6 +85,8 @@ public class ColdSystem {
         return Math.max(HeatInjection.getTier(player), tier);
     }
 
+    public static Map<String, Integer> player100ColdValueLastTickMap = new HashMap<>();
+
     public static void handleTick(Player player) {
         if (!player.isCreative()) {
             int coldLevel = getPlayerColdLevel(player);
@@ -142,6 +144,16 @@ public class ColdSystem {
                                 Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
                     }
                 }
+            }
+            if (currentColdValue == 100) {
+                player100ColdValueLastTickMap.compute(Name.get(player), (k, v) -> v == null ? 1 : v + 1);
+                if (player100ColdValueLastTickMap.get(Name.get(player)) >= Tick.s(10)) {
+                    Compute.decreasePlayerHealth(player, player.getMaxHealth() * 10,
+                            Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
+                    player100ColdValueLastTickMap.remove(Name.get(player));
+                }
+            } else {
+                player100ColdValueLastTickMap.remove(Name.get(player));
             }
         }
     }

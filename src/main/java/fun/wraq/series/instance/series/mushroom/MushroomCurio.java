@@ -33,7 +33,7 @@ public class MushroomCurio extends WraqCurios implements Decomposable {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("蘑菇煲", hoverMainStyle()));
         components.add(Te.s(" 当", "饱食度", hoverMainStyle(), "不高于", "8", hoverMainStyle(), "时"));
-        components.add(Te.s(" 消耗", ComponentUtils.AttributeDescription.health("50%当前"), "将",
+        components.add(Te.s(" 消耗", ComponentUtils.AttributeDescription.health("33%当前"), "将",
                 "饱食度", hoverMainStyle(), "恢复至", "18", hoverMainStyle()));
         return components;
     }
@@ -51,7 +51,7 @@ public class MushroomCurio extends WraqCurios implements Decomposable {
     @Override
     public void tick(Player player) {
         if (player.getFoodData().getFoodLevel() <= 8) {
-            player.setHealth(player.getHealth() * 0.5f);
+            player.setHealth(player.getHealth() * 0.33f);
             player.getFoodData().setFoodLevel(18);
             MySound.soundToPlayer(player, SoundEvents.GENERIC_EAT);
         }

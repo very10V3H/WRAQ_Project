@@ -119,7 +119,12 @@ public abstract class WraqBow extends WraqMainHandEquip {
                     return (int) (o1.distanceTo(player) - o2.distanceTo(player));
                 }
             }).orElse(null);
-            delta = mob.getEyePosition().subtract(Compute.getPlayerHandItemPos(player, true));
+            if (mob.distanceTo(player) < 2) {
+                delta = mob.getEyePosition().subtract(player.getEyePosition());
+                arrow.moveTo(player.getEyePosition());
+            } else {
+                delta = mob.getEyePosition().subtract(Compute.getPlayerHandItemPos(player, true));
+            }
         }
         arrow.shoot(delta.x, delta.y, delta.z,
                 getArrowSpeed() + PlayerAttributes.getArrowExFlySpeed(player), 1);

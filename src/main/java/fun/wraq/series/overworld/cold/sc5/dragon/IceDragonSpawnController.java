@@ -187,4 +187,19 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
     public List<ItemAndRate> getRewardItemList() {
         return List.of();
     }
+
+    public static List<Component> getDescription() {
+        List<Component> components = new ArrayList<>();
+        components.add(Te.s(" · ", STYLE, "若距离其超过32格，则无法对其造成伤害."));
+        components.add(Te.s(" · ", STYLE, "技能1 每隔4s，随机选定一名玩家，在其位置制造极寒领域."));
+        components.add(Te.s(" ".repeat(8), "领域持续4s，每0.5s对范围内所有玩家造成高额伤害."));
+        components.add(Te.s(" · ", STYLE, "技能2 每隔5s，选择最近的一名玩家，对其造成三段高额伤害."));
+        components.add(Te.s(" · ", STYLE, "技能3 随机触发，对目标玩家进行吐息，造成多段持续伤害."));
+        return components;
+    }
+
+    @Override
+    public List<Component> getSpecialDescription() {
+        return getDescription();
+    }
 }

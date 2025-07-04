@@ -252,7 +252,7 @@ public class MobInfoGui extends Screen {
                         " ", controller.name),
                         controller.mobXpLevel,
                         controller.getRewardItemList(),
-                        List.of(),
+                        controller.getSpecialDescription(),
                         controller.getMobAttributes()));
             });
         }

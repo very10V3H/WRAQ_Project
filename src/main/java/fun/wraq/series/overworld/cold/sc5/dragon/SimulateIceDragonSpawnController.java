@@ -113,4 +113,9 @@ public class SimulateIceDragonSpawnController extends JungleMobSpawnController {
     public List<ItemAndRate> getRewardItemList() {
         return List.of();
     }
+
+    @Override
+    public List<Component> getSpecialDescription() {
+        return IceDragonSpawnController.getDescription();
+    }
 }

@@ -535,14 +535,24 @@ public class MobSpawn {
 
     public static int getTotalKillCount(Player player) {
         int totalCount = 0;
+        Set<String> mobNameSet = new HashSet<>();
         for (MobSpawnController controller : getAllControllers(true)) {
-            totalCount += getPlayerKillCount(player, controller.mobName.getString());
+            if (!mobNameSet.contains(controller.mobName.getString())) {
+                mobNameSet.add(controller.mobName.getString());
+                totalCount += getPlayerKillCount(player, controller.mobName.getString());
+            }
         }
         for (NoTeamInstance noTeamInstance : NoTeamInstanceModule.getAllInstance()) {
-            totalCount += getPlayerKillCount(player, noTeamInstance.name.getString());
+            if (!mobNameSet.contains(noTeamInstance.name.getString())) {
+                mobNameSet.add(noTeamInstance.name.getString());
+                totalCount += getPlayerKillCount(player, noTeamInstance.name.getString());
+            }
         }
         for (NewTeamInstance instance : NewTeamInstanceHandler.getInstances()) {
-            totalCount += getPlayerKillCount(player, instance.description.getString());
+            if (!mobNameSet.contains(instance.description.getString())) {
+                mobNameSet.add(instance.description.getString());
+                totalCount += getPlayerKillCount(player, instance.description.getString());
+            }
         }
         return totalCount;
     }
