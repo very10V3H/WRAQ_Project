@@ -136,16 +136,6 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.MINE_RUNE.get(), 3,
                         ModItems.MINE_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.FIELD_SWORD_0.get(),
-                new InjectingRecipe(ModItems.FIELD_RUNE.get(), 1,
-                        ModItems.FIELD_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.FIELD_SWORD_1.get(),
-                new InjectingRecipe(ModItems.FIELD_RUNE.get(), 2,
-                        ModItems.FIELD_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.FIELD_SWORD_2.get(),
-                new InjectingRecipe(ModItems.FIELD_RUNE.get(), 3,
-                        ModItems.FIELD_SWORD_3.get()));
-
         injectingRecipeMap.put(ModItems.SNOW_SWORD_0.get(),
                 new InjectingRecipe(ModItems.SNOW_RUNE.get(), 1,
                         ModItems.SNOW_SWORD_1.get()));

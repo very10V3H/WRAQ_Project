@@ -50,7 +50,7 @@ public class ColdIronArmor extends WraqArmor {
         return CustomStyle.styleOfIce;
     }
 
-    public static double[] getCritDamageReductionRate = new double[]{0.2, 0.25, 0.4, 0.55};
+    public static double[] getCritDamageReductionRate = new double[]{0.2, 0.3, 0.5};
 
     public static double getPlayerCritDamageReductionRate(Player player) {
         if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ColdIronArmor armor) {
@@ -59,7 +59,7 @@ public class ColdIronArmor extends WraqArmor {
         return 0;
     }
 
-    public static double[] getWithstandDamageReductionRate = new double[]{0.1, 0.15, 0.25, 0.4};
+    public static double[] getWithstandDamageReductionRate = new double[]{0.1, 0.15, 0.25};
 
     public static double getWithstandDamageReductionRate(Player player) {
         if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ColdIronArmor armor) {

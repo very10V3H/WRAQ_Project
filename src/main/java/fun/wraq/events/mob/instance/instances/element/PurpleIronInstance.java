@@ -81,6 +81,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         Utils.fourPosOffset.forEach(offset -> {
             spawnEndermite(level, maxHealth * 0.25, pos.add(offset));
         });
+        MobSpawn.setCanNotAddSlowDownOrImprison(amethystCrabEntity);
     }
 
     private void spawnEndermite(Level level, double maxHealth, Vec3 pos) {

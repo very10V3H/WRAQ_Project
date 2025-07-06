@@ -62,6 +62,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(sakuraBoss);
+        MobSpawn.setCanNotAddSlowDownOrImprison(sakuraBoss);
     }
 
     @Override

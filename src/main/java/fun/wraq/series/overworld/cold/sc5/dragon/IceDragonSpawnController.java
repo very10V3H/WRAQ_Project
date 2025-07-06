@@ -83,7 +83,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
     }
 
     public static MobAttributes getAttributes() {
-        return new MobAttributes(2000, 1500, 1500, 1, 5, 0.99, 1000, 0, 1000 * Math.pow(10, 8), 0.45);
+        return new MobAttributes(2000, 1500, 1500, 1, 10, 0.99, 1000, 0, 1000 * Math.pow(10, 8), 0.45);
     }
 
     @Override
@@ -145,6 +145,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
                 effect.getRangePlayer().forEach(eachPlayer -> {
                     MonsterAttackEvent.causeCommonAttackToPlayer(mob, eachPlayer, 20);
                     SpecialEffectOnPlayer.addImprisonEffect(eachPlayer, 10);
+                    Compute.createIceParticle(player);
                 });
                 ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), pos,
                         8, 100, ParticleTypes.SNOWFLAKE);

@@ -130,11 +130,7 @@ public class SuperColdStraySpawnController extends MobSpawnController {
                 new ItemAndRate(ModItems.SNOW_SOUL.get(), 3),
                 new ItemAndRate(ModItems.SILVER_COIN.get(), 3),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.08),
-                new ItemAndRate(ModItems.ICE_ELEMENT_PIECE_0.get(), 0.5),
-                new ItemAndRate(ModItems.SNOW_CREST_0.get(), 0.04),
-                new ItemAndRate(ModItems.SNOW_CREST_1.get(), 0.02),
-                new ItemAndRate(ModItems.SNOW_CREST_2.get(), 0.002),
-                new ItemAndRate(ModItems.SNOW_CREST_3.get(), 0.0004)
+                new ItemAndRate(ModItems.ICE_ELEMENT_PIECE_0.get(), 0.5)
         );
     }
 

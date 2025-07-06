@@ -82,6 +82,7 @@ public class BunkerInstance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(entity);
+        MobSpawn.setCanNotAddSlowDownOrImprison(entity);
     }
 
     @Override

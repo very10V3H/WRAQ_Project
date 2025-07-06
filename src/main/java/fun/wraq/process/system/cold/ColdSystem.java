@@ -140,7 +140,7 @@ public class ColdSystem {
                     SpecialEffectOnPlayer.addHealingReduction(player, "coldEffect", Tick.s(2));
                     if (currentColdValue >= 75) {
                         Compute.decreasePlayerHealth(player,
-                                player.getMaxHealth() * (currentColdValue == 100 ? 0.2 : 0.1),
+                                player.getMaxHealth() * (currentColdValue == 100 ? 0.5 : 0.1),
                                 Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
                     }
                 }

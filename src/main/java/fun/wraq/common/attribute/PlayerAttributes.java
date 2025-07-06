@@ -47,6 +47,7 @@ import fun.wraq.series.comsumable.passive.whetstone.WhetstonePenetration0;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.holy.ice.curio.IceHolyCrest;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -575,17 +576,13 @@ public class PlayerAttributes {
         if (data.contains(StringUtils.Ability.Lucky) && data.getInt(StringUtils.Ability.Lucky) > 0) {
             expUp += luckyAbilityPoint * 0.01;
         }
-
         expUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.expUp);
-
         expUp += Compute.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.RandomCuriosAttribute.expUp); // 新版饰品属性加成
-
         expUp += Compute.PassiveEquip.getAttribute(player, Utils.expUp); // 器灵属性加成
-
         int tier = PlanPlayer.getPlayerTier(player);
         expUp += new double[]{0, 1, 2, 3}[tier];
         expUp += LabourDayOldCoin.getExExpUp();
-
+        expUp += Summer2025.getExExpUp();
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);

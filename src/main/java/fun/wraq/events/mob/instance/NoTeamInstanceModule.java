@@ -83,7 +83,9 @@ public class NoTeamInstanceModule {
 
     public static CompoundTag getPlayerAllowRewardTag(Player player) {
         CompoundTag compoundTag = player.getPersistentData();
-        if (!compoundTag.contains(AllowRewardKey.allowRewardInstance)) compoundTag.put(AllowRewardKey.allowRewardInstance, new CompoundTag());
+        if (!compoundTag.contains(AllowRewardKey.allowRewardInstance)) {
+            compoundTag.put(AllowRewardKey.allowRewardInstance, new CompoundTag());
+        }
         return compoundTag.getCompound(AllowRewardKey.allowRewardInstance);
     }
 
@@ -252,6 +254,28 @@ public class NoTeamInstanceModule {
         getAllInstance().forEach(instance -> instance.players.removeIf(eachPlayer -> {
             return eachPlayer.getName().getString().equals(player.getName().getString());
         }));
+    }
+
+    public static int getPlayerCurrentStageLevel(Player player) {
+        if (!getPlayerAllowReward(player, AllowRewardKey.nether)) {
+            return 50;
+        } else if (!getPlayerAllowReward(player, AllowRewardKey.purpleIron)) {
+            return 90;
+        } else if (!getPlayerAllowReward(player, AllowRewardKey.iceKnight)) {
+            return 120;
+        } else if (!getPlayerAllowReward(player, AllowRewardKey.sakuraBoss)) {
+            return 135;
+        } else if (!getPlayerAllowReward(player, AllowRewardKey.devil)) {
+            return 150;
+        } else if (!getPlayerAllowReward(player, AllowRewardKey.moon)) {
+            return 160;
+        } else if (!getPlayerAllowReward(player, AllowRewardKey.blackCastle)) {
+            return 170;
+        } else if (!getPlayerAllowReward(player, AllowRewardKey.moontainBoss)) {
+            return 180;
+        } else {
+            return player.experienceLevel;
+        }
     }
 }
 

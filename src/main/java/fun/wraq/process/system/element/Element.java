@@ -135,22 +135,14 @@ public class Element {
             entityElementUnit.put(passive, new Unit(life, 0));
         }
         Unit passiveUnit = entityElementUnit.get(passive);
-        if (passiveUnit.value == 0 && value == 0) return 1;
-        if (passiveUnit.value == 0) {
-            entityElementUnit.put(passive, new Unit(type, value));
-            ElementParticleProvider(passive);
+        if (passiveUnit.value == 0 || value == 0) {
             return 1;
         }
         double reactionElementValue = Math.min(passiveUnit.value, value);
         double strongRate = 0.2 * reactionElementValue;
         double weakRate = -0.2 * reactionElementValue;
         if (passiveUnit.type.equals(type)) {
-            if (passiveUnit.value < value) entityElementUnit.put(passive, new Unit(type, value));
             return 1;
-        } else {
-            if (passiveUnit.value >= value)
-                entityElementUnit.put(passive, new Unit(passiveUnit.type, passiveUnit.value - value));
-            else entityElementUnit.put(passive, new Unit(type, value - passiveUnit.value));
         }
         if (type.equals(life)) {
             if (passiveUnit.type.equals(water)) {
@@ -263,7 +255,6 @@ public class Element {
                 return 1 + strongRate;
             }
         }
-        ElementParticleProvider(passive);
         return 1;
     }
 

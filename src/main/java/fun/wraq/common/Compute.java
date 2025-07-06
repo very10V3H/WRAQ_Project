@@ -73,6 +73,7 @@ import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingMingCommonRing;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
@@ -1831,6 +1832,7 @@ public class Compute {
         rate += RankData.getExHarvestRate(player);
         rate += LabourDayOldCoin.getExHarvest();
         rate += EstateUtil.getExHarvestRate(player);
+        rate += Summer2025.getExHarvestRate();
         return rate;
     }
 

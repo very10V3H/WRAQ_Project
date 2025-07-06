@@ -1,4 +1,4 @@
-package fun.wraq.series.events.summer;
+package fun.wraq.series.events.summer2024;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;

@@ -90,10 +90,10 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), this.level);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
-
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         mobList.add(entity);
+        MobSpawn.setCanNotAddSlowDownOrImprison(entity);
     }
 
     @Override

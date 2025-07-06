@@ -1,5 +1,7 @@
 package fun.wraq.events.mob.instance.instances.tower;
 
+import com.Polarice3.Goety.common.entities.ModEntityType;
+import com.Polarice3.Goety.common.entities.hostile.BoneSpider;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ender_Golem_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.obscuria.aquamirae.common.entities.TorturedSoul;
@@ -9,8 +11,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.mcreator.borninchaosv.entity.ZombieBruiserEntity;
-import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -109,17 +109,15 @@ public class ManaTowerEachFloorMob {
         Element.provideElement(mob, getCurrentFloor3MobElementType(), 500);
     }
 
-    public static final String FLOOR_4_MOB_NAME = "浸魔诡使";
+    public static final String FLOOR_4_MOB_NAME = "骸骨蜘蛛";
     public static Vec3 FLOOR_4_MOB_POS = new Vec3(1511, 188, -540);
     public static Mob spawnFloor4Mob(Level level, Vec3 pos, int count) {
-        ZombieBruiserEntity mob = new ZombieBruiserEntity(BornInChaosV1ModEntities.ZOMBIE_BRUISER.get(), level);
+        BoneSpider mob = new BoneSpider(ModEntityType.BONE_SPIDER.get(), level);
         MobSpawn.MobBaseAttributes
                 .setMobBaseAttributes(mob, Te.s(FLOOR_4_MOB_NAME, style), MOB_XP_LEVEL,
                         15000, 300, 300, 0.4, 5,
                         0.5, 250, 25,
                         getBaseMaxHealth(count) * 2, 0.4);
-        setUniformArmor(mob);
-        mob.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.GOLDEN_SWORD));
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         return mob;

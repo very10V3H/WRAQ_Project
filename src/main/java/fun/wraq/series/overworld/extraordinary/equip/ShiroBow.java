@@ -5,6 +5,7 @@ import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
@@ -17,6 +18,7 @@ import fun.wraq.series.instance.quiver.WraqQuiver;
 import fun.wraq.series.overworld.divine.equip.weapon.DivineWeaponCommon;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -75,6 +77,6 @@ public class ShiroBow extends WraqBow {
             MyArrow.causeDamage(player, mob, finalRate);
             DivineWeaponCommon.onKillMob(player, mob);
         });
-
+        MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
     }
 }

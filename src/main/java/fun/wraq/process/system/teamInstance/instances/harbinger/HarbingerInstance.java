@@ -252,6 +252,7 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.setMobCustomName(entity, Te.s(THE_HARBINGER_NAME, CustomStyle.styleOfHarbinger), 260);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.moveTo(pos);
+        MobSpawn.setCanNotAddSlowDownOrImprison(entity);
         return entity;
     }
 

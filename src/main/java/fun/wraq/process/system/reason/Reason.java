@@ -10,6 +10,7 @@ import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
+import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -52,10 +53,17 @@ public class Reason {
 
     public static int getPlayerReasonRecoverPerHour(Player player) throws ParseException {
         int planTier = PlanPlayer.getPlayerTier(player);
-        if (planTier <= 0) return 5;
-        if (planTier == 1) return 10;
-        else if (planTier == 2) return 20;
-        else if (planTier == 3) return 30;
+        if (planTier <= 0) {
+            return 5;
+        } else if (planTier == 1) {
+            return 10;
+        }
+        else if (planTier == 2) {
+            return 20;
+        }
+        else if (planTier == 3) {
+            return 30;
+        }
         return 5;
     }
 
@@ -115,9 +123,11 @@ public class Reason {
             serverLastReasonRecoverHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             Tick.server.getPlayerList().getPlayers().forEach(serverPlayer -> {
                 try {
+                    double exRate = 0;
+                    exRate += LabourDayOldCoin.getExReasonRecoverRate();
+                    exRate += Summer2025.getExReasonRecoverRate();
                     addOrCostPlayerReasonValue(serverPlayer,
-                            (int) (getPlayerReasonRecoverPerHour(serverPlayer)
-                                    * (1 + LabourDayOldCoin.getExReasonRecoverRate())));
+                            (int) (getPlayerReasonRecoverPerHour(serverPlayer) * (1 + exRate)));
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }

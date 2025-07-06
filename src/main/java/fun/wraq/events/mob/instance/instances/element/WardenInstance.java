@@ -124,6 +124,7 @@ public class WardenInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
+        MobSpawn.setCanNotAddSlowDownOrImprison(warden);
     }
 
     @Override

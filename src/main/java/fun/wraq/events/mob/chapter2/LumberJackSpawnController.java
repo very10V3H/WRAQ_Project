@@ -87,10 +87,6 @@ public class LumberJackSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.FOREST_SOUL.get(), 2));
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.FOREST_CREST_0.get(), 0.02));
-            add(new ItemAndRate(ModItems.FOREST_CREST_1.get(), 0.005));
-            add(new ItemAndRate(ModItems.FOREST_CREST_2.get(), 0.001));
-            add(new ItemAndRate(ModItems.FOREST_CREST_3.get(), 0.0002));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.2));
             add(new ItemAndRate(C2LootItems.LUMBER_JACK_AXE.get(), 0.005));
         }};

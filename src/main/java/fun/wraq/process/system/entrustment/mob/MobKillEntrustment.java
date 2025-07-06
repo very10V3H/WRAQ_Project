@@ -10,6 +10,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.events.mob.chapter2.SkyVexSpawnController;
 import fun.wraq.events.mob.chapter7.StarVexSpawnController;
+import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -22,6 +23,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
+import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
@@ -176,7 +178,14 @@ public class MobKillEntrustment {
                                     "/vmd entrustment openStore"))
                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                             Te.s("点击以打开债委托商店界面")));
-        })));
+        }), " ".repeat(4),
+                Te.s("「提升Rank」").withStyle((s) -> {
+                    return s.withColor(CustomStyle.styleOfWorld.getColor()).withClickEvent(
+                                    new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+                                            "/vmd entrustment enhanceRank"))
+                            .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                    Te.s("点击尝试使用", ModItems.SPECIAL_BOND.get(), "提升Rank.")));
+                })));
     }
 
     public static void queryDailyTimes(Player player) {
@@ -352,9 +361,10 @@ public class MobKillEntrustment {
                             Tick.get()), CustomStyle.styleOfWorld, "才能接取委托任务"));
             return;
         }
+        int level = NoTeamInstanceModule.getPlayerCurrentStageLevel(player);
         List<MobSpawnController> controllers = MobSpawn.getAllControllers(true)
                 .stream().filter(controller -> {
-                    return controller.averageLevel <= player.experienceLevel - 8
+                    return controller.averageLevel <= level
                             && (!(controller instanceof SkyVexSpawnController)
                             && !(controller instanceof StarVexSpawnController));
                 }).toList();
@@ -439,7 +449,8 @@ public class MobKillEntrustment {
         String name = player.getName().getString();
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             MobKillEntrustment entrustment = playerCurrentEntrustmentMap.get(name);
-            if (playerKillProcessMap.getOrDefault(name, 0) >= entrustment.targetCount || player.isCreative()) {
+            if (playerKillProcessMap.getOrDefault(name, 0) >= entrustment.targetCount
+                    || player.isCreative()) {
                 // reward 与 信息
                 int costTick = Tick.get() - entrustment.startServerTick;
                 double rate = 0.8;
@@ -519,7 +530,7 @@ public class MobKillEntrustment {
                 sendPacketToClient(player);
                 MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
-
+                Summer2025.onFinishEntrustment(player);
                 Guide.sendGuideDisplayStatusToClient(player, true);
             }
         }

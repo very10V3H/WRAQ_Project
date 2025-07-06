@@ -107,7 +107,6 @@ public class MoonInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
-
         Stray manaMob = new Stray(EntityType.STRAY, level);
         MobSpawn.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 160);
@@ -127,6 +126,8 @@ public class MoonInstance extends NoTeamInstance {
             serverBossEvent1.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent1);
+        MobSpawn.setCanNotAddSlowDownOrImprison(attackMob);
+        MobSpawn.setCanNotAddSlowDownOrImprison(manaMob);
     }
 
     @Override

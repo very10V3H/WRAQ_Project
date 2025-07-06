@@ -93,28 +93,6 @@ public class StringUtils {
         public static String IsBow = "IsBow";
     }
 
-    public static class Extracts {
-        public static String Prefix = "Extracts_";
-        public static String Plain = Prefix + "Plain";
-        public static String Forest = Prefix + "Forest";
-        public static String Lake = Prefix + "Lake";
-        public static String Volcano = Prefix + "Volcano";
-        public static String Mine = Prefix + "Mine";
-        public static String Snow = Prefix + "Snow";
-        public static String Sky = Prefix + "Sky";
-        public static String Evoker = Prefix + "Evoker";
-    }
-
-    public static class LogsType {
-        public static String ItemUse = "ItemUse";
-        public static String ItemGet = "ItemGet";
-        public static String MobKill = "MobKill";
-        public static String ItemPick = "ItemPick";
-        public static String ItemDrop = "ItemDrop";
-        public static String ItemDelete = "ItemDelete";
-        public static String Trade = "Trade";
-    }
-
     public static class Entropy {
         public static String Forest = "ForestEntropy";
         public static String Volcano = "VolcanoEntropy";
@@ -127,12 +105,6 @@ public class StringUtils {
 
     public static class PlainSwordActive {
         public static String PlainSceptre = "PlainSceptre";
-    }
-
-    public static class ForestBossSwordActive {
-        public static String ForestBossActive = "ForestBossActive";
-        public static String Pare = ForestBossActive + "Pare";
-        public static String PareTime = ForestBossActive + "PareTime";
     }
 
     public static class SnowBossSwordActive {
@@ -150,72 +122,6 @@ public class StringUtils {
         public static String Online = "online";
         public static String Offline = "offline";
         public static String Password = "password";
-    }
-
-    public static class VillagerType {
-        public static class MainMission {
-            public static String Trade1 = "MainMission1";
-            public static String Trade2 = "MainMission2";
-            public static String Trade3 = "MainMission3";
-        }
-
-        public static class Spawn {
-            public static String Main1Gems = "Main1Gems";
-            public static String EpicRune = "EpicRune";
-            public static String T1Equip = "T1Equip";
-            public static String BossCore = "BossCore";
-            public static String DailyFG = "DailyFG";
-            public static String DailyMisc = "DailyMisc";
-        }
-
-        public static class SakuraIsland {
-            public static String Trade1 = "SakuraTrade1";
-        }
-
-        public static class Series {
-            public static String Plain1 = "Plain1";
-            public static String Plain2 = "Plain2";
-            public static String PlainForge = "PlainForge";
-            public static String Forest1 = "Forest1";
-            public static String Forest2 = "Forest2";
-            public static String Lake = "Lake";
-            public static String Volcano = "Volcano";
-            public static String Mine = "Mine";
-            public static String Snow = "Snow";
-            public static String Sky = "Sky";
-            public static String Evoker1 = "Evoker1";
-            public static String Evoker2 = "Evoker2";
-            public static String Ice = "Ice";
-        }
-
-        public static class Nether {
-            public static String Wither = "Wither";
-            public static String Piglin = "Piglin";
-            public static String Skeleton = "Skeleton";
-            public static String Magma = "Magma";
-        }
-
-        public static class Crest {
-            public static String First = "FirstCrest";
-            public static String Second = "SecondCrest";
-        }
-
-        public static class Soul {
-            public static String Equipment = "SoulEquipment";
-        }
-
-        public static class GoldCoinStore {
-            public static String KillPaper = "GoldCoinKillPaper";
-            public static String PsBottle = "PsBottle";
-        }
-
-        public static class PurpleIron {
-            public static String PurpleIron = "PurpleIron";
-        }
-
-        public static class Bank {
-            public static String Currency = "Currency";
-        }
     }
 
     public static String SakuraDemonSword = "SakuraDemonSword";
@@ -819,15 +725,6 @@ public class StringUtils {
         public static String CHERRY = Count + "CHERRY";
     }
 
-    public static class Rank {
-        public static String Kill = "Kill";
-        public static String Fish = "Fish";
-        public static String Mine = "Mine";
-        public static String Crop = "Crop";
-        public static String Lop = "Lop";
-        public static String Online = "Online";
-    }
-
     public static String RewardChestCount = "RewardChestCount";
     public static String ExpLevel = "ExpLevel";
 
@@ -847,23 +744,6 @@ public class StringUtils {
     public static String ShipFishTimes = "ShipFishTimes";
 
     public static String FishCount = "FishCount";
-
-    public static class InstanceTimes {
-        public static String InstanceTimes = "InstanceTimes";
-        public static String Plain = InstanceTimes + "Plain";
-        public static String Main1Boss = InstanceTimes + "Main1Boss";
-        public static String Nether = InstanceTimes + "Nether";
-        public static String Lightning = InstanceTimes + "Lightning";
-        public static String SakuraBoss = InstanceTimes + "SakuraBoss";
-        public static String IceKnight = InstanceTimes + "IceKnight";
-        public static String Spring = InstanceTimes + "Spring";
-        public static String Devil = InstanceTimes + "Devil";
-        public static String Moon = InstanceTimes + "Moon";
-        public static String Taboo = InstanceTimes + "Taboo";
-        public static String BlackCastle1 = InstanceTimes + "BlackCastle1";
-        public static String BlackCastle2 = InstanceTimes + "BlackCastle2";
-        public static String PurpleKnight = InstanceTimes + "PurpleKnight";
-    }
 
     public static String EndRune = "EndRune";
     public static String RecallEndRune3 = "RecallEndRune3";

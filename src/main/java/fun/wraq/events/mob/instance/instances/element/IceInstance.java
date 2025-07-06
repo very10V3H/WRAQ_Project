@@ -141,6 +141,8 @@ public class IceInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
+        MobSpawn.setCanNotAddSlowDownOrImprison(stray);
+        MobSpawn.setCanNotAddSlowDownOrImprison(horse);
     }
 
     @Override

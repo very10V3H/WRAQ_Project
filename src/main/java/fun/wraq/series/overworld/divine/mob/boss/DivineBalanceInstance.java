@@ -100,6 +100,7 @@ public class DivineBalanceInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
+        MobSpawn.setCanNotAddSlowDownOrImprison(mob);
     }
 
     private void setMobElement(Mob mob) {

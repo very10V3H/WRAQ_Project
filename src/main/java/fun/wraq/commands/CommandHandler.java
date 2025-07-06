@@ -827,5 +827,15 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher90 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd90 = dispatcher90.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("addMACWhiteList").then(
+                                Commands.argument("playerName", StringArgumentType.string())
+                                        .executes(MACSecurityWhiteListCommand.instance)
+                                        .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                        )
+                )
+        );
     }
 }

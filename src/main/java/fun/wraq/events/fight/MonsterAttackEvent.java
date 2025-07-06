@@ -155,6 +155,7 @@ public class MonsterAttackEvent {
             DivineUtils.onPlayerWithstandDamage(monster, player);
         }
         CitadelGuardianInstance.playerWithstandDamage(player, monster);
+
     }
 
     public static void causeCommonAttackToPlayer(Mob mob, Player player) {

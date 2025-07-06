@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.fast.Te;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.entity.EntityType;
@@ -31,6 +32,9 @@ public class MobKillEntrustmentOperationCommand implements Command<CommandSource
             }
             case "cancel" -> {
                 MobKillEntrustment.playerTryToCancel(player);
+            }
+            case "enhanceRank" -> {
+                RankData.onTryToEnhanceRank(player);
             }
             case "resetAllowTime" -> {
                 MobKillEntrustment.playerNextAllowAcceptTickMap.remove(player.getName().getString());

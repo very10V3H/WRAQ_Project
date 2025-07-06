@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.network.RankChangeS2CPacket;
@@ -16,9 +17,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RankData {
@@ -77,6 +80,7 @@ public class RankData {
         setCurrentRank(player, rank);
         getRankData(player).putString(rank, description);
         sendChangeToAllPlayer(player.getUUID(), rank, player.getServer().getPlayerList());
+        sendFormatMSG(player, Te.s("已提升至 ", rank, rankStyleMap.get(rank), " " + description));
     }
 
     public static String getRankDescription(Player player, String rank) {
@@ -110,6 +114,25 @@ public class RankData {
             LogUtils.getLogger().info(content.getString());
         }
     }
+
+    public static final String _13C = "13C";
+    public static final String _13B = "13B";
+    public static final String _13A = "13A";
+    public static final String _14C = "14C";
+    public static final String _14B = "14B";
+    public static final String _14A = "14A";
+    public static final String _15B = "15B";
+    public static final String _15A = "15A";
+    public static final String _16B = "16B";
+    public static final String _16A = "16A";
+    public static final String _17 = "17";
+    public static final String _18 = "18";
+    public static final String _19 = "19";
+    public static final String _20 = "20";
+    public static final String _21 = "21";
+    public static final String _22 = "22";
+    public static final String _23 = "23";
+    public static final String _x = "*";
 
     public static List<String> rankSerialList = new ArrayList<>() {{
         add("null");
@@ -174,7 +197,7 @@ public class RankData {
         put("21", "院长");
         put("22", "审计");
         put("23", "元勋");
-        put("24", "-");
+        put("*", "-");
     }};
 
     public static Map<String, Integer> rankWagesMap = new HashMap<>() {{
@@ -195,7 +218,7 @@ public class RankData {
         put("21", 150);
         put("22", 200);
         put("23", 300);
-        put("24", 0);
+        put("*", 0);
     }};
 
     // 以下是职权内容
@@ -251,5 +274,39 @@ public class RankData {
     // 额外产出
     public static double getExHarvestRate(Player player) {
         return getRankSerial(player) * 0.02;
+    }
+
+    public static void onTryToEnhanceRank(Player player) {
+        if (rankSerialList.indexOf(getCurrentRank(player))
+                < rankSerialList.indexOf(_14A)) {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+            if (rankSerialList.indexOf(getCurrentRank(player))
+                    < rankSerialList.indexOf(_14C)) {
+                if (InventoryOperation.checkPlayerHasItem(player, ModItems.SPECIAL_BOND.get(), 15)) {
+                    addNewRank(player, rankSerialList.get(rankSerialList.indexOf(getCurrentRank(player)) + 1),
+                            "-" + df.format(calendar.getTime()) + "-使用特别债券提升至此Rank.");
+                    InventoryOperation.removeItem(player, ModItems.SPECIAL_BOND.get(), 15);
+                    MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
+                } else {
+                    sendFormatMSG(player, Te.s("需要15张", ModItems.SPECIAL_BOND.get(),
+                            "才能提升Rank."));
+                    MySound.soundToPlayer(player, SoundEvents.VILLAGER_NO);
+                }
+            } else {
+                if (InventoryOperation.checkPlayerHasItem(player, ModItems.SPECIAL_BOND.get(), 20)) {
+                    addNewRank(player, rankSerialList.get(rankSerialList.indexOf(getCurrentRank(player)) + 1),
+                            "-" + df.format(calendar.getTime()) + "-使用特别债券提升至此Rank.");
+                    InventoryOperation.removeItem(player, ModItems.SPECIAL_BOND.get(), 20);
+                    MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
+                } else {
+                    sendFormatMSG(player, Te.s("需要20张", ModItems.SPECIAL_BOND.get(),
+                            "才能提升Rank."));
+                    MySound.soundToPlayer(player, SoundEvents.VILLAGER_NO);
+                }
+            }
+        } else {
+            sendFormatMSG(player, Te.s("15B及以上的职级是不能自助提升的."));
+        }
     }
 }

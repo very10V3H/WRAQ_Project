@@ -10,7 +10,6 @@ import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -96,10 +95,6 @@ public class MineSkeletonSpawnController extends MobSpawnController {
                 new ItemAndRate(ModItems.MINE_SOUL_1.get(), 0.1),
                 new ItemAndRate(ModItems.COPPER_COIN.get(), 3),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01),
-                new ItemAndRate(ModItems.MINE_CREST_0.get(), 0.02),
-                new ItemAndRate(ModItems.MINE_CREST_1.get(), 0.005),
-                new ItemAndRate(ModItems.MINE_CREST_2.get(), 0.001),
-                new ItemAndRate(ModItems.MINE_CREST_3.get(), 0.0002),
                 new ItemAndRate(ModItems.STONE_ELEMENT_PIECE_0.get(), 0.1),
                 new ItemAndRate(C1LootItems.MINE_SKELETON_PICKAXE.get(), 0.005),
                 new ItemAndRate(NewRuneItems.MINE_NEW_RUNE.get(), 0.001),
