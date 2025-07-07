@@ -585,7 +585,7 @@ public class Damage {
             Element.ElementParticleProvider(mob);
             GemOnCauseDamage.causeDamage(player, mob, damage);
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
-            JungleMobSpawn.onMobWithstandDamage(mob, player);
+            JungleMobSpawn.onMobWithstandDamage(mob, player, damage);
             ManaCurios4.onCauseDamage(player);
         }
     }

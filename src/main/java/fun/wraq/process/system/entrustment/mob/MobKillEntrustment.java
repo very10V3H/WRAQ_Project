@@ -521,7 +521,7 @@ public class MobKillEntrustment {
                 Compute.givePercentExpToPlayer(player,
                         0.05 * (1 + rate) * (1 + getExRateOfReputation(getPlayerReputation(player))),
                         0, player.experienceLevel);
-
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.NOTE_PAPER.get());
                 incrementDailyFinishedTimes(player, 1);
                 incrementTotalFinishedTimes(player, 1);
                 onFinished(player, costTick);

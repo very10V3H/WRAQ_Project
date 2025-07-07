@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
@@ -21,6 +22,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.SuperColdItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -42,6 +44,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
     public static final String MOB_NAME = "极寒冰龙";
     public static final Style STYLE = CustomStyle.styleOfIce;
     public static final int XP_LEVEL = 330;
+    public static final double MAX_HEALTH = 500 * Math.pow(10, 8);
 
     public static IceDragonSpawnController instance;
 
@@ -51,7 +54,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
                     new Vec3(2086, 63, -4219),
                     new Vec3(2236, 111, -4100),
                     new Vec3(2000, 40, -4271),
-                    XP_LEVEL, 64, Tick.s(3));
+                    XP_LEVEL, 64, Tick.s(30));
         }
         return instance;
     }
@@ -64,6 +67,11 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
 
     @Override
     public void tryToReward(Player player) {
+        if (damageCount.getOrDefault(Name.get(player), 0d) < MAX_HEALTH * 0.1) {
+            sendMSG(player, Te.s("至少需要造成极寒冰龙最大生命值的",
+                    "15%伤害", ChatFormatting.AQUA, "才能获取奖励."));
+            return;
+        }
         if (Reason.getPlayerReasonValue(player) < 20) {
             sendMSG(player, Te.s("需要至少", "20理智", "才能获取奖励."));
             return;
@@ -83,7 +91,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
     }
 
     public static MobAttributes getAttributes() {
-        return new MobAttributes(2000, 1500, 1500, 1, 10, 0.99, 1000, 0, 1000 * Math.pow(10, 8), 0.45);
+        return new MobAttributes(2000, 1500, 1500, 1, 10, 0.99, 1000, 0, MAX_HEALTH, 0.45);
     }
 
     @Override
@@ -121,6 +129,18 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
             commonAttack(mob);
         }
         super.handleMobTick(mob);
+        players.forEach(player -> {
+            Compute.sendEffectLastTime(player, SuperColdItems.SUPER_COLD_STONE.get(),
+                    (int) (damageCount.getOrDefault(Name.get(player), 0d) * 100 / MAX_HEALTH), true);
+        });
+    }
+
+    @Override
+    public void clear() {
+        players.forEach(player -> {
+            Compute.removeEffectLastTime(player, SuperColdItems.SUPER_COLD_STONE.get());
+        });
+        super.clear();
     }
 
     public static void skill1(Mob mob, Set<Player> players) {
@@ -196,6 +216,15 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
         components.add(Te.s(" ".repeat(8), "领域持续4s，每0.5s对范围内所有玩家造成高额伤害."));
         components.add(Te.s(" · ", STYLE, "技能2 每隔5s，选择最近的一名玩家，对其造成三段高额伤害."));
         components.add(Te.s(" · ", STYLE, "技能3 随机触发，对目标玩家进行吐息，造成多段持续伤害."));
+        components.add(Te.s(" · ", STYLE, "机制1 其将无视来自非普通攻击的真实伤害."));
+        components.add(Te.s(" · ", STYLE, "机制2 其将无视来自与其距离超过32格玩家的伤害."));
+        components.add(Te.s(" * ", CustomStyle.styleOfGold, "获得奖励需要："));
+        components.add(Te.s(" · ", CustomStyle.styleOfGold, "至少对其造成10%最大生命值伤害."));
+        components.add(Te.s(" · ", CustomStyle.styleOfGold, "在战斗中，会在hud列表以极寒晶石图标显示造成百分比."));
+        components.add(Te.s(" · ", CustomStyle.styleOfGold, "消耗20理智.", CustomStyle.styleOfFlexible));
+        components.add(Te.s(" · ", CustomStyle.styleOfGold, "消耗40声望.", CustomStyle.styleOfGold));
+        components.add(Te.s(" · ", CustomStyle.styleOfGold,
+                "需要一个", SuperColdItems.SUPER_COLD_CRYSTAL.get()));
         return components;
     }
 

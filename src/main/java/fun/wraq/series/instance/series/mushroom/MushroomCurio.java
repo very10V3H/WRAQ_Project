@@ -51,7 +51,7 @@ public class MushroomCurio extends WraqCurios implements Decomposable {
     @Override
     public void tick(Player player) {
         if (player.getFoodData().getFoodLevel() <= 8) {
-            player.setHealth(player.getHealth() * 0.33f);
+            player.setHealth(player.getHealth() * 0.66f);
             player.getFoodData().setFoodLevel(18);
             MySound.soundToPlayer(player, SoundEvents.GENERIC_EAT);
         }

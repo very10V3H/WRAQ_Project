@@ -10,7 +10,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -299,15 +298,12 @@ public class HarbingerInstance extends NewTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        if (MobSpawn.getPlayerKillCount(player, WardenInstance.mobName) >= 20) {
-            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger, true);
-        }
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger);
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss);
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Te.s("需要击败过20次", WardenInstance.mobName, CustomStyle.styleOfWarden, "才能获得奖励");
+        return NoTeamInstanceModule.AllowRewardCondition.BLACK_CASTLE_WEAPON;
     }
 
     @Override

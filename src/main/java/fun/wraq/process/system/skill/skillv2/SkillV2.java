@@ -120,7 +120,7 @@ public abstract class SkillV2 {
             swordSkillV2.add(new SwordNewSkillBase3_0(Te.s("踏前斩", style),
                     Tick.s(8), 40, 0, 3, 0));
             swordSkillV2.add(new SwordNewSkillFinal0(Te.s("注魔之刃", style),
-                    Tick.s(30), 200, 0, 4, 0));
+                    Tick.s(24), 200, 0, 4, 0));
         }
         return swordSkillV2;
     }

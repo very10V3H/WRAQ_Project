@@ -22,13 +22,13 @@ public class SuperColdDragonSword extends WraqSword implements SuperColdDragonWe
     public SuperColdDragonSword(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.attackDamage.put(this, 2500d);
-        Utils.defencePenetration0.put(this, 50d);
+        Utils.attackDamage.put(this, new double[]{3000, 3500, 4500}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{60, 75, 90}[tier]);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.35);
-        Utils.critDamage.put(this, 0.05);
+        Utils.critDamage.put(this, new double[]{0.1, 0.15, 0.25}[tier]);
         Utils.levelRequire.put(this, 225);
-        Utils.maxHealth.put(this, 10000d);
+        Utils.maxHealth.put(this, new double[]{10000, 12000, 15000}[tier]);
         Utils.coolDownDecrease.put(this, 0.28);
         Element.iceElementValue.put(this, 2.5);
     }

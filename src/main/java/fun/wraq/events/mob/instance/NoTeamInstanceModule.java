@@ -269,8 +269,6 @@ public class NoTeamInstanceModule {
             return 150;
         } else if (!getPlayerAllowReward(player, AllowRewardKey.moon)) {
             return 160;
-        } else if (!getPlayerAllowReward(player, AllowRewardKey.blackCastle)) {
-            return 170;
         } else if (!getPlayerAllowReward(player, AllowRewardKey.moontainBoss)) {
             return 180;
         } else {

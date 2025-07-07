@@ -56,6 +56,7 @@ public class HeatDevice extends WraqItem implements ActiveItem {
         }
         Compute.sendEffectLastTime(player, "item/heat_device",
                 effectExpiredTickMap.get(Name.get(player)), 0, false);
+        player.getCooldowns().addCooldown(this, Tick.s(5));
     }
 
     public static boolean isInEffect(Player player) {

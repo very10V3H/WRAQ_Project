@@ -62,6 +62,7 @@ public class HeatInjection extends WraqItem implements ActiveItem {
         Compute.sendEffectLastTime(player, "item/heat_injection",
                 effectExpiredTickMap.getOrDefault(Name.get(player), 0) - Tick.get(),
                 effectTierMap.get(Name.get(player)), false);
+        player.getCooldowns().addCooldown(this, Tick.s(5));
     }
 
     public static int getTier(Player player) {

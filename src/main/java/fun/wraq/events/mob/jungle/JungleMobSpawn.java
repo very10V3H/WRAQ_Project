@@ -43,9 +43,9 @@ public class JungleMobSpawn {
         }
     }
 
-    public static void onMobWithstandDamage(Mob mob, Player player) {
+    public static void onMobWithstandDamage(Mob mob, Player player, double damage) {
         getOverworldController().forEach(controller -> {
-            controller.onMobWithStandDamage(mob, player);
+            controller.onMobWithStandDamage(mob, player, damage);
         });
     }
 
