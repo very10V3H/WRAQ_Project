@@ -199,7 +199,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.blackCastle);
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moon);
     }
 
     @Override
@@ -208,7 +208,7 @@ public class NewCastleInstance extends NewTeamInstance {
                 append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("尘月宫主手/副手/饰品").withStyle(CustomStyle.styleOfMoon)).
+                append(Component.literal("魔王武器").withStyle(CustomStyle.styleOfDemon)).
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 

@@ -13,7 +13,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.BlockEvent;
-import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerData;
 import fun.wraq.networking.ModNetworking;
@@ -63,6 +62,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
+import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -322,7 +322,6 @@ public class LoginInEvent {
             SkillV2.afterVerUpdateLogin(player);
             SpringMobEvent.onPlayerLogin(player);
             PlanPlayer.onPlayerLoginSync(player);
-            MobSpawn.onPlayerLoginSync(player);
             NewLotteries.sendLotteryRewardTimes(player);
 
             String enhanceForge = "enhanceForgeEquipAdjust";
@@ -350,7 +349,7 @@ public class LoginInEvent {
             SevenShadePiece.sendDataToClient(player);
             DragonBoatFes.onLogin(player);
             WeeklyStorePlayerData.sendDataToClient(player);
-
+            Summer2025.onLogin(player);
             // 更新检查，放在最后吧
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
         }

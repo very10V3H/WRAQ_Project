@@ -27,17 +27,13 @@ import fun.wraq.events.mob.chapter5.origin.*;
 import fun.wraq.events.mob.chapter6_castle.BeaconSpawnController;
 import fun.wraq.events.mob.chapter6_castle.BlazeSpawnController;
 import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
-import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
-import fun.wraq.events.mob.chapter7.MushroomLinSpawnController;
-import fun.wraq.events.mob.chapter7.StarSpawnController;
-import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
+import fun.wraq.events.mob.chapter7.*;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.moontain.*;
 import fun.wraq.events.mob.ore.Ore2SpawnController;
 import fun.wraq.events.mob.ore.Ore3SpawnController;
 import fun.wraq.events.server.LoginInEvent;
-import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -55,6 +51,7 @@ import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.chapter1.plain.PlainCrest;
 import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderSpawnController;
 import fun.wraq.series.overworld.cold.sc2.stray.SuperColdStraySpawnController;
 import fun.wraq.series.overworld.cold.sc3.aurora.AuroraSheepSpawnController;
@@ -89,7 +86,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import org.apache.commons.lang3.RandomUtils;
 
-import java.sql.*;
 import java.util.*;
 
 public class MobSpawn {
@@ -177,7 +173,8 @@ public class MobSpawn {
         overWolrdList.add(BeaconSpawnController.getInstance(overWorld));
         overWolrdList.add(BlazeSpawnController.getInstance(overWorld));
         overWolrdList.add(TreeSpawnController.getInstance(overWorld));
-        overWolrdList.add(StarSpawnController.getInstance(overWorld));
+        overWolrdList.add(StarVexSpawnController.getInstance(overWorld));
+        overWolrdList.add(StarRabbitSpawnController.getInstance(overWorld));
         overWolrdList.add(BoneImpSpawnController.getInstance(overWorld));
         overWolrdList.add(TorturedSoulSpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon1SpawnController.getInstance(overWorld));
@@ -472,12 +469,9 @@ public class MobSpawn {
                 itemAndRate.dropWithoutBounding(mob, num, player);
             });
         }
-
         computeKillCount(player);
-
         incrementPlayerKillCount(player, MobSpawn.getMobOriginName(mob));
         MissionV2Helper.onKillMob(player, mob);
-
         oldVersionMaterial(mob, player);
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
@@ -488,34 +482,14 @@ public class MobSpawn {
                 ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WORLD_SOUL_1.get()), player);
             }
         }
+        PlainCrest.onKillMob(player, mob);
     }
 
-    public static Map<String, Map<String, Integer>> totalKillCount = new HashMap<>();
     public static Map<String, Integer> totalKillCountCache = new HashMap<>();
 
     public static String KILL_COUNT_DATA_KEY = "KillCountDataV2";
     public static CompoundTag getKillCountData(Player player) {
         return Compute.getPlayerSpecificKeyCompoundTagData(player, KILL_COUNT_DATA_KEY);
-    }
-
-    public static String SYNC_FLAG_KEY = "SyncFlag";
-    public static void onPlayerLoginSync(Player player) {
-        CompoundTag data = getKillCountData(player);
-        if (!data.contains(SYNC_FLAG_KEY)) {
-            data.putBoolean(SYNC_FLAG_KEY, true);
-            player.getPersistentData().remove("KillCountData");
-            if (totalKillCount.containsKey(Name.get(player))) {
-                Map<String, Integer> map = totalKillCount.get(Name.get(player));
-                Map<String, String> cnToKeyMap = getMobNameChineseToDataKeyMap();
-                map.forEach((k, v) -> {
-                    if (cnToKeyMap.containsKey(k)) {
-                        data.putInt(cnToKeyMap.get(k), v);
-                    }
-                });
-                Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
-                        Te.s("击杀数已同步至新版数据存储"));
-            }
-        }
     }
 
     public static int getPlayerKillCount(Player player, String mobName) {
@@ -537,14 +511,24 @@ public class MobSpawn {
 
     public static int getTotalKillCount(Player player) {
         int totalCount = 0;
+        Set<String> mobNameSet = new HashSet<>();
         for (MobSpawnController controller : getAllControllers(true)) {
-            totalCount += getPlayerKillCount(player, controller.mobName.getString());
+            if (!mobNameSet.contains(controller.mobName.getString())) {
+                mobNameSet.add(controller.mobName.getString());
+                totalCount += getPlayerKillCount(player, controller.mobName.getString());
+            }
         }
         for (NoTeamInstance noTeamInstance : NoTeamInstanceModule.getAllInstance()) {
-            totalCount += getPlayerKillCount(player, noTeamInstance.name.getString());
+            if (!mobNameSet.contains(noTeamInstance.name.getString())) {
+                mobNameSet.add(noTeamInstance.name.getString());
+                totalCount += getPlayerKillCount(player, noTeamInstance.name.getString());
+            }
         }
         for (NewTeamInstance instance : NewTeamInstanceHandler.getInstances()) {
-            totalCount += getPlayerKillCount(player, instance.description.getString());
+            if (!mobNameSet.contains(instance.description.getString())) {
+                mobNameSet.add(instance.description.getString());
+                totalCount += getPlayerKillCount(player, instance.description.getString());
+            }
         }
         return totalCount;
     }
@@ -646,29 +630,6 @@ public class MobSpawn {
         }
     }
 
-    public static void readKillCount() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        String sql = "select * from killcount";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-        while (resultSet.next()) {
-            String playerName = resultSet.getString("name");
-            if (!totalKillCount.containsKey(playerName)) totalKillCount.put(playerName, new HashMap<>());
-            Map<String, Integer> killCountMap = totalKillCount.get(playerName);
-            for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-                String mobName = resultSetMetaData.getColumnName(i);
-                if (!mobName.equals("name")) {
-                    String counts = resultSet.getString(mobName);
-                    int count = 0;
-                    if (counts != null) count = Integer.parseInt(counts);
-                    killCountMap.put(mobName, count);
-                }
-            }
-        }
-        statement.close();
-    }
-
     public static void computeKillCount(Player player) {
         InventoryOperation.getAllEquipSlotItems(player).forEach(equip -> {
             incrementKillCount(equip, 1);
@@ -705,4 +666,14 @@ public class MobSpawn {
     }
 
     public static Map<LivingEntity, Mob> mountsMap = new HashMap<>();
+
+    public static Set<String> canNotBeAddedSlowDownOrImprisonEffectMobSet = new HashSet<>();
+
+    public static boolean canAddSlowDownOrImprison(Mob mob) {
+        return !canNotBeAddedSlowDownOrImprisonEffectMobSet.contains(MobSpawn.getMobOriginName(mob));
+    }
+
+    public static void setCanNotAddSlowDownOrImprison(Mob mob) {
+        canNotBeAddedSlowDownOrImprisonEffectMobSet.add(MobSpawn.getMobOriginName(mob));
+    }
 }

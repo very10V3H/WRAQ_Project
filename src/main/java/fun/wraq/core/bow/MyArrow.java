@@ -270,7 +270,7 @@ public class MyArrow extends AbstractArrow {
             HuskSword.checkHuskSwordEffect(player, monster);
             if (shootByPlayer) {
                 CastleBow.onNormalAttack(player, monster, damage);
-                Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
+                Compute.additionEffects(player, monster, damage + trueDamage, 0);
                 OnHitEffectEquip.hit(player, monster);
                 OnHitEffectCurios.hit(player, monster);
                 OnArrowHitEffectCurios.hit(player, monster);

@@ -13,13 +13,12 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonWeaponCommon;
 import fun.wraq.series.overworld.sun.FrameArrow;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,11 +45,14 @@ public class BowNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Allow
                         myArrow.position(), ParticleTypes.EXPLOSION_EMITTER);
                 ParticleProvider.createRandomMoveParticle(myArrow, 1, 1, 24, ParticleTypes.ASH);
                 ParticleProvider.createRandomMoveParticle(myArrow, 1, 1, 24, ParticleTypes.LAVA);
-                myArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(myArrow.position(), 10, 10, 10))
-                        .forEach(eachMob -> {
-                            Damage.causeRateAdDamageToMonsterWithCritJudge(player, eachMob, (3 + skillLevel * 0.15
-                                    + (FrameArrow.enhanceBowSkillV2_2(player) ? 1 : 0)) * (1 + getEnhanceRate(player)));
-                        });
+                double range = 5;
+                double exRange = 0;
+                exRange += SuperColdDragonWeaponCommon.getSkillExRange(player);
+                Compute.getNearMob(myArrow, range + exRange).forEach(eachMob -> {
+                    Damage.causeRateAdDamageToMonsterWithCritJudge(player, eachMob, (3 + skillLevel * 0.15
+                            + (FrameArrow.enhanceBowSkillV2_2(player) ? 1 : 0)) * (1 + getEnhanceRate(player)));
+                    SuperColdDragonWeaponCommon.addImprisonEffectToMob(player, eachMob);
+                });
                 Compute.removeEffectLastTime(player, getTexture1Url());
             }
         });

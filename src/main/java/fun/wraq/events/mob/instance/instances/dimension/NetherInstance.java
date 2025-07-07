@@ -68,6 +68,7 @@ public class NetherInstance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(entity);
+        MobSpawn.setCanNotAddSlowDownOrImprison(entity);
     }
 
     @Override

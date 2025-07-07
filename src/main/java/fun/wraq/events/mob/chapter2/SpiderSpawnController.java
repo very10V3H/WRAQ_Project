@@ -9,7 +9,6 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -93,10 +92,6 @@ public class SpiderSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.SPIDER_SOUL.get(), 0.1));
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.3125));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.FOREST_CREST_0.get(), 0.02));
-            add(new ItemAndRate(ModItems.FOREST_CREST_1.get(), 0.005));
-            add(new ItemAndRate(ModItems.FOREST_CREST_2.get(), 0.001));
-            add(new ItemAndRate(ModItems.FOREST_CREST_3.get(), 0.0002));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.2));
             add(new ItemAndRate(C1LootItems.SPIDER_BOOTS.get(), 0.005));
         }};

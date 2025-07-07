@@ -296,11 +296,11 @@ public class AttackEvent {
             OnHitEffectPassiveEquip.hit(player, monster);
             EnhanceNormalAttackModifier.onHitEffect(player, monster, 0);
             CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, true);
+            Compute.additionEffects(player, monster, damage + trueDamage, 0);
         }
         // effect
         Compute.ChargingModule(data, player);
         CastleSword.onNormalAttack(player, monster, damage);
-        Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
         WraqBlade.onAttackHitEachTarget(player);
         SeaSword.checkSeaSwordEffect(player, monster);
         HuskSword.checkHuskSwordEffect(player, monster);

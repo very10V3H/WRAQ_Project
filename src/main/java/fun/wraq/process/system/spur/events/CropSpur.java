@@ -142,12 +142,21 @@ public class CropSpur {
     public static int getPlayerGardeningLevel(Player player) {
         CompoundTag data = player.getPersistentData();
         int MineXp = data.getInt(StringUtils.Gardening.Xp);
-        if (MineXp <= 100) return 1;
-        else if (MineXp <= 1000) return 2;
-        else if (MineXp <= 5000) return 3;
-        else if (MineXp <= 20000) return 4;
-        else if (MineXp <= 100000) return 5;
-        return 0;
+        if (MineXp <= 100) {
+            return 1;
+        }
+        else if (MineXp <= 1000) {
+            return 2;
+        }
+        else if (MineXp <= 5000) {
+            return 3;
+        }
+        else if (MineXp <= 20000) {
+            return 4;
+        }
+        else {
+            return 5;
+        }
     }
 
     public static void addPlayerGardeningExp(Player player, int Num) {

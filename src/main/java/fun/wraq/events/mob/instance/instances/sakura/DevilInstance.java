@@ -103,6 +103,7 @@ public class DevilInstance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(zombie);
+        MobSpawn.setCanNotAddSlowDownOrImprison(zombie);
     }
 
     @Override

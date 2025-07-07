@@ -191,6 +191,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         leftLifeTimes = 4;
         recoverFlag = 0;
         stage = 0;
+        MobSpawn.setCanNotAddSlowDownOrImprison(entity);
     }
 
     private final String PLAYER_LAST_GET_REWARD_TIMES_KEY = "PlayerLastGetMoontainBoss3RewardTimes";

@@ -11,7 +11,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.mcreator.borninchaosv.entity.DreadHoundEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
@@ -87,10 +86,6 @@ public class DreadHoundSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.WOLF_LEATHER.get(), 1));
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.FOREST_CREST_0.get(), 0.02));
-            add(new ItemAndRate(ModItems.FOREST_CREST_1.get(), 0.005));
-            add(new ItemAndRate(ModItems.FOREST_CREST_2.get(), 0.001));
-            add(new ItemAndRate(ModItems.FOREST_CREST_3.get(), 0.0002));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.2));
             add(new ItemAndRate(C2LootItems.FOREST_WOLF_CHEST.get(), 0.005));
         }};

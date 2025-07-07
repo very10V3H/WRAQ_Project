@@ -8,7 +8,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.skill.SkillUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.ComsumableItems;
@@ -25,7 +24,7 @@ import java.util.List;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 46;
+    public static int rewardNum = 47;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -37,7 +36,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
             data.putBoolean(singleReward, true);
             if (player.experienceLevel >= 75) {
                 List<ItemStack> list = new ArrayList<>();
-                ItemStack supplyBox = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 2);
+                ItemStack supplyBox = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 1);
                 list.add(supplyBox);
                 switch (SkillUtil.getMaxType(player)) {
                     case 0 -> {
@@ -62,13 +61,13 @@ public class CompensateCommand implements Command<CommandSourceStack> {
                                 "法师", CustomStyle.styleOfMana, "的补偿品."));
                     }
                 }
-                list.add(new ItemStack(ComsumableItems.HEAT_INJECTION_2.get()));
-                list.add(new ItemStack(ComsumableItems.HEAT_DEVICE_1.get()));
+/*                list.add(new ItemStack(ComsumableItems.HEAT_INJECTION_2.get()));
+                list.add(new ItemStack(ComsumableItems.HEAT_DEVICE_1.get()));*/
                 list.forEach(stack -> {
                     InventoryCheck.addOwnerTagToItemStack(player, stack);
                     InventoryOperation.giveItemStackWithMSG(player, stack);
                 });
-                PlanPlayer.tryToDelayOverDate(player, 3);
+                /*PlanPlayer.tryToDelayOverDate(player, 3);*/
                 sendMSG(player, Te.s("你成功领取了补偿!", ChatFormatting.AQUA));
             }
             return 0;

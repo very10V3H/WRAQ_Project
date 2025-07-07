@@ -45,12 +45,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -152,7 +149,6 @@ public class MonsterAttackEvent {
             }
 
             SnowArmorEffect(player, monster);
-            SnowStrayAttackEffect(player, monster);
             mineShield(player);
             DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
@@ -161,6 +157,7 @@ public class MonsterAttackEvent {
             DivineUtils.onPlayerWithstandDamage(monster, player);
         }
         CitadelGuardianInstance.playerWithstandDamage(player, monster);
+
     }
 
     public static void causeCommonAttackToPlayer(Mob mob, Player player) {
@@ -230,7 +227,7 @@ public class MonsterAttackEvent {
         if (SuitCount.getSnowSuitCount(player) >= 4) {
             int TickCount = Tick.get();
             monster.setDeltaMovement(0, 0, 0);
-            monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
+            Compute.addSlowDownEffect(monster, 5, 1);
             player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
                     ModNetworking.sendToClient(new SlowDownParticleS2CPacket(monster.getId(), 100), serverPlayer));
 
@@ -247,12 +244,6 @@ public class MonsterAttackEvent {
         CompoundTag data = monster.getPersistentData();
         if (data.getInt(StringUtils.SnowArmorEffect) > Tick.get()) DamageDecrease += 0.25;
         return DamageDecrease;
-    }
-
-    public static void SnowStrayAttackEffect(Player player, Mob monster) {
-        if (monster instanceof Stray) {
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
-        }
     }
 
     public static void mineShield(Player player) {

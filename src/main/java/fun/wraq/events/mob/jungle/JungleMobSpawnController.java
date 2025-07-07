@@ -2,6 +2,7 @@ package fun.wraq.events.mob.jungle;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -16,10 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class JungleMobSpawnController {
     public final Component name;
@@ -32,6 +30,7 @@ public abstract class JungleMobSpawnController {
     public final int mobXpLevel;
     public final double detectionRadius;
     public Set<Player> players = new HashSet<>();
+    public Map<String, Double> damageCount = new HashMap<>();
 
     public JungleMobSpawnController(Component name, Vec3 descriptionPos, Vec3 mobUpperBoundary, Vec3 mobLowerBoundary,
                                     int mobXpLevel, double detectionRadius, int refreshInterval) {
@@ -63,12 +62,19 @@ public abstract class JungleMobSpawnController {
                 }
             }
         } else {
+            players.removeIf(player -> {
+                return player == null || !player.isAlive()
+                        || mobs.stream().allMatch(mob -> mob.distanceTo(player) > detectionRadius);
+            });
             if (mobs.stream().allMatch(LivingEntity::isDeadOrDying)) {
                 players.forEach(this::tryToReward);
                 reset();
             } else {
                 mobs.stream().filter(LivingEntity::isAlive)
-                        .forEach(this::handleMobTick);
+                        .forEach(mob -> {
+                            this.handleMobTick(mob);
+                            players.addAll(Compute.getNearPlayer(level, mob.position(), detectionRadius));
+                        });
                 mobs.forEach(mob -> {
                     if (mob != null && mob.isAlive()) {
                         Player player = Compute.getNearestPlayer(mob, 32);
@@ -84,10 +90,11 @@ public abstract class JungleMobSpawnController {
         }
     }
 
-    public void onMobWithStandDamage(Mob mob, Player player) {
+    public void onMobWithStandDamage(Mob mob, Player player, double damage) {
         if (mobs.contains(mob)) {
             players.add(player);
         }
+        damageCount.compute(Name.get(player), (k, v) -> v == null ? damage : v + damage);
     }
 
     public void removeNearArmorStand(Level level) {
@@ -103,6 +110,7 @@ public abstract class JungleMobSpawnController {
         players.clear();
         mobs.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobs.clear();
+        damageCount.clear();
     }
 
     public Set<Player> getNearbyPlayers(Level level) {
@@ -136,6 +144,10 @@ public abstract class JungleMobSpawnController {
     }
 
     public Element.Unit getElementUnit() {
+        return null;
+    }
+
+    public List<Component> getSpecialDescription() {
         return null;
     }
 }

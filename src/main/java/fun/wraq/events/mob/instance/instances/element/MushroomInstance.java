@@ -127,6 +127,8 @@ public class MushroomInstance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mob.startRiding(cow);
+        MobSpawn.setCanNotAddSlowDownOrImprison(mob);
+        MobSpawn.setCanNotAddSlowDownOrImprison(cow);
     }
 
     @Override

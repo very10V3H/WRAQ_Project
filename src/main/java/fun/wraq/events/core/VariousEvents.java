@@ -57,6 +57,7 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingConversionEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -462,5 +463,10 @@ public class VariousEvents {
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.STOP_AT_CURRENT);
             projectile.remove(Entity.RemovalReason.KILLED);
         }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void livingDrop(LivingDropsEvent event) {
+        event.setCanceled(true);
     }
 }

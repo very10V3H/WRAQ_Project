@@ -41,7 +41,9 @@ public class ColdSystem {
         add(new Pair<>(new Vec2(2454, -4225), new Vec2(2838, -3923)));
     }};
 
-    public static List<Pair<Vec2, Vec2>> cold_5_zone = new ArrayList<>();
+    public static List<Pair<Vec2, Vec2>> cold_5_zone = new ArrayList<>() {{
+        add(new Pair<>(new Vec2(1972, -4400), new Vec2(2312, -3979)));
+    }};
 
     public static boolean isIn(Player player, List<Pair<Vec2, Vec2>> zone) {
         return zone.stream().anyMatch(pair -> {
@@ -82,6 +84,8 @@ public class ColdSystem {
         }
         return Math.max(HeatInjection.getTier(player), tier);
     }
+
+    public static Map<String, Integer> player100ColdValueLastTickMap = new HashMap<>();
 
     public static void handleTick(Player player) {
         if (!player.isCreative()) {
@@ -136,10 +140,20 @@ public class ColdSystem {
                     SpecialEffectOnPlayer.addHealingReduction(player, "coldEffect", Tick.s(2));
                     if (currentColdValue >= 75) {
                         Compute.decreasePlayerHealth(player,
-                                player.getMaxHealth() * (currentColdValue == 100 ? 0.2 : 0.1),
+                                player.getMaxHealth() * (currentColdValue == 100 ? 0.5 : 0.1),
                                 Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
                     }
                 }
+            }
+            if (currentColdValue == 100) {
+                player100ColdValueLastTickMap.compute(Name.get(player), (k, v) -> v == null ? 1 : v + 1);
+                if (player100ColdValueLastTickMap.get(Name.get(player)) >= Tick.s(10)) {
+                    Compute.decreasePlayerHealth(player, player.getMaxHealth() * 10,
+                            Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
+                    player100ColdValueLastTickMap.remove(Name.get(player));
+                }
+            } else {
+                player100ColdValueLastTickMap.remove(Name.get(player));
             }
         }
     }

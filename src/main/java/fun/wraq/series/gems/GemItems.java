@@ -238,7 +238,7 @@ public class GemItems {
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.CastleBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.defencePenetration, 0.1));
                 add(new WraqGem.AttributeMapValue(Utils.manaPenetration, 0.1));
-            }}, CustomStyle.styleOfCastle, Component.literal("暗黑武器蕴能")
+            }}, CustomStyle.styleOfCastle, Component.literal("暗黑武器蕴能(仅可用于主手)")
                     .withStyle(CustomStyle.styleOfCastleCrystal),
                     ComponentUtils.getSuffixOfCastle()));
 

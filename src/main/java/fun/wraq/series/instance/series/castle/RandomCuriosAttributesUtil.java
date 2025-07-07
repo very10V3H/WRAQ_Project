@@ -40,6 +40,11 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.RandomCuriosAttribute.percentManaDamageEnhance, 0.05);
         put(StringUtils.RandomCuriosAttribute.percentDefenceEnhance, 0.05);
         put(StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance, 0.05);
+        put(StringUtils.RandomCuriosAttribute.attackSpeedEnhance, 0.025);
+        put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, 0.02);
+        put(StringUtils.RandomCuriosAttribute.attackDamageEnhance, 0.02);
+        put(StringUtils.RandomCuriosAttribute.manaDamageEnhance, 0.02);
+        put(StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance, 0.02);
     }};
 
     public static List<String> specialAttributes = List.of(
@@ -47,7 +52,12 @@ public class RandomCuriosAttributesUtil {
             StringUtils.RandomCuriosAttribute.percentAttackDamage,
             StringUtils.RandomCuriosAttribute.percentManaDamageEnhance,
             StringUtils.RandomCuriosAttribute.percentDefenceEnhance,
-            StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance
+            StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance,
+            StringUtils.RandomCuriosAttribute.attackSpeedEnhance,
+            StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance,
+            StringUtils.RandomCuriosAttribute.attackDamageEnhance,
+            StringUtils.RandomCuriosAttribute.manaDamageEnhance,
+            StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance
     );
 
     public static void randomAttributeProvide(ItemStack itemStack, int attributeNum, double rate, boolean distinct) {
@@ -155,4 +165,8 @@ public class RandomCuriosAttributesUtil {
         data.putDouble(attributeName, random.nextDouble(origin, bound) * rate);
     }
 
+    public static void provideSingleStableValueAttribute(ItemStack itemStack, String attributeName, double value) {
+        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+        data.putDouble(attributeName, value / attributeValueMap.get(attributeName));
+    }
 }

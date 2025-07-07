@@ -188,11 +188,8 @@ public class VMD {
         Tick.server = event.getServer();
         RandomEventsHandler.server = event.getServer();
         PlanPlayer.read();
-
         MarketInfo.marketItemInfoRead(event.getServer().overworld());
         MarketInfo.marketProfitInfoRead(event.getServer().overworld());
-
-        MobSpawn.readKillCount();
         VpDataHandler.firstRead();
         WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
         TowerTimeRecord.readFromWorldRecordInfo();
@@ -212,7 +209,6 @@ public class VMD {
         PurpleIronCommon.destroyOnServerStop();
         MushroomParasitismGem.clearItemEntity();
         BlockAndResetTime.onServerStop();
-
         Connection connection = DataBase.createNewDatabaseConnection();
         Statement statement = connection.createStatement();
         TowerTimeRecord.writeToWorldRecordInfo();

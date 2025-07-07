@@ -113,7 +113,6 @@ public class TradeList {
         spider();
         Sakura();
         goldCoinStore();
-        Field();
         EndRecall();
         EndPower();
         GoldSmith();
@@ -326,10 +325,6 @@ public class TradeList {
                 ModItems.PLAIN_CREST_2.get().getDefaultInstance(),
                 ModItems.PLAIN_CREST_3.get().getDefaultInstance(),
                 ModItems.PLAIN_CREST_4.get().getDefaultInstance(),
-                ModItems.FOREST_CREST_1.get().getDefaultInstance(),
-                ModItems.FOREST_CREST_2.get().getDefaultInstance(),
-                ModItems.FOREST_CREST_3.get().getDefaultInstance(),
-                ModItems.FOREST_CREST_4.get().getDefaultInstance(),
                 ModItems.LAKE_CREST_1.get().getDefaultInstance(),
                 ModItems.LAKE_CREST_2.get().getDefaultInstance(),
                 ModItems.LAKE_CREST_3.get().getDefaultInstance(),
@@ -374,87 +369,75 @@ public class TradeList {
                     add(new ItemStack(ModItems.PLAIN_CREST_3.get(), 16));
                 }});
                 case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FOREST_CREST_0.get(), 16));
-                }});
-                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FOREST_CREST_1.get(), 16));
-                }});
-                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FOREST_CREST_2.get(), 16));
-                }});
-                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FOREST_CREST_3.get(), 16));
-                }});
-                case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.LAKE_CREST_0.get(), 16));
                 }});
-                case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.LAKE_CREST_1.get(), 16));
                 }});
-                case 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.LAKE_CREST_2.get(), 16));
                 }});
-                case 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.LAKE_CREST_3.get(), 16));
                 }});
-                case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.VOLCANO_CREST_0.get(), 16));
                 }});
-                case 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.VOLCANO_CREST_1.get(), 16));
                 }});
-                case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.VOLCANO_CREST_2.get(), 16));
                 }});
-                case 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.VOLCANO_CREST_3.get(), 16));
                 }});
-                case 16 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MINE_CREST_0.get(), 16));
                 }});
-                case 17 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MINE_CREST_1.get(), 16));
                 }});
-                case 18 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MINE_CREST_2.get(), 16));
                 }});
-                case 19 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MINE_CREST_3.get(), 16));
                 }});
-                case 20 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 16 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SNOW_CREST_0.get(), 16));
                 }});
-                case 21 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 17 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SNOW_CREST_1.get(), 16));
                 }});
-                case 22 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 18 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SNOW_CREST_2.get(), 16));
                 }});
-                case 23 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 19 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SNOW_CREST_3.get(), 16));
                 }});
-                case 24 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 20 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SKY_CREST_0.get(), 16));
                 }});
-                case 25 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 21 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SKY_CREST_1.get(), 16));
                 }});
-                case 26 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 22 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SKY_CREST_2.get(), 16));
                 }});
-                case 27 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 23 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SKY_CREST_3.get(), 16));
                 }});
-                case 28 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 24 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_CREST_0.get(), 16));
                 }});
-                case 29 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 25 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_CREST_1.get(), 16));
                 }});
-                case 30 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 26 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_CREST_2.get(), 16));
                 }});
-                case 31 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 27 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_CREST_3.get(), 16));
                 }});
             }
@@ -1110,33 +1093,6 @@ public class TradeList {
         }
     }
 
-    public static void Field() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.FIELD_RUNE.get(), 1),
-                new ItemStack(ModItems.FIELD_SWORD_0.get(), 1),
-                new ItemStack(GemItems.FIELD_GEM.get(), 1),
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.Field, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FIELD_SOUL.get(), 64));
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FIELD_RUNE.get(), 1));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 10));
-                    add(new ItemStack(ModItems.FIELD_RUNE.get(), 10));
-                }});
-            }
-        }
-    }
-
     public static void GoldSmith() {
         ItemStack[] itemStacks = {
                 new ItemStack(ModItems.BOSS_2_ATTACK_RING_0.get(), 1),
@@ -1466,12 +1422,16 @@ public class TradeList {
         ItemStack castleSwordPiece = new ItemStack(ModItems.CASTLE_SWORD_PIECE.get());
         ItemStack castleBowPiece = new ItemStack(ModItems.CASTLE_BOW_PIECE.get());
         ItemStack castleSceptrePiece = new ItemStack(ModItems.CASTLE_SCEPTRE_PIECE.get());
+        ItemStack armorPiece1 = new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get());
+        ItemStack armorPiece2 = new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get());
+        ItemStack armorPiece3 = new ItemStack(ModItems.CASTLE_ARMOR_PIECE.get());
         ItemStack castleWeaponGem = new ItemStack(GemItems.CASTLE_WEAPON_GEM.get());
         ItemStack castleArmorGem = new ItemStack(GemItems.CASTLE_ARMOR_GEM.get());
         ItemStack[] itemStacks = {
                 blazeRune, beaconRune, treeRune,
                 blazeSword, beaconBow, treeSceptre,
                 castleSwordPiece, castleBowPiece, castleSceptrePiece,
+                armorPiece1, armorPiece2, armorPiece3,
                 castleWeaponGem, castleArmorGem
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -1515,6 +1475,15 @@ public class TradeList {
         tradeRecipeMap.put(castleSceptrePiece, List.of(
                 new ItemStack(ModItems.CASTLE_SWORD_PIECE.get(), 2),
                 new ItemStack(ModItems.CASTLE_BOW_PIECE.get(), 2)
+        ));
+        tradeRecipeMap.put(armorPiece1, List.of(
+                new ItemStack(ModItems.CASTLE_SWORD_PIECE.get(), 3)
+        ));
+        tradeRecipeMap.put(armorPiece2, List.of(
+                new ItemStack(ModItems.CASTLE_BOW_PIECE.get(), 3)
+        ));
+        tradeRecipeMap.put(armorPiece3, List.of(
+                new ItemStack(ModItems.CASTLE_SCEPTRE_PIECE.get(), 3)
         ));
         tradeRecipeMap.put(castleWeaponGem, List.of(
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 10),

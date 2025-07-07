@@ -1,5 +1,6 @@
 package fun.wraq.process.func.effect;
 
+import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.mojang.datafixers.util.Pair;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
@@ -10,8 +11,10 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
@@ -97,6 +100,13 @@ public class SpecialEffectOnPlayer {
     public static boolean inImprison(Player player) {
         String name = player.getName().getString();
         int tick = Tick.get();
+        if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ColdIronArmor coldIronArmor
+                && coldIronArmor.tier == 2) {
+            EntityDataProvider.getCapability(player).ifPresent(data -> {
+                data.frozenData.frozenTicks = 0;
+                data.frozenData.isFrozen = false;
+            });
+        }
         return inVertigo(player) || imprisonTickMap.getOrDefault(name, 0) > tick;
     }
 

@@ -79,8 +79,11 @@ public class KillPaper extends Item {
                 return dropListMap;
             }
             Map<String, List<ItemAndRate>> map = new HashMap<>();
-            MobSpawn.overWolrdList.forEach(mobSpawnController -> map.put(mobSpawnController.mobName.getString(),
-                    mobSpawnController.getDropList()));
+            MobSpawn.overWolrdList.forEach(mobSpawnController -> {
+                if (mobSpawnController.averageLevel < 300) {
+                    map.put(mobSpawnController.mobName.getString(), mobSpawnController.getDropList());
+                }
+            });
             MobSpawn.netherList.forEach(mobSpawnController -> map.put(mobSpawnController.mobName.getString(),
                     mobSpawnController.getDropList()));
             MobSpawn.endList.forEach(mobSpawnController -> map.put(mobSpawnController.mobName.getString(),

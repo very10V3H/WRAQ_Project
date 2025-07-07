@@ -616,14 +616,6 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Field)));
     public static final RegistryObject<Item> FIELD_RUNE = ITEMS.register("fieldrune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.FieldBold)));
-    public static final RegistryObject<Item> FIELD_SWORD_0 = ITEMS.register("fieldsword0",
-            () -> new FieldSword(new Item.Properties().rarity(CustomStyle.FieldItalic), 0));
-    public static final RegistryObject<Item> FIELD_SWORD_1 = ITEMS.register("fieldsword1",
-            () -> new FieldSword(new Item.Properties().rarity(CustomStyle.FieldItalic), 1));
-    public static final RegistryObject<Item> FIELD_SWORD_2 = ITEMS.register("fieldsword2",
-            () -> new FieldSword(new Item.Properties().rarity(CustomStyle.FieldItalic), 2));
-    public static final RegistryObject<Item> FIELD_SWORD_3 = ITEMS.register("fieldsword3",
-            () -> new FieldSword(new Item.Properties().rarity(CustomStyle.FieldItalic), 3));
     public static final RegistryObject<Item> SNOW_SOUL = ITEMS.register("snowsoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Snow)));
     public static final RegistryObject<Item> SNOW_RUNE = ITEMS.register("snowrune",
@@ -1286,17 +1278,6 @@ public class ModItems {
             () -> new PlainCrest(new Item.Properties().rarity(Rarity.EPIC), 3));
     public static final RegistryObject<Item> PLAIN_CREST_4 = ITEMS.register("plain_crest_4",
             () -> new PlainCrest(new Item.Properties().rarity(CustomStyle.Red), 4));
-
-    public static final RegistryObject<Item> FOREST_CREST_0 = ITEMS.register("forest_crest_0",
-            () -> new ForestCrest(new Item.Properties().rarity(Rarity.COMMON), 0));
-    public static final RegistryObject<Item> FOREST_CREST_1 = ITEMS.register("forest_crest_1",
-            () -> new ForestCrest(new Item.Properties().rarity(Rarity.UNCOMMON), 1));
-    public static final RegistryObject<Item> FOREST_CREST_2 = ITEMS.register("forest_crest_2",
-            () -> new ForestCrest(new Item.Properties().rarity(Rarity.RARE), 2));
-    public static final RegistryObject<Item> FOREST_CREST_3 = ITEMS.register("forest_crest_3",
-            () -> new ForestCrest(new Item.Properties().rarity(Rarity.EPIC), 3));
-    public static final RegistryObject<Item> FOREST_CREST_4 = ITEMS.register("forest_crest_4",
-            () -> new ForestCrest(new Item.Properties().rarity(CustomStyle.Red), 4));
 
     public static final RegistryObject<Item> LAKE_CREST_0 = ITEMS.register("lake_crest_0",
             () -> new LakeCrest(new Item.Properties().rarity(Rarity.COMMON), 0));

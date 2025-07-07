@@ -20,8 +20,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -111,7 +109,7 @@ public class SnowPower extends WraqPower {
                     dimension.setBlockAndUpdate(blockPos, Blocks.ICE.defaultBlockState());
                     dimension.destroyBlock(blockPos, false);
                 }
-                mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 100, false, false, false));
+                Compute.addImprisonEffectToMob(mob, 20);
                 Damage.causeRateApDamageWithElement(player, mob, effect, true,
                         Element.ice, ElementValue.getElementValueJudgeByType(player, Element.ice) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);

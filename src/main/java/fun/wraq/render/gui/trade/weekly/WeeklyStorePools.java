@@ -3,6 +3,7 @@ package fun.wraq.render.gui.trade.weekly;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
@@ -49,6 +50,8 @@ public class WeeklyStorePools {
             SENIOR_REWARD_LIST.add(new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
             SENIOR_REWARD_LIST.add(new ItemStack(ModItems.EQUIP_PIECE_6.get(), 1));
             SENIOR_REWARD_LIST.add(new ItemStack(ModItems.ORE_SUPPLY.get(), 1));
+            SENIOR_REWARD_LIST.add(new ItemStack(ComsumableItems.HEAT_INJECTION_2.get(), 2));
+            SENIOR_REWARD_LIST.add(new ItemStack(ComsumableItems.HEAT_DEVICE_2.get(), 2));
         }
         return SENIOR_REWARD_LIST;
     }
@@ -64,6 +67,7 @@ public class WeeklyStorePools {
             SPECIAL_REWARD_LIST.add(new ItemStack(ExtraordinaryItems.SHIRO_BOW_SOUL.get()));
             SPECIAL_REWARD_LIST.add(new ItemStack(ExtraordinaryItems.NETHER_SCEPTRE_EX_SOUL.get()));
             SPECIAL_REWARD_LIST.add(new ItemStack(ExtraordinaryItems.DAZZLING_DIAMOND.get()));
+            SPECIAL_REWARD_LIST.add(new ItemStack(ComsumableItems.HEAT_INJECTION_3.get(), 2));
         }
         return SPECIAL_REWARD_LIST;
     }

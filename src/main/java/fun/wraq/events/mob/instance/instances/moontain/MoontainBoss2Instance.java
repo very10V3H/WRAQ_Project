@@ -65,6 +65,7 @@ public class MoontainBoss2Instance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(entity);
+        MobSpawn.setCanNotAddSlowDownOrImprison(entity);
     }
 
     @Override

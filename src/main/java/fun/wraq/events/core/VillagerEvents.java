@@ -13,6 +13,7 @@ import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.gui.villagerTrade.TradeListNew;
 import fun.wraq.series.crystal.OriginStone;
+import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonTpUtil;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
@@ -78,6 +79,11 @@ public class VillagerEvents {
                 }
                 case OriginStone.VILLAGER_NAME -> {
                     OriginStone.onPlayerRightClick(player);
+                    event.setCanceled(true);
+                    return;
+                }
+                case IceDragonTpUtil.VILLAGER_NAME -> {
+                    IceDragonTpUtil.onInteractWithVillager(player);
                     event.setCanceled(true);
                     return;
                 }

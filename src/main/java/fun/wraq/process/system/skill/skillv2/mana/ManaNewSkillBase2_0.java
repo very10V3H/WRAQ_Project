@@ -16,6 +16,7 @@ import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonWeaponCommon;
 import fun.wraq.series.overworld.sun.TabooPaper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Mob;
@@ -45,6 +46,9 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                 Vec3 targetPos = WraqPower
                         .getDefaultTargetPos(player, 15 * (1 + ManaCurios5.getExSkillRangeRate(player)));
                 double radius = 6;
+                double exRange = 0;
+                exRange += SuperColdDragonWeaponCommon.getSkillExRange(player);
+                radius += exRange;
                 radius *= (1 + ManaCurios5.getExSkillRangeRate(player));
                 double finalRadius = radius;
                 PersistentRangeEffect.addEffect(player, targetPos, radius, new PersistentRangeEffectOperation() {
@@ -56,6 +60,7 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                                     Damage.causeRateApDamageWithElement(player, mob,
                                             damage * (1 + ManaCurios5.getExBaseDamageRate(player, mob)), true);
                                     Compute.addSlowDownEffect(mob, Tick.s(1), 2);
+                                    SuperColdDragonWeaponCommon.addImprisonEffectToMob(player, mob);
                                 });
                         ParticleProvider.dustParticle(player, effect.center,
                                 finalRadius, 120, Element.getManaSkillParticleStyle(player).getColor().getValue());
@@ -63,8 +68,10 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                     }
                 }, 10, Tick.s(3 + (enhanced ? 1 : 0)));
                 ParticleProvider.createLastVerticalCircleParticles(player,
-                        targetPos.add(0, 0.5, 0), radius, 100,
+                        targetPos.add(0, 0.5, 0), radius, 200,
                         ModParticles.EVOKER.get(), Tick.s(3 + (enhanced ? 1 : 0)));
+                ParticleProvider.createLineDustParticleFromRightHand(player, targetPos,
+                        Element.getManaSkillParticleStyle(player));
             }
         });
     }

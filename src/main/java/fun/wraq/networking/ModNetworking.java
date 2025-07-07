@@ -1382,6 +1382,11 @@ public class ModNetworking {
                 .encoder(IafLineParticleS2CPacket::toBytes)
                 .consumerMainThread(IafLineParticleS2CPacket::handle)
                 .add();
+        net.messageBuilder(LineDustParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(LineDustParticleS2CPacket::new)
+                .encoder(LineDustParticleS2CPacket::toBytes)
+                .consumerMainThread(LineDustParticleS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

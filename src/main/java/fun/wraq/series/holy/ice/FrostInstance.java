@@ -84,6 +84,7 @@ public class FrostInstance extends NoTeamInstance {
         level.addFreshEntity(mob);
         mobList.add(mob);
         boss = mob;
+        MobSpawn.setCanNotAddSlowDownOrImprison(mob);
     }
 
     @Override

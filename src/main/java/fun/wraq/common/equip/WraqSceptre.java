@@ -109,7 +109,12 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                     return (int) (o1.distanceTo(player) - o2.distanceTo(player));
                 }
             }).orElse(null);
-            delta = mob.getEyePosition().subtract(Compute.getPlayerHandItemPos(player, true));
+            if (mob.distanceTo(player) < 2) {
+                delta = mob.getEyePosition().subtract(player.getEyePosition());
+                manaArrow.moveTo(player.getEyePosition());
+            } else {
+                delta = mob.getEyePosition().subtract(Compute.getPlayerHandItemPos(player, true));
+            }
         }
         manaArrow.shoot(delta.x, delta.y, delta.z,
                 getManaArrowSpeed() + PlayerAttributes.getManaArrowExFlySpeed(player), 1);

@@ -2,21 +2,35 @@ package fun.wraq.series.overworld.cold;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModArmorMaterials;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.items.misc.PocketItem;
+import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.overworld.cold.sc2.stray.SuperColdFlower;
 import fun.wraq.series.overworld.cold.sc3.fir.FirCrystal;
 import fun.wraq.series.overworld.cold.sc3.maple.MapleKnife;
 import fun.wraq.series.overworld.cold.sc4.BlizzardBoots;
 import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
+import fun.wraq.series.overworld.cold.sc5.dragon.SuperColdCarrot;
+import fun.wraq.series.overworld.cold.sc5.dragon.curio.SuperColdDragonCurio;
+import fun.wraq.series.overworld.cold.sc5.dragon.gem.SuperColdDragonBreathGem;
+import fun.wraq.series.overworld.cold.sc5.dragon.gem.SuperColdGlacierGem;
+import fun.wraq.series.overworld.cold.sc5.dragon.gem.SuperColdWindGem;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonBow;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonSceptre;
+import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonSword;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SuperColdItems {
 
@@ -128,4 +142,106 @@ public class SuperColdItems {
 
     public static final RegistryObject<Item> COLD_RUNE = ITEMS.register("cold_rune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
+    public static final RegistryObject<Item> DRAGON_SWORD_0 = ITEMS.register("super_cold_dragon_sword_0",
+            () -> new SuperColdDragonSword(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+    public static final RegistryObject<Item> DRAGON_SWORD_1 = ITEMS.register("super_cold_dragon_sword_1",
+            () -> new SuperColdDragonSword(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
+    public static final RegistryObject<Item> DRAGON_SWORD_2 = ITEMS.register("super_cold_dragon_sword_2",
+            () -> new SuperColdDragonSword(new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+
+    public static final RegistryObject<Item> DRAGON_BOW_0 = ITEMS.register("super_cold_dragon_bow_0",
+            () -> new SuperColdDragonBow(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+    public static final RegistryObject<Item> DRAGON_BOW_1 = ITEMS.register("super_cold_dragon_bow_1",
+            () -> new SuperColdDragonBow(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
+    public static final RegistryObject<Item> DRAGON_BOW_2 = ITEMS.register("super_cold_dragon_bow_2",
+            () -> new SuperColdDragonBow(new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+
+    public static final RegistryObject<Item> DRAGON_SCEPTRE_0 = ITEMS.register("super_cold_dragon_sceptre_0",
+            () -> new SuperColdDragonSceptre(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+    public static final RegistryObject<Item> DRAGON_SCEPTRE_1 = ITEMS.register("super_cold_dragon_sceptre_1",
+            () -> new SuperColdDragonSceptre(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
+    public static final RegistryObject<Item> DRAGON_SCEPTRE_2 = ITEMS.register("super_cold_dragon_sceptre_2",
+            () -> new SuperColdDragonSceptre(new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+
+    public static final RegistryObject<Item> WEAPON_CORE = ITEMS.register("super_cold_weapon_core",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+    public static final RegistryObject<Item> EQUIP_CORE = ITEMS.register("super_cold_equip_core",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
+    public static final RegistryObject<Item> DRAGON_BREATH_GEM_0 = ITEMS.register("super_cold_dragon_breath_gem_0",
+            () -> new SuperColdDragonBreathGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("冰龙之龙息", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 0));
+    public static final RegistryObject<Item> DRAGON_BREATH_GEM_1 = ITEMS.register("super_cold_dragon_breath_gem_1",
+            () -> new SuperColdDragonBreathGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("冰龙之龙息", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 1));
+    public static final RegistryObject<Item> DRAGON_BREATH_GEM_2 = ITEMS.register("super_cold_dragon_breath_gem_2",
+            () -> new SuperColdDragonBreathGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("冰龙之龙息", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 2));
+
+    public static final RegistryObject<Item> WIND_GEM_0 = ITEMS.register("super_cold_wind_gem_0",
+            () -> new SuperColdWindGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("极寒之狂风", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 0));
+    public static final RegistryObject<Item> WIND_GEM_1 = ITEMS.register("super_cold_wind_gem_1",
+            () -> new SuperColdWindGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("极寒之狂风", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 1));
+    public static final RegistryObject<Item> WIND_GEM_2 = ITEMS.register("super_cold_wind_gem_2",
+            () -> new SuperColdWindGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("极寒之狂风", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 2));
+
+    public static final RegistryObject<Item> GLACIER_GEM_0 = ITEMS.register("super_cold_glacier_gem_0",
+            () -> new SuperColdGlacierGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("极寒之冰川", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 0));
+    public static final RegistryObject<Item> GLACIER_GEM_1 = ITEMS.register("super_cold_glacier_gem_1",
+            () -> new SuperColdGlacierGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("极寒之冰川", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 1));
+    public static final RegistryObject<Item> GLACIER_GEM_2 = ITEMS.register("super_cold_glacier_gem_2",
+            () -> new SuperColdGlacierGem(new Item.Properties().rarity(CustomStyle.IceBold), List.of(),
+                    CustomStyle.styleOfIce, Te.s("极寒之冰川", CustomStyle.styleOfIce),
+                    ComponentUtils.getSuffixOfSuperCold(), 2));
+
+    public static final RegistryObject<Item> SUPER_COLD_GEM_PIECE = ITEMS.register("super_cold_gem_piece",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
+    public static final RegistryObject<Item> DRAGON_CURIO = ITEMS.register("super_cold_dragon_curio",
+            () -> new SuperColdDragonCurio(new Item.Properties().rarity(CustomStyle.IceBold)));
+
+    public static final RegistryObject<Item> SUPER_COLD_CRYSTAL = ITEMS.register("super_cold_crystal",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
+    public static final RegistryObject<Item> SUPER_COLD_STONE = ITEMS.register("super_cold_stone",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold), true, true));
+
+    public static final RegistryObject<Item> SUPER_COLD_CARROT = ITEMS.register("super_cold_carrot",
+            () -> new SuperColdCarrot(new Item.Properties().rarity(CustomStyle.IceBold)));
+
+    public static final RegistryObject<Item> VD_WEAPON_CORE = ITEMS.register("vd_weapon_core",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
+
+    public static final RegistryObject<Item> SUPER_COLD_DRAGON_LOTTERY
+            = ITEMS.register("super_cold_dragon_lottery",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.IceItalic), new ArrayList<>() {{
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_SWORD_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_BOW_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_SCEPTRE_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.EQUIP_CORE.get().getDefaultInstance(), 0.01));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_BREATH_GEM_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.GLACIER_GEM_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.WIND_GEM_0.get().getDefaultInstance(), 0.0066));
+                add(new NewLotteries.Loot(SuperColdItems.DRAGON_CURIO.get().getDefaultInstance(), 0.03));
+                add(new NewLotteries.Loot(CrystalItems.BLUE_CRYSTAL_A.get().getDefaultInstance(), 0.02));
+                add(new NewLotteries.Loot(SuperColdItems.SUPER_COLD_STONE.get().getDefaultInstance(), 0.4));
+                add(new NewLotteries.Loot(SuperColdItems.SUPER_COLD_CARROT.get().getDefaultInstance(), 0.5));
+            }}, 0.03));
+
+    public static final RegistryObject<Item> ICE_DRAGON_MEDAL = ITEMS.register("ice_dragon_medal",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold)));
 }

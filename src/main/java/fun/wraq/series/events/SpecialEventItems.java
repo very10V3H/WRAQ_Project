@@ -26,7 +26,7 @@ import fun.wraq.series.events.spring2024.FireCracker;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.events.spring2024.Spring2024Scale;
 import fun.wraq.series.events.spring2025.curios.*;
-import fun.wraq.series.events.summer.SummerCuriosOrEquip2024;
+import fun.wraq.series.events.summer2024.SummerCuriosOrEquip2024;
 import fun.wraq.series.events.train.TrainSouvenirs;
 import fun.wraq.series.events.year2024.Souvenirs2024;
 import fun.wraq.series.gems.WraqGem;

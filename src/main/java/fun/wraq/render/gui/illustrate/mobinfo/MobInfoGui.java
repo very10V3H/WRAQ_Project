@@ -138,7 +138,7 @@ public class MobInfoGui extends Screen {
                     if (x > this.width / 2 + 50 - 20 && x < this.width / 2 + 50 + 20
                             && y > this.height / 2 - 73 + 32 * i - 4 && y < this.height / 2 - 73 + 32 * i + 8) {
                         List<Component> description = new ArrayList<>();
-                        description.add(Te.s("怪物(主要)属性", CustomStyle.styleOfRed));
+                        description.add(Te.s(mobInfo.name));
                         MobAttributes attributes = mobInfo.attributes;
                         description.add(Te.s(" · 基础攻击 ", CustomStyle.styleOfVolcano,
                                 String.format("%.0f", attributes.attackDamage)));
@@ -252,7 +252,7 @@ public class MobInfoGui extends Screen {
                         " ", controller.name),
                         controller.mobXpLevel,
                         controller.getRewardItemList(),
-                        List.of(),
+                        controller.getSpecialDescription(),
                         controller.getMobAttributes()));
             });
         }

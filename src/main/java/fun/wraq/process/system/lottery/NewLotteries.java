@@ -95,6 +95,7 @@ public class NewLotteries extends Item {
     protected final Item followItem;
     protected final boolean isFoiled;
     protected List<Component> description;
+    protected double notifyRate = 0.01;
 
     public NewLotteries(Properties properties, List<Loot> loots, Item key, Item followItem, boolean isFoiled) {
         super(properties);
@@ -117,6 +118,11 @@ public class NewLotteries extends Item {
 
     public NewLotteries(Properties properties, List<Loot> loots) {
         this(properties, loots, null, null, false);
+    }
+
+    public NewLotteries(Properties properties, List<Loot> loots, double notifyRate) {
+        this(properties, loots, null, null, false);
+        this.notifyRate = notifyRate;
     }
 
     public NewLotteries(Properties properties, List<Loot> loots, boolean isFoiled, List<Component> description) {
@@ -279,7 +285,7 @@ public class NewLotteries extends Item {
             randomCurios.setAttribute(reward);
         }
         if ((getRewardSerial.containsKey(lottery) && serialNum < getRewardSerial.get(lottery))
-                || loot.rate < 0.01) {
+                || loot.rate <= notifyRate) {
             Compute.formatBroad(player.level(), Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(player.getDisplayName()).

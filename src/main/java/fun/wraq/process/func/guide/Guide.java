@@ -157,7 +157,7 @@ public class Guide {
                 });
             }), StageV2.FOREST_EQUIP));
             guides.add(new Guide(List.of(
-                    Te.s("锻造任意", "森林装备", CustomStyle.styleOfForest),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "森林装备", CustomStyle.styleOfForest),
                     Te.s("击杀", "森林僵尸", CustomStyle.styleOfForest, "收集", ModItems.FOREST_SOUL.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.FOREST_RUNE.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
@@ -170,7 +170,7 @@ public class Guide {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.LAKE_RUNE.get()));
             }), StageV2.LAKE_EQUIP));
             guides.add(new Guide(List.of(
-                    Te.s("锻造任意", "湖泊装备", CustomStyle.styleOfLake),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "湖泊装备", CustomStyle.styleOfLake),
                     Te.s("击杀", "河流故灵", CustomStyle.styleOfLake, "收集", ModItems.LAKE_SOUL.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.LAKE_RUNE.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
@@ -181,7 +181,7 @@ public class Guide {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.MINE_RUNE.get()));
             }), StageV2.MINE_EQUIP));
             guides.add(new Guide(List.of(
-                    Te.s("锻造任意", "矿洞装备", CustomStyle.styleOfMine),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "矿洞装备", CustomStyle.styleOfMine),
                     Te.s("击杀", "被遗忘的矿工", CustomStyle.styleOfMine, "收集", ModItems.MINE_SOUL.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.MINE_RUNE.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
@@ -202,7 +202,7 @@ public class Guide {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(PickaxeItems.TINKER_IRON.get(), 1));
             }), StageV2.VOLCANO_EQUIP));
             guides.add(new Guide(List.of(
-                    Te.s("锻造任意", "火山装备", CustomStyle.styleOfVolcano),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "火山装备", CustomStyle.styleOfVolcano),
                     Te.s("击杀", "焰芒虫/燃魂", CustomStyle.styleOfVolcano, "收集", ModItems.VOLCANO_SOUL.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.VOLCANO_RUNE.get()),
                     Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
@@ -214,17 +214,18 @@ public class Guide {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.EVOKER_RUNE.get()));
             }), StageV2.PLAIN_BOSS));
             guides.add(new Guide(List.of(
-                    Te.s("击败", "普莱尼", CustomStyle.styleOfPlain),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "普莱尼", CustomStyle.styleOfPlain),
                     Te.s("提示:", ChatFormatting.AQUA, "需要", "大量经验", ChatFormatting.LIGHT_PURPLE, "?"),
-                    Te.s("前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
+                    Te.s("可前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
                             "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.PLAIN_BOSS_SOUL.get(), 8));
             }), 40, StageV2.PASSIVE_4_LEVEL));
             guides.add(new Guide(List.of(
-                    Te.s("将", "任意被动技能", ChatFormatting.GREEN, "提升至", "4级", ChatFormatting.LIGHT_PURPLE),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "将", "任意被动技能", ChatFormatting.GREEN,
+                            "提升至", "4级", ChatFormatting.LIGHT_PURPLE),
                     Te.s("提示:", ChatFormatting.AQUA, "需要", "大量经验", ChatFormatting.LIGHT_PURPLE, "?"),
-                    Te.s("前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
+                    Te.s("可前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
                             "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GEM_PIECE.get(), 16));
@@ -238,7 +239,7 @@ public class Guide {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
             }), StageV2.TO_NETHER));
             guides.add(new Guide(List.of(
-                    Te.s("前往", "下界", CustomStyle.styleOfNether),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "前往", "下界", CustomStyle.styleOfNether),
                     Te.s("前往", "天空城下界协会", CustomStyle.styleOfNether, "购买", ModItems.NETHER_PEARL.get()),
                     Te.s("右键使用", ChatFormatting.AQUA, "前往", "下界", CustomStyle.styleOfNether),
                     Te.s("提示: ", ChatFormatting.AQUA, "若要前往", "终界", CustomStyle.styleOfEnd, "也可购买", ModItems.END_PEARL.get())
@@ -246,38 +247,38 @@ public class Guide {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.NETHER_PEARL.get(), 8));
             }), StageV2.NETHER_BOSS));
             guides.add(new Guide(List.of(
-                    Te.s("击败", "燃魂", CustomStyle.styleOfPower),
+                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "燃魂", CustomStyle.styleOfPower),
                     Te.s("提示: ", ChatFormatting.AQUA, "若缺失", "防御属性", CustomStyle.styleOfStone),
                     Te.s("可以击杀", JorogumoSpawnController.mobName, CustomStyle.styleOfJacaranda, "获取", ModItems.LAVENDER_BRACELET.get())
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.NETHER_IMPRINT.get(), 4));
             }), 80, StageV2.PURPLE_IRON_BOSS));
             guides.add(new Guide(List.of(
-                    Te.s("击败", "紫水晶巨蟹", CustomStyle.styleOfPurpleIron)
+                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "紫水晶巨蟹", CustomStyle.styleOfPurpleIron)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.PURPLE_IRON_BOW_2.get(), 1));
             }), 96, StageV2.ICE_KNIGHT));
             guides.add(new Guide(List.of(
-                    Te.s("击败", "冰霜骑士", CustomStyle.styleOfIce)
+                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "冰霜骑士", CustomStyle.styleOfIce)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.ICE_BOSS_SOUL.get(), 16));
             }), 108, StageV2.SAKURA_BOSS));
             guides.add(new Guide(List.of(
-                    Te.s("击败", "突见忍", CustomStyle.styleOfSakura)
+                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "突见忍", CustomStyle.styleOfSakura)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.Boss2Piece.get(), 8));
             }), 150, StageV2.DEVIL_BOSS));
             guides.add(new Guide(List.of(
-                    Te.s("击败", "魔王", CustomStyle.styleOfDemon)
+                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "魔王", CustomStyle.styleOfDemon)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.DEVIL_LOOT.get(), 8));
             }), 150, StageV2.MOON_BOSS));
             guides.add(new Guide(List.of(
-                    Te.s("击败", "阿尔忒弥斯", CustomStyle.styleOfMoon)
+                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "阿尔忒弥斯", CustomStyle.styleOfMoon)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.MOON_LOOT.get(), 8));

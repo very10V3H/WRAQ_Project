@@ -15,7 +15,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -90,21 +89,20 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), this.level);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
-
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         mobList.add(entity);
+        MobSpawn.setCanNotAddSlowDownOrImprison(entity);
     }
 
     @Override
     public boolean allowReward(Player player) {
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.enderGuardian);
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss);
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Te.s("需要至少", "获得过", ChatFormatting.GREEN, "1件", ChatFormatting.AQUA,
-                "望山装备", CustomStyle.styleOfMoontain, "，方能获取奖励");
+        return NoTeamInstanceModule.AllowRewardCondition.BLACK_CASTLE_WEAPON;
     }
 
     public List<ItemAndRate> getRewardList() {

@@ -73,6 +73,7 @@ import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingMingCommonRing;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
@@ -80,6 +81,7 @@ import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import fun.wraq.series.overworld.cold.sc5.dragon.SuperColdCarrot;
 import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -276,8 +278,10 @@ public class Compute {
         });*/
     }
 
-    public static void addSlowDownEffect(Mob mob, int Tick, int Tier) {
-        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Tick, Tier, false, false, false));
+    public static void addSlowDownEffect(Mob mob, int tick, int tier) {
+        if (MobSpawn.canAddSlowDownOrImprison(mob)) {
+            mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, tick, tier, false, false, false));
+        }
 /*        List<ServerPlayer> playerList = livingEntity.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new SlowDownParticleS2CPacket(livingEntity.getId(), Tick), serverPlayer);
@@ -952,7 +956,7 @@ public class Compute {
         return CalendarToString(calendar);
     }
 
-    public static int playerReputation(Player player) {
+    public static int getPlayerReputation(Player player) {
         CompoundTag data = player.getPersistentData();
         return data.getInt(StringUtils.Reputation);
     }
@@ -979,11 +983,11 @@ public class Compute {
         return tmpDate.format(deltaTime.getTime());
     }
 
-    public static boolean costReputation(Player player, int num) {
+    public static boolean addOrCostReputation(Player player, int num) {
         CompoundTag data = player.getPersistentData();
         ChatFormatting chatFormatting = ChatFormatting.GREEN;
         if (num < 0) {
-            if (playerReputation(player) + num < 0) {
+            if (getPlayerReputation(player) + num < 0) {
                 Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                         Component.literal("当前声望不足。").withStyle(ChatFormatting.WHITE));
                 return false;
@@ -993,7 +997,7 @@ public class Compute {
         data.putInt(StringUtils.Reputation, data.getInt(StringUtils.Reputation) + num);
         Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                 Component.literal("你的声望值:").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("" + playerReputation(player)).withStyle(ChatFormatting.YELLOW)).
+                        append(Component.literal("" + getPlayerReputation(player)).withStyle(ChatFormatting.YELLOW)).
                         append(Component.literal(" (" + num + ")").withStyle(chatFormatting)));
         ModNetworking.sendToClient(new ReputationValueS2CPacket(data.getInt(StringUtils.Reputation)), (ServerPlayer) player);
         return true;
@@ -1095,8 +1099,11 @@ public class Compute {
         level.addFreshEntity(itemEntity);
     }
 
-    public static void AdditionEffects(Player player, Mob mob, double damage, int type) {
-        if (!Element.ElementPieceOnWeapon(player)) Element.giveResonanceElement(player);
+    public static void additionEffects(Player player, Mob mob, double damage, int type) {
+        if (!Element.ElementPieceOnWeapon(player)) {
+            Element.giveResonanceElement(player);
+        }
+        SuperColdCarrot.onHit(player, mob);
     }
 
     public static boolean thisTeamIsChallenging(PlayerTeam playerTeam) {
@@ -1825,6 +1832,7 @@ public class Compute {
         rate += RankData.getExHarvestRate(player);
         rate += LabourDayOldCoin.getExHarvest();
         rate += EstateUtil.getExHarvestRate(player);
+        rate += Summer2025.getExHarvestRate();
         return rate;
     }
 
@@ -1956,6 +1964,15 @@ public class Compute {
             @Override
             public int compare(Player o1, Player o2) {
                 return (int) (o1.distanceTo(livingEntity) - o2.distanceTo(livingEntity));
+            }
+        }).orElse(null);
+    }
+
+    public static Mob getNearestMob(Player player, double radius) {
+        return getNearMob(player.level(), player.position(), radius).stream().min(new Comparator<Mob>() {
+            @Override
+            public int compare(Mob o1, Mob o2) {
+                return (int) (o1.distanceTo(player) - o2.distanceTo(player));
             }
         }).orElse(null);
     }
@@ -2174,6 +2191,11 @@ public class Compute {
         serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z, rotX, rotY);
     }
 
+    public static void teleportPlayerToPos(Player player, Vec3 pos, float rotX, float rotY) {
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z, rotX, rotY);
+    }
+
     public static final String CHALLENGE_RECORD_KEY = "ChallengeRecord";
 
     public static CompoundTag getChallengeRecordData(Player player) {
@@ -2260,6 +2282,26 @@ public class Compute {
             LogUtils.getLogger().info(content);
         } else {
             player.sendSystemMessage(Te.s(content));
+        }
+    }
+
+    public static @Nullable Mob getDefaultTarget(Player player) {
+        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, 32);
+        if (!set.isEmpty()) {
+            return set.stream().min(new Comparator<Mob>() {
+                @Override
+                public int compare(Mob o1, Mob o2) {
+                    return (int) (o1.distanceTo(player) - o2.distanceTo(player));
+                }
+            }).orElse(null);
+        }
+        return null;
+    }
+
+    public static void addImprisonEffectToMob(Mob mob, int lastTick) {
+        if (MobSpawn.canAddSlowDownOrImprison(mob)) {
+            mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, lastTick, 99, false, false, false));
+            Compute.sendMobEffectHudToNearPlayer(mob, "hud/imprison", "imprison", lastTick, 0, false);
         }
     }
 }

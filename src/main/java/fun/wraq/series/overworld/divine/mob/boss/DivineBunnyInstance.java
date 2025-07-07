@@ -88,6 +88,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
+        MobSpawn.setCanNotAddSlowDownOrImprison(mob);
     }
 
     private void commonAttack() {

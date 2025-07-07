@@ -254,7 +254,7 @@ public class ServerPlayerTickEvent {
                 List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
                 mobList.forEach(mob -> {
                     if (mob.distanceTo(player) <= 6) {
-                        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2, false, false));
+                        Compute.addSlowDownEffect(mob, 40, 2);
                         player.getServer().getPlayerList().getPlayers().forEach(TmpServerPlayer -> {
                             ModNetworking.sendToClient(new SlowDownParticleS2CPacket(mob.getId(), 40), TmpServerPlayer);
                         });

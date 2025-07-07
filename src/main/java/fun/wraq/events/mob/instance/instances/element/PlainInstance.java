@@ -113,6 +113,7 @@ public class PlainInstance extends NoTeamInstance {
         zombie.moveTo(pos);
         level.addFreshEntity(zombie);
         mobList.add(zombie);
+        MobSpawn.setCanNotAddSlowDownOrImprison(zombie);
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(zombie.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);

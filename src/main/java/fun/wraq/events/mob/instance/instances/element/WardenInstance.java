@@ -10,7 +10,6 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -124,14 +123,12 @@ public class WardenInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
+        MobSpawn.setCanNotAddSlowDownOrImprison(warden);
     }
 
     @Override
     public boolean allowReward(Player player) {
-        if (MobSpawn.getPlayerKillCount(player, CitadelGuardianInstance.mobName) >= 50) {
-            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.warden, true);
-        }
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.warden);
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss);
     }
 
     @Override
@@ -141,8 +138,7 @@ public class WardenInstance extends NoTeamInstance {
 
     @Override
     public Component allowRewardCondition() {
-        return Te.s("必须击杀", CitadelGuardianInstance.mobName, CustomStyle.styleOfEnd, "至少",
-                "50次", ChatFormatting.RED, "才能获取奖励。");
+        return NoTeamInstanceModule.AllowRewardCondition.BLACK_CASTLE_WEAPON;
     }
 
     public List<ItemAndRate> getRewardList() {

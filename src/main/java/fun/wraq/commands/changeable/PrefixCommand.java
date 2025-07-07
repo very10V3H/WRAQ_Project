@@ -29,7 +29,7 @@ import fun.wraq.events.mob.chapter6_castle.BeaconSpawnController;
 import fun.wraq.events.mob.chapter6_castle.BlazeSpawnController;
 import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
 import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
-import fun.wraq.events.mob.chapter7.StarSpawnController;
+import fun.wraq.events.mob.chapter7.StarVexSpawnController;
 import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
@@ -270,7 +270,7 @@ public class PrefixCommand implements Command<CommandSourceStack> {
                     new SimplePrefixType(NewCastleInstance.getInstance().description.toString(), 320,
                             "旧世城主", CustomStyle.styleOfCastle),
 
-                    new SimplePrefixType(StarSpawnController.mobName, 1000, "星梦之灵", CustomStyle.styleOfMoon1),
+                    new SimplePrefixType(StarVexSpawnController.mobName, 1000, "星梦之灵", CustomStyle.styleOfMoon1),
                     new SimplePrefixType(BoneImpSpawnController.mobName, 1000, "炽焰魂魄", CustomStyle.styleOfVolcano),
                     new SimplePrefixType(TorturedSoulSpawnController.mobName, 1000, "解脱者", CustomStyle.styleOfWorld),
 

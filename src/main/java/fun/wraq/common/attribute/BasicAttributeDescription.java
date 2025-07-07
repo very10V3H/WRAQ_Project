@@ -201,7 +201,7 @@ public class BasicAttributeDescription {
                 false, null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackSpeed, Utils.attackSpeedEnhance,
-                "", "攻击速度",
+                StringUtils.RandomCuriosAttribute.attackSpeedEnhance, "攻击速度",
                 CustomStyle.styleOfFlexible, 0, true, itemStack,
                 false, null, event.getTooltipElements());
 
@@ -641,6 +641,11 @@ public class BasicAttributeDescription {
             }
         }
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaRecover, Utils.percentManaRecover,
+                StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, "法力回复",
+                Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1, true, itemStack,
+                false, CustomStyle.styleOfMana, event.getTooltipElements());
+
         if (Utils.manaRecover.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaRecover)
                 || data.contains(StringUtils.RandomAttribute.manaRecover)) {
             if (itemStack.is(ModItems.SOUL_SCEPTRE.get())) {
@@ -695,7 +700,8 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.movementSpeed, Utils.movementSpeedCommon,
                 StringUtils.RandomCuriosAttribute.commonMovementSpeed, "移动速度",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack, true, CustomStyle.styleOfFlexible, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack,
+                true, CustomStyle.styleOfFlexible, event.getTooltipElements());
 
         if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.movementSpeed)
                 || data.contains(StringUtils.RandomAttribute.movementSpeedWithoutBattle)) {
@@ -1213,12 +1219,14 @@ public class BasicAttributeDescription {
             if (fullRateGetByTag != 0) {
                 fullRate = fullRateGetByTag;
             }
-            double percent = rate / fullRate;
-            Style[] styles = new Style[]{CustomStyle.styleOfPlain, CustomStyle.styleOfWater,
-                    CustomStyle.styleOfVolcano, CustomStyle.styleOfPower, Style.EMPTY.applyFormat(ChatFormatting.RED)};
-            mutableComponent.append(Te.m(" [").
-                    append(Te.m(String.format("%.2f%%", percent * 100), styles[Math.min(4, (int) (percent / 0.3))])).
-                    append(Te.m("]")));
+            if (fullRate != 0) {
+                double percent = rate / fullRate;
+                Style[] styles = new Style[]{CustomStyle.styleOfPlain, CustomStyle.styleOfWater,
+                        CustomStyle.styleOfVolcano, CustomStyle.styleOfPower, Style.EMPTY.applyFormat(ChatFormatting.RED)};
+                mutableComponent.append(Te.m(" [").
+                        append(Te.m(String.format("%.2f%%", percent * 100), styles[Math.min(4, (int) (percent / 0.3))])).
+                        append(Te.m("]")));
+            }
         }
     }
 

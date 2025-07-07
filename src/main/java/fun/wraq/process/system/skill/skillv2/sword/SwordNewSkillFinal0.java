@@ -70,7 +70,7 @@ public class SwordNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2All
                 "的", "注魔之刃", ChatFormatting.LIGHT_PURPLE));
         components.add(Te.s("在持续时间内，普通攻击将释放", "剑气", CustomStyle.styleOfPower));
         components.add(Te.s("剑气", CustomStyle.styleOfPower, "会对沿途的目标造成",
-                getRateDescription(2, 0.2, level), CustomStyle.styleOfPower, "伤害。"));
+                getRateDescription(3, 0.3, level), CustomStyle.styleOfPower, "伤害。"));
         components.add(ComponentUtils.getCritDamageInfluenceDescription());
         return components;
     }
@@ -88,7 +88,7 @@ public class SwordNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2All
                 public void onHitEntity(Mob mob) {
                     if (player != null && !level().isClientSide) {
                         Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob,
-                                ((2 + effectTierMap.get(player) * 0.2
+                                ((3 + effectTierMap.get(player) * 0.3
                                         + (BrokenBlade.enhanceSwordSkillV2_4(player) ? 1 : 0)))
                                         * (1 + skillV2.getEnhanceRate(player)));
                     }

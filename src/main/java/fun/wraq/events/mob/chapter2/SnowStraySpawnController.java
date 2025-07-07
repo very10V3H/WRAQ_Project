@@ -9,7 +9,6 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -88,10 +87,6 @@ public class SnowStraySpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.SNOW_SOUL.get(), 0.8));
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.5));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.SNOW_CREST_0.get(), 0.02));
-            add(new ItemAndRate(ModItems.SNOW_CREST_1.get(), 0.005));
-            add(new ItemAndRate(ModItems.SNOW_CREST_2.get(), 0.001));
-            add(new ItemAndRate(ModItems.SNOW_CREST_3.get(), 0.0002));
             add(new ItemAndRate(ModItems.ICE_ELEMENT_PIECE_0.get(), 0.2));
             add(new ItemAndRate(C2LootItems.SNOW_STRAY_PICKAXE.get(), 0.005));
         }};
