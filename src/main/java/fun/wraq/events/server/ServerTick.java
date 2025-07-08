@@ -3,6 +3,7 @@ package fun.wraq.events.server;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.events.core.BowEvent;
 import fun.wraq.files.dataBases.DataBase;
+import fun.wraq.items.m.Main0;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.func.damage.SputteringDamage;
@@ -82,6 +83,7 @@ public class ServerTick {
             if (tickCount % 200 == 98) {
                 WeeklyStore.handleServerTick();
             }
+            Main0.handleServerTick();
         }
     }
 

@@ -71,7 +71,7 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixOfSummerEvent();
+        return ComponentUtils.getSuffixOfSummer2024();
     }
 
     private double getRate(Player player) {

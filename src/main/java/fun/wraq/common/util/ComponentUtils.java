@@ -590,8 +590,12 @@ public class ComponentUtils {
         return Te.s("附带", "攻击特效", CustomStyle.styleOfSea);
     }
 
-    public static Component getSuffixOfSummerEvent() {
-        return Component.literal(" 2024暑期活动").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfPower);
+    public static Component getSuffixOfSummer2024() {
+        return Te.s(" 2024暑期活动", ChatFormatting.BOLD, CustomStyle.styleOfPower);
+    }
+
+    public static Component getSuffixOfSummer2025() {
+        return Te.s(" 2025暑期活动", ChatFormatting.BOLD, CustomStyle.styleOfPower);
     }
 
     public static Component getCommonDamageEnhance(String value) {

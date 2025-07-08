@@ -6,6 +6,7 @@ import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.element.*;
 import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.season.MySeason;
@@ -94,6 +95,7 @@ public class ElementValue {
         double value = 0;
         value += getCommonRate(player, Element.fireElementValue, FireElementValue, Element.fire);
         value += FireElementSword.FireElementValueEnhance(player);
+        value += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerFireElementStrength);
         // 百分比分割线
         double enhanceRate = 0;
         enhanceRate += RevenantGoldenHelmet.getFireElementValueEnhanceRate(player);
@@ -116,6 +118,7 @@ public class ElementValue {
     public static double getPlayerIceElementValue(Player player) {
         double value = 0;
         value += getCommonRate(player, Element.iceElementValue, IceElementValue, Element.ice);
+        value += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerIceElementStrength);
         // 百分比分割线
         value *= IceCurios0.playerIceElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.ice));

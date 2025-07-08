@@ -46,6 +46,7 @@ import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelCurio;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
 import fun.wraq.series.holy.ice.FrostInstance;
@@ -537,6 +538,7 @@ public class Damage {
             damage *= WardenInstance.mobWithstandDamageRate(mob, player);
             damage = NewTeamInstanceHandler.judgeDamage(player, mob, damage);
             damage *= NoTeamInstanceModule.onMobWithstandDamageRate(player, mob);
+            damage = Summer2025.getMobWithstandModifiedDamage(player, mob, damage);
 
             double finalDamage = damage;
             if (finalDamage == 0) {
@@ -587,6 +589,7 @@ public class Damage {
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
             JungleMobSpawn.onMobWithstandDamage(mob, player, damage);
             ManaCurios4.onCauseDamage(player);
+            Summer2025.onKill(player, mob);
         }
     }
 

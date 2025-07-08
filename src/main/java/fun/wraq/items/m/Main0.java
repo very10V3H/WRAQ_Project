@@ -1,9 +1,7 @@
 package fun.wraq.items.m;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.series.overworld.cold.SuperColdItems;
-import fun.wraq.series.overworld.cold.sc5.dragon.curio.SuperColdDragonCurio;
+import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -43,18 +41,16 @@ public class Main0 extends Item {
         super.appendHoverText(stack, p_41422_, components, flag);
     }
 
+    public static void handleServerTick() {
+
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
-
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            for (int i = 0; i < 9; i++) {
-                ItemStack curios = new ItemStack(SuperColdItems.DRAGON_CURIO.get());
-                SuperColdDragonCurio curio = (SuperColdDragonCurio) curios.getItem();
-                curio.setAttribute(curios);
-                InventoryOperation.giveItemStack(player, curios);
-            }
+            Summer2025.lastTrigHour = -1;
 /*            int total = 0;
             int tier0 = 0;
             int tier1 = 0;
@@ -78,19 +74,15 @@ public class Main0 extends Item {
             player.sendSystemMessage(Te.s("tier2:", tier2));
             player.sendSystemMessage(Te.s("tier3:", tier3));*/
         }
-
         if (!level.isClientSide && player.isShiftKeyDown()) {
 
         }
-
         if (level.isClientSide && !player.isShiftKeyDown()) {
 
         }
-
         if (level.isClientSide && player.isShiftKeyDown()) {
 
         }
-
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
 

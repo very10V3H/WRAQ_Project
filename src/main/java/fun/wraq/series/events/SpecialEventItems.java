@@ -7,6 +7,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.events.dragonboat.MeatZongZi;
@@ -27,6 +28,13 @@ import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.events.spring2024.Spring2024Scale;
 import fun.wraq.series.events.spring2025.curios.*;
 import fun.wraq.series.events.summer2024.SummerCuriosOrEquip2024;
+import fun.wraq.series.events.summer2025.candy.CandyHot;
+import fun.wraq.series.events.summer2025.candy.CandyIce;
+import fun.wraq.series.events.summer2025.candy.CandySweet;
+import fun.wraq.series.events.summer2025.curio.ShakeDefenceCurio;
+import fun.wraq.series.events.summer2025.curio.ShakeHealthCurio;
+import fun.wraq.series.events.summer2025.curio.SodaAttackCurio;
+import fun.wraq.series.events.summer2025.curio.SodaManaCurio;
 import fun.wraq.series.events.train.TrainSouvenirs;
 import fun.wraq.series.events.year2024.Souvenirs2024;
 import fun.wraq.series.gems.WraqGem;
@@ -360,4 +368,70 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> DRAGON_DIAMOND = ITEMS.register("dragon_diamond",
             () -> new DragonDiamond(new Item.Properties().rarity(CustomStyle.WorldBold)));
+
+    public static final RegistryObject<Item> SNACK_SILVER_COIN = ITEMS.register("snack_silver_coin",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SNACK_GOLD_COIN = ITEMS.register("snack_gold_coin",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> SODA_ATTACK_CURIO_0 = ITEMS.register("soda_attack_curio_0",
+            () -> new SodaAttackCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+    public static final RegistryObject<Item> SODA_ATTACK_CURIO_1 = ITEMS.register("soda_attack_curio_1",
+            () -> new SodaAttackCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
+    public static final RegistryObject<Item> SODA_ATTACK_CURIO_2 = ITEMS.register("soda_attack_curio_2",
+            () -> new SodaAttackCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+    public static final RegistryObject<Item> SODA_ATTACK_CURIO_3 = ITEMS.register("soda_attack_curio_3",
+            () -> new SodaAttackCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 3));
+
+    public static final RegistryObject<Item> SODA_MANA_CURIO_0 = ITEMS.register("soda_mana_curio_0",
+            () -> new SodaManaCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+    public static final RegistryObject<Item> SODA_MANA_CURIO_1 = ITEMS.register("soda_mana_curio_1",
+            () -> new SodaManaCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
+    public static final RegistryObject<Item> SODA_MANA_CURIO_2 = ITEMS.register("soda_mana_curio_2",
+            () -> new SodaManaCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+    public static final RegistryObject<Item> SODA_MANA_CURIO_3 = ITEMS.register("soda_mana_curio_3",
+            () -> new SodaManaCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 3));
+
+    public static final RegistryObject<Item> SHAKE_HEALTH_CURIO_0 = ITEMS.register("shake_health_curio_0",
+            () -> new ShakeHealthCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+    public static final RegistryObject<Item> SHAKE_HEALTH_CURIO_1 = ITEMS.register("shake_health_curio_1",
+            () -> new ShakeHealthCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
+    public static final RegistryObject<Item> SHAKE_HEALTH_CURIO_2 = ITEMS.register("shake_health_curio_2",
+            () -> new ShakeHealthCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+    public static final RegistryObject<Item> SHAKE_HEALTH_CURIO_3 = ITEMS.register("shake_health_curio_3",
+            () -> new ShakeHealthCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 3));
+
+    public static final RegistryObject<Item> SHAKE_DEFENCE_CURIO_0 = ITEMS.register("shake_defence_curio_0",
+            () -> new ShakeDefenceCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+    public static final RegistryObject<Item> SHAKE_DEFENCE_CURIO_1 = ITEMS.register("shake_defence_curio_1",
+            () -> new ShakeDefenceCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
+    public static final RegistryObject<Item> SHAKE_DEFENCE_CURIO_2 = ITEMS.register("shake_defence_curio_2",
+            () -> new ShakeDefenceCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 2));
+    public static final RegistryObject<Item> SHAKE_DEFENCE_CURIO_3 = ITEMS.register("shake_defence_curio_3",
+            () -> new ShakeDefenceCurio(new Item.Properties().rarity(CustomStyle.IceItalic), 3));
+
+    public static final RegistryObject<Item> FRESH_WATER = ITEMS.register("snack_fresh_water",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> CANDY_ICE = ITEMS.register("candy_ice",
+            () -> new CandyIce(new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> CANDY_HOT = ITEMS.register("candy_hot",
+            () -> new CandyHot(new Item.Properties().rarity(CustomStyle.FireItalic)));
+    public static final RegistryObject<Item> CANDY_SWEET = ITEMS.register("candy_sweet",
+            () -> new CandySweet(new Item.Properties().rarity(CustomStyle.SakuraItalic)));
+
+    public static final RegistryObject<Item> SNACK_CHEST = ITEMS.register("snack_chest",
+            () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.GoldBold), new ArrayList<>() {{
+                add(new NewLotteries.Loot(new ItemStack(SODA_ATTACK_CURIO_0.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SODA_MANA_CURIO_0.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SHAKE_HEALTH_CURIO_0.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SHAKE_DEFENCE_CURIO_0.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(CANDY_ICE.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(CANDY_HOT.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(CANDY_SWEET.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(CrystalItems.YELLOW_CRYSTAL_A.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SNACK_GOLD_COIN.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SNACK_SILVER_COIN.get()), 0.02));
+            }}));
+
 }

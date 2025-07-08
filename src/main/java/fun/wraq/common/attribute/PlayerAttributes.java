@@ -967,6 +967,8 @@ public class PlayerAttributes {
                         StringUtils.RandomCuriosAttribute.percentHealthRecover) * player.getMaxHealth();
         healthRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentHealthRecover)
                 * player.getMaxHealth();
+        healthRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentHealthRecover)
+                * player.getMaxHealth();
 
         // 请在上方添加
         double exRate = 0;
@@ -1106,7 +1108,6 @@ public class PlayerAttributes {
         exDamage += CastleNewRune.manaDamage(player);
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exManaDamage);
-        exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         exDamage += ManaCurios4.getExManaDamage(player);
         // 请在上方添加
         double totalDamage = baseDamage + exDamage;

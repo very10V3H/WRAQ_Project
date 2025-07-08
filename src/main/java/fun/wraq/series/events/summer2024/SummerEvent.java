@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
@@ -251,5 +252,9 @@ public class SummerEvent {
         List<String> list = List.of(dailySummerVoucherGetTimesKey, dailyWorldSoul5GetTimesKey,
                 dailyExpGetTimesKey, dailySwimmingSecondsKey);
         list.forEach(data::remove);
+    }
+
+    public static boolean isInSummer() {
+        return MySeason.currentSeason.contains(MySeason.summer);
     }
 }

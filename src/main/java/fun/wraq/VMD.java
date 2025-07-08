@@ -66,6 +66,7 @@ import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.dragon.SilverDragonItems;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.holy.HolyItems;
 import fun.wraq.series.holy.ice.IceHolyItems;
@@ -139,7 +140,6 @@ public class VMD {
         ElementItems.ITEMS.register(modEvenBus);
         NewRuneItems.ITEMS.register(modEvenBus);
         GemItems.ITEMS.register(modEvenBus);
-        SpecialEventItems.ITEMS.register(modEvenBus);
         QuiverItems.ITEMS.register(modEvenBus);
         BladeItems.ITEMS.register(modEvenBus);
         MixtureItems.ITEMS.register(modEvenBus);
@@ -165,6 +165,7 @@ public class VMD {
         SilverDragonItems.ITEMS.register(modEvenBus);
         SuperColdItems.ITEMS.register(modEvenBus);
         ComsumableItems.ITEMS.register(modEvenBus);
+        SpecialEventItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -204,6 +205,7 @@ public class VMD {
         RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
         DailyEndlessInstanceEvent.onServerStop();
         AllayPet.onServerStop();
+        Summer2025.onServerStop();
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
         PurpleIronCommon.destroyOnServerStop();

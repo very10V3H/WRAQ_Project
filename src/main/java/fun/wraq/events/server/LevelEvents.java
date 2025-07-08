@@ -18,6 +18,7 @@ import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.instance.series.mushroom.UnknownGem;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.ChatFormatting;
@@ -121,6 +122,7 @@ public class LevelEvents {
             if (tick % 20 == 1) {
                 UnknownGem.handleLevelTick(level);
             }
+            Summer2025.handleOverworldLevelTick(level);
         }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
