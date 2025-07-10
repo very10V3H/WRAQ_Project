@@ -90,7 +90,7 @@ public class NewCastleInstance extends NewTeamInstance {
                 witherSkeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SCEPTRE.get().getDefaultInstance());
                 witherSkeleton.setItemSlot(EquipmentSlot.OFFHAND, ModItems.WITHER_BOOK.get().getDefaultInstance());
                 witherSkeleton.moveTo(pos.add(offset.get(i)));
-                mobList.add(new ConditionSummonMob(0, witherSkeleton, pos, 5));
+                mobList.add(new ConditionSummonMob(0, witherSkeleton, pos, 16));
             }
         });
 
@@ -115,7 +115,7 @@ public class NewCastleInstance extends NewTeamInstance {
             witherSkeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SWORD.get().getDefaultInstance());
             witherSkeleton.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MINE_SHIELD.get().getDefaultInstance());
             witherSkeleton.moveTo(pos.add(offset.get(random.nextInt(offset.size()))));
-            mobList.add(new ConditionSummonMob(0, witherSkeleton, pos, 5));
+            mobList.add(new ConditionSummonMob(0, witherSkeleton, pos, 16));
         });
     }
 
@@ -159,7 +159,7 @@ public class NewCastleInstance extends NewTeamInstance {
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SWORD.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MINE_SHIELD.get().getDefaultInstance());
                 zombie.moveTo(new Vec3(2372 + random.nextInt(6) - 3, 160, -1372 + random.nextInt(6) - 3));
-                mobList.add(new ConditionSummonMob(0, zombie, new Vec3(2372, 159, -1372), 10));
+                mobList.add(new ConditionSummonMob(0, zombie, new Vec3(2372, 159, -1372), 16));
             }
 
             for (int i = 0; i < 2; i++) {
@@ -176,23 +176,23 @@ public class NewCastleInstance extends NewTeamInstance {
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.CASTLE_SWORD.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MINE_SHIELD.get().getDefaultInstance());
                 zombie.moveTo(new Vec3(2372 + random.nextInt(6) - 3, 160, -1372 + random.nextInt(6) - 3));
-                mobList.add(new ConditionSummonMob(0, zombie, new Vec3(2372, 159, -1372), 10));
+                mobList.add(new ConditionSummonMob(0, zombie, new Vec3(2372, 159, -1372), 16));
             }
         }
     }
 
     @Override
     public void reward(Player player) {
-        if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.NOTE_PAPER.get(), 2)))) {
+        if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.NOTE_PAPER.get(), 4)))) {
             getRewardList().forEach(itemAndRate -> {
-                itemAndRate.sendWithMSG(player, 2);
+                itemAndRate.sendWithMSG(player, 4);
             });
-            Compute.givePercentExpToPlayer(player, 0.8, PlayerAttributes.expUp(player), 180);
+            Compute.givePercentExpToPlayer(player, 4, PlayerAttributes.expUp(player), 180);
         } else {
             Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
                             append(ModItems.NOTE_PAPER.get().getDefaultInstance().getDisplayName()).
-                            append(Te.s(" * 2", ChatFormatting.AQUA)).
+                            append(Te.s(" * 4", ChatFormatting.AQUA)).
                             append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
         }
     }

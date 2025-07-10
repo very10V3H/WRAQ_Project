@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
@@ -25,18 +26,18 @@ public class CandyHot extends WraqItem implements ActiveItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Te.s(" 右键使用（不消耗）获得持续5min的:", ChatFormatting.AQUA));
+        components.add(Te.s(" 右键使用，获得持续5min的:", ChatFormatting.AQUA));
         components.add(Te.s(" · ", CustomStyle.styleOfFire,
                 "归一化火元素强度 + 100%", CustomStyle.styleOfFire));
         components.add(Te.s(" · ", CustomStyle.styleOfFire,
-                ComponentUtils.AttributeDescription.attackDamage("10%")));
+                ComponentUtils.AttributeDescription.attackDamage("15%")));
         components.add(Te.s(" · ", CustomStyle.styleOfFire,
-                ComponentUtils.AttributeDescription.manaDamage("10%")));
+                ComponentUtils.AttributeDescription.manaDamage("15%")));
         components.add(Te.s(" · ", CustomStyle.styleOfFire,
                 ComponentUtils.AttributeDescription.defencePenetration("10%")));
         components.add(Te.s(" · ", CustomStyle.styleOfFire,
                 ComponentUtils.AttributeDescription.manaPenetration("10%")));
-        ComponentUtils.coolDownTimeDescription(components, 600);
+        ComponentUtils.coolDownTimeDescription(components, 300);
         super.appendHoverText(itemStack, level, components, tooltipFlag);
     }
 
@@ -45,14 +46,15 @@ public class CandyHot extends WraqItem implements ActiveItem {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerFireElementStrength,
                 "CandyHotModify", 1, Tick.get() + Tick.min(5));
         StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentAttackDamageModifier,
-                "CandyHotModify", 0.1, Tick.get() + Tick.min(5));
+                "CandyHotModify", 0.15, Tick.get() + Tick.min(5));
         StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentManaDamageModifier,
-                "CandyHotModify", 0.1, Tick.get() + Tick.min(5));
+                "CandyHotModify", 0.15, Tick.get() + Tick.min(5));
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
                 "CandyHotModify", 0.1, Tick.get() + Tick.min(5));
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetrationModifier,
                 "CandyHotModify", 0.1, Tick.get() + Tick.min(5));
-        player.getCooldowns().addCooldown(this, Tick.min(10));
+        player.getCooldowns().addCooldown(this, Tick.min(5));
+        InventoryOperation.removeItem(player, this, 1);
     }
 
     @Override

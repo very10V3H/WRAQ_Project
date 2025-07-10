@@ -1053,7 +1053,8 @@ public class BasicAttributeDescription {
     }};
 
     // 新的属性描述模板，仅需按照参数进行配置即可，但是需要注意的是，仅接受不能被强化增幅的属性。
-    public static int newAttributeCommonDescriptionTemplate(int index, ResourceLocation resourceLocation, Map<Item, Double> map,
+    public static int newAttributeCommonDescriptionTemplate(int index, ResourceLocation resourceLocation,
+                                                            Map<Item, Double> map,
                                                             String curiosAttributeTag, String attributeName,
                                                             Style style, int decimalScale, boolean isPercent,
                                                             ItemStack itemStack, boolean computeForge,
@@ -1063,49 +1064,48 @@ public class BasicAttributeDescription {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         double traditionalEquipBaseValue
                 = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, map, null, computeForge);
-
+        double exBaseAttributeValue = ExBaseAttributeValueEquip.getExBaseAttributeValue(itemStack, map);
         if (map.containsKey(item) || data.contains(curiosAttributeTag)
-                || traditionalEquipBaseValue != 0) {
+                || traditionalEquipBaseValue != 0 || exBaseAttributeValue != 0) {
             double value;
-
             if (map.containsKey(item) || traditionalEquipBaseValue != 0) {
                 value = traditionalEquipBaseValue;
+            } else if (item instanceof RandomCurios) {
+                value = data.getDouble(curiosAttributeTag)
+                        * RandomCuriosAttributesUtil.attributeValueMap.get(curiosAttributeTag);
+            } else {
+                value = data.getInt(curiosAttributeTag);
             }
-            else if (item instanceof RandomCurios)
-                value = data.getDouble(curiosAttributeTag) * RandomCuriosAttributesUtil.attributeValueMap.get(curiosAttributeTag);
-            else value = data.getInt(curiosAttributeTag);
-
             String percent = isPercent ? "%" : "";
             MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
-                    append(Component.literal((value > 0 ? "+" : "") + getDecimal(value * (isPercent ? 100 : 1), decimalScale) + percent)
-                            .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)));
-
+            if (value == 0 && exBaseAttributeValue == 0) {
+                return index;
+            }
+            mutableComponent.append(Component.literal(" " + attributeName).withStyle(style));
+            if (value != 0) {
+                mutableComponent.append(Component.literal((value > 0 ? "+" : "")
+                                + getDecimal(value * (isPercent ? 100 : 1), decimalScale) + percent)
+                        .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED));
+            }
             handleExBaseAttributeValue(itemStack, mutableComponent, map, decimalScale, isPercent);
-
             if (computeForge && value > 0) {
                 double exForgingValue = 0;
                 if (data.contains(StringUtils.ForgeLevel)) {
                     exForgingValue = Compute.forgingValue(data, value);
                 }
-
                 // 移动速度属性强化效能减半
                 if (map.equals(Utils.movementSpeedCommon)) {
                     exForgingValue /= 2;
                 }
-
                 if (exForgingValue != 0) {
                     mutableComponent.append(Component.literal(" + " + getDecimal(exForgingValue * (isPercent ? 100 : 1), decimalScale) + percent).withStyle(forgeValueStyle)).
                             append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower));
                 }
             }
-
             handleRandomAttributeRate(itemStack, curiosAttributeTag, mutableComponent);
-
             index++;
             components.add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, resourceLocation)));
         }
-
         return index;
     }
 

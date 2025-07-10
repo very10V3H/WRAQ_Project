@@ -11,6 +11,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -67,20 +68,22 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Decom
 
     @Override
     public void onHit(Player player, Mob mob) {
-        if (!playerTargetMap.containsKey(Name.get(player))) {
-            playerTargetMap.put(Name.get(player), mob);
-            mobEffectMap.put(mob, true);
-            Compute.sendMobEffectHudToNearPlayer(mob,
-                    "item/citadel_curio", "citadel curio passive", 0, 0, true);
-        } else {
-            Mob oldMob = playerTargetMap.get(Name.get(player));
-            if (!oldMob.equals(mob)) {
-                mobEffectMap.remove(oldMob);
-                Compute.removeMobEffectHudToNearPlayer(oldMob, "item/citadel_curio", "citadel curio passive");
-                Compute.sendMobEffectHudToNearPlayer(mob, "item/citadel_curio",
-                        "citadel curio passive", 0, 0, true);
+        if (Summer2025.canBeSpread(mob)) {
+            if (!playerTargetMap.containsKey(Name.get(player))) {
                 playerTargetMap.put(Name.get(player), mob);
                 mobEffectMap.put(mob, true);
+                Compute.sendMobEffectHudToNearPlayer(mob,
+                        "item/citadel_curio", "citadel curio passive", 0, 0, true);
+            } else {
+                Mob oldMob = playerTargetMap.get(Name.get(player));
+                if (!oldMob.equals(mob)) {
+                    mobEffectMap.remove(oldMob);
+                    Compute.removeMobEffectHudToNearPlayer(oldMob, "item/citadel_curio", "citadel curio passive");
+                    Compute.sendMobEffectHudToNearPlayer(mob, "item/citadel_curio",
+                            "citadel curio passive", 0, 0, true);
+                    playerTargetMap.put(Name.get(player), mob);
+                    mobEffectMap.put(mob, true);
+                }
             }
         }
     }

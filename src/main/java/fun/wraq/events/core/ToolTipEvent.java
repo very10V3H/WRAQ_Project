@@ -65,11 +65,9 @@ public class ToolTipEvent {
             event.getToolTip().add(
                     Component.literal(" - 可置于主手武器物品栏上方").
                             withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-
             event.getToolTip().add(
                     Component.literal(" - 基于数量为你的近战攻击/箭矢攻击/法球攻击/法术提供元素附加").
                             withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-
             event.getToolTip().add(
                     Component.literal(" - 你需要有一定的归一化元素强度，方可获得元素附加").
                             withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
@@ -100,7 +98,6 @@ public class ToolTipEvent {
                 if (InjectRecipe.productSourceItemMap.containsKey(item)) {
                     recipeList.add(InjectRecipe.injectingRecipeMap.get(InjectRecipe.productSourceItemMap.get(item)));
                 }
-
                 int stage = 0;
                 if (recipeList.size() > 4) {
                     stage = (ClientUtils.serverTick / Tick.s(3))
@@ -111,7 +108,6 @@ public class ToolTipEvent {
                 }
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
                         "->", ChatFormatting.GOLD));
-
                 for (int i = stage * 4; i < Math.min(recipeList.size(), stage * 4 + 4); i++) {
                     InjectingRecipe injectingRecipe = recipeList.get(i);
                     Item sourceItem = InjectRecipe.productSourceItemMap.get(injectingRecipe.product);
@@ -209,7 +205,6 @@ public class ToolTipEvent {
                 }
                 ComponentUtils.descriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
             }
-
             if (stack.is(ModItems.FOREST_BOSS_SWORD.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
@@ -338,7 +333,6 @@ public class ToolTipEvent {
         }
         CookingValue.handleToolTip(event.getItemStack(), tooltip);
         PocketItem.addTooltip(stack, tooltip);
-
         List<Item> betaItems = List.of(ExtraordinaryItems.KANUPUS_WING_F.get(),
                 ExtraordinaryItems.KANUPUS_SWORD.get(),
                 ExtraordinaryItems.SHIRO_BOW.get(),
@@ -346,5 +340,6 @@ public class ToolTipEvent {
         if (betaItems.contains(item)) {
             tooltip.add(Te.s("该物品处于测试阶段，未来有较大改动可能性.", CustomStyle.styleOfWorld));
         }
+        Compute.addExpiredDateTooltips(stack, tooltip);
     }
 }

@@ -44,10 +44,10 @@ public class ShakeDefenceCurio extends WraqCurios implements InCuriosOrEquipSlot
         components.add(Te.s(" 夏季时", CustomStyle.styleOfPower, "获得:"));
         components.add(Te.s(" · ", CustomStyle.styleOfPower,
                 ComponentUtils.AttributeDescription
-                        .defence(String.format("%.2f%%", getDefenceEnhanceRate() * 100))));
+                        .defence(String.format("%.0f%%", getDefenceEnhanceRate() * 100))));
         components.add(Te.s(" · ", CustomStyle.styleOfPower,
                 ComponentUtils.AttributeDescription
-                        .manaDefence(String.format("%.2f%%", getDefenceEnhanceRate() * 100))));
+                        .manaDefence(String.format("%.0f%%", getDefenceEnhanceRate() * 100))));
         return components;
     }
 

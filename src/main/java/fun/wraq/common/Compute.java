@@ -61,6 +61,7 @@ import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion
 import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.tower.Tower;
+import fun.wraq.process.system.tp.TpPass;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.hud.Mana;
@@ -396,8 +397,8 @@ public class Compute {
         }
     }
 
-    public static void broad(Level level, Component component, int blank) {
-        PlayerList list = level.getServer().getPlayerList();
+    public static void broad(Component component, int blank) {
+        PlayerList list = Tick.server.getPlayerList();
         List<ServerPlayer> list1 = list.getPlayers();
         String blankString = " ".repeat(blank);
         for (Player player : list1) {
@@ -2143,6 +2144,26 @@ public class Compute {
         data.putInt(valueKey, data.getInt(valueKey) + increment);
     }
 
+    public static void incrementDataIntValue(Player player, String key, int increment) {
+        CompoundTag data = player.getPersistentData();
+        data.putInt(key, data.getInt(key) + increment);
+    }
+
+    public static int getDataIntValue(Player player, String key) {
+        CompoundTag data = player.getPersistentData();
+        return data.getInt(key);
+    }
+
+    public static void setDataBooleanValue(Player player, String key, boolean value) {
+        CompoundTag data = player.getPersistentData();
+        data.putBoolean(key, value);
+    }
+
+    public static boolean getDataBooleanValue(Player player, String key) {
+        CompoundTag data = player.getPersistentData();
+        return data.getBoolean(key);
+    }
+
     public static Set<Mob> getPlayerVisionConicalMobs(Player player, int maxDistance) {
         Set<Mob> mobSet = new HashSet<>();
         for (int i = 0; i < maxDistance; i++) {
@@ -2297,6 +2318,52 @@ public class Compute {
         if (MobSpawn.canAddSlowDownOrImprison(mob)) {
             mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, lastTick, 99, false, false, false));
             Compute.sendMobEffectHudToNearPlayer(mob, "hud/imprison", "imprison", lastTick, 0, false);
+        }
+    }
+
+    public static final String EXPIRED_DATE_DATA_KEY = "ExpiredDate";
+
+    public static void setStackExpiredDate(ItemStack stack, Calendar expiredDate) {
+        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
+        tag.putString(EXPIRED_DATE_DATA_KEY, Compute.castCalendarToString(expiredDate));
+    }
+
+    public static @Nullable Calendar getStackExpiredDate(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
+        if (!tag.contains(EXPIRED_DATE_DATA_KEY)) {
+            return null;
+        }
+        return Compute.castStringToCalendar(tag.getString(EXPIRED_DATE_DATA_KEY));
+    }
+
+    public static boolean isExpiredDateValid(ItemStack stack) {
+        Calendar calendar = Calendar.getInstance();
+        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
+        if (tag.contains(EXPIRED_DATE_DATA_KEY)) {
+            Calendar recordDate = Compute.castStringToCalendar(tag.getString(EXPIRED_DATE_DATA_KEY));
+            return recordDate.after(calendar);
+        } else {
+            return true;
+        }
+    }
+
+    public static void addExpiredDateTooltips(ItemStack stack, List<Component> components) {
+        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
+        if (stack.getItem() instanceof TpPass) {
+            return;
+        }
+        if (tag.contains(EXPIRED_DATE_DATA_KEY)) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar expiredDate = Compute.castStringToCalendar(tag.getString(EXPIRED_DATE_DATA_KEY));
+            if (isExpiredDateValid(stack)) {
+                components.add(Te.s(" 在",
+                        dateFormat.format(expiredDate.getTime()), ChatFormatting.AQUA, "前有效"));
+            } else {
+                components.add(Te.s(" 在", ChatFormatting.STRIKETHROUGH,
+                        dateFormat.format(expiredDate.getTime()), ChatFormatting.AQUA, ChatFormatting.STRIKETHROUGH,
+                        "前有效", ChatFormatting.STRIKETHROUGH));
+                components.add(Te.s(" 已失效.", ChatFormatting.RED));
+            }
         }
     }
 }

@@ -139,6 +139,10 @@ public abstract class NoTeamInstance {
         return 1;
     }
 
+    public int getRewardNum() {
+        return 1;
+    }
+
     private boolean checkReason(Player player) {
         if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
             return Reason.getPlayerReasonValue(player) >= getRewardNeedItemCount();
@@ -176,7 +180,7 @@ public abstract class NoTeamInstance {
                             };
                             boolean isEquip
                                     = Utils.mainHandTag.containsKey(copyItem) || Utils.armorTag.containsKey(copyItem);
-                            ItemStack rewardStack = itemAndRate.sendWithMSG(player, 1,
+                            ItemStack rewardStack = itemAndRate.sendWithMSG(player, getRewardNum(),
                                     isEquip ? adjustStackBeforeGive : null);
                             boolean reward = !rewardStack.is(Items.AIR);
                             if (itemAndRate.getRate() <= 0.01 && reward) {

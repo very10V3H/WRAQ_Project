@@ -45,6 +45,23 @@
     "vmd:food_medal_0",
     "vmd:food_medal_1",
     "vmd:food_medal_2",
-    "vmd:food_medal_3"
+    "vmd:food_medal_3",
+
+    "vmd:soda_attack_curio_0",
+    "vmd:soda_attack_curio_1",
+    "vmd:soda_attack_curio_2",
+    "vmd:soda_attack_curio_3",
+    "vmd:soda_mana_curio_0",
+    "vmd:soda_mana_curio_1",
+    "vmd:soda_mana_curio_2",
+    "vmd:soda_mana_curio_3",
+    "vmd:shake_health_curio_0",
+    "vmd:shake_health_curio_1",
+    "vmd:shake_health_curio_2",
+    "vmd:shake_health_curio_3",
+    "vmd:shake_defence_curio_0",
+    "vmd:shake_defence_curio_1",
+    "vmd:shake_defence_curio_2",
+    "vmd:shake_defence_curio_3"
   ]
 }

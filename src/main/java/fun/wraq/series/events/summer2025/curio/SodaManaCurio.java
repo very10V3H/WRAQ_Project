@@ -42,7 +42,7 @@ public class SodaManaCurio extends WraqCurios implements InCuriosOrEquipSlotAttr
         components.add(Te.s(" 夏季时", CustomStyle.styleOfPower, "获得:"));
         components.add(Te.s(" · ", CustomStyle.styleOfPower,
                 ComponentUtils.AttributeDescription
-                        .manaDamage(String.format("%.2f%%", getAttackEnhanceRate() * 100))));
+                        .manaDamage(String.format("%.0f%%", getAttackEnhanceRate() * 100))));
         return components;
     }
 

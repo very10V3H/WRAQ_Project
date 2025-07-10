@@ -29,7 +29,7 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.RandomCuriosAttribute.movementSpeed, 0.25);
         put(StringUtils.RandomCuriosAttribute.commonMovementSpeed, 0.1);
         put(StringUtils.RandomCuriosAttribute.healthRecover, 50d);
-        put(StringUtils.RandomCuriosAttribute.percentHealthRecover, 0.05d);
+        put(StringUtils.RandomCuriosAttribute.percentHealthRecover, 0.008d);
         put(StringUtils.RandomCuriosAttribute.healEffectUp, 0.1);
         put(StringUtils.RandomCuriosAttribute.manaPenetration, 0.05);
         put(StringUtils.RandomCuriosAttribute.manaHealthSteal, 0.05);

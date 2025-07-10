@@ -106,7 +106,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
 
     @Override
     public void spawnMob(Level level) {
-        EntityIceDragon mob  = new EntityIceDragon(IafEntityRegistry.ICE_DRAGON.get(), level);
+        EntityIceDragon mob = new EntityIceDragon(IafEntityRegistry.ICE_DRAGON.get(), level);
         mob.setAgeInDays(49);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
         MobSpawn.setMobCustomName(mob, Te.s(name, STYLE), XP_LEVEL);
@@ -141,6 +141,23 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
             Compute.removeEffectLastTime(player, SuperColdItems.SUPER_COLD_STONE.get());
         });
         super.clear();
+    }
+
+    @Override
+    public void onEndBroad() {
+        Compute.formatBroad(Te.s("极寒冰龙", CustomStyle.styleOfIce),
+                Te.s(players.size() + "名玩家成功通过了极寒冰龙挑战!"));
+        players.stream().sorted(new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return (int) (damageCount.getOrDefault(Name.get(o1), 0d)
+                        - damageCount.getOrDefault(Name.get(o2), 0d));
+            }
+        }).forEach(player -> {
+            Compute.broad(Te.s(player, " ".repeat(8), String.format("%.1f%%",
+                    damageCount.getOrDefault(Name.get(player), 0d)
+                            * 100 / MAX_HEALTH), ChatFormatting.RED), 8);
+        });
     }
 
     public static void skill1(Mob mob, Set<Player> players) {

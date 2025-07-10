@@ -2,6 +2,7 @@ package fun.wraq.process.func.item;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
@@ -25,15 +26,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class InventoryOperation {
-    public static int itemStackCount(Player player, Item item) {
-        Inventory inventory = player.getInventory();
-        return itemStackCount(inventory, item);
-    }
-
     public static int itemStackCount(Inventory inventory, Item item) {
         int existNum = 0;
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
+            if (Compute.getStackExpiredDate(itemStack) != null && !Compute.isExpiredDateValid(itemStack)) {
+                itemStack.shrink(itemStack.getCount());
+                return 0;
+            }
             if (InventoryCheck.containOwnerTag(itemStack)
                     && !InventoryCheck.itemOwnerCorrect(inventory.player, itemStack)) {
                 return 0;
@@ -43,6 +43,11 @@ public class InventoryOperation {
             }
         }
         return existNum;
+    }
+
+    public static int itemStackCount(Player player, Item item) {
+        Inventory inventory = player.getInventory();
+        return itemStackCount(inventory, item);
     }
 
     public static boolean checkPlayerHasItem(Player player, Item item, int requirementNum) {
@@ -126,6 +131,15 @@ public class InventoryOperation {
             if (InventoryCheck.getBoundingList().contains(itemStack.getItem())) {
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
             }
+            if (itemStack.is(ModItems.NOTE_PAPER.get())) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, 8);
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                Compute.setStackExpiredDate(itemStack, calendar);
+            }
             Inventory inventory = player.getInventory();
             if (inventory.getFreeSlot() != -1) {
                 ModNetworking.sendToClient(new ItemGetS2CPacket(itemStack), (ServerPlayer) player);
@@ -154,7 +168,8 @@ public class InventoryOperation {
     public static void giveItemStackWithMSG(Player player, ItemStack itemStack) {
         if (!Compute.PlayerIgnore.ignoreItemGet(player)) {
             Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),
-                    Te.s("你获得了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
+                    Te.s("你获得了", itemStack.getDisplayName(),
+                            " * " + itemStack.getCount(), ChatFormatting.AQUA));
         }
         giveItemStack(player, itemStack);
     }

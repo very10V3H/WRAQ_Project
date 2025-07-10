@@ -50,6 +50,7 @@ import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.crystal.CrystalScreen;
 import fun.wraq.series.events.dragonboat.DragonBoatStore;
+import fun.wraq.series.events.summer2025.Summer2025Store;
 import fun.wraq.series.overworld.cold.sc4.BlizzardBoots;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import net.minecraft.client.Minecraft;
@@ -327,6 +328,7 @@ public class ClientPlayerTickEvent {
                     case 9 -> mc.setScreen(new DragonBoatStore());
                     case 10 -> mc.setScreen(new TradeScreen(true, TradeListNew.WEEKLY_STORE_VILLAGER_NAME));
                     case 11 -> mc.setScreen(new CrystalScreen());
+                    case 12 -> mc.setScreen(new Summer2025Store());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

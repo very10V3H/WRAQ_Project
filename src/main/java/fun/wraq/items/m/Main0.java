@@ -50,7 +50,7 @@ public class Main0 extends Item {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            Summer2025.lastTrigHour = -1;
+            Summer2025.forceStartFlag = true;
 /*            int total = 0;
             int tier0 = 0;
             int tier1 = 0;

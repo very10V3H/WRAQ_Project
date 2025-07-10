@@ -9,6 +9,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.network.RankChangeS2CPacket;
 import fun.wraq.process.func.rank.network.RankDataS2CPacket;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -205,20 +206,20 @@ public class RankData {
         put("13B", 17);
         put("13A", 19);
         put("14C", 21);
-        put("14B", 23);
-        put("14A", 25);
-        put("15A", 30);
+        put("14B", 25);
+        put("14A", 30);
         put("15B", 40);
-        put("16B", 50);
-        put("16A", 60);
-        put("17", 70);
-        put("18", 80);
-        put("19", 90);
-        put("20", 100);
-        put("21", 150);
-        put("22", 200);
-        put("23", 300);
-        put("*", 0);
+        put("15A", 60);
+        put("16B", 80);
+        put("16A", 100);
+        put("17", 150);
+        put("18", 250);
+        put("19", 350);
+        put("20", 500);
+        put("21", 700);
+        put("22", 900);
+        put("23", 1200);
+        put("*", 2000);
     }};
 
     // 以下是职权内容
@@ -307,6 +308,23 @@ public class RankData {
             }
         } else {
             sendFormatMSG(player, Te.s("15B及以上的职级是不能自助提升的."));
+        }
+    }
+
+    public static void onPlayerFinishEntrustment(Player player) {
+        Compute.VBIncomeAndMSGSend(player, rankWagesMap.get(getCurrentRank(player)) * 100);
+        sendFormatMSG(player, Te.s("你的", "职级", CustomStyle.styleOfWorld,
+                "为你额外提供了", "奖金!", CustomStyle.styleOfGold));
+    }
+
+    public static final String COMPENSATE_DATA_KEY = "EntrustmentCompensate";
+
+    public static void onPlayerLoginCompensate(Player player) {
+        if (!Compute.getDataBooleanValue(player, COMPENSATE_DATA_KEY)) {
+            Compute.setDataBooleanValue(player, COMPENSATE_DATA_KEY, true);
+            Compute.VBIncomeAndMSGSend(player, rankWagesMap.get(getCurrentRank(player)) * 100
+                    * MobKillEntrustment.getTotalFinishedTimes(player));
+            sendFormatMSG(player, Te.s("你已收到来自委托与职级的VB补偿!", CustomStyle.styleOfGold));
         }
     }
 }

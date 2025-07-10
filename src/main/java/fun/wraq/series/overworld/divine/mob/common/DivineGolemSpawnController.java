@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -78,8 +77,7 @@ public class DivineGolemSpawnController extends MobSpawnController {
                 new ItemAndRate(DivineIslandItems.DIVINE_SOUL.get(), 0.1),
                 new ItemAndRate(DivineIslandItems.DIVINE_GOLEM_SOUL.get(), 0.2),
                 new ItemAndRate(ModItems.SILVER_COIN.get(), 1.6),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065),
-                new ItemAndRate(Element.getPiece0ItemMap().get(DivineUtils.currentDayElement), 0.5)
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065)
         );
     }
 

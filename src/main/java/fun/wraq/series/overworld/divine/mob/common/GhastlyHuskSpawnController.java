@@ -90,8 +90,7 @@ public class GhastlyHuskSpawnController extends MobSpawnController {
                 new ItemAndRate(DivineIslandItems.GHASTLY_NUGGET.get(), 0.1),
                 new ItemAndRate(DivineIslandItems.GHASTLY_SOUL.get(), 0.2),
                 new ItemAndRate(ModItems.SILVER_COIN.get(), 1.6),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 0.07),
-                new ItemAndRate(Element.getPiece0ItemMap().get(DivineUtils.currentDayElement), 0.5)
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 0.07)
         );
     }
 

@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.SputteringDamage;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemOnNormalAttackHit;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
@@ -42,8 +43,10 @@ public class MushroomSputterGem extends WraqPassiveGem implements GemOnNormalAtt
 
     @Override
     public void onHit(Player player, Mob mob, double damage) {
-        SputteringDamage.addSputteringDamageOnMob(mob, player, damage, 2,
-                isEnhanced ? 4 : 3, CustomStyle.MUSHROOM_STYLE);
+        if (Summer2025.canBeSpread(mob)) {
+            SputteringDamage.addSputteringDamageOnMob(mob, player, damage, 2,
+                    isEnhanced ? 4 : 3, CustomStyle.MUSHROOM_STYLE);
+        }
     }
 
     @Override

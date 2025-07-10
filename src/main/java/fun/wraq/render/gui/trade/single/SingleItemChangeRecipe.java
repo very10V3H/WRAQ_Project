@@ -5,6 +5,7 @@ import fun.wraq.process.system.cooking.item.FoodCoinStoreRecipe;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.events.dragonboat.DragonBoatStoreRecipe;
+import fun.wraq.series.events.summer2025.Summer2025StoreRecipe;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.ItemStack;
 
@@ -87,6 +88,7 @@ public class SingleItemChangeRecipe {
             recipeList.addAll(FoodCoinStoreRecipe.recipes);
             recipeList.addAll(DragonBoatStoreRecipe.recipes);
             recipeList.addAll(CrystalItem.getRecipes());
+            recipeList.addAll(Summer2025StoreRecipe.recipes);
         }
         return recipeList;
     }

@@ -42,10 +42,10 @@ public class ShakeHealthCurio extends WraqCurios implements InCuriosOrEquipSlotA
         components.add(Te.s(" 夏季时", CustomStyle.styleOfPower, "获得:"));
         components.add(Te.s(" · ", CustomStyle.styleOfPower,
                 ComponentUtils.AttributeDescription
-                        .maxHealth(String.format("%.2f%%", getHealthEnhanceRate() * 100))));
+                        .maxHealth(String.format("%.0f%%", getHealthEnhanceRate() * 100))));
         components.add(Te.s(" · ", CustomStyle.styleOfPower,
                 ComponentUtils.AttributeDescription
-                        .healthRecover(String.format("%.2f%%", getHealthEnhanceRate() * 10))));
+                        .healthRecover(String.format("%.1f%%", getHealthEnhanceRate() * 10))));
         return components;
     }
 

@@ -8,6 +8,7 @@ import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.crystal.OriginStone;
+import fun.wraq.series.events.summer2025.Summer2025StoreRecipe;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonTpUtil;
@@ -23,6 +24,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TradeListNew {
+
+    public ItemStack product;
+    public List<ItemStack> material;
+
+    public TradeListNew(ItemStack product, List<ItemStack> material) {
+        this.product = product;
+        this.material = material;
+    }
+
+    public static void setVillagerData(String displayName, String codeName, Style style,
+                                       VillagerType villagerType, VillagerProfession profession,
+                                       List<TradeListNew> list) {
+        List<ItemStack> stackList = new ArrayList<>();
+        list.forEach(trade -> {
+            stackList.add(trade.product);
+            TradeList.tradeRecipeMap.put(trade.product, trade.material);
+        });
+        MyVillagerData.setMyVillagerData(displayName, codeName, style, villagerType, profession, stackList);
+    }
+
     public static void init() {
         cookingCrop();
         cookingFruit();
@@ -44,6 +65,7 @@ public class TradeListNew {
         outpostEnergy();
         iceDragon();
         IceDragonTpUtil.setVillagerData();
+        Summer2025StoreRecipe.setVillagerTradeRecipe();
     }
 
     public static List<ItemStack> getCoinList(int vb) {

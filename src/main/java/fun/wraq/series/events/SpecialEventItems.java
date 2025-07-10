@@ -7,7 +7,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
-import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.events.dragonboat.MeatZongZi;
@@ -422,16 +421,24 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> SNACK_CHEST = ITEMS.register("snack_chest",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.GoldBold), new ArrayList<>() {{
-                add(new NewLotteries.Loot(new ItemStack(SODA_ATTACK_CURIO_0.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SODA_MANA_CURIO_0.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SHAKE_HEALTH_CURIO_0.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SHAKE_DEFENCE_CURIO_0.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(CANDY_ICE.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(CANDY_HOT.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(CANDY_SWEET.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(CrystalItems.YELLOW_CRYSTAL_A.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SNACK_GOLD_COIN.get()), 0.02));
-                add(new NewLotteries.Loot(new ItemStack(SNACK_SILVER_COIN.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(SODA_ATTACK_CURIO_0.get()), 0.005));
+                add(new NewLotteries.Loot(new ItemStack(SODA_MANA_CURIO_0.get()), 0.005));
+                add(new NewLotteries.Loot(new ItemStack(SHAKE_HEALTH_CURIO_0.get()), 0.005));
+                add(new NewLotteries.Loot(new ItemStack(SHAKE_DEFENCE_CURIO_0.get()), 0.005));
+                add(new NewLotteries.Loot(new ItemStack(CANDY_ICE.get()), 0.2));
+                add(new NewLotteries.Loot(new ItemStack(CANDY_HOT.get()), 0.2));
+                add(new NewLotteries.Loot(new ItemStack(CANDY_SWEET.get()), 0.2));
+                add(new NewLotteries.Loot(new ItemStack(SNACK_GOLD_COIN.get()), 0.1));
+                add(new NewLotteries.Loot(new ItemStack(SNACK_SILVER_COIN.get()), 0.28));
             }}));
 
+    public static final RegistryObject<Item> PREFIX_SUMMER2025_0 = ITEMS.register("prefix_summer2025_0",
+            () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.FireBold), "PrefixSummer2025_0",
+                    "炎炎夏日", CustomStyle.styleOfPower));
+    public static final RegistryObject<Item> PREFIX_SUMMER2025_1 = ITEMS.register("prefix_summer2025_1",
+            () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.SakuraBold), "PrefixSummer2025_1",
+                    "波子汽水", CustomStyle.styleOfLucky));
+    public static final RegistryObject<Item> PREFIX_SUMMER2025_2 = ITEMS.register("prefix_summer2025_2",
+            () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.WorldBold), "PrefixSummer2025_2",
+                    "炫目之光", CustomStyle.styleOfWorld));
 }

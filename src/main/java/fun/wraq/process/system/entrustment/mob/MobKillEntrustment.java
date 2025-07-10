@@ -75,9 +75,11 @@ public class MobKillEntrustment {
     public static void incrementPlayerReputation(Player player, int increment) {
         setPlayerReputation(player, getPlayerReputation(player) + increment);
         if (increment > 0) {
-            sendMSG(player, Te.s("+" + increment, ChatFormatting.GREEN, "悬赏声望", CustomStyle.styleOfWorld));
+            sendMSG(player, Te.s("+" + increment, ChatFormatting.GREEN,
+                    "悬赏声望", CustomStyle.styleOfWorld));
         } else {
-            sendMSG(player, Te.s("-" + Math.abs(increment), ChatFormatting.RED, "悬赏声望", CustomStyle.styleOfWorld));
+            sendMSG(player, Te.s("-" + Math.abs(increment), ChatFormatting.RED,
+                    "悬赏声望", CustomStyle.styleOfWorld));
         }
     }
 
@@ -532,6 +534,7 @@ public class MobKillEntrustment {
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
                 Summer2025.onFinishEntrustment(player);
                 Guide.sendGuideDisplayStatusToClient(player, true);
+                RankData.onPlayerFinishEntrustment(player);
             }
         }
     }

@@ -112,8 +112,7 @@ public class DivineJungleMob1SpawnController extends JungleMobSpawnController {
                 new ItemAndRate(DivineIslandItems.DIVINE_GEM_PIECE_1.get(), 0.5),
                 new ItemAndRate(DivineIslandItems.DIVINE_ARROW.get(), 1),
                 new ItemAndRate(ModItems.GOLD_COIN.get(), 1),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 1.1),
-                new ItemAndRate(Element.getPiece0ItemMap().get(DivineUtils.currentDayElement), 6)
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 1.1)
         );
     }
 }

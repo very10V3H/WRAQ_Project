@@ -54,6 +54,7 @@ import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
+import fun.wraq.series.overworld.cold.sc4.SuperColdIronGolemSpawnController;
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonSpawnController;
 import fun.wraq.series.overworld.cold.sc5.dragon.SimulateIceDragonSpawnController;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -485,7 +486,8 @@ public class Damage {
     }
 
     public static void causeDirectDamageToPlayer(Mob mob, Player player, double damage) {
-        if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)) {
+        if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)
+                || MobSpawn.getMobOriginName(mob).equals(SuperColdIronGolemSpawnController.mobName)) {
             damage = Math.min(300000, damage);
         }
         if (damage >= player.getHealth()) {
@@ -572,6 +574,7 @@ public class Damage {
                     AllayPet.onKillMob(player, mob);
                     SwordNewSkillBase3_0.onKillMob(player);
                     DivineUtils.onPlayerKillMob(player, mob);
+                    Summer2025.onKill(player, mob);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }
@@ -589,7 +592,6 @@ public class Damage {
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
             JungleMobSpawn.onMobWithstandDamage(mob, player, damage);
             ManaCurios4.onCauseDamage(player);
-            Summer2025.onKill(player, mob);
         }
     }
 

@@ -325,4 +325,14 @@ public class MoonInstance extends NoTeamInstance {
         components.add(Te.s("4.", style, "对天/明境的攻击，若在一定距离(6格以内/以外)外对其造成的伤害降低50%"));
         return components;
     }
+
+    @Override
+    public int getRewardNeedItemCount() {
+        return 2;
+    }
+
+    @Override
+    public int getRewardNum() {
+        return 2;
+    }
 }

@@ -219,7 +219,8 @@ public class MissionV2Helper {
         } else {
             List<NoTeamInstance> list = NoTeamInstanceModule.getAllInstance()
                     .stream().filter(noTeamInstance -> noTeamInstance.level <= xpLevel
-                            && !noTeamInstance.equals(ManaTowerInstance.getInstance()))
+                            && !noTeamInstance.equals(ManaTowerInstance.getInstance())
+                            && noTeamInstance.level < 240)
                     .toList();
             getDailyMissionData(player).putString(DAILY_CHALLENGE_NAME_DATA_KEY,
                     list.get(RandomUtils.nextInt(0, list.size())).name.getString());
@@ -244,7 +245,6 @@ public class MissionV2Helper {
         return ((missionV2, data) -> {
             String name = data.getCompound(MISSION_V2_DAILY_MISSION_DATA_KEY)
                     .getString(DAILY_CHALLENGE_NAME_DATA_KEY);
-
             return Te.s("挑战: ", CustomStyle.styleOfRed, NoTeamInstanceModule.getNameMap().get(name),
                     " 8次");
         });

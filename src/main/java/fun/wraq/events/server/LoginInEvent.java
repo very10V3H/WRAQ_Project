@@ -350,6 +350,7 @@ public class LoginInEvent {
             DragonBoatFes.onLogin(player);
             WeeklyStorePlayerData.sendDataToClient(player);
             Summer2025.onLogin(player);
+            RankData.onPlayerLoginCompensate(player);
             // 更新检查，放在最后吧
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
         }

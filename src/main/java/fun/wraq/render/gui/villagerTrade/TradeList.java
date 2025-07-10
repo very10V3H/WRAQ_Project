@@ -3153,10 +3153,12 @@ public class TradeList {
             MopUpPaper mopUpPaper = (MopUpPaper) stack.getItem();
             if (mopUpPaper.noTeamInstance != null) {
                 tradeRecipeMap.put(stack, new ArrayList<>() {{
+                    int itemCount = mopUpPaper.noTeamInstance.getRewardNeedItemCount()
+                            / mopUpPaper.noTeamInstance.getRewardNum();
                     add(new ItemStack(ModItems.GOLD_COIN.get(),
-                            mopUpPaper.noTeamInstance.getRewardNeedItemCount() * 8));
+                            itemCount * 8));
                     add(new ItemStack(ModItems.NOTE_PAPER.get(),
-                            mopUpPaper.noTeamInstance.getRewardNeedItemCount() * 3));
+                            itemCount * 3));
                 }});
             } else {
                 tradeRecipeMap.put(stack, new ArrayList<>() {{

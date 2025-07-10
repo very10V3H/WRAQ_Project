@@ -68,6 +68,7 @@ public abstract class JungleMobSpawnController {
             });
             if (mobs.stream().allMatch(LivingEntity::isDeadOrDying)) {
                 players.forEach(this::tryToReward);
+                onEndBroad();
                 reset();
             } else {
                 mobs.stream().filter(LivingEntity::isAlive)
@@ -99,6 +100,10 @@ public abstract class JungleMobSpawnController {
 
     public void removeNearArmorStand(Level level) {
         Compute.removeNearArmorStand(level, descriptionPos, 4);
+    }
+
+    public void onEndBroad() {
+
     }
 
     public void reset() {
