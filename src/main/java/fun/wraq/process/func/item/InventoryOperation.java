@@ -125,13 +125,21 @@ public class InventoryOperation {
         return -1;
     }
 
+    public static Map<Item, Integer> itemExpiredDateMap = new HashMap<>() {{
+        put(ModItems.NOTE_PAPER.get(), 8);
+        put(ModItems.SUPPLY_BOX_TIER_0.get(), 8);
+        put(ModItems.SUPPLY_BOX_TIER_1.get(), 8);
+        put(ModItems.SUPPLY_BOX_TIER_2.get(), 8);
+        put(ModItems.SUPPLY_BOX_TIER_3.get(), 8);
+    }};
+
     public static void giveItemStack(Player player, ItemStack itemStack) {
         itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         if (itemStack.getCount() > 0) {
             if (InventoryCheck.getBoundingList().contains(itemStack.getItem())) {
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
             }
-            if (itemStack.is(ModItems.NOTE_PAPER.get())) {
+            if (itemExpiredDateMap.containsKey(itemStack.getItem())) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 8);
                 calendar.set(Calendar.HOUR_OF_DAY, 0);

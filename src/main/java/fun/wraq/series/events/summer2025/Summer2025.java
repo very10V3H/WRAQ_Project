@@ -148,6 +148,8 @@ public class Summer2025 {
             getPlayers().forEach(serverPlayer -> {
                 MySound.soundToPlayer(serverPlayer, SoundEvents.PLAYER_LEVELUP);
             });
+            Tick.server.overworld().setDayTime(0);
+            broad(Te.s("在活动进行中时，会取消大部分伤害数字以及粒子效果."));
         }
         if (eventIsRunning) {
             Set<String> zonePlayerName = new HashSet<>(getZonePlayerName());
@@ -323,8 +325,10 @@ public class Summer2025 {
                 if (playerEachRoundKillCount.containsKey(Name.get(player))) {
                     InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.SNACK_GOLD_COIN.get());
                 } else {
-                    sendMSG(player, Te.s("需要80级才能获取活动奖励喔!"));
+                    sendMSG(player, Te.s("尝试击杀一个吃货僵尸吧!"));
                 }
+            } else {
+                sendMSG(player, Te.s("需要80级才能获取活动奖励喔!"));
             }
         });
     }

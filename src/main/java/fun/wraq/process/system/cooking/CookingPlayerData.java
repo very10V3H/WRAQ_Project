@@ -87,6 +87,18 @@ public class CookingPlayerData {
     public static void resetDailyFinishedTimesCount(Player player) {
         CompoundTag data = getData(player);
         data.putInt(DAILY_FINISHED_TIMES_COUNT_KEY, 0);
+        data.putInt(DAILY_GOLDEN_BEANS_GET, 0);
+    }
+
+    public static final String DAILY_GOLDEN_BEANS_GET = "DailyGoldenBeansGetCount";
+
+    public static int getDailyGoldenBeansGetCount(Player player) {
+        CompoundTag data = getData(player);
+        return data.getInt(DAILY_GOLDEN_BEANS_GET);
+    }
+
+    public static void incrementDailyGoldenBeansGetCount(Player player) {
+        incrementTimesCount(player, DAILY_GOLDEN_BEANS_GET);
     }
 
     public static boolean isInActivityDate() {

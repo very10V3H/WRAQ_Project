@@ -4,9 +4,11 @@ import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
@@ -52,6 +54,7 @@ public class AncientDarknessGem extends WraqPassiveGem implements GemTickHandler
         Compute.getNearEntity(player, Mob.class, integerRate[tier])
                 .stream()
                 .map(mob -> (Mob) mob)
+                .filter(mob -> !MobSpawn.getMobOriginName(mob).equals(Summer2025.mobName))
                 .forEach(mob -> {
                     passive(player, mob);
         });

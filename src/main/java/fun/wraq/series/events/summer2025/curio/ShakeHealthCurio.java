@@ -22,7 +22,7 @@ public class ShakeHealthCurio extends WraqCurios implements InCuriosOrEquipSlotA
         super(properties);
         this.tier = tier;
         Utils.maxHealth.put(this, new double[]{1000, 2000, 4000, 8000}[tier]);
-        Utils.percentMaxHealthEnhance.put(this, new double[]{0, 0, 0.025, 0.5}[tier]);
+        Utils.percentMaxHealthEnhance.put(this, new double[]{0, 0, 0.025, 0.05}[tier]);
         Utils.levelRequire.put(this, new int[]{80, 150, 200, 225}[tier]);
     }
 

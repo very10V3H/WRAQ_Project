@@ -80,7 +80,12 @@ public class CookingVillager {
                     "为你提供了", String.format("%.0f%%", cookingLevel * 10d) + "小费", ChatFormatting.GOLD));
         }
         CookingPlayerData.incrementSellFoodCount(player, 4);
-        InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), 1);
+        if (CookingPlayerData.getDailyGoldenBeansGetCount(player) < 100) {
+            CookingPlayerData.incrementDailyGoldenBeansGetCount(player);
+            InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), 1);
+        } else {
+            sendMSG(player, Te.s("今日获取的", ModItems.GOLDEN_BEANS.get(), "已达上限(100)"));
+        }
         InventoryOperation.giveItemStackWithMSG(player, CookingItems.FOOD_COIN.get(), 1);
         CookingPlayerData.incrementEntrustmentFinishedTimesCount(player);
         CookingPlayerData.incrementDailyFinishedTimesCount(player);

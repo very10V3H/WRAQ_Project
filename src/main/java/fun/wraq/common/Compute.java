@@ -1072,6 +1072,9 @@ public class Compute {
     }
 
     public static void summonValueItemEntity(Level level, Player player, Mob mob, Component component, int type) {
+        if (ParticleProvider.stop()) {
+            return;
+        }
         if (Utils.valueItemEntity.size() > 100) {
             for (int i = 0; i < 50; i++) {
                 ItemEntityAndResetTime itemEntityAndResetTime = Utils.valueItemEntity.poll();
