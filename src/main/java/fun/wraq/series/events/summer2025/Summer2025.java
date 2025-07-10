@@ -42,7 +42,7 @@ public class Summer2025 {
                     "+25%额外产出", CustomStyle.styleOfGold));
             player.sendSystemMessage(Te.s(" ".repeat(8), "·", CustomStyle.styleOfWater,
                     "高温补贴:", CustomStyle.styleOfPower, "每完成一个", "委托任务", CustomStyle.styleOfWorld,
-                            "+2500VB", CustomStyle.styleOfGold));
+                    "+2500VB", CustomStyle.styleOfGold));
             player.sendSystemMessage(Te.s(" ".repeat(8), "·", CustomStyle.styleOfWater,
                     "每日的14/16/20/21/22时的10分时刻，", "吃货僵尸", CustomStyle.styleOfPower,
                     "们就会聚集在", "旭升岛南部沙滩", CustomStyle.styleOfSunIsland, "。快去保护你的食物!"));
@@ -111,6 +111,8 @@ public class Summer2025 {
 
     public static boolean forceStartFlag = false;
 
+    public static int leftMobCount = 0;
+
     public static void clear() {
         eventIsRunning = false;
         currentRound = 1;
@@ -121,6 +123,7 @@ public class Summer2025 {
         mobs.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobs.clear();
         winTimes = 0;
+        leftMobCount = 0;
     }
 
     public static void handleOverworldLevelTick(Level level) {
@@ -176,12 +179,21 @@ public class Summer2025 {
             if (nextSpawnTick != -1 && Tick.get() > nextSpawnTick && currentRound <= 20) {
                 broadToZonePlayers(Te.s("吃货僵尸们来了! 在3min内清理所有吃货僵尸!"));
                 ++currentRound;
-                summonMob(level, 100);
+                leftMobCount = 100;
                 lastSpawnTick = Tick.get();
                 nextSpawnTick = -1;
             }
             // 中间处理
-                // 超时
+            // 分段生成怪物
+            if (leftMobCount > 0) {
+                int aliveMobCount = (int) mobs.stream().filter(LivingEntity::isAlive).count();
+                while (aliveMobCount < 30 && leftMobCount > 0) {
+                    --leftMobCount;
+                    summonMob(level, 1);
+                    ++aliveMobCount;
+                }
+            }
+            // 超时
             if (currentRound > 0) {
                 int leftRoundTick = lastSpawnTick + Tick.min(3) - Tick.get();
                 if (leftRoundTick == Tick.s(60)) {
@@ -204,10 +216,10 @@ public class Summer2025 {
                 nextSpawnTick = Tick.get() + Tick.s(5);
                 lastSpawnTick = Tick.get();
             }
-                // tick
+            // tick
             handleMobTick();
             // 结束处理
-                // 每回合结束
+            // 每回合结束
             if (currentRound > 0 && Tick.get() > nextSpawnTick) {
                 if (mobs.isEmpty() || mobs.stream().noneMatch(LivingEntity::isAlive)) {
                     rewardEachRound();
@@ -297,8 +309,8 @@ public class Summer2025 {
             Zombie mob = new Zombie(EntityType.ZOMBIE, level);
             MobSpawn.setMobCustomName(mob, Te.s(mobName, CustomStyle.styleOfPower), getMobXpLevelByRound());
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttackDamageByRound(),
-                    getMobDefenceByRound(), getMobDefenceByRound(), getMobMaxHealthByRound(), 0.2);
-            mob.moveTo(spawnPosList.get(i % spawnPosList.size())
+                    getMobDefenceByRound(), getMobDefenceByRound(), getMobMaxHealthByRound(), 0.3);
+            mob.moveTo(spawnPosList.get(RandomUtils.nextInt(0, spawnPosList.size()))
                     .add(2.5 - RandomUtils.nextDouble(0, 5), 0, 2.5 - RandomUtils.nextDouble(0, 5)));
             level.addFreshEntity(mob);
             mob.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(
@@ -382,7 +394,7 @@ public class Summer2025 {
             }
             if (RandomUtils.nextDouble(0, 1) < 0.1) {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(mob.getOffhandItem().getItem()));
-                summonMob(player.level(), 5);
+                summonMob(player.level(), 4);
                 FireworkGun.summonFireWork(mob.level(), mob.getEyePosition().add(0, 2, 0));
                 sendMSG(player, Te.s("吃货僵尸叫来了它的同伴!"));
             }

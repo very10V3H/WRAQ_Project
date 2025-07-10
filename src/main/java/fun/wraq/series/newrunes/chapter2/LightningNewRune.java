@@ -10,6 +10,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.LightningZombieController;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -93,6 +94,9 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
 
     public static void onHit(Player player, Mob mob) {
         if (!isOn(player)) return;
+        if (Summer2025.eventIsRunning) {
+            return;
+        }
         int tick = Tick.get();
         String name = player.getName().getString();
         Random random = new Random();
