@@ -837,5 +837,13 @@ public class CommandHandler {
                         )
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher91 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd91 = dispatcher91.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("bounding")
+                                .executes(EventShutdownCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
     }
 }

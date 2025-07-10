@@ -50,6 +50,8 @@ public class Summer2025 {
         }
     }
 
+    public static boolean eventIsActive = true;
+
     // 活动在9.1日自动关闭（无需重启）
     public static boolean isInActivityDate() {
         Calendar calendar = Calendar.getInstance();
@@ -123,6 +125,12 @@ public class Summer2025 {
 
     public static void handleOverworldLevelTick(Level level) {
         if (Tick.get() < 100) {
+            return;
+        }
+        if (!isInActivityDate()) {
+            return;
+        }
+        if (!eventIsActive) {
             return;
         }
         Calendar calendar = Calendar.getInstance();

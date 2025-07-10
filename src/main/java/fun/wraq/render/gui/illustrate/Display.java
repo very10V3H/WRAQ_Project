@@ -82,6 +82,16 @@ public class Display {
 
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
+            newItemList.add(SpecialEventItems.SODA_ATTACK_CURIO_3.get());
+            newItemList.add(SpecialEventItems.SODA_MANA_CURIO_3.get());
+            newItemList.add(SpecialEventItems.SHAKE_HEALTH_CURIO_3.get());
+            newItemList.add(SpecialEventItems.SHAKE_DEFENCE_CURIO_3.get());
+            newItemList.add(SpecialEventItems.CANDY_ICE.get());
+            newItemList.add(SpecialEventItems.CANDY_HOT.get());
+            newItemList.add(SpecialEventItems.CANDY_SWEET.get());
+            newItemList.add(SpecialEventItems.PREFIX_SUMMER2025_0.get());
+            newItemList.add(SpecialEventItems.PREFIX_SUMMER2025_1.get());
+            newItemList.add(SpecialEventItems.PREFIX_SUMMER2025_2.get());
             for (RegistryObject<Item> entry : SuperColdItems.ITEMS.getEntries()) {
                 newItemList.add(entry.get());
             }
