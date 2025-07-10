@@ -666,13 +666,11 @@ public class BasicAttributeDescription {
                 else manaRecover = data.getInt(StringUtils.RandomCuriosAttribute.manaRecover);
                 if (data.contains(StringUtils.RandomAttribute.manaRecover))
                     manaRecover += data.getDouble(StringUtils.RandomAttribute.manaRecover);
-
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
                         append(Component.literal("+" + String.format("%.0f", manaRecover)).withStyle(ChatFormatting.WHITE)));
-
+                handleExBaseAttributeValue(itemStack, mutableComponent, Utils.manaRecover);
                 handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.manaRecover, mutableComponent);
-
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaRecover)));
             }

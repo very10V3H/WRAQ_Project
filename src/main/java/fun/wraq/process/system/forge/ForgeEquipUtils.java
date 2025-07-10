@@ -451,13 +451,8 @@ public class ForgeEquipUtils {
             CompoundTag data = ExBaseAttributeValueEquip.getStackExBaseAttributeData(equip);
             exValue += exBaseAttributeValueEquip.getTagAndRateMap().get(map).getValueByData(data);
         }
-        double value = map.getOrDefault(equip.getItem(), 0d);
-        if (value > 0) {
-            return (map.getOrDefault(equip.getItem(), 0d) + exValue)
+        return (map.getOrDefault(equip.getItem(), 0d) + exValue)
                     * (computeTier ? getTierValueEffect(equip) : 1);
-        } else {
-            return value;
-        }
     }
 
     public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player) {

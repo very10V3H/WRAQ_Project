@@ -724,23 +724,19 @@ public class PlayerAttributes {
         CompoundTag data = player.getPersistentData();
         int TickCount = Tick.get();
         double swiftnessUp = 0.0d;
-
         swiftnessUp += computeAllEquipSlotBaseAttributeValue(player, Utils.swiftnessUp, false);
-
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
         if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {
             swiftnessUp += flexibilityAbilityPoint * 0.1;
         } // 能力
-
         if (Utils.SpringScaleTime.containsKey(player) && Utils.SpringScaleTime.get(player) > TickCount) {
             int SwordSkill = data.getInt(StringUtils.SkillArray[0]);
             int BowSkill = data.getInt(StringUtils.SkillArray[1]);
             int ManaSkill = data.getInt(StringUtils.SkillArray[2]);
             if (BowSkill > Math.max(SwordSkill, ManaSkill)) swiftnessUp += Utils.SpringScaleEffect.get(player) + 1;
         } //年兽鳞片
-
-        swiftnessUp += Compute.CuriosAttribute.attributeValue(player, Utils.swiftnessUp, StringUtils.RandomCuriosAttribute.swiftnessUp); // 新版饰品属性加成
-
+        swiftnessUp += Compute.CuriosAttribute.attributeValue(player, Utils.swiftnessUp,
+                StringUtils.RandomCuriosAttribute.swiftnessUp); // 新版饰品属性加成
         swiftnessUp += Compute.PassiveEquip.getAttribute(player, Utils.swiftnessUp); // 器灵属性加成
         swiftnessUp += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExSwiftnessUp);
         swiftnessUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerSwiftnessModifier);
@@ -749,7 +745,6 @@ public class PlayerAttributes {
         exRate += Compute.playerFantasyAttributeEnhance(player);
         exRate += BowCurios0.SwiftnessUp(player);
         swiftnessUp *= (1 + exRate);
-
         writeToCache(player, Utils.swiftnessUp, swiftnessUp);
         return swiftnessUp;
     }

@@ -2332,6 +2332,9 @@ public class Compute {
     }
 
     public static @Nullable Calendar getStackExpiredDate(ItemStack stack) {
+        if (stack.getTagElement(EXPIRED_DATE_DATA_KEY) == null) {
+            return null;
+        }
         CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
         if (!tag.contains(EXPIRED_DATE_DATA_KEY)) {
             return null;
