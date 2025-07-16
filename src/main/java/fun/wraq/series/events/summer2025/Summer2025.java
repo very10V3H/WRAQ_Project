@@ -187,7 +187,7 @@ public class Summer2025 {
             // 分段生成怪物
             if (leftMobCount > 0) {
                 int aliveMobCount = (int) mobs.stream().filter(LivingEntity::isAlive).count();
-                while (aliveMobCount < 30 && leftMobCount > 0) {
+                while (aliveMobCount < 20 && leftMobCount > 0) {
                     --leftMobCount;
                     summonMob(level, 1);
                     ++aliveMobCount;

@@ -197,8 +197,9 @@ public abstract class MobSpawnController {
             spawnFlag = false;
             // 怪物数量未超上限，则开始全部生成
             if (averagePos != null && level.getEntitiesOfClass(Mob.class,
-                    AABB.ofSize(averagePos, 96, 96, 96)).size()
-                    > maxMobNum) {
+                    AABB.ofSize(averagePos, 96, 96, 96)).stream()
+                    .filter(mob -> MobSpawn.getMobOriginName(mob).equals(mobName.getString()))
+                    .count() > maxMobNum) {
                 return;
             }
             if (this.mobList.size() < maxMobNum) {

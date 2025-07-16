@@ -1,6 +1,5 @@
 package fun.wraq.events.core;
 
-import fun.wraq.items.prefix.PrefixInfo;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
@@ -15,6 +14,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.items.prefix.PrefixInfo;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
