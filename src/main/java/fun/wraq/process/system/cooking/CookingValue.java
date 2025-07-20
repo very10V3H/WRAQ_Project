@@ -1,5 +1,6 @@
 package fun.wraq.process.system.cooking;
 
+import club.someoneice.cofe_delight.init.ItemInit;
 import cn.mcmod.corn_delight.CornForgeTags;
 import cn.mcmod.corn_delight.item.ItemRegistry;
 import com.cosmicgelatin.seasonals.core.registry.SeasonalsItems;
@@ -315,6 +316,12 @@ public class CookingValue {
         put(SpecialEventItems.ZONG_LEAF.get(), SPECIAL);
         put(SpecialEventItems.GOLDEN_ZONG_LEAF.get(), SPECIAL);
         put(SpecialEventItems.GOLDEN_ZONG_ZI_CONDIMENT.get(), SPECIAL);
+        put(ItemInit.COFFEE_BERRIES.get(), CROPS);
+        put(ItemInit.COFFEE_BEANS.get(), CROPS);
+        put(ItemInit.COFFEE_BEANS_COOKED.get(), CROPS);
+        put(ItemInit.COFFEE_FLOUR.get(), CROPS);
+        put(ItemInit.CUP_BLACK_COFFEE.get(), CROPS);
+        put(ItemInit.MUG_BLACK_COFFEE.get(), CROPS);
     }};
 
     public static final Map<TagKey<Item>, String> ingredientTagTypeMap = new HashMap<>() {{
@@ -350,6 +357,7 @@ public class CookingValue {
 
     public static void handleValueMap() {
         if (ingredientItemValueMap.isEmpty()) {
+            ingredientItemValueMap.put(Items.SNOWBALL, 8);
             ingredientItemValueMap.put(Items.SUGAR, 20);
             ingredientItemValueMap.put(Items.POTATO, 20);
             ingredientItemValueMap.put(Items.BEETROOT, 20);
@@ -380,6 +388,8 @@ public class CookingValue {
             ingredientItemValueMap.put(NeapolitanItems.CHOCOLATE_BAR.get(), 29);
             ingredientItemValueMap.put(NeapolitanItems.ADZUKI_BEANS.get(), 20);
             ingredientItemValueMap.put(NeapolitanItems.ROASTED_ADZUKI_BEANS.get(), 28);
+            ingredientItemValueMap.put(ItemInit.COFFEE_BERRIES.get(), 20);
+            ingredientItemValueMap.put(ItemInit.COFFEE_BEANS.get(), 20);
 
             ingredientItemValueMap.put(ItemRegistry.CORNBREAD.get(), 28);
             ingredientItemValueMap.put(Items.BAKED_POTATO, 28);
@@ -388,6 +398,10 @@ public class CookingValue {
             ingredientItemValueMap.put(ItemRegistry.CORNBREAD.get(), 28);
             ingredientItemValueMap.put(ModItems.COOKED_RICE.get(), 28);
             ingredientItemValueMap.put(SeasonalsItems.PUMPKIN_PUREE.get(), 80);
+            ingredientItemValueMap.put(ItemInit.COFFEE_BEANS_COOKED.get(), 28);
+            ingredientItemValueMap.put(ItemInit.COFFEE_FLOUR.get(), 28);
+            ingredientItemValueMap.put(ItemInit.CUP_BLACK_COFFEE.get(), 46);
+            ingredientItemValueMap.put(ItemInit.MUG_BLACK_COFFEE.get(), 46);
 
             ingredientItemValueMap.put(Items.GLOW_BERRIES, 36);
             ingredientItemValueMap.put(Items.APPLE, 36);

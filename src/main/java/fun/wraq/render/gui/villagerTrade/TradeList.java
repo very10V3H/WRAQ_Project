@@ -193,7 +193,7 @@ public class TradeList {
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.GOLD_COIN.get(), 2));
-                    add(new ItemStack(ModItems.GEM_PIECE.get(), 4));
+                    add(new ItemStack(ModItems.GEM_PIECE.get(), 1));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_BUCKET.get(), 8));
@@ -1231,7 +1231,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GEM_PIECE.get(), 4));
+                    add(new ItemStack(ModItems.GEM_PIECE.get(), 1));
                     add(new ItemStack(ModItems.GOLD_COIN.get(), 2));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -1259,7 +1259,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GEM_PIECE.get(), 4));
+                    add(new ItemStack(ModItems.GEM_PIECE.get(), 1));
                     add(new ItemStack(ModItems.GOLD_COIN.get(), 2));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{

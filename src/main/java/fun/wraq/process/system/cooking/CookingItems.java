@@ -1,5 +1,6 @@
 package fun.wraq.process.system.cooking;
 
+import club.someoneice.cofe_delight.init.ItemInit;
 import cn.mcmod.corn_delight.item.ItemRegistry;
 import com.teamabnormals.neapolitan.core.registry.NeapolitanItems;
 import fun.wraq.common.fast.Te;
@@ -110,6 +111,7 @@ public class CookingItems {
             cropSellingList.add(NeapolitanItems.MINT_LEAVES.get());
             cropSellingList.add(NeapolitanItems.ADZUKI_BEANS.get());
             cropSellingList.add(Items.COCOA_BEANS);
+            cropSellingList.add(ItemInit.COFFEE_BERRIES.get());
         }
         return cropSellingList;
     }
@@ -197,6 +199,7 @@ public class CookingItems {
             specialSellingList.add(Items.INK_SAC);
             specialSellingList.add(Items.BLAZE_POWDER);
             specialSellingList.add(NeapolitanItems.ICE_CUBES.get());
+            specialSellingList.add(Items.SNOWBALL);
         }
         return specialSellingList;
     }

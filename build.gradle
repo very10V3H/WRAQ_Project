@@ -243,6 +243,7 @@ dependencies {
     implementation fg.deobf("curse.maven:goety-586095:6660730")
     implementation fg.deobf("curse.maven:mobtimizations-974401:5135998")
     implementation fg.deobf("curse.maven:coroutil-237749:5096038")
+    implementation fg.deobf("curse.maven:coffee-delight-835597:6166737")
     // client :
     implementation fg.deobf("curse.maven:iceberg-520110:4953572")
     implementation fg.deobf("curse.maven:prism-lib-638111:4650325")

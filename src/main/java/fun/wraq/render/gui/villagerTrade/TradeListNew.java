@@ -1,5 +1,6 @@
 package fun.wraq.render.gui.villagerTrade;
 
+import club.someoneice.cofe_delight.init.ItemInit;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.cooking.CookingValue;
@@ -178,12 +179,16 @@ public class TradeListNew {
         ItemStack goldenKnife = new ItemStack(vectorwing.farmersdelight.common.registry.ModItems.GOLDEN_KNIFE.get());
         ItemStack glassBottle = new ItemStack(Items.GLASS_BOTTLE, 16);
         ItemStack bowl = new ItemStack(Items.BOWL, 16);
+        ItemStack clever = new ItemStack(ItemInit.Clever.get(), 16);
+        ItemStack cup = new ItemStack(ItemInit.CUP.get(), 16);
+        ItemStack mug = new ItemStack(ItemInit.MUG.get(), 16);
         ItemStack cauldron = new ItemStack(Items.CAULDRON, 16);
         ItemStack bucket = new ItemStack(Items.BUCKET, 16);
         ItemStack stick = new ItemStack(Items.STICK, 64);
         List<ItemStack> stacks = List.of(
                 ironKnife, goldenKnife,
-                glassBottle, bowl, cauldron, bucket
+                glassBottle, bowl, clever, cup, mug,
+                cauldron, bucket
         );
         MyVillagerData.setMyVillagerData("餐具商人", "cookingTools",
                 CustomStyle.MUSHROOM_STYLE, VillagerType.PLAINS, VillagerProfession.TOOLSMITH, stacks);
@@ -197,6 +202,15 @@ public class TradeListNew {
             add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
         }});
         TradeList.tradeRecipeMap.put(bowl, new ArrayList<>() {{
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
+        }});
+        TradeList.tradeRecipeMap.put(clever, new ArrayList<>() {{
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
+        }});
+        TradeList.tradeRecipeMap.put(cup, new ArrayList<>() {{
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
+        }});
+        TradeList.tradeRecipeMap.put(mug, new ArrayList<>() {{
             add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
         }});
         TradeList.tradeRecipeMap.put(cauldron, new ArrayList<>() {{
