@@ -79,7 +79,6 @@ public class ToolTipEvent {
                 && !Screen.hasAltDown()
                 && !Screen.hasControlDown()) {
             if (!Screen.hasShiftDown()) {
-                event.getToolTip().add(Te.s(""));
                 event.getToolTip().add(Component.literal("[在灌注配方中，按下Shift查看配方]")
                         .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfInject));
             }
@@ -137,7 +136,6 @@ public class ToolTipEvent {
         }
         if (item instanceof EnhancedForgedItem enhancedForgedItem) {
             if (enhancedForgedItem.getEnhanceTier() == 0) {
-                tooltip.add(Te.s(""));
                 tooltip.add(Te.s("「", ChatFormatting.AQUA, "可在锻造台中", "锐化", CustomStyle.styleOfWorld,
                         "」", ChatFormatting.AQUA));
             }
@@ -326,7 +324,6 @@ public class ToolTipEvent {
         }
         if (item instanceof Decomposable decomposable) {
             if (decomposable.getProduct() != null && !decomposable.getProduct().is(Items.AIR)) {
-                tooltip.add(Te.s(""));
                 tooltip.add(Te.s(" 可在锻造台分解为", CustomStyle.styleOfStone, decomposable.getProduct().getDisplayName(),
                         " * " + decomposable.getProduct().getCount(), CustomStyle.styleOfWorld));
             }

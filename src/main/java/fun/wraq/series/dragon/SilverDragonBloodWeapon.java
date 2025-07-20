@@ -5,9 +5,11 @@ import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.OnCauseFinalDamageEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -83,6 +85,17 @@ public interface SilverDragonBloodWeapon extends OnCauseFinalDamageEquip, Active
                             mob, player, CustomStyle.SILVER_DRAGON_STYLE);
                     return count;
                 }).sum();
+                int count = 0;
+                for (Mob mob : Compute.getNearMob(player, 6)) {
+                    if (mobCountMap.getOrDefault(mob, 0) > 0) {
+                        ++count;
+                    }
+                }
+                if (count > 0) {
+                    Compute.playerHeal(player, player.getMaxHealth() * 0.02 * count);
+                    StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
+                            "SilverDragonBloodWeaponActive", count * 0.05, Tick.get() + Tick.s(5));
+                }
                 addCountToPlayer(player, weapon.getMaxCount(), sum);
                 MySound.soundToPlayer(player, SoundEvents.ENDER_DRAGON_SHOOT);
             } else {
@@ -134,17 +147,19 @@ public interface SilverDragonBloodWeapon extends OnCauseFinalDamageEquip, Active
         List<Component> components = new ArrayList<>();
         Style style = CustomStyle.SILVER_DRAGON_STYLE;
         ComponentUtils.descriptionPassive(components, Te.s("银龙之血", CustomStyle.SILVER_DRAGON_STYLE));
-        components.add(Te.s(" 每与敌方战斗1s，自身与敌方获得1层", "银龙之血.", style));
-        components.add(Te.s(" 带有", "银龙之血", style, "的敌方，受到的伤害将提升"));
+        components.add(Te.s(" 每与敌人战斗1s，自身与敌人获得1层", "银龙之血.", style));
+        components.add(Te.s(" 带有", "银龙之血", style, "的敌人，受到的伤害将提升"));
         components.add(Te.s(" 其拥有", "银龙之血", style, "层数 * 1%"));
-        components.add(Te.s(" 在敌方后，其", "银龙之血", style, "将扩散至周围其他敌方."));
+        components.add(Te.s(" 在敌人死亡后，其", "银龙之血", style, "将扩散至周围其他敌人."));
         components.add(Te.s(" 银龙之血", style, "最大层数: ", maxTier, style));
-        components.add(Te.s(" 银龙之血扩散时，敌方的最大层数取决于", ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        components.add(Te.s(" 曾造成过伤害的玩家武器最大层数", ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        components.add(Te.s(" 扩散时，最大层数取有效玩家最大层数", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         ComponentUtils.descriptionActive(components, Te.s("血之主", CustomStyle.SILVER_DRAGON_STYLE));
         components.add(Te.s(" · 将自身的", "银龙之血", style,
                 "施加给" + (item instanceof WraqSword ? "周围" : "准星附近") + "所有敌人."));
-        components.add(Te.s(" · 按shift释放，将汲取周围所有敌方的", "银龙之血", style));
+        components.add(Te.s(" · 按shift释放，将汲取周围所有敌人的", "银龙之血", style));
+        components.add(Te.s(" · 每汲取一名敌人，回复",
+                ComponentUtils.AttributeDescription.maxHealth("2%")));
+        components.add(Te.s("   并获得持续5s的", ComponentUtils.getCommonDamageEnhance("5%")));
         components.add(Te.s(" · ", "冷却时间 5s", ChatFormatting.AQUA));
         return components;
     }

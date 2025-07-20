@@ -257,7 +257,7 @@ public class Summer2025 {
             new Vec3(1836, 70, 377)
     );
 
-    public static int MAX_ROUND_NUM = 10;
+    public static int MAX_ROUND_NUM = 5;
 
     public static int getMobXpLevelByRound() {
         if (currentRound < 2) {
@@ -335,7 +335,7 @@ public class Summer2025 {
         getPlayers().forEach(player -> {
             if (player.experienceLevel >= 80) {
                 if (playerEachRoundKillCount.containsKey(Name.get(player))) {
-                    InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.SNACK_GOLD_COIN.get());
+                    InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.SNACK_GOLD_COIN.get(), 2);
                 } else {
                     sendMSG(player, Te.s("尝试击杀一个吃货僵尸吧!"));
                 }

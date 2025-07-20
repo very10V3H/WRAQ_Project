@@ -18,6 +18,7 @@ import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
+import fun.wraq.series.dragon.SilverDragonBloodWeapon;
 import fun.wraq.series.events.ForgePaper;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.gems.WraqGem;
@@ -1167,6 +1168,9 @@ public class BasicAttributeDescription {
 
     public static void BasicAttributeCommonDescription(List<Component> components, ItemStack itemStack) {
         int forgeQuality = ForgeEquipUtils.getForgeQualityOnEquip(itemStack);
+        if (itemStack.getItem() instanceof SilverDragonBloodWeapon) {
+            return;
+        }
         if (forgeQuality != -1) {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("θ-锻造品质: ").withStyle(CustomStyle.styleOfGold)).

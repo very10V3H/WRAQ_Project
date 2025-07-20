@@ -22,12 +22,35 @@ public class SilverDragonItems {
             = ITEMS.register("silver_dragon_weapon_piece",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), true, true));
 
-    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SWORD = ITEMS.register("silver_dragon_blood_sword",
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SWORD
+            = ITEMS.register("silver_dragon_blood_sword",
             () -> new SilverDragonBloodSword(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 0));
-    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_BOW = ITEMS.register("silver_dragon_blood_bow",
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_BOW
+            = ITEMS.register("silver_dragon_blood_bow",
             () -> new SilverDragonBloodBow(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 0));
-    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SCEPTRE = ITEMS.register("silver_dragon_blood_sceptre",
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SCEPTRE
+            = ITEMS.register("silver_dragon_blood_sceptre",
             () -> new SilverDragonBloodSceptre(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 0));
+
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SWORD_1
+            = ITEMS.register("silver_dragon_blood_sword_1",
+            () -> new SilverDragonBloodSword(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 1));
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_BOW_1
+            = ITEMS.register("silver_dragon_blood_bow_1",
+            () -> new SilverDragonBloodBow(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 1));
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SCEPTRE_1
+            = ITEMS.register("silver_dragon_blood_sceptre_1",
+            () -> new SilverDragonBloodSceptre(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 1));
+
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SWORD_2
+            = ITEMS.register("silver_dragon_blood_sword_2",
+            () -> new SilverDragonBloodSword(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 2));
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_BOW_2
+            = ITEMS.register("silver_dragon_blood_bow_2",
+            () -> new SilverDragonBloodBow(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 2));
+    public static final RegistryObject<Item> SILVER_DRAGON_BLOOD_SCEPTRE_2
+            = ITEMS.register("silver_dragon_blood_sceptre_2",
+            () -> new SilverDragonBloodSceptre(new Item.Properties().rarity(CustomStyle.SILVER_DRAGON_BOLD_RARITY), 2));
 
     public static final RegistryObject<Item> SILVER_DRAGON_SWORD_LOTTERY
             = ITEMS.register("silver_dragon_sword_lottery",

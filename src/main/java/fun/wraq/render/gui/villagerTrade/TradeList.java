@@ -533,6 +533,12 @@ public class TradeList {
         ItemStack silverDragonBloodSword = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD.get());
         ItemStack silverDragonBloodBow = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_BOW.get());
         ItemStack silverDragonBloodSceptre = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE.get());
+        ItemStack silverDragonBloodSword1 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD_1.get());
+        ItemStack silverDragonBloodBow1 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_BOW_1.get());
+        ItemStack silverDragonBloodSceptre1 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE_1.get());
+        ItemStack silverDragonBloodSword2 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD_2.get());
+        ItemStack silverDragonBloodBow2 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_BOW_2.get());
+        ItemStack silverDragonBloodSceptre2 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE_2.get());
         ItemStack[] itemStacks = {
                 ModItems.WORLD_SOUL_NOTE.get().getDefaultInstance(),
                 ModItems.SOUL_SWORD.get().getDefaultInstance(),
@@ -553,7 +559,9 @@ public class TradeList {
                 ExtraordinaryItems.NAN_HAI_M.get().getDefaultInstance(),
                 ExtraordinaryItems.TONG_TIAN.get().getDefaultInstance(),
                 kanupusWingF,
-                silverDragonBloodSword, silverDragonBloodBow, silverDragonBloodSceptre
+                silverDragonBloodSword, silverDragonBloodBow, silverDragonBloodSceptre,
+                silverDragonBloodSword1, silverDragonBloodBow1, silverDragonBloodSceptre1,
+                silverDragonBloodSword2, silverDragonBloodBow2, silverDragonBloodSceptre2
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -589,6 +597,30 @@ public class TradeList {
         ));
         tradeRecipeMap.put(silverDragonBloodSceptre, List.of(
                 new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 3)
+        ));
+        tradeRecipeMap.put(silverDragonBloodSword1, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD.get(), 1),
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 6)
+        ));
+        tradeRecipeMap.put(silverDragonBloodBow1, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_BOW.get(), 1),
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 6)
+        ));
+        tradeRecipeMap.put(silverDragonBloodSceptre1, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE.get(), 1),
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 6)
+        ));
+        tradeRecipeMap.put(silverDragonBloodSword2, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD_1.get(), 1),
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 12)
+        ));
+        tradeRecipeMap.put(silverDragonBloodBow2, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_BOW_1.get(), 1),
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 12)
+        ));
+        tradeRecipeMap.put(silverDragonBloodSceptre2, List.of(
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE_1.get(), 1),
+                new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 12)
         ));
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {

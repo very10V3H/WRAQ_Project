@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.plan.PlanPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -14,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +36,6 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
         CompoundTag data = serverPlayer.getPersistentData();
         String prefixString = StringArgumentType.getString(context, "prefix");
         String colorString = StringArgumentType.getString(context, "color");
-
         int tier = PlanPlayer.getPlayerTier(serverPlayer);
         if (tier == 0) {
             Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
@@ -48,19 +49,23 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
                 return 0;
             }
         }
-
         if (prefixString.length() > 8) {
             Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
                     Component.literal("称号名称的最大长度为8").withStyle(ChatFormatting.WHITE));
             return 0;
         }
-
         if (banedCharacters.stream().anyMatch(character -> prefixString.contains(character.toString()))) {
             Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
                     Component.literal("称号中不能带有<>[]|∮").withStyle(ChatFormatting.WHITE));
             return 0;
         }
-
+        if (PrefixCommand.getSimplePrefixTypeList().stream().anyMatch(prefixCondition -> {
+            return prefixString.contains(prefixCondition.getPrefixDescription());
+        })) {
+            Compute.sendFormatMSG(serverPlayer, Te.s("自定义称号", ChatFormatting.AQUA),
+                    Te.s("自定义称号不能与已有预置称号相同."));
+            return 0;
+        }
         // 使用预置颜色
         if (!colorString.startsWith("#")) {
             Map<String, String> colorStringMap = new HashMap<>() {{
@@ -84,7 +89,6 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
                 return 0;
             }
         }
-
         data.putString(PrefixCommand.prefix, prefixString);
         data.putString(PrefixCommand.prefixColor, colorString);
         Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
@@ -99,4 +103,17 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
         return 0;
     }
 
+    public static void onLogin(Player player) {
+        if (PlanPlayer.getPlayerTier(player) == 0) {
+            CompoundTag data = player.getPersistentData();
+            data.putInt(customPrefixTimes, 0);
+            if (data.contains(PrefixCommand.prefix) && PrefixCommand.getSimplePrefixTypeList().stream()
+                    .noneMatch(prefixCondition -> {
+                return data.getString(PrefixCommand.prefix).contains(prefixCondition.getPrefixDescription());
+            })) {
+                data.remove(PrefixCommand.prefix);
+                data.remove(PrefixCommand.prefixColor);
+            }
+        }
+    }
 }

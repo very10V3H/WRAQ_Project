@@ -54,10 +54,16 @@ public class MobKillEntrustmentHud {
                         components.add(Te.s("衰减剩余时间: ", reputationExpiredMin + "min", CustomStyle.styleOfStone));
                     }
                 }
-                components.add(Te.s("今日已完成次数: ", dailyFinishedTimes, CustomStyle.styleOfWorld));
+                if (dailyFinishedTimes == 0) {
+                    components.add(Te.s("今天还没有做委托呢~"));
+                    components.add(Te.s("找到研院秘书进行委托吧!"));
+                } else {
+                    components.add(Te.s("今日已完成次数: ", dailyFinishedTimes, CustomStyle.styleOfWorld));
+                }
                 components.add(Te.s("本周已完成次数: ", weeklyFinishedTimes, CustomStyle.styleOfMoon1));
                 components.add(Te.s("总完成次数: ", totalFinishedTimes, ChatFormatting.YELLOW));
-                components.add(Te.s("平均用时: ", MobKillEntrustment.getDeltaTimeFormatString(averageTick, 0), CustomStyle.styleOfSky));
+                components.add(Te.s("平均用时: ",
+                        MobKillEntrustment.getDeltaTimeFormatString(averageTick, 0), CustomStyle.styleOfSky));
                 if (nextAllowAcceptTick > ClientUtils.serverTick) {
                     components.add(Te.s("惩罚剩余: ",
                             MobKillEntrustment.getDeltaTimeFormatString(nextAllowAcceptTick, ClientUtils.serverTick),

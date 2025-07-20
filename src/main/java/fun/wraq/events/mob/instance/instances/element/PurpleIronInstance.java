@@ -9,12 +9,9 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
-import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerBossEvent;
@@ -101,18 +98,12 @@ public class PurpleIronInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        if (MobSpawn.getPlayerKillCount(player, NetherInstance.mobName) >= 32) {
-            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron, true);
-        }
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron);
+        return true;
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Component.literal("需要击杀").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("32次").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("燃魂").withStyle(CustomStyle.styleOfPower)).
-                append(Component.literal("，方能获取奖励").withStyle(ChatFormatting.WHITE));
+        return Te.s("");
     }
 
     public List<ItemAndRate> getRewardList() {

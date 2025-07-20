@@ -55,18 +55,13 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
                 " 长度可及:", String.format("%.0f", maxActiveDistance), style));
         components.add(Te.s(" 对路径的敌人造成一次", isAd ? "普攻伤害" : "法球伤害",
                 isAd ? CustomStyle.styleOfPower : CustomStyle.styleOfMana));
-        ComponentUtils.getStableCoolDownTimeDescription(components, 2);
-        components.add(Te.s(" 圣光", CustomStyle.DIVINE_STYLE, "若击杀怪物，则", "无冷却时间", ChatFormatting.AQUA));
-        ComponentUtils.descriptionPassive(components, Te.s("光域剥离", style));
-        components.add(Te.s(" 手持该武器对怪物造成伤害，会使其", "显形", style));
+        components.add(Te.s(" 固定冷却:", "2s", ChatFormatting.AQUA, "，使用", "圣光", style, "击杀将刷新冷却."));
         ComponentUtils.descriptionPassive(components, Te.s("神圣之力", style));
         components.add(Te.s(" 将除", "当前共鸣", ChatFormatting.AQUA, "以外的元素", "以", "20%", style, "的效率"));
         components.add(Te.s(" 转化为", "当前元素", ChatFormatting.AQUA, "的", "归一化元素强度", style));
         ComponentUtils.descriptionPassive(components, Te.s("圣光恩赐", style));
         Component countName = ComponentUtils.getRightAngleQuote("圣光恩赐", style);
-        components.add(Te.s(" 击杀怪物将会受", countName, style));
-        components.add(Te.s(" ", countName, "将存储在这件物品内"));
-        components.add(Te.s(" ", countName, "至多为你提供:"));
+        components.add(Te.s(" 击杀怪物将会受", countName, style, "，至多提供:"));
         components.add(Te.s(ComponentUtils.AttributeDescription.getElementStrength(String.format("%.0f%%", upperLimitRate * 100)),
                 "与", isAd ?
                         ComponentUtils.AttributeDescription.attackDamage(String.format("%.0f%%", upperLimitRate * 100))

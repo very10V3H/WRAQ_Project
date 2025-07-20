@@ -2,6 +2,7 @@ package fun.wraq.events.server;
 
 import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.commands.changeable.PrefixCommand;
+import fun.wraq.commands.stable.players.CustomPrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
@@ -92,24 +93,18 @@ public class LoginInEvent {
             if (!Security.checkModBladeList(serverPlayer)) {
                 return;
             }
-
             Scoreboard scoreboard = player.getServer().getScoreboard();
             scoreboard.entityRemoved(player);
-
             CompoundTag data = player.getPersistentData();
-
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);
-
             for (int i = 0 ; i < CompensateCommand.rewardNum ; i ++) {
                 String singleReward = "singleReward" + i;
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
-
             for (int i = 1 ; i <= 12 ; i ++) {
                 String dataKey = "LevelReward" + i * 5;
                 data.remove(dataKey);
             }
-
             boolean isNewPlayer = !data.contains("FirstReward");
             String frontConditionForOldPlayer = "frontConditionForOldPlayer";
             if (isNewPlayer) data.putBoolean(frontConditionForOldPlayer, true);
@@ -129,14 +124,12 @@ public class LoginInEvent {
                     InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.FOR_NEW.get()));
                 }
             }
-
             String singleReward = CompensateCommand.singleReward;
             if (isNewPlayer) data.putBoolean(singleReward, true);
             if (!data.contains(singleReward)) {
                 Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                         Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
             }
-
             String expAdjust = "2.0.37-expAdjust";
             if (isNewPlayer) data.putBoolean(expAdjust, true);
             if (!data.contains(expAdjust) && player.experienceLevel > 180) {
@@ -153,19 +146,15 @@ public class LoginInEvent {
                 Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("因经验改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
             }
-
             List<ServerPlayer> list = event.getEntity().getServer().getPlayerList().getPlayers();
             PrefixCommand.handlePrefix(list);
-
             data.putDouble("DX", player.getX());
             data.putDouble("DY", player.getY());
             data.putDouble("DZ", player.getZ());
             data.putString("Name", player.getName().getString());
-
             for (String TickString : StringUtils.TickStringArray) {
                 if (data.contains(TickString)) data.putInt(TickString, 0);
             }
-
             if (!data.contains(StringUtils.Swift) || !data.contains(StringUtils.MaxSwift)) {
                 data.putDouble(StringUtils.Swift, 100);
                 data.putDouble(StringUtils.MaxSwift, 100);
@@ -176,7 +165,6 @@ public class LoginInEvent {
                 data.putDouble(StringUtils.MaxCold, 100);
                 ModNetworking.sendToClient(new SwiftSyncS2CPacket(100, 0), serverPlayer);
             }
-
             if (!data.contains("MANA") || !data.contains("MAXMANA")) {
                 data.putDouble("MANA", 100);
                 data.putDouble("MAXMANA", 100);
@@ -190,9 +178,7 @@ public class LoginInEvent {
                 player.addItem(ModItems.ID_CARD.get().getDefaultInstance());
                 data.putBoolean("ID_Card", false);
             }
-
             Compute.EntropyPacketSend(player);
-
             if (!data.contains(StringUtils.LastDailyMissionFinishedTime)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
@@ -204,14 +190,17 @@ public class LoginInEvent {
             if (Utils.playerReputationMissionAllowRequestTime.containsKey(serverPlayer.getName().getString())) {
                 ModNetworking.sendToClient(new ReputationMissionAllowRequestTimeS2CPacket(Utils.playerReputationMissionAllowRequestTime.get(serverPlayer.getName().getString())), serverPlayer);
             }
-
             if (!data.contains(StringUtils.Reputation)) {
                 data.putInt(StringUtils.Reputation, 0);
-            } else
+            } else {
                 ModNetworking.sendToClient(new ReputationValueS2CPacket(data.getInt(StringUtils.Reputation)), serverPlayer);
-
-            if (!data.contains(StringUtils.PlayerInstanceProgress)) data.putInt(StringUtils.PlayerInstanceProgress, 0);
-            if (data.getInt(StringUtils.PlayerInstanceProgress) < 5) data.putInt(StringUtils.PlayerInstanceProgress, 5);
+            }
+            if (!data.contains(StringUtils.PlayerInstanceProgress)) {
+                data.putInt(StringUtils.PlayerInstanceProgress, 0);
+            }
+            if (data.getInt(StringUtils.PlayerInstanceProgress) < 5) {
+                data.putInt(StringUtils.PlayerInstanceProgress, 5);
+            }
 
             Parkour.ParkourInitial(player);
             // 体力值每日4点刷新 与 悬赏重置 与 跑酷重置
@@ -238,7 +227,6 @@ public class LoginInEvent {
                     refreshDailyContent(player);
                 }
             }
-
             Calendar calendar = Calendar.getInstance();
             // 每周刷新
             if (!data.contains(StringUtils.WeeklyRefreshWeekNum)) {
@@ -254,7 +242,6 @@ public class LoginInEvent {
                     refreshWeeklyContent(player);
                 }
             }
-
             if (!data.contains(StringUtils.monthlyRefreshMonthNum)) {
                 data.putInt(StringUtils.monthlyRefreshMonthNum, calendar.get(Calendar.MONTH));
                 data.putInt(StringUtils.monthlyRefreshYearNum, calendar.get(Calendar.YEAR));
@@ -268,7 +255,6 @@ public class LoginInEvent {
                     monthlyRefreshContent(player);
                 }
             }
-
             if (!data.contains("FirstReward")) {
                 InventoryOperation.giveItemStack(player, ModItems.FOR_NEW.get().getDefaultInstance());
                 Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.WHITE),
@@ -279,39 +265,31 @@ public class LoginInEvent {
             }
             data.putBoolean("FirstReward", true);
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
-
             if (Utils.playerReputationMissionContent.containsKey(player.getName().getString())
                     && Utils.playerReputationMissionContentNum.containsKey(player.getName().getString())
                     && Utils.playerReputationMissionContentNum.get(player.getName().getString()) != 0)
                 ModNetworking.sendToClient(new ReputationMissionContentS2CPacket(
                         Utils.playerReputationMissionContent.get(serverPlayer.getName().getString())
                         , Utils.playerReputationMissionContentNum.get(serverPlayer.getName().getString())), serverPlayer);
-
             if (Utils.playerDailyMissionContent.containsKey(player.getName().getString())
                     && Utils.playerDailyMissionContentNum.containsKey(player.getName().getString())
                     && Utils.playerDailyMissionContentNum.get(player.getName().getString()) != 0)
                 ModNetworking.sendToClient(new DailyMissionContentS2CPacket(
                         Utils.playerDailyMissionContent.get(player.getName().getString()),
                         Utils.playerDailyMissionContentNum.get(player.getName().getString())), serverPlayer);
-
             if (data.contains(StringUtils.ResonanceType))
                 Element.PlayerResonanceType.put(player, data.getString(StringUtils.ResonanceType));
-
             String towerStatus = Tower.getPlayerStatus(player);
             ModNetworking.sendToClient(new TowerStatusS2CPacket(towerStatus), serverPlayer);
-
             DailySupply.sendStatusToClient(player);
             VpDataHandler.sendPlayerVpValue(player);
-
             if (data.contains(QuickUseHud.DISPLAY_KEY)) {
                 ModNetworking.sendToClient(
                         new QuickUseDisplayS2CPacket(data.getInt(QuickUseHud.DISPLAY_KEY)), serverPlayer);
             }
-
             if (!serverPlayer.getName().getString().equals("very_H")) {
                 ModNetworking.sendToClient(new MacRequestS2CPacket(),serverPlayer);
             }
-
             SingleItemChangePurchaseLimit.sendAllRecipeTimes(player);
             RankData.onPlayerLogin(player);
             Reason.sendReasonValuePacketToClient(player);
@@ -323,7 +301,6 @@ public class LoginInEvent {
             SpringMobEvent.onPlayerLogin(player);
             PlanPlayer.onPlayerLoginSync(player);
             NewLotteries.sendLotteryRewardTimes(player);
-
             String enhanceForge = "enhanceForgeEquipAdjust";
             if (!data.contains(enhanceForge)) {
                 data.putBoolean(enhanceForge, true);
@@ -341,7 +318,6 @@ public class LoginInEvent {
                     }
                 }
             }
-
             WraqCurios.shrinkOtherModSlot(serverPlayer);
             LabourDayOldCoin.onPlayerLoginTips(player);
             EstatePlayerData.onLogin(player);
@@ -351,6 +327,7 @@ public class LoginInEvent {
             WeeklyStorePlayerData.sendDataToClient(player);
             Summer2025.onLogin(player);
             RankData.onPlayerLoginCompensate(player);
+            CustomPrefixCommand.onLogin(player);
             // 更新检查，放在最后吧
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
         }

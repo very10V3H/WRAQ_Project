@@ -18,12 +18,13 @@ public class SilverDragonBloodBow extends WraqBow implements SilverDragonBloodWe
     public final int tier;
     public SilverDragonBloodBow(Properties properties, int tier) {
         super(properties);
-        Utils.xpLevelAttackDamage.put(this, 10d);
-        Utils.percentAttackDamageEnhance.put(this, 0.2);
-        Utils.defencePenetration.put(this, 0.3);
-        Utils.xpLevelDefencePenetration0.put(this, 0.3);
-        Utils.critRate.put(this, 0.35);
-        Utils.critDamage.put(this, 0.15);
+        Utils.xpLevelAttackDamage.put(this, new double[]{10d, 12d, 15d}[tier]);
+        Utils.percentAttackDamageEnhance.put(this, new double[]{0.2, 0.25, 0.3}[tier]);
+        Utils.defencePenetration.put(this, new double[]{0.3, 0.35, 0.4}[tier]);
+        Utils.xpLevelDefencePenetration0.put(this, new double[]{0.3, 0.35, 0.4}[tier]);
+        Utils.healthSteal.put(this, 0.08);
+        Utils.critRate.put(this, new double[]{0.35, 0.4, 0.45}[tier]);
+        Utils.critDamage.put(this, new double[]{0.05, 0.15, 0.25}[tier]);
         this.tier = tier;
     }
 

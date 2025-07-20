@@ -2275,9 +2275,15 @@
 
   "item.vmd.silver_dragon_weapon_piece": "银龙武器碎片",
 
-  "item.vmd.silver_dragon_blood_sword": "银龙血刃",
-  "item.vmd.silver_dragon_blood_bow": "银龙血弓",
-  "item.vmd.silver_dragon_blood_sceptre": "银龙血杖",
+  "item.vmd.silver_dragon_blood_sword": "银龙血牙",
+  "item.vmd.silver_dragon_blood_bow": "银龙血爪",
+  "item.vmd.silver_dragon_blood_sceptre": "银龙血脊",
+  "item.vmd.silver_dragon_blood_sword_1": "银龙浴血獠牙",
+  "item.vmd.silver_dragon_blood_bow_1": "银龙浴血利爪",
+  "item.vmd.silver_dragon_blood_sceptre_1": "银龙浴血蜿脊",
+  "item.vmd.silver_dragon_blood_sword_2": "银龙沸血骨牙",
+  "item.vmd.silver_dragon_blood_bow_2": "银龙沸血赤爪",
+  "item.vmd.silver_dragon_blood_sceptre_2": "银龙沸血蜒脊",
 
   "item.vmd.silver_dragon_sword_lottery": "『龙牙』补给包",
   "item.vmd.silver_dragon_bow_lottery": "『龙脊』补给包",

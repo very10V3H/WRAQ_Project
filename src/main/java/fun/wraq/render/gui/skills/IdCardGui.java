@@ -2,6 +2,7 @@ package fun.wraq.render.gui.skills;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -15,6 +16,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.reason.Reason;
@@ -716,6 +718,46 @@ public class IdCardGui extends Screen {
             guiGraphics.renderItem(itemStack, posX, posY);
             if (x > posX && x < posX + 16 && y > posY && y < posY + 16) {
                 guiGraphics.renderTooltip(font, itemStack, x, y);
+            }
+        }
+        if (RankData.clientPlayerCurrentRankMap.containsKey(ClientUtils.clientPlayer.getUUID())) {
+            String rank = RankData.clientPlayerCurrentRankMap.get(ClientUtils.clientPlayer.getUUID());
+            if (!rank.equals("null")) {
+                List<Component> rankDescription = new ArrayList<>();
+                rankDescription.add(Te.s("职级 - ", CustomStyle.styleOfWorld, RankData.getRankName(rank), " ",
+                        rank, RankData.rankStyleMap.get(rank)));
+                rankDescription.add(Te.s("你当前拥有的职权:", CustomStyle.styleOfWorld));
+                rankDescription.add(Te.s(" · ", "日薪:" +
+                        RankData.rankWagesMap.get(rank) * 1000 + "VB", CustomStyle.styleOfGold));
+                if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13B")) {
+                    rankDescription.add(Te.s(" · ", "完成每日任务额外提供",
+                            ModItems.WORLD_SOUL_5.get(), " * 2", CustomStyle.styleOfWorld));
+                } else {
+                    if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13C")) {
+                        rankDescription.add(Te.s(" · ", "完成每日任务额外提供",
+                                ModItems.WORLD_SOUL_5.get(), " * 1", CustomStyle.styleOfWorld));
+                    }
+                }
+                if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13A")) {
+                    rankDescription.add(Te.s(" · ", "完成每日悬赏任务获得",
+                            ModItems.SENIOR_POTION_SUPPLY.get()));
+                }
+                if (RankData.smeltNeedTimeReduction(rank) > 0) {
+                    rankDescription.add(Te.s(" · ", "炼造物品耗时 ",
+                            "-" + RankData.smeltNeedTimeReduction(rank) + "s", ChatFormatting.AQUA));
+                }
+                if (RankData.getExReputationMissionRewardRate(rank) > 0) {
+                    rankDescription.add(Te.s(" · ", "额外声望获取 ",
+                            String.format("+%.0f%%", RankData.getExReputationMissionRewardRate(rank) * 100),
+                            CustomStyle.styleOfGold));
+                }
+                rankDescription.add(Te.s(" · ",
+                        "额外产出 + " + String.format("%.0f%%", RankData.getRankSerial(rank) * 0.02 * 100),
+                        CustomStyle.styleOfGold));
+                rankDescription.add(Te.s(" · ", "完成委托任务额外奖金: ",
+                        RankData.rankWagesMap.get(rank) * 100 + "VB", CustomStyle.styleOfGold));
+                guiGraphics.renderComponentTooltip(font, rankDescription,
+                        this.width / 2 + 320, this.height / 2 - 80);
             }
         }
     }

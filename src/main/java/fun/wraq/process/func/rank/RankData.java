@@ -107,6 +107,9 @@ public class RankData {
     public static int getRankSerial(Player player) {
        return rankSerialList.indexOf(getCurrentRank(player));
     }
+    public static int getRankSerial(String rank) {
+        return rankSerialList.indexOf(rank);
+    }
 
     public static void sendFormatMSG(Player player, Component content) {
         if (player != null) {
@@ -260,6 +263,17 @@ public class RankData {
         return 0;
     }
 
+    public static int smeltNeedTimeReduction(String rank) {
+        if (getRankSerial(rank) >= rankSerialList.indexOf("14A")) {
+            return 30;
+        } else if (getRankSerial(rank) >= rankSerialList.indexOf("14B")) {
+            return 20;
+        } else if (getRankSerial(rank) >= rankSerialList.indexOf("14C")) {
+            return 10;
+        }
+        return 0;
+    }
+
     // 额外悬赏值
     public static double getExReputationMissionRewardRate(Player player) {
         if (getRankSerial(player) >= rankSerialList.indexOf("14A")) {
@@ -267,6 +281,17 @@ public class RankData {
         } else if (getRankSerial(player) >= rankSerialList.indexOf("14B")) {
             return 0.2;
         } else if (getRankSerial(player) >= rankSerialList.indexOf("14C")) {
+            return 0.1;
+        }
+        return 0;
+    }
+
+    public static double getExReputationMissionRewardRate(String rank) {
+        if (getRankSerial(rank) >= rankSerialList.indexOf("14A")) {
+            return 0.3;
+        } else if (getRankSerial(rank) >= rankSerialList.indexOf("14B")) {
+            return 0.2;
+        } else if (getRankSerial(rank) >= rankSerialList.indexOf("14C")) {
             return 0.1;
         }
         return 0;
@@ -326,5 +351,9 @@ public class RankData {
                     * MobKillEntrustment.getTotalFinishedTimes(player));
             sendFormatMSG(player, Te.s("你已收到来自委托与职级的VB补偿!", CustomStyle.styleOfGold));
         }
+    }
+
+    public static Component getRankName(String rank) {
+        return Te.s(rankNameMap.get(rank), rankStyleMap.get(rank));
     }
 }

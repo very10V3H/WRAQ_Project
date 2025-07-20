@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import java.util.List;
 public class SuperColdDragonSceptre extends WraqSceptre implements SuperColdDragonWeaponCommon, ActiveItem {
 
     public final int tier;
+
+    public static List<Item> items = new ArrayList<>();
 
     public SuperColdDragonSceptre(Properties properties, int tier) {
         super(properties);
@@ -32,6 +35,7 @@ public class SuperColdDragonSceptre extends WraqSceptre implements SuperColdDrag
         Utils.coolDownDecrease.put(this, 0.3);
         Element.iceElementValue.put(this, 2.5);
         Utils.levelRequire.put(this, 225);
+        items.add(this);
     }
 
     @Override

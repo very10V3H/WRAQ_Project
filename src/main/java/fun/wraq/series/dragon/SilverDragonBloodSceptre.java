@@ -22,13 +22,13 @@ public class SilverDragonBloodSceptre extends WraqSceptre implements SilverDrago
     public final int tier;
     public SilverDragonBloodSceptre(Properties properties, int tier) {
         super(properties);
-        Utils.xpLevelManaDamage.put(this, 20d);
-        Utils.percentManaDamageEnhance.put(this, 0.2);
-        Utils.manaPenetration.put(this, 0.3);
-        Utils.xpLevelManaPenetration0.put(this, 0.3);
+        Utils.xpLevelManaDamage.put(this, new double[]{10d, 12d, 15d}[tier] * 2);
+        Utils.percentManaDamageEnhance.put(this, new double[]{0.2, 0.25, 0.3}[tier] * 2);
+        Utils.manaPenetration.put(this, new double[]{0.3, 0.35, 0.4}[tier]);
+        Utils.xpLevelManaPenetration0.put(this, new double[]{0.3, 0.35, 0.4}[tier]);
         Utils.manaHealthSteal.put(this, 0.08);
-        Utils.manaRecover.put(this, 40d);
-        Utils.coolDownDecrease.put(this, 0.3);
+        Utils.manaRecover.put(this, new double[]{40d, 60d, 80d}[tier]);
+        Utils.coolDownDecrease.put(this, new double[]{0.3, 0.4, 0.5}[tier]);
         this.tier = tier;
     }
 

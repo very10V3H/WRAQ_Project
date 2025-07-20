@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.bow;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
@@ -36,6 +37,7 @@ public class BowCurios0 extends WraqBowUniformCurios {
                 append(Component.literal("获得").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("1.5倍").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("基础伤害").withStyle(ChatFormatting.WHITE)));
+        components.add(Te.s(" 效果持续3s.", ChatFormatting.AQUA));
         components.add(Component.literal(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。").withStyle(style));
         return components;
     }

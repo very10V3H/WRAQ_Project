@@ -3,15 +3,14 @@ package fun.wraq.events.mob.instance.instances.dimension;
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ignited_Revenant_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
-import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerBossEvent;
@@ -78,16 +77,12 @@ public class NetherInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.nether);
+        return true;
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Component.literal("需要将任意").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("普莱尼戒指").withStyle(CustomStyle.styleOfPlain)).
-                append(Component.literal("提升至").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("3阶").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("，方能获取奖励").withStyle(ChatFormatting.WHITE));
+        return Te.s("");
     }
 
     public List<ItemAndRate> getRewardList() {

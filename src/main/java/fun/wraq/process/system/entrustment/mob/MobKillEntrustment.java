@@ -135,6 +135,7 @@ public class MobKillEntrustment {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
             Tower.givePlayerStar(player, 5, "委托任务每日进度奖励");
+            Compute.VBIncomeAndMSGSend(player, 50 * player.experienceLevel);
         }
         if (currentFinishedTime == 10) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 2));
@@ -143,6 +144,7 @@ public class MobKillEntrustment {
             if (QingTuan.isInActivityDate()) {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
+            Compute.VBIncomeAndMSGSend(player, 100 * player.experienceLevel);
         }
         if (currentFinishedTime == 15) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
@@ -150,6 +152,7 @@ public class MobKillEntrustment {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
             Tower.givePlayerStar(player, 5, "委托任务每日进度奖励");
+            Compute.VBIncomeAndMSGSend(player, 150 * player.experienceLevel);
         }
         if (currentFinishedTime == 20) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.TP_TICKET.get(), 3));
@@ -158,6 +161,7 @@ public class MobKillEntrustment {
             if (QingTuan.isInActivityDate()) {
                 InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.QING_MING_REBORN_CHEST.get(), 2);
             }
+            Compute.VBIncomeAndMSGSend(player, 200 * player.experienceLevel);
         }
         incrementWeeklyFinishedTimes(player, increment);
         if (QingTuan.isInActivityDate()) {
@@ -196,13 +200,17 @@ public class MobKillEntrustment {
         sendMSG(player, Te.s("委托任务每日进度奖励", CustomStyle.styleOfWorld));
         sendMSG(player, Te.s("今天已完成", getDailyFinishedTimes(player) + "次", CustomStyle.styleOfWorld));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 5), "5 ", ChatFormatting.GREEN,
-                " -> ", ModItems.TP_TICKET, " * 2", " + ", ModItems.WORLD_SOUL_5, " * 5"));
+                " -> ", ModItems.TP_TICKET, " * 2", " + ", ModItems.WORLD_SOUL_5, " * 5",
+                " + ", player.experienceLevel * 50 + "VB", CustomStyle.styleOfGold));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 10), "10", ChatFormatting.YELLOW,
-                " -> ", ModItems.TP_TICKET, " * 2", " + ", ModItems.BOND, " * 1", " + ", ModItems.GOLDEN_BEANS, " * 2"));
+                " -> ", ModItems.TP_TICKET, " * 2", " + ", ModItems.BOND, " * 1", " + ", ModItems.GOLDEN_BEANS, " * 2",
+                " + ", player.experienceLevel * 100 + "VB", CustomStyle.styleOfGold));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 15), "15", ChatFormatting.LIGHT_PURPLE,
-                " -> ", ModItems.TP_TICKET, " * 3", " + ", ModItems.WORLD_SOUL_5, " * 5"));
+                " -> ", ModItems.TP_TICKET, " * 3", " + ", ModItems.WORLD_SOUL_5, " * 5",
+                " + ", player.experienceLevel * 150 + "VB", CustomStyle.styleOfGold));
         player.sendSystemMessage(Te.s(" ", getStatus(currentFinishedTime, 20), "20", ChatFormatting.RED,
-                " -> ", ModItems.TP_TICKET, " * 3", " + ", ModItems.JUNIOR_SUPPLY, " * 1"));
+                " -> ", ModItems.TP_TICKET, " * 3", " + ", ModItems.JUNIOR_SUPPLY, " * 1",
+                " + ", player.experienceLevel * 200 + "VB", CustomStyle.styleOfGold));
         sendMSG(player,
                 Te.s(Te.c(Te.s("「查看每日进度奖励」", ChatFormatting.LIGHT_PURPLE),
                                 "/vmd entrustment queryDaily", Te.s("点击以查看每日进度奖励", ChatFormatting.LIGHT_PURPLE)),
@@ -617,14 +625,18 @@ public class MobKillEntrustment {
             return;
         }
         sendMSG(player, Te.s("近期如何？ ", player.getName().getString()));
-        for (int i = 0 ; i < 3 ; i ++) {
-            player.sendSystemMessage(Component.literal(""));
-        }
+        Compute.sendBlankLine(player, 2);
         // 接取委托命令与债券商店
         sendAcceptOrBondStoreMSG(player);
-        for (int i = 0 ; i < 4 ; i ++) {
-            player.sendSystemMessage(Component.literal(""));
-        }
+        Compute.sendBlankLine(player, 1);
+        player.sendSystemMessage(Te.s(" ".repeat(4),
+                Te.c(Te.s("「查看每日进度奖励」", ChatFormatting.LIGHT_PURPLE),
+                        "/vmd entrustment queryDaily",
+                        Te.s("点击以查看每日进度奖励", ChatFormatting.LIGHT_PURPLE)),
+                Te.c(Te.s("   「查看每周进度奖励」", ChatFormatting.LIGHT_PURPLE),
+                        "/vmd entrustment queryWeekly",
+                        Te.s("点击以查看每周进度奖励", ChatFormatting.LIGHT_PURPLE))));
+        Compute.sendBlankLine(player, 3);
         MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
     }
 

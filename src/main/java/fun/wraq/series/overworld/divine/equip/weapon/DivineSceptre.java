@@ -106,8 +106,11 @@ public class DivineSceptre extends WraqSceptre implements DivineWeaponCommon, Pr
         if (tier == 1) {
             return List.of(
                     new ItemStack(DivineIslandItems.DIVINE_SCEPTRE_0.get(), 1),
-                    new ItemStack(DivineIslandItems.DIVINE_BALANCE_STAR.get(), 999),
-                    new ItemStack(ModItems.RAINBOW_CRYSTAL.get(), 999)
+                    new ItemStack(DivineIslandItems.DIVINE_BALANCE_STAR.get(), 64),
+                    new ItemStack(DivineIslandItems.DIVINE_RUNE_WEAPON.get(), 192),
+                    new ItemStack(ModItems.RAINBOW_CRYSTAL.get(), 8),
+                    new ItemStack(ModItems.REPUTATION_MEDAL.get(), 192),
+                    new ItemStack(PickaxeItems.TINKER_GOLD.get(), 32)
             );
         }
         return List.of(

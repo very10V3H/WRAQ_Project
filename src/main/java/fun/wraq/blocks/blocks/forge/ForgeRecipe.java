@@ -42,7 +42,6 @@ public class ForgeRecipe {
                 && recipes.containsKey(item) && ForgeEquipUtils.itemForgePlaceMap.containsKey(item)
                 && !Screen.hasControlDown() && !Screen.hasShiftDown()) {
             if (!Screen.hasAltDown()) {
-                event.getToolTip().add(Te.s(""));
                 tooltip.add(Component.literal("[按下ALT查看锻造方式]").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfStone));
             } else {
                 event.getToolTip().add(Te.s(""));

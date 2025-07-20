@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '2.1.10a'
+version = '2.1.10b'
 group = 'com.very.vmd' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'vmd'
 
@@ -241,6 +241,8 @@ dependencies {
     implementation fg.deobf("curse.maven:neapolitan-382016:6248885")
     implementation fg.deobf("curse.maven:seasonals-416471:6058164")
     implementation fg.deobf("curse.maven:goety-586095:6660730")
+    implementation fg.deobf("curse.maven:mobtimizations-974401:5135998")
+    implementation fg.deobf("curse.maven:coroutil-237749:5096038")
     // client :
     implementation fg.deobf("curse.maven:iceberg-520110:4953572")
     implementation fg.deobf("curse.maven:prism-lib-638111:4650325")

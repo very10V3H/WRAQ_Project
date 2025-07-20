@@ -10,6 +10,7 @@ import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.List;
 public class SuperColdDragonSword extends WraqSword implements SuperColdDragonWeaponCommon, ActiveItem {
 
     public final int tier;
+
+    public static List<Item> items = new ArrayList<>();
 
     public SuperColdDragonSword(Properties properties, int tier) {
         super(properties);
@@ -31,6 +34,7 @@ public class SuperColdDragonSword extends WraqSword implements SuperColdDragonWe
         Utils.maxHealth.put(this, new double[]{10000, 12000, 15000}[tier]);
         Utils.coolDownDecrease.put(this, 0.28);
         Element.iceElementValue.put(this, 2.5);
+        items.add(this);
     }
 
     @Override

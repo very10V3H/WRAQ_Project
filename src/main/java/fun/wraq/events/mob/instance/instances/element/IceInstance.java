@@ -8,7 +8,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
-import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -16,7 +15,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -152,17 +150,12 @@ public class IceInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.iceKnight);
+        return true;
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Component.literal("需要至少").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
-                append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("紫晶骑士器灵").withStyle(CustomStyle.styleOfPurpleIron)).
-                append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
+        return Te.s("");
     }
 
     public List<ItemAndRate> getRewardList() {

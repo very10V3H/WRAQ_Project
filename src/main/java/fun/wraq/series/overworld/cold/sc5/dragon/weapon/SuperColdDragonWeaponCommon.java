@@ -19,6 +19,7 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -67,7 +68,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable {
         Vec3 startPos = Compute.getPlayerHandItemPos(player, true);
         ParticleProvider.createIafLineParticle(player.level(),
                 (int) pos.distanceTo(startPos) * 5, startPos, pos, EnumParticles.DragonIce);
-        double rate = 1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 250);
+        double rate = (1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 250)) * 0.33;
         Compute.getNearMob(player.level(), pos, 8).forEach(mob -> {
             adaptiveNormalAttack(player, mob, rate);
         });
@@ -81,6 +82,9 @@ public interface SuperColdDragonWeaponCommon extends Decomposable {
                         8, 100, ParticleTypes.SNOWFLAKE);
             }
         }, 20, Tick.s(3));
+        SuperColdDragonSword.items.forEach(item -> player.getCooldowns().addCooldown(item, Tick.s(1)));
+        SuperColdDragonBow.items.forEach(item -> player.getCooldowns().addCooldown(item, Tick.s(1)));
+        SuperColdDragonSceptre.items.forEach(item -> player.getCooldowns().addCooldown(item, Tick.s(1)));
     }
 
     private static void adaptiveNormalAttack(Player player, Mob eachMob, double rate) {
@@ -150,8 +154,9 @@ public interface SuperColdDragonWeaponCommon extends Decomposable {
 
     static void handleCommonActiveDescription(List<Component> components) {
         ComponentUtils.descriptionActive(components, Te.s("极寒之域", style));
-        components.add(Te.s(" 在目标区域制造一片领域"));
-        components.add(Te.s(" 每秒对领域内的敌人造成", "自适应伤害", CustomStyle.styleOfIce));
+        components.add(Te.s(" 在目标区域制造一片领域，领域持续", "3s", ChatFormatting.AQUA));
+        components.add(Te.s(" 每秒对领域内的敌人造成", "自适应伤害", CustomStyle.styleOfSea));
         components.add(Te.s(" 倍率可由", "冰元素强度", style, "，至多提升至", "500%", style));
+        ComponentUtils.getStableCoolDownTimeDescription(components, 1);
     }
 }
