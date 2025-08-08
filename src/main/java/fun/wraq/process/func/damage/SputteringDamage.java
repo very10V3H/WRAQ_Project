@@ -1,11 +1,11 @@
 package fun.wraq.process.func.damage;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,15 +66,17 @@ public class SputteringDamage {
                     List<Mob> addMobs = new ArrayList<>();
 
                     nextCauseMob.forEach(mob -> {
-                        if (causedDamageMob.contains(mob)) return;
-                        List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 30, 30, 30));
-                        mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 9 || causedDamageMob.contains(mob1)
-                                || nextCauseMob.contains(mob1) || addMobs.contains(mob1));
-                        mobList.forEach(mob1 -> {
-                            ParticleProvider.createLineEffectParticle(mob.level(), (int) mob1.distanceTo(mob) * 5,
-                                    mob.getEyePosition(), mob1.getEyePosition(), sputterStyle);
+                        if (causedDamageMob.contains(mob)) {
+                            return;
+                        }
+                        Compute.getNearMob(mob, 9).stream().filter(eachMob -> {
+                            return !causedDamageMob.contains(eachMob) && nextCauseMob.contains(eachMob)
+                                    && !addMobs.contains(eachMob);
+                        }).forEach(eachMob -> {
+                            ParticleProvider.createLineEffectParticle(mob.level(), (int) eachMob.distanceTo(mob) * 5,
+                                    mob.getEyePosition(), eachMob.getEyePosition(), sputterStyle);
+                            addMobs.add(eachMob);
                         });
-                        addMobs.addAll(mobList);
                         if (this.generation > 0 && !mob.equals(this.originMob)) {
                             if (this.damageType == 0)
                                 Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob,

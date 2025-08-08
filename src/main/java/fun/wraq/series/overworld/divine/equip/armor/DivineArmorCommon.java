@@ -52,7 +52,7 @@ public interface DivineArmorCommon extends EnhanceSkillRateEquip, OnKillEffectEq
     }
 
     static double getCommonEnhanceRate(ItemStack stack, double maxRate, int maxCount) {
-        return DivineWeaponCommon.getDivineCount(stack) * 1.0 / maxCount * maxRate;
+        return Math.min(DivineWeaponCommon.getDivineCount(stack), maxCount) * 1d / maxCount * maxRate;
     }
 
     static boolean isWearingDivineArmor(Player player) {

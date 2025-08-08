@@ -76,7 +76,7 @@ public class WraqGem extends Item {
 
             Map<Integer, List<AttributeMapValue>> attributeMapValues = new HashMap<>() {{
                 put(1, List.of(new AttributeMapValue(Utils.percentMaxHealthEnhance, 0.08),
-                        new AttributeMapValue(Utils.percentHealthRecover, 0.002)));
+                        new AttributeMapValue(Utils.percentHealthRecover, 0.005)));
                 put(2, List.of(new AttributeMapValue(Utils.critDamage, 0.03),
                         new AttributeMapValue(Utils.coolDownDecrease, 0.05)));
                 put(3, List.of(new AttributeMapValue(Utils.defencePenetration, 0.02),

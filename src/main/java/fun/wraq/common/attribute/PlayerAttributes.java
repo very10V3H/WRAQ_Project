@@ -1,7 +1,5 @@
 package fun.wraq.common.attribute;
 
-import fun.wraq.items.dev.equip.ManageEquip;
-import fun.wraq.items.dev.equip.OpsAttributes;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;
@@ -22,6 +20,8 @@ import fun.wraq.customized.uniform.mana.ManaCurios2;
 import fun.wraq.customized.uniform.mana.ManaCurios3;
 import fun.wraq.customized.uniform.mana.ManaCurios4;
 import fun.wraq.events.mob.loot.C5LootItems;
+import fun.wraq.items.dev.equip.ManageEquip;
+import fun.wraq.items.dev.equip.OpsAttributes;
 import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
@@ -83,12 +83,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
@@ -887,7 +883,7 @@ public class PlayerAttributes {
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.DefencePenetration0;
 
         if (mainhand.equals(ModItems.SHIP_BOW.get())) {
-            List<Player> serverPlayerList = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
+            Set<Player> serverPlayerList = Compute.getNearPlayer(player.level(), player.position(), 8);
             AtomicInteger Count = new AtomicInteger();
             serverPlayerList.forEach(player1 -> {
                 if (player1.distanceTo(player) <= 6) Count.getAndIncrement();

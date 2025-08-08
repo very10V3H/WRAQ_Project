@@ -33,7 +33,7 @@ public class SuperColdDragonSceptre extends WraqSceptre implements SuperColdDrag
         Utils.manaPenetration0.put(this, new double[]{60, 75, 90}[tier]);
         Utils.manaRecover.put(this, 60d);
         Utils.coolDownDecrease.put(this, 0.3);
-        Element.iceElementValue.put(this, 2.5);
+        Element.iceElementValue.put(this, new double[]{2.5, 3.5, 5}[tier]);
         Utils.levelRequire.put(this, 225);
         items.add(this);
     }

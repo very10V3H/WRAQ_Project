@@ -103,7 +103,7 @@ public class SnowPower extends WraqPower {
         mobList.forEach(mob -> {
             Vec3 PosVec = mob.position().subtract(finalTargetPos);
             if (PosVec.length() <= 6) {
-                Compute.IgniteMob(player, mob, 0);
+                Compute.igniteMob(player, mob, 0);
                 BlockPos blockPos = mob.blockPosition().above();
                 if (dimension.getBlockState(blockPos).is(Blocks.AIR)) {
                     dimension.setBlockAndUpdate(blockPos, Blocks.ICE.defaultBlockState());

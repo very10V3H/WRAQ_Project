@@ -141,160 +141,166 @@ public class MyArrow extends AbstractArrow {
     }
 
     public static void causeDamage(MyArrow myArrow, Entity entity, double rate) {
-        if (myArrow.player == null) return;
+        if (!(entity instanceof Mob mob)) {
+            return;
+        }
+        if (myArrow.player == null) {
+            return;
+        }
+        Player player = myArrow.player;
+        Level level = player.level();
+        if (level.isClientSide) {
+            return;
+        }
+        CompoundTag data = player.getPersistentData();
         if (myArrow.myArrowHitBlockEntity != null) {
             myArrow.myArrowHitBlockEntity.onHit(myArrow);
         }
-        Player player = myArrow.player;
-        CompoundTag data = player.getPersistentData();
-        Level level = player.level();
         boolean shootByPlayer = myArrow.whetherShootByPlayer;
         double defencePenetration = PlayerAttributes.defencePenetration(player);
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
         double critRate = PlayerAttributes.critRate(player);
         double critDamage = PlayerAttributes.critDamage(player);
-        if (entity instanceof Mob monster && !level.isClientSide) {
-            if (SpecialEffectOnPlayer.inBlind(player)) {
-                Compute.summonValueItemEntity(monster.level(), player, monster,
-                        Te.s("未命中", CustomStyle.styleOfEnd), 0);
-                return;
+        if (SpecialEffectOnPlayer.inBlind(player)) {
+            Compute.summonValueItemEntity(mob.level(), player, mob,
+                    Te.s("未命中", CustomStyle.styleOfEnd), 0);
+            return;
+        }
+        Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
+        double defence = MobAttributes.defence(mob);
+
+        if (shootByPlayer) {
+            rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 1);
+            rate += BowCurios0.BaseDamageEnhance(player);
+            rate += BowCurios5.getExArrowDamageRate(player, mob);
+            rate += QuiverAttack.getExAttackRate(player);
+        }
+
+        rate += StableTierAttributeModifier
+                .getModifierValue(player, StableTierAttributeModifier.baseArrowDamageEnhanceRate);
+
+        double baseDamage = myArrow.BaseDamage * rate;
+        double damage;
+        double exDamage = 0;
+        double trueDamage = 0;
+        double damageEnhance = 0;
+
+        AttackEventModule.BowSkill6Attack(data, player, true); // 连续命中目标的箭矢，将会提供至多30%攻击力加成
+        AttackEventModule.SnowArmorEffect(player, mob); //冰川增幅
+
+        exDamage += AttackEventModule.BowSkill12(data, player, baseDamage); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
+        exDamage += HuskSword.getHuskSwordExDamage(player, mob); // 灵魂收割者主动
+        exDamage += TabooSwiftArmor.ExDamage(player);
+
+        trueDamage += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
+        trueDamage += SeaSword.getSeaSwordExDamage(player, mob); //灵魂救赎者主动
+        trueDamage += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
+
+        damageEnhance += AttackEventModule.BowSkill3(data, player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
+        damageEnhance += AttackEventModule.NetherBow(player, mob); // 夸塔兹长弓
+        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
+
+        double NormalAttackDamageEnhance = 0;
+        NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player);
+
+        boolean critFlag = false;
+        if (myArrow.certainlyCritical || BoneImpKnife.passive(player, mob)) {
+            critRate = 1;
+        }
+        if (RandomUtils.nextDouble(0, 1) < critRate) {
+            critFlag = true;
+            AttackEventModule.BowSkill5(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续5s）
+            damage = baseDamage * (1 + critDamage);
+            data.putBoolean(StringUtils.DamageTypes.Crit, true);
+            OnCritHitEffectMainHandWeapon.critHit(player, mob);
+            BowNewSkillBase3_0.onCritHit(player);
+        } else damage = baseDamage;
+
+        if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
+            player.sendSystemMessage(Component.literal("---NormalBowAttack---"));
+            player.sendSystemMessage(Component.literal("baseDamage : " + baseDamage));
+            player.sendSystemMessage(Component.literal("ExDamage : " + exDamage));
+            player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + trueDamage));
+        }
+
+        //
+        exDamage *= (1 + damageEnhance);
+        trueDamage *= (1 + damageEnhance);
+        damage *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
+        damage += exDamage;
+        //
+        damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
+        trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
+        //
+        damage *= Damage.defenceDamageDecreaseRate(player, mob, defence, defencePenetration, defencePenetration0);
+        // total damage
+        damage *= DamageInfluence.getPlayerTotalDamageRate(player);
+        trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
+        // livingEntity control
+        damage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
+        trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
+        // 至此 关于基本的计算已结束 下方是最终乘区的计算
+        trueDamage += BoneImpKnife.exTrueDamage(player, mob) * damage;
+
+        // 元素
+        double ElementDamageEnhance = 0;
+        double ElementDamageEffect = 1;
+        String elementType = "";
+        if (shootByPlayer) {
+            Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
+            elementType = playerUnit.type();
+            if (playerUnit.value() > 0) {
+                ElementDamageEffect = Element.ElementEffectAddToEntity(player, mob, playerUnit.type(), playerUnit.value(), false, damage + trueDamage);
             }
-            Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
-            double defence = MobAttributes.defence(monster);
-
-            if (shootByPlayer) {
-                rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 1);
-                rate += BowCurios0.BaseDamageEnhance(player);
-                rate += BowCurios5.getExArrowDamageRate(player, monster);
-                rate += QuiverAttack.getExAttackRate(player);
-            }
-
-            rate += StableTierAttributeModifier
-                    .getModifierValue(player, StableTierAttributeModifier.baseArrowDamageEnhanceRate);
-
-            double baseDamage = myArrow.BaseDamage * rate;
-            double damage;
-            double exDamage = 0;
-            double trueDamage = 0;
-            double damageEnhance = 0;
-
-            AttackEventModule.BowSkill6Attack(data, player, true); // 连续命中目标的箭矢，将会提供至多30%攻击力加成
-            AttackEventModule.SnowArmorEffect(player, monster); //冰川增幅
-
-            exDamage += AttackEventModule.BowSkill12(data, player, baseDamage); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
-            exDamage += HuskSword.getHuskSwordExDamage(player, monster); // 灵魂收割者主动
-            exDamage += TabooSwiftArmor.ExDamage(player);
-
-            trueDamage += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
-            trueDamage += SeaSword.getSeaSwordExDamage(player, monster); //灵魂救赎者主动
-            trueDamage += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
-
-            damageEnhance += AttackEventModule.BowSkill3(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
-            damageEnhance += AttackEventModule.NetherBow(player, monster); // 夸塔兹长弓
-            damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-            damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
-
-            double NormalAttackDamageEnhance = 0;
-            NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player);
-
-            boolean critFlag = false;
-            if (myArrow.certainlyCritical || BoneImpKnife.passive(player, monster)) {
-                critRate = 1;
-            }
-            if (RandomUtils.nextDouble(0, 1) < critRate) {
-                critFlag = true;
-                AttackEventModule.BowSkill5(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续5s）
-                damage = baseDamage * (1 + critDamage);
-                data.putBoolean(StringUtils.DamageTypes.Crit, true);
-                OnCritHitEffectMainHandWeapon.critHit(player, monster);
-                BowNewSkillBase3_0.onCritHit(player);
-            } else damage = baseDamage;
-
-            if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
-                player.sendSystemMessage(Component.literal("---NormalBowAttack---"));
-                player.sendSystemMessage(Component.literal("baseDamage : " + baseDamage));
-                player.sendSystemMessage(Component.literal("ExDamage : " + exDamage));
-                player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + trueDamage));
-            }
-
-            //
-            exDamage *= (1 + damageEnhance);
-            trueDamage *= (1 + damageEnhance);
-            damage *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
-            damage += exDamage;
-            //
-            damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-            trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-            //
-            damage *= Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0);
-            // total damage
-            damage *= DamageInfluence.getPlayerTotalDamageRate(player);
-            trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
-            // livingEntity control
-            damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-            trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-            // 至此 关于基本的计算已结束 下方是最终乘区的计算
-            trueDamage += BoneImpKnife.exTrueDamage(player, monster) * damage;
-
-            // 元素
-            double ElementDamageEnhance = 0;
-            double ElementDamageEffect = 1;
-            String elementType = "";
-            if (shootByPlayer) {
-                Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
-                elementType = playerUnit.type();
-                if (playerUnit.value() > 0) {
-                    ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, damage + trueDamage);
-                }
-                EnhanceNormalAttackModifier.onHitEffect(player, monster, 1);
-            }
-            double elementDamage = (damage + trueDamage) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
-            damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-            trueDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-            Damage.beforeCauseDamage(player, monster, damage + trueDamage);
-            Damage.causeDirectDamageToMob(player, entity, damage + trueDamage);
-            if (critFlag)
-                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
-            else
-                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
-            if (elementDamage != 0 && !elementType.isEmpty())
-                Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
-            else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
-            // Health steal
-            Compute.healByHealthSteal(player, monster, damage);
-            AttackEventModule.BowSkill3Attack(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
-            AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
-            AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
-            Compute.ChargingModule(data, player);
-            SeaSword.checkSeaSwordEffect(player, monster);
-            HuskSword.checkHuskSwordEffect(player, monster);
-            if (shootByPlayer) {
-                CastleBow.onNormalAttack(player, monster, damage);
-                Compute.additionEffects(player, monster, damage + trueDamage, 0);
-                OnHitEffectEquip.hit(player, monster);
-                OnHitEffectCurios.hit(player, monster);
-                OnArrowHitEffectCurios.hit(player, monster);
-                SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + trueDamage);
-                BowSkillTree.skillIndex13(player);
-                BowNewSkillPassive0.onArrowHit(player, monster);
-                CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, true);
-                Quiver.onArrowHit(player);
-            }
-            if (myArrow.mainShoot) {
-                OnHitEffectPassiveEquip.hit(player, monster);
-            }
-            if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
-                player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
-                        + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-                player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : "
-                        + Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0)));
-                player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
-                player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
-                player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
-                player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
-            }
+            EnhanceNormalAttackModifier.onHitEffect(player, mob, 1);
+        }
+        double elementDamage = (damage + trueDamage) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
+        damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
+        trueDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
+        Damage.beforeCauseDamage(player, mob, damage + trueDamage);
+        Damage.causeDirectDamageToMob(player, entity, damage + trueDamage);
+        if (critFlag)
+            Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
+        else
+            Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
+        if (elementDamage != 0 && !elementType.isEmpty())
+            Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
+        else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
+        // Health steal
+        Compute.healByHealthSteal(player, mob, damage);
+        AttackEventModule.BowSkill3Attack(data, player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
+        AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
+        AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
+        Compute.ChargingModule(data, player);
+        SeaSword.checkSeaSwordEffect(player, mob);
+        HuskSword.checkHuskSwordEffect(player, mob);
+        if (shootByPlayer) {
+            CastleBow.onNormalAttack(player, mob, damage);
+            Compute.additionEffects(player, mob, damage + trueDamage, 0);
+            OnHitEffectEquip.hit(player, mob);
+            OnHitEffectCurios.hit(player, mob);
+            OnArrowHitEffectCurios.hit(player, mob);
+            SameTypeModule.onNormalAttackHitMob(player, mob, 0, damage + trueDamage);
+            BowSkillTree.skillIndex13(player);
+            BowNewSkillPassive0.onArrowHit(player, mob);
+            CitadelCurio.onNormalAttackOrSkillHit(player, mob, damage + trueDamage, true);
+            Quiver.onArrowHit(player);
+        }
+        if (myArrow.mainShoot) {
+            OnHitEffectPassiveEquip.hit(player, mob);
+        }
+        if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
+            player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
+            player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,mob) : "
+                    + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));
+            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : "
+                    + Damage.defenceDamageDecreaseRate(player, mob, defence, defencePenetration, defencePenetration0)));
+            player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
+            player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
+            player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
+            player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
         }
     }
 }

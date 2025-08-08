@@ -10,19 +10,20 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.projectiles.mana.ManaArrow;
+import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -100,12 +101,15 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
         if (Compute.PlayerUseWithHud(player, fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword.playerActiveCoolDownMap, ModItems.WATER_ELEMENT_SCEPTRE.get(), 0, 25)) {
             Compute.playerItemCoolDown(player, this, 25);
             Vec3 pos = Compute.MyPlayerPickLocation(player, 15);
-            List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 15, 15, 15));
-            mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
-            mobList.forEach(mob -> {
-                Element.ElementEffectAddToEntity(player, mob, Element.water, ElementValue.getPlayerWaterElementValue(player), false, PlayerAttributes.manaDamage(player));
+            Compute.getNearMob(player.level(), pos, 6).forEach(mob -> {
+                Element.ElementEffectAddToEntity(player, mob, Element.water,
+                        ElementValue.getPlayerWaterElementValue(player), true, PlayerAttributes.attackDamage(player) * 4);
                 WaterElementSword.mobDefenceDecreaseTickMap.put(mob, Tick.get() + 140);
             });
+            ParticleProvider.DisperseParticle(pos, (ServerLevel) player.level(),
+                    1, 1, 120, ModParticles.WaterElementParticle.get(), 1);
+            ParticleProvider.DisperseParticle(pos, (ServerLevel) player.level(),
+                    1.5, 1, 120, ModParticles.WaterElementParticle.get(), 1);
         }
     }
 

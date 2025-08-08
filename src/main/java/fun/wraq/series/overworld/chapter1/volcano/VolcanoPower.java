@@ -94,7 +94,7 @@ public class VolcanoPower extends WraqPower {
         mobList.forEach(mob -> {
             Vec3 PosVec = mob.position().subtract(finalTargetPos);
             if (PosVec.length() <= 6) {
-                Compute.IgniteMob(player, mob, 40);
+                Compute.igniteMob(player, mob, 40);
                 List<Mob> mobList1 = dimension.getEntitiesOfClass(Mob.class,
                         AABB.ofSize(mob.position(), 10, 10, 10));
                 mobList1.forEach(mob1 -> {

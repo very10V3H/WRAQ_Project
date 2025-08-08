@@ -1,5 +1,6 @@
 package fun.wraq.events.core;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.bow.MyArrow;
@@ -46,13 +47,14 @@ public class BowEvent {
     }
 
     @SubscribeEvent
-    public static void Projectile(ProjectileImpactEvent event) {
+    public static void onProjectileHit(ProjectileImpactEvent event) {
         Entity entity = event.getProjectile();
         if (entity instanceof ThrownPotion) {
             return;
         }
         Level level = event.getEntity().level();
-        List<Entity> list = level.getEntitiesOfClass(Entity.class, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D));
+        List<Entity> list = level.getEntitiesOfClass(Entity.class,
+                entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D));
         List<LivingEntity> list0 = list.stream()
                 .filter(entity1 -> entity1 instanceof LivingEntity livingEntity && livingEntity.isAlive())
                 .map(entity1 -> (LivingEntity) entity1)
@@ -87,12 +89,15 @@ public class BowEvent {
                             List<Mob> list1 = myArrow.level().getEntitiesOfClass(Mob.class,
                                     AABB.ofSize(pos, 0.75, 0.75, 0.75));
                             list1.forEach(mob -> {
-                                if (!mobList.contains(mob)) mobList.add(mob);
+                                if (!mobList.contains(mob)) {
+                                    mobList.add(mob);
+                                }
                             });
                         }
-                        mobList.forEach(mob -> {
-                            if (!causeDamageList.containsKey(myArrow))
+                        mobList.stream().filter(Compute::isWraqMob).forEach(mob -> {
+                            if (!causeDamageList.containsKey(myArrow)) {
                                 causeDamageList.put(myArrow, new HashSet<>());
+                            }
                             Set<Integer> causedList = causeDamageList.get(myArrow);
                             if (!causedList.contains(mob.getId())) {
                                 MyArrow.causeDamage(myArrow, mob,
@@ -136,7 +141,7 @@ public class BowEvent {
                         Vec3 pos = manaArrow.position().add(vec.scale(0.25 * i));
                         List<Mob> mobList = manaArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 0.75, 0.75, 0.75));
                         for (Mob mob : mobList) {
-                            if (mob.getEyePosition().distanceTo(pos) < distance) {
+                            if (Compute.isWraqMob(mob) && mob.getEyePosition().distanceTo(pos) < distance) {
                                 distance = mob.getEyePosition().distanceTo(pos);
                                 nearestMob = mob;
                             }
@@ -161,7 +166,7 @@ public class BowEvent {
                 }
                 Set<Integer> causedEntitySet = causeDamageList.get(entity);
                 list.stream()
-                        .filter(e -> e instanceof Mob)
+                        .filter(e -> e instanceof Mob mob && Compute.isWraqMob(mob))
                         .map(e -> (Mob) e)
                         .forEach(mob -> {
                             if (!causedEntitySet.contains(mob.getId())) {

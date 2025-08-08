@@ -20,7 +20,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,18 +64,14 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         if (Compute.hasCurios(player, NewRuneItems.EVOKER_NEW_RUNE.get())) {
             int tick = Tick.get();
             if (tick % 80 == 0) {
-                List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),
-                        16, 16, 16));
-                mobList.removeIf(mob -> mob.distanceTo(player) > 8);
-                if (!mobList.isEmpty()) {
-                    mobList.forEach(mob -> {
-                        Damage.causeRateApDamageToMonster(player, mob, 1, false);
-                        ParticleProvider.createLineParticle(player.level(), (int) (mob.distanceTo(player) * 5),
-                                player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
-                    });
-                    Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.02);
-                    Compute.sendCoolDownTime(player, NewRuneItems.EVOKER_NEW_RUNE.get(), 80);
-                }
+                List<Mob> mobList = Compute.getNearMob(player, 8);
+                mobList.forEach(mob -> {
+                    Damage.causeRateApDamageToMonster(player, mob, 1, false);
+                    ParticleProvider.createLineParticle(player.level(), (int) (mob.distanceTo(player) * 5),
+                            player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
+                });
+                Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.02);
+                Compute.sendCoolDownTime(player, NewRuneItems.EVOKER_NEW_RUNE.get(), 80);
             }
         }
     }

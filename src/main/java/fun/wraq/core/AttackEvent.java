@@ -48,7 +48,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
@@ -95,7 +94,9 @@ public class AttackEvent {
         double rangeEnhanceRate = AttackCurios3.getAttackRangeEnhanceRate(player);
         return Compute.getPlayerRayMobList(player, 0.25, 1.25 * (1 + rangeEnhanceRate),
                         (4 + PlayerAttributes.attackRangeUp(player)) * (1 + rangeEnhanceRate))
-                .stream().filter(LivingEntity::isAlive).toList();
+                .stream().filter(mob -> {
+                    return mob.isAlive() && Compute.isWraqMob(mob);
+                }).toList();
     }
 
     public static void module(Player player, double rate) {
@@ -147,6 +148,9 @@ public class AttackEvent {
     }
 
     public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean crit) {
+        if (!Compute.isWraqMob(monster)) {
+            return;
+        }
         if (SpecialEffectOnPlayer.inBlind(player)) {
             Compute.summonValueItemEntity(monster.level(), player, monster,
                     Te.s("未命中", CustomStyle.styleOfEnd), 0);

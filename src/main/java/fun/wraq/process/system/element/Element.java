@@ -31,7 +31,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -258,11 +257,10 @@ public class Element {
         return 1;
     }
 
-    public static void ElementParticleProvider(LivingEntity passive) {
+    public static void provideElementParticle(LivingEntity passive) {
         entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         Unit unit = entityElementUnit.getOrDefault(passive, new Unit(life, 0));
-        List<Player> players = passive.level().getEntitiesOfClass(Player.class, AABB.ofSize(passive.position(), 50, 50, 50));
-        players.removeIf(player -> player.distanceTo(passive) > 20);
+        Set<Player> players = Compute.getNearPlayer(passive, 20);
         if (unit.value > 0) {
             if (unit.type.equals(life)) players.forEach(player ->
                     ModNetworking.sendToClient(new LifeElementParticleS2CPacket(passive.getId(), 200), (ServerPlayer) player));
@@ -285,16 +283,14 @@ public class Element {
         }
     }
 
-    public static void ElementParticleCreate(Player player) {
+    public static void createElementParticle(Player player) {
         if (player.tickCount % 50 == 0) {
-            List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,
-                    AABB.ofSize(player.position(), 32, 32, 32));
-            mobList.forEach(Element::ElementParticleProvider);
+            Compute.getNearMob(player, 16).forEach(Element::provideElementParticle);
         }
     }
 
-    public static void PlayerTick(Player player) {
-        ElementParticleCreate(player);
+    public static void handlePlayerTick(Player player) {
+        createElementParticle(player);
         if (player.tickCount % 5 == 0) {
             if (!ElementPieceOnWeapon(player)) {
                 giveResonanceElement(player);
@@ -341,7 +337,7 @@ public class Element {
         return calculateViewVector(0.0F, entity.getYRot() + 80).scale(0.5D);
     }
 
-    public static void RangeElementProvider(LivingEntity active, String type, double value, boolean isAd, double damage, double r) {
+    public static void provideRangeElement(LivingEntity active, String type, double value, boolean isAd, double damage, double r) {
         Map<String, ParticleOptions> map = new HashMap<>() {{
             put(life, ModParticles.LifeElementParticle.get());
             put(water, ModParticles.WaterElementParticle.get());
@@ -351,11 +347,7 @@ public class Element {
             put(lightning, ModParticles.LightningElementParticle.get());
             put(wind, ModParticles.WindElementParticle.get());
         }};
-        List<Mob> mobList = active.level().getEntitiesOfClass(Mob.class, AABB.ofSize(active.position(), r * Math.sqrt(2), r * Math.sqrt(2), r * Math.sqrt(2)));
-        mobList.removeIf(mob -> mob.distanceTo(active) > r);
-        mobList.forEach(mob -> {
-            ElementEffectAddToEntity(active, mob, type, value, isAd, damage);
-        });
+        Compute.getNearMob(active, r).forEach(mob -> ElementEffectAddToEntity(active, mob, type, value, isAd, damage));
         ParticleProvider.DisperseParticle(active.position(), (ServerLevel) active.level(), 1, 1, 120, map.get(type), 1);
         ParticleProvider.DisperseParticle(active.position(), (ServerLevel) active.level(), 1.5, 1, 120, map.get(type), 1);
     }

@@ -138,16 +138,17 @@ public class RightClickActiveHandler {
             Level level = event.level;
             if (Tick.get() % 80 == 0) {
                 activations.forEach(activation -> {
-                    level.getEntitiesOfClass(Player.class, AABB.ofSize(activation.getCenterPos(), 32, 32, 32))
-                            .stream().findAny().ifPresent(player -> {
+                    Compute.getNearPlayer(level, activation.getCenterPos(), 16).stream()
+                            .findAny().ifPresent(player -> {
                                 level.getEntitiesOfClass(ArmorStand.class,
                                                 AABB.ofSize(activation.getCenterPos(), 8, 8, 8))
                                         .forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
                                 List<Component> components = new ArrayList<>();
                                 components.addAll(activation.getTitle());
                                 components.addAll(activation.getDescription());
-                                TextCommand.summonArmorStand(components, level, activation.getCenterPos().add(0.5, 0.5, 0.5));
-                            });
+                                TextCommand.summonArmorStand(components, level, activation.getCenterPos()
+                                        .add(0.5, 0.5, 0.5));
+                    });
                 });
             }
         }

@@ -1,5 +1,6 @@
 package fun.wraq.events.mob;
 
+import fun.wraq.common.Compute;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
@@ -10,9 +11,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
 
-import java.util.List;
+import java.util.Set;
 
 public class MobDeadModule {
     public static void deadModule(Mob mob) {
@@ -20,7 +20,7 @@ public class MobDeadModule {
         StoneSpiderSpawnController.onMobDead(mob);
         SuperColdIronGolemSpawnController.onDead(mob);
         if (mob.getName().getString().contains(NewCastleInstance.mobNameOf1StageMana)) {
-            List<Player> playerList = mob.level().getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 30, 30, 30));
+            Set<Player> playerList = Compute.getNearPlayer(mob, 16);
             playerList.removeIf(LivingEntity::isDeadOrDying);
             Player nearestPlayer = null;
             double distance = Double.MAX_VALUE;
@@ -41,7 +41,7 @@ public class MobDeadModule {
         }
 
         if (mob.getName().getString().contains(NewCastleInstance.mobNameOf1StageAttack)) {
-            List<Player> playerList = mob.level().getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 30, 30, 30));
+            Set<Player> playerList = Compute.getNearPlayer(mob, 16);
             playerList.removeIf(LivingEntity::isDeadOrDying);
             Player nearestPlayer = null;
             double distance = Double.MAX_VALUE;

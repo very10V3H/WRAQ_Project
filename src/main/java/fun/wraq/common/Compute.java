@@ -22,9 +22,7 @@ import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.ItemEntityAndResetTime;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.core.ManaAttackModule;
-import fun.wraq.core.bow.MyArrow;
 import fun.wraq.customized.uniform.attack.AttackCurios5;
-import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -108,7 +106,6 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -1273,7 +1270,7 @@ public class Compute {
         });
     }
 
-    public static void RepelPlayer(Mob mob, Vec3 StartPos, double range, double rate, double scaleLimit) {
+    public static void repelPlayer(Mob mob, Vec3 StartPos, double range, double rate, double scaleLimit) {
         List<Player> mobList = mob.level().getEntitiesOfClass(Player.class,
                 AABB.ofSize(StartPos, 20, 20, 20));
         mobList.forEach(player -> {
@@ -1295,46 +1292,10 @@ public class Compute {
         Set<Mob> mobs = new HashSet<>();
         for (double i = detectStep; i <= maxDistance; i += detectStep) {
             List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(posVec.scale(i)),
-                    detectRange, detectRange, detectRange));
+                    detectRange, detectRange, detectRange)).stream().filter(Compute::isWraqMob).toList();
             mobs.addAll(mobList1);
         }
         return mobs;
-    }
-
-    public static void Laser(Player player, ParticleOptions particleOptions, double rate, int TickCoolDown, boolean isPower) {
-        Level level = player.level();
-        int TickCount = Tick.get();
-        Vec3 TargetPos = player.pick(25, 0, false).getLocation();
-        Vec3 StartPos = player.pick(0.5, 0, false).getLocation();
-        Vec3 PosVec = TargetPos.subtract(StartPos).normalize();
-        double Distance = TargetPos.distanceTo(StartPos);
-        ParticleProvider.createLineParticle(level, (int) Distance * 5, StartPos, TargetPos, particleOptions);
-        List<Mob> mobList = new ArrayList<>();
-        for (double i = 0; i < Distance; i += 0.5) {
-            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(StartPos.add(PosVec.scale(i)), 0.5, 0.5, 0.5));
-            for (Mob mob : mobList1) {
-                if (!mobList.contains(mob)) mobList.add(mob);
-            }
-        }
-
-        if (!Utils.playerLaserCoolDown.containsKey(Name.get(player)))
-            Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
-        Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(Name.get(player));
-
-        mobList.forEach(mob -> {
-            if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
-                laserCoolDownMap.put(mob, TickCount + TickCoolDown);
-                if (isPower) {
-                    Damage.causeManaDamageToMonster(player, mob, rate, true);
-                } else {
-                    ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                            rate, PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
-                            StringUtils.ParticleTypes.Lava);
-                    ManaAttackModule.causeBaseAttack(player, mob, PlayerAttributes.manaPenetration(player),
-                            PlayerAttributes.manaPenetration0(player), level, newArrow, true);
-                }
-            }
-        });
     }
 
     public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double rate, int tickCoolDown) {
@@ -1770,36 +1731,12 @@ public class Compute {
         return TargetPos;
     }
 
-    public static void TraceArrowShoot(Player player, ParticleOptions particleOptions) {
-        List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 80, 80, 80));
-        mobList.removeIf(mob -> mob.distanceTo(player) > 30 || mob instanceof Civil);
-
-        Mob NearestMob = null;
-        double Distance = 80;
-        for (Mob mob : mobList) {
-            if (mob.distanceTo(player) < Distance) {
-                NearestMob = mob;
-                Distance = mob.distanceTo(player);
-            }
-        }
-
-        MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true);
-        myArrow.setDeltaMovement(NearestMob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
-        myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
-        myArrow.setCritArrow(true);
-        myArrow.setNoGravity(true);
-        ProjectileUtil.rotateTowardsMovement(myArrow, 1);
-        player.level().addFreshEntity(myArrow);
-        ParticleProvider.createLineParticle(player.level(), (int) NearestMob.distanceTo(player),
-                player.pick(0.5, 0, false).getLocation(), NearestMob.position().add(0, 1, 0), particleOptions);
-    }
-
-    public static void IgniteMob(Player player, Mob mob, int lastTick) {
+    public static void igniteMob(Player player, Mob mob, int lastTick) {
         FireEquip.PlayerIgniteMobEffect(player, mob);
         mob.setRemainingFireTicks(lastTick);
     }
 
-    public static List<Mob> OneShotLaser(Player player, boolean isAd, double damage, ParticleOptions particleOptions) {
+    public static List<Mob> shootOneLaser(Player player, boolean isAd, double damage, ParticleOptions particleOptions) {
         Level level = player.level();
         Vec3 TargetPos = player.pick(25, 0, false).getLocation();
         Vec3 StartPos = player.pick(0.5, 0, false).getLocation();
@@ -1808,9 +1745,12 @@ public class Compute {
         ParticleProvider.createLineParticle(level, (int) Distance * 5, StartPos, TargetPos, particleOptions);
         List<Mob> mobList = new ArrayList<>();
         for (double i = 0; i < Distance; i += 0.5) {
-            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(StartPos.add(PosVec.scale(i)), 0.5, 0.5, 0.5));
+            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class,
+                    AABB.ofSize(StartPos.add(PosVec.scale(i)), 0.5, 0.5, 0.5));
             for (Mob mob : mobList1) {
-                if (!mobList.contains(mob)) mobList.add(mob);
+                if (Compute.isWraqMob(mob) && !mobList.contains(mob)) {
+                    mobList.add(mob);
+                }
             }
         }
         mobList.forEach(mob -> {
@@ -1944,14 +1884,14 @@ public class Compute {
 
     public static List<Mob> getNearMob(Entity center, double distance) {
         return getNearEntity(center, Mob.class, distance).stream()
-                .filter(entity -> entity instanceof Mob)
+                .filter(entity -> entity instanceof Mob mob && Compute.isWraqMob(mob))
                 .map(entity -> (Mob) entity)
                 .toList();
     }
 
     public static List<Mob> getNearMob(Level level, Vec3 pos, double distance) {
         return getNearEntity(level, pos, Mob.class, distance).stream()
-                .filter(entity -> entity instanceof Mob)
+                .filter(entity -> entity instanceof Mob mob && Compute.isWraqMob(mob))
                 .map(entity -> (Mob) entity)
                 .toList();
     }
@@ -1961,6 +1901,10 @@ public class Compute {
                 .filter(entity -> entity instanceof Player)
                 .map(entity -> (Player) entity)
                 .collect(Collectors.toSet());
+    }
+
+    public static Set<Player> getNearPlayer(Entity entity, double radius) {
+        return getNearPlayer(entity.level(), entity.position(), radius);
     }
 
     public static Player getNearestPlayer(LivingEntity livingEntity, double radius) {
@@ -2371,5 +2315,9 @@ public class Compute {
                 components.add(Te.s(" 已失效.", ChatFormatting.RED));
             }
         }
+    }
+
+    public static boolean isWraqMob(Mob mob) {
+        return mob.getDisplayName().getString().contains("Lv.");
     }
 }

@@ -127,21 +127,6 @@ public class KazeSword extends WraqSword implements ActiveItem {
                     }
                 }
             }
-            double PlayerDamageCount = 0;
-            for (Player player1 : PlayerList1) {
-                if (player1.getPosition(0).distanceTo(player.getPosition(0)) < 8) {
-                    if (Compute.isOnSky(player1) && !player1.isInWater() && player1 != player) {
-                        ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket = new ClientboundSetEntityMotionPacket(player1.getId(), new Vec3(0, 1, 0));
-                        for (ServerPlayer serverPlayer : playerList) {
-                            serverPlayer.connection.send(clientboundSetEntityMotionPacket);
-                        }
-                        ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 1, 16, ParticleTypes.ENCHANTED_HIT, 0);
-                        ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.5, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
-                        ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
-                        PlayerDamageCount += Damage.causeAttackDamageToPlayer_RateAdDamage(player, player1, rate);
-                    }
-                }
-            }
             player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_0.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
             player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_1.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
             player.getCooldowns().addCooldown(ModItems.KAZE_SWORD_2.get(), (int) (60 * (1 - PlayerAttributes.coolDownDecrease(player))));
@@ -154,14 +139,6 @@ public class KazeSword extends WraqSword implements ActiveItem {
                             Component.literal("狂风绝息").withStyle(CustomStyle.styleOfKaze).
                                     append(Component.literal("对怪物造成了").withStyle(ChatFormatting.WHITE)).
                                     append(Component.literal(String.format("%.2f", MobDamageCount)).withStyle(CustomStyle.styleOfKaze)).
-                                    append(Component.literal("伤害值。").withStyle(ChatFormatting.WHITE)));
-            }
-            if (PlayerDamageCount > 0) {
-                if (!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))
-                    Compute.sendFormatMSG(player, Component.literal("战斗").withStyle(ChatFormatting.RED),
-                            Component.literal("狂风绝息").withStyle(CustomStyle.styleOfKaze).
-                                    append(Component.literal("对玩家造成了").withStyle(ChatFormatting.WHITE)).
-                                    append(Component.literal(String.format("%.2f", PlayerDamageCount)).withStyle(CustomStyle.styleOfKaze)).
                                     append(Component.literal("伤害值。").withStyle(ChatFormatting.WHITE)));
             }
         } else {

@@ -208,6 +208,13 @@ public abstract class MobSpawnController {
                     if (this.mobList.size() > maxMobNum) {
                         return;
                     }
+                    // 若该点附近8格内怪物数量大于8，则不生成
+                    if (level.getEntitiesOfClass(Mob.class, AABB.ofSize(pos,
+                                    16, 16, 16))
+                            .stream().filter(mob
+                                    -> MobSpawn.getMobOriginName(mob).equals(mobName.getString())).count() >= 8) {
+                        return;
+                    }
                     // 该点探测附近玩家列表
                     List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
                                     detectionRange * 2, detectionRange * 2, detectionRange * 2))

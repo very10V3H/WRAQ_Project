@@ -8,6 +8,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
+import fun.wraq.events.mob.chapter2.EvokerSpawnController;
 import fun.wraq.events.mob.chapter2.SkyVexSpawnController;
 import fun.wraq.events.mob.chapter7.StarVexSpawnController;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -376,7 +377,8 @@ public class MobKillEntrustment {
                 .stream().filter(controller -> {
                     return controller.averageLevel <= level
                             && (!(controller instanceof SkyVexSpawnController)
-                            && !(controller instanceof StarVexSpawnController));
+                            && !(controller instanceof StarVexSpawnController)
+                            && !(controller instanceof EvokerSpawnController));
                 }).toList();
         Random random = new Random();
         MobSpawnController controller = controllers.get(random.nextInt(controllers.size()));

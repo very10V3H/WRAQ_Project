@@ -18,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -86,11 +85,7 @@ public abstract class WraqPower extends Item implements ActiveItem {
     }
 
     public static List<Mob> getDefaultTargetMobList(Player player, double range) {
-        Vec3 pos = getDefaultTargetPos(player);
-        return player.level().getEntitiesOfClass(Mob.class,
-                AABB.ofSize(pos, 20, 20, 20))
-                .stream().filter(mob -> mob.position().distanceTo(pos) <= range)
-                .toList();
+        return Compute.getNearMob(player.level(), getDefaultTargetPos(player), range);
     }
 
     public static List<Mob> getDefaultTargetMobList(Player player) {
@@ -98,8 +93,7 @@ public abstract class WraqPower extends Item implements ActiveItem {
     }
 
     protected static List<Player> getDefaultTargetPlayerList(Player player) {
-        return player.level().getEntitiesOfClass(Player.class,
-                AABB.ofSize(player.position(), 20, 20, 20));
+        return Compute.getNearPlayer(player, 10).stream().toList();
     }
 
     public static Vec3 getDefaultTargetPos(Player player) {

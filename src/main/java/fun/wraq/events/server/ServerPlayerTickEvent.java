@@ -126,7 +126,7 @@ public class ServerPlayerTickEvent {
             /*Parkour.Tick(player);*/ // 跑酷
             CastleAttackArmor.Tick(player);
             DpsCommand.Tick(player);
-            Element.PlayerTick(player);
+            Element.handlePlayerTick(player);
             LifeElementSword.Tick(player);
             LifeElementBow.Tick(player);
             LifeElementSceptre.Tick(player);

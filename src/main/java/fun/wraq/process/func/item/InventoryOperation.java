@@ -139,7 +139,8 @@ public class InventoryOperation {
             if (InventoryCheck.getBoundingList().contains(itemStack.getItem())) {
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
             }
-            if (itemExpiredDateMap.containsKey(itemStack.getItem())) {
+            if (itemExpiredDateMap.containsKey(itemStack.getItem())
+                    && Compute.getStackExpiredDate(itemStack) == null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 8);
                 calendar.set(Calendar.HOUR_OF_DAY, 0);

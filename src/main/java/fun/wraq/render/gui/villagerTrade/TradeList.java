@@ -2159,6 +2159,9 @@ public class TradeList {
         ItemStack potion = new ItemStack(Items.POTION);
         potion.getOrCreateTag().putString("Potion", "minecraft:long_night_vision");
         ItemStack minePiece1 = new ItemStack(SpurItems.MINE_PIECE_1.get());
+        ItemStack rawCopper = new ItemStack(Items.RAW_COPPER);
+        ItemStack rawIron = new ItemStack(Items.RAW_IRON);
+        ItemStack rawGold = new ItemStack(Items.RAW_GOLD);
         ItemStack ore1 = new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get());
         ItemStack ore2 = new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get());
         ItemStack ore3 = new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get());
@@ -2178,6 +2181,7 @@ public class TradeList {
         ItemStack silverDragonAssassinPickaxeA = new ItemStack(SpurItems.SILVER_DRAGON_ASSASSIN_PICKAXE_A.get());
         ItemStack[] itemStacks = {
                 stonePickaxe, minePiece1, potion,
+                rawCopper, rawIron, rawGold,
                 ore1, ore2, ore3, ore4,
                 oreRune,
                 mineCharm0, mineCharm1, mineCharm2,
@@ -2189,6 +2193,9 @@ public class TradeList {
         Collections.addAll(contentList, itemStacks);
         MyVillagerData.setMyVillagerData("采矿大师", "mineCharm", CustomStyle.styleOfMine, VillagerType.PLAINS,
                 VillagerProfession.WEAPONSMITH, contentList);
+        tradeRecipeMap.put(rawCopper, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
+        tradeRecipeMap.put(rawIron, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
+        tradeRecipeMap.put(rawGold, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 3)));
         tradeRecipeMap.put(ore1, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 12)));
         tradeRecipeMap.put(ore2, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 24)));
         tradeRecipeMap.put(ore3, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 36)));

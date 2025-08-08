@@ -37,10 +37,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -387,20 +385,25 @@ public class AttackEventModule {
                 && Utils.SwordSkill12.get(name)) {
             Level level = player.level();
             Random random = new Random();
-            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
-            for (Mob mob : mobList) {
+            Compute.getNearMob(player, 6).forEach(mob -> {
                 AttackEvent.attackToMonster(mob, player, 0.2f * Compute.getSwordSkillLevel(data, 12),
                         true, AttackEvent.crit(player, mob, false));
                 if (random.nextInt(0, 1) == 0) {
-                    ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(ModParticles.BLADE0.get(), true,
+                    ClientboundLevelParticlesPacket clientboundLevelParticlesPacket
+                            = new ClientboundLevelParticlesPacket(ModParticles.BLADE0.get(), true,
                             mob.getX(), mob.getY() + 1, mob.getZ(), 0, 0, 0, 0, 0);
-                    player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> serverPlayer.connection.send(clientboundLevelParticlesPacket));
+                    player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> {
+                        serverPlayer.connection.send(clientboundLevelParticlesPacket);
+                    });
                 } else {
-                    ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(ModParticles.BLADE1.get(), true,
+                    ClientboundLevelParticlesPacket clientboundLevelParticlesPacket
+                            = new ClientboundLevelParticlesPacket(ModParticles.BLADE1.get(), true,
                             mob.getX(), mob.getY() + 1, mob.getZ(), 0, 0, 0, 0, 0);
-                    player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> serverPlayer.connection.send(clientboundLevelParticlesPacket));
+                    player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> {
+                        serverPlayer.connection.send(clientboundLevelParticlesPacket);
+                    });
                 }
-            }
+            });
             Utils.SwordSkill12.put(name, false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(0), (ServerPlayer) player);
             ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.PLAYER_ATTACK_SWEEP), SoundSource.PLAYERS, player.getX(), player.getY() + 1, player.getZ(), 1, 1, 0);
@@ -421,14 +424,17 @@ public class AttackEventModule {
         String name = player.getName().getString();
         if (Compute.getBowSkillLevel(data, 12) > 0 && Utils.BowSkill12.containsKey(name)
                 && Utils.BowSkill12.get(name)) {
-            Level level = player.level();
-            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
             Random random = new Random();
-            for (Mob mob : mobList) {
+            Compute.getNearMob(player, 6).forEach(mob -> {
                 if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                    Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.getBowSkillLevel(data, 12) * (1 + PlayerAttributes.critDamage(player)));
-                } else Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.getBowSkillLevel(data, 12));
-            }
+                    Damage.causeAttackDamageToMonster_RateAdDamage(player, mob,
+                            0.8 * Compute.getBowSkillLevel(data, 12)
+                                    * (1 + PlayerAttributes.critDamage(player)));
+                } else {
+                    Damage.causeAttackDamageToMonster_RateAdDamage(player, mob,
+                            0.8 * Compute.getBowSkillLevel(data, 12));
+                }
+            });
             Utils.BowSkill12.put(name, false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(1), (ServerPlayer) player);
         }

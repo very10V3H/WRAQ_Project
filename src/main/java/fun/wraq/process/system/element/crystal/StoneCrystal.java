@@ -102,7 +102,7 @@ public class StoneCrystal extends SwordItem implements ActiveItem {
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);
-            Element.RangeElementProvider(player, Element.stone, ElementValue.getPlayerStoneElementValue(player),
+            Element.provideRangeElement(player, Element.stone, ElementValue.getPlayerStoneElementValue(player),
                     isAd, isAd ? PlayerAttributes.attackDamage(player) * 4 : PlayerAttributes.manaDamage(player), 6);
         }
     }

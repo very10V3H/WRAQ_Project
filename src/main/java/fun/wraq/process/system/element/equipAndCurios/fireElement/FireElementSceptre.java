@@ -121,8 +121,8 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
     public void active(Player player) {
         if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FIRE_ELEMENT_SCEPTRE.get(), 0, 7)) {
             Compute.playerItemCoolDown(player, this, 7);
-            List<Mob> mobList = Compute.OneShotLaser(player, true, PlayerAttributes.manaDamage(player) * 0.5, ModParticles.LONG_RED_SPELL.get());
-            mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
+            List<Mob> mobList = Compute.shootOneLaser(player, true, PlayerAttributes.manaDamage(player) * 0.5, ModParticles.LONG_RED_SPELL.get());
+            mobList.forEach(mob -> Compute.igniteMob(player, mob, 80));
         }
     }
 

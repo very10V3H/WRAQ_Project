@@ -1,6 +1,7 @@
 package fun.wraq.entities.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import fun.wraq.common.Compute;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.model.BlazeSwordModel;
 import fun.wraq.projectiles.mana.BlazeSword;
@@ -8,7 +9,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
@@ -41,8 +41,8 @@ public class BlazeSwordRender extends GeoEntityRenderer<BlazeSword> {
                 angle = Math.atan(vec3.y / Math.abs(Math.sqrt(vec3.x * vec3.x + vec3.z * vec3.z)));
                 geoBone.setRotX((float) -angle);
             } else {
-                List<Player> playerList = entity.level().getEntitiesOfClass(Player.class, AABB.ofSize(entity.position(), 15, 15, 15));
-                if (playerList.size() > 0) {
+                List<Player> playerList = Compute.getNearPlayer(entity, 8).stream().toList();
+                if (!playerList.isEmpty()) {
                     vec3 = playerList.get(0).pick(10, 0, false).getLocation().subtract(entity.position());
                     Vec3 vec3NoY = new Vec3(vec3.x, 0, vec3.z);
                     Vec3 zNormal = new Vec3(0, 0, -1);

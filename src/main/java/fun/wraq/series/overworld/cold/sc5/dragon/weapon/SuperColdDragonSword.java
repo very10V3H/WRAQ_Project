@@ -33,7 +33,7 @@ public class SuperColdDragonSword extends WraqSword implements SuperColdDragonWe
         Utils.levelRequire.put(this, 225);
         Utils.maxHealth.put(this, new double[]{10000, 12000, 15000}[tier]);
         Utils.coolDownDecrease.put(this, 0.28);
-        Element.iceElementValue.put(this, 2.5);
+        Element.iceElementValue.put(this, new double[]{2.5, 3.5, 5}[tier]);
         items.add(this);
     }
 

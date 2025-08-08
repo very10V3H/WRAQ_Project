@@ -111,7 +111,7 @@ public class CookingItems {
             cropSellingList.add(NeapolitanItems.MINT_LEAVES.get());
             cropSellingList.add(NeapolitanItems.ADZUKI_BEANS.get());
             cropSellingList.add(Items.COCOA_BEANS);
-            cropSellingList.add(ItemInit.COFFEE_BERRIES.get());
+            cropSellingList.add(ItemInit.COFFEE_BEANS_COOKED.get());
         }
         return cropSellingList;
     }

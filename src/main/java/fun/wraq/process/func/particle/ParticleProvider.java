@@ -24,7 +24,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 import org.joml.Vector3f;
@@ -743,18 +742,16 @@ public class ParticleProvider {
         }
     }
 
-    public static void createBallDisperseParticle(ParticleOptions particleOptions, ServerLevel level, Vec3 pos, double radius, int num) {
+    public static void createBallDisperseParticle(ParticleOptions particleOptions, ServerLevel level,
+                                                  Vec3 pos, double radius, int num) {
         if (stop()) {
             return;
         }
-        level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, 64, 64, 64))
-                .stream().filter(player -> player.position().distanceTo(pos) <= 32)
-                .map(player -> (ServerPlayer) player)
-                .forEach(serverPlayer -> {
-                    ModNetworking.sendToClient(
-                            new DisperseBallParticleS2CPacket(Utils.getParticleToParticleStringMap().get(particleOptions),
-                                    pos.x, pos.y, pos.z, radius, num), serverPlayer);
-                });
+        Compute.getNearPlayer(level, pos, 32).stream().map(player -> (ServerPlayer) player).forEach(player -> {
+            ModNetworking.sendToClient(
+                    new DisperseBallParticleS2CPacket(Utils.getParticleToParticleStringMap().get(particleOptions),
+                            pos.x, pos.y, pos.z, radius, num), player);
+        });
     }
 
     public static Map<String, EnumParticles> iafParticlesMap = new HashMap<>() {{

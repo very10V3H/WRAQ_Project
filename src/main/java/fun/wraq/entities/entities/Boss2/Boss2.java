@@ -1,5 +1,6 @@
 package fun.wraq.entities.entities.Boss2;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -219,8 +220,7 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
             AttackTick--;
             if (AttackMode == 1) {
                 if (AttackTick % 10 == 0) {
-                    List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.getEyePosition(), 8, 8, 8));
-                    playerList.forEach(player -> {
+                    Compute.getNearPlayer(this, 4).forEach(player -> {
                         Damage.causeAttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.5f, 100);
                     });
                 }
@@ -228,7 +228,8 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
             if (AttackTick == 0) {
                 switch (AttackMode) {
                     case 0 -> {
-                        List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
+                        List<Player> playerList = this.level().getEntitiesOfClass(Player.class,
+                                AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.getEyePosition().distanceTo(this.pick(3, 0, true).getLocation()) <= 3)
                                 Damage.causeAttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes));
@@ -237,7 +238,6 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
                     case 2 -> {
                         Vec3 vec3 = this.pick(1, 0, true).getLocation().subtract(this.getEyePosition());
                         this.setDeltaMovement(vec3);
-
                         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.getEyePosition().distanceTo(this.pick(3, 0, true).getLocation()) <= 3)

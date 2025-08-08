@@ -150,7 +150,7 @@ public class DevilInstance extends NoTeamInstance {
     public static void skill2(Mob mob, List<Player> playerList) {
         playerList.forEach(player -> {
             if (player.distanceTo(mob) < 50) {
-                MonsterAttackEvent.monsterAttack(mob, player, 2000);
+                MonsterAttackEvent.mobAttack(mob, player, 2000);
                 mob.heal(75000);
 /*                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("腥月之子", CustomStyle.styleOfBloodMana),
                         Te.m("魔王吸取大量生命值!", ChatFormatting.RED), 0, 20, 10);*/

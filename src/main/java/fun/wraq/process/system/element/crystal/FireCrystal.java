@@ -101,7 +101,7 @@ public class FireCrystal extends SwordItem implements ActiveItem {
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);
-            Element.RangeElementProvider(player, Element.fire, ElementValue.getPlayerFireElementValue(player),
+            Element.provideRangeElement(player, Element.fire, ElementValue.getPlayerFireElementValue(player),
                     isAd, isAd ? PlayerAttributes.attackDamage(player) * 4 : PlayerAttributes.manaDamage(player), 6);
 
         }

@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter4_end;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -10,16 +11,13 @@ import fun.wraq.events.mob.loot.C4LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -85,14 +83,11 @@ public class EnderManSpawnController extends MobSpawnController {
     @Override
     public void eachMobTick(Mob mob) {
         if (mob.isAlive()) {
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 5, 5, 5));
-            for (Player player : playerList) {
-                if (player.position().distanceTo(mob.position()) <= 2.8) {
-                    player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 3));
-                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 3));
-                    player.addEffect(new MobEffectInstance(MobEffects.WITHER, 40, 10));
-                }
-            }
+            Compute.getNearPlayer(mob, 2.8).forEach(player -> {
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 3));
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 3));
+                player.addEffect(new MobEffectInstance(MobEffects.WITHER, 40, 10));
+            });
         }
     }
 

@@ -165,7 +165,7 @@ public class MoonInstance extends NoTeamInstance {
                     Te.m(""), 0, 20, 10);
         });*/
         if (AttackMob.isAlive()) {
-            Compute.RepelPlayer(AttackMob, AttackMob.position(), 6, 3, 3);
+            Compute.repelPlayer(AttackMob, AttackMob.position(), 6, 3, 3);
             ParticleProvider.DisperseParticle(AttackMob.position(), (ServerLevel) AttackMob.level(), 1, 1, 120, ModParticles.LONG_LIGHTNINGISLAND.get(), 1);
             ParticleProvider.DisperseParticle(AttackMob.position(), (ServerLevel) AttackMob.level(), 1.5, 1, 120, ModParticles.LONG_LIGHTNINGISLAND.get(), 1);
         }

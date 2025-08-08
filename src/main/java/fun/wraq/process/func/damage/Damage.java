@@ -91,6 +91,9 @@ public class Damage {
      * @param trueDamage 真实伤害
      */
     public static void causeAutoAdaptionRateDamageToMob(Player player, Mob mob, double rate, boolean trueDamage) {
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
         ItemStack itemStack = player.getMainHandItem();
         Item item = itemStack.getItem();
         if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item)) {
@@ -126,40 +129,49 @@ public class Damage {
         return PlayerAttributes.manaDamage(player) * rate;
     }
 
-    public static double causeTrueDamageToMonster(Player player, Mob monster, double damage) {
-        if (MobSpawn.getMobOriginName(monster).equals(IceDragonSpawnController.MOB_NAME)
-                || MobSpawn.getMobOriginName(monster).equals(SimulateIceDragonSpawnController.MOB_NAME)) {
+    public static double causeTrueDamageToMonster(Player player, Mob mob, double damage) {
+        if (!Compute.isWraqMob(mob)) {
+            return 0;
+        }
+        if (MobSpawn.getMobOriginName(mob).equals(IceDragonSpawnController.MOB_NAME)
+                || MobSpawn.getMobOriginName(mob).equals(SimulateIceDragonSpawnController.MOB_NAME)) {
             return damage;
         }
-        Compute.summonValueItemEntity(monster.level(), player, monster,
+        Compute.summonValueItemEntity(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
-        beforeCauseDamage(player, monster, damage);
-        causeDirectDamageToMob(player, monster, damage);
+        beforeCauseDamage(player, mob, damage);
+        causeDirectDamageToMob(player, mob, damage);
         return damage;
     }
 
-    public static double causeAttackDamageToMonster_RateAdDamage(Player player, Mob monster, double num) {
+    public static double causeAttackDamageToMonster_RateAdDamage(Player player, Mob mob, double num) {
+        if (!Compute.isWraqMob(mob)) {
+            return 0;
+        }
         double baseDamage = PlayerAttributes.attackDamage(player);
         double damageEnhance = 0;
 
-        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
+        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
 
-        baseDamage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-        baseDamage *= defenceDamageDecreaseRate(player, monster, MobAttributes.defence(monster),
+        baseDamage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
+        baseDamage *= defenceDamageDecreaseRate(player, mob, MobAttributes.defence(mob),
                 PlayerAttributes.defencePenetration(player),
                 PlayerAttributes.defencePenetration0(player));
 
-        baseDamage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, monster));
+        baseDamage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, mob));
 
-        Compute.summonValueItemEntity(monster.level(), player, monster,
+        Compute.summonValueItemEntity(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", baseDamage * num)).withStyle(ChatFormatting.YELLOW), 0);
-        beforeCauseDamage(player, monster, baseDamage * num);
-        causeDirectDamageToMob(player, monster, baseDamage * num);
+        beforeCauseDamage(player, mob, baseDamage * num);
+        causeDirectDamageToMob(player, mob, baseDamage * num);
         return baseDamage * num;
     }
 
     public static void causeRateAdDamageToMonsterWithCritJudge(Player player, Mob mob, double num) {
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
         Random random = new Random();
         if (random.nextDouble() < PlayerAttributes.critRate(player)) {
             Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, num * (1 + PlayerAttributes.critDamage(player)));
@@ -167,42 +179,54 @@ public class Damage {
     }
 
     public static void causeAdDamageToMonsterWithCritJudge(Player player, Mob mob, double damage) {
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
         Random random = new Random();
         if (random.nextDouble() < PlayerAttributes.critRate(player)) {
             Damage.causeAttackDamageToMonster(player, mob, damage * (1 + PlayerAttributes.critDamage(player)));
         } else Damage.causeAttackDamageToMonster(player, mob, damage);
     }
 
-    public static double causeAttackDamageToMonster(Player player, Mob monster, double damage) {
+    public static double causeAttackDamageToMonster(Player player, Mob mob, double damage) {
+        if (!Compute.isWraqMob(mob)) {
+            return 0;
+        }
         double damageEnhance = 0;
-        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
-        damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-        damage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-        damage *= defenceDamageDecreaseRate(player, monster, MobAttributes.defence(monster),
+        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
+        damage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
+        damage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
+        damage *= defenceDamageDecreaseRate(player, mob, MobAttributes.defence(mob),
                 PlayerAttributes.defencePenetration(player),
                 PlayerAttributes.defencePenetration0(player));
-        damage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, monster));
-        Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
-        beforeCauseDamage(player, monster, damage);
-        causeDirectDamageToMob(player, monster, damage);
+        damage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, mob));
+        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        beforeCauseDamage(player, mob, damage);
+        causeDirectDamageToMob(player, mob, damage);
         return damage;
     }
 
-    public static double causeAttackDamageToMonster_AdDamage_Direct(Player player, Mob monster, double damage, boolean computeDefenceOrEnhance) {
+    public static double causeAttackDamageToMonster_AdDamage_Direct(Player player, Mob mob, double damage, boolean computeDefenceOrEnhance) {
+        if (!Compute.isWraqMob(mob)) {
+            return 0;
+        }
         if (computeDefenceOrEnhance) {
-            damage *= defenceDamageDecreaseRate(player, monster, MobAttributes.defence(monster),
+            damage *= defenceDamageDecreaseRate(player, mob, MobAttributes.defence(mob),
                     PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
-            damage *= (1 + DamageInfluence.getPlayerAttackDamageEnhance(player, monster));
+            damage *= (1 + DamageInfluence.getPlayerAttackDamageEnhance(player, mob));
         }
 
-        Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
-        beforeCauseDamage(player, monster, damage);
-        causeDirectDamageToMob(player, monster, damage);
+        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        beforeCauseDamage(player, mob, damage);
+        causeDirectDamageToMob(player, mob, damage);
         return damage;
     }
 
     public static double causeAttackDamageToMonsterOnlyComputeDefence(Player player, Mob mob, double damage) {
+        if (!Compute.isWraqMob(mob)) {
+            return 0;
+        }
         damage *= defenceDamageDecreaseRate(player, mob, MobAttributes.defence(mob),
                 PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
         Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
@@ -211,40 +235,33 @@ public class Damage {
         return damage;
     }
 
-    public static double causeManaDamageToMonster_ApDamage_Direct(Player player, Mob monster, double damage, boolean computeDefenceOrEnhance) {
+    public static double causeManaDamageToMonster_ApDamage_Direct(Player player, Mob mob, double damage, boolean computeDefenceOrEnhance) {
+        if (!Compute.isWraqMob(mob)) {
+            return 0;
+        }
         if (computeDefenceOrEnhance) {
-            damage *= defenceDamageDecreaseRate(player, monster, MobAttributes.manaDefence(monster),
+            damage *= defenceDamageDecreaseRate(player, mob, MobAttributes.manaDefence(mob),
                     PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
             damage *= (1 + DamageInfluence.getPlayerManaDamageEnhance(player));
         }
-        Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        Damage.beforeCauseDamage(player, monster, damage);
-        causeDirectDamageToMob(player, monster, damage);
+        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Damage.beforeCauseDamage(player, mob, damage);
+        causeDirectDamageToMob(player, mob, damage);
         return damage;
     }
 
-    public static double causeAttackDamageToPlayer_RateAdDamage(Player player, Player hurter, double num) {
-        double attackDamage = PlayerAttributes.attackDamage(player);
-        double damageEnhance = 0;
-        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player);
-        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player);
-        attackDamage *= defenceDamageDecreaseRate(PlayerAttributes.defence(hurter),
-                PlayerAttributes.defencePenetration(player),
-                PlayerAttributes.defencePenetration0(player));
-        attackDamage *= (1 + damageEnhance) + (1 + DamageInfluence.getPlayerFinalDamageEnhance(player));
-        causeDirectDamageToPlayer(player, hurter, attackDamage * num * 0.1f);
-        return attackDamage * num * (1 + damageEnhance);
-    }
-
-    public static void causeRateApDamageToMonster(Player player, Mob monster, double num, boolean isPower) {
+    public static void causeRateApDamageToMonster(Player player, Mob mob, double num, boolean isPower) {
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
         double baseDamage = PlayerAttributes.manaDamage(player) * num;
         double damageEnhance = 0;
         double exDamage = 0;
         double defenceDamageDecreaseRate =
-                Damage.defenceDamageDecreaseRate(player, monster, MobAttributes.manaDefence(monster),
+                Damage.defenceDamageDecreaseRate(player, mob, MobAttributes.manaDefence(mob),
                         PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
-        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        damageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        damageEnhance += IceInstance.IceKnightHealthManaDamageFix(mob); // 冰霜骑士伤害修正
         damageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("---ManaPower---"));
@@ -253,36 +270,36 @@ public class Damage {
         }
         baseDamage *= defenceDamageDecreaseRate;
         exDamage *= defenceDamageDecreaseRate;
-        double totalDamage = (baseDamage + exDamage) * (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+        double totalDamage = (baseDamage + exDamage) * (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
         // 元素
         double elementDamageEnhance = 0;
         double elementDamageEffect = 1;
         if (isPower) {
             Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
             if (playerUnit.value() > 0) {
-                elementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, totalDamage);
+                elementDamageEffect = Element.ElementEffectAddToEntity(player, mob, playerUnit.type(), playerUnit.value(), false, totalDamage);
             }
         }
-        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + elementDamageEnhance) * elementDamageEffect;
-        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
-        Compute.summonValueItemEntity(monster.level(), player, monster,
+        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
+        Compute.summonValueItemEntity(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
             Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
         }
-        beforeCauseDamage(player, monster, totalDamage);
-        causeDirectDamageToMob(player, monster, totalDamage);
-        Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
+        beforeCauseDamage(player, mob, totalDamage);
+        causeDirectDamageToMob(player, mob, totalDamage);
+        Compute.manaDamageExEffect(player, mob, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
         if (isPower) {
-            Compute.additionEffects(player, monster, totalDamage, 1);
-            OnPowerCauseDamageEquip.causeDamage(player, monster);
-            ManaNewSkillPassive0.onManaPowerHit(player, monster);
+            Compute.additionEffects(player, mob, totalDamage, 1);
+            OnPowerCauseDamageEquip.causeDamage(player, mob);
+            ManaNewSkillPassive0.onManaPowerHit(player, mob);
         }
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
-            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,mob) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));
             player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : " + defenceDamageDecreaseRate));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + elementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + elementDamageEnhance));
@@ -291,38 +308,41 @@ public class Damage {
         }
     }
 
-    public static void causeRateApDamageWithElement(Player player, Mob monster, double num,
+    public static void causeRateApDamageWithElement(Player player, Mob mob, double num,
                                                     boolean isPower, String elementType, double elementValue) {
-        double defence = MobAttributes.manaDefence(monster);
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
+        double defence = MobAttributes.manaDefence(mob);
         double baseDamage = PlayerAttributes.manaDamage(player) * num;
         double defencePenetration = PlayerAttributes.manaPenetration(player);
         double defencePenetration0 = PlayerAttributes.manaPenetration0(player);
         double DamageEnhance = 0;
         double ExDamage = 0;
-        DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(mob); // 冰霜骑士伤害修正
         DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("---ManaPower---"));
             player.sendSystemMessage(Component.literal("BaseDamage : " + baseDamage));
             player.sendSystemMessage(Component.literal("ExDamage : " + ExDamage));
         }
-        baseDamage *= Damage.defenceDamageDecreaseRate(player, monster,
+        baseDamage *= Damage.defenceDamageDecreaseRate(player, mob,
                 defence, defencePenetration, defencePenetration0);
-        ExDamage *= Damage.defenceDamageDecreaseRate(player, monster,
+        ExDamage *= Damage.defenceDamageDecreaseRate(player, mob,
                 defence, defencePenetration, defencePenetration0);
-        double totalDamage = (baseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+        double totalDamage = (baseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
         // 元素
         double ElementDamageEnhance = 0;
         double ElementDamageEffect = 1;
         if (isPower) {
-            ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, elementType, elementValue, false, totalDamage);
+            ElementDamageEffect = Element.ElementEffectAddToEntity(player, mob, elementType, elementValue, false, totalDamage);
         }
         double elementDamage = totalDamage * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
-        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
-        Compute.summonValueItemEntity(monster.level(), player, monster,
+        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
+        Compute.summonValueItemEntity(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
             if (elementDamage != 0 && !elementType.isEmpty() && elementValue != 0) {
@@ -332,23 +352,23 @@ public class Damage {
                 Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
             }
         }
-        beforeCauseDamage(player, monster, totalDamage);
-        causeDirectDamageToMob(player, monster, totalDamage);
-        Compute.healByHealthSteal(player, monster, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.33);
-        Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
+        beforeCauseDamage(player, mob, totalDamage);
+        causeDirectDamageToMob(player, mob, totalDamage);
+        Compute.healByHealthSteal(player, mob, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.33);
+        Compute.manaDamageExEffect(player, mob, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
         if (isPower) {
-            Compute.additionEffects(player, monster, totalDamage, 1);
-            OnPowerCauseDamageEquip.causeDamage(player, monster);
-            ManaNewSkillPassive0.onManaPowerHit(player, monster);
-            CitadelCurio.onNormalAttackOrSkillHit(player, monster, totalDamage, false);
+            Compute.additionEffects(player, mob, totalDamage, 1);
+            OnPowerCauseDamageEquip.causeDamage(player, mob);
+            ManaNewSkillPassive0.onManaPowerHit(player, mob);
+            CitadelCurio.onNormalAttackOrSkillHit(player, mob, totalDamage, false);
         }
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
-                    + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,mob) : "
+                    + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));
             player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : "
-                    + Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0)));
+                    + Damage.defenceDamageDecreaseRate(player, mob, defence, defencePenetration, defencePenetration0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
             player.sendSystemMessage(Component.literal("totalDamage : " + totalDamage));
@@ -356,42 +376,51 @@ public class Damage {
         }
     }
 
-    public static void causeRateApDamageWithElement(Player player, Mob monster, double num, boolean isPower) {
+    public static void causeRateApDamageWithElement(Player player, Mob mob, double num, boolean isPower) {
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
         Element.Unit unit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
-        causeRateApDamageWithElement(player, monster, num, isPower, unit.type(), unit.value());
+        causeRateApDamageWithElement(player, mob, num, isPower, unit.type(), unit.value());
     }
 
-    public static void causeManaDamageToMonster(Player player, Mob monster, double damage) {
-        double Defence = MobAttributes.manaDefence(monster);
+    public static void causeManaDamageToMonster(Player player, Mob mob, double damage) {
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
+        double Defence = MobAttributes.manaDefence(mob);
         double BreakDefence = PlayerAttributes.manaPenetration(player);
         double BreakDefence0 = PlayerAttributes.manaPenetration0(player);
         double DamageEnhance = 0;
         double ExDamage = 0;
-        DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(mob); // 冰霜骑士伤害修正
         DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
         damage += ExDamage;
-        damage *= Damage.defenceDamageDecreaseRate(player, monster, Defence, BreakDefence, BreakDefence0);
-        double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
-        Compute.summonValueItemEntity(monster.level(), player, monster,
+        damage *= Damage.defenceDamageDecreaseRate(player, mob, Defence, BreakDefence, BreakDefence0);
+        double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
+        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
+        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
+        Compute.summonValueItemEntity(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        beforeCauseDamage(player, monster, totalDamage);
-        causeDirectDamageToMob(player, monster, totalDamage);
-        Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
+        beforeCauseDamage(player, mob, totalDamage);
+        causeDirectDamageToMob(player, mob, totalDamage);
+        Compute.manaDamageExEffect(player, mob, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
     }
 
-    public static void causeManaDamageToMonster(Player player, Mob monster, double damage, boolean isPower) {
-        double Defence = MobAttributes.manaDefence(monster);
+    public static void causeManaDamageToMonster(Player player, Mob mob, double damage, boolean isPower) {
+        if (!Compute.isWraqMob(mob)) {
+            return;
+        }
+        double Defence = MobAttributes.manaDefence(mob);
         double BreakDefence = PlayerAttributes.manaPenetration(player);
         double BreakDefence0 = PlayerAttributes.manaPenetration0(player);
         double DamageEnhance = 0;
         double ExDamage = 0;
 
-        DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(mob); // 冰霜骑士伤害修正
         DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -401,40 +430,40 @@ public class Damage {
         }
 
         damage += ExDamage;
-        damage *= Damage.defenceDamageDecreaseRate(player, monster, Defence, BreakDefence, BreakDefence0);
+        damage *= Damage.defenceDamageDecreaseRate(player, mob, Defence, BreakDefence, BreakDefence0);
 
-        double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+        double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
         // 元素
         double ElementDamageEnhance = 0;
         double ElementDamageEffect = 1;
         if (isPower) {
             Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
             if (playerUnit.value() > 0) {
-                ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, totalDamage);
+                ElementDamageEffect = Element.ElementEffectAddToEntity(player, mob, playerUnit.type(), playerUnit.value(), false, totalDamage);
             }
         }
 
-        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+        totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, monster));
+        totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
 
-        Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        beforeCauseDamage(player, monster, totalDamage);
-        causeDirectDamageToMob(player, monster, totalDamage);
-        Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
+        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        beforeCauseDamage(player, mob, totalDamage);
+        causeDirectDamageToMob(player, mob, totalDamage);
+        Compute.manaDamageExEffect(player, mob, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
         if (isPower) {
-            Compute.additionEffects(player, monster, totalDamage, 1);
-            OnPowerCauseDamageEquip.causeDamage(player, monster);
-            ManaNewSkillPassive0.onManaPowerHit(player, monster);
+            Compute.additionEffects(player, mob, totalDamage, 1);
+            OnPowerCauseDamageEquip.causeDamage(player, mob);
+            ManaNewSkillPassive0.onManaPowerHit(player, mob);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
-                    + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,mob) : "
+                    + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));
             player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : "
-                    + Damage.defenceDamageDecreaseRate(player, monster, Defence, BreakDefence, BreakDefence0)));
+                    + Damage.defenceDamageDecreaseRate(player, mob, Defence, BreakDefence, BreakDefence0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
             player.sendSystemMessage(Component.literal("totalDamage : " + totalDamage));
@@ -442,32 +471,19 @@ public class Damage {
         }
     }
 
-    public static void causeManaDamageToPlayer(Player player, Player hurter, double num) {
-
-        double BaseDamage = PlayerAttributes.manaDamage(player);
-        double BreakDefence = PlayerAttributes.manaPenetration(player);
-        double BreakDefence0 = PlayerAttributes.manaPenetration0(player);
-        double Defence = PlayerAttributes.manaDefence(hurter);
-        double DamageEnhance = 0;
-
-        DamageEnhance -= (1 - defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0));
-
-        causeDirectDamageToPlayer(player, hurter, BaseDamage * num * 0.1f * (1 + DamageEnhance));
-    }
-
-    public static void causeManaDamageToPlayer(Mob monster, Player player, double damage) {
+    public static void causeManaDamageToPlayer(Mob mob, Player player, double damage) {
         double manaDefence = PlayerAttributes.manaDefence(player);
         damage *= defenceDamageDecreaseRate(manaDefence,
-                MobSpawn.MobBaseAttributes.defencePenetration.get(MobSpawn.getMobOriginName(monster)),
-                MobSpawn.MobBaseAttributes.defencePenetration0.get(MobSpawn.getMobOriginName(monster)));
-        MonsterAttackEvent.monsterAttack(monster, player, damage);
+                MobSpawn.MobBaseAttributes.defencePenetration.get(MobSpawn.getMobOriginName(mob)),
+                MobSpawn.MobBaseAttributes.defencePenetration0.get(MobSpawn.getMobOriginName(mob)));
+        MonsterAttackEvent.mobAttack(mob, player, damage);
         BloodManaCurios.passive(player);
     }
 
-    public static void causeManaDamageToPlayer(Mob monster, Player player, double damage, double penetration, double penetration0) {
+    public static void causeManaDamageToPlayer(Mob mob, Player player, double damage, double penetration, double penetration0) {
         double manaDefence = PlayerAttributes.manaDefence(player);
         damage *= defenceDamageDecreaseRate(manaDefence, penetration, penetration0);
-        MonsterAttackEvent.monsterAttack(monster, player, damage);
+        MonsterAttackEvent.mobAttack(mob, player, damage);
         BloodManaCurios.passive(player);
     }
 
@@ -477,12 +493,12 @@ public class Damage {
         double manaPenetration = PlayerAttributes.manaPenetration(player);
         double manaPenetration0 = PlayerAttributes.manaPenetration0(player);
         damage *= defenceDamageDecreaseRate(manaDefence, manaPenetration, manaPenetration0);
-        MonsterAttackEvent.monsterAttack(mob, player, damage);
+        MonsterAttackEvent.mobAttack(mob, player, damage);
         BloodManaCurios.passive(player);
     }
 
     public static void causeTrueDamageToPlayer(Mob mob, Player player, double Damage) {
-        MonsterAttackEvent.monsterAttack(mob, player, Damage);
+        MonsterAttackEvent.mobAttack(mob, player, Damage);
     }
 
     public static void causeDirectDamageToPlayer(Mob mob, Player player, double damage) {
@@ -507,21 +523,24 @@ public class Damage {
         player.setHealth((float) (player.getHealth() - damage));
     }
 
-    public static void causeAttackDamageToPlayer(Mob monster, Player player, double Damage) {
+    public static void causeAttackDamageToPlayer(Mob mob, Player player, double Damage) {
         double Defence = PlayerAttributes.defence(player);
-        Damage *= defenceDamageDecreaseRate(Defence, MobAttributes.defencePenetration(monster), MobAttributes.defencePenetration0(monster));
-        MonsterAttackEvent.monsterAttack(monster, player, Damage);
+        Damage *= defenceDamageDecreaseRate(Defence, MobAttributes.defencePenetration(mob), MobAttributes.defencePenetration0(mob));
+        MonsterAttackEvent.mobAttack(mob, player, Damage);
     }
 
-    public static void causeAttackDamageToPlayer(Mob monster, Player player, double Damage, double defencePenetration, double defencePenetration0) {
+    public static void causeAttackDamageToPlayer(Mob mob, Player player, double Damage, double defencePenetration, double defencePenetration0) {
         double Defence = PlayerAttributes.defence(player);
         Damage *= defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
-        MonsterAttackEvent.monsterAttack(monster, player, Damage);
+        MonsterAttackEvent.mobAttack(mob, player, Damage);
     }
 
     public static void causeDirectDamageToMob(Player player, Entity entity, double damage) {
         if (entity instanceof Mob mob && !(entity instanceof Allay)
                 && !(entity instanceof Animal && !entity.hasCustomName())) {
+            if (!Compute.isWraqMob(mob)) {
+                return;
+            }
             if (entity instanceof Villager) return;
             if (mob.isDeadOrDying()) return;
             if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;
@@ -587,7 +606,7 @@ public class Damage {
             SpringMobEvent.onPlayerCauseDamage(player, mob, damage);
             entity.invulnerableTime = 0;
             StarBottle.playerBattleTickMapRefresh(player);
-            Element.ElementParticleProvider(mob);
+            Element.provideElementParticle(mob);
             GemOnCauseDamage.causeDamage(player, mob, damage);
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
             JungleMobSpawn.onMobWithstandDamage(mob, player, damage);

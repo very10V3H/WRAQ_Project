@@ -101,7 +101,7 @@ public class LifeCrystal extends SwordItem implements ActiveItem {
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);
-            Element.RangeElementProvider(player, Element.life, ElementValue.getPlayerLifeElementValue(player),
+            Element.provideRangeElement(player, Element.life, ElementValue.getPlayerLifeElementValue(player),
                     isAd, isAd ? PlayerAttributes.attackDamage(player) * 4 : PlayerAttributes.manaDamage(player), 6);
         }
     }

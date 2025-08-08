@@ -1,5 +1,6 @@
 package fun.wraq.events.client;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
@@ -186,17 +186,13 @@ public class ParticleEvent {
             Player player = event.player;
             Level level = player.level();
             int TickCount = player.tickCount;
-            List<Mob> list = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 100, 100, 100));
+            List<Mob> list = Compute.getNearMob(player, 48);
             for (Mob mob : list) {
-
                 if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_KAZE_RECALL.get())) {
                     ParticleFour(mob, ModParticles.KAZE.get(), ModParticles.KAZE.get());
-                    List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 20, 20, 20));
-                    for (Player player1 : playerList) {
-                        if (player1.position().distanceTo(mob.position()) <= 2.5) {
-                            player1.setDeltaMovement(player1.position().subtract(mob.position()));
-                        }
-                    }
+                    Compute.getNearPlayer(mob, 2.5).forEach(eachPlayer -> {
+                        eachPlayer.setDeltaMovement(eachPlayer.position().subtract(mob.position()));
+                    });
                 }
                 if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ARMOR_SPIDER_RECALL.get())) {
                     ParticleFour(mob, ModParticles.SPIDER.get(), ModParticles.SPIDER.get());
@@ -223,13 +219,19 @@ public class ParticleEvent {
                 }
             }
 
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(player.getPosition(1), 100, 100, 100));
             Random random = new Random();
-            for (Player player1 : playerList) {
-                if (TickCount % 20 == 0 && player1.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SAKURA_HELMET.get())) {
-                    level.addParticle(ParticleTypes.CHERRY_LEAVES, player1.getX() + random.nextDouble(-0.5, 0.5), player1.getY() + 1.7, player1.getZ() + random.nextDouble(-0.5, 0.5), 0, 0, 0);
-                }
+            if (TickCount % 20 == 0) {
+                Compute.getNearPlayer(player, 48).forEach(eachPlayer -> {
+                    if (eachPlayer.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SAKURA_HELMET.get())) {
+                        level.addParticle(ParticleTypes.CHERRY_LEAVES,
+                                eachPlayer.getX() + random.nextDouble(-0.5, 0.5),
+                                eachPlayer.getY() + 1.7,
+                                eachPlayer.getZ() + random.nextDouble(-0.5, 0.5),
+                                0, 0, 0);
+                    }
+                });
             }
+
             ClientUtils.DefencePenetrationParticle.keySet().forEach(integer -> {
                 Entity entity = level.getEntity(integer);
                 if (entity != null) {

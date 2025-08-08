@@ -119,7 +119,7 @@ public class LakePower extends WraqPower {
         mobList.forEach(mob -> {
             Vec3 PosVec = mob.position().subtract(finalTargetPos);
             if (PosVec.length() <= 6) {
-                Compute.IgniteMob(player, mob, 0);
+                Compute.igniteMob(player, mob, 0);
                 EffectOnMob.addSlowDownEffect(mob, 40, 0.25);
                 addManaDefenceDecreaseEffectParticle(mob, 40);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);

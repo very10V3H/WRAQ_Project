@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +45,10 @@ public class AttackCurios2 extends WraqAttackUniformCurios {
     }
 
     public static boolean playerNearbyHasNoOthers(Player player) {
-        List<Player> players = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 30, 30, 30));
-        players.removeIf(player1 -> player1.equals(player) || player1.distanceTo(player) < 12);
-        return players.isEmpty();
+        return Compute.getNearPlayer(player, 12).stream()
+                .filter(eachPlayer -> !eachPlayer.equals(player))
+                .toList()
+                .isEmpty();
     }
 
     public static double playerCritRateUp(Player player) {

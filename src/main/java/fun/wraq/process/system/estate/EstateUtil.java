@@ -7,6 +7,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -299,6 +300,8 @@ public class EstateUtil {
                 estateBuffExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(20));
                 player.addEffect(new MobEffectInstance(MobEffects.SATURATION, Tick.min(20)));
                 Compute.sendEffectLastTime(player, ModItems.ESTATE_KEY.get(), Tick.min(20));
+                StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
+                        "estateEffect", 0.2, Tick.get() + Tick.min(20));
                 sendMSG(player, Te.s("夜间首次打开房产门，获得持续", "20min", ChatFormatting.AQUA,
                         "的", ComponentUtils.getCommonDamageEnhance("20%"), "与",
                         "饱和效果", CustomStyle.MUSHROOM_STYLE));

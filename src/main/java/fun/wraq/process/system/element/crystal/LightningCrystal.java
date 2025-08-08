@@ -101,7 +101,7 @@ public class LightningCrystal extends SwordItem implements ActiveItem {
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);
-            Element.RangeElementProvider(player, Element.lightning, ElementValue.getPlayerLightningElementValue(player),
+            Element.provideRangeElement(player, Element.lightning, ElementValue.getPlayerLightningElementValue(player),
                     isAd, isAd ? PlayerAttributes.attackDamage(player) * 4 : PlayerAttributes.manaDamage(player), 6);
         }
     }

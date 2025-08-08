@@ -61,7 +61,6 @@ public class MagmaSceptre extends WraqSceptre implements ForgeItem {
         manaArrow.setNoGravity(true);
         manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
         ProjectileUtil.rotateTowardsMovement(manaArrow, 0);
-        WraqSceptre.adjustOrb(manaArrow, player);
         level.addFreshEntity(manaArrow);
         MySound.soundToNearPlayer(player, ModSounds.Mana.get());
         return manaArrow;

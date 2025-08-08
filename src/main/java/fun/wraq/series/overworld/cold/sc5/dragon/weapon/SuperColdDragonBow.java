@@ -29,7 +29,7 @@ public class SuperColdDragonBow extends WraqBow implements SuperColdDragonWeapon
         Utils.defencePenetration0.put(this, new double[]{60, 75, 90}[tier]);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, new double[]{0.2, 0.3, 0.45}[tier]);
-        Element.iceElementValue.put(this, 2.5);
+        Element.iceElementValue.put(this, new double[]{2.5, 3.5, 5}[tier]);
         Utils.levelRequire.put(this, 225);
         items.add(this);
     }

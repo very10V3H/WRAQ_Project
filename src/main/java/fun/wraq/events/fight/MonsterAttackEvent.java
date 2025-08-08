@@ -49,40 +49,38 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
 import java.util.Random;
 
 @Mod.EventBusSubscriber
 public class MonsterAttackEvent {
 
-    public static void monsterAttack(Mob monster, Player player, double damage) {
+    public static void mobAttack(Mob mob, Player player, double damage) {
         CompoundTag data = player.getPersistentData();
 
         double damageDecreaseRate = Compute.getSwordSkill1And4(data, player);
 
-        damageDecreaseRate += Compute.getSwordSkill14(data, player, monster);
+        damageDecreaseRate += Compute.getSwordSkill14(data, player, mob);
         damageDecreaseRate += Compute.getBowSkill4(data, player);
         damageDecreaseRate += Compute.getManaSkill4(data, player);
-        if (!MobSpawn.getMobOriginName(monster).equals(SpringMobEvent.mobName)) {
-            damageDecreaseRate += DamageInfluence.levelSuppress(player, monster); // 等级压制
+        if (!MobSpawn.getMobOriginName(mob).equals(SpringMobEvent.mobName)) {
+            damageDecreaseRate += DamageInfluence.levelSuppress(player, mob); // 等级压制
         }
         damageDecreaseRate += ScarecrowChestPlate(player); // 稻草甲
-        damageDecreaseRate += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
-        damageDecreaseRate += EarthPower.MobDamageDecrease(monster); // 地蕴法术
+        damageDecreaseRate += SnowArmorEffectDamageDecrease(mob); // 冰川盔甲
+        damageDecreaseRate += EarthPower.MobDamageDecrease(mob); // 地蕴法术
         damageDecreaseRate += LakePower.PlayerDefend(player); // 湖泊法术
 
         damage *= (1 - damageDecreaseRate);
         damage *= TabooAttackArmor.Passive(player);
 
-        damage *= DamageInfluence.getPlayerWithstandDamageInfluence(player, monster);
-        damage *= SkySkeletonSpawnController.getDamageRate(monster);
+        damage *= DamageInfluence.getPlayerWithstandDamageInfluence(player, mob);
+        damage *= SkySkeletonSpawnController.getDamageRate(mob);
 
-        if (Utils.witherBonePowerCCMonster.contains(monster)) damage *= 0.8;
+        if (Utils.witherBonePowerCCMonster.contains(mob)) damage *= 0.8;
         if (data.contains(StringUtils.SakuraDemonSword)
                 && data.getInt(StringUtils.SakuraDemonSword) > Tick.get()) damage = 0;
 
@@ -124,11 +122,11 @@ public class MonsterAttackEvent {
             damage -= damageDecreaseValue;
         }
 
-        damage *= WardenInstance.onPlayerWithstandDamageRate(player, monster);
-        damage *= GemWithstandDamageRateModifier.onWithstandDamageRate(player, monster, damage);
+        damage *= WardenInstance.onPlayerWithstandDamageRate(player, mob);
+        damage *= GemWithstandDamageRateModifier.onWithstandDamageRate(player, mob, damage);
         damage *= MinePower.onPlayerWithstand(player);
 
-        double healthSteal = MobAttributes.healthSteal(monster);
+        double healthSteal = MobAttributes.healthSteal(mob);
 
         if (damage > 0) {
             double finalDamage = Shield.decreasePlayerShield(player, damage);
@@ -140,23 +138,23 @@ public class MonsterAttackEvent {
                 player.sendSystemMessage(Component.literal("" + finalDamage));
             } else {
                 if (finalDamage > 0 && player.isAlive()) {
-                    Damage.causeDirectDamageToPlayer(monster, player, finalDamage);
+                    Damage.causeDirectDamageToPlayer(mob, player, finalDamage);
                     player.hurtTime = 10;
-                    monster.heal((float) (finalDamage * healthSteal));
-                    OnWithStandDamageCurios.withStandDamage(player, monster, finalDamage);
+                    mob.heal((float) (finalDamage * healthSteal));
+                    OnWithStandDamageCurios.withStandDamage(player, mob, finalDamage);
                 }
                 ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
             }
 
-            SnowArmorEffect(player, monster);
+            SnowArmorEffect(player, mob);
             mineShield(player);
-            DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
+            DevilAttackArmor.DevilAttackArmorPassive(player, mob); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
-            GemOnWithstandDamage.withStandDamage(player, monster, finalDamage);
-            SpringSnakeInstance.onPlayerWithstandDamage(player, monster);
-            DivineUtils.onPlayerWithstandDamage(monster, player);
+            GemOnWithstandDamage.withStandDamage(player, mob, finalDamage);
+            SpringSnakeInstance.onPlayerWithstandDamage(player, mob);
+            DivineUtils.onPlayerWithstandDamage(mob, player);
         }
-        CitadelGuardianInstance.playerWithstandDamage(player, monster);
+        CitadelGuardianInstance.playerWithstandDamage(player, mob);
 
     }
 
@@ -176,7 +174,7 @@ public class MonsterAttackEvent {
         double CritDamageDecrease = PlayerAttributes.decreasePlayerCritDamage(player);
         double finalDamage = ((baseDamage + exDamage) * CritDamage(critRate, critDamage, CritDamageDecrease) *
                 Damage.defenceDamageDecreaseRate(playerDefence, defencePenetration, defencePenetration0));
-        monsterAttack(mob, player, finalDamage);
+        mobAttack(mob, player, finalDamage);
     }
 
     @SubscribeEvent
@@ -197,13 +195,10 @@ public class MonsterAttackEvent {
                 double DefencePenetration0 = Utils.defencePenetration0.getOrDefault(monster.getItemBySlot(EquipmentSlot.HEAD).getItem(), 0d);
                 if (civil.owner != null) Defence = PlayerAttributes.defence(civil.owner);
                 damage *= Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0);
-
                 civil.setLastHurtByMob(monster);
                 civil.setHealth((float) (civil.getHealth() - damage));
-                List<Player> playerList = monster.level().getEntitiesOfClass(Player.class, AABB.ofSize(civil.position(), 20, 20, 20));
-                playerList.removeIf(player -> player.distanceTo(civil) > 10);
-                playerList.forEach(player -> {
-                    ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
+                Compute.getNearPlayer(civil, 10).forEach(eachPlayer -> {
+                    ModNetworking.sendToClient(new SoundsS2CPacket(2), eachPlayer);
                 });
             }
         }
