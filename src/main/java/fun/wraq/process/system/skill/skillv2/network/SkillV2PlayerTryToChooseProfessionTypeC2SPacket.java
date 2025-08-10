@@ -33,7 +33,7 @@ public class SkillV2PlayerTryToChooseProfessionTypeC2SPacket {
             if (player == null) {
                 return;
             }
-            if (Compute.playerIsInBattle(player)) {
+            if (!player.isCreative() && Compute.playerIsInBattle(player)) {
                 SkillV2.sendMSG(player, Te.s("请脱离", "战斗状态", CustomStyle.styleOfRed, "5s后重试"));
                 return;
             }

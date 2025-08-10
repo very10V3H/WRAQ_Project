@@ -12,29 +12,21 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.entities.entities.Civil.Civil;
-import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.chapter2.SkySkeletonSpawnController;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
-import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.teamInstance.instances.spring.SpringSnakeInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnWithstandDamage;
-import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
-import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
-import fun.wraq.series.overworld.chapter1.mine.MinePower;
-import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.divine.DivineUtils;
-import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -60,29 +52,14 @@ public class MonsterAttackEvent {
 
     public static void mobAttack(Mob mob, Player player, double damage) {
         CompoundTag data = player.getPersistentData();
-
-        double damageDecreaseRate = Compute.getSwordSkill1And4(data, player);
-
-        damageDecreaseRate += Compute.getSwordSkill14(data, player, mob);
-        damageDecreaseRate += Compute.getBowSkill4(data, player);
-        damageDecreaseRate += Compute.getManaSkill4(data, player);
-        if (!MobSpawn.getMobOriginName(mob).equals(SpringMobEvent.mobName)) {
-            damageDecreaseRate += DamageInfluence.levelSuppress(player, mob); // 等级压制
-        }
-        damageDecreaseRate += ScarecrowChestPlate(player); // 稻草甲
-        damageDecreaseRate += SnowArmorEffectDamageDecrease(mob); // 冰川盔甲
-        damageDecreaseRate += EarthPower.MobDamageDecrease(mob); // 地蕴法术
-        damageDecreaseRate += LakePower.PlayerDefend(player); // 湖泊法术
-
-        damage *= (1 - damageDecreaseRate);
-        damage *= TabooAttackArmor.Passive(player);
-
-        damage *= DamageInfluence.getPlayerWithstandDamageInfluence(player, mob);
+        double withStandDamageRate = 0;
+        withStandDamageRate += DamageInfluence.modifyPlayerWithstandDamageRate(player, mob, damage);
+        damage *= (1 + withStandDamageRate);
         damage *= SkySkeletonSpawnController.getDamageRate(mob);
-
-        if (Utils.witherBonePowerCCMonster.contains(mob)) damage *= 0.8;
         if (data.contains(StringUtils.SakuraDemonSword)
-                && data.getInt(StringUtils.SakuraDemonSword) > Tick.get()) damage = 0;
+                && data.getInt(StringUtils.SakuraDemonSword) > Tick.get()) {
+            damage = 0;
+        }
 
         // 闪避几率
         Random random = new Random();
@@ -122,12 +99,6 @@ public class MonsterAttackEvent {
             damage -= damageDecreaseValue;
         }
 
-        damage *= WardenInstance.onPlayerWithstandDamageRate(player, mob);
-        damage *= GemWithstandDamageRateModifier.onWithstandDamageRate(player, mob, damage);
-        damage *= MinePower.onPlayerWithstand(player);
-
-        double healthSteal = MobAttributes.healthSteal(mob);
-
         if (damage > 0) {
             double finalDamage = Shield.decreasePlayerShield(player, damage);
 
@@ -140,7 +111,7 @@ public class MonsterAttackEvent {
                 if (finalDamage > 0 && player.isAlive()) {
                     Damage.causeDirectDamageToPlayer(mob, player, finalDamage);
                     player.hurtTime = 10;
-                    mob.heal((float) (finalDamage * healthSteal));
+                    mob.heal((float) (finalDamage * MobAttributes.healthSteal(mob)));
                     OnWithStandDamageCurios.withStandDamage(player, mob, finalDamage);
                 }
                 ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
@@ -210,14 +181,6 @@ public class MonsterAttackEvent {
         return 1;
     }
 
-    public static double ScarecrowChestPlate(Player player) {
-        double DamageDecrease = 0;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.WHEAT_CHEST.get())) {
-            DamageDecrease += 0.3;
-        }
-        return DamageDecrease;
-    }
-
     public static void SnowArmorEffect(Player player, Mob monster) {
         if (SuitCount.getSnowSuitCount(player) >= 4) {
             int TickCount = Tick.get();
@@ -235,10 +198,12 @@ public class MonsterAttackEvent {
     }
 
     public static double SnowArmorEffectDamageDecrease(Mob monster) {
-        double DamageDecrease = 0;
+        double damageRate = 0;
         CompoundTag data = monster.getPersistentData();
-        if (data.getInt(StringUtils.SnowArmorEffect) > Tick.get()) DamageDecrease += 0.25;
-        return DamageDecrease;
+        if (data.getInt(StringUtils.SnowArmorEffect) > Tick.get()) {
+            damageRate -= 0.25;
+        }
+        return damageRate;
     }
 
     public static void mineShield(Player player) {

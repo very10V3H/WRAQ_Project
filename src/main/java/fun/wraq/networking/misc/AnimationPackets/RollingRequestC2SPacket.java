@@ -6,7 +6,7 @@ import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.bow.BowCurios0;
+import fun.wraq.customized.uniform.bow.normal.BowCurios0;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
@@ -51,7 +51,7 @@ public class RollingRequestC2SPacket {
                     Utils.rollingTickMap.put(serverPlayer.getName().getString(), Tick.get() + 10);
                     MySound.soundToNearPlayer(serverPlayer, ModSounds.Rolling.get());
 
-                    BowCurios0.Active(serverPlayer);
+                    BowCurios0.onReleaseRolling(serverPlayer);
                     Guide.trigV2(serverPlayer, Guide.StageV2.ROLLING);
                 }
             }

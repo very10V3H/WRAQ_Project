@@ -8,17 +8,17 @@ import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.attack.AttackCurios0;
-import fun.wraq.customized.uniform.attack.AttackCurios1;
-import fun.wraq.customized.uniform.attack.AttackCurios2;
-import fun.wraq.customized.uniform.attack.AttackCurios5;
-import fun.wraq.customized.uniform.bow.BowCurios0;
-import fun.wraq.customized.uniform.bow.BowCurios2;
-import fun.wraq.customized.uniform.bow.BowCurios3;
-import fun.wraq.customized.uniform.mana.ManaCurios0;
-import fun.wraq.customized.uniform.mana.ManaCurios2;
-import fun.wraq.customized.uniform.mana.ManaCurios3;
-import fun.wraq.customized.uniform.mana.ManaCurios4;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios0;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios1;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios2;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios5;
+import fun.wraq.customized.uniform.bow.normal.BowCurios0;
+import fun.wraq.customized.uniform.bow.normal.BowCurios2;
+import fun.wraq.customized.uniform.bow.normal.BowCurios3;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios0;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios2;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios3;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios4;
 import fun.wraq.events.mob.loot.C5LootItems;
 import fun.wraq.items.dev.equip.ManageEquip;
 import fun.wraq.items.dev.equip.OpsAttributes;
@@ -407,7 +407,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
-        exRate += AttackCurios0.PlayerFinalCritDamageEnhance(player);
+        exRate += AttackCurios0.getPlayerFinalCritDamageEnhanceRate(player);
         exRate += AttackCurios2.playerCritDamageEnhance(player);
         exRate += BowCurios2.playerCritDamageEnhance(player);
         exRate += SkyNewRune.critDamageInfluence(player);
@@ -739,7 +739,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
-        exRate += BowCurios0.SwiftnessUp(player);
+        exRate += BowCurios0.getSwiftnessUpRate(player);
         swiftnessUp *= (1 + exRate);
         writeToCache(player, Utils.swiftnessUp, swiftnessUp);
         return swiftnessUp;
@@ -764,8 +764,12 @@ public class PlayerAttributes {
     }
 
     public static double powerReleaseSpeed(Player player) {
-        if (TowerMob.playerIsChallenging2Floor(player)) return 0;
-        if (player.isCreative()) return 100;
+        if (TowerMob.playerIsChallenging2Floor(player)) {
+            return 0;
+        }
+        if (player.isCreative()) {
+            return 100;
+        }
         if (canGetFromCache(player, Utils.coolDownDecrease)) {
             return getFromCache(player, Utils.coolDownDecrease);
         }
@@ -818,7 +822,7 @@ public class PlayerAttributes {
     }
 
     public static double coolDownDecrease(Player player) {
-        return 1 - (1 / (1 + (powerReleaseSpeed(player))));
+        return 1 - (2 / (2 + (powerReleaseSpeed(player))));
     }
 
     public static double defencePenetration(Player player) {
@@ -1105,7 +1109,7 @@ public class PlayerAttributes {
         double exRate = 0;
         exRate += MoonBook.damageEnhance(player);
         exRate += Compute.playerFantasyAttributeEnhance(player);
-        exRate += ManaCurios0.PlayerFinalManaDamageEnhance(player);
+        exRate += ManaCurios0.getPlayerFinalManaDamageEnhance(player);
         exRate += ManaCurios2.playerFinalManaDamageEnhance(player);
         exRate += HarbingerMainHand.getManaDamageRate(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance) +

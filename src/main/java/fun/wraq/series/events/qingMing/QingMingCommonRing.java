@@ -73,7 +73,7 @@ public class QingMingCommonRing extends WraqCurios implements OnKillEffectCurios
     }
 
     @Override
-    public double onHitDamageInfluence(Player player, Mob mob) {
+    public double modifyHitDamageRate(Player player, Mob mob) {
         return passiveExpireTickMap.getOrDefault(Name.get(player), 0) > Tick.get()
                 ? 1 - mob.getHealth() / mob.getMaxHealth() : 0;
     }

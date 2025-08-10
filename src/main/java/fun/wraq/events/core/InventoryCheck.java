@@ -176,6 +176,7 @@ public class InventoryCheck {
     private static void setBoundingList() {
         boundingList.addAll(List.of(
                 ModItems.WORLD_SOUL_5.get(),
+                ModItems.WORLD_SOUL_5_POCKET.get(),
                 ModItems.NOTE_PAPER.get(),
                 ModItems.BREWING_NOTE.get(),
                 ModItems.SWORD_LOTTERY.get(),

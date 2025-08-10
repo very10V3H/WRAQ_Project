@@ -5,7 +5,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -58,8 +57,7 @@ public class SingleItemChangeC2SPacket {
                     }
                     else {
                         // 超出限购
-                        Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                                Te.s("超出了限购次数!"));
+                        Compute.sendInfoToScreen(serverPlayer, Te.s("超出了限购次数!"));
                     }
                 }
             }
@@ -67,43 +65,36 @@ public class SingleItemChangeC2SPacket {
                 if (recipe.vbSellOrBuy != null) {
                     if (recipe.vbSellOrBuy.isSell()) {
                         if (Compute.getCurrentVB(serverPlayer) >= recipe.vbSellOrBuy.price()) {
-                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                                    Te.s("完成了一笔交易!"));
+                            Compute.sendInfoToScreen(serverPlayer, Te.s("完成了一笔交易!"));
                             Compute.VBExpenseAndMSGSend(serverPlayer, recipe.vbSellOrBuy.price());
                             InventoryOperation.giveItemStack(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
                         } else {
-                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                                    Te.s("当前没有足够的VB用于购买!"));
+                            Compute.sendInfoToScreen(serverPlayer, Te.s("当前没有足够的VB用于购买!"));
                         }
                     } else {
                         if (InventoryOperation.checkItemRemoveIfHas(serverPlayer,
                                 List.of(new ItemStack(goods.getItem(), goods.getCount())))) {
-                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                                    Te.s("成功出售了物品!"));
+                            Compute.sendInfoToScreen(serverPlayer, Te.s("成功出售了物品!"));
                             Compute.VBIncomeAndMSGSend(serverPlayer, recipe.vbSellOrBuy.price());
                         } else {
-                            Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                                    Te.s("背包中没有足够的物品用于出售!"));
+                            Compute.sendInfoToScreen(serverPlayer, Te.s("背包中没有足够的物品用于出售!"));
                         }
                     }
                 } else {
                     if (InventoryOperation.checkItemRemoveIfHas(serverPlayer, List.of(material))) {
                         InventoryOperation.giveItemStack(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
-                        Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                                Te.s("完成了一笔交易!"));
+                        Compute.sendInfoToScreen(serverPlayer, Te.s("完成了一笔交易!"));
                         SingleItemChangePurchaseLimit.addTimes(serverPlayer, recipe);
                         LogUtils.getLogger().info("村民 {} 使用 {} 购买了 {} ", Name.get(serverPlayer),
                                 material.getItem() + " * " + material.getCount(), goods.getItem());
                     } else {
-                        Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                                Te.s("所需的物品不足。"));
+                        Compute.sendInfoToScreen(serverPlayer, Te.s("所需的物品不足."));
                     }
                 }
             } else {
                 if (!containRecipe) {
                     // 配方不存在
-                    Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                            Te.s("配方不存在，请联系铁头!"));
+                    Compute.sendInfoToScreen(serverPlayer, Te.s("配方不存在，请联系铁头!"));
                 }
             }
         });

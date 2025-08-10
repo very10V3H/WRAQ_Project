@@ -18,7 +18,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill3;
 import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
-import fun.wraq.customized.uniform.mana.ManaCurios1;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios1;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
@@ -184,7 +184,7 @@ public class ManaAttackModule {
         Compute.manaDamageExEffect(player, mob, damage);
         SameTypeModule.onNormalAttackHitMob(player, mob, 1, damage + trueDamage);
 
-        ManaCurios1.ManaDamageExTrueDamage(player, mob, damage);
+        ManaCurios1.getManaDamageExTrueDamage(player, mob, damage);
 
         if (mainShoot) {
             OnHitEffectEquip.hit(player, mob);

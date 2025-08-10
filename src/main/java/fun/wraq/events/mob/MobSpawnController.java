@@ -20,9 +20,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.IPlantable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class MobSpawnController {
     public final Component mobName;
@@ -44,6 +43,7 @@ public abstract class MobSpawnController {
     public int preventRefreshDistance = 8;
     public boolean spawnFlag = false;
     public Vec3 averagePos;
+    public Set<Vec3> spawnedPos = new HashSet<>();
 
     public record Boundary(Vec3 upPos, Vec3 downPos) {
     }
@@ -153,6 +153,69 @@ public abstract class MobSpawnController {
 
     public void handleTick() {
         mobList.removeIf(mob -> !mob.isAlive());
+        judgeOverBoundary();
+        // 若允许生成，则将生成标记清零，生成就绪。
+        if (spawnFlag) {
+            spawnFlag = false;
+            spawnedPos.clear();
+        }
+        Set<Player> players
+                = this.level.getServer().getPlayerList().getPlayers().stream()
+                .filter(player -> canSpawnPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 48))
+                .collect(Collectors.toSet());
+        // 区域内无玩家，则清理怪物。
+        if (players.isEmpty()) {
+            mobList.forEach(mob -> {
+                mob.remove(Entity.RemovalReason.KILLED);
+            });
+            mobList.clear();
+            return;
+        }
+        // 区域怪物数量达上限，返回。
+        if (averagePos != null && level.getEntitiesOfClass(Mob.class,
+                        AABB.ofSize(averagePos, 96, 96, 96)).stream()
+                .filter(mob -> MobSpawn.getMobOriginName(mob).equals(mobName.getString()))
+                .count() > maxMobNum) {
+            return;
+        }
+        if (this.mobList.size() > maxMobNum) {
+            return;
+        }
+        // 遍历节点，尝试生成怪物。
+        canSpawnPos.forEach(pos -> {
+            // 循环内再次判断怪物数量。
+            if (this.mobList.size() > maxMobNum) {
+                return;
+            }
+            // 如果在一个周期内，这个节点生成过怪物，则返回。
+            if (spawnedPos.contains(pos)) {
+                return;
+            }
+            // 若该点附近8格内怪物数量大于8，则不生成
+            if (level.getEntitiesOfClass(Mob.class, AABB.ofSize(pos,
+                            16, 16, 16))
+                    .stream().filter(mob
+                            -> MobSpawn.getMobOriginName(mob).equals(mobName.getString())).count() >= 8) {
+                return;
+            }
+            // 该点探测附近玩家列表
+            Set<Player> playerList = Compute.getNearPlayer(level, pos, detectionRange);
+            // 玩家距离此刷新点距离小于指定格则不生成怪物
+            if (playerList.stream()
+                    .anyMatch(player -> player.position().distanceTo(pos) < preventRefreshDistance)) {
+                return;
+            }
+            // 若没有玩家距离该点在48格内，则不生成
+            if (players.stream().noneMatch(player -> player.position().distanceTo(pos) < 48)) {
+                return;
+            }
+            // 满足条件。开始生成怪物，并将该点标记为已生成。
+            spawnedPos.add(pos);
+            spawnMob(playerList, pos);
+        });
+    }
+
+    private void judgeOverBoundary() {
         mobList.forEach(mob -> {
             if (mob != null && mob.isAlive()) {
                 if (!(mob instanceof Animal)) {
@@ -186,82 +249,43 @@ public abstract class MobSpawnController {
                 }
             }
         });
-        boolean hasPlayerNearby = this.level.getServer().getPlayerList().getPlayers().stream()
-                .anyMatch(player -> canSpawnPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 48));
-        if (!hasPlayerNearby) {
-            mobList.forEach(mob -> {
-                mob.remove(Entity.RemovalReason.KILLED);
-            });
-            mobList.clear();
-        } else if (spawnFlag) {
-            spawnFlag = false;
-            // 怪物数量未超上限，则开始全部生成
-            if (averagePos != null && level.getEntitiesOfClass(Mob.class,
-                    AABB.ofSize(averagePos, 96, 96, 96)).stream()
-                    .filter(mob -> MobSpawn.getMobOriginName(mob).equals(mobName.getString()))
-                    .count() > maxMobNum) {
-                return;
+    }
+
+    private void spawnMob(Set<Player> playerList, Vec3 pos) {
+        int summonTimes = 3;
+        if (canSpawnPos.size() == 1) {
+            summonTimes = 3 + playerList.size();
+        }
+        for (int i = 0; i < summonTimes; i++) {
+            Mob mob = this.mobItemAndAttributeSet();
+            DragonBoatFes.handleOnMobSpawn(mob);
+            Random r = new Random();
+            Vec3 offset = Vec3.ZERO;
+            if (summonOffset > 0) {
+                offset = new Vec3(
+                        r.nextDouble(summonOffset) - summonOffset / 2,
+                        r.nextDouble(summonOffset) - summonOffset / 2,
+                        r.nextDouble(summonOffset) - summonOffset / 2
+                );
             }
-            if (this.mobList.size() < maxMobNum) {
-                // 对每个刷新点附近进行探测，若满足生成条件，则生成
-                canSpawnPos.forEach(pos -> {
-                    if (this.mobList.size() > maxMobNum) {
-                        return;
-                    }
-                    // 若该点附近8格内怪物数量大于8，则不生成
-                    if (level.getEntitiesOfClass(Mob.class, AABB.ofSize(pos,
-                                    16, 16, 16))
-                            .stream().filter(mob
-                                    -> MobSpawn.getMobOriginName(mob).equals(mobName.getString())).count() >= 8) {
-                        return;
-                    }
-                    // 该点探测附近玩家列表
-                    List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
-                                    detectionRange * 2, detectionRange * 2, detectionRange * 2))
-                            .stream().filter(player -> player.position().distanceTo(pos) < detectionRange)
-                            .toList();
-                    // 玩家距离此刷新点距离小于指定格则不生成怪物
-                    if (playerList.stream()
-                            .anyMatch(player -> player.position().distanceTo(pos) < preventRefreshDistance)) {
-                        return;
-                    }
-                    int summonTimes = 3;
-                    if (canSpawnPos.size() == 1) {
-                        summonTimes = 3 + playerList.size();
-                    }
-                    for (int i = 0; i < summonTimes; i++) {
-                        Mob mob = this.mobItemAndAttributeSet();
-                        DragonBoatFes.handleOnMobSpawn(mob);
-                        Random r = new Random();
-                        Vec3 offset = Vec3.ZERO;
-                        if (summonOffset > 0) {
-                            offset = new Vec3(
-                                    r.nextDouble(summonOffset) - summonOffset / 2,
-                                    r.nextDouble(summonOffset) - summonOffset / 2,
-                                    r.nextDouble(summonOffset) - summonOffset / 2
-                            );
-                        }
-                        Vec3 targetPos = pos.add(0.5, 0.5, 0.5).add(offset);
-                        Block block = level.getBlockState(
-                                new BlockPos((int) targetPos.x, (int) targetPos.y, (int) targetPos.z)).getBlock();
-                        if (block instanceof IPlantable
-                                || block instanceof SnowLayerBlock
-                                || block.equals(Blocks.AIR)) {
-                            mob.moveTo(targetPos);
-                        } else {
-                            mob.moveTo(pos.add(0.5, 0.5, 0.5));
-                        }
-                        this.mobList.add(mob);
-                        this.level.addFreshEntity(mob);
-                        LivingEntity mounts = getMounts();
-                        if (mounts != null) {
-                            mounts.moveTo(mob.position());
-                            level.addFreshEntity(mounts);
-                            mob.startRiding(mounts);
-                            MobSpawn.mountsMap.put(mounts, mob);
-                        }
-                    }
-                });
+            Vec3 targetPos = pos.add(0.5, 0.5, 0.5).add(offset);
+            Block block = level.getBlockState(
+                    new BlockPos((int) targetPos.x, (int) targetPos.y, (int) targetPos.z)).getBlock();
+            if (block instanceof IPlantable
+                    || block instanceof SnowLayerBlock
+                    || block.equals(Blocks.AIR)) {
+                mob.moveTo(targetPos);
+            } else {
+                mob.moveTo(pos.add(0.5, 0.5, 0.5));
+            }
+            this.mobList.add(mob);
+            this.level.addFreshEntity(mob);
+            LivingEntity mounts = getMounts();
+            if (mounts != null) {
+                mounts.moveTo(mob.position());
+                level.addFreshEntity(mounts);
+                mob.startRiding(mounts);
+                MobSpawn.mountsMap.put(mounts, mob);
             }
         }
     }

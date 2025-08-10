@@ -51,7 +51,7 @@ public class TongTian extends WraqCurios implements OnHitDamageInfluenceCurios {
     }
 
     @Override
-    public double onHitDamageInfluence(Player player, Mob mob) {
+    public double modifyHitDamageRate(Player player, Mob mob) {
         if (!player.onGround() && !player.isInWater()) {
             return 0.3;
         }

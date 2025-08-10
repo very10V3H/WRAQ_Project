@@ -361,19 +361,19 @@ public class WardenInstance extends NoTeamInstance {
     }
 
     // 对处于潜行状态的玩家，将免疫其50%伤害。对于穿戴有望山防具的玩家，将减少50%伤害。
-    public static double onPlayerWithstandDamageRate(Player player, Mob mob) {
+    public static double modifyPlayerWithstandDamageRate(Player player, Mob mob) {
         if (mob.equals(instance.boss)) {
-            double rate = 1;
+            double rate = 0;
             if (player.isShiftKeyDown()) {
-                rate *= 0.5;
+                rate -= 0.5;
             }
             if (InventoryOperation.getArmors(player)
                     .stream().anyMatch(stack -> stack.getItem() instanceof MoontainArmor)) {
-                rate *= 0.5;
+                rate -= 0.5;
             }
             return rate;
         }
-        return 1;
+        return 0;
     }
 
     // 玩家之间应当保持距离，过近的距离将会使范围伤害叠加，容易暴毙

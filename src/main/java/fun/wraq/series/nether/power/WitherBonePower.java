@@ -3,7 +3,6 @@ package fun.wraq.series.nether.power;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
@@ -85,7 +84,6 @@ public class WitherBonePower extends WraqPower {
                 player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
                         ModNetworking.sendToClient(new DamageDecreaseParticleS2CPacket(mob.getId(), 100), serverPlayer));
 
-                Utils.witherBonePowerCCMonster.add(mob);
                 player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
                         ModNetworking.sendToClient(new SlowDownParticleS2CPacket(mob.getId(), 100), serverPlayer));
 

@@ -16,9 +16,10 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
-import fun.wraq.customized.uniform.attack.AttackCurios1;
-import fun.wraq.customized.uniform.attack.AttackCurios3;
-import fun.wraq.customized.uniform.attack.AttackCurios4;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios1;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios3;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios4;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios6;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.networking.ModNetworking;
@@ -141,10 +142,16 @@ public class AttackEvent {
     }
 
     public static boolean crit(Player player, Mob mob, boolean critSurely) {
-        double critRate = PlayerAttributes.critRate(player);
-        if (critSurely) critRate = 1;
-        if (BoneImpKnife.passive(player, mob)) critRate = 1;
-        return RandomUtils.nextDouble(0, 1) < critRate;
+        if (critSurely) {
+            return true;
+        }
+        if (BoneImpKnife.passive(player, mob)) {
+            return true;
+        }
+        if (AttackCurios6.isSurelyCrit(player, mob)) {
+            return true;
+        }
+        return RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player);
     }
 
     public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean crit) {
@@ -173,7 +180,6 @@ public class AttackEvent {
 
         double critDamage = PlayerAttributes.critDamage(player);
 
-        if (Utils.SnowRune2MobController.contains(monster)) defence *= 0.5f;
         if (monster instanceof Evoker && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ManaSword)
             defencePenetration = 1.0d;
 

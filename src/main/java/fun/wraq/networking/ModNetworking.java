@@ -90,6 +90,7 @@ import fun.wraq.process.system.vp.networking.VpValueS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.ClientWayPointS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
+import fun.wraq.render.gui.ScreenInfoS2CPacket;
 import fun.wraq.render.gui.trade.single.SingleItemChangeC2SPacket;
 import fun.wraq.render.gui.trade.single.SingleItemChangeFullDataS2CPacket;
 import fun.wraq.render.gui.trade.single.SingleItemChangeSingleRecipeTimeS2CPacket;
@@ -1386,6 +1387,11 @@ public class ModNetworking {
                 .decoder(LineDustParticleS2CPacket::new)
                 .encoder(LineDustParticleS2CPacket::toBytes)
                 .consumerMainThread(LineDustParticleS2CPacket::handle)
+                .add();
+        net.messageBuilder(ScreenInfoS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ScreenInfoS2CPacket::new)
+                .encoder(ScreenInfoS2CPacket::toBytes)
+                .consumerMainThread(ScreenInfoS2CPacket::handle)
                 .add();
     }
 

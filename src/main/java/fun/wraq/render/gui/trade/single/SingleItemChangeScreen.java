@@ -7,13 +7,13 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.render.gui.WraqScreen;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +24,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class SingleItemChangeScreen extends Screen {
+public class SingleItemChangeScreen extends WraqScreen {
     ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/vp_store.png");
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
@@ -170,10 +170,5 @@ public class SingleItemChangeScreen extends Screen {
                         " - ", SingleItemChangePurchaseLimit.TYPE_DESCRIPTION_MAP.get(recipe.limitType)), x, y);
             }
         }
-    }
-
-    @Override
-    public boolean isPauseScreen() {
-        return false;
     }
 }

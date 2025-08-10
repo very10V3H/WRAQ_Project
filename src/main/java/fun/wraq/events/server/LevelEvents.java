@@ -206,31 +206,6 @@ public class LevelEvents {
                     return data.getInt("ManaRune2") == 0 || monster.isDeadOrDying();
                 });
             }
-
-            if (!Utils.SnowRune2MobController.isEmpty() && Utils.SnowRune2Tick != Tick.get()) {
-                Utils.SnowRune2Tick = Tick.get();
-                Utils.SnowRune2MobController.forEach(monster -> {
-                    CompoundTag data = monster.getPersistentData();
-                    if (data.getInt("snowRune2Defence") > 0)
-                        data.putInt("snowRune2Defence", data.getInt("snowRune2Defence") - 1);
-                });
-                Utils.SnowRune2MobController.removeIf(monster -> {
-                    CompoundTag data = monster.getPersistentData();
-                    return data.getInt("snowRune2Defence") == 0 || monster.isDeadOrDying();
-                });
-            }
-            if (!Utils.witherBonePowerCCMonster.isEmpty() && Utils.witherBonePowerCount != Tick.get()) {
-                Utils.witherBonePowerCount = Tick.get();
-                Utils.witherBonePowerCCMonster.forEach(monster -> {
-                    CompoundTag data = monster.getPersistentData();
-                    if (data.getInt("witherBonePower") > 0)
-                        data.putInt("witherBonePower", data.getInt("witherBonePower") - 1);
-                });
-                Utils.witherBonePowerCCMonster.removeIf(monster -> {
-                    CompoundTag data = monster.getPersistentData();
-                    return data.getInt("witherBonePower") == 0 || monster.isDeadOrDying();
-                });
-            }
             if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
                 if (!Utils.overworldIsNight &&
                         event.level.getDayTime() % 24000 >= 12000) {

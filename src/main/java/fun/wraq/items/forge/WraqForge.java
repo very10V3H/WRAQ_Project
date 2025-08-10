@@ -89,7 +89,9 @@ public class WraqForge extends Item {
             for (ItemStack stack : materialList) {
                 Item item = stack.getItem();
                 // 复制必要的Tag
-                if (Utils.weaponList.contains(item)) {
+                if (Utils.weaponList.contains(item)
+                        || Utils.armorList.contains(item)
+                        || Utils.offHandTag.containsKey(item)) {
                     for (int i = 0; i < inventory.getContainerSize(); i++) {
                         ItemStack itemStack = inventory.getItem(i);
                         if (itemStack.is(item)) {

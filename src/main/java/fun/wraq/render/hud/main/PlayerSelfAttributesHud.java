@@ -93,7 +93,7 @@ public class PlayerSelfAttributesHud {
         RenderSystem.setShaderTexture(0, COOL_DOWN);
         guiGraphics.blit(COOL_DOWN, x - 202 + xOffset, y - 11, 0, 0, 12, 12, 12, 12);
         if (mc.player.isShiftKeyDown())
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", (1 - (1 / (1 + (ClientUtils.CoolDownC)))) * 100)), x - 177 + xOffset, y - 8, 5636095);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", (1 - (2 / (2 + (ClientUtils.CoolDownC)))) * 100)), x - 177 + xOffset, y - 8, 5636095);
         else
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.CoolDownC * 100)), x - 177 + xOffset, y - 8, 5636095);
 

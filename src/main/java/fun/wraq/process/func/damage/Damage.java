@@ -17,8 +17,8 @@ import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.mana.ManaCurios1;
-import fun.wraq.customized.uniform.mana.ManaCurios4;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios1;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios4;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobDeadModule;
@@ -291,7 +291,7 @@ public class Damage {
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.manaDamageExEffect(player, mob, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
+        ManaCurios1.getManaDamageExTrueDamage(player, mob, totalDamage);
         if (isPower) {
             Compute.additionEffects(player, mob, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, mob);
@@ -356,7 +356,7 @@ public class Damage {
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.healByHealthSteal(player, mob, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.33);
         Compute.manaDamageExEffect(player, mob, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
+        ManaCurios1.getManaDamageExTrueDamage(player, mob, totalDamage);
         if (isPower) {
             Compute.additionEffects(player, mob, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, mob);
@@ -406,7 +406,7 @@ public class Damage {
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.manaDamageExEffect(player, mob, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
+        ManaCurios1.getManaDamageExTrueDamage(player, mob, totalDamage);
     }
 
     public static void causeManaDamageToMonster(Player player, Mob mob, double damage, boolean isPower) {
@@ -451,7 +451,7 @@ public class Damage {
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.manaDamageExEffect(player, mob, totalDamage);
-        ManaCurios1.ManaDamageExTrueDamage(player, mob, totalDamage);
+        ManaCurios1.getManaDamageExTrueDamage(player, mob, totalDamage);
         if (isPower) {
             Compute.additionEffects(player, mob, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, mob);

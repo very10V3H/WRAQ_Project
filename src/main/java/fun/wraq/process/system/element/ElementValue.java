@@ -47,7 +47,6 @@ public class ElementValue {
         value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, elementValueMap, false);
         value += QiLingJudge(player, elementValueMap);
         value += Compute.CuriosAttribute.attributeValue(player, elementValueMap, attributeName);
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), elementValueMap);
         value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, elementValueMap);
         value += DivineWeaponCommon.getEnhanceElementValue(player, type);
         value *= (1 + PlayerAttributes.getElementStrength(player));

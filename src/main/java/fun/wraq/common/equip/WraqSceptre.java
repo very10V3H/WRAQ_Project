@@ -9,7 +9,7 @@ import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.mana.ManaCurios4;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios4;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.items.dev.equip.ManageEquip;
 import fun.wraq.process.func.DelayOperationWithAnimation;

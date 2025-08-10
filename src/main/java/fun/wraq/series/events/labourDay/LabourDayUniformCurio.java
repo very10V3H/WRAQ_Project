@@ -67,6 +67,11 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
         return Te.s("最后的斗争", hoverMainStyle());
     }
 
+    @Override
+    public double getFinalDamageEnhanceRate() {
+        return 0.5;
+    }
+
     public static String COUNT_DATA_KEY = "Count";
     public static String COUNT_DATE_KEY = "CountDate";
 

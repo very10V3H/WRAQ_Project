@@ -111,20 +111,13 @@ public class Utils {
     public static List<BlockLimit> blockLimitList = new ArrayList<>();
 
     public static int tick = 0;
-    public static Player Vplayer;
     public static boolean Security = true;
-    public static double security0 = 64;
-    public static double security1 = 64;
-    public static double security2 = 64;
-    public static double security3 = 64;
 
     // Entity
 
     public static Stray[] IceHunterForIceKnight = new Stray[15];
 
     public static boolean overworldIsNight = false;
-
-    public static List<Mob> witherBonePowerCCMonster = new ArrayList<>();
 
     public static int witherBonePowerCount = 0;
     public static List<ServerWaltzPlayer> QuartzSabreCCPlayer = new ArrayList<>();
@@ -203,8 +196,6 @@ public class Utils {
             Component.literal("酿造学士").withStyle(ChatFormatting.GOLD),
             Component.literal("酿造大师").withStyle(ChatFormatting.LIGHT_PURPLE)
     };
-    public static List<Mob> SnowRune2MobController = new ArrayList<>();
-    public static int SnowRune2Tick = -1;
     public static Map<ServerPlayer, Power> PowerMap = new HashMap<>();
     public static Map<Gather, Queue<Mob>> GatherMobMap = new HashMap<>();
     public static Map<Gather, Queue<Player>> GatherPlayerMap = new HashMap<>();

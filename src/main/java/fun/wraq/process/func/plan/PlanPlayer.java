@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.files.dataBases.DataBase;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -159,6 +160,14 @@ public class PlanPlayer {
     }
 
     public static int getPlayerTier(Player player) {
+        String rank = RankData.getCurrentRank(player);
+        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("19")) {
+            return 3;
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("17")) {
+            return 2;
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("15B")) {
+            return 1;
+        }
         if (!getOverDate(player).isEmpty()) {
             Calendar overData;
             try {

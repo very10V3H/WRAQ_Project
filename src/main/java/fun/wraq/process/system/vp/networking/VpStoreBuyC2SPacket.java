@@ -73,8 +73,7 @@ public class VpStoreBuyC2SPacket {
                     int tier = simpleTierPaper.getTier();
                     try {
                         if (PlanPlayer.getPlayerTier(serverPlayer) > tier) {
-                            Compute.sendFormatMSG(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
-                                    Component.literal("无法购买阶位不高于当前阶位的计划.").withStyle(ChatFormatting.WHITE));
+                            Compute.sendInfoToScreen(serverPlayer, Te.s("当前已有更高阶的计划生效."));
                             return;
                         } else {
                             VpDataHandler.playerVpData.put(name.toLowerCase(),
@@ -85,8 +84,7 @@ public class VpStoreBuyC2SPacket {
                                 Calendar oldOverDateCalendar = Compute.StringToCalendar(oldOverDate);
                                 oldOverDateCalendar.add(Calendar.DATE, SimpleTierPaper.lastDay);
                                 PlanPlayer.setOverDate(serverPlayer, Compute.CalendarToString(oldOverDateCalendar));
-                                Compute.sendFormatMSG(serverPlayer, Te.s("vp", ChatFormatting.AQUA),
-                                        Te.s("续约成功!"));
+                                Compute.sendInfoToScreen(serverPlayer, Te.s("续约成功!"));
                             } else {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.add(Calendar.DATE, SimpleTierPaper.lastDay);
@@ -145,13 +143,9 @@ public class VpStoreBuyC2SPacket {
                             append(Component.literal(" 账户剩余 ").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal(VpDataHandler.getPlayerVp(name) + "vp").withStyle(ChatFormatting.AQUA));
                 }
-                Compute.sendFormatMSG(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
-                        Component.literal("购买成功！").withStyle(ChatFormatting.WHITE).
-                                append(component));
+                Compute.sendInfoToScreen(serverPlayer, Te.s("购买成功!", component));
             } else {
-                Compute.sendFormatMSG(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
-                        Component.literal("所需资源不足").withStyle(ChatFormatting.WHITE));
-
+                Compute.sendInfoToScreen(serverPlayer, Te.s("所需资源不足."));
             }
         });
         return true;

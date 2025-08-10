@@ -13,6 +13,7 @@ import fun.wraq.networking.unSorted.TradeBuyRequestC2SPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.randomStore.RandomStore;
+import fun.wraq.render.gui.WraqScreen;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
 import fun.wraq.render.gui.trade.weekly.WeeklyStoreRecipe;
@@ -37,7 +38,7 @@ import java.util.List;
 import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
-public class TradeScreen extends Screen {
+public class TradeScreen extends WraqScreen {
     ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/new_trade_screen.png");
     ResourceLocation COIN_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/coin.png");
     private final boolean showPauseMenu;
@@ -321,10 +322,5 @@ public class TradeScreen extends Screen {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean isPauseScreen() {
-        return false;
     }
 }

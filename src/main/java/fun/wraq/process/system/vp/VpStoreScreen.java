@@ -1,18 +1,21 @@
 package fun.wraq.process.system.vp;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.plan.SimpleTierPaper;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.vp.networking.VpStoreBuyC2SPacket;
+import fun.wraq.render.gui.WraqScreen;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class VpStoreScreen extends Screen {
+public class VpStoreScreen extends WraqScreen {
     ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/vp_store.png");
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
@@ -154,22 +157,28 @@ public class VpStoreScreen extends Screen {
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("当前vp: ").withStyle(ChatFormatting.LIGHT_PURPLE), this.width / 2 + 80, this.height / 2 + 86, 0);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + VpDataHandler.clientVpValue).withStyle(ChatFormatting.WHITE), this.width / 2 + 128, this.height / 2 + 86, 0);
 
-
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2, this.height / 2 - 20 + 105, 0);
 
         if (PlanPlayer.clientPlanTier > 0 && !(x > this.width / 2 - 150 && x < this.width / 2)) {
             List<Component> components = new ArrayList<>();
             components.add(SimpleTierPaper.getTierTitle(PlanPlayer.clientPlanTier));
             components.addAll(SimpleTierPaper.getTierDescription(PlanPlayer.clientPlanTier));
-            components.add(Component.literal("计划还剩余: ").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(PlanPlayer.clientPlanLeftDate + "天").withStyle(CustomStyle.styleOfWorld)));
+
+            if (PlanPlayer.clientPlanLeftDate <= 0
+                    || RankData.clientPlayerCurrentRankMap.containsKey(ClientUtils.clientPlayer.getUUID())
+                    && RankData.getRankSerial(RankData.clientPlayerCurrentRankMap
+                    .get(ClientUtils.clientPlayer.getUUID())) > RankData.getRankSerial("15B")) {
+                if (RankData.clientPlayerCurrentRankMap.containsKey(ClientUtils.clientPlayer.getUUID())) {
+                    String rank = RankData.clientPlayerCurrentRankMap.get(ClientUtils.clientPlayer.getUUID());
+                    components.add(Te.s("作为 ", CustomStyle.styleOfWorld, RankData.getRankName(rank), " ",
+                            rank, RankData.rankStyleMap.get(rank), " 的职权.", CustomStyle.styleOfWorld));
+                }
+            } else {
+                components.add(Component.literal("计划还剩余: ").withStyle(ChatFormatting.WHITE).
+                        append(Component.literal(PlanPlayer.clientPlanLeftDate + "天").withStyle(CustomStyle.styleOfWorld)));
+            }
             guiGraphics.renderComponentTooltip(fontRenderer, components, 0, (int) (this.height / 2 / 1.5));
         }
         super.render(graphics, x, y, v);
-    }
-
-    @Override
-    public boolean isPauseScreen() {
-        return false;
     }
 }

@@ -34,7 +34,7 @@ public class VpStore {
                         SilverDragonItems.SILVER_DRAGON_SCEPTRE_LOTTERY.get(),
                         ModItems.SENIOR_POTION_SUPPLY.get(), ModItems.ORE_SUPPLY.get(),
                         ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
-                        ModItems.FORGE_SUPPLY.get()
+                        ModItems.FORGE_SUPPLY.get(), ModItems.WORLD_SOUL_5.get()
                 ));
             }};
             if (DragonBoatFes.isInActivate()) {
@@ -89,6 +89,7 @@ public class VpStore {
             priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 8);
             priceMap.put(ModItems.SENIOR_SUPPLY.get(), 12);
             priceMap.put(ModItems.FORGE_SUPPLY.get(), 5);
+            priceMap.put(ModItems.WORLD_SOUL_5.get(), 5);
             getGoodsList().forEach(item -> {
                 if (!priceMap.containsKey(item)) {
                     priceMap.put(item, 300);
@@ -138,6 +139,7 @@ public class VpStore {
             countMap.put(ModItems.JUNIOR_SUPPLY.get(), 1);
             countMap.put(ModItems.SENIOR_SUPPLY.get(), 1);
             countMap.put(ModItems.FORGE_SUPPLY.get(), 1);
+            countMap.put(ModItems.WORLD_SOUL_5.get(), 40);
         }
         goodsList.forEach(item -> {
             if (!countMap.containsKey(item)) {

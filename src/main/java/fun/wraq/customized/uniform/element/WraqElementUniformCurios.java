@@ -27,4 +27,9 @@ public abstract class WraqElementUniformCurios extends WraqUniformCurios {
     public Component getFirstPassiveName() {
         return RainbowCrystal.rainBowNameFourChar("世界根基");
     }
+
+    @Override
+    public double getFinalDamageEnhanceRate() {
+        return 0.5;
+    }
 }

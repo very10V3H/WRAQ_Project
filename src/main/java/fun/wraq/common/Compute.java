@@ -22,7 +22,7 @@ import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.ItemEntityAndResetTime;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.core.ManaAttackModule;
-import fun.wraq.customized.uniform.attack.AttackCurios5;
+import fun.wraq.customized.uniform.attack.normal.AttackCurios5;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -61,6 +61,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tp.TpPass;
 import fun.wraq.projectiles.mana.ManaArrow;
+import fun.wraq.render.gui.ScreenInfoS2CPacket;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
@@ -134,43 +135,43 @@ import static java.lang.Math.acos;
 public class Compute {
 
     public static double getSwordSkill1And4(CompoundTag data, Player player) {
-        double Decrease = 0;
+        double withStandDamageRate = 0;
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         if (Utils.swordTag.containsKey(mainhand)) {
-            Decrease += Compute.getSwordSkillLevel(data, 1) * 0.01;
-            Decrease -= Compute.getSwordSkillLevel(data, 4) * 0.015;
+            withStandDamageRate -= Compute.getSwordSkillLevel(data, 1) * 0.01;
+            withStandDamageRate += Compute.getSwordSkillLevel(data, 4) * 0.015;
         }
-        return Decrease;
+        return withStandDamageRate;
     }
 
     public static double getSwordSkill14(CompoundTag data, Player player, LivingEntity monster) {
-        double Enhance = 0;
+        double damageRate = 0;
         if (getSwordSkillLevel(data, 14) > 0) {
-            double PlayerHealthRate = player.getHealth() / player.getMaxHealth();
-            double MonsterHealthRate = monster.getHealth() / monster.getMaxHealth();
-            if (PlayerHealthRate < MonsterHealthRate) {
-                Enhance += 0.2 * Math.min(1.0, (MonsterHealthRate - PlayerHealthRate) / 0.66);
+            double playerHealthRate = player.getHealth() / player.getMaxHealth();
+            double monsterHealthRate = monster.getHealth() / monster.getMaxHealth();
+            if (playerHealthRate < monsterHealthRate) {
+                damageRate -= 0.2 * Math.min(1.0, (monsterHealthRate - playerHealthRate) / 0.66);
             }
         }
-        return Enhance;
+        return damageRate;
     }
 
     public static double getBowSkill4(CompoundTag data, Player player) {
-        double Decrease = 0;
+        double damageRate = 0;
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         if (Utils.bowTag.containsKey(mainhand)) {
-            Decrease -= Compute.getBowSkillLevel(data, 4) * 0.015;
+            damageRate += Compute.getBowSkillLevel(data, 4) * 0.015;
         }
-        return Decrease;
+        return damageRate;
     }
 
     public static double getManaSkill4(CompoundTag data, Player player) {
-        double Decrease = 0;
+        double damageRate = 0;
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         if (Utils.sceptreTag.containsKey(mainhand)) {
-            Decrease -= Compute.getManaSkillLevel(data, 4) * 0.015;
+            damageRate += Compute.getManaSkillLevel(data, 4) * 0.015;
         }
-        return Decrease;
+        return damageRate;
     }
 
     public static void forgingHoverName(ItemStack stack) {
@@ -2276,7 +2277,7 @@ public class Compute {
     }
 
     public static @Nullable Calendar getStackExpiredDate(ItemStack stack) {
-        if (stack.getTagElement(EXPIRED_DATE_DATA_KEY) == null) {
+        if (stack.getTagElement(Utils.MOD_ID) == null) {
             return null;
         }
         CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
@@ -2318,6 +2319,11 @@ public class Compute {
     }
 
     public static boolean isWraqMob(Mob mob) {
-        return mob.getDisplayName().getString().contains("Lv.");
+        return mob.getDisplayName().getString().contains("Lv.")
+                || mob.getDisplayName().getString().contains("木桩");
+    }
+
+    public static void sendInfoToScreen(Player player, Component info) {
+        ModNetworking.sendToClient(new ScreenInfoS2CPacket(info), player);
     }
 }

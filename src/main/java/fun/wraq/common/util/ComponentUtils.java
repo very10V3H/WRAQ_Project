@@ -382,7 +382,6 @@ public class ComponentUtils {
                 append(name));
     }
 
-
     public static void solePassiveDescription(List<Component> components, Component name) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("唯一被动 ").withStyle(CustomStyle.styleOfMoontain)).

@@ -231,7 +231,7 @@ public class IdCardGui extends Screen {
 
         this.addRenderableWidget(Button.builder(Component.literal("组队/副本").withStyle(ChatFormatting.AQUA), (p_280814_) -> {
             ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());
-        }).pos(this.width / 2 - 126, this.height / 2 + 113 - 40 + 18).size(48,16).build());
+        }).pos(this.width / 2 - 126, this.height / 2 + 113 - 40 + 18).size(48, 16).build());
     }
 
     public void tick() {
@@ -267,8 +267,7 @@ public class IdCardGui extends Screen {
                         guiGraphics.drawString(fontRenderer, Component.literal("「特殊挑战」").withStyle(ChatFormatting.RED),
                                 this.width / 2 - 126, this.height / 2 + 113 - 40 + 3, 0);
                     }
-                }
-                else renderable.render(graphics, x, y, v);
+                } else renderable.render(graphics, x, y, v);
 
             } else renderable.render(graphics, x, y, v);
         });
@@ -293,7 +292,7 @@ public class IdCardGui extends Screen {
         /* - */
 
         if (!Point.clientData.isEmpty()) {
-            for (int i = 1 ; i <= Point.DESCRIPTION.size() ; i ++) {
+            for (int i = 1; i <= Point.DESCRIPTION.size(); i++) {
                 String type = Point.DESCRIPTION.keySet().stream().toList().get(i - 1);
                 Component typeDescription = Point.TYPE.get(type);
                 double value = Point.clientData.get(i - 1);
@@ -627,37 +626,47 @@ public class IdCardGui extends Screen {
         }
 
         if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Power > ClientUtils.AbilityCache.Power) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + PowerOffsetX - 19, this.height / 2 + PowerOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + PowerOffsetX - 19, this.height / 2 + PowerOffsetY + 1, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + PowerOffsetX - 19, this.height / 2 + PowerOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + PowerOffsetX - 19, this.height / 2 + PowerOffsetY + 1, 0);
 
         }
 
         if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Intelligent > ClientUtils.AbilityCache.Intelligent) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + IntelligentOffsetX - 19, this.height / 2 + IntelligentOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + IntelligentOffsetX - 19, this.height / 2 + IntelligentOffsetY + 1, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + IntelligentOffsetX - 19, this.height / 2 + IntelligentOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + IntelligentOffsetX - 19, this.height / 2 + IntelligentOffsetY + 1, 0);
 
         }
 
         if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Flexibility > ClientUtils.AbilityCache.Flexibility) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + FlexibleOffsetX - 19, this.height / 2 + FlexibleOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + FlexibleOffsetX - 19, this.height / 2 + FlexibleOffsetY + 1, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + FlexibleOffsetX - 19, this.height / 2 + FlexibleOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + FlexibleOffsetX - 19, this.height / 2 + FlexibleOffsetY + 1, 0);
 
         }
 
         if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Lucky > ClientUtils.AbilityCache.Lucky) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + LuckyOffsetX - 19, this.height / 2 + LuckyOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + LuckyOffsetX - 19, this.height / 2 + LuckyOffsetY + 1, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + LuckyOffsetX - 19, this.height / 2 + LuckyOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + LuckyOffsetX - 19, this.height / 2 + LuckyOffsetY + 1, 0);
 
         }
 
         if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Vitality > ClientUtils.AbilityCache.Vitality) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + VitalityOffsetX - 19, this.height / 2 + VitalityOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + VitalityOffsetX - 19, this.height / 2 + VitalityOffsetY + 1, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + VitalityOffsetX - 19, this.height / 2 + VitalityOffsetY + 1, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + VitalityOffsetX - 19, this.height / 2 + VitalityOffsetY + 1, 0);
 
         }
 
@@ -670,28 +679,36 @@ public class IdCardGui extends Screen {
 
         for (int i = 0; i < 5; i++) {
             if (ClientUtils.AbilityChangeCache.SumPoint() < ClientUtils.PlayerAbilityPoint_Total) {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GOLD), this.width / 2 + OffsetX[i] + 31, this.height / 2 + OffsetY[i] + 1, 0);
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GOLD),
+                        this.width / 2 + OffsetX[i] + 31, this.height / 2 + OffsetY[i] + 1, 0);
             } else {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GRAY), this.width / 2 + OffsetX[i] + 31, this.height / 2 + OffsetY[i] + 1, 0);
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GRAY),
+                        this.width / 2 + OffsetX[i] + 31, this.height / 2 + OffsetY[i] + 1, 0);
             }
         }
 
         if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Sword > ClientUtils.SkillCache.Sword) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + SwordOffsetX - 24, this.height / 2 + SwordOffsetY + 23, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + SwordOffsetX - 24, this.height / 2 + SwordOffsetY + 23, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + SwordOffsetX - 24, this.height / 2 + SwordOffsetY + 23, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + SwordOffsetX - 24, this.height / 2 + SwordOffsetY + 23, 0);
         }
 
         if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Bow > ClientUtils.SkillCache.Bow) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + BowOffsetX - 24, this.height / 2 + BowOffsetY + 23, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + BowOffsetX - 24, this.height / 2 + BowOffsetY + 23, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + BowOffsetX - 24, this.height / 2 + BowOffsetY + 23, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + BowOffsetX - 24, this.height / 2 + BowOffsetY + 23, 0);
         }
 
         if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Mana > ClientUtils.SkillCache.Mana) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD), this.width / 2 + ManaOffsetX - 24, this.height / 2 + ManaOffsetY + 23, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
+                    this.width / 2 + ManaOffsetX - 24, this.height / 2 + ManaOffsetY + 23, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY), this.width / 2 + ManaOffsetX - 24, this.height / 2 + ManaOffsetY + 23, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
+                    this.width / 2 + ManaOffsetX - 24, this.height / 2 + ManaOffsetY + 23, 0);
         }
 
         int[] SkillOffsetX = {
@@ -704,9 +721,11 @@ public class IdCardGui extends Screen {
 
         for (int i = 0; i < 3; i++) {
             if (ClientUtils.SkillChangeCache.SumPoint() < ClientUtils.PlayerSkillPoint_Total) {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GOLD), this.width / 2 + SkillOffsetX[i] + 11, this.height / 2 + SkillOffsetY[i] + 23, 0);
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GOLD),
+                        this.width / 2 + SkillOffsetX[i] + 11, this.height / 2 + SkillOffsetY[i] + 23, 0);
             } else {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GRAY), this.width / 2 + SkillOffsetX[i] + 11, this.height / 2 + SkillOffsetY[i] + 23, 0);
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GRAY),
+                        this.width / 2 + SkillOffsetX[i] + 11, this.height / 2 + SkillOffsetY[i] + 23, 0);
 
             }
         }
@@ -722,43 +741,27 @@ public class IdCardGui extends Screen {
         }
         if (RankData.clientPlayerCurrentRankMap.containsKey(ClientUtils.clientPlayer.getUUID())) {
             String rank = RankData.clientPlayerCurrentRankMap.get(ClientUtils.clientPlayer.getUUID());
+            List<Component> rankDescription = new ArrayList<>();
+            rankDescription.add(Te.s("职级 - ", CustomStyle.styleOfWorld, RankData.getRankName(rank), " ",
+                    rank, RankData.rankStyleMap.get(rank)));
             if (!rank.equals("null")) {
-                List<Component> rankDescription = new ArrayList<>();
-                rankDescription.add(Te.s("职级 - ", CustomStyle.styleOfWorld, RankData.getRankName(rank), " ",
-                        rank, RankData.rankStyleMap.get(rank)));
                 rankDescription.add(Te.s("你当前拥有的职权:", CustomStyle.styleOfWorld));
-                rankDescription.add(Te.s(" · ", "日薪:" +
-                        RankData.rankWagesMap.get(rank) * 1000 + "VB", CustomStyle.styleOfGold));
-                if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13B")) {
-                    rankDescription.add(Te.s(" · ", "完成每日任务额外提供",
-                            ModItems.WORLD_SOUL_5.get(), " * 2", CustomStyle.styleOfWorld));
-                } else {
-                    if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13C")) {
-                        rankDescription.add(Te.s(" · ", "完成每日任务额外提供",
-                                ModItems.WORLD_SOUL_5.get(), " * 1", CustomStyle.styleOfWorld));
-                    }
-                }
-                if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13A")) {
-                    rankDescription.add(Te.s(" · ", "完成每日悬赏任务获得",
-                            ModItems.SENIOR_POTION_SUPPLY.get()));
-                }
-                if (RankData.smeltNeedTimeReduction(rank) > 0) {
-                    rankDescription.add(Te.s(" · ", "炼造物品耗时 ",
-                            "-" + RankData.smeltNeedTimeReduction(rank) + "s", ChatFormatting.AQUA));
-                }
-                if (RankData.getExReputationMissionRewardRate(rank) > 0) {
-                    rankDescription.add(Te.s(" · ", "额外声望获取 ",
-                            String.format("+%.0f%%", RankData.getExReputationMissionRewardRate(rank) * 100),
-                            CustomStyle.styleOfGold));
-                }
-                rankDescription.add(Te.s(" · ",
-                        "额外产出 + " + String.format("%.0f%%", RankData.getRankSerial(rank) * 0.02 * 100),
-                        CustomStyle.styleOfGold));
-                rankDescription.add(Te.s(" · ", "完成委托任务额外奖金: ",
-                        RankData.rankWagesMap.get(rank) * 100 + "VB", CustomStyle.styleOfGold));
-                guiGraphics.renderComponentTooltip(font, rankDescription,
-                        this.width / 2 + 320, this.height / 2 - 80);
+                rankDescription.addAll(RankData.getRankRightDescription(rank));
+            } else {
+                rankDescription.add(Te.s("在车站或传送中枢找到贝尔,"));
+                rankDescription.add(Te.s("完成", "委托任务", CustomStyle.styleOfWorld,
+                        "获得", ModItems.SPECIAL_BOND.get()));
+                rankDescription.add(Te.s("来提升自己的职级吧!"));
             }
+            rankDescription.add(Te.s(""));
+            String nextTierRank = RankData.getNextTierRank(rank);
+            rankDescription.add(Te.s("下一职级: ", ChatFormatting.GOLD,
+                    RankData.getRankName(nextTierRank), " ",
+                    nextTierRank, RankData.rankStyleMap.get(nextTierRank)));
+            rankDescription.add(Te.s("下一职级的职权:", CustomStyle.styleOfWorld));
+            rankDescription.addAll(RankData.getRankRightDescription(nextTierRank));
+            guiGraphics.renderComponentTooltip(font, rankDescription,
+                    this.width / 2 - 320, this.height / 2 - 80);
         }
     }
 

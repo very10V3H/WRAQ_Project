@@ -1,7 +1,7 @@
 package fun.wraq.process.system.skill.skillv2.bow;
 
 import fun.wraq.common.fast.Te;
-import fun.wraq.customized.uniform.bow.BowCurios4;
+import fun.wraq.customized.uniform.bow.normal.BowCurios4;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -33,8 +33,10 @@ public class BowNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2Allow
             return 0.8;
         } else if (level < 8) {
             return 0.9;
-        } else {
+        } else if (level < 11){
             return 1;
+        } else {
+            return 1.1;
         }
     }
 

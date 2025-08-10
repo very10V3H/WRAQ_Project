@@ -11,8 +11,9 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.*;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.bow.BowCurios0;
-import fun.wraq.customized.uniform.bow.BowCurios5;
+import fun.wraq.customized.uniform.bow.normal.BowCurios0;
+import fun.wraq.customized.uniform.bow.normal.BowCurios5;
+import fun.wraq.customized.uniform.bow.normal.BowCurios6;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
@@ -171,7 +172,7 @@ public class MyArrow extends AbstractArrow {
 
         if (shootByPlayer) {
             rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 1);
-            rate += BowCurios0.BaseDamageEnhance(player);
+            rate += BowCurios0.getArrowBaseDamageEnhanceRate(player);
             rate += BowCurios5.getExArrowDamageRate(player, mob);
             rate += QuiverAttack.getExAttackRate(player);
         }
@@ -201,13 +202,16 @@ public class MyArrow extends AbstractArrow {
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
         damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
 
-        double NormalAttackDamageEnhance = 0;
-        NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player);
+        double normalAttackDamageEnhance = 0;
+        normalAttackDamageEnhance += DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player);
 
-        boolean critFlag = false;
         if (myArrow.certainlyCritical || BoneImpKnife.passive(player, mob)) {
             critRate = 1;
         }
+        if (BowCurios6.isSurelyCrit(player, mob)) {
+            critRate = 1;
+        }
+        boolean critFlag = false;
         if (RandomUtils.nextDouble(0, 1) < critRate) {
             critFlag = true;
             AttackEventModule.BowSkill5(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续5s）
@@ -227,7 +231,7 @@ public class MyArrow extends AbstractArrow {
         //
         exDamage *= (1 + damageEnhance);
         trueDamage *= (1 + damageEnhance);
-        damage *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
+        damage *= (1 + damageEnhance) * (1 + normalAttackDamageEnhance);
         damage += exDamage;
         //
         damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
@@ -291,7 +295,7 @@ public class MyArrow extends AbstractArrow {
             OnHitEffectPassiveEquip.hit(player, mob);
         }
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
-            player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
+            player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + normalAttackDamageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,mob) : "
                     + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));

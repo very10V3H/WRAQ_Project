@@ -152,4 +152,8 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         CuriosApi.getSlotHelper().shrinkSlotType("feet", 1, serverPlayer);
         CuriosApi.getSlotHelper().shrinkSlotType("mask", 1, serverPlayer);
     }
+
+    public static boolean hasCurio(Player player, Item item) {
+        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(item);
+    }
 }

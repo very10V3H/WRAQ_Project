@@ -539,6 +539,15 @@ public class TradeList {
         ItemStack silverDragonBloodSword2 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SWORD_2.get());
         ItemStack silverDragonBloodBow2 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_BOW_2.get());
         ItemStack silverDragonBloodSceptre2 = new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE_2.get());
+        ItemStack attackEnhancedCurioRecipe0 = new ItemStack(UniformItems.ATTACK_ENHANCED_CURIOS_0.get());
+        ItemStack attackEnhancedCurioRecipe1 = new ItemStack(UniformItems.ATTACK_ENHANCED_CURIOS_0.get());
+        ItemStack bowEnhancedCurioRecipe0 = new ItemStack(UniformItems.BOW_ENHANCED_CURIOS_0.get());
+        ItemStack bowEnhancedCurioRecipe1 = new ItemStack(UniformItems.BOW_ENHANCED_CURIOS_0.get());
+        ItemStack manaEnhancedCurioRecipe0 = new ItemStack(UniformItems.MANA_ENHANCED_CURIOS_0.get());
+        ItemStack manaEnhancedCurioRecipe1 = new ItemStack(UniformItems.MANA_ENHANCED_CURIOS_0.get());
+        ItemStack kanupusSword = new ItemStack(ExtraordinaryItems.KANUPUS_SWORD.get());
+        ItemStack netherSceptreEx = new ItemStack(ExtraordinaryItems.NETHER_SCEPTRE_EX.get());
+
         ItemStack[] itemStacks = {
                 ModItems.WORLD_SOUL_NOTE.get().getDefaultInstance(),
                 ModItems.SOUL_SWORD.get().getDefaultInstance(),
@@ -558,10 +567,13 @@ public class TradeList {
                 ExtraordinaryItems.NAN_HAI_A.get().getDefaultInstance(),
                 ExtraordinaryItems.NAN_HAI_M.get().getDefaultInstance(),
                 ExtraordinaryItems.TONG_TIAN.get().getDefaultInstance(),
-                kanupusWingF,
+                kanupusWingF, kanupusSword, netherSceptreEx,
                 silverDragonBloodSword, silverDragonBloodBow, silverDragonBloodSceptre,
                 silverDragonBloodSword1, silverDragonBloodBow1, silverDragonBloodSceptre1,
-                silverDragonBloodSword2, silverDragonBloodBow2, silverDragonBloodSceptre2
+                silverDragonBloodSword2, silverDragonBloodBow2, silverDragonBloodSceptre2,
+                attackEnhancedCurioRecipe0, attackEnhancedCurioRecipe1,
+                bowEnhancedCurioRecipe0, bowEnhancedCurioRecipe1,
+                manaEnhancedCurioRecipe0, manaEnhancedCurioRecipe1
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -573,8 +585,10 @@ public class TradeList {
             }
         }};
         contentList.addAll(uniformList);
+        for (ItemStack itemStack : uniformList) {
+            tradeRecipeMap.put(itemStack, List.of(new ItemStack(UniformItems.UNIFORM_PIECE.get(), 2)));
+        }
         tradeContent.put(StringUtils.VillagerName.WorldSoul, contentList);
-
         tradeRecipeMap.put(kanupusWingF, List.of(
                 new ItemStack(ExtraordinaryItems.RUNE.get(), 21),
                 new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 40),
@@ -584,6 +598,36 @@ public class TradeList {
                 new ItemStack(ModItems.FOILED_NETHER_IMPRINT.get(), 8),
                 new ItemStack(ModItems.MOON_COMPLETE_GEM.get(), 8),
                 new ItemStack(DivineIslandItems.REFINED_DIVINE_PIECE.get(), 8),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 32),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 64),
+                new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get(), 64),
+                new ItemStack(ModItems.MILLION_MONEY.get(), 1)
+        ));
+        tradeRecipeMap.put(kanupusSword, List.of(
+                new ItemStack(ExtraordinaryItems.RUNE.get(), 21),
+                new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 40),
+                new ItemStack(ExtraordinaryItems.KANUPUS_SWORD_SOUL.get(), 4),
+                new ItemStack(OreItems.WRAQ_ORE_4_ITEM.get(), 128),
+                new ItemStack(PickaxeItems.TINKER_NETHERITE.get(), 32),
+                new ItemStack(ModItems.NETHER_RUNE.get(), 20),
+                new ItemStack(ModItems.QUARTZ_RUNE.get(), 20),
+                new ItemStack(ModItems.DEVIL_BLOOD.get(), 8),
+                new ItemStack(ModItems.GOLDEN_SHEET.get(), 16),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 32),
+                new ItemStack(ModItems.REPUTATION_MEDAL.get(), 64),
+                new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get(), 64),
+                new ItemStack(ModItems.MILLION_MONEY.get(), 1)
+        ));
+        tradeRecipeMap.put(netherSceptreEx, List.of(
+                new ItemStack(ExtraordinaryItems.RUNE.get(), 21),
+                new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 40),
+                new ItemStack(ExtraordinaryItems.NETHER_SCEPTRE_EX_SOUL.get(), 4),
+                new ItemStack(OreItems.WRAQ_ORE_4_ITEM.get(), 128),
+                new ItemStack(PickaxeItems.TINKER_NETHERITE.get(), 32),
+                new ItemStack(ModItems.NETHER_RUNE.get(), 20),
+                new ItemStack(ModItems.QUARTZ_RUNE.get(), 20),
+                new ItemStack(ModItems.DEVIL_BLOOD.get(), 8),
+                new ItemStack(ModItems.GOLDEN_SHEET.get(), 16),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 32),
                 new ItemStack(ModItems.REPUTATION_MEDAL.get(), 64),
                 new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get(), 64),
@@ -621,6 +665,36 @@ public class TradeList {
         tradeRecipeMap.put(silverDragonBloodSceptre2, List.of(
                 new ItemStack(SilverDragonItems.SILVER_DRAGON_BLOOD_SCEPTRE_1.get(), 1),
                 new ItemStack(SilverDragonItems.SILVER_DRAGON_WEAPON_PIECE.get(), 12)
+        ));
+        tradeRecipeMap.put(attackEnhancedCurioRecipe0, List.of(
+                new ItemStack(ModItems.WORLD_SOUL_5_POCKET.get(), 60),
+                new ItemStack(UniformItems.ATTACK_CURIOS_0.get()),
+                new ItemStack(UniformItems.ATTACK_CURIOS_1.get())
+        ));
+        tradeRecipeMap.put(attackEnhancedCurioRecipe1, List.of(
+                new ItemStack(ExtraordinaryItems.RUNE.get(), 20),
+                new ItemStack(UniformItems.ATTACK_CURIOS_0.get()),
+                new ItemStack(UniformItems.ATTACK_CURIOS_1.get())
+        ));
+        tradeRecipeMap.put(bowEnhancedCurioRecipe0, List.of(
+                new ItemStack(ModItems.WORLD_SOUL_5_POCKET.get(), 60),
+                new ItemStack(UniformItems.BOW_CURIOS_0.get()),
+                new ItemStack(UniformItems.BOW_CURIOS_1.get())
+        ));
+        tradeRecipeMap.put(bowEnhancedCurioRecipe1, List.of(
+                new ItemStack(ExtraordinaryItems.RUNE.get(), 20),
+                new ItemStack(UniformItems.BOW_CURIOS_0.get()),
+                new ItemStack(UniformItems.BOW_CURIOS_1.get())
+        ));
+        tradeRecipeMap.put(manaEnhancedCurioRecipe0, List.of(
+                new ItemStack(ModItems.WORLD_SOUL_5_POCKET.get(), 60),
+                new ItemStack(UniformItems.MANA_CURIOS_0.get()),
+                new ItemStack(UniformItems.MANA_CURIOS_1.get())
+        ));
+        tradeRecipeMap.put(manaEnhancedCurioRecipe1, List.of(
+                new ItemStack(ExtraordinaryItems.RUNE.get(), 20),
+                new ItemStack(UniformItems.MANA_CURIOS_0.get()),
+                new ItemStack(UniformItems.MANA_CURIOS_1.get())
         ));
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
@@ -662,9 +736,6 @@ public class TradeList {
                     add(new ItemStack(ModItems.STAR_STAR.get(), 16));
                 }});
             }
-        }
-        for (ItemStack itemStack : uniformList) {
-            tradeRecipeMap.put(itemStack, List.of(new ItemStack(UniformItems.UNIFORM_PIECE.get(), 2)));
         }
     }
 

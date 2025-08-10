@@ -52,7 +52,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable {
                 EnumParticles.DragonIce);
         List<Mob> mobs = player.level().getEntitiesOfClass(Mob.class,
                 AABB.ofSize(mob.position(), 4, 4, 4));
-        double rate = 1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 250);
+        double rate = 1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 2.5);
         mobs.forEach(eachMob -> {
             Compute.createIceParticle(eachMob);
             adaptiveNormalAttack(player, eachMob, rate);
@@ -68,7 +68,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable {
         Vec3 startPos = Compute.getPlayerHandItemPos(player, true);
         ParticleProvider.createIafLineParticle(player.level(),
                 (int) pos.distanceTo(startPos) * 5, startPos, pos, EnumParticles.DragonIce);
-        double rate = (1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 250)) * 0.33;
+        double rate = (1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 2.5)) * 0.33;
         Compute.getNearMob(player.level(), pos, 8).forEach(mob -> {
             adaptiveNormalAttack(player, mob, rate);
         });
@@ -108,7 +108,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable {
     static double getSkillExRange(Player player) {
         if (player.getMainHandItem().getItem() instanceof SuperColdDragonWeaponCommon superColdDragonWeaponCommon) {
             if (superColdDragonWeaponCommon.getWeaponTier() >= 1) {
-                return 1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 250);
+                return 1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 2.5);
             }
         }
         return 0;

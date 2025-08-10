@@ -62,13 +62,13 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
         return player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.TABOO_ATTACK_LEGGINGS.get());
     }
 
-    public static double Passive(Player player) {
-        if (!IsOn(player)) return 1;
+    public static double modifyPlayerWithstandDamageRate(Player player) {
+        if (!IsOn(player)) return 0;
         if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.25) {
             Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.03));
-            return 0.6;
+            return -0.6;
         }
-        return 1;
+        return 0;
     }
 
 

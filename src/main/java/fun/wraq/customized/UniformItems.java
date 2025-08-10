@@ -1,10 +1,13 @@
 package fun.wraq.customized;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.attack.*;
-import fun.wraq.customized.uniform.bow.*;
+import fun.wraq.customized.uniform.attack.enhanced.AttackEnhancedCurio0;
+import fun.wraq.customized.uniform.attack.normal.*;
+import fun.wraq.customized.uniform.bow.enhanced.BowEnhancedCurio;
+import fun.wraq.customized.uniform.bow.normal.*;
 import fun.wraq.customized.uniform.element.*;
-import fun.wraq.customized.uniform.mana.*;
+import fun.wraq.customized.uniform.mana.enhanced.ManaEnhancedCurio;
+import fun.wraq.customized.uniform.mana.normal.*;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.labourDay.LabourDayUniformCurio;
 import net.minecraft.world.item.Item;
@@ -91,6 +94,27 @@ public class UniformItems {
             () -> new BowCurios5(new Item.Properties().rarity(CustomStyle.LifeBold)));
     public static final RegistryObject<Item> MANA_CURIOS_5 = ITEMS.register("mana_curios_5",
             () -> new ManaCurios5(new Item.Properties().rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> ATTACK_CURIOS_6 = ITEMS.register("attack_curios_6",
+            () -> new AttackCurios6(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+    public static final RegistryObject<Item> BOW_CURIOS_6 = ITEMS.register("bow_curios_6",
+            () -> new BowCurios6(new Item.Properties().rarity(CustomStyle.LifeBold)));
+    public static final RegistryObject<Item> MANA_CURIOS_6 = ITEMS.register("mana_curios_6",
+            () -> new ManaCurios6(new Item.Properties().rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> ATTACK_CURIOS_7 = ITEMS.register("attack_curios_7",
+            () -> new AttackCurios7(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+    public static final RegistryObject<Item> BOW_CURIOS_7 = ITEMS.register("bow_curios_7",
+            () -> new BowCurios7(new Item.Properties().rarity(CustomStyle.LifeBold)));
+    public static final RegistryObject<Item> MANA_CURIOS_7 = ITEMS.register("mana_curios_7",
+            () -> new ManaCurios7(new Item.Properties().rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> ATTACK_ENHANCED_CURIOS_0 = ITEMS.register("attack_enhanced_curio_0",
+            () -> new AttackEnhancedCurio0(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+    public static final RegistryObject<Item> BOW_ENHANCED_CURIOS_0 = ITEMS.register("bow_enhanced_curio_0",
+            () -> new BowEnhancedCurio(new Item.Properties().rarity(CustomStyle.LifeBold)));
+    public static final RegistryObject<Item> MANA_ENHANCED_CURIOS_0 = ITEMS.register("mana_enhanced_curio_0",
+            () -> new ManaEnhancedCurio(new Item.Properties().rarity(CustomStyle.EvokerBold)));
 
     public static final RegistryObject<Item> LABOUR_DAY_UNIFORM_CURIO
             = ITEMS.register("labour_day_uniform_curio",

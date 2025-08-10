@@ -41,7 +41,10 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
 import fun.wraq.process.func.power.impl.*;
-import fun.wraq.process.system.element.*;
+import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.element.ElementHolyStone;
+import fun.wraq.process.system.element.RainbowCrystal;
+import fun.wraq.process.system.element.RainbowPowder;
 import fun.wraq.process.system.element.crystal.*;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementBow;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSceptre;
@@ -128,7 +131,6 @@ import fun.wraq.series.nether.power.WitherBonePower;
 import fun.wraq.series.overworld.castle.BeaconBow;
 import fun.wraq.series.overworld.castle.BlazeSword;
 import fun.wraq.series.overworld.castle.TreeSceptre;
-import fun.wraq.series.overworld.chapter1.field.FieldSword;
 import fun.wraq.series.overworld.chapter1.forest.*;
 import fun.wraq.series.overworld.chapter1.mana.ManaNote;
 import fun.wraq.series.overworld.chapter1.mine.*;
@@ -1362,6 +1364,8 @@ public class ModItems {
                     Te.s("可以在", "本源商人或vp商店", CustomStyle.styleOfWorld),
                     Te.s("兑换一些", "特殊补给包", ChatFormatting.LIGHT_PURPLE)
             )));
+    public static final RegistryObject<Item> WORLD_SOUL_5_POCKET = ITEMS.register("world_soul_5_pocket",
+            () -> new PocketItem(new Item.Properties().rarity(CustomStyle.WorldBold), WORLD_SOUL_5.get()));
     public static final RegistryObject<Item> WORLD_SOUL_4 = ITEMS.register("worldsoul4",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
     public static final RegistryObject<Item> WORLD_SOUL_3 = ITEMS.register("worldsoul3",

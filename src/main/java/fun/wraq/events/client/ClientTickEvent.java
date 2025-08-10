@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.lottery.NewLotteries;
+import fun.wraq.render.gui.WraqScreen;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -27,6 +28,7 @@ public class ClientTickEvent {
                                 .get(Calendar.DAY_OF_YEAR));
                 TradeList.setTradeContent();
             }
+            WraqScreen.infoLifeCycleTicks = Math.max(0, WraqScreen.infoLifeCycleTicks - 1);
         }
     }
 }

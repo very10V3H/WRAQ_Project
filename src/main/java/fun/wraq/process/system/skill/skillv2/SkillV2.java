@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.damage.ModifySkillDamageRateCurios;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseEquip;
 import fun.wraq.common.impl.onshoot.OnReleaseSkillCurios;
@@ -91,6 +92,7 @@ public abstract class SkillV2 {
         enhanceRate += GemEnhanceSkillRate.getEnhanceRate(player, skillType);
         enhanceRate += ManaSkillTree.getManaSkill13ExSkillRate(player, professionType);
         enhanceRate += IceHolySceptre.getExSkillDamageRate(player);
+        enhanceRate += ModifySkillDamageRateCurios.getModifiedSkillDamageRate(player);
         return enhanceRate;
     }
 

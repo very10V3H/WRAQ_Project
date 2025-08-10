@@ -66,8 +66,7 @@ public class TradeBuyRequestC2SPacket {
             ItemStack product = new ItemStack(targetItemStack.getItem(), targetItemStack.getCount());
             List<ItemStack> requireItemList = TradeList.tradeRecipeMap.get(targetItemStack);
             if (!WeeklyStore.canPlayerBuy(serverPlayer, product, requireItemList)) {
-                Compute.sendFormatMSG(serverPlayer, Te.s("交易", ChatFormatting.GOLD),
-                        Te.s("超出了购买限制."));
+                Compute.sendInfoToScreen(serverPlayer, Te.s("超出了购买限制."));
                 return;
             }
             List<ItemStack> itemList = new ArrayList<>();
@@ -182,8 +181,7 @@ public class TradeBuyRequestC2SPacket {
                 InventoryOperation.giveItemStack(serverPlayer, product);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {
-                Compute.sendFormatMSG(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),
-                        Component.literal("似乎没有足够的物品用于购买。").withStyle(ChatFormatting.WHITE));
+                Compute.sendInfoToScreen(serverPlayer, Te.s("似乎没有足够的物品用于购买。"));
             }
         });
         return true;

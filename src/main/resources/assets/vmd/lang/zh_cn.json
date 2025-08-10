@@ -550,6 +550,7 @@
   "item.vmd.worldsoul3": "隙石",
   "item.vmd.worldsoul4": "玉泽",
   "item.vmd.worldsoul5": "聚星",
+  "item.vmd.world_soul_5_pocket": "一袋聚星",
   "item.vmd.soulsword": "隙石尖刃",
   "item.vmd.soulbow": "隙石锻弓",
   "item.vmd.soulsceptre": "隙石权杖",
@@ -2461,6 +2462,18 @@
 
   "block.coffee_delight.coffee_cap": "咖啡杯",
   "block.coffee_delight.coffee_mag": "马克杯",
+
+  "item.vmd.attack_curios_6": "因子 - 残暴掠夺者",
+  "item.vmd.bow_curios_6": "因子 - 残暴猎手",
+  "item.vmd.mana_curios_6": "因子 - 邪恶巫术",
+
+  "item.vmd.attack_curios_7": "因子 - 利刃",
+  "item.vmd.bow_curios_7": "因子 - 枭刃",
+  "item.vmd.mana_curios_7": "因子 - 鬼术",
+
+  "item.vmd.attack_enhanced_curio_0": "一阶INF矩阵 - 暴君I&II",
+  "item.vmd.bow_enhanced_curio_0": "一阶INF矩阵 - 游侠I&II",
+  "item.vmd.mana_enhanced_curio_0": "一阶INF矩阵 - 梅林I&II",
 
   "item.vmd.splasher": "膨热剂",
 

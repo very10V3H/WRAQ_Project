@@ -50,8 +50,10 @@ public class ElementPieceData {
             Item item = stack.getItem();
             if (ElementPieceRecipe.getItemSet().contains(item)) {
                 addCount(player, item, stack.getCount());
-                ElementPieceRecipe.sendMSG(player,
-                        Te.s(item, " * " + stack.getCount(), ChatFormatting.AQUA, "已被量子化"));
+                if (!Compute.PlayerIgnore.ignoreItemGet(player)) {
+                    ElementPieceRecipe.sendMSG(player,
+                            Te.s(item, " * " + stack.getCount(), ChatFormatting.AQUA, "已被量子化"));
+                }
                 stack.shrink(stack.getCount());
             }
         }

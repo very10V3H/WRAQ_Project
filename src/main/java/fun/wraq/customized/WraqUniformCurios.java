@@ -5,6 +5,12 @@ import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.customized.uniform.attack.enhanced.WraqAttackEnhancedUniformCurios;
+import fun.wraq.customized.uniform.attack.normal.WraqAttackUniformCurios;
+import fun.wraq.customized.uniform.bow.enhanced.WraqBowEnhancedUniformCurios;
+import fun.wraq.customized.uniform.bow.normal.WraqBowUniformCurios;
+import fun.wraq.customized.uniform.mana.enhanced.WraqManaEnhancedUniformCurios;
+import fun.wraq.customized.uniform.mana.normal.WraqManaUniformCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -37,9 +43,21 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem, Deco
         if (!additionHoverText(stack).isEmpty()) {
             ComponentUtils.descriptionOfAddition(components);
             ComponentUtils.descriptionPassive(components, getFirstPassiveName());
-            components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
-
+            Component type = null;
+            if (this instanceof WraqAttackUniformCurios || this instanceof WraqAttackEnhancedUniformCurios) {
+                type = Te.s("近战武器", CustomStyle.styleOfPower);
+            } else if (this instanceof WraqBowUniformCurios || this instanceof WraqBowEnhancedUniformCurios) {
+                type = Te.s("弓", CustomStyle.styleOfFlexible);
+            } else if (this instanceof WraqManaUniformCurios || this instanceof WraqManaEnhancedUniformCurios) {
+                type = Te.s("法杖", CustomStyle.styleOfMana);
+            }
+            if (type == null) {
+                components.add(Te.s(" 获得",
+                        String.format("%.0f%%", getFinalDamageEnhanceRate() * 100) + "最终伤害加成", ChatFormatting.RED));
+            } else {
+                components.add(Te.s(" 手持", type, "时，获得",
+                        String.format("%.0f%%", getFinalDamageEnhanceRate() * 100) + "最终伤害加成", ChatFormatting.RED));
+            }
             components.addAll(additionHoverText(stack));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -68,6 +86,8 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem, Deco
     }
 
     public abstract Component getFirstPassiveName();
+
+    public abstract double getFinalDamageEnhanceRate();
 
     @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {

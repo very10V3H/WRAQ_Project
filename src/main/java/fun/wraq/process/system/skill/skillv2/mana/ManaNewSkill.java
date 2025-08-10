@@ -1,6 +1,6 @@
 package fun.wraq.process.system.skill.skillv2.mana;
 
-import fun.wraq.customized.uniform.mana.ManaCurioTaboo;
+import fun.wraq.customized.uniform.mana.normal.ManaCurioTaboo;
 import fun.wraq.process.system.skill.ManaSkillTree;
 import net.minecraft.world.entity.player.Player;
 

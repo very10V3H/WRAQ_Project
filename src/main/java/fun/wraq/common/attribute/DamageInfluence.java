@@ -1,16 +1,28 @@
 package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceEquip;
+import fun.wraq.common.impl.withstand.ModifyPlayerWithstandDamageInfluenceCurios;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.customized.WraqUniformCurios;
+import fun.wraq.customized.uniform.attack.enhanced.WraqAttackEnhancedUniformCurios;
+import fun.wraq.customized.uniform.attack.normal.WraqAttackUniformCurios;
+import fun.wraq.customized.uniform.bow.enhanced.WraqBowEnhancedUniformCurios;
+import fun.wraq.customized.uniform.bow.normal.WraqBowUniformCurios;
+import fun.wraq.customized.uniform.mana.enhanced.WraqManaEnhancedUniformCurios;
+import fun.wraq.customized.uniform.mana.normal.WraqManaUniformCurios;
+import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MushroomInstance;
+import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
@@ -29,11 +41,13 @@ import fun.wraq.series.dragon.SilverDragonBloodWeapon;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.gems.passive.impl.GemCommonDamageEnhanceRateModifier;
+import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
 import fun.wraq.series.holy.ice.curio.IceHolyRune;
 import fun.wraq.series.holy.ice.curio.IceHolySword;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.purple.EnhancePurpleIronArmor;
+import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
 import fun.wraq.series.newrunes.chapter1.MineNewRune;
 import fun.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
@@ -44,8 +58,10 @@ import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.divine.equip.boss.DivineKnife;
 import fun.wraq.series.overworld.sun.DevilPowerCurio;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 
 public class DamageInfluence {
     public static double getPlayerCommonDamageUpOrDown(Player player, Mob monster) {
@@ -150,9 +166,24 @@ public class DamageInfluence {
 
     public static double getPlayerFinalDamageEnhance(Player player) {
         double rate = 0;
-        rate += 0.5 * Compute.CuriosAttribute.getDistinctCuriosList(player)
-                .stream().filter(curios -> curios.getItem() instanceof WraqUniformCurios)
-                .count();
+        Item item = player.getMainHandItem().getItem();
+        rate += Compute.CuriosAttribute.getDistinctCuriosList(player)
+                .stream().filter(curios -> {
+                    boolean isUniform = curios.getItem() instanceof WraqUniformCurios;
+                    if (isUniform) {
+                        Item curio = curios.getItem();
+                        if ((curio instanceof WraqAttackUniformCurios
+                                || curio instanceof WraqAttackEnhancedUniformCurios) && item instanceof WraqSword) {
+                            return true;
+                        } else if ((curio instanceof WraqBowUniformCurios
+                                || curio instanceof WraqBowEnhancedUniformCurios) && item instanceof WraqBow) {
+                            return true;
+                        } else return (curio instanceof WraqManaUniformCurios
+                                || curio instanceof WraqManaEnhancedUniformCurios) && item instanceof WraqSceptre;
+                    }
+                    return false;
+                }).mapToDouble(curio -> ((WraqUniformCurios) curio.getItem()).getFinalDamageEnhanceRate())
+                .sum();
         rate += Compute.CuriosAttribute
                 .attributeValue(player, Utils.finalDamageEnhance, StringUtils.RandomCuriosAttribute.finalDamageEnhance);
         rate += DevilPowerCurio.finalDamageEnhanceRate(player);
@@ -179,8 +210,9 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double getPlayerWithstandDamageInfluence(Player player, Mob mob) {
-        double rate = 1;
+    public static double modifyPlayerWithstandDamageRate(Player player, Mob mob, double damage) {
+        double rate = 0;
+        CompoundTag data = player.getPersistentData();
         rate += MineNewRune.withstandDamageInfluence(player);
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25);
         rate -= StableTierAttributeModifier
@@ -188,6 +220,18 @@ public class DamageInfluence {
         rate += DivineUtils.getPlayerWithstandDamageExRate(player);
         rate -= IceHolyRune.getExDamageDecreaseRate(player);
         rate -= ColdIronArmor.getWithstandDamageReductionRate(player);
+        rate += Compute.getSwordSkill1And4(data, player);
+        rate += Compute.getSwordSkill14(data, player, mob);
+        rate += Compute.getBowSkill4(data, player);
+        rate += Compute.getManaSkill4(data, player);
+        if (!MobSpawn.getMobOriginName(mob).equals(SpringMobEvent.mobName)) {
+            rate -= DamageInfluence.levelSuppress(player, mob); // 等级压制
+        }
+        rate += MonsterAttackEvent.SnowArmorEffectDamageDecrease(mob); // 冰川盔甲
+        rate += ModifyPlayerWithstandDamageInfluenceCurios.modifyPlayerWithstandDamageRate(player, mob);
+        rate += WardenInstance.modifyPlayerWithstandDamageRate(player, mob);
+        rate += GemWithstandDamageRateModifier.modifyPlayerWithstandDamageRate(player, mob, damage);
+        rate += TabooAttackArmor.modifyPlayerWithstandDamageRate(player);
         return rate;
     }
 

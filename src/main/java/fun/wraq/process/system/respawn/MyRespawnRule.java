@@ -58,13 +58,10 @@ public class MyRespawnRule {
         if (level.dimension().equals(Level.OVERWORLD)) {
             SpawnPoint spawnPoint = findNearestSpawnPoint(player);
             serverPlayer.setRespawnPosition(Level.OVERWORLD,
-                    new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z), spawnPoint.rotX, true, false);
+                    new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z),
+                    spawnPoint.rotX, true, false);
             playerLastOverWorldPos.put(name, new SpawnPos(player.position(), player.getXRot()));
             ModNetworking.sendToClient(new NearestSpawnPointS2CPacket(spawnPoint.zoneName), serverPlayer);
-        } else if (level.dimension().equals(Level.END)) {
-            serverPlayer.setRespawnPosition(Level.END, new BlockPos(137, 50, 0), 90, true, false);
-        } else if (level.dimension().equals(Level.NETHER)) {
-            serverPlayer.setRespawnPosition(Level.NETHER, new BlockPos(591, 78, -619), 90, true, false);
         }
     }
 

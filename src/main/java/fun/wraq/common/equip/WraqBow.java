@@ -9,7 +9,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.core.bow.MyArrowHitBlock;
-import fun.wraq.customized.uniform.bow.BowCurios5;
+import fun.wraq.customized.uniform.bow.normal.BowCurios5;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.items.dev.equip.ManageEquip;
 import fun.wraq.process.func.DelayOperationWithAnimation;

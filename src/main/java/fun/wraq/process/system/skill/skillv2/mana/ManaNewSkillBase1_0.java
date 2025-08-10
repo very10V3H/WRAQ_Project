@@ -4,7 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.customized.uniform.mana.ManaCurios5;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios5;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;

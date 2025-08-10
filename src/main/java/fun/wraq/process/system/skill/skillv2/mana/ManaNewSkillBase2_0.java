@@ -3,7 +3,7 @@ package fun.wraq.process.system.skill.skillv2.mana;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.customized.uniform.mana.ManaCurios5;
+import fun.wraq.customized.uniform.mana.normal.ManaCurios5;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.PersistentRangeEffectOperation;

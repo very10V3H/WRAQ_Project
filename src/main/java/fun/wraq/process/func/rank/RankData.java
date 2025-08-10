@@ -205,6 +205,7 @@ public class RankData {
     }};
 
     public static Map<String, Integer> rankWagesMap = new HashMap<>() {{
+        put("null", 0);
         put("13C", 15);
         put("13B", 17);
         put("13A", 19);
@@ -355,5 +356,53 @@ public class RankData {
 
     public static Component getRankName(String rank) {
         return Te.s(rankNameMap.get(rank), rankStyleMap.get(rank));
+    }
+
+    public static List<Component> getRankRightDescription(String rank) {
+        List<Component> rankDescription = new ArrayList<>();
+        rankDescription.add(Te.s(" · ", "日薪:" +
+                RankData.rankWagesMap.getOrDefault(rank, 0) * 1000 + "VB", CustomStyle.styleOfGold));
+        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("19")) {
+            rankDescription.add(Te.s(" · ", "永久激活",
+                    ChatFormatting.RED, "[因子计划]", ChatFormatting.LIGHT_PURPLE));
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("17")) {
+            rankDescription.add(Te.s(" · ", "永久激活",
+                    ChatFormatting.RED, "[本源杰青]", ChatFormatting.AQUA));
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("15B")) {
+            rankDescription.add(Te.s(" · ", "永久激活",
+                    ChatFormatting.RED, "[本源学者]", ChatFormatting.GREEN));
+        }
+        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13B")) {
+            rankDescription.add(Te.s(" · ", "完成每日任务额外提供",
+                    ModItems.WORLD_SOUL_5.get(), " * 2", CustomStyle.styleOfWorld));
+        } else {
+            if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13C")) {
+                rankDescription.add(Te.s(" · ", "完成每日任务额外提供",
+                        ModItems.WORLD_SOUL_5.get(), " * 1", CustomStyle.styleOfWorld));
+            }
+        }
+        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("13A")) {
+            rankDescription.add(Te.s(" · ", "完成每日悬赏任务获得",
+                    ModItems.SENIOR_POTION_SUPPLY.get()));
+        }
+        if (RankData.smeltNeedTimeReduction(rank) > 0) {
+            rankDescription.add(Te.s(" · ", "炼造物品耗时 ",
+                    "-" + RankData.smeltNeedTimeReduction(rank) + "s", ChatFormatting.AQUA));
+        }
+        if (RankData.getExReputationMissionRewardRate(rank) > 0) {
+            rankDescription.add(Te.s(" · ", "额外声望获取 ",
+                    String.format("+%.0f%%", RankData.getExReputationMissionRewardRate(rank) * 100),
+                    CustomStyle.styleOfGold));
+        }
+        rankDescription.add(Te.s(" · ",
+                "额外产出 + " + String.format("%.0f%%", RankData.getRankSerial(rank) * 0.02 * 100),
+                CustomStyle.styleOfGold));
+        rankDescription.add(Te.s(" · ", "完成委托任务额外奖金: ",
+                RankData.rankWagesMap.get(rank) * 100 + "VB", CustomStyle.styleOfGold));
+        return rankDescription;
+    }
+
+    public static String getNextTierRank(String rank) {
+        return RankData.rankSerialList.get(RankData.rankSerialList.indexOf(rank) + 1);
     }
 }

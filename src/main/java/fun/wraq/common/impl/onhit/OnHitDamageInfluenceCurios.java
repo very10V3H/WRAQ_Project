@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import java.util.concurrent.atomic.AtomicReference;
 
 public interface OnHitDamageInfluenceCurios {
-    double onHitDamageInfluence(Player player, Mob mob);
+    double modifyHitDamageRate(Player player, Mob mob);
 
     static double damageInfluence(Player player, Mob mob) {
         AtomicReference<Double> influence = new AtomicReference<>((double) 0);
@@ -15,7 +15,7 @@ public interface OnHitDamageInfluenceCurios {
                 .filter(stack -> stack.getItem() instanceof OnHitDamageInfluenceCurios)
                 .map(stack -> (OnHitDamageInfluenceCurios) stack.getItem())
                 .forEach(curios -> {
-                    influence.updateAndGet(v -> (v + curios.onHitDamageInfluence(player, mob)));
+                    influence.updateAndGet(v -> (v + curios.modifyHitDamageRate(player, mob)));
                 });
         return influence.get();
     }

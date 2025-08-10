@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.StringUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -82,7 +83,6 @@ public class IgnoreMSGCommand implements Command<CommandSourceStack> {
                 data.putBoolean(Type, true);
                 Compute.sendFormatMSG(player, Component.literal("屏蔽").withStyle(ChatFormatting.RED),
                         Component.literal("你已屏蔽所有物品获取信息。").withStyle(ChatFormatting.WHITE));
-
             } else {
                 data.putBoolean(Type, false);
                 Compute.sendFormatMSG(player, Component.literal("屏蔽").withStyle(ChatFormatting.RED),
@@ -132,9 +132,11 @@ public class IgnoreMSGCommand implements Command<CommandSourceStack> {
             }
             flag = false;
         }
-        if (flag) Compute.sendFormatMSG(player, Component.literal("屏蔽").withStyle(ChatFormatting.RED),
-                Component.literal("当前支持的屏蔽类型为战斗(Fight)、符石(Rune)、经验(Exp)、快捷使用(QuickUse)、物品获取(ItemGet)、金钱(VB)、法力值(Mana)、副本(Instance)。").withStyle(ChatFormatting.WHITE));
-
+        if (flag) {
+            Compute.sendFormatMSG(player, Te.s("屏蔽", ChatFormatting.RED),
+                    Te.s("当前支持的屏蔽类型为战斗(Fight)、符石(Rune)、经验(Exp)、" +
+                            "快捷使用(QuickUse)、物品获取(ItemGet)、金钱(VB)、法力值(Mana)、副本(Instance)。"));
+        }
         return 0;
     }
 }
