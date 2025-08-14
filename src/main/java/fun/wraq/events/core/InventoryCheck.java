@@ -82,6 +82,10 @@ public class InventoryCheck {
                         addOwnerTagToItemStack(player, itemStack);
                     }
                 }
+                if (Compute.getStackExpiredDate(itemStack) != null && !Compute.isExpiredDateValid(itemStack)) {
+                    itemStack.shrink(itemStack.getCount());
+                    continue;
+                }
                 if (itemStack.getTagElement(Utils.MOD_ID) != null) {
                     CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                     if (item instanceof RandomLootEquip && !data.contains(RandomLootEquip.NEW_VERSION_CHANGE_TAG)) {

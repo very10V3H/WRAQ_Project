@@ -8,7 +8,6 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -101,8 +100,7 @@ public class BlazePowerSpawnController extends JungleMobSpawnController {
                 new ItemAndRate(ModItems.SILVER_COIN.get(), 8),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 1),
                 new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 4),
-                new ItemAndRate(NewRuneItems.VOLCANO_NEW_RUNE.get(), 0.02),
-                new ItemAndRate(C2LootItems.SEARED_SPIRIT_STICK.get(), 0.02)
+                new ItemAndRate(NewRuneItems.VOLCANO_NEW_RUNE.get(), 0.02)
         );
     }
 

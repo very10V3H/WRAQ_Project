@@ -1167,7 +1167,7 @@ public class BasicAttributeDescription {
     }
 
     public static void BasicAttributeCommonDescription(List<Component> components, ItemStack itemStack) {
-        int forgeQuality = ForgeEquipUtils.getForgeQualityOnEquip(itemStack);
+        int forgeQuality = ForgeEquipUtils.getEquipForgeQuality(itemStack);
         if (itemStack.getItem() instanceof SilverDragonBloodWeapon) {
             return;
         }

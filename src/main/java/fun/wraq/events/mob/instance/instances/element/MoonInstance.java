@@ -63,8 +63,13 @@ public class MoonInstance extends NoTeamInstance {
         if (mobList.isEmpty()) return;
         Mob attackMob = mobList.get(0);
         Mob manaMob = mobList.get(1);
-        if (attackMob == null || manaMob == null) return;
-        int tickCount = Tick.get();
+        if (attackMob == null || manaMob == null) {
+            return;
+        }
+        int tickCount = Tick.get() - spawnTick;
+        if (tickCount == 0) {
+            return;
+        }
         List<Player> players = getNearPlayers(attackMob.level());
         if (tickCount % 280 == 0) {
             Skill1(attackMob, manaMob, players);
@@ -202,7 +207,7 @@ public class MoonInstance extends NoTeamInstance {
             }
         }
         if (AttackMob.isAlive()) {
-            Damage.causeManaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.5);
+            Damage.causeManaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.3);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -210,7 +215,7 @@ public class MoonInstance extends NoTeamInstance {
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0, 0.4, 8, ParticleTypes.WITCH, 0);
         }
         if (ManaMob.isAlive()) {
-            Damage.causeManaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.5);
+            Damage.causeManaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.3);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);

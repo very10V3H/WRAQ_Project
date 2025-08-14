@@ -4,7 +4,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.composites.CompositesItems;
-import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.point.PointItems;
@@ -77,9 +76,6 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> ELEMENT = CREATIVE_MODE_TAB.register("aa_wraq_o_elememt",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.LIFE_ELEMENT_PIECE_2.get())).title(Component.literal("维瑞阿契 | 元素")).build());
-    public static RegistryObject<CreativeModeTab> LOOT_EQUIP = CREATIVE_MODE_TAB.register("aa_wraq_p_loot_equip",
-            () -> CreativeModeTab.builder().icon(
-                            () -> new ItemStack(C1LootItems.FOREST_ZOMBIE_AXE.get())).title(Component.literal("维瑞阿契 | 简易装备")).build());
     public static RegistryObject<CreativeModeTab> SPUR_ITEMS = CREATIVE_MODE_TAB.register("aa_wraq_q_spur_items",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(SpurItems.CROP_PIECE.get())).title(Component.literal("维瑞阿契 | 支线")).build());

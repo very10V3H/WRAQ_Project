@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.mcreator.borninchaosv.entity.ZombieLumberjackEntity;
@@ -88,7 +87,6 @@ public class LumberJackSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.2));
-            add(new ItemAndRate(C2LootItems.LUMBER_JACK_AXE.get(), 0.005));
         }};
     }
 

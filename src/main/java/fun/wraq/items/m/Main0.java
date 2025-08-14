@@ -1,7 +1,6 @@
 package fun.wraq.items.m;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -50,7 +49,6 @@ public class Main0 extends Item {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            Summer2025.forceStartFlag = true;
 /*            int total = 0;
             int tier0 = 0;
             int tier1 = 0;

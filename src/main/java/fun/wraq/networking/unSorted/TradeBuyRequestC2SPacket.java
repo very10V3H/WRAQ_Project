@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
+import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -107,9 +108,11 @@ public class TradeBuyRequestC2SPacket {
             }
             CompoundTag equipData = new CompoundTag();
             if ((targetItemStack.getItem() instanceof WraqArmor
-                    || targetItemStack.getItem() instanceof WraqMainHandEquip)) {
+                    || targetItemStack.getItem() instanceof WraqMainHandEquip
+                    || targetItemStack.getItem() instanceof WraqOffHandItem)) {
                 ItemStack stack = itemList.stream().filter(itemStack -> itemStack.getItem() instanceof WraqArmor
-                                || itemStack.getItem() instanceof WraqMainHandEquip).findAny().orElse(null);
+                        || itemStack.getItem() instanceof WraqMainHandEquip
+                        || itemStack.getItem() instanceof WraqOffHandItem).findAny().orElse(null);
                 if (stack != null) {
                     ItemStack playerStack = InventoryOperation.findFirstItem(serverPlayer, stack.getItem());
                     if (playerStack != null) {

@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -96,7 +95,6 @@ public class MineSkeletonSpawnController extends MobSpawnController {
                 new ItemAndRate(ModItems.COPPER_COIN.get(), 3),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01),
                 new ItemAndRate(ModItems.STONE_ELEMENT_PIECE_0.get(), 0.1),
-                new ItemAndRate(C1LootItems.MINE_SKELETON_PICKAXE.get(), 0.005),
                 new ItemAndRate(NewRuneItems.MINE_NEW_RUNE.get(), 0.001),
 
                 // 以下为矿石掉落

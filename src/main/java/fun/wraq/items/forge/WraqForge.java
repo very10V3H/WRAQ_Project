@@ -13,8 +13,6 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
@@ -35,6 +33,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -59,13 +58,10 @@ public class WraqForge extends Item {
         ItemStack forgeHammer = player.getMainHandItem();
         Item hammer = forgeHammer.getItem();
         if (!(hammer instanceof ForgeHammer || hammer instanceof SmithHammer)) {
-            Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
-                    Component.literal("请手持 ").withStyle(ChatFormatting.WHITE).
-                            append(Component.literal("锻造锤").withStyle(ChatFormatting.GOLD)).
-                            append(Component.literal(" 进行锻造").withStyle(ChatFormatting.WHITE)));
+            Compute.sendFormatMSG(player, Te.s("锻造", ChatFormatting.GRAY),
+                    Te.s("请手持 ", "锻造锤", ChatFormatting.GOLD, "  进行锻造."));
             return;
         }
-
         List<ItemStack> materialList;
         if (forgedItem instanceof ForgeItem forgeItem) {
             materialList = forgeItem.forgeRecipe();
@@ -75,10 +71,38 @@ public class WraqForge extends Item {
         Inventory inventory = player.getInventory();
         boolean containMaterial = true;
         for (ItemStack value : materialList) {
-            if (!InventoryOperation.checkPlayerHasItem(inventory, value.getItem(), value.getCount()))
+            if (!InventoryOperation.checkPlayerHasItem(inventory, value.getItem(), value.getCount())) {
                 containMaterial = false;
+            }
         }
-
+        ItemStack sameStack = InventoryOperation.findFirstItem(player, forgedItem);
+        if (sameStack != null
+                && (Utils.mainHandTag.containsKey(forgedItem) || Utils.armorTag.containsKey(forgedItem))) {
+            int oldTier = ForgeEquipUtils.getEquipForgeQuality(sameStack);
+            Item needPiece = ForgeEquipUtils.getEquipPiece(oldTier);
+            if (!InventoryOperation.checkPlayerHasItem(player, needPiece, 1)) {
+                Compute.sendInfoToScreen(player,
+                        Te.s("需要", needPiece, "来重新锻造."));
+                return;
+            }
+            InventoryOperation.removeItem(player, needPiece, 1);
+            int tier = 0;
+            if (hammer instanceof ForgeHammer forgeHammer1) {
+                tier = ForgeEquipUtils.getOneTimeForgeTier(forgeHammer1.getTier());
+                Compute.playerItemUseWithRecord(player);
+            } else {
+                SmithHammer smithHammer = (SmithHammer) hammer;
+                tier = ForgeEquipUtils.getOneTimeForgeTier(smithHammer.getTier());
+            }
+            Component oldDisplayName = sameStack.getDisplayName();
+            ForgeEquipUtils.setForgeQualityOnEquip(sameStack, tier);
+            Compute.formatBroad(Te.s("锻造", CustomStyle.styleOfStone),
+                    Te.s(player, "将 ", ForgeEquipUtils.getDescription(oldTier), " ", oldDisplayName,
+                            "重新锻造为 ", ForgeEquipUtils.getDescription(tier), " ", sameStack));
+            Compute.clearPlayerScreen(player);
+            MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
+            return;
+        }
         if (player.isCreative()) {
             containMaterial = true;
         }
@@ -86,52 +110,15 @@ public class WraqForge extends Item {
             ItemStack productItemStack = forgedItem.getDefaultInstance();
             CompoundTag data = null;
             int oldTier = 0;
-            for (ItemStack stack : materialList) {
-                Item item = stack.getItem();
-                // 复制必要的Tag
-                if (Utils.weaponList.contains(item)
-                        || Utils.armorList.contains(item)
-                        || Utils.offHandTag.containsKey(item)) {
-                    for (int i = 0; i < inventory.getContainerSize(); i++) {
-                        ItemStack itemStack = inventory.getItem(i);
-                        if (itemStack.is(item)) {
-                            if ((Utils.mainHandTag.containsKey(item) && Utils.mainHandTag.containsKey(forgedItem))
-                                    || (Utils.armorTag.containsKey(item) && Utils.armorTag.containsKey(forgedItem))
-                                    || (Utils.offHandTag.containsKey(item) && Utils.offHandTag.containsKey(forgedItem))) {
-                                data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID).copy();
-                            }
-                            if (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)) {
-                                oldTier = ForgeEquipUtils.getForgeQualityOnEquip(itemStack);
-                            }
-                            break;
-                        }
-                    }
-                }
-                // 在移除前作一些操作，例如耗材的品质判断
-                if (forgedItem instanceof BeforeRemoveMaterialOnForge beforeRemoveMaterialOnForge) {
-                    ItemStack removingStack = Items.AIR.getDefaultInstance();
-                    for (int i = 0; i < inventory.getContainerSize(); i++) {
-                        if (inventory.getItem(i).is(stack.getItem())) {
-                            removingStack = inventory.getItem(i);
-                        }
-                    }
-                    beforeRemoveMaterialOnForge.beforeRemoveMaterialOnForge(productItemStack, removingStack);
-                }
-                // 移除物品
-                if (!player.isCreative()) {
-                    InventoryOperation.removeItem(inventory, stack.getItem(), stack.getCount());
-                }
-            }
-
+            OldEquipInfo result
+                    = getOldEquipInfo(player, forgedItem, materialList, inventory, data, oldTier, productItemStack);
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("锻造成功！").withStyle(ChatFormatting.GOLD));
             MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
-
-            if (data != null) {
-                productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(data);
+            if (result.data() != null) {
+                productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(result.data());
             }
             Compute.forgingHoverName(productItemStack);
-
             // 锻造品质
             if (Utils.mainHandTag.containsKey(forgedItem) || Utils.armorTag.containsKey(forgedItem)) {
                 int tier = 0;
@@ -140,11 +127,10 @@ public class WraqForge extends Item {
                     Compute.playerItemUseWithRecord(player);
                 } else {
                     SmithHammer smithHammer = (SmithHammer) hammer;
-                    tier = smithHammer.getTier();
+                    tier = ForgeEquipUtils.getOneTimeForgeTier(smithHammer.getTier());
                 }
-
-                if (tier < oldTier) {
-                    tier = oldTier;
+                if (tier < result.oldTier()) {
+                    tier = result.oldTier();
                     sendFormatMSG(player, Te.s("新的锻造品质低于装备原有锻造品质，已继承原有锻造品质!"));
                 }
                 ForgeEquipUtils.setForgeQualityOnEquip(productItemStack, tier);
@@ -160,83 +146,131 @@ public class WraqForge extends Item {
                                 append(Component.literal(" 成功锻造了 ").withStyle(ChatFormatting.WHITE)).
                                 append(productItemStack.getDisplayName()));
             }
-
             // 提示信息与音效
-            ModNetworking.sendToClient(new ScreenSetS2CPacket(0), (ServerPlayer) player);
-
-            // 前置条件判定
-            Item item = productItemStack.getItem();
-            Set<Item> iceKnightEquips = Set.of(ModItems.ICE_SWORD.get(),
-                    ModItems.ICE_BOW.get(), ModItems.ICE_SCEPTRE.get());
-            Set<Item> moonEquips = Set.of(ModItems.MOON_SWORD.get(), ModItems.MOON_BOW.get(),
-                    ModItems.MOON_SCEPTRE.get(), ModItems.MOON_SHIELD.get(),
-                    ModItems.MOON_KNIFE.get(), ModItems.MOON_BOOK.get(),
-                    ModItems.MOON_BELT.get());
-            Set<Item> castleEquips = Set.of(ModItems.CASTLE_SWORD.get(),
-                    ModItems.CASTLE_BOW.get(), ModItems.CASTLE_SCEPTRE.get());
-            Set<Item> divineWeapons = Set.of(DivineIslandItems.DIVINE_SWORD_0.get(),
-                    DivineIslandItems.DIVINE_BOW_0.get(), DivineIslandItems.DIVINE_SCEPTRE_0.get());
-            if (iceKnightEquips.contains(item)) {
-                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss, true);
-                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil, true);
-            }
-            if (moonEquips.contains(item)) {
-                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.blackCastle, true);
-            }
-            if (castleEquips.contains(item)) {
-                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss, true);
-            }
-            if (divineWeapons.contains(item)) {
-                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.divine, true);
-            }
-
-            // 引导触发
-            Set<Item> forestEquips = Set.of(ModItems.FOREST_HELMET.get(), ModItems.FOREST_CHEST.get(),
-                    ModItems.FOREST_LEGGINGS.get(), ModItems.FOREST_BOOTS.get(),
-                    ModItems.FOREST_SWORD_0.get(), ModItems.FOREST_BOW_0.get());
-            if (forestEquips.contains(item)) {
-                Guide.trigV2(player, Guide.StageV2.FOREST_EQUIP);
-            }
-            Set<Item> lakeEquips = Set.of(ModItems.LAKE_HELMET.get(), ModItems.LAKE_CHEST.get(),
-                    ModItems.LAKE_LEGGINGS.get(), ModItems.LAKE_BOOTS.get(),
-                    ModItems.LAKE_SWORD_0.get(), ModItems.LAKE_BOW_0.get(), ModItems.LAKE_SCEPTRE_0.get());
-            if (lakeEquips.contains(item)) {
-                Guide.trigV2(player, Guide.StageV2.LAKE_EQUIP);
-            }
-            Set<Item> mineEquips = Set.of(ModItems.MINE_HELMET.get(), ModItems.MINE_CHEST.get(),
-                    ModItems.MINE_LEGGINGS.get(), ModItems.MINE_BOOTS.get(),
-                    ModItems.MINE_SWORD_0.get(), ModItems.MINE_BOW_0.get());
-            if (mineEquips.contains(item)) {
-                Guide.trigV2(player, Guide.StageV2.MINE_EQUIP);
-            }
-            Set<Item> volcanoEquips = Set.of(ModItems.VOLCANO_HELMET.get(), ModItems.VOLCANO_CHEST.get(),
-                    ModItems.VOLCANO_LEGGINGS.get(), ModItems.VOLCANO_BOOTS.get(),
-                    ModItems.VOLCANO_SWORD_0.get(), ModItems.VOLCANO_BOW_0.get());
-            if (volcanoEquips.contains(item)) {
-                Guide.trigV2(player, Guide.StageV2.VOLCANO_EQUIP);
-            }
-            Set<Item> enhanceEquips = Set.of(ModItems.SKY_HELMET.get(),
-                    ModItems.SKY_CHEST.get(), ModItems.SKY_LEGGINGS.get(), ModItems.SKY_BOOTS.get(),
-                    ModItems.SKY_BOW.get(), ModItems.SKY_SWORD.get());
-            if (enhanceEquips.contains(item)) {
-                Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
-            }
-
+            Compute.clearPlayerScreen(player);
+            judgeFrontAndGuideV2(player, productItemStack);
             LogUtils.getLogger().info("锻造 {} 锻造了 {}", Name.get(player), productItemStack);
             InventoryOperation.giveItemStack(player, productItemStack);
-            Guide.trigV2(player, Guide.StageV2.FIRST_FORGE);
-            if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
-                StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
-                playerMSGSendDelayMap.put(player.getName().getString(), Tick.get() + 100);
-            }
         } else {
-            Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("背包里似乎没有足够的物品用于锻造。"));
+            Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
+                    Component.literal("背包里似乎没有足够的物品用于锻造。"));
             for (ItemStack itemStack : materialList) {
                 if (InventoryOperation.itemStackCount(inventory, itemStack.getItem()) < itemStack.getCount()) {
-                    Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("缺少:").withStyle(ChatFormatting.WHITE).append(itemStack.getItem().getDefaultInstance().getDisplayName()).append(Component.literal("*" + (itemStack.getCount() - InventoryOperation.itemStackCount(inventory, itemStack.getItem())))));
+                    Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
+                            Component.literal("缺少:").withStyle(ChatFormatting.WHITE).append(itemStack.getItem().getDefaultInstance().getDisplayName()).append(Component.literal("*" + (itemStack.getCount() - InventoryOperation.itemStackCount(inventory, itemStack.getItem())))));
                 }
             }
-            Compute.sendFormatMSG(player, Component.literal("锻造预览").withStyle(ChatFormatting.GRAY), Component.literal("锻造预览：").withStyle(ChatFormatting.WHITE).append(forgedItem.getDefaultInstance().getDisplayName()));
+            Compute.sendFormatMSG(player, Component.literal("锻造预览").withStyle(ChatFormatting.GRAY),
+                    Component.literal("锻造预览：").withStyle(ChatFormatting.WHITE).append(forgedItem.getDefaultInstance().getDisplayName()));
+        }
+    }
+
+    private static @NotNull OldEquipInfo getOldEquipInfo(Player player, Item forgedItem, List<ItemStack> materialList, Inventory inventory, CompoundTag data, int oldTier, ItemStack productItemStack) {
+        for (ItemStack stack : materialList) {
+            Item item = stack.getItem();
+            // 复制必要的Tag
+            if (Utils.weaponList.contains(item)
+                    || Utils.armorList.contains(item)
+                    || Utils.offHandTag.containsKey(item)) {
+                for (int i = 0; i < inventory.getContainerSize(); i++) {
+                    ItemStack itemStack = inventory.getItem(i);
+                    if (itemStack.is(item)) {
+                        if ((Utils.mainHandTag.containsKey(item) && Utils.mainHandTag.containsKey(forgedItem))
+                                || (Utils.armorTag.containsKey(item) && Utils.armorTag.containsKey(forgedItem))
+                                || (Utils.offHandTag.containsKey(item) && Utils.offHandTag.containsKey(forgedItem))) {
+                            data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID).copy();
+                        }
+                        if (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)) {
+                            oldTier = ForgeEquipUtils.getEquipForgeQuality(itemStack);
+                        }
+                        break;
+                    }
+                }
+            }
+            // 在移除前作一些操作，例如耗材的品质判断
+            if (forgedItem instanceof BeforeRemoveMaterialOnForge beforeRemoveMaterialOnForge) {
+                ItemStack removingStack = Items.AIR.getDefaultInstance();
+                for (int i = 0; i < inventory.getContainerSize(); i++) {
+                    if (inventory.getItem(i).is(stack.getItem())) {
+                        removingStack = inventory.getItem(i);
+                    }
+                }
+                beforeRemoveMaterialOnForge.beforeRemoveMaterialOnForge(productItemStack, removingStack);
+            }
+            // 移除物品
+            if (!player.isCreative()) {
+                InventoryOperation.removeItem(inventory, stack.getItem(), stack.getCount());
+            }
+        }
+        OldEquipInfo result = new OldEquipInfo(data, oldTier);
+        return result;
+    }
+
+    private record OldEquipInfo(CompoundTag data, int oldTier) {
+    }
+
+    private static void judgeFrontAndGuideV2(Player player, ItemStack productItemStack) {
+        // 前置条件判定
+        Item item = productItemStack.getItem();
+        Set<Item> iceKnightEquips = Set.of(ModItems.ICE_SWORD.get(),
+                ModItems.ICE_BOW.get(), ModItems.ICE_SCEPTRE.get());
+        Set<Item> moonEquips = Set.of(ModItems.MOON_SWORD.get(), ModItems.MOON_BOW.get(),
+                ModItems.MOON_SCEPTRE.get(), ModItems.MOON_SHIELD.get(),
+                ModItems.MOON_KNIFE.get(), ModItems.MOON_BOOK.get(),
+                ModItems.MOON_BELT.get());
+        Set<Item> castleEquips = Set.of(ModItems.CASTLE_SWORD.get(),
+                ModItems.CASTLE_BOW.get(), ModItems.CASTLE_SCEPTRE.get());
+        Set<Item> divineWeapons = Set.of(DivineIslandItems.DIVINE_SWORD_0.get(),
+                DivineIslandItems.DIVINE_BOW_0.get(), DivineIslandItems.DIVINE_SCEPTRE_0.get());
+        if (iceKnightEquips.contains(item)) {
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss, true);
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil, true);
+        }
+        if (moonEquips.contains(item)) {
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.blackCastle, true);
+        }
+        if (castleEquips.contains(item)) {
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss, true);
+        }
+        if (divineWeapons.contains(item)) {
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.divine, true);
+        }
+
+        // 引导触发
+        Set<Item> forestEquips = Set.of(ModItems.FOREST_HELMET.get(), ModItems.FOREST_CHEST.get(),
+                ModItems.FOREST_LEGGINGS.get(), ModItems.FOREST_BOOTS.get(),
+                ModItems.FOREST_SWORD_0.get(), ModItems.FOREST_BOW_0.get());
+        if (forestEquips.contains(item)) {
+            Guide.trigV2(player, Guide.StageV2.FOREST_EQUIP);
+        }
+        Set<Item> lakeEquips = Set.of(ModItems.LAKE_HELMET.get(), ModItems.LAKE_CHEST.get(),
+                ModItems.LAKE_LEGGINGS.get(), ModItems.LAKE_BOOTS.get(),
+                ModItems.LAKE_SWORD_0.get(), ModItems.LAKE_BOW_0.get(), ModItems.LAKE_SCEPTRE_0.get());
+        if (lakeEquips.contains(item)) {
+            Guide.trigV2(player, Guide.StageV2.LAKE_EQUIP);
+        }
+        Set<Item> mineEquips = Set.of(ModItems.MINE_HELMET.get(), ModItems.MINE_CHEST.get(),
+                ModItems.MINE_LEGGINGS.get(), ModItems.MINE_BOOTS.get(),
+                ModItems.MINE_SWORD_0.get(), ModItems.MINE_BOW_0.get());
+        if (mineEquips.contains(item)) {
+            Guide.trigV2(player, Guide.StageV2.MINE_EQUIP);
+        }
+        Set<Item> volcanoEquips = Set.of(ModItems.VOLCANO_HELMET.get(), ModItems.VOLCANO_CHEST.get(),
+                ModItems.VOLCANO_LEGGINGS.get(), ModItems.VOLCANO_BOOTS.get(),
+                ModItems.VOLCANO_SWORD_0.get(), ModItems.VOLCANO_BOW_0.get());
+        if (volcanoEquips.contains(item)) {
+            Guide.trigV2(player, Guide.StageV2.VOLCANO_EQUIP);
+        }
+        Set<Item> enhanceEquips = Set.of(ModItems.SKY_HELMET.get(),
+                ModItems.SKY_CHEST.get(), ModItems.SKY_LEGGINGS.get(), ModItems.SKY_BOOTS.get(),
+                ModItems.SKY_BOW.get(), ModItems.SKY_SWORD.get());
+        if (enhanceEquips.contains(item)) {
+            Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
+        }
+        Guide.trigV2(player, Guide.StageV2.FIRST_FORGE);
+        if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
+            StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
+            playerMSGSendDelayMap.put(player.getName().getString(), Tick.get() + 100);
         }
     }
 

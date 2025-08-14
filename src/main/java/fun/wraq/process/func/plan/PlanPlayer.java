@@ -160,14 +160,6 @@ public class PlanPlayer {
     }
 
     public static int getPlayerTier(Player player) {
-        String rank = RankData.getCurrentRank(player);
-        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("19")) {
-            return 3;
-        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("17")) {
-            return 2;
-        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("15B")) {
-            return 1;
-        }
         if (!getOverDate(player).isEmpty()) {
             Calendar overData;
             try {
@@ -179,7 +171,16 @@ public class PlanPlayer {
                 return 0;
             }
         }
-        return getPlanData(player).getInt(TIER_KEY);
+        int tier = getPlanData(player).getInt(TIER_KEY);
+        String rank = RankData.getCurrentRank(player);
+        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("19")) {
+            return Math.max(tier, 3);
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("17")) {
+            return Math.max(tier, 2);
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("15B")) {
+            return Math.max(tier, 1);
+        }
+        return tier;
     }
 
     public static void setPlayerTier(Player player, int tier) {

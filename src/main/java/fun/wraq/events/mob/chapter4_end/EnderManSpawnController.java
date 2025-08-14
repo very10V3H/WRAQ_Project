@@ -7,7 +7,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C4LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -104,7 +103,6 @@ public class EnderManSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.05));
             add(new ItemAndRate(ModItems.END_PEARL.get(), 0.01));
             add(new ItemAndRate(NewRuneItems.END_NEW_RUNE.get(), 0.001));
-            add(new ItemAndRate(C4LootItems.ENDERMAN_SWORD.get(), 0.005));
         }};
     }
 

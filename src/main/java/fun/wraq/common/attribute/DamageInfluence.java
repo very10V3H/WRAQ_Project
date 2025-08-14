@@ -16,6 +16,7 @@ import fun.wraq.customized.uniform.attack.enhanced.WraqAttackEnhancedUniformCuri
 import fun.wraq.customized.uniform.attack.normal.WraqAttackUniformCurios;
 import fun.wraq.customized.uniform.bow.enhanced.WraqBowEnhancedUniformCurios;
 import fun.wraq.customized.uniform.bow.normal.WraqBowUniformCurios;
+import fun.wraq.customized.uniform.element.WraqElementUniformCurios;
 import fun.wraq.customized.uniform.mana.enhanced.WraqManaEnhancedUniformCurios;
 import fun.wraq.customized.uniform.mana.normal.WraqManaUniformCurios;
 import fun.wraq.events.fight.MonsterAttackEvent;
@@ -178,8 +179,10 @@ public class DamageInfluence {
                         } else if ((curio instanceof WraqBowUniformCurios
                                 || curio instanceof WraqBowEnhancedUniformCurios) && item instanceof WraqBow) {
                             return true;
-                        } else return (curio instanceof WraqManaUniformCurios
-                                || curio instanceof WraqManaEnhancedUniformCurios) && item instanceof WraqSceptre;
+                        } else if ((curio instanceof WraqManaUniformCurios
+                                || curio instanceof WraqManaEnhancedUniformCurios) && item instanceof WraqSceptre) {
+                            return true;
+                        } else return curio instanceof WraqElementUniformCurios;
                     }
                     return false;
                 }).mapToDouble(curio -> ((WraqUniformCurios) curio.getItem()).getFinalDamageEnhanceRate())

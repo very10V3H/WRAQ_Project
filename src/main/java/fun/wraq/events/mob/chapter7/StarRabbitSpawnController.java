@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C7LootItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -86,7 +85,6 @@ public class StarRabbitSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.STAR_RUNE.get(), 0.1));
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.87));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
-            add(new ItemAndRate(C7LootItems.STAR_LOOT_SWORD.get(), 0.005));
         }};
     }
 

@@ -6,11 +6,9 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -101,7 +99,6 @@ public class LightningZombieController extends MobSpawnController {
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.4375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.LIGHTNING_ELEMENT_PIECE_0.get(), 0.2));
-            add(new ItemAndRate(C2LootItems.LIGHTNING_ZOMBIE_HELMET.get(), 0.005));
             add(new ItemAndRate(NewRuneItems.LIGHTNING_NEW_RUNE.get(), 0.001));
         }};
     }

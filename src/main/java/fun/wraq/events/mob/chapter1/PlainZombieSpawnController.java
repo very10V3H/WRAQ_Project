@@ -6,11 +6,9 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -95,7 +93,6 @@ public class PlainZombieSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.PLAIN_CREST_3.get(), 0.0002));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.1));
             add(new ItemAndRate(NewRuneItems.PLAIN_NEW_RUNE.get(), 0.001));
-            add(new ItemAndRate(C1LootItems.PLAIN_ZOMBIE_HOE.get(), 0.005));
         }};
     }
 

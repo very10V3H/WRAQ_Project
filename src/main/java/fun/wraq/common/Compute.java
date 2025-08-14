@@ -83,6 +83,7 @@ import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.overworld.cold.sc5.dragon.SuperColdCarrot;
 import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
+import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -103,8 +104,11 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.Item;
@@ -2319,8 +2323,23 @@ public class Compute {
     }
 
     public static boolean isWraqMob(Mob mob) {
-        return mob.getDisplayName().getString().contains("Lv.")
-                || mob.getDisplayName().getString().contains("木桩");
+        boolean isAllay = mob instanceof Allay;
+        boolean isBornInChaosMob = getBornInChaosMobType().contains(mob.getType());
+        boolean isVanillaMob = mob instanceof Blaze || mob instanceof Shulker;
+        return !isAllay && (mob.getDisplayName().getString().contains("Lv.")
+                || mob.getDisplayName().getString().contains("木桩")
+                || isBornInChaosMob || isVanillaMob);
+    }
+
+    private final static Set<EntityType<?>> bornInChaosMobTypeSet = new HashSet<>();
+
+    public static Set<EntityType<?>> getBornInChaosMobType() {
+        if (bornInChaosMobTypeSet.isEmpty()) {
+            BornInChaosV1ModEntities.REGISTRY.getEntries().forEach(entityTypeRegistryObject -> {
+                bornInChaosMobTypeSet.add(entityTypeRegistryObject.get());
+            });
+        }
+        return bornInChaosMobTypeSet;
     }
 
     public static void sendInfoToScreen(Player player, Component info) {

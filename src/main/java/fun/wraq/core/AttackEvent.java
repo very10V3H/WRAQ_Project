@@ -119,7 +119,7 @@ public class AttackEvent {
             }
             boolean crit = AttackEvent.crit(player, nearestMob.get(), false);
             AttackEvent.attackToMonster(nearestMob.get(), player, rate *
-                    (mobList.size() == 1 ? 1 + SwordNewSkillPassive0.exTargetsDamageRate(player) : 1),
+                    (mobList.size() == 1 ? 1 + SwordNewSkillPassive0.exTargetsDamageRate(player) * 2 : 1),
                     true, crit);
             if (player.getMainHandItem().getItem() instanceof KanupusSword) {
                 MyArrow.causeDamage(player, nearestMob.get(), 0.5, true);

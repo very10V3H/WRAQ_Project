@@ -38,6 +38,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.forge.EquipPiece;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
@@ -432,7 +433,6 @@ public class MobSpawn {
 
     public static void drop(Mob mob, Player player) {
         int xpLevel = getMobXpLevel(mob);
-
         if (RandomUtils.nextInt(0, 10000) < 100) {
             ItemAndRate.send(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }
@@ -447,7 +447,10 @@ public class MobSpawn {
         LabourDayOldCoin.onPlayerKillMob(player);
         DragonBoatFes.onKillMob(mob, player);
         recall(mob, player);
-        if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) return;
+        EquipPiece.onKillMob(player, mob);
+        if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) {
+            return;
+        }
         List<ItemAndRate> list = MobSpawn.dropList.get(MobSpawn.getMobOriginName(mob));
         AuroraSheepSpawnController.handleColorItemDrop(mob, list);
         if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName)) {

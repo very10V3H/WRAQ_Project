@@ -68,7 +68,7 @@ public interface RandomLootEquip extends RandomEquip {
 
     static int getTier(ItemStack itemStack) {
         if (ForgeEquipUtils.itemContainForgeQuality(itemStack) && itemStack.getItem() instanceof RandomLootEquip) {
-            return ForgeEquipUtils.getForgeQualityOnEquip(itemStack);
+            return ForgeEquipUtils.getEquipForgeQuality(itemStack);
         }
         return -1;
     }

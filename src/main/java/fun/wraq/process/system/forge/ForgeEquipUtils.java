@@ -360,7 +360,7 @@ public class ForgeEquipUtils {
         equip.getOrCreateTagElement(Utils.MOD_ID).putInt(itemTag, tier);
     }
 
-    public static int getForgeQualityOnEquip(ItemStack equip) {
+    public static int getEquipForgeQuality(ItemStack equip) {
         if (equip.getTagElement(Utils.MOD_ID) != null) {
             if (equip.getTagElement(Utils.MOD_ID).contains(itemTag))
                 return Math.min(13, equip.getTagElement(Utils.MOD_ID).getInt(itemTag));
@@ -404,7 +404,7 @@ public class ForgeEquipUtils {
     }
 
     public static double getTierValueEffect(ItemStack equip) {
-        return getTierValueEffect(getForgeQualityOnEquip(equip));
+        return getTierValueEffect(getEquipForgeQuality(equip));
     }
 
     public static Component getDescription(int tier) {

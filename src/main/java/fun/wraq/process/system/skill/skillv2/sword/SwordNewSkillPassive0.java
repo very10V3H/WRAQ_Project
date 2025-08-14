@@ -22,7 +22,7 @@ public class SwordNewSkillPassive0 extends SkillV2PassiveSkill {
         components.add(Te.s("普攻对非主要目标造成",
                 getRateDescription(0.3, 0.05, level), CustomStyle.styleOfPower, "伤害。"));
         components.add(Te.s("若攻击范围内仅有一名敌人，则提升普攻",
-                getRateDescription(0.3, 0.05, level), CustomStyle.styleOfPower, "基础伤害"));
+                getRateDescription(0.6, 0.1, level), CustomStyle.styleOfPower, "基础伤害"));
         return components;
     }
 

@@ -6,11 +6,9 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C6LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -102,7 +100,6 @@ public class BeaconSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.58));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
             add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.4));
-            add(new ItemAndRate(C6LootItems.BEACON_LOOT_BOW.get(), 0.005));
         }};
     }
 

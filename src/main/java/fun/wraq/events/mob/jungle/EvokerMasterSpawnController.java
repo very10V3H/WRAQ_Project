@@ -8,7 +8,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.mob.loot.C2LootItems;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -86,7 +85,6 @@ public class EvokerMasterSpawnController extends JungleMobSpawnController {
                 new ItemAndRate(ModItems.SILVER_COIN.get(), 8),
                 new ItemAndRate(ModItems.GEM_PIECE.get(), 1),
                 new ItemAndRate(ModItems.LIGHTNING_ELEMENT_PIECE_0.get(), 4),
-                new ItemAndRate(C2LootItems.EVOKER_SCEPTRE.get(), 0.02),
                 new ItemAndRate(NewRuneItems.EVOKER_NEW_RUNE.get(), 0.02)
         );
     }

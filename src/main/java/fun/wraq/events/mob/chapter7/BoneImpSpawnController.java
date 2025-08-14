@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C7LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
@@ -86,7 +85,6 @@ public class BoneImpSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 1.3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
             add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.5));
-            add(new ItemAndRate(C7LootItems.BONE_IMP_HELMET.get(), 0.005));
         }};
     }
 

@@ -19,7 +19,6 @@ import fun.wraq.customized.uniform.mana.normal.ManaCurios0;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios2;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios3;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios4;
-import fun.wraq.events.mob.loot.C5LootItems;
 import fun.wraq.items.dev.equip.ManageEquip;
 import fun.wraq.items.dev.equip.OpsAttributes;
 import fun.wraq.process.func.ChangedAttributesModifier;
@@ -303,12 +302,6 @@ public class PlayerAttributes {
         }
         CompoundTag data = player.getPersistentData();
         double critRate = 0.0d;
-        if (player.getMainHandItem().is(C5LootItems.PILLAGER_BOW.get())) {
-            CompoundTag tempData = player.getMainHandItem().getOrCreateTagElement(Utils.MOD_ID);
-            if (tempData.getDouble(StringUtils.RandomAttribute.critRate) > 1)
-                tempData.putDouble(StringUtils.RandomAttribute.critRate, 0.5);
-        }
-
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         CompoundTag stackmainhandtag = new CompoundTag();
         if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {

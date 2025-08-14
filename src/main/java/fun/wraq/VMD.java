@@ -24,7 +24,6 @@ import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.jungle.JungleMobSpawn;
-import fun.wraq.events.mob.loot.*;
 import fun.wraq.events.server.ThreadPools;
 import fun.wraq.files.dataBases.DBConnection;
 import fun.wraq.files.dataBases.DataBase;
@@ -128,13 +127,6 @@ public class VMD {
         OreItems.ITEMS.register(modEvenBus);
         EndlessInstanceItems.ITEMS.register(modEvenBus);
         ModItems.ITEMS.register(modEvenBus);
-        C1LootItems.ITEMS.register(modEvenBus);
-        C2LootItems.ITEMS.register(modEvenBus);
-        C3LootItems.ITEMS.register(modEvenBus);
-        C4LootItems.ITEMS.register(modEvenBus);
-        C5LootItems.ITEMS.register(modEvenBus);
-        C6LootItems.ITEMS.register(modEvenBus);
-        C7LootItems.ITEMS.register(modEvenBus);
         SpurItems.ITEMS.register(modEvenBus);
         C7Items.ITEMS.register(modEvenBus);
         ElementItems.ITEMS.register(modEvenBus);
@@ -396,15 +388,6 @@ public class VMD {
 
         if (event.getTabKey().equals(ModCreativeModeTab.DROPSANDMATERIAL_TAB.getKey())) {
             for (Item item : Display.materialList) event.accept(item.getDefaultInstance());
-        }
-        if (event.getTabKey().equals(ModCreativeModeTab.LOOT_EQUIP.getKey())) {
-            C1LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
-            C2LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
-            C3LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
-            C4LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
-            C5LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
-            C6LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
-            C7LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
         }
         if (event.getTabKey().equals(ModCreativeModeTab.SPUR_ITEMS.getKey())) {
             SpurItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);

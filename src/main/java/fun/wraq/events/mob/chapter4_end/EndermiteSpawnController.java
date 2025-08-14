@@ -6,9 +6,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C4LootItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -76,7 +74,6 @@ public class EndermiteSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.ENDER_MITE_SOUL.get(), 0.8));
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.75));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.05));
-            add(new ItemAndRate(C4LootItems.ENDERMITE_SCEPTRE.get(), 0.005));
         }};
     }
 

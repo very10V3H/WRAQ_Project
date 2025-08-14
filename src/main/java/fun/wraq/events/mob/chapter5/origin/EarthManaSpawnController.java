@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.mob.loot.C5LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -90,7 +89,6 @@ public class EarthManaSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.615));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.03));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.3));
-            add(new ItemAndRate(C5LootItems.EARTH_MANA_SCEPTRE.get(), 0.005));
         }};
     }
 

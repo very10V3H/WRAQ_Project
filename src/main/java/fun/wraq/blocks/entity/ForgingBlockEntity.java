@@ -513,9 +513,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             Item productItem = ForgeEquipUtils.getEquipPiece(materialTier + 1);
             ItemStack productSlotStack = blockEntity.itemStackHandler.getStackInSlot(2);
             int productCount = productSlotStack.getCount();
-            if (productSlotStack.getCount() == 0) productSlotStack = new ItemStack(productItem);
-            else productSlotStack.setCount(productCount + 1);
-
+            if (productSlotStack.getCount() == 0) {
+                productSlotStack = new ItemStack(productItem);
+            }
+            else {
+                productSlotStack.setCount(productCount + 1);
+            }
             blockEntity.itemStackHandler.setStackInSlot(2, productSlotStack);
             blockEntity.itemStackHandler.extractItem(0, 4, false);
             if (player != null) {
@@ -525,7 +528,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
 
         if (hasRecipeOfEquipPieceForge(blockEntity)) {
             ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(1);
-            int equipTier = ForgeEquipUtils.getForgeQualityOnEquip(equip);
+            int equipTier = ForgeEquipUtils.getEquipForgeQuality(equip);
             ForgeEquipUtils.setForgeQualityOnEquip(equip, equipTier + 1);
 
             if (player != null) {
@@ -693,11 +696,10 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         ItemStack equipPiece0Stack = blockEntity.itemStackHandler.getStackInSlot(1);
         Item equipPiece = equipPieceStack.getItem();
         ItemStack product = blockEntity.itemStackHandler.getStackInSlot(2);
-
         int materialTier = ForgeEquipUtils.getEquipPieceTier(equipPiece);
         boolean hasNextTierAndCountIsEnough = equipPieceStack.getCount() >= 4
                 && materialTier < ForgeEquipUtils.getEquipPieceList().size() - 1;
-        if (materialTier >= ForgeEquipUtils.getEquipPieceList().size() - 1) {
+        if (materialTier >= ForgeEquipUtils.getEquipPieceList().size()) {
             return false;
         }
         Item nextTirePiece = ForgeEquipUtils.getEquipPiece(materialTier + 1);
@@ -719,7 +721,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         boolean canBeForged = tag != null && tag.contains(ForgeEquipUtils.itemTag)
                 && !(equipStack.getItem() instanceof MoontainEquip);
 
-        int equipTier = ForgeEquipUtils.getForgeQualityOnEquip(equipStack);
+        int equipTier = ForgeEquipUtils.getEquipForgeQuality(equipStack);
         ItemStack productSlot = blockEntity.itemStackHandler.getStackInSlot(2);
         return canBeForged && pieceTier - equipTier == 1 && productSlot.getCount() == 0 && equipPieceStack.getCount() >= 2;
     }
@@ -808,7 +810,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         ItemStack equip = this.itemStackHandler.getStackInSlot(2);
 
         if (ForgeEquipUtils.itemContainForgeQuality(equip) && equip.getItem() instanceof RandomLootEquip) {
-            int tier = ForgeEquipUtils.getForgeQualityOnEquip(equip);
+            int tier = ForgeEquipUtils.getEquipForgeQuality(equip);
             ItemStack piece = ForgeEquipUtils.getEquipPiece(tier).getDefaultInstance();
             this.itemStackHandler.setStackInSlot(2, piece);
             return true;

@@ -39,6 +39,6 @@ public class ForgeTemplate extends WraqItem {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return ForgeEquipUtils.getForgeQualityOnEquip(stack) > 0;
+        return ForgeEquipUtils.getEquipForgeQuality(stack) > 0;
     }
 }

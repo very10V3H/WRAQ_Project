@@ -21,6 +21,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.*;
@@ -281,7 +282,7 @@ public class InventoryOperation {
         return distinctAllEquipSlotItems;
     }
 
-    public static ItemStack findFirstItem(Player player, Item item) {
+    public static @Nullable ItemStack findFirstItem(Player player, Item item) {
         Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
