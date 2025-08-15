@@ -2,6 +2,7 @@ package fun.wraq.customized.uniform.bow.normal;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
@@ -12,9 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class BowCurios0 extends WraqBowUniformCurios {
 
@@ -47,13 +46,13 @@ public class BowCurios0 extends WraqBowUniformCurios {
                 || WraqCurios.hasCurio(player, UniformItems.BOW_ENHANCED_CURIOS_0.get());
     }
 
-    public static int activeLastTick = 0;
+    public static Map<String, Integer> effectExpiredTickMap = new HashMap<>();
 
     public static void onReleaseRolling(Player player) {
         if (!isOn(player)) {
             return;
         }
-        activeLastTick += Tick.get() + 60;
+        effectExpiredTickMap.put(Name.get(player), Tick.get() + Tick.s(3));
         Compute.sendEffectLastTime(player, UniformItems.BOW_CURIOS_0.get().getDefaultInstance(), 60);
     }
 
@@ -61,7 +60,7 @@ public class BowCurios0 extends WraqBowUniformCurios {
         if (!isOn(player)) {
             return 0;
         }
-        if (activeLastTick > Tick.get()) {
+        if (effectExpiredTickMap.getOrDefault(Name.get(player), 0) > Tick.get()) {
             if (WraqCurios.hasCurio(player, UniformItems.BOW_CURIOS_0.get())) {
                 return 0.5;
             } else {
@@ -75,7 +74,7 @@ public class BowCurios0 extends WraqBowUniformCurios {
         if (!isOn(player)) {
             return 0;
         }
-        if (activeLastTick > Tick.get()) {
+        if (effectExpiredTickMap.getOrDefault(Name.get(player), 0) > Tick.get()) {
             return 0.15;
         }
         return 0;

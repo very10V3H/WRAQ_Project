@@ -46,8 +46,9 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Decom
         ComponentUtils.descriptionActive(components, Te.s("影割", hoverMainStyle()));
         components.add(Te.s(" 普攻", CustomStyle.styleOfStone, "将使一名",
                 "主要目标", ChatFormatting.AQUA, "陷入", "「割裂」", hoverMainStyle()));
-        components.add(Te.s(" 「割裂」", hoverMainStyle(), "会将其受到的技能与普攻伤害",
+        components.add(Te.s(" 「割裂」", hoverMainStyle(), "会将其受到的技能与普攻的伤害",
                 "影射", hoverMainStyle(), "至周围敌人"));
+        components.add(Te.s(" 影射", hoverMainStyle(), "的伤害类型为", "真实伤害", CustomStyle.styleOfSea));
         components.add(Te.s(" 影射", CustomStyle.styleOfEnd, "的效率为: ",
                 String.format("%.0f%%", rate[tier] * 100), CustomStyle.styleOfEnd));
         return components;
@@ -105,13 +106,7 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Decom
                                 .stream().map(entity -> (Mob) entity)
                                 .forEach(eachMob -> {
                                     if (!eachMob.equals(mob) && eachMob.isAlive()) {
-                                        if (isAd) {
-                                            Damage.causeAttackDamageToMonster(player,
-                                                    eachMob, damage * damageRate);
-                                        } else {
-                                            Damage.causeManaDamageToMonster(player,
-                                                    eachMob, damage * damageRate);
-                                        }
+                                        Damage.causeTrueDamageToMonster(player, eachMob, damage * damageRate);
                                         ParticleProvider.createLineEffectParticle(player.level(),
                                                 (int) eachMob.distanceTo(player) * 5, player.getEyePosition(),
                                                 eachMob.getEyePosition(), CustomStyle.styleOfEnd);

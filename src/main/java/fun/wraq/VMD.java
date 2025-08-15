@@ -28,7 +28,6 @@ import fun.wraq.events.server.ThreadPools;
 import fun.wraq.files.dataBases.DBConnection;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.WorldRecordInfo;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.element.ElementItems;
@@ -180,7 +179,6 @@ public class VMD {
     public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
         Tick.server = event.getServer();
         RandomEventsHandler.server = event.getServer();
-        PlanPlayer.read();
         MarketInfo.marketItemInfoRead(event.getServer().overworld());
         MarketInfo.marketProfitInfoRead(event.getServer().overworld());
         VpDataHandler.firstRead();

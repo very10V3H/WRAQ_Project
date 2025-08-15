@@ -32,7 +32,6 @@ import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
-import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.security.mac.MacServer;
@@ -299,7 +298,6 @@ public class LoginInEvent {
             SkillV2.sendInfoToClient(player);
             SkillV2.afterVerUpdateLogin(player);
             SpringMobEvent.onPlayerLogin(player);
-            PlanPlayer.onPlayerLoginSync(player);
             NewLotteries.sendLotteryRewardTimes(player);
             String enhanceForge = "enhanceForgeEquipAdjust";
             if (!data.contains(enhanceForge)) {

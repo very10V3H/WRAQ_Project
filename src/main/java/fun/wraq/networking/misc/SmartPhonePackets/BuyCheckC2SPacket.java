@@ -78,6 +78,7 @@ public class BuyCheckC2SPacket {
                         } else {
                             hasEnoughCurrency = true;
                         }
+                        break;
                     }
                 }
             }

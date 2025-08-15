@@ -1,44 +1,27 @@
 package fun.wraq.process.func.plan;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
-import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.rank.RankData;
-import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PlanPlayer {
     public static int clientPlanLeftDate = 0;
     public static int clientPlanTier = 0;
-
-    public final static Map<String, PlanPlayer> map = new HashMap<>();
 
     public String name;
     public int tier;
     public String overDate;
     public String lastRewardTime;
     public int getDailyRewardTimes;
-
-    public static String tierString = "tier";
-    public static String overDateString = "overDate";
-    public static String lastRewardTimeString = "lastRewardTime";
-    public static String getDailyRewardTimesString = "getDailyRewardTimes";
 
     public PlanPlayer(String name, int tier, String overDate, String lastRewardTime, int getDailyRewardTimes) {
         this.name = name;
@@ -70,96 +53,23 @@ public class PlanPlayer {
         return data.getCompound(LOTTERY_KEY);
     }
 
-    public static void onPlayerLoginSync(Player player) {
-        CompoundTag data = getPlanData(player);
-        if (!data.contains(SYNC_FLAG_KEY)) {
-            data.putBoolean(SYNC_FLAG_KEY, true);
-            if (map.containsKey(Name.get(player))) {
-                PlanPlayer planPlayer = map.get(Name.get(player));
-                data.putInt(TIER_KEY, planPlayer.tier);
-                data.putString(OVER_DATE_KEY, planPlayer.overDate);
-                data.putString(LAST_REWARD_TIME_KEY, planPlayer.lastRewardTime == null ? "" : planPlayer.lastRewardTime);
-                data.putInt(GET_DAILY_REWARD_TIMES_KEY, planPlayer.getDailyRewardTimes);
-                data.putInt(GET_STAR_COUNTS_KEY, Tower.playerStarGetCounts.getOrDefault(Name.get(player), 0));
-                for (Item item : NewLotteries.getGetRewardSerial().keySet()) {
-                    String itemString = item.toString();
-                    String openTimesString = itemString + "_openTimes";
-                    String winTimesString = itemString + "_winTimes";
-                    int rewardTimes = NewLotteries.getPlayerLotteryData(Name.get(player))
-                            .getOrDefault(itemString, 0);
-                    int openTimes = NewLotteries.getPlayerLotteryData(Name.get(player))
-                            .getOrDefault(openTimesString, 0);
-                    int winTimes = NewLotteries.getPlayerLotteryData(Name.get(player))
-                            .getOrDefault(winTimesString, 0);
-                    getLotteryData(player).putInt(itemString, rewardTimes);
-                    getLotteryData(player).putInt(openTimesString, openTimes);
-                    getLotteryData(player).putInt(winTimesString, winTimes);
-                }
-                Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
-                        Te.s("计划/开箱统计/聚星获得数已同步至新版数据存储"));
-            }
-        }
-    }
-
-    public static void read() throws SQLException, ParseException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        map.clear();
-
-        String sql = "select * from playerdata1";
-        ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()) {
-            String name = resultSet.getString("name");
-            String overDate = resultSet.getString(overDateString);
-            String lastRewardTime = resultSet.getString(lastRewardTimeString);
-            String tier = resultSet.getString("tier");
-            String getDailyRewardTimes = resultSet.getString(getDailyRewardTimesString);
-            int tierInt = 0;
-            int getDailyRewardTimesInt = 0;
-            if (tier != null) tierInt = Integer.parseInt(tier);
-            if (getDailyRewardTimes != null) getDailyRewardTimesInt = Integer.parseInt(getDailyRewardTimes);
-            if (overDate == null) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 31);
-                overDate = Compute.CalendarToString(calendar);
-            }
-            if (map.containsKey(name) && lastRewardTime != null) {
-                PlanPlayer planPlayer = map.get(name);
-                String lastRewardTimeCurrent = planPlayer.lastRewardTime;
-                if (lastRewardTimeCurrent != null) {
-                    Calendar lastRewardTimeCurrentCalendar = Compute.StringToCalendar(lastRewardTimeCurrent);
-                    Calendar lastRewardTimeCalendar = Compute.StringToCalendar(lastRewardTime);
-                    if (lastRewardTimeCurrentCalendar.after(lastRewardTimeCalendar)) {
-                        lastRewardTime = planPlayer.lastRewardTime;
-                    }
-                }
-            }
-            map.put(name, new PlanPlayer(name, tierInt, overDate, lastRewardTime, getDailyRewardTimesInt));
-
-            for (Item item : NewLotteries.getGetRewardSerial().keySet()) {
-                String itemString = item.toString();
-                String openTimes = itemString + "_openTimes";
-                String winTimes = itemString + "_winTimes";
-                handle(resultSet, name, itemString);
-                handle(resultSet, name, openTimes);
-                handle(resultSet, name, winTimes);
-            }
-        }
-        statement.close();
-    }
-
-    public static void handle(ResultSet resultSet, String name, String itemString) throws SQLException {
-        if (DataBase.containsKey(itemString, "playerdata1")) {
-            String timesString = resultSet.getString(itemString);
-            int times = 0;
-            if (timesString != null) times = Integer.parseInt(timesString);
-            NewLotteries.getPlayerLotteryData(name).put(itemString, times);
-        } else {
-            NewLotteries.getPlayerLotteryData(name).put(itemString, 0);
-        }
-    }
-
     public static int getPlayerTier(Player player) {
+        return Math.max(getPlayerPlanTier(player), getPlayerRankPlanTier(player));
+    }
+
+    private static int getPlayerRankPlanTier(Player player) {
+        String rank = RankData.getCurrentRank(player);
+        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("19")) {
+            return 3;
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("17")) {
+            return 2;
+        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("15B")) {
+            return 1;
+        }
+        return 0;
+    }
+
+    private static int getPlayerPlanTier(Player player) {
         if (!getOverDate(player).isEmpty()) {
             Calendar overData;
             try {
@@ -171,16 +81,7 @@ public class PlanPlayer {
                 return 0;
             }
         }
-        int tier = getPlanData(player).getInt(TIER_KEY);
-        String rank = RankData.getCurrentRank(player);
-        if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("19")) {
-            return Math.max(tier, 3);
-        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("17")) {
-            return Math.max(tier, 2);
-        } else if (RankData.getRankSerial(rank) >= RankData.rankSerialList.indexOf("15B")) {
-            return Math.max(tier, 1);
-        }
-        return tier;
+        return getPlanData(player).getInt(TIER_KEY);
     }
 
     public static void setPlayerTier(Player player, int tier) {

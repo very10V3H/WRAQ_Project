@@ -47,15 +47,18 @@ public class SputteringDamage {
                 if (this.generation == maxGeneration) {
                     nextCauseMob.forEach(mob -> {
                         if (!causedDamageMob.contains(mob) && !mob.equals(this.originMob)) {
-                            if (this.damageType == 0)
+                            if (this.damageType == 0) {
                                 Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob,
                                         this.originDamage / (2 * (this.generation + 1)), false);
-                            if (this.damageType == 1)
+                            }
+                            if (this.damageType == 1) {
                                 Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob,
                                         this.originDamage / (2 * (this.generation + 1)), false);
-                            if (this.damageType == 2)
+                            }
+                            if (this.damageType == 2) {
                                 Damage.causeTrueDamageToMonster(originPlayer, mob,
                                         this.originDamage / (2 * (this.generation + 1)));
+                            }
                         }
                         causedDamageMob.add(mob);
                     });
@@ -70,7 +73,7 @@ public class SputteringDamage {
                             return;
                         }
                         Compute.getNearMob(mob, 9).stream().filter(eachMob -> {
-                            return !causedDamageMob.contains(eachMob) && nextCauseMob.contains(eachMob)
+                            return !causedDamageMob.contains(eachMob) && !nextCauseMob.contains(eachMob)
                                     && !addMobs.contains(eachMob);
                         }).forEach(eachMob -> {
                             ParticleProvider.createLineEffectParticle(mob.level(), (int) eachMob.distanceTo(mob) * 5,
@@ -78,15 +81,18 @@ public class SputteringDamage {
                             addMobs.add(eachMob);
                         });
                         if (this.generation > 0 && !mob.equals(this.originMob)) {
-                            if (this.damageType == 0)
+                            if (this.damageType == 0) {
                                 Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob,
                                         this.originDamage / (2 * (this.generation + 1)), false);
-                            if (this.damageType == 1)
+                            }
+                            if (this.damageType == 1) {
                                 Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob,
                                         this.originDamage / (2 * (this.generation + 1)), false);
-                            if (this.damageType == 2)
+                            }
+                            if (this.damageType == 2) {
                                 Damage.causeTrueDamageToMonster(originPlayer, mob,
                                         this.originDamage / (2 * (this.generation + 1)));
+                            }
                         }
                         causedDamageMob.add(mob);
                     });
