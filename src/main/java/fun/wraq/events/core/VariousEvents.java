@@ -254,9 +254,7 @@ public class VariousEvents {
             MutableComponent rankPrefix = Te.s("");
             if (RankData.clientPlayerCurrentRankMap.containsKey(uuid)) {
                 String rank = RankData.clientPlayerCurrentRankMap.get(uuid);
-                if (!rank.equals("null")) {
-                    rankPrefix.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
-                }
+                rankPrefix.append(RankData.getRankPrefix(rank));
             }
             MutableComponent locationInfo = Te.s("");
             if (ClientUtils.clientPlayerLevelIdMap.containsKey(uuid)) {
@@ -349,9 +347,7 @@ public class VariousEvents {
             String prefix = "初来乍到";
             String color = String.valueOf(CustomStyle.styleOfMine.getColor());
             String rank = RankData.getCurrentRank(player);
-            if (!rank.equals("null")) {
-                component.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
-            }
+            component.append(RankData.getRankPrefix(rank));
             if (data.contains(PrefixCommand.prefix)) prefix = data.getString(PrefixCommand.prefix);
             if (data.contains(PrefixCommand.prefixColor)) color = data.getString(PrefixCommand.prefixColor);
             component.append(Te.s("|", ChatFormatting.GOLD,
@@ -367,9 +363,7 @@ public class VariousEvents {
             int level = 0;
             if (RankData.clientPlayerCurrentRankMap.containsKey(player.getUUID())) {
                 String rank = RankData.clientPlayerCurrentRankMap.get(player.getUUID());
-                if (!rank.equals("null")) {
-                    component.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
-                }
+                component.append(RankData.getRankPrefix(rank));
             }
             if (PrefixCommand.clientPrefixInfo.containsKey(player.getUUID())) {
                 PrefixInfo prefixInfo = PrefixCommand.clientPrefixInfo.get(player.getUUID());

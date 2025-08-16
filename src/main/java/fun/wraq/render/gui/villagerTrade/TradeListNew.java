@@ -504,7 +504,7 @@ public class TradeListNew {
                         new ItemStack(SuperColdItems.COLD_IRON_GOLEM_RUNE.get(), 55),
                         new ItemStack(SuperColdItems.COLD_RUNE.get(), 8)));
         TradeList.tradeRecipeMap.put(coldCrystal,
-                List.of(new ItemStack(SuperColdItems.MAPLE_RUNE.get(), 1),
+                List.of(new ItemStack(SuperColdItems.COLD_RUNE.get(), 1),
                         new ItemStack(CrystalItems.BLUE_CRYSTAL_C.get(), 1)));
     }
 

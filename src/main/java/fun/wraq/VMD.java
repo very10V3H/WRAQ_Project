@@ -25,10 +25,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.events.server.ThreadPools;
-import fun.wraq.files.dataBases.DBConnection;
-import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.WorldRecordInfo;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
@@ -48,8 +45,6 @@ import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
-import fun.wraq.process.system.tower.TowerTimeRecord;
-import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.render.gui.blocks.BrewingScreen;
 import fun.wraq.render.gui.blocks.ForgingBlockScreen;
 import fun.wraq.render.gui.blocks.FurnaceScreen;
@@ -110,9 +105,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Map;
 
@@ -181,9 +174,6 @@ public class VMD {
         RandomEventsHandler.server = event.getServer();
         MarketInfo.marketItemInfoRead(event.getServer().overworld());
         MarketInfo.marketProfitInfoRead(event.getServer().overworld());
-        VpDataHandler.firstRead();
-        WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
-        TowerTimeRecord.readFromWorldRecordInfo();
     }
 
     @SubscribeEvent
@@ -201,21 +191,9 @@ public class VMD {
         PurpleIronCommon.destroyOnServerStop();
         MushroomParasitismGem.clearItemEntity();
         BlockAndResetTime.onServerStop();
-        Connection connection = DataBase.createNewDatabaseConnection();
-        Statement statement = connection.createStatement();
-        TowerTimeRecord.writeToWorldRecordInfo();
-        DataBase.writeWorldInfo(statement);
-        statement.close();
-        connection.close();
-
         NoTeamInstanceModule.reset();
         NewTeamInstanceHandler.getInstances().forEach(NewTeamInstance::clear);
-        VpDataHandler.write();
-
-        DBConnection.connection.close();
-        DBConnection.connection = null;
         LogUtils.getLogger().info("Database connection closed");
-
         ThreadPools.dataExecutor.shutdown();
     }
 

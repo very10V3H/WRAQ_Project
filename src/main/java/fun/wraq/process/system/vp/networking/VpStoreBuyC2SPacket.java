@@ -11,7 +11,6 @@ import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.process.system.vp.VpStore;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -68,7 +67,7 @@ public class VpStoreBuyC2SPacket {
                 }
             }
 
-            if (!buySuccessfully && VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) >= price) {
+            if (!buySuccessfully && VpDataHandler.getPlayerVp(serverPlayer) >= price) {
                 if (goods.getItem() instanceof SimpleTierPaper simpleTierPaper) {
                     int tier = simpleTierPaper.getTier();
                     try {
@@ -76,9 +75,7 @@ public class VpStoreBuyC2SPacket {
                             Compute.sendInfoToScreen(serverPlayer, Te.s("当前已有更高阶的计划生效."));
                             return;
                         } else {
-                            VpDataHandler.playerVpData.put(name.toLowerCase(),
-                                    VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) - price);
-
+                            VpDataHandler.payVp(serverPlayer, price);
                             if (PlanPlayer.getPlayerTier(serverPlayer) == tier) {
                                 String oldOverDate = PlanPlayer.getOverDate(serverPlayer);
                                 Calendar oldOverDateCalendar = Compute.StringToCalendar(oldOverDate);
@@ -96,7 +93,6 @@ public class VpStoreBuyC2SPacket {
                                 PlanPlayer.setOverDate(serverPlayer, overDate);
                                 PlanPlayer.setLastRewardTime(serverPlayer, lastRewardDate);
                             }
-
                             CompoundTag data = serverPlayer.getPersistentData();
                             if (tier == 1) {
                                 data.putInt(CustomPrefixCommand.customPrefixTimes,
@@ -106,10 +102,8 @@ public class VpStoreBuyC2SPacket {
                                 data.putInt(CustomPrefixCommand.customPrefixTimes,
                                         data.getInt(CustomPrefixCommand.customPrefixTimes) + 6);
                             }
-
                             Security.recordVPStream(name, Security.SYSTEM, price, Security.RecordType.VP_PAY);
                             Security.recordItemStream(name, goods, Security.RecordType.VP_PAY);
-
                             Compute.clearPlayerScreen(serverPlayer);
                             Compute.setPlayerTitleAndSubTitle(serverPlayer, Te.m(goods.getDisplayName()),
                                     Te.s("已成功激活!", CustomStyle.styleOfWorld));
@@ -119,29 +113,24 @@ public class VpStoreBuyC2SPacket {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    VpDataHandler.playerVpData.put(name.toLowerCase(), VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) - price);
+                    VpDataHandler.payVp(serverPlayer, price);
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
-
                     Security.recordVPStream(name, Security.SYSTEM, price, Security.RecordType.VP_PAY);
                     Security.recordItemStream(name, goods, Security.RecordType.VP_PAY);
-
                     InventoryOperation.giveItemStack(serverPlayer, itemStack);
                 }
-                VpDataHandler.sendPlayerVpValue(serverPlayer);
+                VpDataHandler.sendPlayerVpValueToClient(serverPlayer);
                 buySuccessfully = true;
             }
-
             if (buySuccessfully) {
                 Component component = null;
                 if (worldSoul5CostNum > 0) {
-                    component = Component.literal("本次购买花费了 ").withStyle(ChatFormatting.WHITE).
-                            append(ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName()).
-                            append(Component.literal(" * " + worldSoul5CostNum).withStyle(ChatFormatting.AQUA));
+                    component = Te.s("本次购买花费了 ", ModItems.WORLD_SOUL_5.get(),
+                            " * " + worldSoul5CostNum, CustomStyle.styleOfWorld);
                 } else {
-                    component = Component.literal("本次购买花费了 ").withStyle(ChatFormatting.WHITE).
-                            append(Component.literal(String.format("%.0f", price) + "vp").withStyle(ChatFormatting.AQUA)).
-                            append(Component.literal(" 账户剩余 ").withStyle(ChatFormatting.WHITE)).
-                            append(Component.literal(VpDataHandler.getPlayerVp(name) + "vp").withStyle(ChatFormatting.AQUA));
+                    component = Te.s("本次购买花费了 ",
+                            String.format("%.0f", price) + "vp", CustomStyle.styleOfWorld, " 账户剩余 ",
+                            VpDataHandler.getPlayerVp(serverPlayer) + "vp", CustomStyle.styleOfWorld);
                 }
                 Compute.sendInfoToScreen(serverPlayer, Te.s("购买成功!", component));
             } else {

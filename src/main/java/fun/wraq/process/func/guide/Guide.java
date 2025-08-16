@@ -78,8 +78,10 @@ public class Guide {
         public static final String LAKE_EQUIP = "lakeEquip";
         public static final String MINE_EQUIP = "mineEquip";
         public static final String VOLCANO_EQUIP = "volcanoEquip";
+        public static final String MANA_DAILY_INSTANCE = "manaDailyInstance";
         public static final String PLAIN_BOSS = "plainBoss";
         public static final String PASSIVE_4_LEVEL = "passive4Level";
+        public static final String ENTRUSTMENT = "entrustment";
         public static final String ENHANCE_EQUIP = "enhanceEquip";
         public static final String TO_NETHER = "toNether";
         public static final String NETHER_BOSS = "netherBoss";
@@ -212,6 +214,13 @@ public class Guide {
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SKY_RUNE.get()));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.EVOKER_RUNE.get()));
+            }), StageV2.MANA_DAILY_INSTANCE));
+            guides.add(new Guide(List.of(
+                    Te.s("*任务 ", ChatFormatting.AQUA, "挑战", ManaPlainTemple.getInstance().name),
+                    Te.s("可前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
+                            "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
+            ), null, (player -> {
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.U_DISK.get()));
             }), StageV2.PLAIN_BOSS));
             guides.add(new Guide(List.of(
                     Te.s("*任务 ", ChatFormatting.AQUA, "击败", "普莱尼", CustomStyle.styleOfPlain),
@@ -229,7 +238,15 @@ public class Guide {
                             "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GEM_PIECE.get(), 16));
-            }), 60, StageV2.ENHANCE_EQUIP));
+            }), 60, StageV2.ENTRUSTMENT));
+            guides.add(new Guide(List.of(
+                    Te.s("*任务 ", ChatFormatting.AQUA, "完成一次", "委托任务", CustomStyle.styleOfWorld),
+                    Te.s("前往车站或者传送中枢"),
+                    Te.s("找到", "联合研院秘书 - 贝尔", CustomStyle.styleOfWorld),
+                    Te.s("接取委托任务，完成获取丰富奖励!")
+            ), null, (player -> {
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
+            }), 75, StageV2.ENHANCE_EQUIP));
             guides.add(new Guide(List.of(
                     Te.s("锻造一件", "天空城进阶装备", CustomStyle.styleOfSky),
                     Te.s("法师", CustomStyle.styleOfMana, "可以选择", ModItems.EVOKER_SWORD.get()),
@@ -307,7 +324,9 @@ public class Guide {
             }
             int stage = getStageToIndexMap().get(stageTag);
             Guide guide = getGuides().get(stage);
-            if (player.experienceLevel < guide.trigXpLevel) return;
+            if (player.experienceLevel < guide.trigXpLevel) {
+                return;
+            }
             Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
                     Component.literal("你完成了引导任务，获得了奖励！").withStyle(ChatFormatting.WHITE));
             Compute.giveExpToPlayer(player, (stage + 1) * 10);

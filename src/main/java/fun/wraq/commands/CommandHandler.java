@@ -29,34 +29,13 @@ import net.minecraftforge.fml.common.Mod;
 public class CommandHandler {
     @SubscribeEvent
     public static void onServerStarting(RegisterCommandsEvent event) {
-/*        CommandDispatcher<CommandSourceStack> dispatcher0 = event.getDispatcher();
-        LiteralCommandNode<CommandSourceStack> cmd0 = dispatcher0.register(
-                Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("login").then(
-                                Commands.argument("passwd", StringArgumentType.greedyString())
-                                        //.requires(commandSourceStack -> commandSourceStack.hasPermission(0))
-                                        .executes(LoginCommand.instance)
-                        )
-                )
-        );
-        CommandDispatcher<CommandSourceStack> dispatcher1 = event.getDispatcher();
-        LiteralCommandNode<CommandSourceStack> cmd1 = dispatcher1.register(
-                Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("register").then(
-                                Commands.argument("passwd",StringArgumentType.greedyString())
-                                        .executes(RegisterCommand.instance)
-                        )
-                )
-        );*/
-        CommandDispatcher<CommandSourceStack> dispatcher2 = event.getDispatcher();
-        LiteralCommandNode<CommandSourceStack> cmd2 = dispatcher2.register(
+        event.getDispatcher().register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("info")
                                 .executes(InfoCommand.instance)
                 )
         );
-        CommandDispatcher<CommandSourceStack> dispatcher3 = event.getDispatcher();
-        LiteralCommandNode<CommandSourceStack> cmd3 = dispatcher3.register(
+        event.getDispatcher().register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("zs")
                                 .executes(ZsCommand.instance)
@@ -843,6 +822,16 @@ public class CommandHandler {
                         Commands.literal("shutdownEvent")
                                 .executes(EventShutdownCommand.instance)
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        event.getDispatcher().register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("rechargeVp").then(
+                                Commands.argument("player", GameProfileArgument.gameProfile()).then(
+                                        Commands.argument("value", StringArgumentType.string())
+                                                .executes(VpRechargeCommand.instance)
+                                )
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
     }

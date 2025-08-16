@@ -69,7 +69,9 @@ public class RankData {
 
     public static final String CURRENT_RANK_KEY = "currentRank";
     public static String getCurrentRank(Player player) {
-        if (!getRankData(player).contains(CURRENT_RANK_KEY)) return "null";
+        if (!getRankData(player).contains(CURRENT_RANK_KEY)) {
+            return "null";
+        }
         return getRankData(player).getString(CURRENT_RANK_KEY);
     }
 
@@ -387,7 +389,7 @@ public class RankData {
         }
         if (RankData.smeltNeedTimeReduction(rank) > 0) {
             rankDescription.add(Te.s(" · ", "炼造物品耗时 ",
-                    "-" + RankData.smeltNeedTimeReduction(rank) + "s", ChatFormatting.AQUA));
+                    "-" + RankData.smeltNeedTimeReduction(rank) + "min", ChatFormatting.AQUA));
         }
         if (RankData.getExReputationMissionRewardRate(rank) > 0) {
             rankDescription.add(Te.s(" · ", "额外声望获取 ",
@@ -404,5 +406,36 @@ public class RankData {
 
     public static String getNextTierRank(String rank) {
         return RankData.rankSerialList.get(RankData.rankSerialList.indexOf(rank) + 1);
+    }
+
+    public static Map<String, String> rankPrefixEmojiMap = new HashMap<>() {{
+        put("null", "\uD83C\uDF31");
+        put("13C", "∮");
+        put("13B", "∮");
+        put("13A", "∮");
+        put("14C", "∮");
+        put("14B", "∮");
+        put("14A", "∮");
+        put("15B", "∮");
+        put("15A", "∮");
+        put("16B", "∮");
+        put("16A", "∮");
+        put("17", "\uD83C\uDF38");
+        put("18", "\uD83C\uDFF5\uFE0F");
+        put("19", "⚜\uFE0F");
+        put("20", "⚜\uFE0F");
+        put("21", "⚜\uFE0F");
+        put("22", "⚜\uFE0F");
+        put("23", "⚜\uFE0F");
+        put("*", "⚜\uFE0F");
+    }};
+
+    public static Component getRankPrefix(String rank) {
+        if (!rank.equals("null")) {
+            return Te.s(rankPrefixEmojiMap.get(rank) + rank + rankPrefixEmojiMap.get(rank),
+                    RankData.rankStyleMap.get(rank));
+        } else {
+            return Te.s("\uD83C\uDF31~\uD83C\uDF31", CustomStyle.styleOfLife);
+        }
     }
 }

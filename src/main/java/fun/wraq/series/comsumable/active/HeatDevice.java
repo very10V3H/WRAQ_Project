@@ -30,7 +30,7 @@ public class HeatDevice extends WraqItem implements ActiveItem {
     }
 
     public int getEffectLastMinutes() {
-        return new int[]{10, 20, 30}[tier];
+        return new int[]{120, 240, 360}[tier];
     }
 
     @Override

@@ -2,7 +2,6 @@ package fun.wraq.events.server;
 
 import fun.wraq.common.fast.Tick;
 import fun.wraq.events.core.BowEvent;
-import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.items.m.Main0;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Dot;
@@ -13,7 +12,6 @@ import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
-import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
@@ -22,9 +20,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,9 +35,6 @@ public class ServerTick {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             DelayOperationWithAnimation.serverTick(event);
             int tickCount = Tick.get();
-            if (tickCount % 100 == 0) {
-                VpDataHandler.reviseDataMSGSend(event.getServer());
-            }
             if (tickCount % 80 == 0) {
                 PurpleIronCommon.handleServerTick();
             }
@@ -63,11 +55,6 @@ public class ServerTick {
                     public void run() {
                         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
                         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
-                        try {
-                            dataIO();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
                     }
                 });
             }
@@ -97,16 +84,5 @@ public class ServerTick {
             if (flag) removeList.add(id);
         });
         removeList.forEach(map::remove);
-    }
-
-    public static void dataIO() throws SQLException {
-        Connection connection = DataBase.createNewDatabaseConnection();
-        Statement statement = connection.createStatement();
-
-        VpDataHandler.normalRead();
-        DataBase.writeWorldInfo(statement);
-
-        statement.close();
-        connection.close();
     }
 }

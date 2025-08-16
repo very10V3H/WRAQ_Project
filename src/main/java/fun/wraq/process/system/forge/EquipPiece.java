@@ -28,7 +28,7 @@ public class EquipPiece extends WraqItem implements Decomposable {
     public static void onKillMob(Player player, Mob mob) {
         int mobLevelTier = Math.min(7, MobSpawn.getMobXpLevel(mob) / 40);
         for (int i = 0; i < mobLevelTier; i ++) {
-            double dropRate = 0.01 / (Math.pow(4, i));
+            double dropRate = 0.01 / (Math.pow(3, i));
             ItemAndRate itemAndRate = new ItemAndRate(ForgeEquipUtils.getEquipPiece(i), dropRate);
             itemAndRate.sendWithMSG(player, 1);
         }

@@ -1073,7 +1073,12 @@ public class Compute {
         return false;
     }
 
+    public static boolean stopSummon = false;
+
     public static void summonValueItemEntity(Level level, Player player, Mob mob, Component component, int type) {
+        if (stopSummon) {
+            return;
+        }
         if (ParticleProvider.stop()) {
             return;
         }

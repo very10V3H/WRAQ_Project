@@ -543,6 +543,7 @@ public class MobKillEntrustment {
                 MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
                 Summer2025.onFinishEntrustment(player);
+                Guide.trigV2(player, Guide.StageV2.ENTRUSTMENT);
                 Guide.sendGuideDisplayStatusToClient(player, true);
                 RankData.onPlayerFinishEntrustment(player);
             }

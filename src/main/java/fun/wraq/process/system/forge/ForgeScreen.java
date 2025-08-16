@@ -168,7 +168,7 @@ public class ForgeScreen extends WraqScreen {
                                             material.getCount(), CustomStyle.styleOfMoon, ")",
                                             " √", ChatFormatting.GREEN));
                                 } else {
-                                    add(Te.s(material, " (", material.getCount(), ChatFormatting.AQUA, "/",
+                                    add(Te.s(material, " (", playerInventoryHasNum, ChatFormatting.AQUA, "/",
                                             material.getCount(), CustomStyle.styleOfMoon, ")",
                                             " -", ChatFormatting.WHITE));
                                 }

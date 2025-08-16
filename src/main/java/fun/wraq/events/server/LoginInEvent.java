@@ -281,7 +281,7 @@ public class LoginInEvent {
             String towerStatus = Tower.getPlayerStatus(player);
             ModNetworking.sendToClient(new TowerStatusS2CPacket(towerStatus), serverPlayer);
             DailySupply.sendStatusToClient(player);
-            VpDataHandler.sendPlayerVpValue(player);
+            VpDataHandler.sendPlayerVpValueToClient(player);
             if (data.contains(QuickUseHud.DISPLAY_KEY)) {
                 ModNetworking.sendToClient(
                         new QuickUseDisplayS2CPacket(data.getInt(QuickUseHud.DISPLAY_KEY)), serverPlayer);

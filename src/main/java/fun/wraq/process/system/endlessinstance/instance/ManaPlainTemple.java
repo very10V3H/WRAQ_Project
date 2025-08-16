@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
@@ -102,6 +103,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
                     0, player.experienceLevel, true,
                     Te.s("高等级额外经验收益", CustomStyle.styleOfLucky));
         }
+        Guide.trigV2(player, Guide.StageV2.MANA_DAILY_INSTANCE);
     }
 
     @Override
