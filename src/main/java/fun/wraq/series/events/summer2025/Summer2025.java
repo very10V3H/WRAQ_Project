@@ -215,6 +215,10 @@ public class Summer2025 {
                 playerEachRoundKillCount.clear();
                 nextSpawnTick = Tick.get() + Tick.s(5);
                 lastSpawnTick = Tick.get();
+                if (currentRound >= MAX_ROUND_NUM) {
+                    clear();
+                    broad(Te.s("我们没有守住吃货僵尸的攻势，他们抢走了超多零食!"));
+                }
             }
             // tick
             handleMobTick();

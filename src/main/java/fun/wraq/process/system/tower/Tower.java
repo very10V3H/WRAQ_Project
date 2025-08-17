@@ -141,7 +141,8 @@ public class Tower {
                 if (!tower.allMobIsClear()) {
                     if (tickCount % 20 == 0 && serialNum == 0) TowerMob.tickControl1Floor(tower.mobList);
                     if (serialNum == 5) TowerMob.tickControl6Floor(tower.mobList);
-                    String[] elementType = {Element.life, Element.water, Element.fire, Element.ice, Element.stone, Element.lightning};
+                    String[] elementType = {Element.life, Element.water, Element.fire,
+                            Element.stone, Element.ice, Element.lightning};
                     tower.mobList.forEach(mob -> {
                         Element.provideElement(mob, elementType[instanceList.indexOf(tower)], 5);
                     });

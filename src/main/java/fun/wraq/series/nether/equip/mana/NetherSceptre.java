@@ -138,7 +138,9 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
                     new ItemStack(ModItems.REPUTATION_MEDAL.get(), 8)
             );
         }
-        return List.of();
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.system.vp.VpDataHandler;
 import net.minecraft.commands.CommandSourceStack;
@@ -31,6 +32,7 @@ public class VpRechargeCommand implements Command<CommandSourceStack> {
                 return 0;
             }
             VpDataHandler.rechargeVp(target, num);
+            Compute.sendCommandOpMSG(player, Name.get(target) + " 获得了 " + num + "vp");
         }
         return 0;
     }

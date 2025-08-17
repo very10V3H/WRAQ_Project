@@ -3,6 +3,7 @@ package fun.wraq.series.overworld.cold.sc5.dragon.weapon;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.registry.ModEntityType;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -99,5 +100,12 @@ public class SuperColdDragonSceptre extends WraqSceptre implements SuperColdDrag
             return new ItemStack(SuperColdItems.WEAPON_CORE.get());
         }
         return null;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 }

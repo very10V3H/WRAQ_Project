@@ -8,15 +8,15 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
+import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
+import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
 import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonWeaponCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
@@ -37,12 +37,11 @@ public class SwordNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2All
         ) {
             @Override
             public void trig() {
-                Vec3 desPos = player.pick(1, 0, false).getLocation();
+                Vec3 desPos = WraqPower.getDefaultTargetPos(player, 8);
                 double range = 8;
                 double exRange = 0;
                 exRange += SuperColdDragonWeaponCommon.getSkillExRange(player);
-                Compute.getNearEntity(player, Mob.class, range + exRange)
-                        .stream().map(entity -> (Mob) entity)
+                Compute.getNearMob(player.level(), desPos, range + exRange)
                         .forEach(mob -> {
                             Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 10, mob));
                             Compute.addSlowDownEffect(mob, Tick.s(3), 2);
@@ -59,9 +58,9 @@ public class SwordNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2All
     @Override
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
-        components.add(Te.s("将自身周围8格内的所有敌人"));
+        components.add(Te.s("将准星位置周围8格内的所有敌人"));
         components.add(Te.s("牵引", CustomStyle.styleOfStone,
-                "至身前，并造成", "3s减速", CustomStyle.styleOfStone, "与",
+                "至准星位置，并造成", "3s减速", CustomStyle.styleOfStone, "与",
                 Te.s(getRateDescription(2, 0.1, level), CustomStyle.styleOfPower, "伤害")));
         components.add(Te.s(" 这会将这些敌人的仇恨转移到自身", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         components.add(ComponentUtils.getCritDamageInfluenceDescription());

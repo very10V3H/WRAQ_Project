@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -17,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KanupusSword extends WraqSword implements ActiveItem {
+public class KanupusSword extends WraqSword implements ActiveItem, ForgeItem {
 
     public KanupusSword(Properties properties) {
         super(properties);
@@ -70,5 +71,12 @@ public class KanupusSword extends WraqSword implements ActiveItem {
     @Override
     public double manaCost(Player player) {
         return 25;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 }

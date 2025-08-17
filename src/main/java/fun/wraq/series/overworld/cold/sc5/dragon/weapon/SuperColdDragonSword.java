@@ -2,6 +2,7 @@ package fun.wraq.series.overworld.cold.sc5.dragon.weapon;
 
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
@@ -88,5 +89,12 @@ public class SuperColdDragonSword extends WraqSword implements SuperColdDragonWe
             return new ItemStack(SuperColdItems.WEAPON_CORE.get());
         }
         return null;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 }

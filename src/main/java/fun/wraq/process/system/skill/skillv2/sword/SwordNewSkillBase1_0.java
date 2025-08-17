@@ -10,8 +10,10 @@ import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
@@ -35,9 +37,10 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2All
                 if (Utils.swordTag.containsKey(mainHandItem)) {
                     SwordNewSkillFinal0.onPlayerNormalAttack(player);
                     MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
-                    AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
-                        AttackEvent.attackToMonster(mob, player,
-                                (2.5 + skillLevel * 0.15) * (1 + getEnhanceRate(player)), true, true);
+                    List<Mob> mobs = AttackEvent.getPlayerNormalAttackRangeMobList(player, 0.5);
+                    mobs.forEach(mob -> {
+                        AttackEvent.attackToMonster(mob, player, (2.5 + skillLevel * 0.15)
+                                * (1 + getEnhanceRate(player)) * (mobs.size() == 1 ? 2 : 1), true, true);
                     });
                 }
             }
@@ -47,10 +50,12 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2All
     @Override
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
-        components.add(Te.s("对前方所有敌人造成",
+        components.add(Te.s("对前方较大范围敌人造成",
                 getRateDescription(2.5, 0.15, level), CustomStyle.styleOfPower, "伤害。"));
         components.add(Te.s("必定暴击", CustomStyle.styleOfPower,
                 "且", ComponentUtils.getAttackEffectDescription()));
+        components.add(Te.s("若范围内", "仅有一名敌人", ChatFormatting.RED, "则造成",
+                getRateDescription(5, 0.3, level), CustomStyle.styleOfPower, "伤害。"));
         components.add(Te.s("施法前摇与后摇收益于",
                 ComponentUtils.AttributeDescription.getAttackSpeed("")));
         return components;

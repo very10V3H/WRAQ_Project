@@ -3,8 +3,10 @@ package fun.wraq.series.overworld.extraordinary.equip;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ShiroBow extends WraqBow {
+public class ShiroBow extends WraqBow implements ForgeItem {
 
     public ShiroBow(Properties properties) {
         super(properties);
@@ -78,5 +80,12 @@ public class ShiroBow extends WraqBow {
             DivineWeaponCommon.onKillMob(player, mob);
         });
         MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 }

@@ -20,7 +20,8 @@ public class AttackEnhancedCurio0 extends WraqAttackEnhancedUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Te.s("暴政", hoverMainStyle()));
-        components.add(Te.s(" 获得", ComponentUtils.AttributeDescription.critDamage("12%总")));
+        components.add(Te.s(" 获得", ComponentUtils.AttributeDescription.critDamage("20%总")));
+        components.add(Te.s(" 仅近战可用.", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         Compute.DescriptionPassive(components, Te.s("横行", hoverMainStyle()));
         Component countName = ComponentUtils.getRightAngleQuote("暴怒", hoverMainStyle());
         components.add(Te.s(" 暴击", hoverMainStyle(), "将会获得一层", countName, "."));

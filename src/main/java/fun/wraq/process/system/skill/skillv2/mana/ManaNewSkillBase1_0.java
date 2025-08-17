@@ -53,7 +53,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
                 mobs.forEach(mob -> {
                     Damage.causeRateApDamageWithElement(player, mob,
                             damage * (1 + ManaCurios5.getExBaseDamageRate(player, mob))
-                                    * (mobs.size() == 1 ? 3 : 1), true);
+                                    * (mobs.size() == 1 ? 2 : 1), true);
                     ManaNewSkillPassive0.addCount(player, mob, 2);
                 });
                 Element.giveResonanceElement(player);
@@ -68,7 +68,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
                 getRateDescription(2.5, 0.25, level), CustomStyle.styleOfMana, "伤害"));
         components.add(Te.s("并额外施加2层", " 渗", CustomStyle.styleOfMana));
         components.add(Te.s("若范围内仅有一名敌人，则造成",
-                getRateDescription(7.5, 0.75, level), CustomStyle.styleOfMana, "伤害"));
+                getRateDescription(5, 0.5, level), CustomStyle.styleOfMana, "伤害"));
         return components;
     }
 

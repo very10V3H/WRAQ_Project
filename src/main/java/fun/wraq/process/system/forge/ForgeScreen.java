@@ -7,6 +7,7 @@ import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -173,6 +174,10 @@ public class ForgeScreen extends WraqScreen {
                                             " -", ChatFormatting.WHITE));
                                 }
                             });
+                            if (materialList.size() == 1
+                                    && materialList.get(0).is(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())) {
+                                add(Te.s("这件物品可由村民兑换获取.", ChatFormatting.AQUA));
+                            }
                         }};
                         guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
                     }

@@ -2,6 +2,8 @@ package fun.wraq.series.overworld.extraordinary.equip;
 
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -14,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class KanupusArmor extends WraqArmor {
+public class KanupusArmor extends WraqArmor implements ForgeItem {
 
     public KanupusArmor(ArmorMaterial armorMaterial, Type type, Properties properties, int tier) {
         super(armorMaterial, type, properties);
@@ -57,5 +59,12 @@ public class KanupusArmor extends WraqArmor {
     @Override
     public boolean isFoil(@NotNull ItemStack itemStack) {
         return true;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 }

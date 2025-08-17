@@ -91,13 +91,18 @@ public class AttackEvent {
         }
     }
 
-    public static List<Mob> getPlayerNormalAttackRangeMobList(Player player) {
+    public static List<Mob> getPlayerNormalAttackRangeMobList(Player player, double exDistanceRate) {
         double rangeEnhanceRate = AttackCurios3.getAttackRangeEnhanceRate(player);
         return Compute.getPlayerRayMobList(player, 0.25, 1.25 * (1 + rangeEnhanceRate),
-                        (4 + PlayerAttributes.attackRangeUp(player)) * (1 + rangeEnhanceRate))
+                        (4 + PlayerAttributes.attackRangeUp(player))
+                                * (1 + rangeEnhanceRate) * (1 + exDistanceRate))
                 .stream().filter(mob -> {
                     return mob.isAlive() && Compute.isWraqMob(mob);
                 }).toList();
+    }
+
+    public static List<Mob> getPlayerNormalAttackRangeMobList(Player player) {
+        return getPlayerNormalAttackRangeMobList(player, 0);
     }
 
     public static void module(Player player, double rate) {

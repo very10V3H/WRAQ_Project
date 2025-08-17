@@ -3007,4 +3007,8 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> BUY_ITEM = ITEMS.register("buy_item",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> COLLEGE_SENIOR_EQUIP_TICKET
+            = ITEMS.register("college_senior_equip_ticket",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC)));
 }

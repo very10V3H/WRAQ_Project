@@ -8,6 +8,7 @@ import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.core.AttackEvent;
@@ -32,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public interface SuperColdDragonWeaponCommon extends Decomposable {
+public interface SuperColdDragonWeaponCommon extends Decomposable, ForgeItem {
     int getWeaponTier();
     // 共有被动：极寒龙息
     static void handleTick(Player player) {

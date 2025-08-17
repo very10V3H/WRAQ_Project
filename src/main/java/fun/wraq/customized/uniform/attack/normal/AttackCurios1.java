@@ -28,8 +28,8 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         Component countName = ComponentUtils.getRightAngleQuote("暴怒", hoverMainStyle());
         components.add(Te.s(" 暴击", hoverMainStyle(), "将会获得一层", countName, "，每层持续5s，至多叠加至5层"));
         components.add(Te.s(" 每层", countName, "为你提供:"));
-        components.add(Te.s(" 1.", ComponentUtils.AttributeDescription.critDamage("5%")));
-        components.add(Te.s(" 2.", ComponentUtils.AttributeDescription.attackDamage("5%总")));
+        components.add(Te.s(" 1.", ComponentUtils.AttributeDescription.critDamage("6%")));
+        components.add(Te.s(" 2.", ComponentUtils.AttributeDescription.attackDamage("6%总")));
         components.add(Te.s(" 只有近战攻击的暴击能够触发横行", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         components.add(Te.s(" 残暴的君主，终将被民众推翻。", hoverMainStyle()));
         return components;
@@ -68,7 +68,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
     public static double playerCritDamageUp(Player player) {
         if (!isOn(player)) return 0;
         if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
-            return 0.05 * playerCountsMap.getOrDefault(player, 0);
+            return 0.06 * playerCountsMap.getOrDefault(player, 0);
         }
         return 0;
     }
@@ -76,7 +76,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
     public static double playerAttackDamageEnhance(Player player) {
         if (!isOn(player)) return 0;
         if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
-            return 0.05 * playerCountsMap.getOrDefault(player, 0);
+            return 0.06 * playerCountsMap.getOrDefault(player, 0);
         }
         return 0;
     }

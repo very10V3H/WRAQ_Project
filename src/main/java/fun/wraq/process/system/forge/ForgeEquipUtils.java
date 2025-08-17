@@ -9,7 +9,9 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
+import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -56,6 +58,10 @@ public class ForgeEquipUtils {
     public static final Component DIVINE_ISLAND_NAME = Te.s("圣光岛", CustomStyle.DIVINE_STYLE);
     public static final Zone NORTH_VILLAGE = new Zone(1789, 1922, 1659, 1803);
     public static final Component NORTH_VILLAGE_NAME = Te.s("北望村", CustomStyle.BUNKER_STYLE);
+    public static final Zone POLAR_COLD_VILLAGE = new Zone(2800, -3823, 2681, -3909);
+    public static final Component POLAR_COLD_VILLAGE_NAME = Te.s("极冬村", CustomStyle.styleOfIce);
+    public static final Zone SUN_ISLAND = new Zone(1900, 476, 1723, 229);
+    public static final Component SUN_ISLAND_NAME = Te.s("旭升岛", CustomStyle.styleOfSunIsland);
 
     public static final Map<Zone, Component> zoneNameMap = new HashMap<>() {{
         put(PLAIN_VILLAGE, PLAIN_VILLAGE_NAME);
@@ -71,6 +77,8 @@ public class ForgeEquipUtils {
         put(MOONTAIN_STRONG_HOLD, MOONTAIN_STRONG_HOLD_NAME);
         put(DIVINE_ISLAND, DIVINE_ISLAND_NAME);
         put(NORTH_VILLAGE, NORTH_VILLAGE_NAME);
+        put(POLAR_COLD_VILLAGE, POLAR_COLD_VILLAGE_NAME);
+        put(SUN_ISLAND, SUN_ISLAND_NAME);
     }};
 
     public static void setZoneForgeItemListMap() {
@@ -331,6 +339,37 @@ public class ForgeEquipUtils {
             northVillage.forEach(item -> add(item.getDefaultInstance()));
         }});
 
+        zoneForgeItemListMap.put(POLAR_COLD_VILLAGE, new ArrayList<>() {{
+            add(SuperColdItems.COLD_IRON_HELMET_0.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_HELMET_1.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_HELMET_2.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_CHEST_0.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_CHEST_1.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_CHEST_2.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_LEGGINGS_0.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_LEGGINGS_1.get().getDefaultInstance());
+            add(SuperColdItems.COLD_IRON_LEGGINGS_2.get().getDefaultInstance());
+            add(SuperColdItems.BLIZZARD_BOOTS_0.get().getDefaultInstance());
+            add(SuperColdItems.BLIZZARD_BOOTS_1.get().getDefaultInstance());
+            add(SuperColdItems.BLIZZARD_BOOTS_2.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_SWORD_0.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_SWORD_1.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_SWORD_2.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_BOW_0.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_BOW_1.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_BOW_2.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_SCEPTRE_0.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_SCEPTRE_1.get().getDefaultInstance());
+            add(SuperColdItems.DRAGON_SCEPTRE_2.get().getDefaultInstance());
+        }});
+
+        zoneForgeItemListMap.put(SUN_ISLAND, new ArrayList<>() {{
+            add(ExtraordinaryItems.KANUPUS_SWORD.get().getDefaultInstance());
+            add(ExtraordinaryItems.SHIRO_BOW.get().getDefaultInstance());
+            add(ExtraordinaryItems.NETHER_SCEPTRE_EX.get().getDefaultInstance());
+            add(ExtraordinaryItems.KANUPUS_WING_F.get().getDefaultInstance());
+        }});
+
         zoneForgeItemListMap.forEach((zone, itemList) -> {
             Component zoneName = zoneNameMap.get(zone);
             itemList.forEach(stack -> {
@@ -365,7 +404,7 @@ public class ForgeEquipUtils {
             if (equip.getTagElement(Utils.MOD_ID).contains(itemTag))
                 return Math.min(13, equip.getTagElement(Utils.MOD_ID).getInt(itemTag));
         }
-        return -1;
+        return 1;
     }
 
     public record TierValueAndDescription(double value, String description, Style style) {
@@ -487,9 +526,12 @@ public class ForgeEquipUtils {
 
     public static List<Item> getEquipPieceList() {
         return List.of(ModItems.EQUIP_PIECE_0.get(),
-                ModItems.EQUIP_PIECE_1.get(), ModItems.EQUIP_PIECE_2.get(), ModItems.EQUIP_PIECE_3.get(), ModItems.EQUIP_PIECE_4.get(),
-                ModItems.EQUIP_PIECE_5.get(), ModItems.EQUIP_PIECE_6.get(), ModItems.EQUIP_PIECE_7.get(), ModItems.EQUIP_PIECE_8.get(),
-                ModItems.EQUIP_PIECE_9.get(), ModItems.EQUIP_PIECE_10.get(), ModItems.EQUIP_PIECE_11.get(), ModItems.EQUIP_PIECE_12.get(),
+                ModItems.EQUIP_PIECE_1.get(), ModItems.EQUIP_PIECE_2.get(),
+                ModItems.EQUIP_PIECE_3.get(), ModItems.EQUIP_PIECE_4.get(),
+                ModItems.EQUIP_PIECE_5.get(), ModItems.EQUIP_PIECE_6.get(),
+                ModItems.EQUIP_PIECE_7.get(), ModItems.EQUIP_PIECE_8.get(),
+                ModItems.EQUIP_PIECE_9.get(), ModItems.EQUIP_PIECE_10.get(),
+                ModItems.EQUIP_PIECE_11.get(), ModItems.EQUIP_PIECE_12.get(),
                 ModItems.EQUIP_PIECE_13.get());
     }
 

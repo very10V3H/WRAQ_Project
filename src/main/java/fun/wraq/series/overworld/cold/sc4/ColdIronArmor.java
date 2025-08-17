@@ -2,6 +2,8 @@ package fun.wraq.series.overworld.cold.sc4;
 
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
@@ -17,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColdIronArmor extends WraqArmor {
+public class ColdIronArmor extends WraqArmor implements ForgeItem {
 
     public final int tier;
 
@@ -95,5 +97,12 @@ public class ColdIronArmor extends WraqArmor {
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfSuperCold();
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 }
