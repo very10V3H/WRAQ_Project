@@ -459,7 +459,7 @@ public class ClientPlayerTickEvent {
     private static Vec3 windVec = Vec3.ZERO;
 
     private static void windLand(Player player) {
-        if (player.level().dimension().equals(Level.OVERWORLD)
+        if (!player.isCreative() && player.level().dimension().equals(Level.OVERWORLD)
                 && player.position().distanceTo(new Vec3(1813, 159, -1553)) < 100) {
             if (player.tickCount % 100 == 0) {
                 Random random = new Random();

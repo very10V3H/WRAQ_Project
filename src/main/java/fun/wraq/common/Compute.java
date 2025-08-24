@@ -1079,9 +1079,6 @@ public class Compute {
         if (stopSummon) {
             return;
         }
-        if (ParticleProvider.stop()) {
-            return;
-        }
         if (Utils.valueItemEntity.size() > 100) {
             for (int i = 0; i < 50; i++) {
                 ItemEntityAndResetTime itemEntityAndResetTime = Utils.valueItemEntity.poll();

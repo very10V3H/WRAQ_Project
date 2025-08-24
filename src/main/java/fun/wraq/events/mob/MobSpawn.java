@@ -1,5 +1,6 @@
 package fun.wraq.events.mob;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
@@ -203,6 +204,11 @@ public class MobSpawn {
         overWolrdList.add(MapleHunterSpawnController.getInstance(overWorld));
         overWolrdList.add(SuperColdIronGolemSpawnController.getInstance(overWorld));
         overWolrdList.add(SuperColdSnowGolemSpawnController.getInstance(overWorld));
+        overWolrdList.forEach(mobSpawnController -> {
+            if (mobSpawnController.level != overWorld) {
+                mobSpawnController.level = overWorld;
+            }
+        });
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();
@@ -212,6 +218,11 @@ public class MobSpawn {
         netherList.add(NetherSkeletonSpawnController.getInstance(nether));
         netherList.add(MagmaSpawnController.getInstance(nether));
         netherList.add(PiglinSpawnController.getInstance(nether));
+        netherList.forEach(mobSpawnController -> {
+            if (mobSpawnController.level != nether) {
+                mobSpawnController.level = nether;
+            }
+        });
     }
 
     public static List<MobSpawnController> endList = new ArrayList<>();
@@ -220,6 +231,11 @@ public class MobSpawn {
         endList.add(EnderManSpawnController.getInstance(end));
         endList.add(EndermiteSpawnController.getInstance(end));
         endList.add(ShulkerSpawnController.getInstance(end));
+        endList.forEach(mobSpawnController -> {
+            if (mobSpawnController.level != end) {
+                mobSpawnController.level = end;
+            }
+        });
     }
 
     public static List<MobSpawnController> getAllControllers(boolean isServer) {
@@ -266,19 +282,24 @@ public class MobSpawn {
         return mobNameMap;
     }
 
-    public static void removeAllMob() {
+    public static void onServerStop() {
+        LogUtils.getLogger().info("Remove all mobs.");
         overWolrdList.forEach(mobSpawnController -> {
             mobSpawnController.mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
             mobSpawnController.mobList.clear();
         });
+        overWolrdList.clear();
         netherList.forEach(mobSpawnController -> {
             mobSpawnController.mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
             mobSpawnController.mobList.clear();
         });
+        netherList.clear();
         endList.forEach(mobSpawnController -> {
             mobSpawnController.mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
             mobSpawnController.mobList.clear();
         });
+        endList.clear();
+        LogUtils.getLogger().info("done.");
     }
 
     public static void setMobDropList(Mob mob, List<ItemAndRate> list) {

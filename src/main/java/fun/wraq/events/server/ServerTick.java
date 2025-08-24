@@ -50,13 +50,8 @@ public class ServerTick {
             }
 
             if (tickCount % 6000 == 3288) {
-                ThreadPools.dataExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        MarketInfo.marketItemInfoWrite(event.getServer().overworld());
-                        MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
-                    }
-                });
+                MarketInfo.marketItemInfoWrite(event.getServer().overworld());
+                MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
             }
 
             NewLotteries.setCurrentLotteryLoots(Calendar.getInstance().get(Calendar.DAY_OF_YEAR));

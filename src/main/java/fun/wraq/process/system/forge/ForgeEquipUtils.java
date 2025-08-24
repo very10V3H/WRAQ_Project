@@ -83,6 +83,7 @@ public class ForgeEquipUtils {
         put(NORTH_VILLAGE, NORTH_VILLAGE_NAME);
         put(POLAR_COLD_VILLAGE, POLAR_COLD_VILLAGE_NAME);
         put(SUN_ISLAND, SUN_ISLAND_NAME);
+        put(WIND_LAND, WIND_LAND_NAME);
     }};
 
     public static void setZoneForgeItemListMap() {

@@ -34,7 +34,7 @@ public abstract class MobSpawnController {
     public final int boundaryDownX;
     public final int boundaryDownY;
     public final int boundaryDownZ;
-    public final Level level;
+    public Level level;
     public final int mobPlayerRate;
     public final int averageLevel;
     public final int detectionRange;

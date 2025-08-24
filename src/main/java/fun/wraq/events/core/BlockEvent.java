@@ -383,6 +383,7 @@ public class BlockEvent {
     }
 
     public static void netherMineReset(Level level) {
+        LogUtils.getLogger().info("Resetting nether mine.");
         if (Utils.netherMineList.peek() != null) {
             Queue<BlockAndResetTime> queue = Utils.netherMineList;
             while (queue.peek() != null) {
@@ -391,6 +392,7 @@ public class BlockEvent {
                 Utils.posEvenBeenDigOrPlace.remove(blockAndResetTime.getBlockPos());
             }
         }
+        LogUtils.getLogger().info("done.");
     }
 
     public static void mineAndWoodReset(Level level) {
@@ -435,6 +437,7 @@ public class BlockEvent {
                 }
             }
         });
+        LogUtils.getLogger().info("done.");
     }
 
     @SubscribeEvent

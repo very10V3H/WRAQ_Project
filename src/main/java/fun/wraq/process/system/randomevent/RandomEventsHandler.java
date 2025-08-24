@@ -42,11 +42,25 @@ public class RandomEventsHandler {
         randomEvents.addAll(getDigBlockEvents());
     }
 
+    public static void removeRandomEvents() {
+        randomEvents.clear();
+        killMobEvents.clear();
+        urgentEvents.clear();
+        digBlockEvents.clear();
+    }
+
     public static List<RandomEvent> getRandomEvents() {
         if (randomEvents.isEmpty()) {
             initRandomEvents();
         }
         return randomEvents;
+    }
+
+    public static void onServerStop() {
+        for (RandomEvent randomEvent : getRandomEvents()) {
+            randomEvent.reset();
+        }
+        RandomEventsHandler.removeRandomEvents();
     }
 
     public static List<KillMobEvent> killMobEvents = new ArrayList<>();

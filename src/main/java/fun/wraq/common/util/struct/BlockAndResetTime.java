@@ -1,5 +1,6 @@
 package fun.wraq.common.util.struct;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.common.fast.Tick;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -70,6 +71,7 @@ public class BlockAndResetTime {
     }
 
     public static void onServerStop() {
+        LogUtils.getLogger().info("Resetting block state.");
         setMap.forEach((key, value) -> {
             if (value != null) {
                 value.forEach(blockAndResetTime -> {
@@ -77,5 +79,6 @@ public class BlockAndResetTime {
                 });
             }
         });
+        LogUtils.getLogger().info("done.");
     }
 }

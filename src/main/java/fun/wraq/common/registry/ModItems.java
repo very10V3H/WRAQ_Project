@@ -2791,7 +2791,7 @@ public class ModItems {
                 add(new ItemStack(NOTE_PAPER.get(), 96));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
                 add(new ItemStack(REVELATION_BOOK.get(), 16));
-                add(new ItemStack(WORLD_SOUL_5.get(), 80));
+                add(new ItemStack(WORLD_SOUL_5.get(), 120));
             }}));
 
     public static final RegistryObject<Item> SUPPLY_BOX_TIER_3 = ITEMS.register("supply_box_tier_3",
@@ -2801,7 +2801,7 @@ public class ModItems {
                 add(new ItemStack(NOTE_PAPER.get(), 128));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 4));
                 add(new ItemStack(REVELATION_BOOK.get(), 32));
-                add(new ItemStack(WORLD_SOUL_5.get(), 200));
+                add(new ItemStack(WORLD_SOUL_5.get(), 240));
             }}));
 
     public static final RegistryObject<Item> SENIOR_POTION_SUPPLY = ITEMS.register("senior_potion_supply",

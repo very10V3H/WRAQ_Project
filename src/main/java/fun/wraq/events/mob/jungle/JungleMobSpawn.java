@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.jungle;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonSpawnController;
 import fun.wraq.series.overworld.cold.sc5.dragon.SimulateIceDragonSpawnController;
 import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob0SpawnController;
@@ -62,9 +63,12 @@ public class JungleMobSpawn {
         return 1;
     }
 
-    public static void removeAllMobs() {
+    public static void onServerStop() {
+        LogUtils.getLogger().info("Remove all mobs.");
         getOverworldController().forEach(controller -> {
             controller.mobs.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         });
+        overworldController.clear();
+        LogUtils.getLogger().info("done.");
     }
 }

@@ -16,12 +16,12 @@ import java.util.List;
 public class IceHolyCrest extends IceHolyCurio {
 
     public final int tier;
-    public static final double[] rate = new double[]{0.02, 0.04, 0.06, 0.1};
+    public static final double[] rate = new double[]{0.02, 0.04, 0.06, 0.12};
 
     public IceHolyCrest(int tier) {
         super(tier);
         this.tier = tier;
-        Utils.defencePenetration0.put(this, new double[]{10, 20, 30, 50}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{10, 20, 30, 60}[tier]);
     }
 
     @Override

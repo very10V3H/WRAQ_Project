@@ -723,7 +723,7 @@ public class TradeListNew {
                         new ItemStack(WindItems.WIND_CRYSTAL_1.get(), 64),
                         new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 32),
                         new ItemStack(WindItems.WIND_RUNE.get(), 48),
-                        new ItemStack(CrystalItems.GREEN_CRYSTAL_P.get())));
+                        new ItemStack(CrystalItems.GREEN_CRYSTAL_PP.get())));
 
         TradeList.tradeRecipeMap.put(windBoots1,
                 List.of(new ItemStack(WindItems.WIND_BOOTS_0.get(), 1),
@@ -738,6 +738,6 @@ public class TradeListNew {
                         new ItemStack(WindItems.WIND_CRYSTAL_1.get(), 64),
                         new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 32),
                         new ItemStack(WindItems.WIND_RUNE.get(), 48),
-                        new ItemStack(CrystalItems.GREEN_CRYSTAL_P.get())));
+                        new ItemStack(CrystalItems.GREEN_CRYSTAL_PP.get())));
     }
 }

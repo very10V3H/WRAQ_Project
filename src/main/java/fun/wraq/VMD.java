@@ -24,7 +24,6 @@ import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.jungle.JungleMobSpawn;
-import fun.wraq.events.server.ThreadPools;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.element.ElementItems;
@@ -40,8 +39,8 @@ import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.pet.dev.PetScreen;
 import fun.wraq.process.system.profession.smith.SmithItems;
-import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
@@ -105,8 +104,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Map;
 
 @Mod(Utils.MOD_ID)
@@ -170,7 +167,7 @@ public class VMD {
     }
 
     @SubscribeEvent
-    public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
+    public static void serverStartEvent(ServerStartingEvent event) throws CommandSyntaxException {
         Tick.server = event.getServer();
         RandomEventsHandler.server = event.getServer();
         MarketInfo.marketItemInfoRead(event.getServer().overworld());
@@ -178,12 +175,13 @@ public class VMD {
     }
 
     @SubscribeEvent
-    public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
+    public static void serverStopEvent(ServerStoppingEvent event) {
+        LogUtils.getLogger().info("VMD stopping event start.");
         BlockEvent.mineAndWoodReset(event.getServer().overworld());
         BlockEvent.netherMineReset(event.getServer().getLevel(Level.NETHER));
-        MobSpawn.removeAllMob();
-        JungleMobSpawn.removeAllMobs();
-        RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
+        MobSpawn.onServerStop();
+        JungleMobSpawn.onServerStop();
+        RandomEventsHandler.onServerStop();
         DailyEndlessInstanceEvent.onServerStop();
         AllayPet.onServerStop();
         Summer2025.onServerStop();
@@ -193,8 +191,8 @@ public class VMD {
         BlockAndResetTime.onServerStop();
         NoTeamInstanceModule.reset();
         NewTeamInstanceHandler.getInstances().forEach(NewTeamInstance::clear);
-        LogUtils.getLogger().info("Database connection closed");
-        ThreadPools.dataExecutor.shutdown();
+        SkillV2.playerSkillV2AllowReleaseTickMap.clear();
+        LogUtils.getLogger().info("VMD stopping event done.");
     }
 
     private void commonStart(FMLCommonSetupEvent event) {

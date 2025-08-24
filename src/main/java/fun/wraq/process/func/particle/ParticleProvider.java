@@ -8,7 +8,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
 import fun.wraq.process.func.particle.packets.*;
-import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -35,7 +34,7 @@ import static java.lang.Math.*;
 public class ParticleProvider {
 
     public static boolean stop() {
-        return Summer2025.eventIsRunning;
+        return false;
     }
 
     public static void createSingleParticleToNearPlayer(Player player, Level level, Vec3 pos, ParticleOptions particleOptions) {

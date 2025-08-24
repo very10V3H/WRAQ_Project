@@ -18,7 +18,7 @@ public class IceHolySword extends IceHolyCurio {
 
     public final boolean isAttack;
     public final int tier;
-    public static final double[] rate = new double[]{0.02, 0.04, 0.06, 0.1};
+    public static final double[] rate = new double[]{0.02, 0.04, 0.06, 0.12};
 
     public IceHolySword(int tier, boolean isAttack) {
         super(tier);
