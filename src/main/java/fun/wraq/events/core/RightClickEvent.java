@@ -8,6 +8,7 @@ import fun.wraq.items.misc.PocketItem;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
+import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -47,7 +48,7 @@ public class RightClickEvent {
                 event.setCanceled(true);
             }
         }
-        if (disallowToRightClickItems.contains(event.getItemStack().getItem()) && !player.isCreative()) {
+        if (getDisallowToRightClickItems().contains(event.getItemStack().getItem()) && !player.isCreative()) {
             event.setCanceled(true);
         }
         // 需要判断当前与哪个手的物品上交互，否则将会执行两次
@@ -81,48 +82,56 @@ public class RightClickEvent {
         }
     }
 
-    public static Set<Item> disallowToRightClickItems = Set.of(
-            Items.WATER_BUCKET,
-            Items.BUCKET,
-            Items.LAVA_BUCKET,
-            Items.POWDER_SNOW_BUCKET,
-            Items.FLINT_AND_STEEL,
-            Items.DIAMOND_HOE,
-            Items.IRON_HOE,
-            Items.GOLDEN_HOE,
-            Items.NETHERITE_HOE,
-            Items.STONE_HOE,
-            Items.WOODEN_HOE,
-            Items.DIAMOND_SHOVEL,
-            Items.IRON_SHOVEL,
-            Items.GOLDEN_SHOVEL,
-            Items.NETHERITE_SHOVEL,
-            Items.STONE_SHOVEL,
-            Items.WOODEN_SHOVEL,
-            Items.DIAMOND_AXE,
-            Items.IRON_AXE,
-            Items.GOLDEN_AXE,
-            Items.NETHERITE_AXE,
-            Items.STONE_AXE,
-            Items.WOODEN_AXE,
-            Items.SAND,
-            Items.RED_SAND,
-            Items.GRAVEL,
-            Items.TNT,
-            Items.REDSTONE,
-            Items.REDSTONE_TORCH,
-            Items.RAIL,
-            Items.ACTIVATOR_RAIL,
-            Items.DETECTOR_RAIL,
-            Items.POWERED_RAIL,
-            Items.REDSTONE_BLOCK,
-            Items.REPEATER,
-            Items.COMPARATOR,
-            Items.PISTON,
-            Items.STICKY_PISTON,
-            Items.OBSERVER,
-            Items.HOPPER,
-            Items.DISPENSER,
-            Items.DROPPER
-    );
+    public static Set<Item> disallowToRightClickItems;
+
+    public static Set<Item> getDisallowToRightClickItems() {
+        if (disallowToRightClickItems == null) {
+            disallowToRightClickItems = Set.of(
+                    Items.WATER_BUCKET,
+                    Items.BUCKET,
+                    Items.LAVA_BUCKET,
+                    Items.POWDER_SNOW_BUCKET,
+                    Items.FLINT_AND_STEEL,
+                    Items.DIAMOND_HOE,
+                    Items.IRON_HOE,
+                    Items.GOLDEN_HOE,
+                    Items.NETHERITE_HOE,
+                    Items.STONE_HOE,
+                    Items.WOODEN_HOE,
+                    Items.DIAMOND_SHOVEL,
+                    Items.IRON_SHOVEL,
+                    Items.GOLDEN_SHOVEL,
+                    Items.NETHERITE_SHOVEL,
+                    Items.STONE_SHOVEL,
+                    Items.WOODEN_SHOVEL,
+                    Items.DIAMOND_AXE,
+                    Items.IRON_AXE,
+                    Items.GOLDEN_AXE,
+                    Items.NETHERITE_AXE,
+                    Items.STONE_AXE,
+                    Items.WOODEN_AXE,
+                    Items.SAND,
+                    Items.RED_SAND,
+                    Items.GRAVEL,
+                    Items.TNT,
+                    Items.REDSTONE,
+                    Items.REDSTONE_TORCH,
+                    Items.RAIL,
+                    Items.ACTIVATOR_RAIL,
+                    Items.DETECTOR_RAIL,
+                    Items.POWERED_RAIL,
+                    Items.REDSTONE_BLOCK,
+                    Items.REPEATER,
+                    Items.COMPARATOR,
+                    Items.PISTON,
+                    Items.STICKY_PISTON,
+                    Items.OBSERVER,
+                    Items.HOPPER,
+                    Items.DISPENSER,
+                    Items.DROPPER,
+                    CRItems.CHIEFTAIN_CRAB_BUCKET.get()
+            );
+        }
+        return disallowToRightClickItems;
+    }
 }

@@ -19,6 +19,7 @@ import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -33,7 +34,7 @@ public class ModCreativeModeTab {
             = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Utils.MOD_ID);
     public static RegistryObject<CreativeModeTab> WEAPON_TAB = CREATIVE_MODE_TAB.register("aa_wraq_a_weapon",
             () -> CreativeModeTab.builder().icon(
-                    () -> new ItemStack(ModItems.KAZE_SWORD_3.get())).title(Component.literal("维瑞阿契 | 武器")).build());
+                    () -> new ItemStack(WindItems.WIND_SWORD_3.get())).title(Component.literal("维瑞阿契 | 武器")).build());
     public static RegistryObject<CreativeModeTab> ARMOR_TAB = CREATIVE_MODE_TAB.register("aa_wraq_b_armor",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.NETHER_HELMET.get())).title(Component.literal("维瑞阿契 | 护甲")).build());

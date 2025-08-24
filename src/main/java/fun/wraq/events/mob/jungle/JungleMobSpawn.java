@@ -5,6 +5,7 @@ import fun.wraq.series.overworld.cold.sc5.dragon.SimulateIceDragonSpawnControlle
 import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob0SpawnController;
 import fun.wraq.series.overworld.divine.mob.jungle.DivineJungleMob1SpawnController;
 import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderKingSpawnController;
+import fun.wraq.series.overworld.wind.mob.WindJungleMob0SpawnController;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +28,7 @@ public class JungleMobSpawn {
             overworldController.add(StoneSpiderKingSpawnController.getInstance());
             overworldController.add(IceDragonSpawnController.getInstance());
             overworldController.add(SimulateIceDragonSpawnController.getInstance());
+            overworldController.add(WindJungleMob0SpawnController.getInstance());
         }
         return overworldController;
     }

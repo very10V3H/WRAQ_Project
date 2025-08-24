@@ -13,6 +13,7 @@ import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -304,7 +305,7 @@ public enum SmeltRecipe {
             60),
     QUIVER_PENETRATION0_0(Te.s(ComsumableItems.QUIVER_PENETRATION0_0.get()),
             List.of(new ItemStack(C7Items.VD_SOUL.get(), 30),
-                    new ItemStack(ModItems.KAZE_SOUL.get(), 240),
+                    new ItemStack(WindItems.WIND_SOUL.get(), 240),
                     new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 5)),
             List.of(new ItemStack(ComsumableItems.QUIVER_PENETRATION0_0.get())),
             List.of(new ItemAndRate(new ItemStack(ComsumableItems.QUIVER_PENETRATION0_0.get()), 0.25)),

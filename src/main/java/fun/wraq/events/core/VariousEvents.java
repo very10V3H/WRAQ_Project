@@ -175,21 +175,31 @@ public class VariousEvents {
                 dropped = false;
             }
             if (Utils.weaponList.contains(item)) {
-                event.getPlayer().addItem(stack);
+                InventoryOperation.giveItemStack(player, stack);
+                event.setCanceled(true);
+                dropped = false;
+                if (player.getInventory().getFreeSlot() == -1) {
+                    Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                            Te.s("你的背包已经满了，武器将掉落在地上."));
+                    MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
+                } else {
+                    Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                            Te.s("为防止武器意外丢失，禁用了武器的丢弃."));
+                }
+            }
+            if (Utils.customizedList.contains(item)) {
+                InventoryOperation.giveItemStack(player, stack);
                 event.setCanceled(true);
                 dropped = false;
                 Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
-                        Te.s("为防止武器意外丢失，禁用了武器的丢弃。"));
-            }
-            if (Utils.customizedList.contains(item)) {
-                event.getPlayer().addItem(stack);
-                event.setCanceled(true);
-                dropped = false;
+                        Te.s("无法丢弃因子."));
             }
             if (item.toString().contains("backpack") && !player.isCreative()) {
                 event.getPlayer().addItem(stack);
                 event.setCanceled(true);
                 dropped = false;
+                Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                        Te.s("无法丢弃背包."));
             }
             if (dropped) {
                 Security.recordToss(player.getName().getString(), stack);

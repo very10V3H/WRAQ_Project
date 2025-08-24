@@ -13,6 +13,7 @@ import fun.wraq.series.events.summer2025.Summer2025StoreRecipe;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonTpUtil;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Style;
@@ -67,6 +68,7 @@ public class TradeListNew {
         iceDragon();
         IceDragonTpUtil.setVillagerData();
         Summer2025StoreRecipe.setVillagerTradeRecipe();
+        windEquip();
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -691,5 +693,51 @@ public class TradeListNew {
                 List.of(new ItemStack(SuperColdItems.SUPER_COLD_STONE.get(), 1)));
         TradeList.tradeRecipeMap.put(blueCrystal,
                 List.of(new ItemStack(SuperColdItems.SUPER_COLD_DRAGON_LOTTERY.get())));
+    }
+
+    public static void windEquip() {
+        ItemStack windSword1 = new ItemStack(WindItems.WIND_SWORD_1.get());
+        ItemStack windSword2 = new ItemStack(WindItems.WIND_SWORD_2.get());
+        ItemStack windSword3 = new ItemStack(WindItems.WIND_SWORD_3.get());
+        ItemStack windBoots1 = new ItemStack(WindItems.WIND_BOOTS_1.get());
+        ItemStack windBoots2 = new ItemStack(WindItems.WIND_BOOTS_2.get());
+        ItemStack windBoots3 = new ItemStack(WindItems.WIND_BOOTS_3.get());
+
+        List<ItemStack> stacks = List.of(
+                windSword1, windSword2, windSword3,
+                windBoots1, windBoots2, windBoots3
+        );
+        MyVillagerData.setMyVillagerData("风之高地驻场", "windEquip",
+                CustomStyle.styleOfWind, VillagerType.PLAINS, VillagerProfession.WEAPONSMITH, stacks);
+
+        TradeList.tradeRecipeMap.put(windSword1,
+                List.of(new ItemStack(WindItems.WIND_SWORD_0.get(), 1),
+                        new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 20),
+                        new ItemStack(WindItems.WIND_RUNE.get(), 20)));
+        TradeList.tradeRecipeMap.put(windSword2,
+                List.of(new ItemStack(WindItems.WIND_SWORD_1.get(), 1),
+                        new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 24),
+                        new ItemStack(WindItems.WIND_RUNE.get(), 32)));
+        TradeList.tradeRecipeMap.put(windSword3,
+                List.of(new ItemStack(WindItems.WIND_SWORD_2.get(), 1),
+                        new ItemStack(WindItems.WIND_CRYSTAL_1.get(), 64),
+                        new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 32),
+                        new ItemStack(WindItems.WIND_RUNE.get(), 48),
+                        new ItemStack(CrystalItems.GREEN_CRYSTAL_P.get())));
+
+        TradeList.tradeRecipeMap.put(windBoots1,
+                List.of(new ItemStack(WindItems.WIND_BOOTS_0.get(), 1),
+                        new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 20),
+                        new ItemStack(WindItems.WIND_RUNE.get(), 20)));
+        TradeList.tradeRecipeMap.put(windBoots2,
+                List.of(new ItemStack(WindItems.WIND_BOOTS_1.get(), 1),
+                        new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 24),
+                        new ItemStack(WindItems.WIND_RUNE.get(), 32)));
+        TradeList.tradeRecipeMap.put(windBoots3,
+                List.of(new ItemStack(WindItems.WIND_BOOTS_2.get(), 1),
+                        new ItemStack(WindItems.WIND_CRYSTAL_1.get(), 64),
+                        new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 32),
+                        new ItemStack(WindItems.WIND_RUNE.get(), 48),
+                        new ItemStack(CrystalItems.GREEN_CRYSTAL_P.get())));
     }
 }

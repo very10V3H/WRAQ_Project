@@ -30,18 +30,18 @@ public class PlainZombieSpawnController extends MobSpawnController {
     public static PlainZombieSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(688, 80, 262),
-                    new Vec3(703, 81, 275),
-                    new Vec3(714, 79, 257),
-                    new Vec3(729, 80, 272),
-                    new Vec3(740, 78, 254),
-                    new Vec3(750, 79, 270),
-                    new Vec3(761, 78, 256),
-                    new Vec3(772, 78, 2),
-                    new Vec3(787, 77, 279),
-                    new Vec3(823, 79, 265)
+                    new Vec3(812, 81, 172),
+                    new Vec3(822, 82, 185),
+                    new Vec3(934, 82, 177),
+                    new Vec3(831, 82, 198),
+                    new Vec3(854, 83, 171),
+                    new Vec3(851, 82, 185),
+                    new Vec3(866, 81, 151),
+                    new Vec3(879, 80, 161),
+                    new Vec3(888, 80, 176),
+                    new Vec3(870, 81, 195)
             );
-            instance = new PlainZombieSpawnController(spawnPos, 850, 290, 666, 235, world, 4);
+            instance = new PlainZombieSpawnController(spawnPos, 902, 206, 795, 129, world, 4);
         }
         return instance;
     }

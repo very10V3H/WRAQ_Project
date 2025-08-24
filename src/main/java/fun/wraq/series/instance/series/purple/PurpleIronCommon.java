@@ -20,8 +20,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.*;
 
@@ -55,22 +53,12 @@ public interface PurpleIronCommon {
         if (nextAllowTrigTick.getOrDefault(player, 0) < Tick.get()) {
             BlockPos blockPos = mob.blockPosition().above();
             Level level = mob.level();
-            if (level.getBlockState(blockPos).getBlock().equals(Blocks.AIR)) {
-                // 允许生成
-                nextAllowTrigTick.put(player, Tick.get() + 600);
-                player.getCooldowns().addCooldown(item, 600);
-
-                // 生成
-                while (level.getBlockState(blockPos.below()).is(Blocks.AIR)) {
-                    blockPos = blockPos.below();
-                }
-                blockInfoList.add(new BlockInfo(blockPos, player, level,
-                        Tick.get() + 600, ((PurpleIronCommon) item).getPassiveTier()));
-                blockPosSet.add(blockPos);
-                level.setBlockAndUpdate(blockPos, Blocks.AMETHYST_CLUSTER.defaultBlockState());
-
-                MySound.soundToNearPlayer(level, blockPos.getCenter(), SoundEvents.AMETHYST_CLUSTER_PLACE);
-            }
+            nextAllowTrigTick.put(player, Tick.get() + 600);
+            player.getCooldowns().addCooldown(item, 600);
+            blockInfoList.add(new BlockInfo(blockPos, player, level,
+                    Tick.get() + 600, ((PurpleIronCommon) item).getPassiveTier()));
+            blockPosSet.add(blockPos);
+            MySound.soundToNearPlayer(level, blockPos.getCenter(), SoundEvents.AMETHYST_CLUSTER_PLACE);
         }
     }
 
@@ -79,7 +67,6 @@ public interface PurpleIronCommon {
         blockInfoList.forEach(info -> {
             // 应当摧毁
             if (info.lifeEndTick < Tick.get()) {
-                info.level.destroyBlock(info.blockPos, false);
                 removeList.add(info);
             } else {
                 // 对怪物造成伤害
@@ -88,7 +75,6 @@ public interface PurpleIronCommon {
                         .forEach(mob -> {
                             Damage.causeAutoAdaptionRateDamageToMob(info.creator, mob, effect[info.tier], false);
                         });
-
                 // 对玩家带来增益
                 Compute.getNearEntity(info.level, info.blockPos.getCenter(), Player.class, 6)
                         .stream().map(entity -> (Player) entity)
@@ -108,30 +94,5 @@ public interface PurpleIronCommon {
             blockPosSet.remove(info.blockPos);
         });
         blockInfoList.removeAll(removeList);
-    }
-
-    static void handlePlayerTick(Player player) {
-        int radius = 5;
-        Level level = player.level();
-        for (int i = player.getBlockX() - radius; i <= player.getBlockX() + radius; i ++) {
-            for (int j = player.getBlockY() - radius; j <= player.getBlockY() + radius; j ++) {
-                for (int k = player.getBlockZ() - radius; k <= player.getBlockZ() + radius; k ++) {
-                    BlockPos blockPos = new BlockPos(i, j, k);
-                    if (!blockPosSet.contains(blockPos)) {
-                        BlockState blockState = level.getBlockState(blockPos);
-                        if (blockState.is(Blocks.AMETHYST_CLUSTER)) {
-                            level.destroyBlock(blockPos, false);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    static void destroyOnServerStop() {
-        blockInfoList.forEach(info -> {
-            info.level.destroyBlock(info.blockPos, false);
-        });
-        blockInfoList.clear();
     }
 }

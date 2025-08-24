@@ -82,8 +82,8 @@ public class EvokerMasterSpawnController extends JungleMobSpawnController {
     public List<ItemAndRate> getRewardItemList() {
         return List.of(
                 new ItemAndRate(ModItems.EVOKER_SOUL.get(), 16),
-                new ItemAndRate(ModItems.SILVER_COIN.get(), 8),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 1),
+                new ItemAndRate(ModItems.GOLD_COIN.get(), 1),
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 3),
                 new ItemAndRate(ModItems.LIGHTNING_ELEMENT_PIECE_0.get(), 4),
                 new ItemAndRate(NewRuneItems.EVOKER_NEW_RUNE.get(), 0.02)
         );

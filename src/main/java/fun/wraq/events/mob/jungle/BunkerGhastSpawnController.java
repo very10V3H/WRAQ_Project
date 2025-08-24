@@ -74,8 +74,8 @@ public class BunkerGhastSpawnController extends JungleMobSpawnController {
     public List<ItemAndRate> getRewardItemList() {
         return List.of(
                 new ItemAndRate(new ItemStack(BunkerItems.BUNKER_SOUL.get(), 6), 1),
-                new ItemAndRate(new ItemStack(ModItems.GOLD_COIN.get(), 2), 1),
-                new ItemAndRate(new ItemStack(ModItems.GEM_PIECE.get(), 1), 1),
+                new ItemAndRate(ModItems.GOLD_COIN.get(), 1),
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 3),
                 new ItemAndRate(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 8), 1),
                 new ItemAndRate(BunkerItems.BUNKER_HELMET_0.get(), 0.0015),
                 new ItemAndRate(BunkerItems.BUNKER_CHEST_0.get(), 0.0015),

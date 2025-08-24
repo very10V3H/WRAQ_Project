@@ -200,7 +200,8 @@ public class MySeason {
     }
 
     public static void tick(TickEvent.LevelTickEvent event) {
-        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
+        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
+                && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             if (MySeason.currentSeason == null) {
                 SeasonSavedData seasonData = SeasonHandler.getSeasonSavedData(event.level);
                 SeasonTime time = new SeasonTime(seasonData.seasonCycleTicks);
@@ -210,7 +211,11 @@ public class MySeason {
                 List<Component> components = MySeason.getElementEffectContent(currentSeason);
                 if (components != null) {
                     List<ServerPlayer> playerList = event.level.getServer().getPlayerList().getPlayers();
-                    playerList.forEach(MySeason::sendElementEffectInfoToPlayer);
+                    playerList.forEach(serverPlayer -> {
+                        if (serverPlayer.experienceLevel < 200) {
+                            MySeason.sendElementEffectInfoToPlayer(serverPlayer);
+                        }
+                    });
                 }
             }
             int tick = Tick.get();

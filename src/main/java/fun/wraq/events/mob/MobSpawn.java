@@ -68,6 +68,7 @@ import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnControlle
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
+import fun.wraq.series.overworld.wind.mob.WindSkeletonSpawnController;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -163,7 +164,6 @@ public class MobSpawn {
         overWolrdList.add(LightningZombieController.getInstance(overWorld));
         overWolrdList.add(WindSkeletonSpawnController.getInstance(overWorld));
         overWolrdList.add(SlimeSpawnController.getInstance(overWorld));
-        overWolrdList.add(JorogumoSpawnController.getInstance(overWorld));
         overWolrdList.add(SnowStraySpawnController.getInstance(overWorld));
         overWolrdList.add(SakuraMobSpawnController.getInstance(overWorld));
         overWolrdList.add(SakuraMob2SpawnController.getInstance(overWorld));

@@ -10,6 +10,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -345,13 +346,6 @@ public class ForgeRecipe {
 
         recipes.put(ModItems.HUSK_SWORD_0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.HUSK_RUNE.get(), 16));
-            add(new ItemStack(ModItems.GOLD_COIN.get(), 128));
-            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
-            add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));
-        }});
-
-        recipes.put(ModItems.KAZE_SWORD_0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.KAZE_RUNE.get(), 8));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 128));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 1));

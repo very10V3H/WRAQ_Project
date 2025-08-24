@@ -63,6 +63,8 @@ import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
+import fun.wraq.series.overworld.wind.mob.WindBossInstance;
+import fun.wraq.series.overworld.wind.mob.WindJungleMob0SpawnController;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -619,6 +621,8 @@ public class Damage {
         put(DivineSentrySpawnController.mobName, 0.7);
         put(DivineGolemSpawnController.mobName, 1d);
         put(DivineBunnyInstance.mobName, 1.5);
+        put(WindJungleMob0SpawnController.MOB_NAME, 1d);
+        put(WindBossInstance.mobName, 1d);
     }};
 
     public static Map<String, Integer> nextAllowSendMSGTickMap = new HashMap<>();

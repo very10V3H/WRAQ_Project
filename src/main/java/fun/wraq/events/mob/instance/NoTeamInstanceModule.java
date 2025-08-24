@@ -21,6 +21,7 @@ import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBalanceInstance;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerInstance;
+import fun.wraq.series.overworld.wind.mob.WindBossInstance;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -106,6 +107,7 @@ public class NoTeamInstanceModule {
         add(BunkerInstance.getInstance());
         add(DivineBalanceInstance.getInstance());
         add(FrostInstance.getInstance());
+        add(WindBossInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{

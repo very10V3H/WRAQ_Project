@@ -5,10 +5,11 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.mob.chapter2.WindSkeletonSpawnController;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter2.dimension.ToEnd;
+import fun.wraq.series.overworld.wind.WindItems;
+import fun.wraq.series.overworld.wind.mob.WindSkeletonSpawnController;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -101,7 +102,7 @@ public class KazeRecallEvent {
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.ARMOR_KAZE_CHEST.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.ARMOR_KAZE_LEGGINGS.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.FEET, ModItems.ARMOR_KAZE_BOOTS.get().getDefaultInstance());
-                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.KAZE_SWORD_3.get().getDefaultInstance());
+                            Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.MAINHAND, WindItems.WIND_SWORD_3.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.KazeRecallSkeleton.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.KazeRecallSkeleton.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);
@@ -163,7 +164,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.KAZE_RUNE.get().getDefaultInstance();
+                                ItemStack itemStack = WindItems.WIND_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.giveItemStack(Utils.kazeRecall.recallPlayer, itemStack);
                             }

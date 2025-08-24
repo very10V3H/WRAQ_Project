@@ -2,6 +2,7 @@ package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
@@ -88,24 +89,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
 
-    public static Map<Player, Map<Map<Item, Double>, Double>> playerAttributeCache = new HashMap<>();
-    public static Map<Player, Map<Map<Item, Double>, Integer>> computeAttributeTick = new HashMap<>();
+    public static Map<String, Map<Map<Item, Double>, Double>> playerAttributeCache = new HashMap<>();
+    public static Map<String, Map<Map<Item, Double>, Integer>> computeAttributeTick = new HashMap<>();
 
     public static boolean canGetFromCache(Player player, Map<Item, Double> attribute) {
         if (player.getOffhandItem().getItem() instanceof ManageEquip) return true;
         // 初始化
         int tick = Tick.get();
-        if (!playerAttributeCache.containsKey(player)) {
-            playerAttributeCache.put(player, new HashMap<>());
+        String name = Name.get(player);
+        if (!playerAttributeCache.containsKey(name)) {
+            playerAttributeCache.put(name, new HashMap<>());
         }
-        if (!computeAttributeTick.containsKey(player)) {
-            computeAttributeTick.put(player, new HashMap<>());
+        if (!computeAttributeTick.containsKey(name)) {
+            computeAttributeTick.put(name, new HashMap<>());
         }
-        if (!computeAttributeTick.get(player).containsKey(attribute)) {
-            computeAttributeTick.get(player).put(attribute, 0);
+        if (!computeAttributeTick.get(name).containsKey(attribute)) {
+            computeAttributeTick.get(name).put(attribute, 0);
         }
 
-        Map<Map<Item, Double>, Integer> tickMap = computeAttributeTick.get(player);
+        Map<Map<Item, Double>, Integer> tickMap = computeAttributeTick.get(name);
         return tickMap.getOrDefault(attribute, 0) == tick;
     }
 
@@ -113,13 +115,13 @@ public class PlayerAttributes {
         if (player.getOffhandItem().getItem() instanceof ManageEquip) {
             return OpsAttributes.getValue(attribute, player);
         }
-        Map<Map<Item, Double>, Double> attributeMap = playerAttributeCache.get(player);
+        Map<Map<Item, Double>, Double> attributeMap = playerAttributeCache.get(Name.get(player));
         return attributeMap.get(attribute);
     }
 
     public static void writeToCache(Player player, Map<Item, Double> attribute, double value) {
-        Map<Map<Item, Double>, Integer> tickMap = computeAttributeTick.get(player);
-        Map<Map<Item, Double>, Double> attributeMap = playerAttributeCache.get(player);
+        Map<Map<Item, Double>, Integer> tickMap = computeAttributeTick.get(Name.get(player));
+        Map<Map<Item, Double>, Double> attributeMap = playerAttributeCache.get(Name.get(player));
         tickMap.put(attribute, Tick.get());
         attributeMap.put(attribute, value);
     }

@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '2.1.10d'
+version = '2.1.10e'
 group = 'com.very.vmd' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'vmd'
 
@@ -191,7 +191,7 @@ dependencies {
     implementation fg.deobf("curse.maven:serene-seasons-291874:4761603")
     implementation fg.deobf("curse.maven:sophisticated-backpacks-422301:4637294")
     implementation fg.deobf("curse.maven:create-328085:5838779")
-    implementation fg.deobf("curse.maven:armourers-workshop-229523:6232905")
+    implementation fg.deobf("curse.maven:armourers-workshop-229523:5327619")
     implementation fg.deobf("curse.maven:sophisticated-core-618298:4643717")
     implementation fg.deobf("curse.maven:xaeros-world-map-317780:6778091")
     implementation fg.deobf("curse.maven:xaeros-minimap-263420:6778028")
@@ -213,7 +213,6 @@ dependencies {
     implementation fg.deobf("curse.maven:lithostitched-936015:5095048")
     implementation fg.deobf("curse.maven:mrcrayfish-furniture-mod-55438:4602980")
     implementation fg.deobf("curse.maven:additional-lights-384991:4596807")
-    implementation fg.deobf("curse.maven:epic-samurais-848381:5216519")
     implementation fg.deobf("curse.maven:azurelib-817423:5330431")
     implementation fg.deobf("curse.maven:quark-243121:5346894")
     implementation fg.deobf("curse.maven:zeta-968868:5254672")

@@ -97,8 +97,8 @@ public class BlazePowerSpawnController extends JungleMobSpawnController {
     public List<ItemAndRate> getRewardItemList() {
         return List.of(
                 new ItemAndRate(ModItems.VOLCANO_SOUL.get(), 30),
-                new ItemAndRate(ModItems.SILVER_COIN.get(), 8),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 1),
+                new ItemAndRate(ModItems.GOLD_COIN.get(), 1),
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 3),
                 new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 4),
                 new ItemAndRate(NewRuneItems.VOLCANO_NEW_RUNE.get(), 0.02)
         );

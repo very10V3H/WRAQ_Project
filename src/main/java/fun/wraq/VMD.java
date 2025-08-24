@@ -69,7 +69,6 @@ import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
-import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -80,6 +79,7 @@ import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -150,6 +150,7 @@ public class VMD {
         SuperColdItems.ITEMS.register(modEvenBus);
         ComsumableItems.ITEMS.register(modEvenBus);
         SpecialEventItems.ITEMS.register(modEvenBus);
+        WindItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -188,7 +189,6 @@ public class VMD {
         Summer2025.onServerStop();
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
-        PurpleIronCommon.destroyOnServerStop();
         MushroomParasitismGem.clearItemEntity();
         BlockAndResetTime.onServerStop();
         NoTeamInstanceModule.reset();

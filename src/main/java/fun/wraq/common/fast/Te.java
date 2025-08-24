@@ -108,4 +108,12 @@ public class Te {
                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverContent));
         });
     }
+
+    public static String getPercent(double value) {
+        return String.format("%.0f%%", value * 100);
+    }
+
+    public static String getIntNum(double value) {
+        return String.format("%.0f", value);
+    }
 }

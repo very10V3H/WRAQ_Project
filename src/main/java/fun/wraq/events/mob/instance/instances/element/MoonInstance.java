@@ -156,12 +156,12 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.MOON_LOOT.get(), 1),
-                new ItemAndRate(GemItems.MOON_ATTACK_GEM.get(), 0.01),
-                new ItemAndRate(GemItems.MOON_MANA_GEM.get(), 0.01),
+        return List.of(new ItemAndRate(ModItems.MOON_LOOT.get(), 2),
+                new ItemAndRate(GemItems.MOON_ATTACK_GEM.get(), 0.02),
+                new ItemAndRate(GemItems.MOON_MANA_GEM.get(), 0.02),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1),
-                new ItemAndRate(NewRuneItems.MOON_NEW_RUNE.get(), 0.015));
+                new ItemAndRate(NewRuneItems.MOON_NEW_RUNE.get(), 0.03));
     }
 
     public static void Skill1(Mob AttackMob, Mob ManaMob, List<Player> playerList) {

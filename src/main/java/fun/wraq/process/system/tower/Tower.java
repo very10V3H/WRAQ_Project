@@ -1,12 +1,13 @@
 package fun.wraq.process.system.tower;
 
 import com.mojang.logging.LogUtils;
-import fun.wraq.items.m.BackSpawn;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.items.m.BackSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
@@ -129,12 +130,7 @@ public class Tower {
                         || tower.currentPlayer.position().x < tower.downBound.x
                         || tower.currentPlayer.position().y < tower.downBound.y
                         || tower.currentPlayer.position().z < tower.downBound.z) {
-                    towerTypeFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).
-                            append(tower.currentPlayer.getDisplayName()).
-                            append(Component.literal("在挑战 ").withStyle(ChatFormatting.WHITE)).
-                            append(Component.literal("本源回廊 - " + Tower.numToRoma[instanceList.indexOf(tower)]).withStyle(CustomStyle.styleOfWorld)).
-                            append(Component.literal(" 中离开挑战区域，挑战失败").withStyle(ChatFormatting.WHITE)));
-                    towerTypeFormatMSG(tower.currentPlayer, Component.literal("离开挑战区域").withStyle(ChatFormatting.WHITE));
+                    sendMSG(tower.currentPlayer, Te.s("离开了挑战区域."));
                     tower.reset();
                 }
 
@@ -167,12 +163,7 @@ public class Tower {
 
                 // 超时
                 if (tickCount - tower.startTime > 4800) {
-                    towerTypeFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).
-                            append(tower.currentPlayer.getDisplayName()).
-                            append(Component.literal("在挑战 ").withStyle(ChatFormatting.WHITE)).
-                            append(Component.literal("本源回廊 - " + Tower.numToRoma[instanceList.indexOf(tower)]).withStyle(CustomStyle.styleOfWorld)).
-                            append(Component.literal(" 中超时，挑战失败").withStyle(ChatFormatting.WHITE)));
-                    towerTypeFormatMSG(tower.currentPlayer, Component.literal("挑战超时").withStyle(ChatFormatting.WHITE));
+                    sendMSG(tower.currentPlayer, Component.literal("挑战超时").withStyle(ChatFormatting.WHITE));
                     tower.reset();
                 }
             }
@@ -219,36 +210,32 @@ public class Tower {
             putPlayerStatus(this.currentPlayer, stringBuilder.toString());
             ModNetworking.sendToClient(new TowerStatusS2CPacket(stringBuilder.toString()), (ServerPlayer) this.currentPlayer);
         }
-        Compute.formatBroad(this.currentPlayer.level(), Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld),
-                Component.literal("").withStyle(ChatFormatting.WHITE).
-                        append(this.currentPlayer.getDisplayName()).
-                        append(Component.literal(" 完成了 ").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("本源回廊 - " + Tower.numToRoma[instanceList.indexOf(this)]).withStyle(CustomStyle.styleOfWorld)).
-                        append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal(stage + "★").withStyle(CustomStyle.styleOfWorld)).
-                        append(Component.literal("挑战").withStyle(ChatFormatting.RED)));
+        Compute.sendFormatMSG(this.currentPlayer, Te.s("本源", CustomStyle.styleOfWorld),
+                Te.s(this.currentPlayer, " 完成了 ",
+                        "本源回廊 - " + Tower.numToRoma[instanceList.indexOf(this)], CustomStyle.styleOfWorld, " 的 ",
+                        stage + "★", CustomStyle.styleOfWorld, "挑战."));
     }
 
     public static void playerTryToChallenging(ServerPlayer serverPlayer, int index) throws SQLException {
         if (serverPlayer.position().distanceTo(BackSpawn.spawnPos) >= 512) {
-            towerTypeFormatMSG(serverPlayer, Component.literal("你需要在天空城附近才能进入本源回廊").withStyle(ChatFormatting.WHITE));
+            sendMSG(serverPlayer, Component.literal("你需要在天空城附近才能进入本源回廊").withStyle(ChatFormatting.WHITE));
             return;
         }
         Tower tower = instanceList.get(index);
         if (playerIsChallengingTower(serverPlayer) != -1) {
-            towerTypeFormatMSG(serverPlayer, Component.literal("请先完成已有挑战").withStyle(ChatFormatting.WHITE));
+            sendMSG(serverPlayer, Component.literal("请先完成已有挑战").withStyle(ChatFormatting.WHITE));
             return;
         }
         if (getPlayerStatus(serverPlayer, index) == 4) {
-            towerTypeFormatMSG(serverPlayer, Component.literal("您已完成本期挑战").withStyle(ChatFormatting.WHITE));
+            sendMSG(serverPlayer, Component.literal("您已完成本期挑战").withStyle(ChatFormatting.WHITE));
             return;
         }
         if (tower.isChallenging) {
-            towerTypeFormatMSG(serverPlayer, Component.literal("该回廊已有玩家在挑战").withStyle(ChatFormatting.WHITE));
+            sendMSG(serverPlayer, Component.literal("该回廊已有玩家在挑战").withStyle(ChatFormatting.WHITE));
             return;
         }
         if (serverPlayer.experienceLevel < Tower.levelRequire[index]) {
-            towerTypeFormatMSG(serverPlayer, Component.literal("等级未达到需求").withStyle(ChatFormatting.WHITE));
+            sendMSG(serverPlayer, Component.literal("等级未达到需求").withStyle(ChatFormatting.WHITE));
             return;
         }
 
@@ -267,15 +254,15 @@ public class Tower {
     public static String clientTowerStatus;
 
     public static void resetData(Player player) {
-        towerTypeFormatMSG(player, Component.literal("本源回廊的挑战进度已被重置").withStyle(CustomStyle.styleOfWorld));
+        sendMSG(player, Component.literal("本源回廊的挑战进度已被重置").withStyle(CustomStyle.styleOfWorld));
         putPlayerStatus(player, rewardGetRecordValue);
     }
 
-    public static void towerTypeFormatMSG(Player player, Component component) {
+    public static void sendMSG(Player player, Component component) {
         Compute.sendFormatMSG(player, Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld), component);
     }
 
-    public static void towerTypeFormatBroad(Level level, Component component) {
+    public static void broad(Level level, Component component) {
         Compute.formatBroad(level, Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld), component);
     }
 

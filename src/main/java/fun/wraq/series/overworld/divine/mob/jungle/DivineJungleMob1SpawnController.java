@@ -9,7 +9,6 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.jungle.JungleMobSpawnController;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -112,7 +111,7 @@ public class DivineJungleMob1SpawnController extends JungleMobSpawnController {
                 new ItemAndRate(DivineIslandItems.DIVINE_GEM_PIECE_1.get(), 0.5),
                 new ItemAndRate(DivineIslandItems.DIVINE_ARROW.get(), 1),
                 new ItemAndRate(ModItems.GOLD_COIN.get(), 1),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 1.1)
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 3)
         );
     }
 }

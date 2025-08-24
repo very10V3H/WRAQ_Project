@@ -312,10 +312,6 @@
   "item.vmd.snowrune1": "冰川符石-轻化寒击",
   "item.vmd.snowrune2": "冰川符石-凛冬之意",
   "item.vmd.snowrune3": "冰川符石-冰霜箭矢",
-  "item.vmd.kazesword0": "灵风",
-  "item.vmd.kazesword1": "灵风¹",
-  "item.vmd.kazesword2": "灵风²",
-  "item.vmd.kazesword3": "灵风³",
   "item.vmd.kazesoul": "狂风根源",
   "item.vmd.kazerune": "狂风意志",
   "item.vmd.kazesword_fg": "灵风锻造图",
@@ -2476,6 +2472,20 @@
   "item.vmd.mana_enhanced_curio_0": "一阶INF矩阵 - 梅林I&II",
 
   "item.vmd.college_senior_equip_ticket": "研院高等装备补给券",
+
+  "item.vmd.wind_crystal_0": "唤风聚晶",
+  "item.vmd.wind_crystal_1": "飓风聚晶",
+  "item.vmd.wind_crystal_2": "风暴戟聚晶",
+
+  "item.vmd.wind_sword_0": "灵风",
+  "item.vmd.wind_sword_1": "灵风¹",
+  "item.vmd.wind_sword_2": "灵风²",
+  "item.vmd.wind_sword_3": "灵风³",
+
+  "item.vmd.wind_boots_0": "翠绿足具",
+  "item.vmd.wind_boots_1": "翠绿足具¹",
+  "item.vmd.wind_boots_2": "翠绿足具²",
+  "item.vmd.wind_boots_3": "翠绿足具³",
 
   "item.vmd.splasher": "膨热剂",
 

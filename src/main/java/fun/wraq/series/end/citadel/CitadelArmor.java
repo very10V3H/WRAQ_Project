@@ -3,7 +3,9 @@ package fun.wraq.series.end.citadel;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -18,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttributesModify {
+public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttributesModify, ForgeItem {
 
     public CitadelArmor(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
@@ -85,5 +87,12 @@ public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttrib
             }
         }
         super.tick(player);
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())
+        );
     }
 }

@@ -5,6 +5,7 @@ import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
 import fun.wraq.blocks.entity.InjectBlockEntity;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.networking.ModNetworking;
@@ -71,6 +72,10 @@ public class InjectBlockScreen extends AbstractContainerScreen<fun.wraq.render.g
         renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
+
+        guiGraphics.drawString(mc.font,
+                Te.s("若出现无法堆叠的情况，可以使用vmd resetTag解决.", CustomStyle.styleOfSky),
+                this.width / 2 - 86, this.height / 2 - 92, 0);
 
         InjectBlockEntity injectBlockEntity = menu.blockEntity;
         ItemStack injectedItem = injectBlockEntity.getDownSlotItemStack();

@@ -994,4 +994,8 @@ public class ComponentUtils {
     public static Component getSuffixOfSuperCold() {
         return Te.s("极寒之地", ChatFormatting.ITALIC, CustomStyle.styleOfIce);
     }
+
+    public static Component getSuffixOfWind() {
+        return Te.s("风之高地", ChatFormatting.ITALIC, CustomStyle.styleOfWind);
+    }
 }

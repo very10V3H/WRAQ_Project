@@ -1,8 +1,5 @@
 package fun.wraq.events.client;
 
-import fun.wraq.items.m.BackSpawn;
-import fun.wraq.items.m.Main0;
-import fun.wraq.items.money.UDisk;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
@@ -12,6 +9,9 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.ClientPlayerTeam;
 import fun.wraq.common.util.struct.ManaAttackParticle;
 import fun.wraq.common.util.struct.OldMission;
+import fun.wraq.items.m.BackSpawn;
+import fun.wraq.items.m.Main0;
+import fun.wraq.items.money.UDisk;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AttributePackets.MobAttributeC2SPacket;
 import fun.wraq.networking.misc.EarthPower.EarthPowerC2SPacket;
@@ -80,6 +80,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+import java.util.Random;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 @OnlyIn(Dist.CLIENT)
@@ -90,6 +91,7 @@ public class ClientPlayerTickEvent {
         if (!player.equals(Minecraft.getInstance().player)) return;
         MyWayPoint.clientTick(event);
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) {
+            windLand(player);
             Main0.clientTick(player);
             Compute.setDownDeltaInLowGravityEnvironment(player);
             ItemAndExpGetHud.clientTick();
@@ -102,7 +104,6 @@ public class ClientPlayerTickEvent {
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
-
             ClientUtils.clientMobEffectMap.entrySet().removeIf(e -> {
                 return !e.getKey().isAlive();
             });
@@ -452,6 +453,20 @@ public class ClientPlayerTickEvent {
                 manaAttackParticle.setTickTime(Math.max(-1, manaAttackParticle.getTickTime() - 1));
             }
             ClientUtils.manaAttackParticleArrayList.removeIf(manaAttackParticle -> manaAttackParticle.getTickTime() == -1);
+        }
+    }
+
+    private static Vec3 windVec = Vec3.ZERO;
+
+    private static void windLand(Player player) {
+        if (player.level().dimension().equals(Level.OVERWORLD)
+                && player.position().distanceTo(new Vec3(1813, 159, -1553)) < 100) {
+            if (player.tickCount % 100 == 0) {
+                Random random = new Random();
+                windVec = new Vec3(-0.1 + random.nextDouble(0.2),
+                        0, -0.1 + random.nextDouble(0.2));
+            }
+            player.setDeltaMovement(player.getDeltaMovement().add(windVec));
         }
     }
 }

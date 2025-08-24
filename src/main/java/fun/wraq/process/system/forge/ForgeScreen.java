@@ -176,7 +176,7 @@ public class ForgeScreen extends WraqScreen {
                             });
                             if (materialList.size() == 1
                                     && materialList.get(0).is(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())) {
-                                add(Te.s("这件物品可由村民兑换获取.", ChatFormatting.AQUA));
+                                add(Te.s("这件物品可由村民兑换/灌注获取.", ChatFormatting.AQUA));
                             }
                         }};
                         guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);

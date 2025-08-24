@@ -107,15 +107,18 @@ public class PurpleIronInstance extends NoTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.PURPLE_IRON_BUD_1.get(), 1),
+        return List.of(new ItemAndRate(ModItems.PURPLE_IRON_BUD_1.get(), 2),
                 new ItemAndRate(new ItemStack(ModItems.GEM_PIECE.get(), 8), 0.1),
-                new ItemAndRate(ModItems.PURPLE_IRON_BUD_2.get(), 0.1),
-                new ItemAndRate(ModItems.ENHANCE_PURPLE_IRON_CHEST.get(), 0.01),
-                new ItemAndRate(ModItems.PURPLE_IRON_SWORD.get(), 0.01),
-                new ItemAndRate(ModItems.PURPLE_IRON_BOW.get(), 0.01),
-                new ItemAndRate(ModItems.PURPLE_IRON_SCEPTRE.get(), 0.01),
+                new ItemAndRate(ModItems.PURPLE_IRON_BUD_2.get(), 0.2),
+                new ItemAndRate(ModItems.ENHANCE_PURPLE_IRON_CHEST.get(), 0.02),
+                new ItemAndRate(ModItems.PURPLE_IRON_SWORD.get(), 0.02),
+                new ItemAndRate(ModItems.PURPLE_IRON_BOW.get(), 0.02),
+                new ItemAndRate(ModItems.PURPLE_IRON_SCEPTRE.get(), 0.02),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1),
+                new ItemAndRate(ModItems.PURPLE_IRON_PIECE.get(), 20),
+                new ItemAndRate(ModItems.LAVENDER_BRACELET.get(), 0.1)
+        );
     }
 
     @Override

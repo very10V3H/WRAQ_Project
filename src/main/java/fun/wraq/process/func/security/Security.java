@@ -80,8 +80,10 @@ public class Security {
         recordVPStream(SYSTEM, getPlayerName, value, type);
     }
 
+    public static final String GROUND = "GROUND";
+
     public static void recordToss(String playerName, ItemStack itemStack) {
-        recordItemStream(playerName, "GROUND", itemStack, "丢弃物品");
+        recordItemStream(playerName, GROUND, itemStack, "丢弃物品");
     }
 
     public static boolean checkModBladeList(ServerPlayer serverPlayer) {

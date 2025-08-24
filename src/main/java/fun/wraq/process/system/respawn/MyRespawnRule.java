@@ -52,16 +52,18 @@ public class MyRespawnRule {
     }};
 
     public static void setPlayerSpawnPoint(Player player) {
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        String name = serverPlayer.getName().getString();
-        Level level = serverPlayer.level();
-        if (level.dimension().equals(Level.OVERWORLD)) {
-            SpawnPoint spawnPoint = findNearestSpawnPoint(player);
-            serverPlayer.setRespawnPosition(Level.OVERWORLD,
-                    new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z),
-                    spawnPoint.rotX, true, false);
-            playerLastOverWorldPos.put(name, new SpawnPos(player.position(), player.getXRot()));
-            ModNetworking.sendToClient(new NearestSpawnPointS2CPacket(spawnPoint.zoneName), serverPlayer);
+        if (player.tickCount % 20 == 9) {
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            String name = serverPlayer.getName().getString();
+            Level level = serverPlayer.level();
+            if (level.dimension().equals(Level.OVERWORLD)) {
+                SpawnPoint spawnPoint = findNearestSpawnPoint(player);
+                serverPlayer.setRespawnPosition(Level.OVERWORLD,
+                        new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z),
+                        spawnPoint.rotX, true, false);
+                playerLastOverWorldPos.put(name, new SpawnPos(player.position(), player.getXRot()));
+                ModNetworking.sendToClient(new NearestSpawnPointS2CPacket(spawnPoint.zoneName), serverPlayer);
+            }
         }
     }
 

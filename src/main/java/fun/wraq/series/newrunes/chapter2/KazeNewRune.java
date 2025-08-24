@@ -5,7 +5,7 @@ import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.events.mob.chapter2.WindSkeletonSpawnController;
+import fun.wraq.series.overworld.wind.mob.WindSkeletonSpawnController;
 import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;

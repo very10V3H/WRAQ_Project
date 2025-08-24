@@ -24,7 +24,7 @@ import java.util.List;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 51;
+    public static int rewardNum = 52;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override

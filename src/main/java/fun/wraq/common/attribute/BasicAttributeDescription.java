@@ -1171,7 +1171,7 @@ public class BasicAttributeDescription {
         if (itemStack.getItem() instanceof SilverDragonBloodWeapon) {
             return;
         }
-        if (forgeQuality != -1) {
+        if (forgeQuality != -1 && !(itemStack.getItem() instanceof WraqOffHandItem)) {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("θ-锻造品质: ").withStyle(CustomStyle.styleOfGold)).
                     append(ForgeEquipUtils.getDescription(forgeQuality)));

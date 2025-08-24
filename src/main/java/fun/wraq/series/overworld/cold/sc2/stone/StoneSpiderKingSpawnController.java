@@ -106,8 +106,8 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
                 new ItemAndRate(NewAreaItems.STONE_SPIDER_KNIFE_0.get(), 0.01),
                 new ItemAndRate(NewAreaItems.STONE_SPIDER_GEM_ATTACK_0.get(), 0.01),
                 new ItemAndRate(NewAreaItems.STONE_SPIDER_GEM_MANA_0.get(), 0.01),
-                new ItemAndRate(ModItems.GOLD_COIN.get(), 2),
-                new ItemAndRate(ModItems.GEM_PIECE.get(), 1),
+                new ItemAndRate(ModItems.GOLD_COIN.get(), 1),
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 3),
                 new ItemAndRate(ModItems.STONE_ELEMENT_PIECE_1.get(), 0.1)
         );
     }

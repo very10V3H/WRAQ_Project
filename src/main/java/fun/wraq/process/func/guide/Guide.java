@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.events.mob.chapter2.JorogumoSpawnController;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.networking.GuideDisplayS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
@@ -12,6 +11,7 @@ import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -118,8 +118,10 @@ public class Guide {
                     StageV2.FIRST_KILL));
             guides.add(new Guide(new ArrayList<>() {{
                 add(Component.literal("引导 - 击杀第一只怪物").withStyle(ChatFormatting.GOLD));
-                add(Component.literal("前往平原村南部，击杀").withStyle(ChatFormatting.WHITE).
+                add(Component.literal("前往平原村东侧，击杀").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("平原僵尸").withStyle(ChatFormatting.GREEN)));
+                add(Te.s("平原村", CustomStyle.styleOfPlain,
+                        "在", "天空城", CustomStyle.styleOfSky, "的西南方."));
                 add(Component.literal("你可以按下M打开地图，查看位置").withStyle(ChatFormatting.WHITE));
             }}, new MyWayPoint(new Vec3(754, 78, 265), "平原僵尸刷怪点", MyWayPoint.colorMap.get(MyWayPoint.green), 1), null,
                     StageV2.FIRST_FORGE));
@@ -265,8 +267,7 @@ public class Guide {
             }), StageV2.NETHER_BOSS));
             guides.add(new Guide(List.of(
                     Te.s("*任务 ", ChatFormatting.AQUA, "击败", "燃魂", CustomStyle.styleOfPower),
-                    Te.s("提示: ", ChatFormatting.AQUA, "若缺失", "防御属性", CustomStyle.styleOfStone),
-                    Te.s("可以击杀", JorogumoSpawnController.mobName, CustomStyle.styleOfJacaranda, "获取", ModItems.LAVENDER_BRACELET.get())
+                    Te.s("在下界找到", "燃魂", CustomStyle.styleOfPower, "并击败他!")
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.NETHER_IMPRINT.get(), 4));
             }), 80, StageV2.PURPLE_IRON_BOSS));
@@ -356,6 +357,16 @@ public class Guide {
             Guide guide = getGuides().get(currentStageIndex);
             if (guide.myWayPoint != null) {
                 MyWayPoint.sendAddPacketToClient(player, guide.myWayPoint);
+            }
+        }
+    }
+
+    public static void handlePlayerTick(Player player) {
+        if (player.tickCount % 200 == 101) {
+            if (SkillV2.getProfessionSkillLevel(player, 0, 0, 0) >= 4
+                    || SkillV2.getProfessionSkillLevel(player, 1, 0, 0) >= 4
+                    || SkillV2.getProfessionSkillLevel(player, 2, 0, 0) >= 4) {
+                trigV2(player, StageV2.PASSIVE_4_LEVEL);
             }
         }
     }

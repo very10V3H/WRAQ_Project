@@ -152,9 +152,6 @@ import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Empty;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Filled;
 import fun.wraq.series.overworld.chapter2.evoker.ManaCrest;
-import fun.wraq.series.overworld.chapter2.kaze.KazeArmorBoots;
-import fun.wraq.series.overworld.chapter2.kaze.KazeCore;
-import fun.wraq.series.overworld.chapter2.kaze.Sword.KazeSword;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import fun.wraq.series.overworld.chapter2.lightningIsland.LightningArmor;
 import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
@@ -205,6 +202,7 @@ import fun.wraq.series.overworld.sakura.Ship.ShipBow;
 import fun.wraq.series.overworld.sakura.Ship.ShipSceptre;
 import fun.wraq.series.overworld.sakura.Ship.ShipSword;
 import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
+import fun.wraq.series.overworld.wind.KazeCore;
 import fun.wraq.series.worldsoul.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -1031,15 +1029,6 @@ public class ModItems {
     public static final RegistryObject<Item> MAGMA_SOUL = ITEMS.register("nethermagmapower",
             () -> new NetherMagmaPower(new Item.Properties().rarity(CustomStyle.Magma)));
 
-    public static final RegistryObject<Item> KAZE_SWORD_0 = ITEMS.register("kazesword0",
-            () -> new KazeSword(new Item.Properties().rarity(CustomStyle.KazeItalic), 0));
-    public static final RegistryObject<Item> KAZE_SWORD_1 = ITEMS.register("kazesword1",
-            () -> new KazeSword(new Item.Properties().rarity(CustomStyle.KazeItalic), 1));
-    public static final RegistryObject<Item> KAZE_SWORD_2 = ITEMS.register("kazesword2",
-            () -> new KazeSword(new Item.Properties().rarity(CustomStyle.KazeItalic), 2));
-    public static final RegistryObject<Item> KAZE_SWORD_3 = ITEMS.register("kazesword3",
-            () -> new KazeSword(new Item.Properties().rarity(CustomStyle.KazeItalic), 3));
-
     public static final RegistryObject<Item> KAZE_MANA_CORE = ITEMS.register("kaze_mana_core",
             () -> new KazeCore(new Item.Properties().rarity(CustomStyle.KazeBold)));
     public static final RegistryObject<Item> ARMOR_KAZE_CHEST = ITEMS.register("armorkazechest",
@@ -1051,15 +1040,8 @@ public class ModItems {
     public static final RegistryObject<Item> ARMOR_KAZE_RECALL = ITEMS.register("armorkazerecall",
             () -> new MobArmor(ModArmorMaterials.ArmorKaze, ArmorItem.Type.HELMET, 500, 50, 90));
 
-    public static final RegistryObject<Item> KAZE_SOUL = ITEMS.register("kazesoul",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Kaze)));
-    public static final RegistryObject<Item> KAZE_RUNE = ITEMS.register("kazerune",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.KazeBold)));
-
     public static final RegistryObject<Item> LAKE_CORE = ITEMS.register("lakecore",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WaterItalic)));
-    public static final RegistryObject<Item> KAZE_BOOTS = ITEMS.register("kazeboots",
-            () -> new KazeArmorBoots(ModArmorMaterials.ArmorKaze, ArmorItem.Type.BOOTS));
     public static final RegistryObject<Item> SLIME_BALL = ITEMS.register("slime_ball",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Life)));
     public static final RegistryObject<Item> BIG_SLIME_BALL = ITEMS.register("big_slime_ball",
@@ -1123,8 +1105,6 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Kaze)));
     public static final RegistryObject<Item> INTENSIFIED_KAZE_SOUL = ITEMS.register("intensifiedkazesoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.KazeBold)));
-    public static final RegistryObject<Item> KAZE_SWORD_4 = ITEMS.register("kazesword4",
-            () -> new KazeSword(new Item.Properties().rarity(CustomStyle.KazeItalic), 4));
     public static final RegistryObject<Item> ARMOR_SPIDER_RECALL = ITEMS.register("armorspiderecall",
             () -> new MobArmor(500, 50, 90));
     public static final RegistryObject<Item> SPIDER_RECALL_SOUL = ITEMS.register("spiderrecallsoul",

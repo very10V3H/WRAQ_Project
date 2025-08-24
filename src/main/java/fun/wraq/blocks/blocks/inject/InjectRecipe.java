@@ -10,6 +10,7 @@ import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -166,16 +167,6 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.HUSK_RUNE.get(), 3,
                         ModItems.HUSK_SWORD_3.get()));
 
-        injectingRecipeMap.put(ModItems.KAZE_SWORD_0.get(),
-                new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 1,
-                        ModItems.KAZE_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.KAZE_SWORD_1.get(),
-                new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 2,
-                        ModItems.KAZE_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.KAZE_SWORD_2.get(),
-                new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 3,
-                        ModItems.KAZE_SWORD_3.get()));
-
         injectingRecipeMap.put(ModItems.WITHER_SWORD_0.get(),
                 new InjectingRecipe(ModItems.WITHER_RUNE.get(), 1,
                         ModItems.WITHER_SWORD_1.get()));
@@ -249,25 +240,21 @@ public class InjectRecipe {
                 new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.INTENSIFIED_LIGHTNING_SOUL.get()));
 
-        injectingRecipeMap.put(ModItems.KAZE_SOUL.get(),
-                new InjectingRecipe(64, ModItems.LAKE_CORE.get(), 6,
-                        ModItems.KAZE_RUNE.get()));
+        injectingRecipeMap.put(WindItems.WIND_SOUL.get(),
+                new InjectingRecipe(64, ModItems.LAKE_CORE.get(), 1,
+                        WindItems.WIND_RUNE.get()));
 
         injectingRecipeMap.put(ModItems.SEA_SOUL.get(),
-                new InjectingRecipe(64, ModItems.SUN_POWER.get(), 6,
+                new InjectingRecipe(64, ModItems.SUN_POWER.get(), 1,
                         ModItems.SEA_RUNE.get()));
 
         injectingRecipeMap.put(ModItems.HUSK_SOUL.get(),
-                new InjectingRecipe(64, ModItems.SUN_POWER.get(), 6,
+                new InjectingRecipe(64, ModItems.SUN_POWER.get(), 1,
                         ModItems.HUSK_RUNE.get()));
 
         injectingRecipeMap.put(ModItems.LIGHTNING_SOUL.get(),
                 new InjectingRecipe(64, PickaxeItems.TINKER_IRON.get(), 1,
                         ModItems.LIGHTNING_RUNE.get()));
-
-        injectingRecipeMap.put(ModItems.KAZE_SWORD_3.get(),
-                new InjectingRecipe(ModItems.INTENSIFIED_KAZE_SOUL.get(), 1,
-                        ModItems.KAZE_SWORD_4.get()));
 
         injectingRecipeMap.put(ModItems.HUSK_SWORD_3.get(),
                 new InjectingRecipe(ModItems.INTENSIFIED_BLACK_FOREST_SOUL.get(), 1,

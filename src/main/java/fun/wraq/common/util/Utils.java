@@ -20,6 +20,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
 import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -323,11 +324,10 @@ public class Utils {
         CoolDownItem.add(ModItems.HUSK_SWORD_2.get());
         CoolDownItem.add(ModItems.HUSK_SWORD_3.get());
         CoolDownItem.add(ModItems.HUSK_SWORD_4.get());
-        CoolDownItem.add(ModItems.KAZE_SWORD_0.get());
-        CoolDownItem.add(ModItems.KAZE_SWORD_1.get());
-        CoolDownItem.add(ModItems.KAZE_SWORD_2.get());
-        CoolDownItem.add(ModItems.KAZE_SWORD_3.get());
-        CoolDownItem.add(ModItems.KAZE_SWORD_4.get());
+        CoolDownItem.add(WindItems.WIND_SWORD_0.get());
+        CoolDownItem.add(WindItems.WIND_SWORD_1.get());
+        CoolDownItem.add(WindItems.WIND_SWORD_2.get());
+        CoolDownItem.add(WindItems.WIND_SWORD_3.get());
         CoolDownItem.add(ModItems.FOREST_BOSS_SWORD.get());
         CoolDownItem.add(ModItems.VOLCANO_BOSS_SWORD.get());
         CoolDownItem.add(ModItems.SAKURA_SWORD.get());
@@ -476,7 +476,7 @@ public class Utils {
         SoulList.add(ModItems.SEA_SOUL.get());
         SoulList.add(ModItems.LIGHTNING_SOUL.get());
         SoulList.add(ModItems.HUSK_SOUL.get());
-        SoulList.add(ModItems.KAZE_SOUL.get());
+        SoulList.add(WindItems.WIND_SOUL.get());
         SoulList.add(ModItems.SPIDER_SOUL.get());
         SoulList.add(ModItems.PLAIN_SOUL.get());
     }
@@ -578,7 +578,7 @@ public class Utils {
                 ModItems.PLAIN_SOUL.get(), ModItems.FOREST_SOUL.get(), ModItems.LAKE_SOUL.get(), ModItems.MINE_SOUL.get(),
                 ModItems.SPIDER_SOUL.get(), ModItems.VOLCANO_SOUL.get(), ModItems.EVOKER_SOUL.get(), ModItems.WOLF_LEATHER.get(),
                 ModItems.SKY_SOUL.get(), ModItems.SLIME_BALL.get(), ModItems.PURPLE_IRON_PIECE.get(), ModItems.RUBY.get(),
-                ModItems.KAZE_SOUL.get(), ModItems.HUSK_SOUL.get(), ModItems.LIGHTNING_SOUL.get(), ModItems.SEA_SOUL.get(),
+                WindItems.WIND_SOUL.get(), ModItems.HUSK_SOUL.get(), ModItems.LIGHTNING_SOUL.get(), ModItems.SEA_SOUL.get(),
                 ModItems.WITHER_SKELETON_SOUL.get(), ModItems.MAGMA_SOUL.get(), ModItems.NETHER_SKELETON_SOUL.get(), ModItems.PIGLIN_SOUL.get(),
 
                 ModItems.SNOW_SOUL.get(), ModItems.RECALL_PIECE.get(), ModItems.SHIP_PIECE.get(), ModItems.BLOOD_MANA_SOUL.get(),

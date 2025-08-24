@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter2.kaze;
+package fun.wraq.series.overworld.wind;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;

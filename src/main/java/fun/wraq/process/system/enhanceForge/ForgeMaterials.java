@@ -1,6 +1,7 @@
 package fun.wraq.process.system.enhanceForge;
 
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ForgeMaterials {
                 ModItems.EVOKER_SOUL.get(),
                 ModItems.SEA_SOUL.get(),
                 ModItems.HUSK_SOUL.get(),
-                ModItems.KAZE_SOUL.get(),
+                WindItems.WIND_SOUL.get(),
                 ModItems.LIGHTNING_SOUL.get(),
         };
         chapter2.addAll(List.of(items));

@@ -6,6 +6,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
@@ -13,6 +14,7 @@ import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -62,6 +64,8 @@ public class ForgeEquipUtils {
     public static final Component POLAR_COLD_VILLAGE_NAME = Te.s("极冬村", CustomStyle.styleOfIce);
     public static final Zone SUN_ISLAND = new Zone(1900, 476, 1723, 229);
     public static final Component SUN_ISLAND_NAME = Te.s("旭升岛", CustomStyle.styleOfSunIsland);
+    public static final Zone WIND_LAND = new Zone(1953, -1614, 1864, -1722);
+    public static final Component WIND_LAND_NAME = Te.s("风之高地驻场工程师", CustomStyle.styleOfWind);
 
     public static final Map<Zone, Component> zoneNameMap = new HashMap<>() {{
         put(PLAIN_VILLAGE, PLAIN_VILLAGE_NAME);
@@ -87,8 +91,6 @@ public class ForgeEquipUtils {
                 ModItems.PLAIN_CHEST.get(),
                 ModItems.PLAIN_LEGGINGS.get(),
                 ModItems.PLAIN_BOOTS.get(),
-                ModItems.KAZE_SWORD_0.get(),
-                ModItems.KAZE_BOOTS.get(),
                 ModItems.PLAIN_SWORD_0.get(),
                 ModItems.PLAIN_BOW_0.get(),
                 ModItems.LIFE_SCEPTRE_0.get()
@@ -167,16 +169,7 @@ public class ForgeEquipUtils {
                 ModItems.ICE_SCEPTRE.get(),
                 ModItems.ICE_SCEPTRE_E.get(),
                 ModItems.ICE_HELMET.get(), ModItems.ICE_CHEST.get(),
-                ModItems.ICE_LEGGINGS.get(), ModItems.ICE_BOOTS.get(),
-                ModItems.CASTLE_SWORD.get(),
-                ModItems.CASTLE_SWORD_E.get(),
-                ModItems.CASTLE_BOW.get(),
-                ModItems.CASTLE_BOW_E.get(),
-                ModItems.CASTLE_SCEPTRE.get(),
-                ModItems.CASTLE_SCEPTRE_E.get(),
-                ModItems.CASTLE_ATTACK_HELMET.get(), ModItems.CASTLE_ATTACK_CHEST.get(), ModItems.CASTLE_ATTACK_LEGGINGS.get(), ModItems.CASTLE_ATTACK_BOOTS.get(),
-                ModItems.CASTLE_SWIFT_HELMET.get(), ModItems.CASTLE_SWIFT_CHEST.get(), ModItems.CASTLE_SWIFT_LEGGINGS.get(), ModItems.CASTLE_SWIFT_BOOTS.get(),
-                ModItems.CASTLE_MANA_HELMET.get(), ModItems.CASTLE_MANA_CHEST.get(), ModItems.CASTLE_MANA_LEGGINGS.get(), ModItems.CASTLE_MANA_BOOTS.get()
+                ModItems.ICE_LEGGINGS.get(), ModItems.ICE_BOOTS.get()
         );
         zoneForgeItemListMap.put(SNOW_VILLAGE, new ArrayList<>() {{
             snow.forEach(item -> add(item.getDefaultInstance()));
@@ -256,7 +249,11 @@ public class ForgeEquipUtils {
                 ModItems.STAR_BOTTLE.get(),
                 C7Items.VD_SWORD.get(),
                 C7Items.VD_BOW.get(),
-                C7Items.VD_SCEPTRE.get()
+                C7Items.VD_SCEPTRE.get(),
+                CitadelItems.CITADEL_HELMET.get(),
+                CitadelItems.CITADEL_CHEST.get(),
+                CitadelItems.CITADEL_LEGGINGS.get(),
+                CitadelItems.CITADEL_BOOTS.get()
         );
         zoneForgeItemListMap.put(SKY_CITY, new ArrayList<>() {{
             sky.forEach(item -> add(item.getDefaultInstance()));
@@ -291,6 +288,18 @@ public class ForgeEquipUtils {
         }});
 
         List<Item> moontain_strong_hold = List.of(
+                ModItems.CASTLE_SWORD.get(),
+                ModItems.CASTLE_SWORD_E.get(),
+                ModItems.CASTLE_BOW.get(),
+                ModItems.CASTLE_BOW_E.get(),
+                ModItems.CASTLE_SCEPTRE.get(),
+                ModItems.CASTLE_SCEPTRE_E.get(),
+                ModItems.CASTLE_ATTACK_HELMET.get(), ModItems.CASTLE_ATTACK_CHEST.get(),
+                ModItems.CASTLE_ATTACK_LEGGINGS.get(), ModItems.CASTLE_ATTACK_BOOTS.get(),
+                ModItems.CASTLE_SWIFT_HELMET.get(), ModItems.CASTLE_SWIFT_CHEST.get(),
+                ModItems.CASTLE_SWIFT_LEGGINGS.get(), ModItems.CASTLE_SWIFT_BOOTS.get(),
+                ModItems.CASTLE_MANA_HELMET.get(), ModItems.CASTLE_MANA_CHEST.get(),
+                ModItems.CASTLE_MANA_LEGGINGS.get(), ModItems.CASTLE_MANA_BOOTS.get(),
                 WardenItems.WARDEN_SHIELD.get(),
                 WardenItems.WARDEN_KNIFE.get(),
                 WardenItems.WARDEN_BOOK.get(),
@@ -368,6 +377,12 @@ public class ForgeEquipUtils {
             add(ExtraordinaryItems.SHIRO_BOW.get().getDefaultInstance());
             add(ExtraordinaryItems.NETHER_SCEPTRE_EX.get().getDefaultInstance());
             add(ExtraordinaryItems.KANUPUS_WING_F.get().getDefaultInstance());
+        }});
+
+        zoneForgeItemListMap.put(WIND_LAND, new ArrayList<>() {{
+            add(WindItems.WIND_SWORD_0.get().getDefaultInstance());
+            add(WindItems.WIND_SWORD_3.get().getDefaultInstance());
+            add(WindItems.WIND_BOOTS_3.get().getDefaultInstance());
         }});
 
         zoneForgeItemListMap.forEach((zone, itemList) -> {
@@ -490,8 +505,11 @@ public class ForgeEquipUtils {
             CompoundTag data = ExBaseAttributeValueEquip.getStackExBaseAttributeData(equip);
             exValue += exBaseAttributeValueEquip.getTagAndRateMap().get(map).getValueByData(data);
         }
-        return (map.getOrDefault(equip.getItem(), 0d) + exValue)
-                    * (computeTier ? getTierValueEffect(equip) : 1);
+        double beforeComputeTierValue = map.getOrDefault(equip.getItem(), 0d) + exValue;
+        if (beforeComputeTierValue < 0) {
+            return beforeComputeTierValue;
+        }
+        return beforeComputeTierValue * (computeTier ? getTierValueEffect(equip) : 1);
     }
 
     public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player) {

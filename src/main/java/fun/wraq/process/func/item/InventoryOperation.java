@@ -1,11 +1,13 @@
 package fun.wraq.process.func.item;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.security.Security;
 import fun.wraq.render.hud.networking.ItemGetS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -155,6 +157,7 @@ public class InventoryOperation {
                 ModNetworking.sendToClient(new ItemGetS2CPacket(itemStack), (ServerPlayer) player);
                 player.addItem(itemStack);
             } else {
+                Security.recordToss(Name.get(player), itemStack);
                 ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, player.level());
                 itemEntity.setItem(itemStack);
                 itemEntity.moveTo(player.position());

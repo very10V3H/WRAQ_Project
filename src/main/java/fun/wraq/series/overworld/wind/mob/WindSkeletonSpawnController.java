@@ -1,4 +1,4 @@
-package fun.wraq.events.mob.chapter2;
+package fun.wraq.series.overworld.wind.mob;
 
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
@@ -9,6 +9,7 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.wind.WindItems;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -29,35 +30,32 @@ public class WindSkeletonSpawnController extends MobSpawnController {
     public static WindSkeletonSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(567, 67, 365),
-                    new Vec3(615, 69, 362),
-                    new Vec3(665, 73, 363),
-                    new Vec3(717, 73, 375),
-                    new Vec3(566, 65, 403),
-                    new Vec3(617, 68, 395),
-                    new Vec3(641, 70, 420),
-                    new Vec3(700, 70, 416),
-                    new Vec3(540, 67, 436),
-                    new Vec3(589, 68, 445),
-                    new Vec3(655, 69, 455),
-                    new Vec3(733, 67, 457),
-                    new Vec3(569, 69, 489),
-                    new Vec3(629, 69, 483),
-                    new Vec3(699, 68, 489)
+                    new Vec3(1795, 150, -1605),
+                    new Vec3(1807, 150, -1614),
+                    new Vec3(1819, 151, -1624),
+                    new Vec3(1841, 150, -1630),
+                    new Vec3(1864, 150, -1624),
+                    new Vec3(1879, 158, -1611),
+                    new Vec3(1892, 161, -1593),
+                    new Vec3(1818, 153, -1595),
+                    new Vec3(1834, 150, -1611),
+                    new Vec3(1844, 151, -1594),
+                    new Vec3(1859, 150, -1601)
             );
-            instance = new WindSkeletonSpawnController(spawnPos, 796, 537, 467, 272, world, 80);
+            instance = new WindSkeletonSpawnController(spawnPos, 1904, -1577, 1785, -1651, world, 190);
         }
         return instance;
     }
 
     public WindSkeletonSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                        int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("怀德风骨", CustomStyle.styleOfWind), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("怀德风骨", CustomStyle.styleOfWind), canSpawnPos, boundaryUpX, boundaryUpZ,
+                boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(400, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.3);
+        return new MobAttributes(2200, 160, 160, 0.4, 3, 0.25, 60, 20, 400 * Math.pow(10, 4), 0.35);
     }
 
     @Override
@@ -73,7 +71,7 @@ public class WindSkeletonSpawnController extends MobSpawnController {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(skeleton, style);
-        skeleton.setItemInHand(InteractionHand.MAIN_HAND, ModItems.KAZE_SWORD_0.get().getDefaultInstance());
+        skeleton.setItemInHand(InteractionHand.MAIN_HAND, WindItems.WIND_SWORD_0.get().getDefaultInstance());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表
@@ -83,16 +81,16 @@ public class WindSkeletonSpawnController extends MobSpawnController {
 
     @Override
     public Element.Unit getElement() {
-        return new Element.Unit(Element.wind, 2);
+        return new Element.Unit(Element.wind, 4);
     }
 
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.KAZE_SOUL.get(), 1));
-            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.4375));
+            add(new ItemAndRate(WindItems.WIND_SOUL.get(), 1));
+            add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.58));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
-            add(new ItemAndRate(ModItems.WIND_ELEMENT_PIECE_0.get(), 0.2));
+            add(new ItemAndRate(ModItems.WIND_ELEMENT_PIECE_0.get(), 0.4));
             add(new ItemAndRate(NewRuneItems.KAZE_NEW_RUNE.get(), 0.001));
         }};
     }

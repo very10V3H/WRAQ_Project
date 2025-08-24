@@ -172,7 +172,9 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
                         Component.literal("再次点击以分解物品").withStyle(ChatFormatting.AQUA),
                         X + offsetX, Y + offsetY, 0);
             } else {
-                guiGraphics.drawString(fontRenderer, Component.literal("光标移动至此处可查看简单文字教程").withStyle(ChatFormatting.WHITE), X + offsetX, Y + offsetY, 0);
+                guiGraphics.drawString(fontRenderer,
+                        Component.literal("光标移动至此处可查看简单文字教程").withStyle(ChatFormatting.WHITE),
+                        X + offsetX, Y + offsetY, 0);
                 if (mouseX > X + offsetX && mouseX < X + 56 && mouseY > Y + offsetY - 6 && mouseY < Y + offsetY + 12) {
                     guiGraphics.renderComponentTooltip(fontRenderer, components, mouseX, mouseY);
                 }
