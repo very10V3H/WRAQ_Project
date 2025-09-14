@@ -155,11 +155,13 @@ public class EstatePlayerData {
                 price = Math.min(price, 2500 * 10000);
                 EstateUtil.sendMSG(player, Te.s("收取了该资产的今日收益."));
                 Compute.VBIncomeAndMSGSend(player, (double) price / 1000000 * 10000);
-                InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), price / 1250000);
-                InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), price / 2500000);
+                int starCount = (int) Math.ceil(price / 1250000d);
+                int gbCount = (int) Math.ceil(price / 2500000d);
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), starCount);
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), gbCount);
                 incrementData(player, ESTATE_VB_REWARD_COUNT_DATA_KEY, price / 1000000 * 10000);
-                incrementData(player, ESTATE_STAR_REWARD_COUNT_DATA_KEY, price / 1250000);
-                incrementData(player, ESTATE_GB_REWARD_COUNT_DATA_KEY, price / 2500000);
+                incrementData(player, ESTATE_STAR_REWARD_COUNT_DATA_KEY, starCount);
+                incrementData(player, ESTATE_GB_REWARD_COUNT_DATA_KEY, gbCount);
                 sendEstateRewardMSG(player);
             } else {
                 if (estateMSGSendTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
@@ -179,12 +181,14 @@ public class EstatePlayerData {
                 int price = (int) EstateInfo.values()[serial].price;
                 price = Math.min(price, 2000);
                 EstateUtil.sendMSG(player, Te.s("收取了该资产的今日收益."));
+                int starCount = (int) Math.ceil(price / 100d);
+                int gbCount = (int) Math.ceil(price / 200d);
                 Compute.VBIncomeAndMSGSend(player, (double) price / 80 * 10000);
-                InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), price / 100);
-                InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), price / 200);
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.WORLD_SOUL_5.get(), starCount);
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.GOLDEN_BEANS.get(), gbCount);
                 incrementData(player, REAL_ESTATE_VB_REWARD_COUNT_DATA_KEY, price / 80 * 10000);
-                incrementData(player, REAL_ESTATE_STAR_REWARD_COUNT_DATA_KEY, price / 100);
-                incrementData(player, REAL_ESTATE_GB_REWARD_COUNT_DATA_KEY, price / 200);
+                incrementData(player, REAL_ESTATE_STAR_REWARD_COUNT_DATA_KEY, starCount);
+                incrementData(player, REAL_ESTATE_GB_REWARD_COUNT_DATA_KEY, gbCount);
                 sendRealEstateRewardMSG(player);
             } else {
                 if (realEstateMSGSendTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {

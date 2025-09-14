@@ -31,11 +31,10 @@ import net.minecraft.world.phys.Vec3;
 import java.util.Comparator;
 import java.util.Set;
 
-public abstract class WraqSceptre extends WraqMainHandEquip {
+public abstract class WraqSceptre extends WraqMainHandEquip implements SceptreAttribute {
 
     public WraqSceptre(Properties properties) {
         super(properties);
-        Utils.sceptreTag.put(this, 1d);
         if (!(this instanceof ManageEquip) && !(this instanceof RandomLootEquip)) {
             Display.sceptreList.add(this);
         }
@@ -124,7 +123,9 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
             @Override
             public void trig() {
                 Item sceptre = player.getMainHandItem().getItem();
-                if (!Utils.sceptreTag.containsKey(sceptre)) return;
+                if (!SceptreAttribute.isHandling(player)) {
+                    return;
+                }
                 if (sceptre instanceof WraqSceptre wraqSceptre) {
                     wraqSceptre.shootManaArrow(player, 1, true);
                 }

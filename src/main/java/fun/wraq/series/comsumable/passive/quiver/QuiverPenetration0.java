@@ -1,6 +1,6 @@
 package fun.wraq.series.comsumable.passive.quiver;
 
-import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.BowAttribute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -33,7 +33,7 @@ public class QuiverPenetration0 extends CountPassiveComsumableItem {
     }
 
     public static double getExPenetration(Player player) {
-        if (!(player.getMainHandItem().getItem() instanceof WraqBow)) {
+        if (!BowAttribute.isHandling(player)) {
             return 0;
         }
         QuiverPenetration0 quiver = (QuiverPenetration0) getItemList(player).stream()

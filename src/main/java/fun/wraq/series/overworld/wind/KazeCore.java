@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.wind;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.SceptreAttribute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -24,8 +25,7 @@ public class KazeCore extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (interactionHand.equals(InteractionHand.OFF_HAND)
-                && Utils.sceptreTag.containsKey(player.getItemInHand(InteractionHand.MAIN_HAND).getItem())
-                && player.isShiftKeyDown()) {
+                && SceptreAttribute.isHandling(player) && player.isShiftKeyDown()) {
             ItemStack MainHand = player.getItemInHand(InteractionHand.MAIN_HAND);
             CompoundTag MainHandData = MainHand.getOrCreateTagElement(Utils.MOD_ID);
             if (MainHandData.contains(StringUtils.ManaCore.ManaCore)) {

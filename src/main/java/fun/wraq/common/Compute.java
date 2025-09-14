@@ -5,6 +5,9 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.equip.impl.RepeatableCurios;
@@ -140,8 +143,7 @@ public class Compute {
 
     public static double getSwordSkill1And4(CompoundTag data, Player player) {
         double withStandDamageRate = 0;
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Utils.swordTag.containsKey(mainhand)) {
+        if (SwordAttribute.isHandling(player)) {
             withStandDamageRate -= Compute.getSwordSkillLevel(data, 1) * 0.01;
             withStandDamageRate += Compute.getSwordSkillLevel(data, 4) * 0.015;
         }
@@ -162,8 +164,7 @@ public class Compute {
 
     public static double getBowSkill4(CompoundTag data, Player player) {
         double damageRate = 0;
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Utils.bowTag.containsKey(mainhand)) {
+        if (BowAttribute.isHandling(player)) {
             damageRate += Compute.getBowSkillLevel(data, 4) * 0.015;
         }
         return damageRate;
@@ -171,8 +172,7 @@ public class Compute {
 
     public static double getManaSkill4(CompoundTag data, Player player) {
         double damageRate = 0;
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Utils.sceptreTag.containsKey(mainhand)) {
+        if (SceptreAttribute.isHandling(player)) {
             damageRate += Compute.getManaSkillLevel(data, 4) * 0.015;
         }
         return damageRate;

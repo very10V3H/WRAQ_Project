@@ -37,7 +37,6 @@ public class ForestBossSword extends SwordItem {
         Element.lifeElementValue.put(this, 1d);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
-        Utils.swordTag.put(this, 1d);
     }
 
     @Override

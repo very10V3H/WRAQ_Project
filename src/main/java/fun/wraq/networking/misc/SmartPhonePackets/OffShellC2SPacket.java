@@ -1,9 +1,11 @@
 package fun.wraq.networking.misc.SmartPhonePackets;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.Utils;
 import fun.wraq.files.MarketItemInfo;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -56,7 +58,9 @@ public class OffShellC2SPacket {
                 if (itemInfo.equals(marketItemInfo)) removeItemInfo = itemInfo;
             }
             if (removeItemInfo != null) {
-                serverPlayer.addItem(removeItemInfo.itemStack);
+                LogUtils.getLogger().info("市场 {} 下架了 {} ",
+                        serverPlayer.getName().getString(), removeItemInfo.itemStack);
+                InventoryOperation.giveItemStack(serverPlayer, removeItemInfo.itemStack);
                 Utils.marketItemInfos.remove(removeItemInfo);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("你成功下架了一件物品").withStyle(ChatFormatting.WHITE));

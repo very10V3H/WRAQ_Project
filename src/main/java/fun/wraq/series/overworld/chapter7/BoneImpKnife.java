@@ -1,11 +1,13 @@
 package fun.wraq.series.overworld.chapter7;
 
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SwordAttribute;
+import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -14,7 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -68,12 +69,15 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
 
     public static double exTrueDamage(Player player, Mob mob) {
         if (passive(player, mob)) {
-            Item mainHand = player.getMainHandItem().getItem();
-            if (Utils.swordTag.containsKey(mainHand) || Utils.bowTag.containsKey(mainHand)) {
+            if (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)) {
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.4, 8, ParticleTypes.LAVA, 0);
             }
-            if (Utils.swordTag.containsKey(mainHand)) return 0.25;
-            if (Utils.bowTag.containsKey(mainHand)) return 0.15;
+            if (SwordAttribute.isHandling(player)) {
+                return 0.25;
+            }
+            if (BowAttribute.isHandling(player)) {
+                return 0.15;
+            }
         }
         return 0;
     }

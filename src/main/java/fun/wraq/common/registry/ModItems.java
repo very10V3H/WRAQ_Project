@@ -33,6 +33,7 @@ import fun.wraq.items.mission.Daily;
 import fun.wraq.items.mission.IronLove;
 import fun.wraq.items.mob.MobArmor;
 import fun.wraq.items.money.GoldCoinBag;
+import fun.wraq.items.money.MillionMoney;
 import fun.wraq.items.money.UDisk;
 import fun.wraq.items.ps.PsBottle;
 import fun.wraq.items.skill.ID_Card;
@@ -2205,9 +2206,10 @@ public class ModItems {
             )));
 
     public static final RegistryObject<Item> MILLION_MONEY = ITEMS.register("million_money",
-            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, false, List.of(
+            () -> new MillionMoney(new Item.Properties().rarity(Rarity.EPIC), List.of(
                     Te.s("在", "联合银行职员", CustomStyle.styleOfGold, "处兑换"),
-                    Te.s("价值1,000,000VB", CustomStyle.styleOfGold)
+                    Te.s("价值1,000,000VB", CustomStyle.styleOfGold),
+                    Te.s("右键可转化为数字VB")
             )));
 
     public static final RegistryObject<Item> WORLDSOUL_HOLLOW = ITEMS.register("worldsoul_hollow",

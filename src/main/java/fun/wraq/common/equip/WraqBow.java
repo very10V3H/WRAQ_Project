@@ -6,7 +6,6 @@ import fun.wraq.common.fast.Name;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.core.bow.MyArrowHitBlock;
 import fun.wraq.customized.uniform.bow.normal.BowCurios5;
@@ -30,11 +29,10 @@ import net.minecraft.world.phys.Vec3;
 import java.util.Comparator;
 import java.util.Set;
 
-public abstract class WraqBow extends WraqMainHandEquip {
+public abstract class WraqBow extends WraqMainHandEquip implements BowAttribute {
 
     public WraqBow(Properties properties) {
         super(properties);
-        Utils.bowTag.put(this, 1d);
         if (!(this instanceof ManageEquip) && !(this instanceof RandomLootEquip)) {
             Display.bowList.add(this);
         }
@@ -135,7 +133,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
             @Override
             public void trig() {
                 Item bow = player.getMainHandItem().getItem();
-                if (!Utils.bowTag.containsKey(bow)) {
+                if (!BowAttribute.isHandling(player)) {
                     return;
                 }
                 if (bow instanceof WraqBow wraqBow) {

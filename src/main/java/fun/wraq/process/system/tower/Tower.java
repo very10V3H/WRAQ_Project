@@ -301,7 +301,7 @@ public class Tower {
         ItemStack starStack = new ItemStack(ModItems.WORLD_SOUL_5.get(), count);
         InventoryCheck.addOwnerTagToItemStack(player, starStack);
         InventoryOperation.giveItemStackWithMSGByBatch(player, starStack);
-        LogUtils.getLogger().info("{} {} by {}", playerName, Utils.LogTypes.worldSoul5, type);
+        LogUtils.getLogger().info("{} {} * {} by {}", playerName, Utils.LogTypes.worldSoul5, count, type);
 
         // 增加
         PlanPlayer.addStarCounts(player, count);

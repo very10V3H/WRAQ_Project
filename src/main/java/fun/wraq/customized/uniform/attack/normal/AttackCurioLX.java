@@ -1,7 +1,7 @@
 package fun.wraq.customized.uniform.attack.normal;
 
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -46,7 +46,7 @@ public class AttackCurioLX extends WraqAttackUniformCurios implements OnHitEffec
 
     @Override
     public void onHit(Player player, Mob mob) {
-        if (player.getMainHandItem().getItem() instanceof WraqSword) {
+        if (SwordAttribute.isHandling(player)) {
             Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.08, 4,
                     Tick.get() + Tick.s(2), Name.get(player), true, null));
         }

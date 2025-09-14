@@ -1,7 +1,7 @@
 package fun.wraq.series.dragon;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
@@ -101,7 +101,7 @@ public interface SilverDragonBloodWeapon extends OnCauseFinalDamageEquip, Active
             } else {
                 int count = playerCountMap.getOrDefault(Name.get(player), 0);
                 if (count > 0) {
-                    if (item instanceof WraqSword) {
+                    if (item instanceof SwordAttribute) {
                         Compute.getNearMob(player, 6).forEach(mob -> {
                             addCountToMob(mob, weapon.getMaxCount(), count);
                             ParticleProvider.createLineEffectParticle(player.level(),
@@ -155,7 +155,7 @@ public interface SilverDragonBloodWeapon extends OnCauseFinalDamageEquip, Active
         components.add(Te.s(" 扩散时，最大层数取有效玩家最大层数", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         ComponentUtils.descriptionActive(components, Te.s("血之主", CustomStyle.SILVER_DRAGON_STYLE));
         components.add(Te.s(" · 将自身的", "银龙之血", style,
-                "施加给" + (item instanceof WraqSword ? "周围" : "准星附近") + "所有敌人."));
+                "施加给" + (item instanceof SwordAttribute ? "周围" : "准星附近") + "所有敌人."));
         components.add(Te.s(" · 按shift释放，将汲取周围所有敌人的", "银龙之血", style));
         components.add(Te.s(" · 每汲取一名敌人，回复",
                 ComponentUtils.AttributeDescription.maxHealth("2%")));

@@ -2,8 +2,8 @@ package fun.wraq.process.system.skill;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.SceptreAttribute;
 import fun.wraq.common.util.StringUtils;
-import fun.wraq.common.util.Utils;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.world.entity.player.Player;
 
@@ -37,7 +37,7 @@ public class ManaSkillTree {
      * 法球的基础伤害 = 每100最大法力值提供5%基础伤害 <br>
      */
     public static void skill14OnPlayerManaRecover(Player player, double value) {
-        if (!Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
+        if (!SceptreAttribute.isHandling(player)) {
             return;
         }
         int tier = getManaSkillTier(player, 14);

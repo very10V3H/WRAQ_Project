@@ -158,8 +158,7 @@ public class AllayPet {
     public static void onKillMob(Player player, Mob mob) {
         String name = player.getName().getString();
         if (playerAllayPetMap.containsKey(name)) {
-            AllayPetPlayerData.giveAllayPercentExp(player, 0.02,
-                    MobSpawn.MobBaseAttributes.xpLevel.getOrDefault(MobSpawn.getMobOriginName(mob), 0));
+            AllayPetPlayerData.giveAllayPercentExp(player, 0.02, MobSpawn.getMobXpLevel(mob));
         }
     }
 

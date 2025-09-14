@@ -1,6 +1,6 @@
 package fun.wraq.series.comsumable.passive.mixture;
 
-import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.SceptreAttribute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -33,7 +33,7 @@ public class MixturePenetration0 extends CountPassiveComsumableItem {
     }
 
     public static double getManaPenetration0(Player player) {
-        if (!(player.getMainHandItem().getItem() instanceof WraqSceptre)) {
+        if (!SceptreAttribute.isHandling(player)) {
             return 0;
         }
         MixturePenetration0 mixture = (MixturePenetration0) getItemList(player).stream()

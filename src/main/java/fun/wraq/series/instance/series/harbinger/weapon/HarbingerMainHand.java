@@ -1,9 +1,9 @@
 package fun.wraq.series.instance.series.harbinger.weapon;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.equip.WraqSceptre;
-import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
@@ -138,16 +138,14 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnCauseF
     }
 
     static double getAttackDamageRate(Player player) {
-        Item item = player.getMainHandItem().getItem();
-        if ((item instanceof WraqSword || item instanceof WraqBow)) {
+        if (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)) {
             return getDamageRate(player);
         }
         return 0;
     }
 
     static double getManaDamageRate(Player player) {
-        Item item = player.getMainHandItem().getItem();
-        if (item instanceof WraqSceptre) {
+        if (SceptreAttribute.isHandling(player)) {
             return getDamageRate(player);
         }
         return 0;

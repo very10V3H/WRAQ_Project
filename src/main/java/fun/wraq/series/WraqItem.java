@@ -77,7 +77,13 @@ public class WraqItem extends Item implements UsageOrGetWayDescriptionItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
+            useOnServerSide(player);
+        }
         return super.use(level, player, interactionHand);
+    }
+
+    public void useOnServerSide(Player player) {
     }
 
     @Override

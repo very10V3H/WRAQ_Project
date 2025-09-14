@@ -2,6 +2,8 @@ package fun.wraq.events.modules;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -449,20 +451,6 @@ public class AttackEventModule {
         }
     }
 
-    public static double BowSkill4(Player player) {
-        CompoundTag data = player.getPersistentData();
-        if (Utils.bowTag.containsKey(player.getItemInHand(InteractionHand.MAIN_HAND).getItem()))
-            return Compute.getBowSkillLevel(data, 4) * 0.03;
-        return 0;
-    }
-
-    public static double SwordSkill4(Player player) {
-        CompoundTag data = player.getPersistentData();
-        if (Utils.swordTag.containsKey(player.getItemInHand(InteractionHand.MAIN_HAND).getItem()))
-            return Compute.getSwordSkillLevel(data, 4) * 0.03;
-        return 0;
-    }
-
     public static double NetherBow(Player player, Mob monster) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.NETHER_BOW.get()))
             return Math.min(1, monster.distanceTo(player) / 100);
@@ -511,7 +499,8 @@ public class AttackEventModule {
 
     public static double SwordSkill5DamageEnhance(Player player) {
         CompoundTag data = player.getPersistentData();
-        if (Compute.getSwordSkillLevel(data, 4) > 0 && Utils.swordTag.containsKey(player.getMainHandItem().getItem())) {
+        if (Compute.getSwordSkillLevel(data, 4) > 0
+                && player.getMainHandItem().getItem() instanceof SwordAttribute) {
             return Compute.getSwordSkillLevel(data, 4) * 0.03;
         }
         return 0;
@@ -519,7 +508,7 @@ public class AttackEventModule {
 
     public static double ManaSkill5DamageEnhance(Player player) {
         CompoundTag data = player.getPersistentData();
-        if (Compute.getManaSkillLevel(data, 4) > 0 && Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
+        if (Compute.getManaSkillLevel(data, 4) > 0 && SceptreAttribute.isHandling(player)) {
             return Compute.getManaSkillLevel(data, 4) * 0.03;
         }
         return 0;

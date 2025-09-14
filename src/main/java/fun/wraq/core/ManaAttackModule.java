@@ -333,13 +333,6 @@ public class ManaAttackModule {
         return 0;
     }
 
-    public static double ManaSkill4(Player player) {
-        CompoundTag data = player.getPersistentData();
-        if (Utils.sceptreTag.containsKey(player.getItemInHand(InteractionHand.MAIN_HAND).getItem()))
-            return Compute.getManaSkillLevel(data, 4) * 0.03;
-        return 0;
-    }
-
     public static double SeaCore(Player player, Mob mob) {
         CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         if (data.contains(StringUtils.ManaCore.ManaCore)

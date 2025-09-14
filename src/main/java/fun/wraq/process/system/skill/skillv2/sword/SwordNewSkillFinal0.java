@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
@@ -47,6 +48,8 @@ public class SwordNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2All
         effectTierMap.put(player, getPlayerSkillLevelBySkillV2(player, this));
         Compute.sendEffectLastTime(player, getTexture1Url(), Tick.s(lastSeconds), 0, false);
         player.addEffect(new MobEffectInstance(MobEffects.GLOWING, Tick.s(lastSeconds)));
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerExAttackSpeed,
+                "SwordNewSkillFinal0_ExAttackSpeedEffect", 0.3, Tick.get() + Tick.s(lastSeconds));
     }
 
     private int getLastSeconds(int skillLevel) {
@@ -69,6 +72,8 @@ public class SwordNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2All
         components.add(Te.s("获得持续", getLastSeconds(level) + "秒", ChatFormatting.AQUA,
                 "的", "注魔之刃", ChatFormatting.LIGHT_PURPLE));
         components.add(Te.s("在持续时间内，普通攻击将释放", "剑气", CustomStyle.styleOfPower));
+        components.add(Te.s("并获得", ComponentUtils.AttributeDescription
+                .getAttackSpeed(getRateDescription(0.2, 0.01, level))));
         components.add(Te.s("剑气", CustomStyle.styleOfPower, "会对沿途的目标造成",
                 getRateDescription(3, 0.3, level), CustomStyle.styleOfPower, "伤害。"));
         components.add(ComponentUtils.getCritDamageInfluenceDescription());

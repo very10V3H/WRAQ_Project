@@ -2,7 +2,11 @@ package fun.wraq.series.newrunes.chapter6;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -33,7 +37,8 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     @Override
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Component.literal("物法兼修").withStyle(hoverMainStyle()));
+        ComponentUtils.descriptionPassive(components,
+                Component.literal("物法兼修").withStyle(hoverMainStyle()));
         components.add(Component.literal(" 手持").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("剑").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
@@ -48,6 +53,7 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                 append(ComponentUtils.AttributeDescription.attackDamage("40%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamage("")));
+        components.add(Te.s("该装备暂时失效.", ChatFormatting.RED));
         return components;
     }
 
@@ -67,8 +73,7 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     public static double attackDamage(Player player) {
         if (!isOn(player)) return 0;
-        ItemStack itemStack = player.getMainHandItem();
-        if (Utils.swordTag.containsKey(itemStack.getItem()) || Utils.bowTag.containsKey(itemStack.getItem())) {
+        if (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)) {
             return PlayerAttributes.manaDamage(player) * 0.2;
         }
         return 0;
@@ -76,8 +81,7 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     public static double manaDamage(Player player) {
         if (!isOn(player)) return 0;
-        ItemStack itemStack = player.getMainHandItem();
-        if (Utils.sceptreTag.containsKey(itemStack.getItem())) {
+        if (SceptreAttribute.isHandling(player)) {
             return PlayerAttributes.attackDamage(player) * 0.4;
         }
         return 0;

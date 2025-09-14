@@ -38,7 +38,6 @@ public class VolcanoBossSword extends SwordItem {
         Element.fireElementValue.put(this, 1.25);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
-        Utils.swordTag.put(this, 1d);
     }
 
     @Override

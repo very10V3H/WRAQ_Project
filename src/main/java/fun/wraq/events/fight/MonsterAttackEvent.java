@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.OnWithStandDamageCurios;
 import fun.wraq.common.registry.ModItems;
@@ -90,7 +91,7 @@ public class MonsterAttackEvent {
 
         // 副手盾受到伤害削减
         if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())
-                && Utils.swordTag.containsKey(player.getMainHandItem().getItem())) {
+                && player.getMainHandItem().getItem() instanceof SwordAttribute) {
             double damageDecreaseValue = PlayerAttributes.defence(player)
                     + PlayerAttributes.manaDefence(player) + PlayerAttributes.maxHealth(player) * 0.01;
             if (damageDecreaseValue > damage * 0.75) {

@@ -1,6 +1,8 @@
 package fun.wraq.series.nether.equip.mana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.fast.Te;
@@ -30,7 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, EnhancedForgedItem {
+public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, EnhancedForgedItem,
+        SwordAttribute, BowAttribute {
 
     private final int tier;
     public NetherSceptre(Properties properties, int tier) {

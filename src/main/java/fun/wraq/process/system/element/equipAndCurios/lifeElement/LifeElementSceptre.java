@@ -1,6 +1,7 @@
 package fun.wraq.process.system.element.equipAndCurios.lifeElement;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.SceptreAttribute;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
@@ -61,7 +62,9 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
     }
 
     public static double ExManaDamage(Player player) {
-        if (Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) return ComputeStoreNum(player) * 0.5;
+        if (SceptreAttribute.isHandling(player)) {
+            return ComputeStoreNum(player) * 0.5;
+        }
         return 0;
     }
 

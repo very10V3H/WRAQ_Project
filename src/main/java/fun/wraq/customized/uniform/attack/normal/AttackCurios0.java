@@ -1,8 +1,8 @@
 package fun.wraq.customized.uniform.attack.normal;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqCurios;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
@@ -36,7 +36,7 @@ public class AttackCurios0 extends WraqAttackUniformCurios {
     }
 
     public static double getPlayerFinalCritDamageEnhanceRate(Player player) {
-        if (player.getMainHandItem().getItem() instanceof WraqSword) {
+        if (SwordAttribute.isHandling(player)) {
             if (WraqCurios.hasCurio(player, UniformItems.ATTACK_CURIOS_0.get())) {
                 return 0.15;
             } else if (WraqCurios.hasCurio(player, UniformItems.ATTACK_ENHANCED_CURIOS_0.get())) {

@@ -1,14 +1,14 @@
 package fun.wraq.process.system.skill.skillv2.sword;
 
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
-import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
+import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -34,7 +34,7 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2All
                 DelayOperationWithAnimation.Animation.samurai, 8, 8, player, 1) {
             @Override
             public void trig() {
-                if (Utils.swordTag.containsKey(mainHandItem)) {
+                if (mainHandItem instanceof SwordAttribute) {
                     SwordNewSkillFinal0.onPlayerNormalAttack(player);
                     MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                     List<Mob> mobs = AttackEvent.getPlayerNormalAttackRangeMobList(player, 0.5);

@@ -1,9 +1,7 @@
 package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.equip.WraqSceptre;
-import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.*;
 import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceEquip;
@@ -166,7 +164,6 @@ public class DamageInfluence {
 
     public static double getPlayerFinalDamageEnhance(Player player) {
         double rate = 0;
-        Item item = player.getMainHandItem().getItem();
         rate += Compute.CuriosAttribute.getDistinctCuriosList(player)
                 .stream().filter(curios -> {
                     boolean isUniform = curios.getItem() instanceof WraqUniformCurios;
@@ -174,13 +171,13 @@ public class DamageInfluence {
                         Item curio = curios.getItem();
                         if ((curio instanceof WraqAttackUniformCurios
                                 || curio instanceof WraqAttackEnhancedUniformCurios)) {
-                            return item instanceof WraqSword;
+                            return SwordAttribute.isHandling(player);
                         } else if ((curio instanceof WraqBowUniformCurios
                                 || curio instanceof WraqBowEnhancedUniformCurios)) {
-                            return item instanceof WraqBow;
+                            return BowAttribute.isHandling(player);
                         } else if ((curio instanceof WraqManaUniformCurios
                                 || curio instanceof WraqManaEnhancedUniformCurios)) {
-                            return item instanceof WraqSceptre;
+                            return SceptreAttribute.isHandling(player);
                         }
                         return true;
                     }
@@ -248,7 +245,7 @@ public class DamageInfluence {
     }
 
     public static double levelSuppress(Player player, Mob monster) {
-        int mobLevel = MobSpawn.MobBaseAttributes.xpLevel.getOrDefault(MobSpawn.getMobOriginName(monster), 0);
+        int mobLevel = MobSpawn.getMobXpLevel(monster);
         if (MobSpawn.getMobOriginName(monster).equals(SpringMobEvent.mobName)) {
             return 0;
         }

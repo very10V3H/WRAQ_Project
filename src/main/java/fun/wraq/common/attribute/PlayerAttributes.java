@@ -1,6 +1,9 @@
 package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
@@ -63,7 +66,6 @@ import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
 import fun.wraq.series.newrunes.chapter2.SkyNewRune;
-import fun.wraq.series.newrunes.chapter6.CastleNewRune;
 import fun.wraq.series.overworld.chapter1.forest.ForestArmor;
 import fun.wraq.series.overworld.chapter1.mine.MineShield;
 import fun.wraq.series.overworld.chapter1.plain.PlainArmor;
@@ -204,7 +206,7 @@ public class PlayerAttributes {
             exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 6) * 0.005 * Utils.BowSkill6Map.get(name).getCount();
         } // 完美（持续的命中目标的箭矢，将提供至多3%攻击力，持续10s，在十次命中后达最大值，在未命中时重置层数）
 
-        if (Compute.getBowSkillLevel(data, 8) > 0 && Utils.bowTag.containsKey(mainhand)) {
+        if (Compute.getBowSkillLevel(data, 8) > 0 && BowAttribute.isHandling(player)) {
             exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 8) * 0.02;
         } // 锻弦-力量（手持弓时，获得2%攻击力）
 
@@ -219,7 +221,8 @@ public class PlayerAttributes {
 
         if (SuitCount.getMineSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.3;
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge)
+                && (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)))
             exDamage +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.AttackDamage;
 
@@ -261,7 +264,7 @@ public class PlayerAttributes {
         exDamage += LifeElementSword.ExAttackDamage(player);
         exDamage += LifeElementBow.ExAttackDamage(player);
         exDamage += VolcanoArmor.exAttackDamage(player);
-        exDamage += CastleNewRune.attackDamage(player);
+        /*exDamage += CastleNewRune.attackDamage(player);*/
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerAttackDamageModifier);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exAttackDamage);
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.attackDamage);
@@ -320,7 +323,7 @@ public class PlayerAttributes {
             critRate += 0.2;
         if (player.getEffect(ModEffects.CRITRATEUP.get()) != null && player.getEffect(ModEffects.CRITRATEUP.get()).getAmplifier() == 1)
             critRate += 0.4;
-        if (Compute.getBowSkillLevel(data, 11) > 0 && Utils.bowTag.containsKey(mainhand)) {
+        if (Compute.getBowSkillLevel(data, 11) > 0 && BowAttribute.isHandling(player)) {
             critRate += Compute.getBowSkillLevel(data, 11) * 0.02;
         } // 锻弦-平衡（手持弓时，获得额外2%暴击几率）
 
@@ -329,7 +332,8 @@ public class PlayerAttributes {
             critRate += luckyAbilityPoint * 0.001;
         }
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge)
+                && (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)))
             critRate +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.CritRate;
 
@@ -371,13 +375,14 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 1)
             critDamage += 0.2;
 
-        if (Compute.getBowSkillLevel(data, 7) > 0 && Utils.bowTag.containsKey(mainhand)) {
+        if (Compute.getBowSkillLevel(data, 7) > 0 && BowAttribute.isHandling(player)) {
             critDamage += Compute.getBowSkillLevel(data, 7) * 0.1;
         } // 锻矢-锋利（手持弓时，获得10%暴击伤害）
 
         if (SuitCount.getVolcanoSuitCount(player) >= 4) critDamage += 0.35;
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge)
+                && (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)))
             critDamage +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.CritDamage;
 
@@ -467,19 +472,19 @@ public class PlayerAttributes {
             movementSpeedUp += flexibilityAbilityPoint * 0.001;
         } // 能力
 
-        if (Compute.getSwordSkillLevel(data, 9) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
+        if (Compute.getSwordSkillLevel(data, 9) > 0 && SwordAttribute.isHandling(player)) {
             movementSpeedUp += Compute.getSwordSkillLevel(data, 9) * 0.02;
         } // 剑舞（手持近战武器时，获得1%额外移动速度）
 
-        if (Compute.getBowSkillLevel(data, 1) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
+        if (Compute.getBowSkillLevel(data, 1) > 0 && BowAttribute.isHandling(player)) {
             movementSpeedUp += Compute.getBowSkillLevel(data, 1) * 0.01;
         } // 原野护符（持有弓时，获得1%的额外移动速度）
 
-        if (Compute.getBowSkillLevel(data, 9) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
+        if (Compute.getBowSkillLevel(data, 9) > 0 && BowAttribute.isHandling(player)) {
             movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.02;
         } // 猎手本能（手持弓时，获得1%额外移动速度）
 
-        if (Compute.getManaSkillLevel(data, 9) > 0 && Utils.sceptreTag.containsKey(mainHandItem)) {
+        if (Compute.getManaSkillLevel(data, 9) > 0 && SceptreAttribute.isHandling(player)) {
             movementSpeedUp += Compute.getManaSkillLevel(data, 9) * 0.02;
         } // 法师（手持法杖时，获得1%额外移动速度）
 
@@ -747,7 +752,7 @@ public class PlayerAttributes {
         CompoundTag data = player.getPersistentData();
         double rangeUp = 0.0d;
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Compute.getSwordSkillLevel(data, 11) > 0 && Utils.swordTag.containsKey(mainhand))
+        if (Compute.getSwordSkillLevel(data, 11) > 0 && mainhand instanceof SwordAttribute)
             rangeUp += Compute.getSwordSkillLevel(data, 11) * 0.2;
 
         // 请在上方添加
@@ -782,10 +787,10 @@ public class PlayerAttributes {
             releaseSpeed += 0.2;
         if (player.getEffect(ModEffects.COOLDOWNUP.get()) != null && player.getEffect(ModEffects.COOLDOWNUP.get()).getAmplifier() == 1)
             releaseSpeed += 0.4;
-        if (Compute.getSwordSkillLevel(data, 7) > 0 && Utils.swordTag.containsKey(mainhand))
+        if (Compute.getSwordSkillLevel(data, 7) > 0 && mainhand instanceof SwordAttribute)
             releaseSpeed += Compute.getSwordSkillLevel(data, 7) * 0.03; // 冷静（手持近战武器时，获得3%冷却缩减）
 
-        if (Compute.getManaSkillLevel(data, 7) > 0 && Utils.sceptreTag.containsKey(mainhand))
+        if (Compute.getManaSkillLevel(data, 7) > 0 && SceptreAttribute.isHandling(player))
             releaseSpeed += Compute.getManaSkillLevel(data, 7) * 0.03; // 冷静（手持法杖时，获得3%冷却缩减）
 
         releaseSpeed += EarthPower.PlayerCoolDownEnhance(player); // 地蕴法术
@@ -801,7 +806,7 @@ public class PlayerAttributes {
 
         releaseSpeed += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCooldownModifier);
         releaseSpeed += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.coolDownDecrease);
-        if (Utils.sceptreTag.containsKey(mainhand)) {
+        if (SceptreAttribute.isHandling(player)) {
             releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.02; // 术法全析
         }
         releaseSpeed += SevenShadePiece.getEnhanceValue(player, Utils.coolDownDecrease);
@@ -877,7 +882,8 @@ public class PlayerAttributes {
 
         defencePenetration0 += computeAllEquipSlotBaseAttributeValue(player, Utils.defencePenetration0, false);
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge)
+                && (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)))
             defencePenetration0 +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.DefencePenetration0;
 
@@ -1031,7 +1037,6 @@ public class PlayerAttributes {
         double baseDamage = 0;
         double exDamage = 0;
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         CompoundTag data = player.getPersistentData();
         CompoundTag mainHandItemTag = new CompoundTag();
         if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
@@ -1068,7 +1073,7 @@ public class PlayerAttributes {
         if (SuitCount.getVolcanoSuitCount(player) >= 2) exDamage += baseDamage * 0.25F;
         if (SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseDamage * 0.25F;
 
-        if (mainHandItemTag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
+        if (mainHandItemTag.contains(StringUtils.SoulEquipForge) && SceptreAttribute.isHandling(player))
             exDamage +=
                     mainHandItemTag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaAttackDamage;
 
@@ -1095,7 +1100,7 @@ public class PlayerAttributes {
         exDamage += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDamage);
         exDamage += LifeElementSceptre.ExManaDamage(player);
         exDamage += VolcanoArmor.exManaDamage(player);
-        exDamage += CastleNewRune.manaDamage(player);
+        /*exDamage += CastleNewRune.manaDamage(player);*/
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exManaDamage);
         exDamage += ManaCurios4.getExManaDamage(player);
@@ -1176,14 +1181,14 @@ public class PlayerAttributes {
             manaRecover += 20;
         if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 1)
             manaRecover += 45;
-        if (Compute.getSwordSkillLevel(data, 8) > 0 && Utils.swordTag.containsKey(mainhand))
+        if (Compute.getSwordSkillLevel(data, 8) > 0 && mainhand instanceof SwordAttribute)
             manaRecover += Compute.getSwordSkillLevel(data, 8); // 洞悉（手持近战武器时，获得1额外法力回复）
-        if (Compute.getManaSkillLevel(data, 1) > 0 && Utils.sceptreTag.containsKey(mainhand))
+        if (Compute.getManaSkillLevel(data, 1) > 0 && SceptreAttribute.isHandling(player))
             manaRecover += Compute.getManaSkillLevel(data, 1) * 0.5; // 仙女护符（持有法杖时，获得额外0.5点法力回复）
-        if (Compute.getManaSkillLevel(data, 8) > 0 && Utils.sceptreTag.containsKey(mainhand))
+        if (Compute.getManaSkillLevel(data, 8) > 0 && SceptreAttribute.isHandling(player))
             manaRecover += Compute.getManaSkillLevel(data, 8); // 洞悉（手持法杖时，获得1额外法力回复）
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && SceptreAttribute.isHandling(player))
             manaRecover +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaRecover;
 
@@ -1292,7 +1297,7 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.HEALSTEALUP.get()) != null && player.getEffect(ModEffects.HEALSTEALUP.get()).getAmplifier() == 1)
             healthSteal += 0.25;
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand)))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (mainhand instanceof SwordAttribute))
             healthSteal +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.HealthSteal;
 
@@ -1389,7 +1394,7 @@ public class PlayerAttributes {
         manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaPenetration0,
                 StringUtils.RandomCuriosAttribute.xpLevelManaPenetration0) * player.experienceLevel;
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && SceptreAttribute.isHandling(player))
             manaPenetration0 +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaPenetration0;
 
@@ -1404,7 +1409,7 @@ public class PlayerAttributes {
         manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.RandomCuriosAttribute.manaPenetration0); // 新版饰品属性加成
         manaPenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaPenetration0);
-        if (Utils.sceptreTag.containsKey(mainhand)) {
+        if (SceptreAttribute.isHandling(player)) {
             manaPenetration0 += Compute.getManaSkillLevel(data, 10) * 3; // 力凝魔核
         }
 
@@ -1440,7 +1445,7 @@ public class PlayerAttributes {
             maxMana += intelligentAbilityPoint * 10;
         } // 能力
 
-        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
+        if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && SceptreAttribute.isHandling(player))
             maxMana +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.MaxMana;
         maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.RandomCuriosAttribute.maxMana); // 新版饰品属性加成
@@ -1486,11 +1491,10 @@ public class PlayerAttributes {
         rate += Compute.CuriosAttribute.attributeValue(player, Utils.attackSpeedEnhance,
                 StringUtils.RandomCuriosAttribute.attackSpeedEnhance);
         CompoundTag data = player.getPersistentData();
-        Item mainHandItem = player.getMainHandItem().getItem();
-        if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
+        if (Compute.getSwordSkillLevel(data, 10) > 0 && SwordAttribute.isHandling(player)) {
             rate += Compute.getSwordSkillLevel(data, 10) * 0.03;
         }
-        if (Compute.getBowSkillLevel(data, 10) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
+        if (Compute.getBowSkillLevel(data, 10) > 0 && BowAttribute.isHandling(player)) {
             rate += Compute.getBowSkillLevel(data, 10) * 0.03;
         }
         return rate;

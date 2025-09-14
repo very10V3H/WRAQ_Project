@@ -34,7 +34,6 @@ public class LakeBoss {
             Element.waterElementValue.put(this, 1.25);
             Utils.mainHandTag.put(this, 1d);
             Utils.weaponList.add(this);
-            Utils.swordTag.put(this, 1d);
         }
 
         private final double BaseDamage = 160.0d;

@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter1.mine;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
@@ -50,8 +51,7 @@ public class MineShield extends WraqOffHandItem {
     }
 
     public static double defenceEnhance(Player player) {
-        if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())
-                && Utils.swordTag.containsKey(player.getMainHandItem().getItem())) {
+        if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem()) && SwordAttribute.isHandling(player)) {
             return 0.25;
         }
         return 0;

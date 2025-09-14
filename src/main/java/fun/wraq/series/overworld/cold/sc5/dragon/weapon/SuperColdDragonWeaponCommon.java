@@ -4,8 +4,8 @@ import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
@@ -90,9 +90,9 @@ public interface SuperColdDragonWeaponCommon extends Decomposable, ForgeItem {
 
     private static void adaptiveNormalAttack(Player player, Mob eachMob, double rate) {
         int type = 0;
-        if (player.getMainHandItem().getItem() instanceof WraqBow) {
+        if (BowAttribute.isHandling(player)) {
             type = 1;
-        } else if (player.getMainHandItem().getItem() instanceof WraqSceptre) {
+        } else if (SceptreAttribute.isHandling(player)) {
             type = 2;
         }
         if (type == 0) {

@@ -1,6 +1,8 @@
 package fun.wraq.events.core;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -34,7 +36,7 @@ public class RightClickEvent {
         Item item = itemStack.getItem();
         if (event.getSide().isServer()) {
             if (item instanceof ActiveItem) {
-                if (!Utils.bowTag.containsKey(item) && !Utils.sceptreTag.containsKey(item)) {
+                if (!(item instanceof WraqBow) && !(item instanceof WraqSceptre)) {
                     if (event.getHand().equals(InteractionHand.MAIN_HAND)) {
                         Compute.use(player, item);
                     }

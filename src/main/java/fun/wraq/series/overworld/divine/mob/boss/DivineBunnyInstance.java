@@ -58,6 +58,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
         if (boss == null || boss.tickCount == 0) return;
         int tick = boss.tickCount;
         DivineUtils.handleMobTick(boss);
+        if (players.isEmpty()) return;
         if (tick % 60 == 0) {
             commonAttack();
         }

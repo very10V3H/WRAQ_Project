@@ -1,6 +1,7 @@
 package fun.wraq.process.system.element.equipAndCurios.lifeElement;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
@@ -118,7 +119,9 @@ public class LifeElementSword extends WraqSword implements ActiveItem {
     }
 
     public static double ExAttackDamage(Player player) {
-        if (Utils.swordTag.containsKey(player.getMainHandItem().getItem())) return ComputeStoreNum(player) * 0.125;
+        if (SwordAttribute.isHandling(player)) {
+            return ComputeStoreNum(player) * 0.125;
+        }
         return 0;
     }
 }

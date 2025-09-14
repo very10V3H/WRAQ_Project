@@ -6,6 +6,9 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -16,7 +19,6 @@ import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios1;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios4;
 import fun.wraq.entities.entities.Civil.Civil;
@@ -98,7 +100,7 @@ public class Damage {
         }
         ItemStack itemStack = player.getMainHandItem();
         Item item = itemStack.getItem();
-        if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item)) {
+        if (item instanceof SwordAttribute || item instanceof BowAttribute) {
             double damageRate = rate;
             if (RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player)) {
                 damageRate *= (1 + PlayerAttributes.critDamage(player));
@@ -109,7 +111,7 @@ public class Damage {
                 causeAttackDamageToMonster_RateAdDamage(player, mob, damageRate);
             }
         }
-        if (Utils.sceptreTag.containsKey(item)) {
+        if (item instanceof SceptreAttribute) {
             if (trueDamage) {
                 causeTrueDamageToMonster(player, mob, PlayerAttributes.manaDamage(player));
             } else {
@@ -121,7 +123,7 @@ public class Damage {
     public static double getAutoAdaptionDamageValue(Player player, double rate) {
         ItemStack itemStack = player.getMainHandItem();
         Item item = itemStack.getItem();
-        if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item)) {
+        if (item instanceof SwordAttribute || item instanceof BowAttribute) {
             double damageRate = rate;
             if (RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player)) {
                 damageRate *= (1 + PlayerAttributes.critDamage(player));
@@ -504,6 +506,9 @@ public class Damage {
     }
 
     public static void causeDirectDamageToPlayer(Mob mob, Player player, double damage) {
+        if (player.isDeadOrDying()) {
+            return;
+        }
         if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)
                 || MobSpawn.getMobOriginName(mob).equals(SuperColdIronGolemSpawnController.mobName)) {
             damage = Math.min(300000, damage);

@@ -1,9 +1,9 @@
 package fun.wraq.series.overworld.divine.equip.weapon;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.equip.WraqSceptre;
-import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -81,16 +81,15 @@ public interface DivineWeaponCommon extends OnKillEffectEquip, InCuriosOrEquipSl
     static void active(Player player, double distance) {
         Vec3 finalPos = Compute.getPickLocationIgnoreBlock(player, distance);
         DivineUtils.createDivineParticle(player, player.getEyePosition(), finalPos);
-        Item mainHandItem = player.getMainHandItem().getItem();
         Set<Mob> mobs = Compute.getPlayerRayMobList(player, 0.5, 0.5, distance)
                 .stream().filter(LivingEntity::isAlive).collect(Collectors.toSet());
         mobs.forEach(mob -> {
-            if (mainHandItem instanceof WraqSword) {
+            if (SwordAttribute.isHandling(player)) {
                 AttackEvent.attackToMonster(mob, player, 1, true,
                         AttackEvent.crit(player, mob, false));
-            } else if (mainHandItem instanceof WraqBow) {
+            } else if (BowAttribute.isHandling(player)) {
                 MyArrow.causeDamage(player, mob, 1);
-            } else if (mainHandItem instanceof WraqSceptre) {
+            } else if (SceptreAttribute.isHandling(player)) {
                 ManaAttackModule.causeBaseAttack(player, mob, 1, true);
             }
         });

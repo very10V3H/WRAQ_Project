@@ -1,6 +1,6 @@
 package fun.wraq.series.comsumable.passive.whetstone;
 
-import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.passive.CountPassiveComsumableItem;
@@ -32,7 +32,7 @@ public class WhetstoneAttack extends CountPassiveComsumableItem {
     }
 
     public static double getExAttackRate(Player player) {
-        if (!(player.getMainHandItem().getItem() instanceof WraqSword)) {
+        if (!(SwordAttribute.isHandling(player))) {
             return 0;
         }
         WhetstoneAttack whetStoneAttack = (WhetstoneAttack) getItemList(player).stream()

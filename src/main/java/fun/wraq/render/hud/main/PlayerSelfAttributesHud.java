@@ -1,6 +1,9 @@
 package fun.wraq.render.hud.main;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -33,7 +36,7 @@ public class PlayerSelfAttributesHud {
         int x = width / 2;
         int y = height;
 
-        if (Utils.sceptreTag.containsKey(mainHandItem)) {
+        if (SceptreAttribute.isHandling(mc.player)) {
             RenderSystem.setShaderTexture(0, MANA_DAMAGE);
             guiGraphics.blit(MANA_DAMAGE, x - 244 + xOffset, y - 41, 0, 0, 12, 12, 12, 12);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaDamageC)).withStyle(CustomStyle.styleOfMana), x - 219 + xOffset, y - 38, 0);
@@ -43,7 +46,7 @@ public class PlayerSelfAttributesHud {
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.AttackDamageC)), x - 219 + xOffset, y - 38, 5636095);
         }
 
-        if (Utils.sceptreTag.containsKey(mainHandItem)) {
+        if (SceptreAttribute.isHandling(mc.player)) {
             RenderSystem.setShaderTexture(0, MANA_DEFENCE_PENETRATION);
             guiGraphics.blit(MANA_DEFENCE_PENETRATION, x - 244 + xOffset, y - 31, 0, 0, 12, 12, 12, 12);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.BreakManaDefenceC * 100)), x - 219 + xOffset, y - 28, 5592575);
@@ -61,7 +64,7 @@ public class PlayerSelfAttributesHud {
         guiGraphics.blit(CRIT_DAMAGE, x - 244 + xOffset, y - 11, 0, 0, 12, 12, 12, 12);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.CritDamageC * 100)), x - 219 + xOffset, y - 8, 5592575);
 
-        if (Utils.swordTag.containsKey(mainHandItem)) {
+        if (mainHandItem instanceof SwordAttribute) {
             RenderSystem.setShaderTexture(0, HEALTH_RECOVER);
             guiGraphics.blit(HEALTH_RECOVER, x - 202 + xOffset, y - 41, 0, 0, 12, 12, 12, 12);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.clientHealthRecover)).withStyle(CustomStyle.styleOfLife), x - 177 + xOffset, y - 38, 0);
@@ -75,7 +78,7 @@ public class PlayerSelfAttributesHud {
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaDamageC)).withStyle(CustomStyle.styleOfMana), x - 177 + xOffset, y - 38, 0);
         }
 
-        if (Utils.swordTag.containsKey(mainHandItem) || Utils.bowTag.containsKey(mainHandItem)) {
+        if (SwordAttribute.isHandling(mc.player) || BowAttribute.isHandling(mc.player)) {
             RenderSystem.setShaderTexture(0, DEFENCE_PENETRATION0);
             guiGraphics.blit(DEFENCE_PENETRATION0, x - 202 + xOffset, y - 31, 0, 0, 12, 12, 12, 12);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.BreakDefence0C)).withStyle(CustomStyle.styleOfMine), x - 177 + xOffset, y - 28, 0);
@@ -97,11 +100,11 @@ public class PlayerSelfAttributesHud {
         else
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.CoolDownC * 100)), x - 177 + xOffset, y - 8, 5636095);
 
-        if (Utils.bowTag.containsKey(mainHandItem)) {
+        if (BowAttribute.isHandling(mc.player)) {
             RenderSystem.setShaderTexture(0, SWIFT);
             guiGraphics.blit(SWIFT, x - 160 + xOffset, y - 41, 0, 0, 12, 12, 12, 12);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.clientSwiftness)).withStyle(CustomStyle.styleOfFlexible), x - 135 + xOffset, y - 38, 0);
-        } else if (Utils.sceptreTag.containsKey(mainHandItem)) {
+        } else if (SceptreAttribute.isHandling(mc.player)) {
             RenderSystem.setShaderTexture(0, MANA_HEALTH_STEAL);
             guiGraphics.blit(MANA_HEALTH_STEAL, x - 160 + xOffset, y - 41, 0, 0, 12, 12, 12, 12);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f‰", ClientUtils.clientManaHealthSteal * 100)).withStyle(CustomStyle.styleOfMana), x - 135 + xOffset, y - 38, 0);

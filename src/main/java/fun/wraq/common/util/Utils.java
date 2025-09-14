@@ -92,9 +92,6 @@ public class Utils {
     public static Map<Item, Double> percentManaRecover = new HashMap<>();
 
     public static Map<Item, Double> mainHandTag = new HashMap<>();
-    public static Map<Item, Double> swordTag = new HashMap<>();
-    public static Map<Item, Double> bowTag = new HashMap<>();
-    public static Map<Item, Double> sceptreTag = new HashMap<>();
     public static Map<Item, Double> offHandTag = new HashMap<>();
     public static Map<Item, Double> shieldTag = new HashMap<>();
     public static Map<Item, Double> armorTag = new HashMap<>();
