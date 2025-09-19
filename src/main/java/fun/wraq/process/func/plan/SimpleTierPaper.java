@@ -34,6 +34,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("接取专属月卡任务(材料需求减半)").withStyle(ChatFormatting.LIGHT_PURPLE)));
         add(Te.s("4. ", CustomStyle.styleOfWorld, "委托任务", CustomStyle.styleOfWorld,
                 "高评级时间延长", "1min", ChatFormatting.LIGHT_PURPLE, "，并保底获得", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
+        add(Te.s(" ".repeat(8), "击杀数需求", "-17%", CustomStyle.styleOfWorld));
         SupplyBox supplyBoxTier1 = (fun.wraq.process.func.plan.SupplyBox) ModItems.SUPPLY_BOX_TIER_1.get();
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("每日补给").withStyle(ChatFormatting.GOLD)).
@@ -70,6 +71,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("接取专属月卡任务(材料需求减半)").withStyle(ChatFormatting.LIGHT_PURPLE)));
         add(Te.s("4. ", CustomStyle.styleOfWorld, "委托任务", CustomStyle.styleOfWorld,
                 "高评级时间延长", "1min", ChatFormatting.LIGHT_PURPLE, "，并保底获得", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
+        add(Te.s(" ".repeat(8), "击杀数需求", "-33%", CustomStyle.styleOfWorld));
         SupplyBox supplyBoxTier2 = (fun.wraq.process.func.plan.SupplyBox) ModItems.SUPPLY_BOX_TIER_2.get();
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("每日补给").withStyle(ChatFormatting.GOLD)).
@@ -108,6 +110,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("接取专属月卡任务(材料需求减半)").withStyle(ChatFormatting.LIGHT_PURPLE)));
         add(Te.s("4. ", CustomStyle.styleOfWorld, "委托任务", CustomStyle.styleOfWorld,
                 "高评级时间延长", "1min", ChatFormatting.LIGHT_PURPLE, "，并保底获得", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
+        add(Te.s(" ".repeat(8), "击杀数需求", "-49%", CustomStyle.styleOfWorld));
         SupplyBox supplyBoxTier3 = (SupplyBox) ModItems.SUPPLY_BOX_TIER_3.get();
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("每日补给").withStyle(ChatFormatting.GOLD)).

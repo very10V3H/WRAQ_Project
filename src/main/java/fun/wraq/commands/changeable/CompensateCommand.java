@@ -24,7 +24,7 @@ import java.util.List;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 52;
+    public static int rewardNum = 53;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -36,7 +36,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
             data.putBoolean(singleReward, true);
             if (player.experienceLevel >= 75) {
                 List<ItemStack> list = new ArrayList<>();
-                ItemStack supplyBox = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 1);
+                ItemStack supplyBox = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 2);
                 list.add(supplyBox);
                 switch (SkillUtil.getMaxType(player)) {
                     case 0 -> {

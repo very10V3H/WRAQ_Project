@@ -23,9 +23,16 @@ import java.util.List;
 public class SupplyBox extends Item {
     private final List<ItemStack> supplyItems = new ArrayList<>();
 
-    public SupplyBox(Properties properties, List<ItemStack> supplyItems) {
+    private boolean isContentBounded = true;
+
+    public SupplyBox(Properties properties, List<ItemStack> supplyItems, boolean isContentBounded) {
         super(properties);
         this.supplyItems.addAll(supplyItems);
+        this.isContentBounded = isContentBounded;
+    }
+
+    public SupplyBox(Properties properties, List<ItemStack> supplyItems) {
+        this(properties, supplyItems, true);
     }
 
     @Override
@@ -46,7 +53,9 @@ public class SupplyBox extends Item {
         if (!level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             supplyItems.forEach(supply -> {
                 ItemStack itemStack = new ItemStack(supply.getItem(), supply.getCount());
-                InventoryCheck.addOwnerTagToItemStack(player, itemStack);
+                if (isContentBounded) {
+                    InventoryCheck.addOwnerTagToItemStack(player, itemStack);
+                }
                 if (itemStack.is(ModItems.WORLD_SOUL_5.get())) {
                     Tower.givePlayerStar(player, itemStack.getCount(), "月卡/计划补给箱");
                 } else {

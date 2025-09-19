@@ -191,7 +191,7 @@ dependencies {
     implementation fg.deobf("curse.maven:serene-seasons-291874:4761603")
     implementation fg.deobf("curse.maven:sophisticated-backpacks-422301:4637294")
     implementation fg.deobf("curse.maven:create-328085:5838779")
-    implementation fg.deobf("curse.maven:armourers-workshop-229523:5327619")
+    implementation fg.deobf("curse.maven:armourers-workshop-229523:6965580")
     implementation fg.deobf("curse.maven:sophisticated-core-618298:4643717")
     implementation fg.deobf("curse.maven:xaeros-world-map-317780:6778091")
     implementation fg.deobf("curse.maven:xaeros-minimap-263420:6778028")

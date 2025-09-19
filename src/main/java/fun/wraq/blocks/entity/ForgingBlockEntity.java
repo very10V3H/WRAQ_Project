@@ -568,8 +568,10 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         if (sword.getTagElement(Utils.MOD_ID) == null) return false;
 
         CompoundTag data = sword.getOrCreateTagElement(Utils.MOD_ID);
-        if (data.getInt("newMaxSlot") == 0 || data.getInt("newMaxSlot") == data.getInt("newSlot")) return false;
-        return hasDismantleInFirstSlot && gem.is(Items.AIR);
+        if (data.getInt("newMaxSlot") == 0
+                || data.getInt("newMaxSlot") == data.getInt("newSlot")) return false;
+        return hasDismantleInFirstSlot && gem.is(Items.AIR)
+                && blockEntity.itemStackHandler.getStackInSlot(2).is(Items.AIR);
     }
 
     private static boolean hasRecipe(ForgingBlockEntity blockEntity) {

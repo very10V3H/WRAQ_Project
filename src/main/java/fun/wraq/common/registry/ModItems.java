@@ -2825,7 +2825,7 @@ public class ModItems {
                 add(new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get(), 16));
                 add(new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 16));
                 add(new ItemStack(OreItems.WRAQ_ORE_4_ITEM.get(), 16));
-            }}));
+            }}, false));
 
     public static final RegistryObject<Item> JUNIOR_SUPPLY = ITEMS.register("junior_supply",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.UNCOMMON), new ArrayList<>() {{

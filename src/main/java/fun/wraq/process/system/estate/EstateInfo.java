@@ -391,6 +391,12 @@ public enum EstateInfo {
             new BlockPos(1241, 85, -1262), new BlockPos(1242, 85, -1262),
             4000 * 10000, 0),
 
+    WEM_HOUSE(Te.s("Wem_man", ChatFormatting.BLACK),
+            "大House",
+            new BlockPos(1158, 81, -1352), new BlockPos(1166, 82, -1353),
+            new BlockPos(1167, 82, -1355), new BlockPos(1167, 82, -1354),
+            4000 * 10000, 0),
+
     TT(Te.s("TT"),
             "Floor T",
             BlockPos.ZERO, BlockPos.ZERO,

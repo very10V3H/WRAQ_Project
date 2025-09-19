@@ -76,7 +76,7 @@ public class ColdSystem {
         int tier = 0;
         for (ItemStack armor : player.getArmorSlots()) {
             if (armor.getItem() instanceof BunkerArmor bunkerArmor) {
-                tier += bunkerArmor.tier + 1;
+                tier += bunkerArmor.heatTier + 1;
             }
         }
         if (player.getEffect(ModEffects.WARM.get()) != null) {

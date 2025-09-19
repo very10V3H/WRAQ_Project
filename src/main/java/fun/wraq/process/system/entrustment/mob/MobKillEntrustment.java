@@ -37,10 +37,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class MobKillEntrustment {
     public Component mobName;
@@ -373,17 +370,25 @@ public class MobKillEntrustment {
             return;
         }
         int level = NoTeamInstanceModule.getPlayerCurrentStageLevel(player);
-        List<MobSpawnController> controllers = MobSpawn.getAllControllers(true)
+        List<MobSpawnController> controllers = new ArrayList<>();
+        Set<String> mobName = new HashSet<>();
+        for (MobSpawnController controller : MobSpawn.getAllControllers(true)
                 .stream().filter(controller -> {
                     return controller.averageLevel <= level
                             && (!(controller instanceof SkyVexSpawnController)
                             && !(controller instanceof StarVexSpawnController)
                             && !(controller instanceof EvokerSpawnController));
-                }).toList();
+                }).toList()) {
+            if (!mobName.contains(controller.mobName.getString())) {
+                mobName.add(controller.mobName.getString());
+                controllers.add(controller);
+            }
+        }
         Random random = new Random();
         MobSpawnController controller = controllers.get(random.nextInt(controllers.size()));
+
         MobKillEntrustment entrustment =
-                new MobKillEntrustment(controller.mobName, random.nextInt(96, 192), Tick.get());
+                new MobKillEntrustment(controller.mobName, getCount(player), Tick.get());
         playerCurrentEntrustmentMap.put(name, entrustment);
         for (int i = 0 ; i < 5 ; i ++) {
             player.sendSystemMessage(Component.literal(""));
@@ -396,6 +401,14 @@ public class MobKillEntrustment {
         sendPacketToClient(player);
         MySound.soundToPlayer(player, SoundEvents.VILLAGER_TRADE);
         Guide.sendGuideDisplayStatusToClient(player, true);
+    }
+
+    private static int getCount(Player player) {
+        Random random = new Random();
+        int tier = PlanPlayer.getPlayerTier(player);
+        int[] originCount = new int[]{96, 80, 64, 48};
+        int[] boundCount = new int[]{192, 160, 128, 96};
+        return random.nextInt(originCount[tier], boundCount[tier]);
     }
 
     public static void playerTryToCancel(Player player) {

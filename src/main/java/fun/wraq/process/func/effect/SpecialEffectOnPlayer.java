@@ -98,6 +98,9 @@ public class SpecialEffectOnPlayer {
     }
 
     public static boolean inImprison(Player player) {
+        if (player.isDeadOrDying()) {
+            return false;
+        }
         String name = player.getName().getString();
         int tick = Tick.get();
         if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ColdIronArmor coldIronArmor
