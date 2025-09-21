@@ -136,7 +136,7 @@ public class BonusChestPlayerData {
                 chestBlockEntity.clearContent();
                 BonusChestContent.getBonusContent(bonusChestInfo.tier).forEach(pair -> {
                     ItemStack itemStack = pair.getFirst();
-                    if (InventoryCheck.containOwnerTag(itemStack)) {
+                    if (InventoryCheck.getBoundingList().contains(itemStack.getItem())) {
                         InventoryCheck.addOwnerTagToItemStack(player, itemStack);
                     }
                     Security.recordItemStream(player.getName().getString(), itemStack,
