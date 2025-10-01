@@ -9,8 +9,6 @@ import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Vex;
@@ -71,7 +69,6 @@ public class StarVexSpawnController extends MobSpawnController {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, getMobAttributes());
         // 设置物品
         vex.setItemInHand(InteractionHand.MAIN_HAND, Items.DIAMOND_SWORD.getDefaultInstance());
-        vex.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

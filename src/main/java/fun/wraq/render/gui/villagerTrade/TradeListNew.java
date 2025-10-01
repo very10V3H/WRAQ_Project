@@ -9,6 +9,7 @@ import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.crystal.OriginStone;
+import fun.wraq.series.events.midautumn.MidAutumnStoreRecipe;
 import fun.wraq.series.events.summer2025.Summer2025StoreRecipe;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
@@ -69,6 +70,7 @@ public class TradeListNew {
         IceDragonTpUtil.setVillagerData();
         Summer2025StoreRecipe.setVillagerTradeRecipe();
         windEquip();
+        MidAutumnStoreRecipe.setVillagerData();
     }
 
     public static List<ItemStack> getCoinList(int vb) {

@@ -84,7 +84,7 @@ public class ComponentUtils {
         }
 
         public static Component damageDirectDecrease(String content) {
-            return Component.literal(Utils.Emoji.Defence + " " + content + "伤害削减").withStyle(CustomStyle.styleOfStone);
+            return Component.literal(Utils.Emoji.Defence + " " + content + "伤害减免").withStyle(CustomStyle.styleOfStone);
         }
 
         public static Component healAmplification(String content) {

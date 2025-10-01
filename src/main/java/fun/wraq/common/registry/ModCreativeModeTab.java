@@ -20,6 +20,7 @@ import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.overworld.wind.WindItems;
+import fun.wraq.series.secret.SecretItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -136,7 +137,11 @@ public class ModCreativeModeTab {
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ComsumableItems.MIXTURE_ATTACK_0.get()))
                     .title(Te.s("维瑞阿契 | 消耗品")).build());
-    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zi_all",
+    public static RegistryObject<CreativeModeTab> SECRET = CREATIVE_MODE_TAB.register("aa_wraq_zi_secret",
+            () -> CreativeModeTab.builder().icon(
+                            () -> new ItemStack(SecretItems.CHEST_KEY_HOLY_2.get()))
+                    .title(Te.s("维瑞阿契 | 隐秘宝藏")).build());
+    public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zj_all",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.DEVIL_SWORD.get()))
                     .title(Te.s("维瑞阿契 | 总集")).build());

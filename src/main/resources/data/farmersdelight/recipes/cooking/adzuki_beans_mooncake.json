@@ -1,0 +1,29 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 300,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "tag": "forge:dough"
+    },
+    {
+      "tag": "forge:dough"
+    },
+    {
+      "item": "neapolitan:adzuki_beans"
+    },
+    {
+      "item": "neapolitan:adzuki_beans"
+    },
+    {
+      "item": "vmd:osmanthus"
+    },
+    {
+      "tag": "forge:eggs"
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "item": "vmd:adzuki_beans_mooncake"
+  }
+}

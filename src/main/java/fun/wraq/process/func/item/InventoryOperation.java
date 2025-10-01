@@ -222,6 +222,11 @@ public class InventoryOperation {
         }
     }
 
+    public static void giveBoundingItemStack(Player player, ItemStack itemStack) {
+        InventoryCheck.addOwnerTagToItemStack(player, itemStack);
+        giveItemStackWithMSG(player, itemStack);
+    }
+
     public static void itemTrade(Player player, ItemStack needItem, ItemStack targetItem) throws IOException {
         int playerInventoryNeedItemCount = InventoryOperation.itemStackCount(player, needItem.getItem());
         if (playerInventoryNeedItemCount >= needItem.getCount()) {

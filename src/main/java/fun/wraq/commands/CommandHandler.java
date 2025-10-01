@@ -192,14 +192,14 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
-        CommandDispatcher<CommandSourceStack> dispatcher24 = event.getDispatcher();
+/*        CommandDispatcher<CommandSourceStack> dispatcher24 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd24 = dispatcher24.register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("recycle")
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                                 .executes(RecycleCommand.instance)
                 )
-        );
+        );*/
         CommandDispatcher<CommandSourceStack> dispatcher25 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd25 = dispatcher25.register(
                 Commands.literal(Utils.MOD_ID).then(

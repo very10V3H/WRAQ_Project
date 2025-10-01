@@ -1674,10 +1674,6 @@
   "block.vmd.wraq_ore_4": "炽焰石矿石",
 
   "item.vmd.mid_autumn_soul": "中秋月荧",
-  "item.vmd.moon_feather_0": "月荧翎",
-  "item.vmd.moon_feather_1": "月荧翎¹",
-  "item.vmd.moon_feather_2": "月荧翎²",
-  "item.vmd.moon_feather_3": "月荧翎³",
 
   "item.vmd.mid_autumn_sword": "月蚀 - 荧",
   "item.vmd.mid_autumn_bow": "月影 - 荧",
@@ -2471,7 +2467,7 @@
   "item.vmd.bow_enhanced_curio_0": "一阶INF矩阵 - 游侠I&II",
   "item.vmd.mana_enhanced_curio_0": "一阶INF矩阵 - 梅林I&II",
 
-  "item.vmd.college_senior_equip_ticket": "研院高等装备补给券",
+  "item.vmd.college_senior_equip_ticket_new": "研院高等装备补给券",
 
   "item.vmd.wind_crystal_0": "唤风聚晶",
   "item.vmd.wind_crystal_1": "飓风聚晶",
@@ -2486,6 +2482,54 @@
   "item.vmd.wind_boots_1": "翠绿足具¹",
   "item.vmd.wind_boots_2": "翠绿足具²",
   "item.vmd.wind_boots_3": "翠绿足具³",
+
+  "item.vmd.adzuki_beans_mooncake": "豆沙月饼",
+  "item.vmd.supreme_mooncake": "流沙玉轮月饼",
+
+  "item.vmd.osmanthus": "桂花",
+  "item.vmd.golden_wheat_dough": "黄金面团",
+  "item.vmd.mana_adzuki_beans": "魔法红豆",
+  "item.vmd.olive_oil": "橄榄油",
+  "item.vmd.moon_osmanthus": "玉轮月桂",
+  "item.vmd.supreme_egg": "超级鸡蛋",
+
+  "item.vmd.mid_autumn_gem": "不知重逢何年月",
+  "item.vmd.mid_autumn_forge_paper": "月圆符",
+  "item.vmd.prefix_mid_autumn_2025_0": "称号 - 「误闯天家」",
+
+  "item.vmd.moon_feather_0": "月荧翎",
+  "item.vmd.moon_feather_1": "月荧翎¹",
+  "item.vmd.moon_feather_2": "月荧翎²",
+  "item.vmd.moon_feather_3": "月荧翎³",
+  "item.vmd.moon_feather_4": "月荧翎⁴",
+
+  "item.vmd.mid_autumn_letter_curio_0": "借问天上宫阙",
+  "item.vmd.mid_autumn_letter_curio_1": "借问天上宫阙",
+  "item.vmd.mid_autumn_letter_curio_2": "借问天上宫阙",
+  "item.vmd.mid_autumn_letter_curio_3": "借问天上宫阙",
+  "item.vmd.mid_autumn_letter_curio_4": "借问天上宫阙",
+
+  "item.vmd.mid_autumn_mana_mooncake": "魔力月饼",
+
+  "item.vmd.secret_chest_key_holy_0": "隐秘神圣钥匙 - 白",
+  "item.vmd.secret_chest_key_holy_1": "隐秘神圣钥匙 - 蓝",
+  "item.vmd.secret_chest_key_holy_2": "隐秘神圣钥匙 - 紫",
+
+  "item.vmd.secret_treasure_holy_0": "隐秘神圣初芽",
+  "item.vmd.secret_treasure_holy_1": "隐秘神圣树苗",
+  "item.vmd.secret_treasure_holy_2": "神圣纯金花瓣",
+  "item.vmd.secret_treasure_holy_3": "澄亮金琥珀",
+  "item.vmd.secret_treasure_holy_4": "神圣十字轮",
+
+  "item.vmd.secret_chest_key_nether_0": "隐秘炼狱钥匙 - 白",
+  "item.vmd.secret_chest_key_nether_1": "隐秘炼狱钥匙 - 蓝",
+  "item.vmd.secret_chest_key_nether_2": "隐秘炼狱钥匙 - 紫",
+
+  "item.vmd.secret_treasure_nether_0": "炼狱花种",
+  "item.vmd.secret_treasure_nether_1": "炼狱水晶碎片",
+  "item.vmd.secret_treasure_nether_2": "红炎团",
+  "item.vmd.secret_treasure_nether_3": "炼狱火",
+  "item.vmd.secret_treasure_nether_4": "隐秘炼狱骑士手盾",
 
   "item.vmd.splasher": "膨热剂",
 

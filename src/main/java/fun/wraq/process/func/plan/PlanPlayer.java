@@ -180,7 +180,7 @@ public class PlanPlayer {
     }
 
     public static void tryToDelayOverDate(Player player, int days) {
-        if (getPlayerTier(player) > 0) {
+        if (getPlayerPlanTier(player) > 0) {
             Calendar overDate = Compute.castStringToCalendar(getOverDate(player));
             overDate.add(Calendar.DATE, days);
             setOverDate(player, Compute.castCalendarToString(overDate));

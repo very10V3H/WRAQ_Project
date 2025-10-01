@@ -14,10 +14,7 @@ import fun.wraq.series.events.dragonboat.SweetZongZi;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
-import fun.wraq.series.events.midautumn.MidAutumnBow;
-import fun.wraq.series.events.midautumn.MidAutumnSceptre;
-import fun.wraq.series.events.midautumn.MidAutumnSword;
-import fun.wraq.series.events.midautumn.MoonFeather;
+import fun.wraq.series.events.midautumn.*;
 import fun.wraq.series.events.qingMing.QingMingAttackRing;
 import fun.wraq.series.events.qingMing.QingMingCommonRing;
 import fun.wraq.series.events.qingMing.QingMingDefenceRing;
@@ -74,18 +71,6 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> MID_AUTUMN_SOUL = ITEMS.register("mid_autumn_soul", () ->
             new WraqItem(new Item.Properties().rarity(CustomStyle.MoonBold), false, true));
-
-    public static final RegistryObject<Item> MOON_FEATHER_0 = ITEMS.register("moon_feather_0", () ->
-            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 0));
-
-    public static final RegistryObject<Item> MOON_FEATHER_1 = ITEMS.register("moon_feather_1", () ->
-            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 1));
-
-    public static final RegistryObject<Item> MOON_FEATHER_2 = ITEMS.register("moon_feather_2", () ->
-            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 2));
-
-    public static final RegistryObject<Item> MOON_FEATHER_3 = ITEMS.register("moon_feather_3", () ->
-            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 3));
 
     public static final RegistryObject<Item> MID_AUTUMN_SWORD = ITEMS.register("mid_autumn_sword", () ->
             new MidAutumnSword(new Item.Properties().rarity(CustomStyle.MoonBold), 0.6));
@@ -249,7 +234,7 @@ public class SpecialEventItems {
     public static final RegistryObject<Item> QING_MING_FORGE_PAPER = ITEMS.register("qing_ming_forge_paper",
             () -> new ForgePaper(new Item.Properties().rarity(CustomStyle.LifeBold),
                     "QingMingForgePaper", QingTuan.getQingMingSuffix(),
-                    Te.s("「清符+1」", CustomStyle.styleOfLife)));
+                    Te.s("「清符」", CustomStyle.styleOfLife)));
 
     public static final RegistryObject<Item> QING_MING_REBORN_CHEST = ITEMS.register("qing_ming_reborn_chest",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.LifeBold), new ArrayList<>() {{
@@ -284,7 +269,7 @@ public class SpecialEventItems {
     public static final RegistryObject<Item> LABOUR_DAY_FORGE_PAPER = ITEMS.register("labour_day_forge_paper",
             () -> new ForgePaper(new Item.Properties().rarity(CustomStyle.GoldBold),
                     "LabourDayForgePaper", LabourDayOldCoin.getLabourDaySuffix(),
-                    Te.s("「劳动+1」", ChatFormatting.GOLD)));
+                    Te.s("「劳动」", ChatFormatting.GOLD)));
 
     public static final RegistryObject<Item> LABOUR_DAY_IRON_HOE = ITEMS.register("labour_day_iron_hoe",
             () -> new LabourDayIronHoe(new Item.Properties().rarity(CustomStyle.GoldBold)));
@@ -363,7 +348,7 @@ public class SpecialEventItems {
             = ITEMS.register("dragon_boat_fes_forge_paper",
             () -> new ForgePaper(new Item.Properties().rarity(CustomStyle.DRAGON_BOAT_FES_RARITY),
                     "DragonBoatFes", LabourDayOldCoin.getLabourDaySuffix(),
-                    Te.s("「粽符+1」", CustomStyle.DRAGON_BOAT_FES_STYLE)));
+                    Te.s("「粽符」", CustomStyle.DRAGON_BOAT_FES_STYLE)));
 
     public static final RegistryObject<Item> DRAGON_DIAMOND = ITEMS.register("dragon_diamond",
             () -> new DragonDiamond(new Item.Properties().rarity(CustomStyle.WorldBold)));
@@ -441,4 +426,77 @@ public class SpecialEventItems {
     public static final RegistryObject<Item> PREFIX_SUMMER2025_2 = ITEMS.register("prefix_summer2025_2",
             () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.WorldBold), "PrefixSummer2025_2",
                     "炫目之光", CustomStyle.styleOfWorld));
+
+    // 中秋活动
+
+    // 月饼
+    public static final RegistryObject<Item> MOONCAKE = ITEMS.register("adzuki_beans_mooncake",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SUPREME_MOONCAKE = ITEMS.register("supreme_mooncake",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+
+    // 月饼材料
+    public static final RegistryObject<Item> OSMANTHUS = ITEMS.register("osmanthus",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> GOLDEN_WHEAT_DOUGH = ITEMS.register("golden_wheat_dough",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> MANA_ADZUKI_BEANS = ITEMS.register("mana_adzuki_beans",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> OLIVE_OIL = ITEMS.register("olive_oil",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> MOON_OSMANTHUS = ITEMS.register("moon_osmanthus",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> SUPREME_EGG = ITEMS.register("supreme_egg",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> MOON_FEATHER_0 = ITEMS.register("moon_feather_0", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 0));
+    public static final RegistryObject<Item> MOON_FEATHER_1 = ITEMS.register("moon_feather_1", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 1));
+    public static final RegistryObject<Item> MOON_FEATHER_2 = ITEMS.register("moon_feather_2", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 2));
+    public static final RegistryObject<Item> MOON_FEATHER_3 = ITEMS.register("moon_feather_3", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 3));
+    public static final RegistryObject<Item> MOON_FEATHER_4 = ITEMS.register("moon_feather_4", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 4));
+
+    public static final RegistryObject<Item> MID_AUTUMN_LETTER_CURIO_0
+            = ITEMS.register("mid_autumn_letter_curio_0", () ->
+            new MidAutumnLetterCurio(new Item.Properties().rarity(CustomStyle.MoonBold), 0));
+    public static final RegistryObject<Item> MID_AUTUMN_LETTER_CURIO_1
+            = ITEMS.register("mid_autumn_letter_curio_1", () ->
+            new MidAutumnLetterCurio(new Item.Properties().rarity(CustomStyle.MoonBold), 1));
+    public static final RegistryObject<Item> MID_AUTUMN_LETTER_CURIO_2
+            = ITEMS.register("mid_autumn_letter_curio_2", () ->
+            new MidAutumnLetterCurio(new Item.Properties().rarity(CustomStyle.MoonBold), 2));
+    public static final RegistryObject<Item> MID_AUTUMN_LETTER_CURIO_3
+            = ITEMS.register("mid_autumn_letter_curio_3", () ->
+            new MidAutumnLetterCurio(new Item.Properties().rarity(CustomStyle.MoonBold), 3));
+    public static final RegistryObject<Item> MID_AUTUMN_LETTER_CURIO_4
+            = ITEMS.register("mid_autumn_letter_curio_4", () ->
+            new MidAutumnLetterCurio(new Item.Properties().rarity(CustomStyle.MoonBold), 4));
+
+    public static final RegistryObject<Item> PREFIX_MID_AUTUMN_2025_0 = ITEMS.register("prefix_mid_autumn_2025_0",
+            () -> new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.MoonBold), "PrefixMidAutumn2025_0",
+                    "误闯天家", CustomStyle.styleOfMoon));
+
+    public static final RegistryObject<Item> MID_AUTUMN_GEM = ITEMS.register("mid_autumn_gem",
+            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MoonBold), new ArrayList<>() {{
+                add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, -0.2));
+                add(new WraqGem.AttributeMapValue(Utils.percentManaDefenceEnhance, -0.2));
+                add(new WraqGem.AttributeMapValue(Utils.healingAmplification, -0.35));
+                add(new WraqGem.AttributeMapValue(Utils.commonDamageEnhance, 0.2));
+            }}, CustomStyle.styleOfMoon,
+                    Te.s("归心似箭", CustomStyle.styleOfMoon, ChatFormatting.ITALIC),
+                    MidAutumnUtil.getSuffix()));
+
+    public static final RegistryObject<Item> MID_AUTUMN_FORGE_PAPER
+            = ITEMS.register("mid_autumn_forge_paper",
+            () -> new ForgePaper(new Item.Properties().rarity(CustomStyle.MoonBold),
+                    "MidAutumnForgePaper", MidAutumnUtil.getSuffix(),
+                    Te.s("「月圆」", CustomStyle.styleOfMoon)));
+
+    public static final RegistryObject<Item> MANA_MOONCAKE
+            = ITEMS.register("mid_autumn_mana_mooncake",
+            () -> new ManaMooncake(new Item.Properties().rarity(Rarity.RARE)));
 }

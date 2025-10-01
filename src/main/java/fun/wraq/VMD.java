@@ -79,6 +79,7 @@ import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.overworld.wind.WindItems;
+import fun.wraq.series.secret.SecretItems;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -148,6 +149,7 @@ public class VMD {
         ComsumableItems.ITEMS.register(modEvenBus);
         SpecialEventItems.ITEMS.register(modEvenBus);
         WindItems.ITEMS.register(modEvenBus);
+        SecretItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -645,6 +647,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.COMSUMABLE.getKey())) {
             ComsumableItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.SECRET.getKey())) {
+            SecretItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

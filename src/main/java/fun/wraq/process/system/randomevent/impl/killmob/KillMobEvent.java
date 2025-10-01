@@ -67,7 +67,8 @@ public abstract class KillMobEvent extends RandomEvent {
         if (isCarryingOut && Tick.get() % 200 == 0) {
             List<Mob> leftAliveMobList = mobList.stream().filter(LivingEntity::isAlive).toList();
             players.forEach(player -> {
-                sendFormatMSG(player, Te.s("还有", leftAliveMobList.size() + "只", ChatFormatting.RED, "怪物存活，位于:"));
+                sendFormatMSG(player, Te.s("还有", leftAliveMobList.size() + "只",
+                        ChatFormatting.RED, "怪物存活，位于:"));
                 for (int i = 0; i < Math.min(5, leftAliveMobList.size()); i++) {
                     Mob mob = leftAliveMobList.get(i);
                     Vec3 pos = mob.position();

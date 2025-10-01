@@ -38,6 +38,7 @@ import fun.wraq.series.comsumable.passive.mixture.MixtureAttack;
 import fun.wraq.series.dragon.SilverDragonBloodWeapon;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.gems.passive.impl.GemCommonDamageEnhanceRateModifier;
 import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
 import fun.wraq.series.holy.ice.curio.IceHolyRune;
@@ -97,6 +98,7 @@ public class DamageInfluence {
         rate += MoonCurios.getExCommonDamageEnhance(player);
         rate += Compute.CuriosAttribute
                 .attributeValue(player, Utils.commonDamageEnhance, StringUtils.RandomCuriosAttribute.commonDamageEnhance);
+        rate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.commonDamageEnhance);
         return rate;
     }
 
@@ -217,6 +219,8 @@ public class DamageInfluence {
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25);
         rate -= StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerWithstandDamageReduce);
+        rate += StableAttributesModifier
+                .getModifierValue(player, StableAttributesModifier.playerWithStandDamageModifier);
         rate += DivineUtils.getPlayerWithstandDamageExRate(player);
         rate -= IceHolyRune.getExDamageDecreaseRate(player);
         rate -= ColdIronArmor.getWithstandDamageReductionRate(player);

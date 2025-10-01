@@ -71,12 +71,12 @@ import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.ForgePaper;
+import fun.wraq.series.events.SpecialEventCommon;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingMingCommonRing;
-import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
@@ -1783,7 +1783,7 @@ public class Compute {
         rate += RankData.getExHarvestRate(player);
         rate += LabourDayOldCoin.getExHarvest();
         rate += EstateUtil.getExHarvestRate(player);
-        rate += Summer2025.getExHarvestRate();
+        rate += SpecialEventCommon.getExHarvestRate();
         return rate;
     }
 
@@ -2108,6 +2108,11 @@ public class Compute {
         return data.getInt(key);
     }
 
+    public static void setDataIntValue(Player player, String key, int value) {
+        CompoundTag data = player.getPersistentData();
+        data.putInt(key, value);
+    }
+
     public static void setDataBooleanValue(Player player, String key, boolean value) {
         CompoundTag data = player.getPersistentData();
         data.putBoolean(key, value);
@@ -2346,5 +2351,19 @@ public class Compute {
 
     public static void sendInfoToScreen(Player player, Component info) {
         ModNetworking.sendToClient(new ScreenInfoS2CPacket(info), player);
+    }
+
+    private final static String DAILY_KILL_COUNT_DATA_KEY = "daily_kill_count";
+
+    public static int getPlayerDailyKillCount(Player player) {
+        return Compute.getDataIntValue(player, DAILY_KILL_COUNT_DATA_KEY);
+    }
+
+    public static void incrementPlayerDailyKillCount(Player player) {
+        Compute.incrementDataIntValue(player, DAILY_KILL_COUNT_DATA_KEY, 1);
+    }
+
+    public static void setPlayerDailyKillCount(Player player, int value) {
+        Compute.setDataIntValue(player, DAILY_KILL_COUNT_DATA_KEY, value);
     }
 }

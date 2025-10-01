@@ -12,6 +12,7 @@ import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.crystal.OriginStone;
+import fun.wraq.series.events.midautumn.MidAutumnRabbitEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -92,6 +93,10 @@ public abstract class RandomEvent {
                 overTimeAnnouncement.forEach(this::broad);
                 end();
             } else if (finishCondition() || forcedFinish) {
+                // 过远则无法获得奖励（仅对MidAutumnRabbitEvent生效）
+                if (this instanceof MidAutumnRabbitEvent) {
+                    players.removeIf(player -> player.position().distanceTo(pos) >= 48);
+                }
                 forcedFinish = false;
                 finishAnnouncement.forEach(this::broad);
                 players.forEach(player -> {

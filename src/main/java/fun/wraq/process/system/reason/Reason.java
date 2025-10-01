@@ -9,8 +9,8 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventCommon;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
-import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -125,7 +125,7 @@ public class Reason {
                 try {
                     double exRate = 0;
                     exRate += LabourDayOldCoin.getExReasonRecoverRate();
-                    exRate += Summer2025.getExReasonRecoverRate();
+                    exRate += SpecialEventCommon.getExReasonRecoverRate();
                     addOrCostPlayerReasonValue(serverPlayer,
                             (int) (getPlayerReasonRecoverPerHour(serverPlayer) * (1 + exRate)));
                 } catch (ParseException e) {

@@ -26,14 +26,14 @@ import java.util.Random;
 public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillEffectCurios {
 
     private final int tier;
-    private final double[] rate = new double[]{0.05, 0.08, 0.12, 0.15};
-    private final double[] seconds = new double[]{1, 1.5, 2, 2.5};
+    private final double[] rate = new double[]{0.05, 0.08, 0.12, 0.15, 0.2};
+    private final double[] seconds = new double[]{1, 1.5, 2, 2.5, 3};
     public MoonFeather(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.levelRequire.put(this, new int[]{160, 180, 200, 220}[tier]);
-        Utils.xpLevelDefence.put(this, new double[]{1, 2, 2, 3}[tier]);
-        Utils.xpLevelManaDefence.put(this, new double[]{1, 2, 2, 3}[tier]);
+        Utils.levelRequire.put(this, new int[]{0, 80, 150, 200, 250}[tier]);
+        Utils.xpLevelDefence.put(this, new double[]{1, 1.5, 2, 2.5, 3}[tier]);
+        Utils.xpLevelManaDefence.put(this, new double[]{1, 1.5, 2, 2.5, 3}[tier]);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillE
     public void onKill(Player player, Mob mob, ItemStack stack) {
         if (mob.getEffect(MobEffects.LEVITATION) != null) {
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
-                    new StableAttributesModifier("moonFeatherPassiveEffect", 0.15, Tick.get() + 200));
+                    new StableAttributesModifier("moonFeatherPassiveEffect", rate[tier], Tick.get() + 200));
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCommonDamageEnhance,
-                    new StableAttributesModifier("moonFeatherPassiveEffect", 0.25, Tick.get() + 200));
+                    new StableAttributesModifier("moonFeatherPassiveEffect", rate[tier], Tick.get() + 200));
             Compute.sendEffectLastTime(player, this, 200);
         }
     }
@@ -78,9 +78,9 @@ public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillE
                 append(Te.m("漂浮状态", CustomStyle.styleOfMoon)).
                 append(Te.m("的目标后，获得持续10s的:")));
         components.add(Te.m(" 1.", CustomStyle.styleOfMoon1).
-                append(ComponentUtils.AttributeDescription.movementSpeed("15%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed(Te.percent(rate[tier]))));
         components.add(Te.m(" 2.", CustomStyle.styleOfMoon1).
-                append(ComponentUtils.getCommonDamageEnhance("25%")));
+                append(ComponentUtils.getCommonDamageEnhance(Te.percent(rate[tier]))));
         return components;
     }
 
@@ -91,6 +91,6 @@ public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillE
 
     @Override
     public Component suffix() {
-        return Te.m("「中秋 - 月荧」", CustomStyle.styleOfMoon);
+        return MidAutumnUtil.getSuffix();
     }
 }

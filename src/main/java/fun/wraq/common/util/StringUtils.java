@@ -414,16 +414,9 @@ public class StringUtils {
 
     public static String LastDailyMissionFinishedTime = "LastDailyMissionFinishedTime";
 
-    public static String HasDailyMission = "HasDailyMission";
-
     public static String ReputationMissionStartTime = "ReputationMissionStartTime";
     public static String Reputation = "Reputation";
     public static String ReputationCalculate = "ReputationCalculate";
-
-    public static String FantasyBracelet = "FantasyBracelet";
-    public static String FantasyMedal = "FantasyMedal";
-
-    public static String PsRefreshDate = "PsRefreshDate";
 
     public static String WeeklyRefreshWeekNum = "WeeklyRefreshWeekNum";
     public static String WeeklyRefreshYearNum = "WeeklyRefreshYearNum";

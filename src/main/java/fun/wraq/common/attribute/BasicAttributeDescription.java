@@ -802,15 +802,22 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaHealthSteal)));
         }
         if (Utils.healingAmplification.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.healEffectUp)) {
-            double HealEffectUp;
-            if (Utils.healingAmplification.containsKey(item)) HealEffectUp = Utils.healingAmplification.get(item);
+            double healingAmplification;
+            if (Utils.healingAmplification.containsKey(item)) healingAmplification = Utils.healingAmplification.get(item);
             else if (item instanceof RandomCurios)
-                HealEffectUp = data.getDouble(StringUtils.RandomCuriosAttribute.healEffectUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.healEffectUp);
-            else HealEffectUp = data.getInt(StringUtils.RandomCuriosAttribute.healEffectUp);
+                healingAmplification = data.getDouble(StringUtils.RandomCuriosAttribute.healEffectUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomCuriosAttribute.healEffectUp);
+            else healingAmplification = data.getInt(StringUtils.RandomCuriosAttribute.healEffectUp);
 
             MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 治疗强度").withStyle(CustomStyle.styleOfHealth).
-                    append(Component.literal("+" + String.format("%.0f%%", HealEffectUp * 100)).withStyle(ChatFormatting.WHITE)));
+
+            if (healingAmplification > 0) {
+                mutableComponent.append(Te.s(" 治疗强度", CustomStyle.styleOfHealth,
+                        "+" + String.format("%.0f%%", healingAmplification * 100)));
+            }
+            else {
+                mutableComponent.append(Te.s(" 治疗强度", CustomStyle.styleOfHealth,
+                        "-" + String.format("%.0f%%", -healingAmplification * 100), ChatFormatting.RED));
+            }
 
             handleRandomAttributeRate(itemStack, StringUtils.RandomCuriosAttribute.healEffectUp, mutableComponent);
 
@@ -1049,6 +1056,8 @@ public class BasicAttributeDescription {
                 CustomStyle.styleOfWorld, "%.0f%%", true, TraditionalTooltip.element));
         put(System.identityHashCode(Utils.percentHealthRecover), new ToolTipParameter("生命回复",
                 CustomStyle.styleOfLife, "%.1f%%", true, TraditionalTooltip.healthRecover));
+        put(System.identityHashCode(Utils.commonDamageEnhance), new ToolTipParameter("普通伤害加成",
+                CustomStyle.styleOfMoon, "%.0f%%", true, TraditionalTooltip.commonDamageEnhance));
     }};
 
     // 新的属性描述模板，仅需按照参数进行配置即可，但是需要注意的是，仅接受不能被强化增幅的属性。

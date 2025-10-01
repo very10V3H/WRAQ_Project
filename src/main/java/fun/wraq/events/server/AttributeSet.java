@@ -10,6 +10,7 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.SwiftData;
+import fun.wraq.series.events.midautumn.MidAutumnLetterCurio;
 import fun.wraq.series.newrunes.chapter1.LakeNewRune;
 import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import net.minecraft.nbt.CompoundTag;
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class AttributeSet {
+    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void setSpeed(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
@@ -85,11 +87,18 @@ public class AttributeSet {
                 SwiftData.changePlayerSwift(player, (5 + Math.min(5, PlayerAttributes.extraSwiftness(player))) / 20);
             }
 
-            // 重力调整 - 用于近战击杀恼鬼场景
+            // 重力调整 - 天空城/尘月之梦
+            // 借问天上宫阙
             if (Compute.inLowGravityEnvironment(player) && player.level().dimension().equals(Level.OVERWORLD)) {
-                player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.01);
+                player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.013);
             } else {
-                player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.08);
+                if (Compute.CuriosAttribute.getDistinctCuriosSet(player).stream().anyMatch(item -> {
+                    return MidAutumnLetterCurio.items.contains(item);
+                }) && Compute.playerIsInBattle(player)) {
+                    player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.013);
+                } else {
+                    player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.08);
+                }
             }
 
             if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.PLAIN_RING.get())) {

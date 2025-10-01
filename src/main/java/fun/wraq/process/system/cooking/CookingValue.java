@@ -440,6 +440,13 @@ public class CookingValue {
             ingredientItemValueMap.put(CRItems.CHIEFTAIN_CRAB_BUCKET.get(), 800);
             ingredientItemValueMap.put(SpecialEventItems.GOLDEN_ZONG_LEAF.get(), 17600);
             ingredientItemValueMap.put(SpecialEventItems.GOLDEN_ZONG_ZI_CONDIMENT.get(), 7680);
+
+            ingredientItemValueMap.put(SpecialEventItems.OSMANTHUS.get(), 815);
+            ingredientItemValueMap.put(SpecialEventItems.GOLDEN_WHEAT_DOUGH.get(), 8150);
+            ingredientItemValueMap.put(SpecialEventItems.MANA_ADZUKI_BEANS.get(), 815);
+            ingredientItemValueMap.put(SpecialEventItems.OLIVE_OIL.get(), 815);
+            ingredientItemValueMap.put(SpecialEventItems.MOON_OSMANTHUS.get(), 8150);
+            ingredientItemValueMap.put(SpecialEventItems.SUPREME_EGG.get(), 815);
         }
 
         if (ingredientTagKeyValueMap.isEmpty()) {

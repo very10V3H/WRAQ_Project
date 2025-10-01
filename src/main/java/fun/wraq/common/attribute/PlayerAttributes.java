@@ -47,9 +47,11 @@ import fun.wraq.series.comsumable.passive.quiver.QuiverPenetration;
 import fun.wraq.series.comsumable.passive.quiver.QuiverPenetration0;
 import fun.wraq.series.comsumable.passive.whetstone.WhetstonePenetration;
 import fun.wraq.series.comsumable.passive.whetstone.WhetstonePenetration0;
+import fun.wraq.series.events.SpecialEventCommon;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
+import fun.wraq.series.events.midautumn.MidAutumnLetterCurio;
 import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.holy.ice.curio.IceHolyCrest;
@@ -578,7 +580,7 @@ public class PlayerAttributes {
         int tier = PlanPlayer.getPlayerTier(player);
         expUp += new double[]{0, 1, 2, 3}[tier];
         expUp += LabourDayOldCoin.getExExpUp();
-        expUp += Summer2025.getExExpUp();
+        expUp += SpecialEventCommon.getExExpUp();
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -751,9 +753,15 @@ public class PlayerAttributes {
         }
         CompoundTag data = player.getPersistentData();
         double rangeUp = 0.0d;
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Compute.getSwordSkillLevel(data, 11) > 0 && mainhand instanceof SwordAttribute)
+        if (Compute.getSwordSkillLevel(data, 11) > 0 && SwordAttribute.isHandling(player)) {
             rangeUp += Compute.getSwordSkillLevel(data, 11) * 0.2;
+        }
+
+        if (Compute.isOnSky(player) && Compute.CuriosAttribute.getDistinctCuriosSet(player).stream().anyMatch(item -> {
+            return MidAutumnLetterCurio.items.contains(item);
+        })) {
+            rangeUp += 4;
+        }
 
         // 请在上方添加
         double exRate = 0;
@@ -1199,7 +1207,9 @@ public class PlayerAttributes {
         manaRecover += TabooPaper.getExManaRecoverValue(player);
         manaRecover += SevenShadePiece.getEnhanceValue(player, Utils.manaRecover);
         manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.percentManaRecover,
-                StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance) * PlayerAttributes.maxMana(player);
+                StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance) * maxMana(player);
+        manaRecover += StableAttributesModifier
+                .getModifierValue(player, StableAttributesModifier.playerPercentManaRecoverModifier) * maxMana(player);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);

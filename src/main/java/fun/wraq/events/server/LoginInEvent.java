@@ -59,9 +59,11 @@ import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
 import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventCommon;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
+import fun.wraq.series.events.midautumn.MidAutumnUtil;
 import fun.wraq.series.events.summer2025.Summer2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -203,57 +205,9 @@ public class LoginInEvent {
 
             Parkour.ParkourInitial(player);
             // 体力值每日4点刷新 与 悬赏重置 与 跑酷重置
-            if (!data.contains(StringUtils.PsRefreshDate)) {
-                Calendar calendar = Calendar.getInstance();
-                data.putString(StringUtils.PsRefreshDate, Compute.CalendarToString(calendar));
-                refreshDailyContent(player);
-            } else {
-                Calendar currentDate = Calendar.getInstance();
-                Calendar lastRefreshDate = Compute.StringToCalendar(data.getString(StringUtils.PsRefreshDate));
-                Calendar refreshDate = Calendar.getInstance();
-                if (currentDate.get(Calendar.HOUR_OF_DAY) >= 4) {
-                    refreshDate.set(Calendar.HOUR_OF_DAY, 4);
-                    refreshDate.set(Calendar.MINUTE, 0);
-                    refreshDate.set(Calendar.SECOND, 0);
-                } else {
-                    refreshDate.add(Calendar.DAY_OF_MONTH, -1);
-                    refreshDate.set(Calendar.HOUR_OF_DAY, 4);
-                    refreshDate.set(Calendar.MINUTE, 0);
-                    refreshDate.set(Calendar.SECOND, 0);
-                }
-                if (lastRefreshDate.before(refreshDate)) {
-                    data.putString(StringUtils.PsRefreshDate, Compute.CalendarToString(currentDate));
-                    refreshDailyContent(player);
-                }
-            }
-            Calendar calendar = Calendar.getInstance();
-            // 每周刷新
-            if (!data.contains(StringUtils.WeeklyRefreshWeekNum)) {
-                data.putInt(StringUtils.WeeklyRefreshWeekNum, calendar.get(Calendar.WEEK_OF_YEAR));
-                data.putInt(StringUtils.WeeklyRefreshYearNum, calendar.get(Calendar.YEAR));
-                refreshWeeklyContent(player);
-            } else {
-                int weekOfYear = data.getInt(StringUtils.WeeklyRefreshWeekNum);
-                int year = data.getInt(StringUtils.WeeklyRefreshYearNum);
-                if (weekOfYear != calendar.get(Calendar.WEEK_OF_YEAR) || year != calendar.get(Calendar.YEAR)) {
-                    data.putInt(StringUtils.WeeklyRefreshWeekNum, calendar.get(Calendar.WEEK_OF_YEAR));
-                    data.putInt(StringUtils.WeeklyRefreshYearNum, calendar.get(Calendar.YEAR));
-                    refreshWeeklyContent(player);
-                }
-            }
-            if (!data.contains(StringUtils.monthlyRefreshMonthNum)) {
-                data.putInt(StringUtils.monthlyRefreshMonthNum, calendar.get(Calendar.MONTH));
-                data.putInt(StringUtils.monthlyRefreshYearNum, calendar.get(Calendar.YEAR));
-                monthlyRefreshContent(player);
-            } else {
-                int month = data.getInt(StringUtils.monthlyRefreshMonthNum);
-                int year = data.getInt(StringUtils.monthlyRefreshYearNum);
-                if (month != calendar.get(Calendar.MONTH) || year != calendar.get(Calendar.YEAR)) {
-                    data.putInt(StringUtils.monthlyRefreshMonthNum, calendar.get(Calendar.MONTH));
-                    data.putInt(StringUtils.monthlyRefreshYearNum, calendar.get(Calendar.YEAR));
-                    monthlyRefreshContent(player);
-                }
-            }
+            tryToRefreshDaily(player);
+            tryToRefreshWeeklyAndMonthly(player);
+
             if (!data.contains("FirstReward")) {
                 InventoryOperation.giveItemStack(player, ModItems.FOR_NEW.get().getDefaultInstance());
                 Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.WHITE),
@@ -323,11 +277,76 @@ public class LoginInEvent {
             SevenShadePiece.sendDataToClient(player);
             DragonBoatFes.onLogin(player);
             WeeklyStorePlayerData.sendDataToClient(player);
+            SpecialEventCommon.onLogin(player);
             Summer2025.onLogin(player);
             RankData.onPlayerLoginCompensate(player);
             CustomPrefixCommand.onLogin(player);
             // 更新检查，放在最后吧
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
+            MidAutumnUtil.onLoginReward(player);
+        }
+    }
+
+    private static final String NEXT_ALLOW_REFRESH_DAILY_DATE = "next_allow_refresh_daily_date";
+
+    private static void tryToRefreshDaily(Player player) throws IOException {
+        CompoundTag data = player.getPersistentData();
+        Calendar calendar = Calendar.getInstance();
+        // 未曾刷新过，或者当前日期已经晚于允许刷新日期
+        if (!data.contains(NEXT_ALLOW_REFRESH_DAILY_DATE)
+                || Compute.castStringToCalendar(data.getString(NEXT_ALLOW_REFRESH_DAILY_DATE)).before(calendar)) {
+            if (calendar.get(Calendar.HOUR_OF_DAY) >= 4) {
+                // 4点之后，下次刷新时间为第二天4点
+                calendar.add(Calendar.DATE, 1);
+            }
+            calendar.set(Calendar.HOUR_OF_DAY, 4);
+            data.putString(NEXT_ALLOW_REFRESH_DAILY_DATE, Compute.castCalendarToString(calendar));
+            refreshDailyContent(player);
+        }
+    }
+
+    // 为在线玩家刷新日常/周常/月度内容
+    public static void handlePlayerTick(Player player) throws IOException {
+        if (Tick.get() % Tick.s(10) == 1) {
+            Calendar calendar = Calendar.getInstance();
+            if (calendar.get(Calendar.HOUR_OF_DAY) == 4 && calendar.get(Calendar.MINUTE) == 0) {
+                tryToRefreshDaily(player);
+                tryToRefreshWeeklyAndMonthly(player);
+            }
+        }
+    }
+
+    private static void tryToRefreshWeeklyAndMonthly(Player player) {
+        CompoundTag data = player.getPersistentData();
+        Calendar calendar = Calendar.getInstance();
+        // 每周刷新
+        if (!data.contains(StringUtils.WeeklyRefreshWeekNum)) {
+            data.putInt(StringUtils.WeeklyRefreshWeekNum, calendar.get(Calendar.WEEK_OF_YEAR));
+            data.putInt(StringUtils.WeeklyRefreshYearNum, calendar.get(Calendar.YEAR));
+            refreshWeeklyContent(player);
+        } else {
+            int weekOfYear = data.getInt(StringUtils.WeeklyRefreshWeekNum);
+            int year = data.getInt(StringUtils.WeeklyRefreshYearNum);
+            if (weekOfYear != calendar.get(Calendar.WEEK_OF_YEAR) || year != calendar.get(Calendar.YEAR)) {
+                data.putInt(StringUtils.WeeklyRefreshWeekNum, calendar.get(Calendar.WEEK_OF_YEAR));
+                data.putInt(StringUtils.WeeklyRefreshYearNum, calendar.get(Calendar.YEAR));
+                refreshWeeklyContent(player);
+            }
+        }
+
+        // 每月刷新
+        if (!data.contains(StringUtils.monthlyRefreshMonthNum)) {
+            data.putInt(StringUtils.monthlyRefreshMonthNum, calendar.get(Calendar.MONTH));
+            data.putInt(StringUtils.monthlyRefreshYearNum, calendar.get(Calendar.YEAR));
+            monthlyRefreshContent(player);
+        } else {
+            int month = data.getInt(StringUtils.monthlyRefreshMonthNum);
+            int year = data.getInt(StringUtils.monthlyRefreshYearNum);
+            if (month != calendar.get(Calendar.MONTH) || year != calendar.get(Calendar.YEAR)) {
+                data.putInt(StringUtils.monthlyRefreshMonthNum, calendar.get(Calendar.MONTH));
+                data.putInt(StringUtils.monthlyRefreshYearNum, calendar.get(Calendar.YEAR));
+                monthlyRefreshContent(player);
+            }
         }
     }
 
@@ -497,6 +516,7 @@ public class LoginInEvent {
         ManaTowerData.setManaTowerPieceDailyGetFlag(player, false);
         CookingPlayerData.resetDailyFinishedTimesCount(player);
         RankData.onPlayerDailyLogin(player);
+        Compute.setPlayerDailyKillCount(player, 0);
     }
 
     public static void refreshWeeklyContent(Player player) {

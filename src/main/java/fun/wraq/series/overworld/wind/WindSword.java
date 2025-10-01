@@ -85,11 +85,11 @@ public class WindSword extends WraqSword implements ActiveItem, ForgeItem {
         components.add(Te.s(" · ", getMainStyle(), "若其位于地面，则", "击飞", getMainStyle()));
         components.add(Te.s(" · ", getMainStyle(), "若其位于空中，则"));
         components.add(Te.s( "          对其造成",
-                ComponentUtils.getAutoAdaptTrueDamageDescription(Te.getPercent(getDamageRate())), "并强制牵引至地面."));
+                ComponentUtils.getAutoAdaptTrueDamageDescription(Te.percent(getDamageRate())), "并强制牵引至地面."));
         ComponentUtils.descriptionPassive(components, Te.s("唤风", getMainStyle()));
         components.add(Te.s(" 释放", "狂风绝息", getMainStyle(), "后，获得"));
         components.add(Te.s("          在3s内持续衰减的",
-                ComponentUtils.AttributeDescription.movementSpeed(Te.getPercent(getMovementSpeedRate()))));
+                ComponentUtils.AttributeDescription.movementSpeed(Te.percent(getMovementSpeedRate()))));
         components.add(Te.s(" 若触发了伤害，则", "固定3s冷却时间", ChatFormatting.AQUA));
         components.add(Te.s(" 否则", "固定0.8s冷却时间", ChatFormatting.AQUA));
         return components;

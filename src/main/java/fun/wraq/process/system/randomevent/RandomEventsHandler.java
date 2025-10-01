@@ -13,6 +13,8 @@ import fun.wraq.process.system.randomevent.impl.killmob.multi.CaveSpiderMultiMob
 import fun.wraq.process.system.randomevent.impl.killmob.multi.VillageAttack;
 import fun.wraq.process.system.randomevent.impl.urgent.UrgentEvent;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.midautumn.MidAutumnRabbitEvent;
+import fun.wraq.series.events.midautumn.MidAutumnUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -37,6 +39,7 @@ public class RandomEventsHandler {
     public static List<RandomEvent> randomEvents = new ArrayList<>();
 
     public static void initRandomEvents() {
+        // 在此列表中的事件会定时启动 服务器关闭时清空
         randomEvents.addAll(getKillMobEvents());
         randomEvents.addAll(getUrgentEvents());
         randomEvents.addAll(getDigBlockEvents());
@@ -164,6 +167,8 @@ public class RandomEventsHandler {
                 Te.s("莱姆king", CustomStyle.styleOfLife, "踩碎了你们的尊严，并吐着粘液溜走了"),
                 Te.s("这被羞辱的感觉可不好受呀")
         ), server, RandomEvent.getDefaultRewardList(), null));
+
+        killMobEvents.add(getMidAutumnRabbitEvent());
     }
 
     public static List<KillMobEvent> getKillMobEvents() {
@@ -271,6 +276,72 @@ public class RandomEventsHandler {
             lastRandomElementTrigMinute = minute;
             randomElement();
         }
+        if (!MidAutumnUtil.isInActivityDate()) {
+            return;
+        }
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if (status != 2
+                && timeList.stream().anyMatch(eventTime -> hour == eventTime.hour && minute + 1 == eventTime.minute)) {
+            nextTimeEvent = getMidAutumnRabbitEvent();
+            if (!nextTimeEvent.readyAnnouncement.isEmpty()) {
+                nextTimeEvent.readyAnnouncement.forEach(component -> {
+                    nextTimeEvent.broad(component);
+                });
+            }
+            status = 2;
+        }
+        if (nextTimeEvent != null && status != 3
+                && timeList.stream().anyMatch(eventTime -> hour == eventTime.hour && minute == eventTime.minute)) {
+            nextTimeEvent.begin();
+            status = 3;
+        }
+    }
+
+    public record EventTime(int hour, int minute) {
+        public static EventTime create(int hour, int minute) {
+            return new EventTime(hour, minute);
+        }
+    }
+
+    public static List<EventTime> timeList = List.of(
+            EventTime.create(11, 20),
+            EventTime.create(14, 20),
+            EventTime.create(15, 20),
+            EventTime.create(16, 20),
+            EventTime.create(17, 20),
+
+            EventTime.create(19, 50),
+            EventTime.create(20, 20),
+            EventTime.create(20, 50),
+            EventTime.create(21, 20),
+
+            EventTime.create(21, 50),
+            EventTime.create(22, 20),
+            EventTime.create(22, 50),
+            EventTime.create(23, 20)
+    );
+
+    private static MidAutumnRabbitEvent midAutumnRabbitEvent;
+
+    private static MidAutumnRabbitEvent getMidAutumnRabbitEvent() {
+        if (midAutumnRabbitEvent == null) {
+            midAutumnRabbitEvent = new MidAutumnRabbitEvent(Level.OVERWORLD, new Vec3(1059, 220, 598),
+                    List.of(
+                            Te.s(MidAutumnRabbitEvent.mobName, CustomStyle.styleOfMoon, "即将出现在",
+                                    "尘月之梦中心岛附近", CustomStyle.styleOfMoon1, "速速前往捕捉!")
+                    ),
+                    List.of(
+                            Te.s(MidAutumnRabbitEvent.mobName, CustomStyle.styleOfMoon, "已出现在",
+                                    "尘月之梦中心岛附近", CustomStyle.styleOfMoon1, "速速前往捕捉!")
+                    ),
+                    List.of(
+                            Te.s(MidAutumnRabbitEvent.mobName, CustomStyle.styleOfMoon, "被捉住了!")
+                    ),
+                    List.of(
+                            Te.s(MidAutumnRabbitEvent.mobName, CustomStyle.styleOfMoon, "逃走了!")
+                    ), Tick.server, List.of(), null);
+        }
+        return midAutumnRabbitEvent;
     }
 
     public static void randomElement() {
@@ -385,6 +456,10 @@ public class RandomEventsHandler {
     }
 
     public static void onKillMob(Player player, Mob mob) {
+        getKillMobEvents().stream().filter(event -> event.isCarryingOut).forEach(event -> event.onKillMob(player, mob));
+    }
+
+    public static void onCauseDamageToMob(Player player, Mob mob) {
         getKillMobEvents().stream().filter(event -> event.isCarryingOut).forEach(event -> event.onKillMob(player, mob));
     }
 

@@ -1,0 +1,29 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 300,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "vmd:golden_wheat_dough"
+    },
+    {
+      "item": "vmd:golden_wheat_dough"
+    },
+    {
+      "item": "vmd:mana_adzuki_beans"
+    },
+    {
+      "item": "vmd:olive_oil"
+    },
+    {
+      "item": "vmd:moon_osmanthus"
+    },
+    {
+      "item": "vmd:supreme_egg"
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "item": "vmd:supreme_mooncake"
+  }
+}

@@ -22,6 +22,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,7 @@ public class SkySkeletonSpawnController extends MobSpawnController {
         }
         skeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
         skeleton.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
+        skeleton.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.013);
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

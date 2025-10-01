@@ -158,7 +158,7 @@ public class SingleItemChangeScreen extends WraqScreen {
                 && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
             guiGraphics.renderTooltip(font, goods, x, y);
         }
-        if (x > this.width / 2 - 35 + xOffset && x < this.width / 2 + xOffset
+        if (x > this.width / 2 - 20 + xOffset && x < this.width / 2 + xOffset + 15
                 && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
             if (recipe.limitType.equals(SingleItemChangePurchaseLimit.Type.NULL)) {
                 guiGraphics.renderTooltip(font, Te.s("不限制购买次数", CustomStyle.styleOfStone), x, y);

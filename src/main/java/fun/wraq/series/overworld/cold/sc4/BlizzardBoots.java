@@ -83,6 +83,12 @@ public class BlizzardBoots extends WraqArmor implements ForgeItem {
     }
 
     @Override
+    public void tick(Player player) {
+        super.tick(player);
+        player.fallDistance = 0;
+    }
+
+    @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
                 new ItemStack(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())

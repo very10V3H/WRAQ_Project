@@ -48,6 +48,8 @@ import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelCurio;
+import fun.wraq.series.events.midautumn.MidAutumnRabbitEvent;
+import fun.wraq.series.events.midautumn.MidAutumnUtil;
 import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
@@ -577,6 +579,8 @@ public class Damage {
             finalDamage *= HarbingerMainHand.onMobWithstand(mob, player);
             finalDamage *= JungleMobSpawn.modifyMobWithstandDamage(mob, player);
             finalDamage *= DivineUtils.getManifestMobDamageModifyRate(player, mob);
+            finalDamage = MidAutumnRabbitEvent.getAdjustedDamage(mob, finalDamage);
+
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (!(mob instanceof Civil)) {
                 if (mob.getHealth() <= finalDamage && mob.isAlive()) {
@@ -601,6 +605,8 @@ public class Damage {
                     SwordNewSkillBase3_0.onKillMob(player);
                     DivineUtils.onPlayerKillMob(player, mob);
                     Summer2025.onKill(player, mob);
+                    MidAutumnUtil.onKillMob(player);
+                    Compute.incrementPlayerDailyKillCount(player);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }
@@ -618,6 +624,7 @@ public class Damage {
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
             JungleMobSpawn.onMobWithstandDamage(mob, player, damage);
             ManaCurios4.onCauseDamage(player);
+            RandomEventsHandler.onCauseDamageToMob(player, mob);
         }
     }
 

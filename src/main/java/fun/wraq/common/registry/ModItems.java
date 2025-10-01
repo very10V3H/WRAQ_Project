@@ -2991,6 +2991,6 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> COLLEGE_SENIOR_EQUIP_TICKET
-            = ITEMS.register("college_senior_equip_ticket",
+            = ITEMS.register("college_senior_equip_ticket_new",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC)));
 }

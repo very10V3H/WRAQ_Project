@@ -13,6 +13,7 @@ import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.gui.villagerTrade.TradeListNew;
 import fun.wraq.series.crystal.OriginStone;
+import fun.wraq.series.events.midautumn.MidAutumnStoreRecipe;
 import fun.wraq.series.events.summer2025.Summer2025StoreRecipe;
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonTpUtil;
 import net.minecraft.network.chat.MutableComponent;
@@ -90,6 +91,11 @@ public class VillagerEvents {
                 }
                 case Summer2025StoreRecipe.VILLAGER_NAME -> {
                     ModNetworking.sendToClient(new ScreenSetS2CPacket(12), player);
+                    event.setCanceled(true);
+                    return;
+                }
+                case MidAutumnStoreRecipe.VILLAGER_NAME -> {
+                    ModNetworking.sendToClient(new ScreenSetS2CPacket(13), player);
                     event.setCanceled(true);
                     return;
                 }

@@ -109,7 +109,7 @@ public class Te {
         });
     }
 
-    public static String getPercent(double value) {
+    public static String percent(double value) {
         return String.format("%.0f%%", value * 100);
     }
 
