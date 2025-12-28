@@ -26,7 +26,7 @@ public class CandyIce extends WraqItem implements ActiveItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Te.s(" 右键使用，获得持续5min的:", ChatFormatting.AQUA));
+        components.add(Te.s(" 右键消耗，获得持续5min的:", ChatFormatting.AQUA));
         components.add(Te.s(" · ", CustomStyle.styleOfIce,
                 ComponentUtils.AttributeDescription.coolDown("50")));
         components.add(Te.s(" · ", CustomStyle.styleOfIce,

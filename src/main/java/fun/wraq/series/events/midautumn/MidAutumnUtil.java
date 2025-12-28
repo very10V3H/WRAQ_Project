@@ -62,7 +62,7 @@ public class MidAutumnUtil {
         if (dataDay == day) {
             return;
         }
-        getData(player).putInt(SIGN_DAY, dataDay);
+        getData(player).putInt(SIGN_DAY, day);
         getRewards(month, day).forEach(itemStack -> {
             InventoryCheck.addOwnerTagToItemStack(player, itemStack);
             InventoryOperation.giveItemStackWithMSG(player, itemStack);
@@ -70,7 +70,7 @@ public class MidAutumnUtil {
         sendMSG(player, Te.s("中秋活动期间登录，每日可获取限定奖励!"));
         for (int i = 1; i <= 8; i++) {
             MutableComponent component = Te.s(" ".repeat(10), "10." + i, style, ": ");
-            getRewards(10, i).forEach(itemStack -> {
+            getRewards(Calendar.OCTOBER, i).forEach(itemStack -> {
                 component.append(Te.s(itemStack,
                         " * " + itemStack.getCount(), CustomStyle.styleOfMoon, " "));
             });

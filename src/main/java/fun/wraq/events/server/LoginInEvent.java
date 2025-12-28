@@ -65,6 +65,7 @@ import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.midautumn.MidAutumnUtil;
 import fun.wraq.series.events.summer2025.Summer2025;
+import fun.wraq.series.secret.SecretChest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -281,6 +282,8 @@ public class LoginInEvent {
             Summer2025.onLogin(player);
             RankData.onPlayerLoginCompensate(player);
             CustomPrefixCommand.onLogin(player);
+            SecretChest.onPlayerLogin(player);
+
             // 更新检查，放在最后吧
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
             MidAutumnUtil.onLoginReward(player);

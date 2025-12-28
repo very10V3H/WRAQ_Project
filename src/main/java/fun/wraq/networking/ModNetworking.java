@@ -100,6 +100,7 @@ import fun.wraq.render.gui.trade.weekly.WeeklyStoreScreenC2SPacket;
 import fun.wraq.render.hud.networking.*;
 import fun.wraq.series.events._7shade.SevenShadePieceS2CPacket;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
+import fun.wraq.series.secret.SecretChestS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -1392,6 +1393,11 @@ public class ModNetworking {
                 .decoder(ScreenInfoS2CPacket::new)
                 .encoder(ScreenInfoS2CPacket::toBytes)
                 .consumerMainThread(ScreenInfoS2CPacket::handle)
+                .add();
+        net.messageBuilder(SecretChestS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SecretChestS2CPacket::new)
+                .encoder(SecretChestS2CPacket::toBytes)
+                .consumerMainThread(SecretChestS2CPacket::handle)
                 .add();
     }
 

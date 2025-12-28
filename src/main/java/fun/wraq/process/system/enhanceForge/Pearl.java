@@ -1,6 +1,7 @@
 package fun.wraq.process.system.enhanceForge;
 
 import fun.wraq.process.system.element.Color;
+import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -16,21 +17,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Pearl extends Item {
+public class Pearl extends WraqItem {
 
-    public Pearl(Properties p_41383_) {
-        super(p_41383_);
+    public static List<Item> list = new ArrayList<>();
+
+    public Pearl(Properties properties) {
+        super(properties, true, true);
+        list.add(this);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
         stack.setHoverName(RainBowName());
         super.appendHoverText(stack, p_41422_, components, p_41424_);
-    }
-
-    @Override
-    public boolean isFoil(ItemStack p_41453_) {
-        return true;
     }
 
     public static List<Color> colorList = new ArrayList<>() {{

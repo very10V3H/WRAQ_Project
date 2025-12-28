@@ -141,6 +141,10 @@ public class ModCreativeModeTab {
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(SecretItems.CHEST_KEY_HOLY_2.get()))
                     .title(Te.s("维瑞阿契 | 隐秘宝藏")).build());
+    public static RegistryObject<CreativeModeTab> SECRET_ITEM = CREATIVE_MODE_TAB.register("aa_wraq_zj_secret_item",
+            () -> CreativeModeTab.builder().icon(
+                            () -> new ItemStack(SecretItems.TREASURE_HOLY_4.get()))
+                    .title(Te.s("维瑞阿契 | 隐秘宝藏物品")).build());
     public static RegistryObject<CreativeModeTab> ALL = CREATIVE_MODE_TAB.register("aa_wraq_zj_all",
             () -> CreativeModeTab.builder().icon(
                             () -> new ItemStack(ModItems.DEVIL_SWORD.get()))

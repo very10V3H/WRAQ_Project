@@ -636,6 +636,30 @@ public class Element {
         );
     }
 
+    public static List<Item> getPiece1Items() {
+        return List.of(
+                ModItems.LIFE_ELEMENT_PIECE_1.get(),
+                ModItems.WATER_ELEMENT_PIECE_1.get(),
+                ModItems.FIRE_ELEMENT_PIECE_1.get(),
+                ModItems.STONE_ELEMENT_PIECE_1.get(),
+                ModItems.ICE_ELEMENT_PIECE_1.get(),
+                ModItems.LIGHTNING_ELEMENT_PIECE_1.get(),
+                ModItems.WIND_ELEMENT_PIECE_1.get()
+        );
+    }
+
+    public static List<Item> getPiece2Items() {
+        return List.of(
+                ModItems.LIFE_ELEMENT_PIECE_2.get(),
+                ModItems.WATER_ELEMENT_PIECE_2.get(),
+                ModItems.FIRE_ELEMENT_PIECE_2.get(),
+                ModItems.STONE_ELEMENT_PIECE_2.get(),
+                ModItems.ICE_ELEMENT_PIECE_2.get(),
+                ModItems.LIGHTNING_ELEMENT_PIECE_2.get(),
+                ModItems.WIND_ELEMENT_PIECE_2.get()
+        );
+    }
+
     private static final Map<String, Item> piece0ItemMap = new HashMap<>();
     public static Map<String, Item> getPiece0ItemMap() {
         if (piece0ItemMap.isEmpty()) {

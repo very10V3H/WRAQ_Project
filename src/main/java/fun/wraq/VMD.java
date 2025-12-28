@@ -79,6 +79,8 @@ import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.overworld.wind.WindItems;
+import fun.wraq.series.secret.SecretChest;
+import fun.wraq.series.secret.SecretChestContent;
 import fun.wraq.series.secret.SecretItems;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -105,6 +107,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import top.theillusivec4.curios.api.CuriosApi;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 @Mod(Utils.MOD_ID)
@@ -194,6 +198,7 @@ public class VMD {
         NoTeamInstanceModule.reset();
         NewTeamInstanceHandler.getInstances().forEach(NewTeamInstance::clear);
         SkillV2.playerSkillV2AllowReleaseTickMap.clear();
+        SecretChest.onServerStop();
         LogUtils.getLogger().info("VMD stopping event done.");
     }
 
@@ -656,6 +661,12 @@ public class VMD {
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.SECRET_ITEM.getKey())) {
+            List<Item> items = SecretChestContent.getValueMap().keySet().stream()
+                    .sorted(Comparator.comparingInt(o -> SecretChestContent.getValueMap().get(o)))
+                    .toList();
+            items.forEach(event::accept);
         }
         if (event.getTabKey().equals(ModCreativeModeTab.ALL.getKey())) {
             ForgeRegistries.ITEMS.getEntries()

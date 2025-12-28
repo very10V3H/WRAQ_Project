@@ -1,7 +1,7 @@
 package fun.wraq.items.m;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.series.secret.SecretChest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -50,7 +50,6 @@ public class Main0 extends Item {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            Compute.stopSummon = !Compute.stopSummon;
 /*            int total = 0;
             int tier0 = 0;
             int tier1 = 0;
@@ -73,9 +72,10 @@ public class Main0 extends Item {
             player.sendSystemMessage(Te.s("tier1:", tier1));
             player.sendSystemMessage(Te.s("tier2:", tier2));
             player.sendSystemMessage(Te.s("tier3:", tier3));*/
+            SecretChest.randomSpawnChest(level);
         }
         if (!level.isClientSide && player.isShiftKeyDown()) {
-
+            SecretChest.removeAll();
         }
         if (level.isClientSide && !player.isShiftKeyDown()) {
 

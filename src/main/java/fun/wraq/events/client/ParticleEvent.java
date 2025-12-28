@@ -8,6 +8,7 @@ import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.overworld.divine.DivineUtils;
+import fun.wraq.series.secret.SecretChest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleOptions;
@@ -113,6 +114,7 @@ public class ParticleEvent {
             });
 
             ManaTowerInstance.provideClientParticle(player);
+            SecretChest.provideClientParticle(player);
 
 /*            SpinParticleCreate(player, new Vec3(52.5, -53.5, 1039.5), 1.5, ModParticles.VOLCANO_TP.get(), 20);
             SpinParticleCreate(player, new Vec3(1138.5, 67.5, 384.5), 3, ModParticles.VOLCANO_TP.get(), 20);

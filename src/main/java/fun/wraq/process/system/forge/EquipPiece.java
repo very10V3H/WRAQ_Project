@@ -6,15 +6,23 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.series.WraqItem;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EquipPiece extends WraqItem implements Decomposable {
 
     private final int tier;
+
+    public static List<Item> list = new ArrayList<>();
+
     public EquipPiece(Properties properties, int tier) {
         super(properties, true, tier > 2);
         this.tier = tier;
+        list.add(this);
     }
 
     @Override

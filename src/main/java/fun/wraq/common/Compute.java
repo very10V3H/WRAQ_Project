@@ -2366,4 +2366,8 @@ public class Compute {
     public static void setPlayerDailyKillCount(Player player, int value) {
         Compute.setDataIntValue(player, DAILY_KILL_COUNT_DATA_KEY, value);
     }
+
+    public static List<ServerPlayer> getPlayers() {
+        return Tick.server.getPlayerList().getPlayers();
+    }
 }

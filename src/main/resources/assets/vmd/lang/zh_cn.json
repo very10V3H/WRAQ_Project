@@ -2514,6 +2514,8 @@
   "item.vmd.secret_chest_key_holy_0": "隐秘神圣钥匙 - 白",
   "item.vmd.secret_chest_key_holy_1": "隐秘神圣钥匙 - 蓝",
   "item.vmd.secret_chest_key_holy_2": "隐秘神圣钥匙 - 紫",
+  "item.vmd.secret_chest_key_holy_3": "隐秘神圣钥匙 - 金",
+  "item.vmd.secret_chest_key_holy_4": "隐秘神圣钥匙 - 红",
 
   "item.vmd.secret_treasure_holy_0": "隐秘神圣初芽",
   "item.vmd.secret_treasure_holy_1": "隐秘神圣树苗",
@@ -2524,6 +2526,8 @@
   "item.vmd.secret_chest_key_nether_0": "隐秘炼狱钥匙 - 白",
   "item.vmd.secret_chest_key_nether_1": "隐秘炼狱钥匙 - 蓝",
   "item.vmd.secret_chest_key_nether_2": "隐秘炼狱钥匙 - 紫",
+  "item.vmd.secret_chest_key_nether_3": "隐秘炼狱钥匙 - 金",
+  "item.vmd.secret_chest_key_nether_4": "隐秘炼狱钥匙 - 红",
 
   "item.vmd.secret_treasure_nether_0": "炼狱花种",
   "item.vmd.secret_treasure_nether_1": "炼狱水晶碎片",

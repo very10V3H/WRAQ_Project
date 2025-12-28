@@ -6,6 +6,8 @@ import fun.wraq.blocks.blocks.WorldSoulBlock;
 import fun.wraq.blocks.entity.Droppable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Name;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.registry.MySound;
@@ -29,6 +31,7 @@ import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.spur.events.CropSpur;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.spur.events.WoodSpur;
+import fun.wraq.series.secret.SecretChest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -243,20 +246,26 @@ public class BlockEvent {
             }
             if (block.getName().toString().contains("workshop")) return;
             if (player.level().getBlockEntity(blockPos) instanceof Container
-                    && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) == null) {
+                    && event.getSide().isServer()
+                    && BonusChestInfo.getBonusChestInfo(blockPos) == null
+                    && !SecretChest.isSecretChest(player.level(), blockPos)) {
                 event.setCanceled(true);
+                return;
             }
         }
 
-        if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) != null) {
+        if (block instanceof ChestBlock && event.getSide().isServer()
+                && BonusChestInfo.getBonusChestInfo(blockPos) != null) {
             if (Utils.playerIsUsingBlockBlockPosMap.containsValue(blockPos)) {
-                Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.literal("有其他玩家正在获取这个奖励箱的内容，请稍等片刻。").withStyle(ChatFormatting.WHITE));
+                Compute.sendFormatMSG(player, Te.s("奖励箱", ChatFormatting.LIGHT_PURPLE),
+                        Te.s("有其他玩家正在获取这个奖励箱的内容，请稍等片刻。"));
                 event.setCanceled(true);
             } else {
                 BonusChestPlayerData.onPlayerSuccessOpenBonusChest(player, blockPos, event);
             }
         }
+
+        SecretChest.onPlayerRightClickBlock(event);
     }
 
     @SubscribeEvent
@@ -264,23 +273,25 @@ public class BlockEvent {
         Player player = event.getEntity();
         String playerName = player.getName().getString();
         if (event.getContainer() instanceof CookingPotMenu) {
-            LogUtils.getLogger().info("容器 {} 在 {} 打开了 {}", playerName, player.position(), event.getContainer());
+            LogUtils.getLogger()
+                    .info("容器 {} 在 {} 打开了 {}", playerName, player.position(), event.getContainer());
         }
     }
 
     @SubscribeEvent
-    public static void PlayerContainerCloseCheck(PlayerContainerEvent.Close event) {
+    public static void onContainerClose(PlayerContainerEvent.Close event) {
         Player player = event.getEntity();
         String playerName = player.getName().getString();
         Utils.playerIsUsingBlockBlockPosMap.remove(playerName);
-        ChestBlockEntity chestBlockEntity = BonusChestPlayerData.openBonusChestMap.getOrDefault(player, null);
+        ChestBlockEntity chestBlockEntity
+                = BonusChestPlayerData.openBonusChestMap.getOrDefault(Name.get(player), null);
         if (chestBlockEntity != null) {
             for (int i = 0; i < 27; i++) {
                 if (!chestBlockEntity.getItem(i).is(Items.AIR)) {
                     InventoryOperation.giveItemStack(player, chestBlockEntity.getItem(i));
                 }
             }
-            BonusChestPlayerData.openBonusChestMap.remove(player);
+            BonusChestPlayerData.openBonusChestMap.remove(Name.get(player));
         }
     }
 

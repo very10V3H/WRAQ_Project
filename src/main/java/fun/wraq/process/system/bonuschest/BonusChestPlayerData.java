@@ -1,6 +1,7 @@
 package fun.wraq.process.system.bonuschest;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
@@ -106,7 +107,7 @@ public class BonusChestPlayerData {
 
     private static final String FIRST_OPEN_KEY = "first_open_key";
 
-    public static Map<Player, ChestBlockEntity> openBonusChestMap = new HashMap<>();
+    public static Map<String, ChestBlockEntity> openBonusChestMap = new HashMap<>();
     public static void onPlayerSuccessOpenBonusChest(Player player, BlockPos blockPos,
                                                      PlayerInteractEvent.RightClickBlock event) {
         BonusChestInfo bonusChestInfo = BonusChestInfo.getBonusChestInfo(blockPos);
@@ -149,7 +150,7 @@ public class BonusChestPlayerData {
 
                 sendMSG(player, Te.s("你找到了一个:", BonusChestInfo.Util.TIER_NAME_MAP.get(bonusChestInfo.tier)));
                 Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
-                openBonusChestMap.put(player, chestBlockEntity);
+                openBonusChestMap.put(Name.get(player), chestBlockEntity);
                 if (!getBonusChestData(player).contains(FIRST_OPEN_KEY)) {
                     getBonusChestData(player).putBoolean(FIRST_OPEN_KEY, true);
                     sendMSG(player, Te.s("你知道吗，找到奖励箱后直接按", "E", ChatFormatting.AQUA, "关闭，奖励箱的",

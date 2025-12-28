@@ -15,6 +15,7 @@ import fun.wraq.process.system.reason.Reason;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
+import fun.wraq.series.secret.SecretChest;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -64,6 +65,7 @@ public class ServerTick {
             }
             if (tickCount % 200 == 98) {
                 WeeklyStore.handleServerTick();
+                SecretChest.handleServerTick();
             }
             Main0.handleServerTick();
         }

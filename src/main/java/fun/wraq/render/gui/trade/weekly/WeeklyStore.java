@@ -14,6 +14,9 @@ import org.apache.commons.lang3.RandomUtils;
 import java.text.ParseException;
 import java.util.*;
 
+/**
+ * 研发采购
+ */
 public class WeeklyStore {
     public static List<WeeklyStoreRecipe> recipes = new ArrayList<>();
     public static int issueCount = 0;
