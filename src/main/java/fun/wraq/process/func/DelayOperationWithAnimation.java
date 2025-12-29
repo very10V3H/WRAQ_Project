@@ -1,10 +1,10 @@
 package fun.wraq.process.func;
 
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationS2CPacket;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
@@ -58,11 +58,9 @@ public abstract class DelayOperationWithAnimation {
     public DelayOperationWithAnimation(String animationId, int trigTickDelta, int endTickDelta,
                                        Player trigPlayer, double attackSpeedInfluenceRate) {
         this(animationId,
-                (int) (Tick.get() + trigTickDelta
-                        / (1 + attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(trigPlayer))),
-                (int) (Tick.get() + endTickDelta
-                        / (1 + attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(trigPlayer))),
-                (float) (1 + attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(trigPlayer)),
+                (int) (Tick.get() + trigTickDelta * SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate)),
+                (int) (Tick.get() + endTickDelta * SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate)),
+                (float) (1 / SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate)),
                 trigPlayer);
     }
 

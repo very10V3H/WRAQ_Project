@@ -55,7 +55,7 @@ public class SuperColdDragonCurio extends WraqCurios implements RandomCurios, De
         put(StringUtils.RandomCuriosAttribute.manaDamageEnhance, 0.14);
         put(StringUtils.RandomCuriosAttribute.manaPenetration0, 100d);
         put(StringUtils.RandomCuriosAttribute.maxMana, 800d);
-        put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, 0.1);
+        put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, 0.04);
 
         put(StringUtils.RandomCuriosAttribute.defence, 800d);
         put(StringUtils.RandomCuriosAttribute.manaDefence, 400d);
@@ -80,7 +80,7 @@ public class SuperColdDragonCurio extends WraqCurios implements RandomCurios, De
         put(StringUtils.RandomCuriosAttribute.manaDamageEnhance, Type.ATTACK);
         put(StringUtils.RandomCuriosAttribute.manaPenetration0, Type.ATTACK);
         put(StringUtils.RandomCuriosAttribute.maxMana, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, Type.ATTACK);
+        /*put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, Type.ATTACK);*/
 
         put(StringUtils.RandomCuriosAttribute.defence, Type.DEFENCE);
         put(StringUtils.RandomCuriosAttribute.manaDefence, Type.DEFENCE);

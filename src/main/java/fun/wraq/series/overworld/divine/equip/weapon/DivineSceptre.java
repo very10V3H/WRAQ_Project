@@ -36,7 +36,7 @@ public class DivineSceptre extends WraqSceptre implements DivineWeaponCommon, Pr
         this.maxCount = new int[]{3000, 5000, 8000}[tier];
         this.maxActiveDistance = new double[]{20, 32, 48}[tier];
         Utils.manaDamage.put(this, new double[]{6000, 7000, 8000}[tier]);
-        Utils.manaRecover.put(this, new double[]{50, 55, 60}[tier]);
+        Utils.manaRecover.put(this, 35d);
         Utils.manaPenetration0.put(this, new double[]{70, 80, 90}[tier]);
         Utils.coolDownDecrease.put(this, new double[]{0.3, 0.35, 0.4}[tier]);
         Utils.levelRequire.put(this, new int[]{230, 240, 250}[tier]);

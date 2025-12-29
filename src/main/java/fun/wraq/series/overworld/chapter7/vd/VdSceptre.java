@@ -26,7 +26,7 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, VdW
     public VdSceptre(Properties properties) {
         super(properties);
         Utils.manaDamage.put(this, 3600d);
-        Utils.manaRecover.put(this, 30d);
+        Utils.manaRecover.put(this, 25d);
         Utils.manaPenetration0.put(this, 40d);
         Utils.coolDownDecrease.put(this, 0.35);
         Utils.levelRequire.put(this, 220);

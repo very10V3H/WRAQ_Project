@@ -90,6 +90,6 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2Allo
 
     @Override
     protected int getEachLevelExManaCost() {
-        return 30;
+        return 10;
     }
 }

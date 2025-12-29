@@ -16,7 +16,7 @@ public class SeaCharm extends WraqCurios {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
         double[] healthRecover = {5, 8, 12, 17, 23, 30, 38};
-        double[] manaRecover = {5, 8, 12, 17, 23, 30, 38};
+        double[] manaRecover = {1, 2, 3, 4, 5, 6, 8};
         double[] cooldown = {0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.15};
         double[] swiftnessUp = {0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.5};
         Utils.levelRequire.put(this, levelRequires[serial]);

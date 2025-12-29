@@ -43,7 +43,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
                 Utils.critRate.put(this, 0.25);
             }
             Utils.manaDamage.put(this, 480d);
-            Utils.manaRecover.put(this, 20d);
+            Utils.manaRecover.put(this, 14d);
             Utils.coolDownDecrease.put(this, 0.35);
             Utils.manaPenetration0.put(this, 24d);
             Element.fireElementValue.put(this, 1d);

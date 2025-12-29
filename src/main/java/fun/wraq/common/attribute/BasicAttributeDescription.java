@@ -642,10 +642,10 @@ public class BasicAttributeDescription {
             }
         }
 
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaRecover, Utils.percentManaRecover,
+/*        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaRecover, Utils.percentManaRecover,
                 StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, "法力回复",
                 Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1, true, itemStack,
-                false, CustomStyle.styleOfMana, event.getTooltipElements());
+                false, CustomStyle.styleOfMana, event.getTooltipElements());*/
 
         if (Utils.manaRecover.containsKey(item) || data.contains(StringUtils.RandomCuriosAttribute.manaRecover)
                 || data.contains(StringUtils.RandomAttribute.manaRecover)) {

@@ -27,7 +27,7 @@ public class MoontainSceptre extends WraqSceptre implements ExBaseAttributeValue
     public MoontainSceptre(Properties properties) {
         super(properties);
         Utils.manaDamage.put(this, 5400d);
-        Utils.manaRecover.put(this, 45d);
+        Utils.manaRecover.put(this, 25d);
         Utils.manaPenetration0.put(this, 60d);
         Utils.coolDownDecrease.put(this, 0.3);
         Utils.levelRequire.put(this, 210);

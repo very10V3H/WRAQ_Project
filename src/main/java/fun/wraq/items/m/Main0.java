@@ -49,6 +49,9 @@ public class Main0 extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         String name = player.getName().getString();
         CompoundTag data = player.getPersistentData();
+        if (!player.isCreative()) {
+            return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
+        }
         if (!level.isClientSide && !player.isShiftKeyDown()) {
 /*            int total = 0;
             int tier0 = 0;

@@ -36,7 +36,7 @@ public class MagmaSceptre extends WraqSceptre implements ForgeItem {
     public MagmaSceptre(Properties p_42964_, int tier) {
         super(p_42964_.rarity(CustomStyle.MagmaItalic));
         Utils.manaDamage.put(this, new double[]{160, 200, 240, 280}[tier]);
-        Utils.manaRecover.put(this, new double[]{13, 14, 15, 16}[tier]);
+        Utils.manaRecover.put(this, 12d);
         Utils.manaPenetration0.put(this, new double[]{4, 5, 5, 6}[tier]);
         Utils.manaCost.put(this, new double[]{150, 150, 150, 150}[tier]);
         Element.fireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);

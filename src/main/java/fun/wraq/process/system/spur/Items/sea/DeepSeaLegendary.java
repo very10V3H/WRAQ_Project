@@ -38,7 +38,7 @@ public class DeepSeaLegendary extends WraqSceptre implements ActiveItem, InCurio
         super(properties);
         this.tier = tier;
         Utils.manaDamage.put(this, new double[]{120, 240, 1200, 2400, 3600}[tier] * 2);
-        Utils.manaRecover.put(this, new double[]{16, 24, 32, 45, 60}[tier]);
+        Utils.manaRecover.put(this, new double[]{10, 15, 20, 25, 30}[tier]);
         Utils.manaPenetration0.put(this, new double[]{6, 18, 29, 36, 80}[tier]);
         Utils.coolDownDecrease.put(this, new double[]{0.1, 0.15, 0.2, 0.25, 0.3}[tier]);
         Utils.levelRequire.put(this, 50 * (tier + 1));

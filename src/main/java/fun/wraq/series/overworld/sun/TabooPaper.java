@@ -38,7 +38,7 @@ public class TabooPaper extends WraqCurios {
         components.add(Te.s(" 2.", hoverMainStyle(), "持续时间 ", "+1s", ChatFormatting.AQUA));
         ComponentUtils.descriptionPassive(components, Te.s("禁忌改造", hoverMainStyle()));
         components.add(Te.s(" 每秒回复",
-                ComponentUtils.AttributeDescription.manaValue("4%已损失法力值")));
+                ComponentUtils.AttributeDescription.manaValue("2%已损失法力值")));
         return components;
     }
 
@@ -58,6 +58,6 @@ public class TabooPaper extends WraqCurios {
 
     public static double getExManaRecoverValue(Player player) {
         return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.TABOO_PAPER_CURIO.get()) ?
-                (Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player)) * 0.04 : 0;
+                (Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player)) * 0.02 : 0;
     }
 }

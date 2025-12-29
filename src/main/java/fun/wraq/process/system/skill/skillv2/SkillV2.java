@@ -118,11 +118,11 @@ public abstract class SkillV2 {
             swordSkillV2.add(new SwordNewSkillBase1_0(Te.s("居合", style),
                     Tick.s(3), 0, 0, 1, 0));
             swordSkillV2.add(new SwordNewSkillBase2_0(Te.s("践踏", style),
-                    Tick.s(12), 80, 0, 2, 0));
+                    Tick.s(12), 40, 0, 2, 0));
             swordSkillV2.add(new SwordNewSkillBase3_0(Te.s("踏前斩", style),
-                    Tick.s(8), 40, 0, 3, 0));
+                    Tick.s(8), 20, 0, 3, 0));
             swordSkillV2.add(new SwordNewSkillFinal0(Te.s("注魔之刃", style),
-                    Tick.s(24), 200, 0, 4, 0));
+                    Tick.s(24), 100, 0, 4, 0));
         }
         return swordSkillV2;
     }
@@ -135,9 +135,9 @@ public abstract class SkillV2 {
             bowSkillV2.add(new BowNewSkillBase1_0(Te.s("重矢", style),
                     Tick.s(3), 0, 1, 1, 0));
             bowSkillV2.add(new BowNewSkillBase2_0(Te.s("烈矢", style),
-                    Tick.s(8), 80, 1, 2, 0));
+                    Tick.s(8), 40, 1, 2, 0));
             bowSkillV2.add(new BowNewSkillBase3_0(Te.s("附风", style),
-                    Tick.s(20), 80, 1, 3, 0));
+                    Tick.s(20), 40, 1, 3, 0));
             bowSkillV2.add(new BowNewSkillFinal0(Te.s("速射", style),
                     Tick.s(30), 100, 1, 4, 0));
         }
@@ -150,7 +150,7 @@ public abstract class SkillV2 {
             manaSkillV2.add(new ManaNewSkillPassive0(Te.s("解析", style),
                     0, 0, 2, 0, 0));
             manaSkillV2.add(new ManaNewSkillBase1_0(Te.s("崩碎", style),
-                    Tick.s(3), 40, 2, 1, 0));
+                    Tick.s(3), 30, 2, 1, 0));
             manaSkillV2.add(new ManaNewSkillBase2_0(Te.s("撕裂", style),
                     Tick.s(8), 50, 2, 2, 0));
             manaSkillV2.add(new ManaNewSkillBase3_0(Te.s("激化", style),
@@ -660,5 +660,16 @@ public abstract class SkillV2 {
         for (int i = 1; i <= 4; i++) {
             clientLeftCooldownTick.compute(i, (k, v) -> v == null ? 0 : Math.max(0, v - 1));
         }
+    }
+
+    public static double getReleaseDecreaseRate(Player player, double attackSpeedInfluenceRate) {
+        double decreaseRate = 1;
+        decreaseRate *= (1 - attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(player));
+
+        double cooldownInfluenceRate = 0;
+        cooldownInfluenceRate = 0.5 * Math.min(300, PlayerAttributes.powerReleaseSpeed(player)) / 300;
+        decreaseRate *= (1 - cooldownInfluenceRate);
+
+        return decreaseRate;
     }
 }

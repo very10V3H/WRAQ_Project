@@ -20,6 +20,9 @@ import net.minecraft.world.entity.player.Player;
 import java.text.ParseException;
 import java.util.Calendar;
 
+/**
+ * 理智
+ */
 public class Reason {
 
     public static int clientReasonValue = 0;

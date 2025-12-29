@@ -13,7 +13,6 @@ public abstract class WraqManaEnhancedUniformCurios extends WraqUniformCurios im
         super(properties);
         Utils.xpLevelManaDamage.put(this, 6d);
         Utils.xpLevelManaPenetration0.put(this, 0.15d);
-        Utils.manaRecover.put(this, 30d);
         Utils.maxMana.put(this, 1000d);
         Utils.coolDownDecrease.put(this, 0.15);
     }

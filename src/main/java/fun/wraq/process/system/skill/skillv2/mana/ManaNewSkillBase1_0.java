@@ -74,6 +74,6 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
 
     @Override
     protected int getEachLevelExManaCost() {
-        return 10;
+        return 5;
     }
 }

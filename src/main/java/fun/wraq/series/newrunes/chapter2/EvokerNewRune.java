@@ -65,6 +65,9 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
             int tick = Tick.get();
             if (tick % 80 == 0) {
                 List<Mob> mobList = Compute.getNearMob(player, 8);
+                if (mobList.isEmpty()) {
+                    return;
+                }
                 mobList.forEach(mob -> {
                     Damage.causeRateApDamageToMonster(player, mob, 1, false);
                     ParticleProvider.createLineParticle(player.level(), (int) (mob.distanceTo(player) * 5),

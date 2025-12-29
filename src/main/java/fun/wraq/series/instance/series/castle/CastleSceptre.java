@@ -36,7 +36,7 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem,
     public CastleSceptre(Properties properties, int tier) {
         super(properties);
         Utils.manaDamage.put(this, 3000d);
-        Utils.manaRecover.put(this, 26d);
+        Utils.manaRecover.put(this, 24d);
         Utils.manaPenetration0.put(this, 36d);
         Utils.coolDownDecrease.put(this, 0.35);
         Utils.levelRequire.put(this, 180);

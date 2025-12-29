@@ -15,7 +15,7 @@ public class EvokerSceptre extends WraqSceptre {
     public EvokerSceptre(Properties p_42964_, int tier) {
         super(p_42964_);
         Utils.manaDamage.put(this, new double[]{220, 260, 300, 360}[tier]);
-        Utils.manaRecover.put(this, new double[]{13, 14, 15, 16}[tier]);
+        Utils.manaRecover.put(this, 10d);
         Utils.manaPenetration0.put(this, new double[]{4, 5, 6, 7}[tier]);
         Utils.coolDownDecrease.put(this, new double[]{0.2, 0.2, 0.2, 0.2}[tier]);
         Element.lightningElementValue.put(this, new double[]{0.8, 0.9, 1, 1.2}[tier]);

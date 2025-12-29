@@ -23,7 +23,6 @@ import fun.wraq.process.system.cooking.CookingValue;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
-import fun.wraq.series.secret.SecretChestContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
@@ -339,10 +338,10 @@ public class ToolTipEvent {
             tooltip.add(Te.s("该物品处于测试阶段，未来有较大改动可能性.", CustomStyle.styleOfWorld));
         }
         Compute.addExpiredDateTooltips(stack, tooltip);
-        int value = SecretChestContent.getValueMap().getOrDefault(item, 0);
+/*        int value = SecretChestContent.getValueMap().getOrDefault(item, 0);
         if (value > 0) {
             tooltip.add(Te.s("price : ", value));
             tooltip.add(Te.s("total price : ", value * stack.getCount()));
-        }
+        }*/
     }
 }

@@ -469,17 +469,15 @@ public class MyWayPoint {
         Player player = Minecraft.getInstance().player;
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START) && event.player.equals(player)) {
             int tickCount = event.player.tickCount;
-            if (tickCount == 200) {
-                if (player.level().dimension().equals(Level.OVERWORLD)) {
-                    overworldPointList.forEach(myWayPoint -> removeWaypointByName(myWayPoint.name));
-                    netherPointList.forEach(myWayPoint -> removeWaypointByName(myWayPoint.name));
-                    setClientWaypoints(overworldPointList);
-                }
-                if (player.level().dimension().equals(Level.NETHER)) {
-                    overworldPointList.forEach(myWayPoint -> removeWaypointByName(myWayPoint.name));
-                    netherPointList.forEach(myWayPoint -> removeWaypointByName(myWayPoint.name));
-                    setClientWaypoints(netherPointList);
-                }
+            List<MyWayPoint> points = new ArrayList<>();
+            if (player.level().dimension().equals(Level.OVERWORLD)) {
+                points = overworldPointList;
+            }
+            if (player.level().dimension().equals(Level.NETHER)) {
+                points = netherPointList;
+            }
+            if (tickCount < points.size()) {
+                addWaypoint(points.get(tickCount));
             }
         }
     }

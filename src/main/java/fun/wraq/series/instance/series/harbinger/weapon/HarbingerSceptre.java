@@ -27,7 +27,7 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
     public HarbingerSceptre(Properties properties) {
         super(properties);
         Utils.manaDamage.put(this, 5000d);
-        Utils.manaRecover.put(this, 40d);
+        Utils.manaRecover.put(this, 30d);
         Utils.manaPenetration0.put(this, 50d);
         Utils.coolDownDecrease.put(this, 0.25);
         Element.fireElementValue.put(this, 1.6);
@@ -74,7 +74,7 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
         return Map.of(
                 Utils.manaDamage, new TagAndEachTierValue(HarbingerMainHand.MANA_DAMAGE, 200),
                 Utils.percentManaDamageEnhance, new TagAndEachTierValue(HarbingerMainHand.PERCENT_MANA_DAMAGE, 0.01),
-                Utils.manaRecover, new TagAndEachTierValue(HarbingerMainHand.MANA_RECOVER, 10)
+                Utils.manaRecover, new TagAndEachTierValue(HarbingerMainHand.MANA_RECOVER, 2)
         );
     }
 

@@ -52,7 +52,6 @@ import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.midautumn.MidAutumnLetterCurio;
-import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.holy.ice.curio.IceHolyCrest;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -1172,7 +1171,7 @@ public class PlayerAttributes {
         if (canGetFromCache(player, Utils.manaRecover)) {
             return getFromCache(player, Utils.manaRecover);
         }
-        double manaRecover = player.experienceLevel * 0.1;
+        double manaRecover = player.experienceLevel * 0.05;
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         CompoundTag data = player.getPersistentData();
         CompoundTag stackmainhandtag = new CompoundTag();
@@ -1182,13 +1181,21 @@ public class PlayerAttributes {
         manaRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.manaRecover, false);
         manaRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaRecover);
         manaRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaRecover);
-        if (SuitCount.getLifeManaSuitCount(player) >= 2) manaRecover += 5;
-        if (SuitCount.getObsiManaSuitCount(player) >= 2) manaRecover += 5;
+        if (SuitCount.getLifeManaSuitCount(player) >= 2) {
+            manaRecover += 5;
+        }
+        if (SuitCount.getObsiManaSuitCount(player) >= 2) {
+            manaRecover += 5;
+        }
 
-        if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 0)
-            manaRecover += 20;
-        if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 1)
-            manaRecover += 45;
+        if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null
+                && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 0)  {
+            manaRecover += 10;
+        }
+        if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null
+                && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 1) {
+            manaRecover += 25;
+        }
         if (Compute.getSwordSkillLevel(data, 8) > 0 && mainhand instanceof SwordAttribute)
             manaRecover += Compute.getSwordSkillLevel(data, 8); // 洞悉（手持近战武器时，获得1额外法力回复）
         if (Compute.getManaSkillLevel(data, 1) > 0 && SceptreAttribute.isHandling(player))

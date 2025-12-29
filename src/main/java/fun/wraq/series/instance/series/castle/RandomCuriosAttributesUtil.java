@@ -41,7 +41,7 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.RandomCuriosAttribute.percentDefenceEnhance, 0.05);
         put(StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance, 0.05);
         put(StringUtils.RandomCuriosAttribute.attackSpeedEnhance, 0.025);
-        put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, 0.02);
+        /*put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, 0.02);*/
         put(StringUtils.RandomCuriosAttribute.attackDamageEnhance, 0.02);
         put(StringUtils.RandomCuriosAttribute.manaDamageEnhance, 0.02);
         put(StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance, 0.02);
@@ -54,7 +54,7 @@ public class RandomCuriosAttributesUtil {
             StringUtils.RandomCuriosAttribute.percentDefenceEnhance,
             StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance,
             StringUtils.RandomCuriosAttribute.attackSpeedEnhance,
-            StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance,
+            /*StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance,*/
             StringUtils.RandomCuriosAttribute.attackDamageEnhance,
             StringUtils.RandomCuriosAttribute.manaDamageEnhance,
             StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance
