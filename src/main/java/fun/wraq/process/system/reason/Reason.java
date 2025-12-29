@@ -34,6 +34,15 @@ public class Reason {
         sendReasonValuePacketToClient(player);
     }
 
+    public static final String REASON_LastRecoverTime = "REASON_LastRecoverTime";
+    public static String getPlayerLastRecoverTime(Player player) {
+        return player.getPersistentData().getString(REASON_LastRecoverTime);
+    }
+
+    public static void setPlayerLastRecoverTime(Player player, String time) {
+        player.getPersistentData().putString(REASON_LastRecoverTime, time);
+    }
+
     public static int getPlayerReasonUpperLimit(Player player) {
         int rankSerial = RankData.getRankSerial(player);
         if (rankSerial == 0) {
@@ -117,24 +126,6 @@ public class Reason {
         Compute.sendFormatMSG(player, Te.s("理智", CustomStyle.styleOfFlexible), content);
     }
 
-    public static int serverLastReasonRecoverHour = -1;
-    public static void serverTick() {
-        if (serverLastReasonRecoverHour != Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            serverLastReasonRecoverHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-            Tick.server.getPlayerList().getPlayers().forEach(serverPlayer -> {
-                try {
-                    double exRate = 0;
-                    exRate += LabourDayOldCoin.getExReasonRecoverRate();
-                    exRate += Summer2025.getExReasonRecoverRate();
-                    addOrCostPlayerReasonValue(serverPlayer,
-                            (int) (getPlayerReasonRecoverPerHour(serverPlayer) * (1 + exRate)));
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
-    }
-
     public static void tip(Player player) {
         if (player.tickCount != 0 && player.tickCount % Tick.min(60) == 0 && getPlayerReasonValue(player) == 100) {
             sendFormatMSG(player, Te.s("今天的", "理智", CustomStyle.styleOfFlexible, "似乎还没有使用呢。"));
@@ -142,6 +133,30 @@ public class Reason {
                 sendFormatMSG(player, Te.s("考虑一下前往", "无尽熵增 - ", ManaPlainTemple.getInstance().name,
                         "完成挑战获取", "大量经验值", ChatFormatting.LIGHT_PURPLE, "吧!"));
             }
+        }
+    }
+
+    public static int PER_UNIT_VALUE = 10;
+    public static int MINUTE_INTERVAL = 1;
+    public static void recoverPlayerReason(Player player) {
+        if (!player.getPersistentData().contains(REASON_LastRecoverTime)) {
+            addOrCostPlayerReasonValue(player, 100);
+            setPlayerLastRecoverTime(player, Compute.castCalendarToString(Calendar.getInstance()));
+            return;
+        }
+        Calendar lastRecoverTime = Compute.castStringToCalendar(getPlayerLastRecoverTime(player));
+        int difference = (int) Compute.calenderMinuteDifference(Calendar.getInstance(), lastRecoverTime);
+        if (difference >= MINUTE_INTERVAL) {
+            int unit = difference / MINUTE_INTERVAL ;
+            addOrCostPlayerReasonValue(player, unit * PER_UNIT_VALUE);
+            lastRecoverTime.add(Calendar.MINUTE, unit * MINUTE_INTERVAL);
+            setPlayerLastRecoverTime(player, Compute.castCalendarToString(lastRecoverTime));
+        }
+    }
+
+    public static void handlePlayerTick(Player player) {
+        if (player.tickCount % Tick.min(1) == 0) {
+            recoverPlayerReason(player);
         }
     }
 }

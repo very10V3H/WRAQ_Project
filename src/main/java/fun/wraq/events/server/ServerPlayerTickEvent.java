@@ -176,6 +176,7 @@ public class ServerPlayerTickEvent {
             ModNetworking.sendToClient(new TimeS2CPacket(Compute.CalendarToString(Calendar.getInstance())), player);
             MushroomParasitismGem.handlePlayerTick(player);
             Guide.handlePlayerTick(player);
+            Reason.handlePlayerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

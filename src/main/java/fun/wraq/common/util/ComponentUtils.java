@@ -390,7 +390,7 @@ public class ComponentUtils {
 
     public static void descriptionActive(List<Component> components, Component name) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
-                append(Component.literal("主动 ").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("主动 ").withStyle(ChatFormatting.BLUE)).
                 append(name));
     }
 

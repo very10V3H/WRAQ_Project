@@ -42,7 +42,6 @@ public class ServerTick {
                 BowEvent.handleServerTick();
             }
             RandomEventsHandler.tick();
-            Reason.serverTick();
             AllayPet.handleServerTick();
             SputteringDamage.handleServerTick();
             if (tickCount % 100 == 97) {
