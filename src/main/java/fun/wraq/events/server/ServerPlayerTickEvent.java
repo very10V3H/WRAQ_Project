@@ -177,6 +177,7 @@ public class ServerPlayerTickEvent {
             MushroomParasitismGem.handlePlayerTick(player);
             Guide.handlePlayerTick(player);
             LoginInEvent.handlePlayerTick(player);
+            Reason.handlePlayerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

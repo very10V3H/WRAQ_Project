@@ -111,6 +111,7 @@ public class Damage {
                 causeTrueDamageToMonster(player, mob, PlayerAttributes.attackDamage(player) * damageRate);
             } else {
                 causeAttackDamageToMonster_RateAdDamage(player, mob, damageRate);
+
             }
         }
         if (item instanceof SceptreAttribute) {

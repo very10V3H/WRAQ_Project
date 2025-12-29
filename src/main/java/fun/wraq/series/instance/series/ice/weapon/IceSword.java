@@ -26,7 +26,7 @@ public class IceSword extends WraqSword implements OnHitEffectEquip, OnCritHitEf
 
     public IceSword(Properties properties, int tier) {
         super(properties);
-        Utils.attackDamage.put(this, 700d);
+        Utils.attackDamage.put(this, 900d);
         Utils.defencePenetration0.put(this, 21d);
         Utils.healthSteal.put(this, 0.3);
         Utils.critRate.put(this, 0.3);

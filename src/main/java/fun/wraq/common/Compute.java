@@ -633,8 +633,8 @@ public class Compute {
         int X = entity.getBlockX();
         int Y = entity.getBlockY();
         int Z = entity.getBlockZ();
-        return entity.level().getBlockState(new BlockPos(X, Y - 2, Z)) == Blocks.AIR.defaultBlockState()
-                || entity.level().getBlockState(new BlockPos(X, Y - 1, Z)) == Blocks.AIR.defaultBlockState();
+        return entity.level().getBlockState(new BlockPos(X, Y - 2, Z)).is(Blocks.AIR)
+                || entity.level().getBlockState(new BlockPos(X, Y - 1, Z)).is(Blocks.AIR);
     }
 
     public static String getRGB(int r, int g, int b) {
