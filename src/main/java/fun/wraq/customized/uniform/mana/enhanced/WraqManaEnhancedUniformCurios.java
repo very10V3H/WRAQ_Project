@@ -24,7 +24,7 @@ public abstract class WraqManaEnhancedUniformCurios extends WraqUniformCurios im
 
     @Override
     public double getFinalDamageEnhanceRate() {
-        return 0.75;
+        return 0.20;
     }
 
     @Override

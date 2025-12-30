@@ -41,7 +41,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         components.add(Component.literal(" 1.").withStyle(style).
                 append(Component.literal("减少15%受到的伤害").withStyle(style)));
         components.add(Component.literal(" 2.").withStyle(style).
-                append(ComponentUtils.getCommonDamageEnhance("12%")));
+                append(ComponentUtils.getCommonDamageEnhance("8%")));
         return components;
     }
 
@@ -76,7 +76,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static double damageEnhance(Player player) {
-        return passiveTrig(player) ? 0.12 : 0;
+        return passiveTrig(player) ? 0.08 : 0;
     }
 
     @Override

@@ -28,9 +28,9 @@ public class AttackCurios2 extends WraqAttackUniformCurios {
                 append(Component.literal("没有其他玩家").withStyle(style)).
                 append(Component.literal("时，为你提供:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 1.").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.critRate("20%")));
+                append(ComponentUtils.AttributeDescription.critRate("15%")));
         components.add(Component.literal(" 2.").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.critDamage("20%总")));
+                append(ComponentUtils.AttributeDescription.critDamage("15%总")));
         components.add(Component.literal(" 残暴的君主，终将被民众推翻。").withStyle(style));
         return components;
     }
@@ -53,7 +53,7 @@ public class AttackCurios2 extends WraqAttackUniformCurios {
 
     public static double playerCritRateUp(Player player) {
         if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 0;
-        return 0.2;
+        return 0.15;
     }
 
     public static double playerCritDamageEnhance(Player player) {

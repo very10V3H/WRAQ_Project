@@ -29,7 +29,7 @@ public class ManaCurios2 extends WraqManaUniformCurios {
         components.add(Component.literal(" 周围").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("没有其他玩家").withStyle(style)).
                 append(Component.literal("时，为你提供").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaDamage("50%总")));
+                append(ComponentUtils.AttributeDescription.manaDamage("30%总")));
         components.add(Te.s(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。", style));
         return components;
     }
@@ -54,7 +54,7 @@ public class ManaCurios2 extends WraqManaUniformCurios {
 
     public static double playerFinalManaDamageEnhance(Player player) {
         if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 0;
-        return 0.5;
+        return 0.3;
     }
 
     public static void tick(Player player) {

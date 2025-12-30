@@ -29,7 +29,7 @@ public class AttackCurioLX extends WraqAttackUniformCurios implements OnHitEffec
         ComponentUtils.descriptionPassive(components, Te.s("龙吟", hoverMainStyle()));
         components.add(Te.s(" 普通近战攻击", hoverMainStyle(), "会对目标施加"));
         components.add(Te.s(" 持续2s的、可叠加的", "流血效果", hoverMainStyle()));
-        components.add(Te.s(" ", ComponentUtils.getAttackDamageDotDescription(2, 8, "8%")));
+        components.add(Te.s(" ", ComponentUtils.getAttackDamageDotDescription(2, 8, "3%")));
         components.add(ComponentUtils.getCritDamageInfluenceDescription());
         return components;
     }
@@ -47,7 +47,7 @@ public class AttackCurioLX extends WraqAttackUniformCurios implements OnHitEffec
     @Override
     public void onHit(Player player, Mob mob) {
         if (SwordAttribute.isHandling(player)) {
-            Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.08, 4,
+            Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.03, 4,
                     Tick.get() + Tick.s(2), Name.get(player), true, null));
         }
     }

@@ -28,7 +28,7 @@ public class BowCurios0 extends WraqBowUniformCurios {
         components.add(Te.s(" 使用", "翻滚", hoverMainStyle(), "后，获得",
                 ComponentUtils.AttributeDescription.swiftness("15%总")));
         components.add(Te.s(" 并使", "箭矢", hoverMainStyle(), "提升",
-                "50%基础伤害", CustomStyle.styleOfPower, "."));
+                "15%基础伤害", CustomStyle.styleOfPower, "."));
         components.add(Te.s(" 效果持续3s.", ChatFormatting.AQUA));
         components.add(Te.s(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。", hoverMainStyle()));
         return components;
@@ -62,9 +62,9 @@ public class BowCurios0 extends WraqBowUniformCurios {
         }
         if (effectExpiredTickMap.getOrDefault(Name.get(player), 0) > Tick.get()) {
             if (WraqCurios.hasCurio(player, UniformItems.BOW_CURIOS_0.get())) {
-                return 0.5;
+                return 0.15;
             } else {
-                return 0.75;
+                return 0.25;
             }
         }
         return 0;

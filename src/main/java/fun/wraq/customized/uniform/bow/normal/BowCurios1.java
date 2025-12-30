@@ -25,7 +25,7 @@ public class BowCurios1 extends WraqBowUniformCurios implements OnShootArrowCuri
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Te.s("精湛弓术", hoverMainStyle()));
         components.add(Te.s(" 普通箭矢攻击", hoverMainStyle(), "将额外释放一枚具有"));
-        components.add(Te.s(" 100%基础伤害", CustomStyle.styleOfPower, "的", "箭矢", hoverMainStyle()));
+        components.add(Te.s(" 15%基础伤害", CustomStyle.styleOfPower, "的", "箭矢", hoverMainStyle()));
         components.add(Te.s(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。", hoverMainStyle()));
         return components;
     }
@@ -38,7 +38,7 @@ public class BowCurios1 extends WraqBowUniformCurios implements OnShootArrowCuri
     @Override
     public void onShoot(Player player) {
         if (!WraqCurios.hasCurio(player, UniformItems.BOW_ENHANCED_CURIOS_0.get())) {
-            WraqQuiver.batchAddExShoot(player, 1, 1);
+            WraqQuiver.batchAddExShoot(player, 0.15, 1);
         }
     }
 }

@@ -29,7 +29,7 @@ public class AttackCuriosYxwgCurios extends WraqAttackUniformCurios implements O
                 append(Component.literal("低于").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("50%").withStyle(CustomStyle.styleOfHealth)).
                 append(Component.literal("的目标造成的伤害将得到").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.getCommonDamageEnhance("45%")));
+                append(ComponentUtils.getCommonDamageEnhance("30%")));
         return components;
     }
 
@@ -45,6 +45,6 @@ public class AttackCuriosYxwgCurios extends WraqAttackUniformCurios implements O
 
     @Override
     public double modifyHitDamageRate(Player player, Mob mob) {
-        return (mob.getHealth() / mob.getMaxHealth()) < 0.5 ? 0.45 : 0;
+        return (mob.getHealth() / mob.getMaxHealth()) < 0.5 ? 0.3 : 0;
     }
 }

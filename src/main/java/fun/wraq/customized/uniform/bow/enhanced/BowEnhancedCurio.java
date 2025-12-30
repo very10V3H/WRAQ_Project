@@ -27,11 +27,11 @@ public class BowEnhancedCurio extends WraqBowEnhancedUniformCurios implements On
         components.add(Te.s(" 使用", "翻滚", hoverMainStyle(), "后，获得",
                 ComponentUtils.AttributeDescription.swiftness("15%总")));
         components.add(Te.s(" 并使", "箭矢", hoverMainStyle(), "提升",
-                "75%基础伤害", CustomStyle.styleOfPower, "."));
+                "25%基础伤害", CustomStyle.styleOfPower, "."));
         components.add(Te.s(" 效果持续3s.", ChatFormatting.AQUA));
         Compute.DescriptionPassive(components, Te.s("精湛弓术", hoverMainStyle()));
         components.add(Te.s(" 普通箭矢攻击", hoverMainStyle(), "将额外释放一枚具有"));
-        components.add(Te.s(" 125%基础伤害", CustomStyle.styleOfPower, "的", "箭矢", hoverMainStyle()));
+        components.add(Te.s(" 20%基础伤害", CustomStyle.styleOfPower, "的", "箭矢", hoverMainStyle()));
         components.add(Te.s(" 同名的被动不会重复生效.", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         return components;
     }
@@ -43,6 +43,6 @@ public class BowEnhancedCurio extends WraqBowEnhancedUniformCurios implements On
 
     @Override
     public void onShoot(Player player) {
-        WraqQuiver.batchAddExShoot(player, 1.25, 1);
+        WraqQuiver.batchAddExShoot(player, 0.2, 1);
     }
 }

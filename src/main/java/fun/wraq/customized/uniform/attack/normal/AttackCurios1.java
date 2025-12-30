@@ -26,10 +26,10 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Te.s("横行", hoverMainStyle()));
         Component countName = ComponentUtils.getRightAngleQuote("暴怒", hoverMainStyle());
-        components.add(Te.s(" 暴击", hoverMainStyle(), "将会获得一层", countName, "，每层持续5s，至多叠加至5层"));
+        components.add(Te.s(" 暴击", hoverMainStyle(), "将会获得一层", countName, "，每层持续5s，至多叠加至15层"));
         components.add(Te.s(" 每层", countName, "为你提供:"));
-        components.add(Te.s(" 1.", ComponentUtils.AttributeDescription.critDamage("6%")));
-        components.add(Te.s(" 2.", ComponentUtils.AttributeDescription.attackDamage("6%总")));
+        components.add(Te.s(" 1.", ComponentUtils.AttributeDescription.critDamage("1%")));
+        components.add(Te.s(" 2.", ComponentUtils.AttributeDescription.attackDamage("1%总")));
         components.add(Te.s(" 只有近战攻击的暴击能够触发横行", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         components.add(Te.s(" 残暴的君主，终将被民众推翻。", hoverMainStyle()));
         return components;
@@ -56,9 +56,9 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
             playerCountsMap.put(player, 0);
         }
         playerLastTickMap.put(player, Tick.get() + 100);
-        int maxCount = 5;
+        int maxCount = 15;
         if (WraqCurios.hasCurio(player, UniformItems.ATTACK_ENHANCED_CURIOS_0.get())) {
-            maxCount = 7;
+            maxCount = 20;
         }
         int counts = Math.min(maxCount, playerCountsMap.getOrDefault(player, 0) + 1);
         playerCountsMap.put(player, counts);
@@ -68,7 +68,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
     public static double playerCritDamageUp(Player player) {
         if (!isOn(player)) return 0;
         if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
-            return 0.06 * playerCountsMap.getOrDefault(player, 0);
+            return 0.01 * playerCountsMap.getOrDefault(player, 0);
         }
         return 0;
     }
@@ -76,7 +76,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
     public static double playerAttackDamageEnhance(Player player) {
         if (!isOn(player)) return 0;
         if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
-            return 0.06 * playerCountsMap.getOrDefault(player, 0);
+            return 0.01 * playerCountsMap.getOrDefault(player, 0);
         }
         return 0;
     }

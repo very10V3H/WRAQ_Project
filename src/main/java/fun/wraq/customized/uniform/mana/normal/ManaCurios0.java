@@ -28,7 +28,7 @@ public class ManaCurios0 extends WraqManaUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Te.s("法术调幅", hoverMainStyle()));
-        components.add(Te.s(" 获得", ComponentUtils.AttributeDescription.manaDamage("35%总")));
+        components.add(Te.s(" 获得", ComponentUtils.AttributeDescription.manaDamage("20%总")));
         components.add(Te.s(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。", hoverMainStyle()));
         return components;
     }
@@ -45,9 +45,9 @@ public class ManaCurios0 extends WraqManaUniformCurios {
             return 0;
         }
         if (WraqCurios.hasCurio(player, UniformItems.MANA_CURIOS_0.get())) {
-            return 0.35;
+            return 0.20;
         } else {
-            return 0.5;
+            return 0.25;
         }
     }
 }

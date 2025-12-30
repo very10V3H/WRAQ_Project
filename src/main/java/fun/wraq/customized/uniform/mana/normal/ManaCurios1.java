@@ -28,7 +28,7 @@ public class ManaCurios1 extends WraqManaUniformCurios {
         Style style = hoverMainStyle();
         Compute.DescriptionPassive(components, Te.s("解构凡躯", style));
         components.add(Te.s(" 造成的", "魔法伤害", hoverMainStyle(),
-                "将额外造成", "35%真实伤害", CustomStyle.styleOfSea, "."));
+                "将额外造成", "15%真实伤害", CustomStyle.styleOfSea, "."));
         components.add(Te.s(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。", style));
         return components;
     }
@@ -50,6 +50,6 @@ public class ManaCurios1 extends WraqManaUniformCurios {
             return;
         }
         Damage.causeTrueDamageToMonster(player, mob, damage
-                * ((WraqCurios.hasCurio(player, UniformItems.MANA_CURIOS_1.get())) ? 0.35 : 0.5));
+                * ((WraqCurios.hasCurio(player, UniformItems.MANA_CURIOS_1.get())) ? 0.15 : 0.25));
     }
 }

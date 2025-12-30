@@ -33,7 +33,7 @@ public class BowCurioLeiYan extends WraqBowUniformCurios implements UnCommonUnif
         components.add(Te.s(" 持续10s，最多叠加至", "30", hoverMainStyle(), "层"));
         components.add(Te.s(" 每层", countName, "提供:"));
         components.add(Te.s(" 1.", hoverMainStyle(),
-                ComponentUtils.AttributeDescription.exAttackDamage("1% + 20")));
+                ComponentUtils.AttributeDescription.exAttackDamage("0.5% + 20")));
         components.add(Te.s(" 2.", hoverMainStyle(),
                 ComponentUtils.AttributeDescription.defencePenetration("0.5% + 2")));
         components.add(Te.s(" 当拥有", "30", hoverMainStyle(), "层", countName, "后"));
@@ -59,7 +59,7 @@ public class BowCurioLeiYan extends WraqBowUniformCurios implements UnCommonUnif
         StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerExAttackDamage,
                 PASSIVE_TAG, 20, Tick.get() + Tick.s(10), 30, "item/bow_curios_0");
         StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerAttackDamageEnhance,
-                PASSIVE_TAG, 0.01, Tick.get() + Tick.s(10), 30);
+                PASSIVE_TAG, 0.005, Tick.get() + Tick.s(10), 30);
         StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerDefencePenetration,
                 PASSIVE_TAG, 0.005, Tick.get() + Tick.s(10), 30);
         StableTierAttributeModifier.addM(player, StableTierAttributeModifier.playerDefencePenetration0,

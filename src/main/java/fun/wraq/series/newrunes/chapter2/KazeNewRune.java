@@ -48,7 +48,7 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("法球攻击").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("法球攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("命中目标后").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 为你提供在").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("2s内逐渐衰减").withStyle(CustomStyle.styleOfWorld)).

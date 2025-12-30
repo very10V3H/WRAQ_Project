@@ -64,7 +64,7 @@ public class BunkerCurio extends WraqCurios implements OnWithStandDamageCurios, 
         ComponentUtils.descriptionPassive(components, Te.s("爆沸", style));
         components.add(Te.s(" 若受击后", ComponentUtils.AttributeDescription.health(""),
                 "低于30%", "，击退附近怪物并施加1s", "眩晕", CustomStyle.styleOfStone));
-        components.add(Te.s(" 并获得持续10s的", ComponentUtils.getCommonDamageEnhance("25%")));
+        components.add(Te.s(" 并获得持续10s的", ComponentUtils.getCommonDamageEnhance("10%")));
         ComponentUtils.coolDownTimeDescription(components, 10);
         components.add(Te.s(" 护盾值 = 等级 * 100 * (1 + 火元素强度 * 0.5)",
                 ChatFormatting.ITALIC, ChatFormatting.GRAY));
@@ -93,7 +93,7 @@ public class BunkerCurio extends WraqCurios implements OnWithStandDamageCurios, 
                 eachMob.addEffect(new MobEffectInstance(ModEffect.EFFECTSTUN.get(), 20));
             });
             StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
-                    "BunkerCurioCommonDamageEnhance", 0.25,
+                    "BunkerCurioCommonDamageEnhance", 0.10,
                     Tick.get() + Tick.s(10), "item/bunker_curio");
             ParticleProvider.createBallDisperseParticle(ParticleTypes.FLAME, (ServerLevel) player.level(),
                     player.position(),0.6, 36);

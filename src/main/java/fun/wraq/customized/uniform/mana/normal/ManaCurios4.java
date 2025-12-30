@@ -33,7 +33,7 @@ public class ManaCurios4 extends WraqManaUniformCurios {
         components.add(Te.s(" 对怪物造成", "任意伤害", CustomStyle.styleOfStone, "时获得一层", countName));
         components.add(Te.s(" ", countName, "持续5s，最多叠加至100层，至多提供:"));
         components.add(Te.s(" 1.", hoverMainStyle(),
-                ComponentUtils.AttributeDescription.exManaDamage("40% + 800")));
+                ComponentUtils.AttributeDescription.exManaDamage("20% + 800")));
         components.add(Te.s(" 2.", hoverMainStyle(),
                 ComponentUtils.AttributeDescription.manaPenetration("15% + 60")));
         components.add(Te.s(" 满层时，普攻将额外释放一枚", "法球", style));
@@ -72,7 +72,7 @@ public class ManaCurios4 extends WraqManaUniformCurios {
 
     public static double getExManaDamageRate(Player player) {
         if (isOn(player) && !isExpired(player)) {
-            return countMap.getOrDefault(Name.get(player), 0) * 1.0 / 100 * 0.4;
+            return countMap.getOrDefault(Name.get(player), 0) * 1.0 / 100 * 0.2;
         }
         return 0;
     }

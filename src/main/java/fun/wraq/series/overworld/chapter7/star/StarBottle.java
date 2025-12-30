@@ -47,7 +47,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
         components.add(Component.literal(" 每拥有10枚").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("，获得").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.getCommonDamageEnhance("3%")));
+                append(ComponentUtils.getCommonDamageEnhance("1.5%")));
         components.add(Component.literal(" 当你拥有70枚").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("时，会开始释放收集到的").withStyle(ChatFormatting.WHITE)).
@@ -87,7 +87,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
         if (!playerStatusMap.containsKey(player) || (playerStatusMap.get(player) && playerCountsMap.get(player) <= 0)) {
             playerStatusMap.put(player, false);
         }
-        if (playerStatusMap.get(player) && playerCountsMap.get(player) > 0 && player.tickCount % 20 == 0) {
+        if (playerStatusMap.get(player) == true && playerCountsMap.get(player) > 0 && player.tickCount % 20 == 0) {
             attackRange(player);
         }
     }
@@ -123,7 +123,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
     @Override
     public double rate(Player player) {
         if (playerCountsMap.containsKey(player)) {
-            return playerCountsMap.get(player) * 0.03 / 10.0;
+            return playerCountsMap.get(player) * 0.015 / 10.0;
         }
         return 0;
     }

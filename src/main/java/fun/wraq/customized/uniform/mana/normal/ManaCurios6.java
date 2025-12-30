@@ -30,7 +30,7 @@ public class ManaCurios6 extends WraqManaUniformCurios implements OnHitDamageInf
         ComponentUtils.descriptionPassive(components, Te.s("孤立无援", hoverMainStyle()));
         components.add(Te.s(" 对于附近8格内没有其他敌人的目标:"));
         components.add(Te.s(" · ", hoverMainStyle(), "对其造成的伤害获得",
-                ComponentUtils.getCommonDamageEnhance("65%"), "."));
+                ComponentUtils.getCommonDamageEnhance("50%"), "."));
         components.add(Te.s(" · ", hoverMainStyle(), "免疫", CustomStyle.styleOfStone, "其25%伤害."));
         components.add(Component.literal(" 邪恶的巫师，从未心生怜悯.").withStyle(style));
         return components;
@@ -51,7 +51,7 @@ public class ManaCurios6 extends WraqManaUniformCurios implements OnHitDamageInf
 
     @Override
     public double modifyHitDamageRate(Player player, Mob mob) {
-        return isSingleTarget(mob) ? 0.65 : 0;
+        return isSingleTarget(mob) ? 0.50 : 0;
     }
 
     @Override

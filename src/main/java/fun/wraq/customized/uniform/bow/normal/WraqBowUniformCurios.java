@@ -28,6 +28,6 @@ public abstract class WraqBowUniformCurios extends WraqUniformCurios {
 
     @Override
     public double getFinalDamageEnhanceRate() {
-        return 0.5;
+        return 0.1;
     }
 }
