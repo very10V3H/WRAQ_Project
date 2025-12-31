@@ -5,12 +5,13 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.skill.SkillUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.ComsumableItems;
+import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +25,7 @@ import java.util.List;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 54;
+    public static int rewardNum = 55;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -36,8 +37,8 @@ public class CompensateCommand implements Command<CommandSourceStack> {
             data.putBoolean(singleReward, true);
             if (player.experienceLevel >= 75) {
                 List<ItemStack> list = new ArrayList<>();
-/*                ItemStack supplyBox = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 2);
-                list.add(supplyBox);*/
+                ItemStack supplyBox = new ItemStack(ModItems.SUPPLY_BOX_TIER_3.get(), 2);
+                list.add(supplyBox);
                 switch (SkillUtil.getMaxType(player)) {
                     case 0 -> {
                         list.add(new ItemStack(ComsumableItems.WHETSTONE_ATTACK_0.get()));
@@ -63,11 +64,11 @@ public class CompensateCommand implements Command<CommandSourceStack> {
                 }
                 list.add(new ItemStack(ComsumableItems.HEAT_INJECTION_2.get()));
                 list.add(new ItemStack(ComsumableItems.HEAT_DEVICE_1.get()));
+                list.add(new ItemStack(SpecialEventItems.SOUVENIRS_2025.get()));
                 list.forEach(stack -> {
                     InventoryCheck.addOwnerTagToItemStack(player, stack);
                     InventoryOperation.giveItemStackWithMSG(player, stack);
                 });
-                PlanPlayer.tryToDelayOverDate(player, 10);
                 sendMSG(player, Te.s("你成功领取了补偿!", ChatFormatting.AQUA));
             }
             return 0;

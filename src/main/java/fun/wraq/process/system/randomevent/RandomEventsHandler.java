@@ -13,7 +13,6 @@ import fun.wraq.process.system.randomevent.impl.killmob.multi.CaveSpiderMultiMob
 import fun.wraq.process.system.randomevent.impl.killmob.multi.VillageAttack;
 import fun.wraq.process.system.randomevent.impl.urgent.UrgentEvent;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.events.midautumn.MidAutumnRabbitEvent;
 import fun.wraq.series.events.midautumn.MidAutumnUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -168,7 +167,7 @@ public class RandomEventsHandler {
                 Te.s("这被羞辱的感觉可不好受呀")
         ), server, RandomEvent.getDefaultRewardList(), null));
 
-        killMobEvents.add(getMidAutumnRabbitEvent());
+        /*killMobEvents.add(getMidAutumnRabbitEvent());*/
     }
 
     public static List<KillMobEvent> getKillMobEvents() {
@@ -280,7 +279,7 @@ public class RandomEventsHandler {
             return;
         }
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        if (status != 2
+/*        if (status != 2
                 && timeList.stream().anyMatch(eventTime -> hour == eventTime.hour && minute + 1 == eventTime.minute)) {
             nextTimeEvent = getMidAutumnRabbitEvent();
             if (!nextTimeEvent.readyAnnouncement.isEmpty()) {
@@ -289,7 +288,7 @@ public class RandomEventsHandler {
                 });
             }
             status = 2;
-        }
+        }*/
         if (nextTimeEvent != null && status != 3
                 && timeList.stream().anyMatch(eventTime -> hour == eventTime.hour && minute == eventTime.minute)) {
             nextTimeEvent.begin();
@@ -321,7 +320,7 @@ public class RandomEventsHandler {
             EventTime.create(23, 20)
     );
 
-    private static MidAutumnRabbitEvent midAutumnRabbitEvent;
+/*    private static MidAutumnRabbitEvent midAutumnRabbitEvent;
 
     private static MidAutumnRabbitEvent getMidAutumnRabbitEvent() {
         if (midAutumnRabbitEvent == null) {
@@ -342,7 +341,7 @@ public class RandomEventsHandler {
                     ), Tick.server, List.of(), null);
         }
         return midAutumnRabbitEvent;
-    }
+    }*/
 
     public static void randomElement() {
         int randomNum = RandomUtils.nextInt(0, 7);

@@ -695,7 +695,7 @@ public class CommandHandler {
                         Commands.literal("clearEstateById").then(
                                 Commands.argument("playerId", StringArgumentType.string())
                                         .executes(ClearEstateByPlayerIdCommand.instance)
-                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
         CommandDispatcher<CommandSourceStack> dispatcher78 = event.getDispatcher();

@@ -32,7 +32,7 @@ import fun.wraq.series.events.summer2025.curio.ShakeHealthCurio;
 import fun.wraq.series.events.summer2025.curio.SodaAttackCurio;
 import fun.wraq.series.events.summer2025.curio.SodaManaCurio;
 import fun.wraq.series.events.train.TrainSouvenirs;
-import fun.wraq.series.events.year2024.Souvenirs2024;
+import fun.wraq.series.events.years.YearsSouvenirsTicket;
 import fun.wraq.series.gems.WraqGem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Item;
@@ -89,7 +89,10 @@ public class SpecialEventItems {
             new TrainSouvenirs(new Item.Properties().rarity(CustomStyle.FieldBold)));
 
     public static final RegistryObject<Item> SOUVENIRS_2024 = ITEMS.register("souvenirs_2024", () ->
-            new Souvenirs2024(new Item.Properties().rarity(CustomStyle.GoldBold)));
+            new YearsSouvenirsTicket(new Item.Properties().rarity(CustomStyle.GoldBold), 2024));
+
+    public static final RegistryObject<Item> SOUVENIRS_2025 = ITEMS.register("souvenirs_2025", () ->
+            new YearsSouvenirsTicket(new Item.Properties().rarity(CustomStyle.GoldBold), 2025));
 
     public static final RegistryObject<Item> RING = ITEMS.register("spring_ring0",
             () -> new Spring2025Ring(new Item.Properties().rarity(CustomStyle.SpringBold), 0));
