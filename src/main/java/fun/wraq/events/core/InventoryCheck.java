@@ -208,6 +208,7 @@ public class InventoryCheck {
                 ModItems.BOND.get(),
                 ModItems.SPECIAL_BOND.get(),
                 SpecialEventItems.SOUVENIRS_2024.get(),
+                SpecialEventItems.SOUVENIRS_2025.get(),
                 SpecialEventItems.RED_ENVELOPE.get(),
                 SpecialEventItems.BIG_RED_ENVELOPE.get(),
                 IceHolyItems.CHEST.get(),
