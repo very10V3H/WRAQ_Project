@@ -4,6 +4,7 @@ import club.someoneice.cofe_delight.init.ItemInit;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.cooking.CookingValue;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItem;
@@ -71,6 +72,7 @@ public class TradeListNew {
         Summer2025StoreRecipe.setVillagerTradeRecipe();
         windEquip();
         MidAutumnStoreRecipe.setVillagerData();
+        castleSoulEquip();
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -741,5 +743,83 @@ public class TradeListNew {
                         new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 32),
                         new ItemStack(WindItems.WIND_RUNE.get(), 48),
                         new ItemStack(CrystalItems.GREEN_CRYSTAL_PP.get())));
+    }
+
+    public static void castleSoulEquip() {
+        ItemStack tinkerStone = new ItemStack(PickaxeItems.TINKER_STONE.get());
+        ItemStack soulBrick = new ItemStack(ModItems.CASTLE_INGOT.get());
+
+        ItemStack soulSword = new ItemStack(ModItems.CASTLE_SOUL_SWORD.get());
+        ItemStack soulBow = new ItemStack(ModItems.CASTLE_SOUL_BOW.get());
+        ItemStack soulSceptre = new ItemStack(ModItems.CASTLE_SOUL_SCEPTRE.get());
+
+        ItemStack soulSwordRepaired = new ItemStack(ModItems.CASTLE_SOUL_SWORD.get());
+        ItemStack soulBowRepaired = new ItemStack(ModItems.CASTLE_SOUL_BOW.get());
+        ItemStack soulSceptreRepaired = new ItemStack(ModItems.CASTLE_SOUL_SCEPTRE.get());
+
+        ItemStack soulAttackBoots = new ItemStack(ModItems.CASTLE_ATTACK_SOUL_BOOTS.get());
+        ItemStack soulSwiftBoots = new ItemStack(ModItems.CASTLE_SWIFT_SOUL_BOOTS.get());
+        ItemStack soulManaBoots = new ItemStack(ModItems.CASTLE_MANA_SOUL_BOOTS.get());
+
+        ItemStack soulAttackBootsRepaired = new ItemStack(ModItems.CASTLE_ATTACK_SOUL_BOOTS.get());
+        ItemStack soulSwiftBootsRepaired = new ItemStack(ModItems.CASTLE_SWIFT_SOUL_BOOTS.get());
+        ItemStack soulManaBootsRepaired = new ItemStack(ModItems.CASTLE_MANA_SOUL_BOOTS.get());
+
+        List<ItemStack> stacks = List.of(
+                tinkerStone, soulBrick,
+                soulSword, soulBow, soulSceptre,
+                soulAttackBoots, soulSwiftBoots, soulManaBoots,
+                soulSwordRepaired, soulBowRepaired, soulSceptreRepaired,
+                soulAttackBootsRepaired, soulSwiftBootsRepaired, soulManaBootsRepaired
+        );
+
+        MyVillagerData.setMyVillagerData("魂化装备工匠", "castleSoulEquip",
+                CustomStyle.styleOfCastle, VillagerType.SAVANNA, VillagerProfession.TOOLSMITH, stacks);
+
+        TradeList.tradeRecipeMap.put(tinkerStone,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 5)));
+        TradeList.tradeRecipeMap.put(soulBrick,
+                List.of(new ItemStack(PickaxeItems.TINKER_STONE.get(), 2),
+                        new ItemStack(ModItems.CASTLE_SOUL.get(), 4)));
+
+        TradeList.tradeRecipeMap.put(soulSword,
+                List.of(new ItemStack(ModItems.BLAZE_RUNE.get(), 2),
+                        new ItemStack(ModItems.CASTLE_INGOT.get(), 4)));
+        TradeList.tradeRecipeMap.put(soulBow,
+                List.of(new ItemStack(ModItems.BEACON_RUNE.get(), 2),
+                        new ItemStack(ModItems.CASTLE_INGOT.get(), 4)));
+        TradeList.tradeRecipeMap.put(soulSceptre,
+                List.of(new ItemStack(ModItems.TREE_RUNE.get(), 2),
+                        new ItemStack(ModItems.CASTLE_INGOT.get(), 4)));
+
+        TradeList.tradeRecipeMap.put(soulAttackBoots,
+                List.of(new ItemStack(ModItems.BLAZE_RUNE.get(), 1),
+                        new ItemStack(ModItems.CASTLE_INGOT.get(), 3)));
+        TradeList.tradeRecipeMap.put(soulSwiftBoots,
+                List.of(new ItemStack(ModItems.BEACON_RUNE.get(), 1),
+                        new ItemStack(ModItems.CASTLE_INGOT.get(), 3)));
+        TradeList.tradeRecipeMap.put(soulManaBoots,
+                List.of(new ItemStack(ModItems.TREE_RUNE.get(), 1),
+                        new ItemStack(ModItems.CASTLE_INGOT.get(), 3)));
+
+        TradeList.tradeRecipeMap.put(soulSwordRepaired,
+                List.of(new ItemStack(ModItems.CASTLE_INGOT.get(), 4),
+                        new ItemStack(ModItems.CASTLE_SOUL_SWORD.get(), 1)));
+        TradeList.tradeRecipeMap.put(soulBowRepaired,
+                List.of(new ItemStack(ModItems.CASTLE_INGOT.get(), 4),
+                        new ItemStack(ModItems.CASTLE_SOUL_BOW.get(), 1)));
+        TradeList.tradeRecipeMap.put(soulSceptreRepaired,
+                List.of(new ItemStack(ModItems.CASTLE_INGOT.get(), 4),
+                        new ItemStack(ModItems.CASTLE_SOUL_SCEPTRE.get(), 1)));
+
+        TradeList.tradeRecipeMap.put(soulAttackBootsRepaired,
+                List.of(new ItemStack(ModItems.CASTLE_INGOT.get(), 3),
+                        new ItemStack(ModItems.CASTLE_ATTACK_SOUL_BOOTS.get(), 1)));
+        TradeList.tradeRecipeMap.put(soulSwiftBootsRepaired,
+                List.of(new ItemStack(ModItems.CASTLE_INGOT.get(), 3),
+                        new ItemStack(ModItems.CASTLE_SWIFT_SOUL_BOOTS.get(), 1)));
+        TradeList.tradeRecipeMap.put(soulManaBootsRepaired,
+                List.of(new ItemStack(ModItems.CASTLE_INGOT.get(), 3),
+                        new ItemStack(ModItems.CASTLE_MANA_SOUL_BOOTS.get(), 1)));
     }
 }

@@ -1,4 +1,4 @@
-package fun.wraq.process.system.element;
+package fun.wraq.process.system.element.equipAndCurios;
 
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;

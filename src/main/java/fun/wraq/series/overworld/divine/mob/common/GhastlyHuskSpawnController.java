@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -55,7 +54,7 @@ public class GhastlyHuskSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(12000, 750, 750, 0.4, 3, 0.6, 550, 25, 8000 * Math.pow(10, 4), 0.4);
+        return new MobAttributes(12000, 750, 750, 0.4, 3, 0.6, 550, 25, 5000 * Math.pow(10, 4), 0.4);
     }
 
     @Override

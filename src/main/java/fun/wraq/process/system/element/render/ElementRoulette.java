@@ -1,4 +1,4 @@
-package fun.wraq.process.system.element;
+package fun.wraq.process.system.element.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.util.Utils;

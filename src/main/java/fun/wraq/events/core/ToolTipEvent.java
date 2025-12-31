@@ -20,6 +20,8 @@ import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.items.misc.PocketItem;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.system.cooking.CookingValue;
+import fun.wraq.process.system.expired.ExpiredInfo;
+import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
@@ -135,7 +137,7 @@ public class ToolTipEvent {
             }
         }
         if (item instanceof EnhancedForgedItem enhancedForgedItem) {
-            if (enhancedForgedItem.getEnhanceTier() == 0) {
+            if (enhancedForgedItem.getEnhanceTier() == 0 && !ExpiredInfo.getHasExpiredInfoItems().contains(item)) {
                 tooltip.add(Te.s("「", ChatFormatting.AQUA, "可在锻造台中", "锐化", CustomStyle.styleOfWorld,
                         "」", ChatFormatting.AQUA));
             }
@@ -337,7 +339,10 @@ public class ToolTipEvent {
         if (betaItems.contains(item)) {
             tooltip.add(Te.s("该物品处于测试阶段，未来有较大改动可能性.", CustomStyle.styleOfWorld));
         }
-        Compute.addExpiredDateTooltips(stack, tooltip);
+        ExpiredSystem.addExpiredDateTooltips(stack, tooltip);
+        if (event.getEntity() != null && event.getEntity().level().isClientSide) {
+            ExpiredSystem.addTradeScreenTooltip(stack, tooltip);
+        }
 /*        int value = SecretChestContent.getValueMap().getOrDefault(item, 0);
         if (value > 0) {
             tooltip.add(Te.s("price : ", value));

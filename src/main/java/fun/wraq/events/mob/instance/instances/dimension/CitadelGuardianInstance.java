@@ -76,7 +76,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
 
     @Override
     public MobAttributes getMainMobAttributes() {
-        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        double maxHealth = 1500 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
         return new MobAttributes(5000, 480, 480, 0.4, 3, 0.6, 225, 25, maxHealth, 0.35);
     }
 
@@ -148,7 +148,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(entity, Component.literal(ENDER_MITE_NAME).withStyle(CustomStyle.styleOfEnd), 250);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 250);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 4000, 360, 240, 0.4,
-                3, 0.4, 120, 25, 500 * Math.pow(10, 4), 0.4);
+                3, 0.4, 120, 25, 300 * Math.pow(10, 4), 0.4);
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         summonMobList.add(entity);
@@ -159,7 +159,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(entity, Component.literal(SHULKER_NAME).withStyle(CustomStyle.styleOfEnd), 250);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 250);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 4000, 240, 360, 0.4,
-                3, 0.4, 120, 25, 1000 * Math.pow(10, 4), 0.4);
+                3, 0.4, 120, 25, 700 * Math.pow(10, 4), 0.4);
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         summonMobList.add(entity);

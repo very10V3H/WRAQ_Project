@@ -1,6 +1,7 @@
 package fun.wraq.networking.misc.USE;
 
 import fun.wraq.common.Compute;
+import fun.wraq.process.system.expired.ExpiredSystem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
@@ -31,6 +32,10 @@ public class UseC2SPacket {
             ServerPlayer player = context.getSender();
             Inventory inventory = player.getInventory();
             ItemStack toolStack = inventory.getItem(num);
+            // 判断物品是否过期
+            if (!ExpiredSystem.checkValid(toolStack)) {
+                return;
+            }
             Item tool = toolStack.getItem();
             if (!player.getCooldowns().isOnCooldown(tool) && !toolStack.isEmpty()) {
                 Compute.use(player, tool);

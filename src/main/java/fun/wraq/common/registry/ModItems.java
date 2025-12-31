@@ -43,10 +43,11 @@ import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
 import fun.wraq.process.func.power.impl.*;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.element.ElementHolyStone;
+import fun.wraq.process.system.element.equipAndCurios.ElementHolyStone;
 import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.process.system.element.RainbowPowder;
 import fun.wraq.process.system.element.crystal.*;
+import fun.wraq.process.system.element.equipAndCurios.crystal.*;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementBow;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword;
@@ -2691,43 +2692,70 @@ public class ModItems {
 
     public static final RegistryObject<Item> CASTLE_SWORD = ITEMS.register("castle_sword",
             () -> new CastleSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 0));
+    public static final RegistryObject<Item> CASTLE_SOUL_SWORD = ITEMS.register("castle_soul_sword",
+            () -> new CastleSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 0));
     public static final RegistryObject<Item> CASTLE_SWORD_E = ITEMS.register("castle_sword_e",
             () -> new CastleSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 1));
     public static final RegistryObject<Item> CASTLE_BOW = ITEMS.register("castle_bow",
+            () -> new CastleBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 0));
+    public static final RegistryObject<Item> CASTLE_SOUL_BOW = ITEMS.register("castle_soul_bow",
             () -> new CastleBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 0));
     public static final RegistryObject<Item> CASTLE_BOW_E = ITEMS.register("castle_bow_e",
             () -> new CastleBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 1));
     public static final RegistryObject<Item> CASTLE_SCEPTRE = ITEMS.register("castle_sceptre",
             () -> new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic), 0));
+    public static final RegistryObject<Item> CASTLE_SOUL_SCEPTRE = ITEMS.register("castle_soul_sceptre",
+            () -> new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic), 0));
     public static final RegistryObject<Item> CASTLE_SCEPTRE_E = ITEMS.register("castle_sceptre_e",
             () -> new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic), 1));
 
     public static final RegistryObject<Item> CASTLE_ATTACK_HELMET = ITEMS.register("castle_attack_helmet",
-            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_ATTACK_CHEST = ITEMS.register("castle_attack_chest",
-            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_ATTACK_LEGGINGS = ITEMS.register("castle_attack_leggings",
-            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_ATTACK_BOOTS = ITEMS.register("castle_attack_boots",
-            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
+    public static final RegistryObject<Item> CASTLE_ATTACK_SOUL_BOOTS = ITEMS.register("castle_attack_soul_boots",
+            () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CASTLE_SWIFT_HELMET = ITEMS.register("castle_swift_helmet",
-            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_SWIFT_CHEST = ITEMS.register("castle_swift_chest",
-            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_SWIFT_LEGGINGS = ITEMS.register("castle_swift_leggings",
-            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_SWIFT_BOOTS = ITEMS.register("castle_swift_boots",
-            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
+    public static final RegistryObject<Item> CASTLE_SWIFT_SOUL_BOOTS = ITEMS.register("castle_swift_soul_boots",
+            () -> new CastleSwiftArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CASTLE_MANA_HELMET = ITEMS.register("castle_mana_helmet",
-            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_MANA_CHEST = ITEMS.register("castle_mana_chest",
-            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_MANA_LEGGINGS = ITEMS.register("castle_mana_leggings",
-            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
     public static final RegistryObject<Item> CASTLE_MANA_BOOTS = ITEMS.register("castle_mana_boots",
-            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
+    public static final RegistryObject<Item> CASTLE_MANA_SOUL_BOOTS = ITEMS.register("castle_mana_soul_boots",
+            () -> new CastleManaArmor(ModArmorMaterials.Castle, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> SKIN_TEMPLATE_PAPER = ITEMS.register("skin_template_paper",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));

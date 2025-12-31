@@ -1,6 +1,6 @@
 package fun.wraq.process.system.enhanceForge;
 
-import fun.wraq.process.system.element.Color;
+import fun.wraq.process.system.element.render.Color;
 import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

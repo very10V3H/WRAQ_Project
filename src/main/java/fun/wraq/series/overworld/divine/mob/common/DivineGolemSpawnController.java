@@ -50,7 +50,7 @@ public class DivineGolemSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(10000, 650, 650, 0.4, 3, 0.6, 450, 25, 6000 * Math.pow(10, 4), 0.4);
+        return new MobAttributes(10000, 650, 650, 0.4, 3, 0.6, 450, 25, 3500 * Math.pow(10, 4), 0.4);
     }
 
     @Override

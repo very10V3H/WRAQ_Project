@@ -1,5 +1,5 @@
 
-package fun.wraq.process.system.element.crystal;
+package fun.wraq.process.system.element.equipAndCurios.crystal;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
@@ -30,13 +30,13 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WindCrystal extends SwordItem implements ActiveItem {
+public class LifeCrystal extends SwordItem implements ActiveItem {
 
-    public WindCrystal(Properties properties, int tier) {
+    public LifeCrystal(Properties properties, int tier) {
         super(ItemTier.VMaterial, 2, 0, properties);
         Utils.maxHealth.put(this, new double[]{1600, 2400, 3200, 4000}[tier]);
         Utils.expUp.put(this, new double[]{0.2, 0.25, 0.3, 0.35}[tier]);
-        Element.windElementValue.put(this, new double[]{0.4, 0.6, 0.8, 1}[tier]);
+        Element.lifeElementValue.put(this, new double[]{0.4, 0.6, 0.8, 1}[tier]);
         Utils.passiveEquipTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.levelRequire.put(this, new int[]{50, 100, 150, 200}[tier]);
@@ -45,16 +45,16 @@ public class WindCrystal extends SwordItem implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.getOrCreateTagElement(Utils.MOD_ID);
-        Style style = CustomStyle.styleOfWind;
+        Style style = CustomStyle.styleOfLife;
         components.add(Component.literal("器灵                   ").withStyle(CustomStyle.styleOfSakura).append(Component.literal("元素水晶").withStyle(style)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionActive(components, Component.literal("澄风元素容器").withStyle(style));
+        Compute.DescriptionActive(components, Component.literal("生机元素容器").withStyle(style));
         components.add(Component.literal(" 对周围生物").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("施加").withStyle(CustomStyle.styleOfPower)).
-                append(Element.Description.WindElement("100%")));
+                append(Element.Description.LifeElement("100%")));
         components.add(Component.literal(" - 这个效果施加的元素量将会自适应附带较低的基础伤害").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         ComponentUtils.coolDownTimeDescription(components, 10);
         components.add(Component.literal(" - 根据归一化元素强度至多可以将冷却时间缩短至3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
@@ -92,16 +92,16 @@ public class WindCrystal extends SwordItem implements ActiveItem {
     public void active(Player player) {
         if (player.experienceLevel < Utils.levelRequire.get(this)) return;
         if (!player.getCooldowns().isOnCooldown(this)) {
-            int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.getPlayerWindElementValue(player)));
+            int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.getPlayerLifeElementValue(player)));
             List<Item> itemList = new ArrayList<>() {{
-                add(ModItems.WIND_CRYSTAL_0.get());
-                add(ModItems.WIND_CRYSTAL_1.get());
-                add(ModItems.WIND_CRYSTAL_2.get());
-                add(ModItems.WIND_CRYSTAL_3.get());
+                add(ModItems.LIFE_CRYSTAL_0.get());
+                add(ModItems.LIFE_CRYSTAL_1.get());
+                add(ModItems.LIFE_CRYSTAL_2.get());
+                add(ModItems.LIFE_CRYSTAL_3.get());
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);
-            Element.provideRangeElement(player, Element.wind, ElementValue.getPlayerWindElementValue(player),
+            Element.provideRangeElement(player, Element.life, ElementValue.getPlayerLifeElementValue(player),
                     isAd, isAd ? PlayerAttributes.attackDamage(player) * 4 : PlayerAttributes.manaDamage(player), 6);
         }
     }

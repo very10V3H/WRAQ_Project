@@ -12,7 +12,7 @@ import fun.wraq.networking.misc.USE.UseC2SPacket;
 import fun.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
-import fun.wraq.process.system.element.ElementRoulette;
+import fun.wraq.process.system.element.render.ElementRoulette;
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.element.piece.ElementPieceGui;
 import fun.wraq.process.system.forge.ForgeScreen;

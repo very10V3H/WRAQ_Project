@@ -44,7 +44,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
     public static final String MOB_NAME = "极寒冰龙";
     public static final Style STYLE = CustomStyle.styleOfIce;
     public static final int XP_LEVEL = 330;
-    public static final double MAX_HEALTH = 500 * Math.pow(10, 8);
+    public static final double MAX_HEALTH = 300 * Math.pow(10, 8);
 
     public static IceDragonSpawnController instance;
 

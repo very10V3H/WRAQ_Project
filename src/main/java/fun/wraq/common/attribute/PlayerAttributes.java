@@ -33,6 +33,7 @@ import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
+import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.profession.alchemy.AlchemyPlayerData;
 import fun.wraq.process.system.spur.Items.crop.INaRiBow;
@@ -144,6 +145,10 @@ public class PlayerAttributes {
     }
 
     public static double attackDamage(Player player) {
+        // 校验主手是否过期
+        if (!ExpiredSystem.checkMainHandValid(player)) {
+            return 0;
+        }
         if (canGetFromCache(player, Utils.attackDamage)) {
             return getFromCache(player, Utils.attackDamage);
         }
@@ -1036,6 +1041,11 @@ public class PlayerAttributes {
     }
 
     public static double manaDamage(Player player) {
+        // 校验主手是否过期
+        if (!ExpiredSystem.checkMainHandValid(player)) {
+            return 0;
+        }
+
         if (canGetFromCache(player, Utils.manaDamage)) {
             return getFromCache(player, Utils.manaDamage);
         }
@@ -1648,6 +1658,10 @@ public class PlayerAttributes {
                                                                 boolean computeForge) {
         double totalValue = 0;
         for (ItemStack equip : getAllEquipSlotItems(player)) {
+            // 校验是否过期
+            if (!ExpiredSystem.checkValid(equip)) {
+                continue;
+            }
             Item item = equip.getItem();
             double traditionalValue = ForgeEquipUtils
                     .getTraditionalEquipBaseValue(equip, attributeMap, player, computeForge);

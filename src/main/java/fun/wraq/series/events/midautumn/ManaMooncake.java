@@ -32,7 +32,7 @@ public class ManaMooncake extends WraqItem implements ActiveItem {
         components.add(Te.s(" 获得持续2min的:"));
         components.add(Te.s(" · ", ComponentUtils.AttributeDescription.damageDirectDecrease("20%")));
         components.add(Te.s(" · ", ComponentUtils.AttributeDescription.healthRecover("1%")));
-        components.add(Te.s(" · ", ComponentUtils.AttributeDescription.manaRecover("5%")));
+        components.add(Te.s(" · ", ComponentUtils.AttributeDescription.manaRecover("1%")));
         components.add(Te.s(" · ", "饱和", CustomStyle.MUSHROOM_STYLE));
         components.add(Te.s(" 冷却时间 5min", ChatFormatting.AQUA));
         super.appendHoverText(itemStack, level, components, tooltipFlag);
@@ -46,7 +46,7 @@ public class ManaMooncake extends WraqItem implements ActiveItem {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentHealthRecoverModifier,
                 "mana_mooncake", 0.01, Tick.get() + Tick.min(2));
         StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentManaRecoverModifier,
-                "mana_mooncake", 0.05, Tick.get() + Tick.min(2));
+                "mana_mooncake", 0.01, Tick.get() + Tick.min(2));
         player.addEffect(new MobEffectInstance(MobEffects.SATURATION, Tick.min(2)));
     }
 

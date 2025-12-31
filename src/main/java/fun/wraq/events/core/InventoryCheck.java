@@ -10,6 +10,7 @@ import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.process.system.instance.MopUpPaperItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.profession.smith.SmithItems;
@@ -82,8 +83,7 @@ public class InventoryCheck {
                         addOwnerTagToItemStack(player, itemStack);
                     }
                 }
-                if (Compute.getStackExpiredDate(itemStack) != null && !Compute.isExpiredDateValid(itemStack)) {
-                    itemStack.shrink(itemStack.getCount());
+                if (!ExpiredSystem.checkValid(itemStack)) {
                     continue;
                 }
                 if (itemStack.getTagElement(Utils.MOD_ID) != null) {

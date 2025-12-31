@@ -52,7 +52,7 @@ public class BunkerGhastSpawnController extends JungleMobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(7500, 500, 500, 0.4, 3, 0.6, 500, 25, 10 * Math.pow(10, 8), 0.6);
+        return new MobAttributes(7500, 500, 500, 0.4, 3, 0.6, 500, 25, 5 * Math.pow(10, 8), 0.6);
     }
 
     @Override

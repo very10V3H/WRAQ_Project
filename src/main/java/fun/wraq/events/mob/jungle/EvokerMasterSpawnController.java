@@ -50,7 +50,7 @@ public class EvokerMasterSpawnController extends JungleMobSpawnController {
         getRewardItemList().forEach(itemAndRate -> {
             itemAndRate.sendWithMSG(player, 1);
         });
-        double manaRecoverValue = (double) player.experienceLevel / 2 + PlayerAttributes.maxMana(player) * 0.05;
+        double manaRecoverValue = (double) player.experienceLevel / 4 + PlayerAttributes.maxMana(player) * 0.02;
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaRecoverModifier,
                 "BlueBuff", manaRecoverValue,
                 Tick.get() + Tick.min(8), ModItems.EVOKER_SOUL.get());

@@ -219,7 +219,7 @@ public class HarbingerInstance extends NewTeamInstance {
     public Mob setAttributesThenSpawnOfWatcher(Level level, Vec3 pos) {
         The_Watcher_Entity entity = new The_Watcher_Entity(ModEntities.THE_WATCHER.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(THE_WATCHER_NAME, CustomStyle.styleOfHarbinger), 260);
-        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        double maxHealth = 1500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 5000, 360,
                 360, 0.4, 3, 0.6, 300, 25,
                 maxHealth, 0.5);
@@ -234,7 +234,7 @@ public class HarbingerInstance extends NewTeamInstance {
     public Mob setAttributesThenSpawnOfProwler(Level level, Vec3 pos) {
         The_Prowler_Entity entity = new The_Prowler_Entity(ModEntities.THE_PROWLER.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(THE_PROWLER_NAME, CustomStyle.styleOfHarbinger), 260);
-        double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        double maxHealth = 5000 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 7500, 480,
                 480, 0.4, 3, 0.6, 350, 25,
                 maxHealth, 0.35);
@@ -257,7 +257,7 @@ public class HarbingerInstance extends NewTeamInstance {
 
     @Override
     public MobAttributes getMainMobAttributes() {
-        double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        double maxHealth = 1 * Math.pow(10, 8) * (1 + 0.75 * (players.size() - 1));
         return new MobAttributes(9000, 600, 600, 0.4, 3, 0.6, 400, 25, maxHealth, 0.35);
     }
 
@@ -265,7 +265,7 @@ public class HarbingerInstance extends NewTeamInstance {
     public Mob setAttributesThenSpawnOfBlade(Level level, Vec3 pos) {
         Blaze entity = new Blaze(EntityType.BLAZE, level);
         MobSpawn.setMobCustomName(entity, Te.s(THE_BLAZE_NAME, CustomStyle.styleOfHarbinger), 260);
-        double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        double maxHealth = 5000 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 7500, 480,
                 480, 0.4, 3, 0.6, 350, 25,
                 maxHealth, 0.35);

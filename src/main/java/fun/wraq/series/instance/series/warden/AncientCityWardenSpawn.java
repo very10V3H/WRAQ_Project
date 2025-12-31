@@ -37,7 +37,7 @@ public class AncientCityWardenSpawn {
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), 260);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, 5000, 360, 360, 0.4,
                         3, 0.6, 300, 25,
-                        5000 * Math.pow(10, 4), 0.35);
+                        3000 * Math.pow(10, 4), 0.35);
                 set.add(warden);
             }
         }

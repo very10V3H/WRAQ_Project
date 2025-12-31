@@ -10,6 +10,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -183,6 +184,9 @@ public class NewCastleInstance extends NewTeamInstance {
 
     @Override
     public void reward(Player player) {
+        ItemStack soul = new ItemStack(ModItems.CASTLE_SOUL.get(), 4);
+        ExpiredSystem.setStackExpiredDate(soul, 14, ExpiredSystem.ExpiredType.DISAPPEARED);
+        InventoryOperation.giveItemStack(player, soul);
         if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.NOTE_PAPER.get(), 4)))) {
             getRewardList().forEach(itemAndRate -> {
                 itemAndRate.sendWithMSG(player, 4);

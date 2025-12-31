@@ -37,7 +37,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
     public static String mobName = "圣光班尼";
     public Mob boss;
     public static Style style = CustomStyle.DIVINE_STYLE;
-    public static final double MAX_HEALTH = 10 * Math.pow(10, 8);
+    public static final double MAX_HEALTH = 5 * Math.pow(10, 8);
     public static final int XP_LEVEL = 285;
 
     public static DivineBunnyInstance getInstance() {

@@ -63,7 +63,7 @@ public class BunkerInstance extends NoTeamInstance {
 
     @Override
     public MobAttributes getMainMobAttributes() {
-        double maxHealth = 3 * Math.pow(10, 8) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        double maxHealth = 2 * Math.pow(10, 8) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
         return new MobAttributes(10000, 700, 700, 0.35, 3, 0.6, 500, 25, maxHealth, 0.6);
     }
 

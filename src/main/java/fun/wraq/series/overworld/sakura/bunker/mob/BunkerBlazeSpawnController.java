@@ -53,7 +53,7 @@ public class BunkerBlazeSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(6500, 450, 450, 0.4, 3, 0.5, 350, 25, 2500 * Math.pow(10, 4), 0.4);
+        return new MobAttributes(6500, 450, 450, 0.4, 3, 0.5, 350, 25, 1500 * Math.pow(10, 4), 0.4);
     }
 
     @Override

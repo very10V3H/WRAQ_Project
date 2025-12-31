@@ -8,6 +8,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.security.Security;
+import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.render.hud.networking.ItemGetS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -33,8 +34,7 @@ public class InventoryOperation {
         int existNum = 0;
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack itemStack = inventory.getItem(i);
-            if (Compute.getStackExpiredDate(itemStack) != null && !Compute.isExpiredDateValid(itemStack)) {
-                itemStack.shrink(itemStack.getCount());
+            if (!ExpiredSystem.checkValid(itemStack)) {
                 return 0;
             }
             if (InventoryCheck.containOwnerTag(itemStack)
@@ -143,14 +143,14 @@ public class InventoryOperation {
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
             }
             if (itemExpiredDateMap.containsKey(itemStack.getItem())
-                    && Compute.getStackExpiredDate(itemStack) == null) {
+                    && ExpiredSystem.getStackExpiredDate(itemStack) == null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 8);
                 calendar.set(Calendar.HOUR_OF_DAY, 0);
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-                Compute.setStackExpiredDate(itemStack, calendar);
+                ExpiredSystem.setStackExpiredDate(itemStack, calendar);
             }
             Inventory inventory = player.getInventory();
             if (inventory.getFreeSlot() != -1) {

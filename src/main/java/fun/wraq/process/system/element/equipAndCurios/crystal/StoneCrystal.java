@@ -1,5 +1,5 @@
 
-package fun.wraq.process.system.element.crystal;
+package fun.wraq.process.system.element.equipAndCurios.crystal;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;

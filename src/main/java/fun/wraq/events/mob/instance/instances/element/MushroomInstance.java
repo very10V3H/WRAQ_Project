@@ -49,7 +49,7 @@ public class MushroomInstance extends NoTeamInstance {
     public Mob boss;
     public Cow cow;
     public static Style style = CustomStyle.MUSHROOM_STYLE;
-    public static final double MAX_HEALTH = 1 * Math.pow(10, 8);
+    public static final double MAX_HEALTH = 0.5 * Math.pow(10, 8);
     public static final int XP_LEVEL = 235;
 
     public static MushroomInstance getInstance() {

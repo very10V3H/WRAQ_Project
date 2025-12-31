@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -53,7 +52,7 @@ public class GhastlyCreeperSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(11000, 700, 700, 0.4, 3, 0.6, 500, 25, 7000 * Math.pow(10, 4), 0.6);
+        return new MobAttributes(11000, 700, 700, 0.4, 3, 0.6, 500, 25, 4000 * Math.pow(10, 4), 0.6);
     }
 
     @Override

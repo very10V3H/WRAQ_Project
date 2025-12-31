@@ -54,7 +54,7 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.process.system.element.Color;
+import fun.wraq.process.system.element.render.Color;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
@@ -62,7 +62,6 @@ import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion
 import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.tower.Tower;
-import fun.wraq.process.system.tp.TpPass;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.gui.ScreenInfoS2CPacket;
 import fun.wraq.render.hud.ColdData;
@@ -2277,55 +2276,6 @@ public class Compute {
         if (MobSpawn.canAddSlowDownOrImprison(mob)) {
             mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, lastTick, 99, false, false, false));
             Compute.sendMobEffectHudToNearPlayer(mob, "hud/imprison", "imprison", lastTick, 0, false);
-        }
-    }
-
-    public static final String EXPIRED_DATE_DATA_KEY = "ExpiredDate";
-
-    public static void setStackExpiredDate(ItemStack stack, Calendar expiredDate) {
-        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
-        tag.putString(EXPIRED_DATE_DATA_KEY, Compute.castCalendarToString(expiredDate));
-    }
-
-    public static @Nullable Calendar getStackExpiredDate(ItemStack stack) {
-        if (stack.getTagElement(Utils.MOD_ID) == null) {
-            return null;
-        }
-        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
-        if (!tag.contains(EXPIRED_DATE_DATA_KEY)) {
-            return null;
-        }
-        return Compute.castStringToCalendar(tag.getString(EXPIRED_DATE_DATA_KEY));
-    }
-
-    public static boolean isExpiredDateValid(ItemStack stack) {
-        Calendar calendar = Calendar.getInstance();
-        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
-        if (tag.contains(EXPIRED_DATE_DATA_KEY)) {
-            Calendar recordDate = Compute.castStringToCalendar(tag.getString(EXPIRED_DATE_DATA_KEY));
-            return recordDate.after(calendar);
-        } else {
-            return true;
-        }
-    }
-
-    public static void addExpiredDateTooltips(ItemStack stack, List<Component> components) {
-        CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
-        if (stack.getItem() instanceof TpPass) {
-            return;
-        }
-        if (tag.contains(EXPIRED_DATE_DATA_KEY)) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Calendar expiredDate = Compute.castStringToCalendar(tag.getString(EXPIRED_DATE_DATA_KEY));
-            if (isExpiredDateValid(stack)) {
-                components.add(Te.s(" 在",
-                        dateFormat.format(expiredDate.getTime()), ChatFormatting.AQUA, "前有效"));
-            } else {
-                components.add(Te.s(" 在", ChatFormatting.STRIKETHROUGH,
-                        dateFormat.format(expiredDate.getTime()), ChatFormatting.AQUA, ChatFormatting.STRIKETHROUGH,
-                        "前有效", ChatFormatting.STRIKETHROUGH));
-                components.add(Te.s(" 已失效.", ChatFormatting.RED));
-            }
         }
     }
 

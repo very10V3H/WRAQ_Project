@@ -3,7 +3,7 @@ package fun.wraq.common.util;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.fast.Te;
-import fun.wraq.process.system.element.Color;
+import fun.wraq.process.system.element.render.Color;
 import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
@@ -390,7 +390,7 @@ public class ComponentUtils {
 
     public static void descriptionActive(List<Component> components, Component name) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
-                append(Component.literal("主动 ").withStyle(ChatFormatting.BLUE)).
+                append(Component.literal("主动 ").withStyle(ChatFormatting.AQUA)).
                 append(name));
     }
 
@@ -557,7 +557,7 @@ public class ComponentUtils {
 
     public static Component rainBowNameFiveChar(String s) {
         for (int i = 0; i < RainbowCrystal.colorList.size(); i++) {
-            fun.wraq.process.system.element.Color color = RainbowCrystal.colorList.get(i);
+            Color color = RainbowCrystal.colorList.get(i);
             if (color.Add()) {
                 RainbowCrystal.colorList.set(i, new Color(color.targetRGB, RainbowCrystal.colorMap.get(color.targetRGB), 100));
             }

@@ -100,7 +100,7 @@ public class WardenInstance extends NoTeamInstance {
 
     @Override
     public MobAttributes getMainMobAttributes() {
-        double maxHealth = 5000 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
+        double maxHealth = 3000 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
         return new MobAttributes(6500, 600, 600, 0.4, 3, 0.6, 300, 25, maxHealth, 0.35);
     }
 

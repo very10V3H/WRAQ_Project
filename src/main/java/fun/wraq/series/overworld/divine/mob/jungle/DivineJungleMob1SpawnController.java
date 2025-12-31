@@ -62,7 +62,7 @@ public class DivineJungleMob1SpawnController extends JungleMobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(24000, 1100, 1100, 0.4, 3, 0.6, 750, 25, 20 * Math.pow(10, 8), 0.45);
+        return new MobAttributes(24000, 1100, 1100, 0.4, 3, 0.6, 750, 25, 15 * Math.pow(10, 8), 0.45);
     }
 
     @Override

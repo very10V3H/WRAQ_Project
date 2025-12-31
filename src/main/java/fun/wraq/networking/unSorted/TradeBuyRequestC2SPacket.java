@@ -13,6 +13,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
@@ -181,6 +182,8 @@ public class TradeBuyRequestC2SPacket {
                     Compute.sendFormatMSG(serverPlayer, Te.s("交易", ChatFormatting.GREEN),
                             Te.s("已保留装备的强化/品质/宝石等信息."));
                 }
+                // 处理物品的过期信息
+                ExpiredSystem.handleTradeBuyProduct(product);
                 InventoryOperation.giveItemStack(serverPlayer, product);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {

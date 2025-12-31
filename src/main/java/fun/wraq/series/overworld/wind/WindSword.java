@@ -27,7 +27,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -79,11 +78,6 @@ public class WindSword extends WraqSword implements ActiveItem, ForgeItem {
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        // toolTip
-        // List<Component> class
-        // components object
-        // =
-        // new ArrayList<>()
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionActive(components, Te.s("狂风绝息", getMainStyle()));
         components.add(Te.s(" 对准星(最大距离", getMaxDistance(), getMainStyle(),
