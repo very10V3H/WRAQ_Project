@@ -175,9 +175,9 @@ public class CitadelCurio extends WraqCurios implements Decomposable, OnKillEffe
             double maxHealth = player.getMaxHealth();
             double rate = 0;
             switch (phase) {
-                case 1 -> rate = 0.01;
-                case 2 -> rate = 0.015;
-                case 3, 4 -> rate = 0.02;
+                case 1 -> rate = 0.1;
+                case 2 -> rate = 0.15;
+                case 3, 4 -> rate = 0.2;
             }
             if (phase == 4) {
                 SpecialEffectOnPlayer.addHealingReduction(player, "CitadelPhase4", 1, Tick.get() + Tick.s(10));
