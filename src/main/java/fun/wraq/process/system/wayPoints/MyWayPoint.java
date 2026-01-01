@@ -2,6 +2,7 @@ package fun.wraq.process.system.wayPoints;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
@@ -469,15 +470,17 @@ public class MyWayPoint {
         Player player = Minecraft.getInstance().player;
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START) && event.player.equals(player)) {
             int tickCount = event.player.tickCount;
-            List<MyWayPoint> points = new ArrayList<>();
-            if (player.level().dimension().equals(Level.OVERWORLD)) {
-                points = overworldPointList;
-            }
-            if (player.level().dimension().equals(Level.NETHER)) {
-                points = netherPointList;
-            }
-            if (tickCount < points.size()) {
-                addWaypoint(points.get(tickCount));
+            if (tickCount >= Tick.s(10)) {
+                List<MyWayPoint> points = new ArrayList<>();
+                if (player.level().dimension().equals(Level.OVERWORLD)) {
+                    points = overworldPointList;
+                }
+                if (player.level().dimension().equals(Level.NETHER)) {
+                    points = netherPointList;
+                }
+                if (tickCount - Tick.s(10) < points.size()) {
+                    addWaypoint(points.get(tickCount - Tick.s(10)));
+                }
             }
         }
     }
