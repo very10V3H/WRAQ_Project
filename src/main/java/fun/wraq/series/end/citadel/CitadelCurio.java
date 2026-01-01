@@ -27,10 +27,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class CitadelCurio extends WraqCurios implements Decomposable, OnKillEffectCurios,
         InCuriosOrEquipSlotAttributesModify {
@@ -138,7 +138,7 @@ public class CitadelCurio extends WraqCurios implements Decomposable, OnKillEffe
     @Override
     public void onKill(Player player, Mob mob, ItemStack stack) {
         if (!fadeShadePos.containsKey(player)) {
-            fadeShadePos.put(player, new ArrayDeque<>());
+            fadeShadePos.put(player, new ConcurrentLinkedDeque<>());
         }
         Queue<Vec3> fadeShadePosQueue = fadeShadePos.get(player);
         while (fadeShadePosQueue.size() >= 10) {

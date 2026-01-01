@@ -1411,7 +1411,7 @@ public class Compute {
                         if (data.contains(attributeName)) {
                             if (curiosItem instanceof RandomCurios) {
                                 rate *= (1 - data.getDouble(attributeName)
-                                        * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName));
+                                        * RandomCuriosAttributesUtil.attributeValueMap.getOrDefault(attributeName, 0d));
                             } else {
                                 rate *= (1 - data.getInt(attributeName));
                             }
@@ -1433,7 +1433,7 @@ public class Compute {
                                 if (data.contains(attributeName)) {
                                     if (curiosItem instanceof RandomCurios) {
                                         value += data.getDouble(attributeName)
-                                                * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
+                                                * RandomCuriosAttributesUtil.attributeValueMap.getOrDefault(attributeName, 0d);
                                     } else {
                                         value += data.getInt(attributeName);
                                     }

@@ -1,5 +1,6 @@
 package fun.wraq.events.server;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
@@ -114,8 +115,17 @@ import java.util.List;
 
 @Mod.EventBusSubscriber
 public class ServerPlayerTickEvent {
+
     @SubscribeEvent
-    public static void ServerPlayerTick(TickEvent.PlayerTickEvent event) throws IOException, ParseException {
+    public static void ServerPlayerTick(TickEvent.PlayerTickEvent event) {
+        try {
+            module(event);
+        } catch (Exception e) {
+            LogUtils.getLogger().error("server tick event error", e);
+        }
+    }
+
+    public static void module(TickEvent.PlayerTickEvent event) throws IOException, ParseException {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
@@ -482,5 +492,6 @@ public class ServerPlayerTickEvent {
                 }
             }
         }
+
     }
 }
