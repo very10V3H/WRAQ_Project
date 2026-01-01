@@ -40,7 +40,7 @@ public class RollingRequestC2SPacket {
                     DelayOperationWithAnimation.remove(serverPlayer);
 
                     DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                            DelayOperationWithAnimation.Animation.rolling, Tick.get() + 8, serverPlayer
+                            DelayOperationWithAnimation.Animation.rolling, 8, 8, serverPlayer, 0, 1
                     ) {
                         @Override
                         public void trig() {}

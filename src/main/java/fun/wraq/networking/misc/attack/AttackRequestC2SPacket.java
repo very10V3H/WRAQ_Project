@@ -43,7 +43,7 @@ public class AttackRequestC2SPacket {
                 animation = DelayOperationWithAnimation.Animation.swordAttack2;
             }
             boolean success = DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                    animation, 8, 10, player, 1
+                    animation, 8, 10, player, 1, 0
             ) {
                 @Override
                 public void trig() {

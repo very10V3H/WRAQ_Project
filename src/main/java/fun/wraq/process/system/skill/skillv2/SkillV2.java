@@ -662,13 +662,13 @@ public abstract class SkillV2 {
         }
     }
 
-    public static double getReleaseDecreaseRate(Player player, double attackSpeedInfluenceRate) {
+    public static double getReleaseDecreaseRate(Player player, double attackSpeedInfluenceRate, double cooldownInfluenceRate) {
         double decreaseRate = 1;
         decreaseRate *= (1 - attackSpeedInfluenceRate * PlayerAttributes.getAttackSpeedEnhanceRate(player));
 
-        double cooldownInfluenceRate = 0;
-        cooldownInfluenceRate = 0.5 * Math.min(300, PlayerAttributes.powerReleaseSpeed(player)) / 300;
-        decreaseRate *= (1 - cooldownInfluenceRate);
+        double cooldownRate = 0;
+        cooldownRate = 0.5 * Math.min(3, PlayerAttributes.powerReleaseSpeed(player)) / 3;
+        decreaseRate *= (1 - cooldownRate * cooldownInfluenceRate);
 
         return decreaseRate;
     }

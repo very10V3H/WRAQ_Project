@@ -31,7 +31,7 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2All
         int skillLevel = SkillV2.getPlayerSkillLevelBySkillV2(player, this);
         Item mainHandItem = player.getMainHandItem().getItem();
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.samurai, 8, 8, player, 1) {
+                DelayOperationWithAnimation.Animation.samurai, 8, 8, player, 1, 0) {
             @Override
             public void trig() {
                 if (mainHandItem instanceof SwordAttribute) {

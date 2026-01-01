@@ -24,7 +24,7 @@ public class BowNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Allow
     protected void releaseOperation(Player player) {
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.bowNewSkillBase1_0, 8, 8, player, 1
+                DelayOperationWithAnimation.Animation.bowNewSkillBase1_0, 8, 8, player, 1, 0
         ) {
             @Override
             public void trig() {

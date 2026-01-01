@@ -39,7 +39,7 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
         double damage = ManaNewSkill.modifyDamage(player,
                 (0.5 + 0.05 * skillLevel + (enhanced ? 0.2 : 0)) * (1 + getEnhanceRate(player)));
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.manaNewSkillBase2_0, Tick.get() + 8, player
+                DelayOperationWithAnimation.Animation.manaNewSkillBase2_0, 8, 8, player, 0, 1
         ) {
             @Override
             public void trig() {

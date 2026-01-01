@@ -2,7 +2,6 @@ package fun.wraq.process.system.skill.skillv2.sword;
 
 import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.core.AttackEvent;
@@ -30,7 +29,7 @@ public class SwordNewSkillBase1_1 extends SkillV2BaseSkill implements SkillV2All
         int skillLevel = SkillV2.getPlayerSkillLevelBySkillV2(player, this);
         Item mainHandItem = player.getMainHandItem().getItem();
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.stab, Tick.get() + 8, player) {
+                DelayOperationWithAnimation.Animation.stab, 8, 8, player, 0, 1) {
             @Override
             public void trig() {
                 if (mainHandItem instanceof SwordAttribute) {

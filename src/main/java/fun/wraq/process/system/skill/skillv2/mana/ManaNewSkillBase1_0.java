@@ -2,7 +2,6 @@ package fun.wraq.process.system.skill.skillv2.mana;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios5;
 import fun.wraq.process.func.DelayOperationWithAnimation;
@@ -35,7 +34,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
         double damage = ManaNewSkill.modifyDamage(player,
                 2.5 + skillLevel * 0.25) * (1 + getEnhanceRate(player));
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, Tick.get() + 8, player
+                DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, 8, 8, player, 0, 1
         ) {
             @Override
             public void trig() {

@@ -56,11 +56,11 @@ public abstract class DelayOperationWithAnimation {
     }
 
     public DelayOperationWithAnimation(String animationId, int trigTickDelta, int endTickDelta,
-                                       Player trigPlayer, double attackSpeedInfluenceRate) {
+                                       Player trigPlayer, double attackSpeedInfluenceRate, double cooldownInfluenceRate) {
         this(animationId,
-                (int) (Tick.get() + trigTickDelta * SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate)),
-                (int) (Tick.get() + endTickDelta * SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate)),
-                (float) (1 / SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate)),
+                (int) (Tick.get() + trigTickDelta * SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate, cooldownInfluenceRate)),
+                (int) (Tick.get() + endTickDelta * SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate, cooldownInfluenceRate)),
+                (float) (1 / SkillV2.getReleaseDecreaseRate(trigPlayer, attackSpeedInfluenceRate, cooldownInfluenceRate)),
                 trigPlayer);
     }
 

@@ -128,7 +128,7 @@ public abstract class WraqBow extends WraqMainHandEquip implements BowAttribute 
 
     public static void playShootAnimationAndHandleTrig(Player player) {
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.bowAttack, 8, 10, player, 1
+                DelayOperationWithAnimation.Animation.bowAttack, 8, 10, player, 1, 0
         ) {
             @Override
             public void trig() {

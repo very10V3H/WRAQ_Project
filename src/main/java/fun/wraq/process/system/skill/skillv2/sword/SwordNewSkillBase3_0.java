@@ -60,7 +60,7 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2All
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         skillEndTickMap.put(Name.get(player), Tick.get() + 8);
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.swordNewSkillBase3_0, Tick.get() + 8, player
+                DelayOperationWithAnimation.Animation.swordNewSkillBase3_0, 8, 8, player, 0, 1
         ) {
             @Override
             public void trig() {

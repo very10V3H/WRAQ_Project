@@ -118,7 +118,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip implements SceptreAt
 
     public static void playShootAnimationAndHandleTrig(Player player) {
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.manaAttack, 8, 10, player, 1
+                DelayOperationWithAnimation.Animation.manaAttack, 8, 10, player, 1, 0
         ) {
             @Override
             public void trig() {

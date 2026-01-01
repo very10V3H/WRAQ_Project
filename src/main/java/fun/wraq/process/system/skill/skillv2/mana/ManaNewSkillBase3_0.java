@@ -49,7 +49,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2Allo
         double damage = ManaNewSkill.modifyDamage(player,
                 1 + skillLevel * 0.05) * (1 + getEnhanceRate(player));
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, Tick.get() + 8, player
+                DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, 8, 8, player, 0, 1
         ) {
             @Override
             public void trig() {
