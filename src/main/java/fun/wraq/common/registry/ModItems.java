@@ -43,10 +43,9 @@ import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
 import fun.wraq.process.func.power.impl.*;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.element.equipAndCurios.ElementHolyStone;
 import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.process.system.element.RainbowPowder;
-import fun.wraq.process.system.element.crystal.*;
+import fun.wraq.process.system.element.equipAndCurios.ElementHolyStone;
 import fun.wraq.process.system.element.equipAndCurios.crystal.*;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementBow;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSceptre;
@@ -57,7 +56,6 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSwo
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementBow;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
-import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.enhanceForge.Pearl;
 import fun.wraq.process.system.estate.EstateKey;
 import fun.wraq.process.system.forge.EquipPiece;
@@ -1747,21 +1745,39 @@ public class ModItems {
             () -> new TabooManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
     public static final RegistryObject<Item> MOON_LEGGINGS = ITEMS.register("moon_leggings",
-            () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+            () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+    public static final RegistryObject<Item> MOON_LEGGINGS_BELL = ITEMS.register("moon_leggings_bell",
+            () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.Moon1Italic)));
     public static final RegistryObject<Item> MOON_HELMET = ITEMS.register("moon_helmet",
-            () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+            () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+    public static final RegistryObject<Item> MOON_HELMET_BELL = ITEMS.register("moon_helmet_bell",
+            () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+
     public static final RegistryObject<Item> MOON_SWORD = ITEMS.register("moon_sword",
+            () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.1, 0));
+    public static final RegistryObject<Item> MOON_SWORD_BELL = ITEMS.register("moon_sword_bell",
             () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.1, 0));
     public static final RegistryObject<Item> MOON_SWORD_E = ITEMS.register("moon_sword_e",
             () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.2, 1));
+
     public static final RegistryObject<Item> MOON_BOW = ITEMS.register("moon_bow",
+            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 0.1, 0));
+    public static final RegistryObject<Item> MOON_BOW_BELL = ITEMS.register("moon_bow_bell",
             () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 0.1, 0));
     public static final RegistryObject<Item> MOON_BOW_E = ITEMS.register("moon_bow_e",
             () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 0.2, 1));
+
     public static final RegistryObject<Item> MOON_SCEPTRE = ITEMS.register("moon_sceptre",
+            () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.2, 0));
+    public static final RegistryObject<Item> MOON_SCEPTRE_BELL = ITEMS.register("moon_sceptre_bell",
             () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.2, 0));
     public static final RegistryObject<Item> MOON_SCEPTRE_E = ITEMS.register("moon_sceptre_e",
             () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.4, 1));
+
     public static final RegistryObject<Item> MOON_CURIOS = ITEMS.register("moon_curios",
             () -> new MoonCurios(new Item.Properties().rarity(CustomStyle.Moon1Bold)));
     public static final RegistryObject<Item> MOON_BELT = ITEMS.register("moon_belt",
@@ -2802,7 +2818,6 @@ public class ModItems {
             () -> new SupplyBox(new Item.Properties().rarity(CustomStyle.Green), new ArrayList<>() {{
                 add(new ItemStack(REVELATION_HEART.get(), 1));
                 add(new ItemStack(NOTE_PAPER.get(), 64));
-                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 1));
             }}));
 
     public static final RegistryObject<Item> SUPPLY_BOX_TIER_1 = ITEMS.register("supply_box_tier_1",
@@ -2810,7 +2825,6 @@ public class ModItems {
                 add(new ItemStack(REVELATION_HEART.get(), 2));
                 add(new ItemStack(KILL_PAPER_LOOT.get(), 12));
                 add(new ItemStack(NOTE_PAPER.get(), 80));
-                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 2));
                 add(new ItemStack(REVELATION_BOOK.get(), 8));
             }}));
 
@@ -2819,7 +2833,6 @@ public class ModItems {
                 add(new ItemStack(REVELATION_HEART.get(), 4));
                 add(new ItemStack(KILL_PAPER_LOOT.get(), 24));
                 add(new ItemStack(NOTE_PAPER.get(), 96));
-                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
                 add(new ItemStack(REVELATION_BOOK.get(), 16));
                 add(new ItemStack(WORLD_SOUL_5.get(), 120));
             }}));
@@ -2829,7 +2842,6 @@ public class ModItems {
                 add(new ItemStack(REVELATION_HEART.get(), 6));
                 add(new ItemStack(KILL_PAPER_LOOT.get(), 48));
                 add(new ItemStack(NOTE_PAPER.get(), 128));
-                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 4));
                 add(new ItemStack(REVELATION_BOOK.get(), 32));
                 add(new ItemStack(WORLD_SOUL_5.get(), 240));
             }}));

@@ -408,7 +408,7 @@ public class RankData {
         return RankData.rankSerialList.get(RankData.rankSerialList.indexOf(rank) + 1);
     }
 
-    public static Map<String, String> rankPrefixEmojiMap = new HashMap<>() {{
+    private static Map<String, String> rankPrefixEmojiMap = new HashMap<>() {{
         put("null", "\uD83C\uDF31");
         put("13C", "∮");
         put("13B", "∮");
@@ -430,9 +430,24 @@ public class RankData {
         put("*", "⚜\uFE0F");
     }};
 
+    private static Map<String, String> convertRankMap = new HashMap<>() {{
+        put("13C", "13");
+        put("13B", "13");
+        put("13A", "13");
+        put("14C", "14");
+        put("14B", "14");
+        put("14A", "14");
+        put("15B", "15");
+        put("15A", "15");
+        put("16B", "16");
+        put("16A", "16");
+    }};
+
     public static Component getRankPrefix(String rank) {
         if (!rank.equals("null")) {
-            return Te.s(rankPrefixEmojiMap.get(rank) + rank + rankPrefixEmojiMap.get(rank),
+            return Te.s(rankPrefixEmojiMap.get(rank)
+                            + convertRankMap.getOrDefault(rank, rank)
+                            + rankPrefixEmojiMap.get(rank),
                     RankData.rankStyleMap.get(rank));
         } else {
             return Te.s("\uD83C\uDF31~\uD83C\uDF31", CustomStyle.styleOfLife);

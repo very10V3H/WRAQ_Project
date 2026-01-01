@@ -28,6 +28,12 @@ public class ExpiredInfo {
             expiredTypeMap.put(ModItems.CASTLE_ATTACK_SOUL_BOOTS.get(), disabled);
             expiredTypeMap.put(ModItems.CASTLE_SWIFT_SOUL_BOOTS.get(), disabled);
             expiredTypeMap.put(ModItems.CASTLE_MANA_SOUL_BOOTS.get(), disabled);
+
+            expiredTypeMap.put(ModItems.MOON_SWORD_BELL.get(), disabled);
+            expiredTypeMap.put(ModItems.MOON_BOW_BELL.get(), disabled);
+            expiredTypeMap.put(ModItems.MOON_SCEPTRE_BELL.get(), disabled);
+            expiredTypeMap.put(ModItems.MOON_HELMET_BELL.get(), disabled);
+            expiredTypeMap.put(ModItems.MOON_LEGGINGS_BELL.get(), disabled);
         }
         return expiredTypeMap;
     }
@@ -52,6 +58,12 @@ public class ExpiredInfo {
             expiredHours.put(ModItems.CASTLE_ATTACK_SOUL_BOOTS.get(), 14);
             expiredHours.put(ModItems.CASTLE_SWIFT_SOUL_BOOTS.get(), 14);
             expiredHours.put(ModItems.CASTLE_MANA_SOUL_BOOTS.get(), 14);
+
+            expiredHours.put(ModItems.MOON_SWORD_BELL.get(), 18);
+            expiredHours.put(ModItems.MOON_BOW_BELL.get(), 18);
+            expiredHours.put(ModItems.MOON_SCEPTRE_BELL.get(), 18);
+            expiredHours.put(ModItems.MOON_HELMET_BELL.get(), 18);
+            expiredHours.put(ModItems.MOON_LEGGINGS_BELL.get(), 18);
         }
         return expiredHours;
     }

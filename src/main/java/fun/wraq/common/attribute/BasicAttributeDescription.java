@@ -71,6 +71,12 @@ public class BasicAttributeDescription {
         }
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
 
+        if (Screen.hasAltDown() || Screen.hasShiftDown() || Screen.hasControlDown()) {
+            event.setMaxWidth(-1);
+        } else {
+            event.setMaxWidth(168);
+        }
+
         if (data.contains(StringUtils.ForgeLevel)) {
             int forgeLevel = data.getInt(StringUtils.ForgeLevel);
             for (ForgePaper forgePaper : ForgePaper.forgePapers) {

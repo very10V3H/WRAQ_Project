@@ -67,7 +67,7 @@ public class DamageInfluence {
         double rate = 0;
         rate += levelSuppress(player, monster); // 等级压制
         rate += AttackEventModule.IceArmorDamageEnhance(player, monster); // 雪上覆霜
-        rate += MoonArmor.DamageEnhance(player, monster); // 尘月膝
+        rate += MoonArmor.getCommonDamageEnhanceRate(player, monster); // 尘月膝
         /*eachTierValue += CastleCurios.DamageEnhance(player, monster); // 随机饰品被动*/
         rate += StarArmor.DamageEnhance(player, monster); // 梦月
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon

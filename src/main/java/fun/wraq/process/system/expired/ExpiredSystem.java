@@ -44,7 +44,8 @@ public class ExpiredSystem {
 
     public static ExpiredType getExpiredType(ItemStack stack) {
         CompoundTag tag = stack.getTagElement(Utils.MOD_ID);
-        return tag == null ? ExpiredType.DISAPPEARED : ExpiredType.valueOf(tag.getString(EXPIRED_TYPE_DATA_KEY));
+        return tag == null || !tag.contains(EXPIRED_TYPE_DATA_KEY)
+                ? ExpiredType.DISAPPEARED : ExpiredType.valueOf(tag.getString(EXPIRED_TYPE_DATA_KEY));
     }
 
     public static final String EXPIRED_DATE_DATA_KEY = "ExpiredDate";

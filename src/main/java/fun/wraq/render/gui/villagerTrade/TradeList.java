@@ -2754,9 +2754,24 @@ public class TradeList {
         ItemStack gemPiece = new ItemStack(ModItems.GEM_PIECE.get(), 12);
         ItemStack speedComposites = new ItemStack(CompositesItems.SPEED_COMPOSITES.get());
         ItemStack holyChestKey = new ItemStack(HolyItems.HOLY_CHEST_KEY.get());
+
+        ItemStack bellMoonSword = new ItemStack(ModItems.MOON_SWORD_BELL.get());
+        ItemStack bellMoonBow = new ItemStack(ModItems.MOON_BOW_BELL.get());
+        ItemStack bellMoonSceptre = new ItemStack(ModItems.MOON_SCEPTRE_BELL.get());
+        ItemStack bellMoonHelmet = new ItemStack(ModItems.MOON_HELMET_BELL.get());
+        ItemStack bellMoonLeggings = new ItemStack(ModItems.MOON_LEGGINGS_BELL.get());
+
+        ItemStack bellMoonSwordRepaired = new ItemStack(ModItems.MOON_SWORD_BELL.get());
+        ItemStack bellMoonBowRepaired = new ItemStack(ModItems.MOON_BOW_BELL.get());
+        ItemStack bellMoonSceptreRepaired = new ItemStack(ModItems.MOON_SCEPTRE_BELL.get());
+        ItemStack bellMoonHelmetRepaired = new ItemStack(ModItems.MOON_HELMET_BELL.get());
+        ItemStack bellMoonLeggingsRepaired = new ItemStack(ModItems.MOON_LEGGINGS_BELL.get());
+
         ItemStack[] itemStacks = {
                 allaySpawner, allayNugget, smithBook, smithStone,
-                revelationHeart, goldenCoinBag, gemPiece, speedComposites, holyChestKey
+                revelationHeart, goldenCoinBag, gemPiece, speedComposites, holyChestKey,
+                bellMoonSword, bellMoonBow, bellMoonSceptre, bellMoonHelmet, bellMoonLeggings,
+                bellMoonSwordRepaired, bellMoonBowRepaired, bellMoonSceptreRepaired, bellMoonHelmetRepaired, bellMoonLeggingsRepaired
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -2786,6 +2801,33 @@ public class TradeList {
 
         tradeRecipeMap.put(holyChestKey,
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
+
+        tradeRecipeMap.put(bellMoonSword,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5)));
+        tradeRecipeMap.put(bellMoonBow,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5)));
+        tradeRecipeMap.put(bellMoonSceptre,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5)));
+        tradeRecipeMap.put(bellMoonHelmet,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5)));
+        tradeRecipeMap.put(bellMoonLeggings,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5)));
+
+        tradeRecipeMap.put(bellMoonSwordRepaired,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5),
+                        new ItemStack(ModItems.MOON_SWORD_BELL.get())));
+        tradeRecipeMap.put(bellMoonBowRepaired,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5),
+                        new ItemStack(ModItems.MOON_BOW_BELL.get())));
+        tradeRecipeMap.put(bellMoonSceptreRepaired,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5),
+                        new ItemStack(ModItems.MOON_SCEPTRE_BELL.get())));
+        tradeRecipeMap.put(bellMoonHelmetRepaired,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5),
+                        new ItemStack(ModItems.MOON_HELMET_BELL.get())));
+        tradeRecipeMap.put(bellMoonLeggingsRepaired,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 5),
+                        new ItemStack(ModItems.MOON_LEGGINGS_BELL.get())));
     }
 
     public static void goldCoinStore() {

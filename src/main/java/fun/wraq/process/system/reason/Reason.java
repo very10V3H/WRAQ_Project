@@ -17,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-import java.text.ParseException;
 import java.util.Calendar;
 
 /**
@@ -63,7 +62,7 @@ public class Reason {
         }
     }
 
-    public static int getPlayerReasonRecoverPerHour(Player player) throws ParseException {
+    public static int getPlayerReasonRecoverPerHour(Player player) {
         int planTier = PlanPlayer.getPlayerTier(player);
         if (planTier <= 0) {
             return 5;
@@ -147,6 +146,13 @@ public class Reason {
         }
     }*/
 
+    private static double getExRate(Player player) {
+        double exRate = 0;
+        exRate += LabourDayOldCoin.getExReasonRecoverRate();
+        exRate += SpecialEventCommon.getExReasonRecoverRate();
+        return exRate;
+    }
+
     public static void tip(Player player) {
         if (player.tickCount != 0 && player.tickCount % Tick.min(60) == 0 && getPlayerReasonValue(player) == 100) {
             sendFormatMSG(player, Te.s("今天的", "理智", CustomStyle.styleOfFlexible, "似乎还没有使用呢。"));
@@ -157,8 +163,7 @@ public class Reason {
         }
     }
 
-    public static int PER_UNIT_VALUE = 10;
-    public static int MINUTE_INTERVAL = 1;
+    public static int MINUTE_INTERVAL = 60;
     public static void recoverPlayerReason(Player player) {
         if (!player.getPersistentData().contains(REASON_LastRecoverTime)) {
             addOrCostPlayerReasonValue(player, 100);
@@ -168,8 +173,9 @@ public class Reason {
         Calendar lastRecoverTime = Compute.castStringToCalendar(getPlayerLastRecoverTime(player));
         int difference = (int) Compute.calenderMinuteDifference(Calendar.getInstance(), lastRecoverTime);
         if (difference >= MINUTE_INTERVAL) {
-            int unit = difference / MINUTE_INTERVAL ;
-            addOrCostPlayerReasonValue(player, unit * PER_UNIT_VALUE);
+            int unit = difference / MINUTE_INTERVAL;
+            addOrCostPlayerReasonValue(player,
+                    (int) (unit * getPlayerReasonRecoverPerHour(player) * (1 + getExRate(player))));
             lastRecoverTime.add(Calendar.MINUTE, unit * MINUTE_INTERVAL);
             setPlayerLastRecoverTime(player, Compute.castCalendarToString(lastRecoverTime));
         }

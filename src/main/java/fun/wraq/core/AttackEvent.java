@@ -310,7 +310,6 @@ public class AttackEvent {
             OnHitEffectCurios.hit(player, monster);
             OnHitEffectPassiveEquip.hit(player, monster);
             EnhanceNormalAttackModifier.onHitEffect(player, monster, 0);
-            CitadelCurio.onNormalAttackOrSkillHit(player, monster, damage + trueDamage, true);
             Compute.additionEffects(player, monster, damage + trueDamage, 0);
         }
         // effect

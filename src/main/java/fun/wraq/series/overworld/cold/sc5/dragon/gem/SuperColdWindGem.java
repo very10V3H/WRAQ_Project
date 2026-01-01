@@ -27,7 +27,7 @@ public class SuperColdWindGem extends WraqPassiveGem implements GemCommonDamageE
     }
 
     public double getRate() {
-        return new double[]{0.2, 0.35, 0.7}[tier];
+        return new double[]{0.1, 0.15, 0.3}[tier];
     }
 
     @Override

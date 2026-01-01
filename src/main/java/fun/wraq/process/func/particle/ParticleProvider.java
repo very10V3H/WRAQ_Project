@@ -2,6 +2,7 @@ package fun.wraq.process.func.particle;
 
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -15,6 +16,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -384,6 +386,23 @@ public class ParticleProvider {
                 entity.level().addParticle(particleOptions, Point.x, Point.y, Point.z, 0, 0, 0);
             }
         }
+    }
+
+    private static int getIgnoreLevel(Player player) {
+        return Math.max(1, player.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+    }
+
+    public static void createVerticalCircleParticle(ResourceKey<Level> dimension, Vec3 pos, double pickDistance,
+                                                    double r, int num, ParticleOptions options) {
+        Tick.server.getPlayerList().getPlayers().stream().filter(player -> player.level().dimension().equals(dimension)
+                && player.position().distanceTo(pos) < 40)
+                .forEach(player -> {
+                    if (getIgnoreLevel(player) < 10) {
+                        ModNetworking.sendToClient(new EntityEffectVerticleCircleParticleS2CPacket(
+                                pos.toVector3f(), pickDistance, r, num,
+                                Utils.getParticleToParticleStringMap().get(options)), player);
+                    }
+                });
     }
 
     public static void PlayerPowerParticle(Player player) {

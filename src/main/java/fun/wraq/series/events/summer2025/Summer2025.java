@@ -389,8 +389,4 @@ public class Summer2025 {
         mobs.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobs.clear();
     }
-
-    public static boolean canBeSpread(Mob mob) {
-        return !MobSpawn.getMobOriginName(mob).equals(mobName);
-    }
 }

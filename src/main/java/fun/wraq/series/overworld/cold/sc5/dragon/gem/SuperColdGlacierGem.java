@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.cold.sc5.dragon.gem;
 
 import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
-import fun.wraq.common.fast.Name;
+import fun.wraq.common.fast.PlayerHashMap;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
@@ -11,7 +11,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemCommonDamageEnhanceRateModifier;
 import fun.wraq.series.gems.passive.impl.GemOnWithstandDamage;
-import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.network.chat.Component;
@@ -21,12 +20,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SuperColdGlacierGem extends WraqPassiveGem implements GemCommonDamageEnhanceRateModifier,
-        GemWithstandDamageRateModifier, GemOnWithstandDamage, GemTickHandler, Decomposable {
+        GemWithstandDamageRateModifier, GemOnWithstandDamage, Decomposable {
 
     public final int tier;
 
@@ -49,7 +46,7 @@ public class SuperColdGlacierGem extends WraqPassiveGem implements GemCommonDama
         List<Component> components = new ArrayList<>();
         components.add(Te.s(" 受到伤害后，获得", String.format("%.0f%%", getDefenceValueRate() * 100)
                 + "最大生命值", CustomStyle.styleOfMaxHealth, "护盾", CustomStyle.styleOfStone));
-        components.add(Te.s(" 护盾持续30s，脱离战斗后方可再次触发."));
+        components.add(Te.s(" 护盾持续30s，触发后30s方可再次触发."));
         components.add(Te.s(" 拥有高于",
                 "10%最大生命值", CustomStyle.styleOfMaxHealth, "护盾", CustomStyle.styleOfStone,
                 "时，获得"));
@@ -60,22 +57,12 @@ public class SuperColdGlacierGem extends WraqPassiveGem implements GemCommonDama
         return components;
     }
 
-    public static Map<String, Boolean> allowActiveMap = new HashMap<>();
-
-    @Override
-    public void tick(Player player) {
-        if (!Compute.playerIsInBattle(player)) {
-            if (!allowActiveMap.getOrDefault(Name.get(player), false)) {
-                Compute.sendEffectLastTime(player, "item/super_cold_dragon_gem", 0, true);
-                allowActiveMap.put(Name.get(player), true);
-            }
-        }
-    }
+    private static final PlayerHashMap<Integer> allowTriggerTick = new PlayerHashMap<>();
 
     @Override
     public void onWithStandDamage(Player player, Mob mob, double damage) {
-        if (allowActiveMap.getOrDefault(Name.get(player), false)) {
-            allowActiveMap.put(Name.get(player), false);
+        if (Tick.get() > allowTriggerTick.getOrDefault(player, 0)) {
+            allowTriggerTick.put(player, Tick.get() + Tick.s(30));
             Compute.removeEffectLastTime(player, "item/super_cold_dragon_gem");
             Shield.providePlayerShield(player, Tick.s(30), player.getMaxHealth() * getDefenceValueRate());
         }

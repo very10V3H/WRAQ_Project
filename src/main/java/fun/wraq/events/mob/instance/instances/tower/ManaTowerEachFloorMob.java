@@ -38,7 +38,7 @@ public class ManaTowerEachFloorMob {
     );
 
     public static double getBaseMaxHealth(int count) {
-        return BASE_MAX_HEALTH * (1 + count * 0.1);
+        return BASE_MAX_HEALTH * (1 + count * 0.05);
     }
 
     public static Mob spawnFloor1Mob(Level level, Vec3 pos, int count) {

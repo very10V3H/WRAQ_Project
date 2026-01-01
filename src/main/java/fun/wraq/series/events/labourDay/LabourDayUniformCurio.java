@@ -69,7 +69,7 @@ public class LabourDayUniformCurio extends WraqUniformCurios implements OnKillEf
 
     @Override
     public double getFinalDamageEnhanceRate() {
-        return 0.5;
+        return 0.2;
     }
 
     public static String COUNT_DATA_KEY = "Count";

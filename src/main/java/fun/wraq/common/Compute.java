@@ -13,6 +13,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.fast.Name;
+import fun.wraq.common.fast.PlayerHashMap;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
@@ -54,10 +55,10 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.process.system.element.render.Color;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
+import fun.wraq.process.system.element.render.Color;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
@@ -69,6 +70,7 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.events.ForgePaper;
 import fun.wraq.series.events.SpecialEventCommon;
 import fun.wraq.series.events.SpecialEventItems;
@@ -802,6 +804,9 @@ public class Compute {
     public static void playerHeal(Player player, double num) {
         if (num <= 0) return;
         double healNum = num * (PlayerAttributes.getHealingAmplification(player));
+        if (healNum < 0) {
+            return;
+        }
         if (AttackCurios5.onHealHealthRecover(player, healNum)) return;
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
         LifeElementSword.StoreToList(player, healNum);
@@ -1674,7 +1679,13 @@ public class Compute {
         if (player.isDeadOrDying()) {
             return;
         }
+        if (value == 0) {
+            return;
+        }
         if (player.getHealth() <= value) {
+            if (CitadelCurio.onPlayerNearToDead(player)) {
+                return;
+            }
             formatBroad(player.level(), Component.literal("孽").withStyle(ChatFormatting.RED),
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(player.getDisplayName()).
@@ -1687,6 +1698,9 @@ public class Compute {
     }
 
     public static void decreasePlayerHealth(Player player, double value, double threshold) {
+        if (value == 0) {
+            return;
+        }
         if ((player.getHealth() - value) / player.getMaxHealth() < threshold) {
             player.setHealth((float) (player.getMaxHealth() * threshold));
         } else player.setHealth((float) (player.getHealth() - value));
@@ -2280,6 +2294,9 @@ public class Compute {
     }
 
     public static boolean isWraqMob(Mob mob) {
+        if (mob == null) {
+            return false;
+        }
         boolean isAllay = mob instanceof Allay;
         boolean isBornInChaosMob = getBornInChaosMobType().contains(mob.getType());
         boolean isVanillaMob = mob instanceof Blaze || mob instanceof Shulker;
@@ -2319,5 +2336,22 @@ public class Compute {
 
     public static List<ServerPlayer> getPlayers() {
         return Tick.server.getPlayerList().getPlayers();
+    }
+
+    /**
+     * 玩家当前主要攻击的目标，为玩家最后一次普攻的命中目标
+     */
+    private static PlayerHashMap<Mob> playerMainAttackTarget = new PlayerHashMap<>();
+
+    public static void onPlayerMainAttack(Player player, Mob mob) {
+        playerMainAttackTarget.put(player, mob);
+    }
+
+    public static @Nullable Mob getPlayerMainAttackTarget(Player player) {
+        Mob mob = playerMainAttackTarget.getOrDefault(player, null);
+        if (mob == null || !mob.isAlive()) {
+            return null;
+        }
+        return mob;
     }
 }

@@ -26,7 +26,6 @@ import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.passive.quiver.Quiver;
 import fun.wraq.series.comsumable.passive.quiver.QuiverAttack;
-import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
@@ -288,7 +287,6 @@ public class MyArrow extends AbstractArrow {
             SameTypeModule.onNormalAttackHitMob(player, mob, 0, damage + trueDamage);
             BowSkillTree.skillIndex13(player);
             BowNewSkillPassive0.onArrowHit(player, mob);
-            CitadelCurio.onNormalAttackOrSkillHit(player, mob, damage + trueDamage, true);
             Quiver.onArrowHit(player);
         }
         if (myArrow.mainShoot) {

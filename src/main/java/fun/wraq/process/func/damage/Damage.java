@@ -368,7 +368,6 @@ public class Damage {
             Compute.additionEffects(player, mob, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, mob);
             ManaNewSkillPassive0.onManaPowerHit(player, mob);
-            CitadelCurio.onNormalAttackOrSkillHit(player, mob, totalDamage, false);
         }
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
@@ -517,6 +516,9 @@ public class Damage {
             damage = Math.min(300000, damage);
         }
         if (damage >= player.getHealth()) {
+            if (CitadelCurio.onPlayerNearToDead(player)) {
+                return;
+            }
             Compute.playerDeadModule(player);
             Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                     Component.literal("").

@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
+import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
 import fun.wraq.series.overworld.chapter1.forest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.mana.ManaNote;
 import fun.wraq.series.overworld.chapter1.mine.MineCrest;
@@ -28,8 +29,8 @@ public class SuitCount {
 
     public static int getMoonSuitCount(Player player) {
         int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MOON_HELMET.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MOON_LEGGINGS.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof MoonArmor) count++;
+        if (player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof MoonArmor) count++;
         return count;
     }
 

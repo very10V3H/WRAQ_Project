@@ -1,5 +1,6 @@
 package fun.wraq.common.attribute;
 
+import fun.wraq.common.Compute;
 import fun.wraq.events.mob.jungle.BlazePowerSpawnController;
 import fun.wraq.series.gems.passive.impl.GemOnNormalAttackHit;
 import fun.wraq.series.newrunes.chapter2.KazeNewRune;
@@ -16,5 +17,6 @@ public class SameTypeModule {
         KazeNewRune.onHit(player);
         GemOnNormalAttackHit.hit(player, mob, damage);
         BlazePowerSpawnController.onPlayerHitMob(player, mob);
+        Compute.onPlayerMainAttack(player, mob);
     }
 }

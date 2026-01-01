@@ -8,6 +8,7 @@ import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;

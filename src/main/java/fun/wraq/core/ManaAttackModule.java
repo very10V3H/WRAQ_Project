@@ -33,7 +33,6 @@ import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.passive.mixture.Mixture;
-import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.overworld.extraordinary.equip.KanupusSword;
 import net.minecraft.core.particles.ParticleTypes;
@@ -194,7 +193,6 @@ public class ManaAttackModule {
             if (manaArrow.manaArrowHitEntity != null) {
                 manaArrow.manaArrowHitEntity.onHit(manaArrow, entity);
             }
-            CitadelCurio.onNormalAttackOrSkillHit(player, mob, damage + trueDamage, false);
             Mixture.onReleaseNormalAttackOrHit(player);
             Compute.additionEffects(player, mob, damage + trueDamage, 1);
         }
