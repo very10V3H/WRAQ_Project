@@ -73,7 +73,7 @@ public class SkillV2Hud {
                 guiGraphics.blit(cdTexture, 0, y + yOffset + i * yDifference - 2,
                         0, 0, 28, 28, 28, 28);
 
-                if (i > 0) {
+                if (!(skillV2 instanceof SkillV2PassiveSkill)) {
                     guiGraphics.drawCenteredString(font, Te.s(QuickUseHud.getKeyName(i - 1), keyStyle),
                             xOffset + 24, y + yOffset + i * yDifference + 20, 0);
                 }

@@ -64,7 +64,7 @@ public class CitadelCurio extends WraqCurios implements Decomposable, OnKillEffe
         components.add(Te.s(" ", fadeShade, "每秒对", "主要目标", ChatFormatting.ITALIC,
                 "造成", ComponentUtils.getAutoAdaptDamageDescription("10%")));
         // 饰品等阶对最大攻击范围/主要目标选定范围有影响
-        components.add(Te.s(" ", fadeShade, "虚影的最大攻击范围为: ", 16, hoverMainStyle(), "."));
+        components.add(Te.s(" ", fadeShade, "的最大攻击范围为: ", 16, hoverMainStyle(), "."));
         components.add(Te.s(" ", "主要目标", ChatFormatting.ITALIC, "为最后一个受到普攻的目标."));
         components.add(Te.s(" ", "如主要目标死亡，则选定", getRange() + "格内", hoverMainStyle(), "距离你最近的敌人."));
         ComponentUtils.descriptionPassive(components, Te.s("归终之石", hoverMainStyle()));

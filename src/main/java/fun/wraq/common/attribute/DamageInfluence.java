@@ -31,6 +31,7 @@ import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.estate.EstateUtil;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.season.MySeason;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase2_1;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
@@ -130,6 +131,7 @@ public class DamageInfluence {
         double rate = 0;
         rate += IceInstance.IceKnightHealthAttackDamageFix(mob);
         rate += getPlayerAttackDamageEnhance(player);
+        rate += SwordNewSkillBase2_1.getAttackDamageEnhanceRate(player, mob);
         return rate;
     }
 
@@ -213,29 +215,32 @@ public class DamageInfluence {
     }
 
     public static double modifyPlayerWithstandDamageRate(Player player, Mob mob, double damage) {
-        double rate = 0;
+        double rate = 1;
         CompoundTag data = player.getPersistentData();
-        rate += MineNewRune.withstandDamageInfluence(player);
-        rate += Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25);
-        rate -= StableTierAttributeModifier
-                .getModifierValue(player, StableTierAttributeModifier.playerWithstandDamageReduce);
-        rate += StableAttributesModifier
-                .getModifierValue(player, StableAttributesModifier.playerWithStandDamageModifier);
-        rate += DivineUtils.getPlayerWithstandDamageExRate(player);
-        rate -= IceHolyRune.getExDamageDecreaseRate(player);
-        rate -= ColdIronArmor.getWithstandDamageReductionRate(player);
-        rate += Compute.getSwordSkill1And4(data, player);
-        rate += Compute.getSwordSkill14(data, player, mob);
-        rate += Compute.getBowSkill4(data, player);
-        rate += Compute.getManaSkill4(data, player);
+        rate *= (1 + MineNewRune.withstandDamageInfluence(player));
+        rate *= (1 + Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25));
+        rate *= (1 + StableAttributesModifier
+                .getModifierValue(player, StableAttributesModifier.playerWithStandDamageModifier));
+        rate *= (1 + DivineUtils.getPlayerWithstandDamageExRate(player));
+        rate *= (1 + IceHolyRune.getPlayerWithstandDamageRate(player));
+        rate *= (1 + ColdIronArmor.getWithstandDamageRate(player));
+        rate *= (1 - StableTierAttributeModifier
+                .getModifierValue(player, StableTierAttributeModifier.playerWithstandDamageReduce));
+
+        rate *= (1 + Compute.getSwordSkill1And4(data, player));
+        rate *= (1 + Compute.getSwordSkill14(data, player, mob));
+        rate *= (1 + Compute.getBowSkill4(data, player));
+        rate *= (1 + Compute.getManaSkill4(data, player));
+
         if (!MobSpawn.getMobOriginName(mob).equals(SpringMobEvent.mobName)) {
-            rate -= DamageInfluence.levelSuppress(player, mob); // 等级压制
+            rate *= (1 - DamageInfluence.levelSuppress(player, mob)); // 等级压制
         }
-        rate += MonsterAttackEvent.SnowArmorEffectDamageDecrease(mob); // 冰川盔甲
-        rate += ModifyPlayerWithstandDamageInfluenceCurios.modifyPlayerWithstandDamageRate(player, mob);
-        rate += WardenInstance.modifyPlayerWithstandDamageRate(player, mob);
-        rate += GemWithstandDamageRateModifier.modifyPlayerWithstandDamageRate(player, mob, damage);
-        rate += TabooAttackArmor.modifyPlayerWithstandDamageRate(player);
+
+        rate *= (1 + MonsterAttackEvent.SnowArmorEffectDamageDecrease(mob));
+        rate *= (1 + ModifyPlayerWithstandDamageInfluenceCurios.modifyPlayerWithstandDamageRate(player, mob));
+        rate *= (1 + WardenInstance.modifyPlayerWithstandDamageRate(player, mob));
+        rate *= (1 + GemWithstandDamageRateModifier.modifyPlayerWithstandDamageRate(player, mob, damage));
+        rate *= (1 + TabooAttackArmor.modifyPlayerWithstandDamageRate(player));
         return rate;
     }
 

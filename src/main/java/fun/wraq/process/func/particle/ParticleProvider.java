@@ -49,7 +49,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(
-                            ParticleTypes.EXPLOSION_EMITTER, true, pos.x, pos.y, pos.z, 0, 0, 0, 0, 1);
+                            particleOptions, true, pos.x, pos.y, pos.z, 0, 0, 0, 0, 1);
                     serverPlayer.connection.send(clientboundLevelParticlesPacket);
                 }
             }

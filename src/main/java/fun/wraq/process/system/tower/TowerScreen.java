@@ -87,7 +87,7 @@ public class TowerScreen extends Screen {
         int Y = this.height / 2;
         guiGraphics.blit(GUI_TEXTURE, X - 150, Y - 100,
                 0, 0, 300, 200, textureWidth, textureHeight);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("「本源回廊挑战（测试阶段）」").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD), X + 5, Y - 96, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("「本源回廊挑战」").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD), X + 5, Y - 96, 0);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), X + 5, Y - 22 + 105, 0);
 
         for (int i = 0; i < 5; i++) {

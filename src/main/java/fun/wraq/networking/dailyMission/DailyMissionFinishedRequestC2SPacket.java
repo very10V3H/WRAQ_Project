@@ -7,6 +7,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -64,6 +65,7 @@ public class DailyMissionFinishedRequestC2SPacket {
                 Utils.playerDailyMissionContent.remove(serverPlayer.getName().getString());
                 ModNetworking.sendToClient(new DailyMissionContentS2CPacket(Items.AIR.getDefaultInstance(), 0), serverPlayer);
                 ModNetworking.sendToClient(new SoundsS2CPacket(3), serverPlayer);
+                Guide.trigV2(serverPlayer, Guide.StageV2.DAILY_MISSION_COLLECT);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));

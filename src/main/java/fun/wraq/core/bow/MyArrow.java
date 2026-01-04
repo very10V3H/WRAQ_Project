@@ -21,6 +21,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.BowSkillTree;
+import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase2_1;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase3_0;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -196,7 +197,7 @@ public class MyArrow extends AbstractArrow {
         trueDamage += SeaSword.getSeaSwordExDamage(player, mob); //灵魂救赎者主动
         trueDamage += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
 
-        damageEnhance += AttackEventModule.BowSkill3(data, player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
+        damageEnhance += BowSkillTree.getSkillIndex3DamageEnhanceRate(player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
         damageEnhance += AttackEventModule.NetherBow(player, mob); // 夸塔兹长弓
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
         damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
@@ -272,7 +273,7 @@ public class MyArrow extends AbstractArrow {
         else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
         // Health steal
         Compute.healByHealthSteal(player, mob, damage);
-        AttackEventModule.BowSkill3Attack(data, player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
+        BowSkillTree.skillIndex3Hit(player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2% * c，在10次攻击后达到最大值）
         AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
         AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
         Compute.ChargingModule(data, player);
@@ -288,6 +289,7 @@ public class MyArrow extends AbstractArrow {
             BowSkillTree.skillIndex13(player);
             BowNewSkillPassive0.onArrowHit(player, mob);
             Quiver.onArrowHit(player);
+            BowNewSkillBase2_1.onArrowHit(player, mob);
         }
         if (myArrow.mainShoot) {
             OnHitEffectPassiveEquip.hit(player, mob);

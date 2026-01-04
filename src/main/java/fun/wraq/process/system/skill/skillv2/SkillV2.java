@@ -86,6 +86,14 @@ public abstract class SkillV2 {
         return 0;
     }
 
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public int getManaCost(int level) {
+        return manaCost + level * getEachLevelExManaCost();
+    }
+
     public double getEnhanceRate(Player player) {
         double enhanceRate = 0;
         enhanceRate += EnhanceSkillRateEquip.getEnhanceRate(player, skillType);
@@ -119,6 +127,8 @@ public abstract class SkillV2 {
                     Tick.s(3), 0, 0, 1, 0));
             swordSkillV2.add(new SwordNewSkillBase2_0(Te.s("践踏", style),
                     Tick.s(12), 40, 0, 2, 0));
+            swordSkillV2.add(new SwordNewSkillBase2_1(Te.s("决斗", style),
+                    Tick.s(12), 80, 0, 2, 1));
             swordSkillV2.add(new SwordNewSkillBase3_0(Te.s("踏前斩", style),
                     Tick.s(8), 20, 0, 3, 0));
             swordSkillV2.add(new SwordNewSkillFinal0(Te.s("注魔之刃", style),
@@ -136,6 +146,8 @@ public abstract class SkillV2 {
                     Tick.s(3), 0, 1, 1, 0));
             bowSkillV2.add(new BowNewSkillBase2_0(Te.s("烈矢", style),
                     Tick.s(8), 40, 1, 2, 0));
+            bowSkillV2.add(new BowNewSkillBase2_1(Te.s("焰矢", style),
+                    0, 0, 1, 2, 1));
             bowSkillV2.add(new BowNewSkillBase3_0(Te.s("附风", style),
                     Tick.s(20), 40, 1, 3, 0));
             bowSkillV2.add(new BowNewSkillFinal0(Te.s("速射", style),
@@ -153,6 +165,8 @@ public abstract class SkillV2 {
                     Tick.s(3), 30, 2, 1, 0));
             manaSkillV2.add(new ManaNewSkillBase2_0(Te.s("撕裂", style),
                     Tick.s(8), 50, 2, 2, 0));
+            manaSkillV2.add(new ManaNewSkillBase2_1(Te.s("魔箭", style),
+                    Tick.s(5), 40, 2, 2, 1));
             manaSkillV2.add(new ManaNewSkillBase3_0(Te.s("激化", style),
                     Tick.s(12), 80, 2, 3, 0));
             manaSkillV2.add(new ManaNewSkillFinal0(Te.s("爆裂", style),

@@ -3,6 +3,7 @@ package fun.wraq.render.gui.trade.weekly;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.render.gui.villagerTrade.TradeListNew;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -144,6 +145,7 @@ public class WeeklyStore {
             WeeklyStorePlayerData.incrementSpecificRecipeCount(player, weeklyStoreRecipe.toString());
             WeeklyStorePlayerData.sendDataToClient(player);
             InventoryCheck.addOwnerTagToItemStack(player, product);
+            Guide.trigV2(player, Guide.StageV2.WEEKLY_STORE);
         }
     }
 }

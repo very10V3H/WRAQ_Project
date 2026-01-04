@@ -38,11 +38,15 @@ public class StableTierAttributeModifier {
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerWithstandDamageReduce = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerMaxHealthExValue = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerPercentMaxHealthExValue = new HashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> monsterWithstandDamageEnhance = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerExAttackDamage = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerAttackDamageEnhance = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerDefencePenetration = new HashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerDefencePenetration0 = new HashMap<>();
+
+    // addM方法时会自动移除已死亡或为null的key
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> monsterWithstandDamageEnhance = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> mobDefence = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> mobManaDefence = new HashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {

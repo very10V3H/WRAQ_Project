@@ -50,10 +50,10 @@ public class InventoryCheck {
                 && event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
-/*            String name = serverPlayer.getName().getString();
+            String name = serverPlayer.getName().getString();
             if (name.equals("Dev")) {
                 return;
-            }*/
+            }
             Inventory inventory = player.getInventory();
             DragonDiamond.countMap.remove(Name.get(player));
             CountPassiveComsumableItem.beforeCheckClear(player);

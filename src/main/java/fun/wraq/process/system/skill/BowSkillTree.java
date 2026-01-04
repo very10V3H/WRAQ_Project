@@ -1,13 +1,16 @@
 package fun.wraq.process.system.skill;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.PlayerHashMap;
+import fun.wraq.common.fast.PlayerIntegerHashMap;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.StringUtils;
+import fun.wraq.networking.ModNetworking;
+import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.StableTierAttributeModifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-
-import java.util.Map;
-import java.util.WeakHashMap;
 
 public class BowSkillTree {
 
@@ -25,13 +28,13 @@ public class BowSkillTree {
             return;
         }
         StableTierAttributeModifier.addM(player, StableTierAttributeModifier.baseArrowDamageEnhanceRate,
-                "bow skill index 13 passive", 0.01 * tier, Tick.get() + 20, 10, "skills/bow/bow_6_2");
+                "bow skill index 13 passive", 0.005 * tier, Tick.get() + 30, 10, "skills/bow/bow_6_2");
     }
 
     /**
      * 全身贯注记录表
      */
-    public static Map<Player, Integer> skillIndex14RecordMap = new WeakHashMap<>();
+    public static PlayerHashMap<Integer> skillIndex14RecordMap = new PlayerHashMap<>();
 
     /**
      * 全神贯注 - 基于箭矢的射击间隔，为箭矢提供基础伤害提升 <br>
@@ -49,5 +52,27 @@ public class BowSkillTree {
         skillIndex14RecordMap.put(player, Tick.get());
         Compute.sendCoolDownTime(player, "skills/bow/bow_6_3", 20);
         return Math.max(0, rate);
+    }
+
+    private static final PlayerIntegerHashMap skillIndex3CountMap = new PlayerIntegerHashMap();
+
+    private static final PlayerHashMap<Mob> skillIndex3TargetMap = new PlayerHashMap<>();
+
+    public static void skillIndex3Hit(Player player, Mob mob) {
+        if (mob.equals(skillIndex3TargetMap.getOrDefault(player, null))) {
+            skillIndex3CountMap.increment(player, 10);
+            ModNetworking.sendToClient(new SkillImageS2CPacket(4, 10, 10,
+                    skillIndex3CountMap.getOrDefault(player, 0), 1), (ServerPlayer) player);
+        } else {
+            skillIndex3TargetMap.put(player, mob);
+            skillIndex3CountMap.put(player, 1);
+            ModNetworking.sendToClient(new SkillImageS2CPacket(4, 10, 10, 1, 1), (ServerPlayer) player);
+        }
+    }
+
+    public static double getSkillIndex3DamageEnhanceRate(Player player, Mob mob) {
+        return mob.equals(skillIndex3TargetMap.getOrDefault(player, null))
+                ? getBowSkillTier(player, 3) * 0.02 * skillIndex3CountMap.getOrDefault(player, 0) / 10
+                : 0;
     }
 }

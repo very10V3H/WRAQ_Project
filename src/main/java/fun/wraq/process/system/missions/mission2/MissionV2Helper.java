@@ -13,6 +13,7 @@ import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.element.PlainInstance;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
@@ -196,6 +197,7 @@ public class MissionV2Helper {
                     getDailyMissionData(player).getString(DAILY_COLLECTION_ITEM_STRING_DATA_KEY)).getItem();
             InventoryOperation.removeItemWithoutCheck(player, new ItemStack(item, 64));
             getDailyMissionRewardAction().action(player);
+            Guide.trigV2(player, Guide.StageV2.DAILY_MISSION_STAR);
         });
     }
 
@@ -273,6 +275,7 @@ public class MissionV2Helper {
                         Te.s("计划为你额外提供了", ModItems.WORLD_SOUL_5, " * 4", CustomStyle.styleOfWorld));
             }
             RankData.onPlayerFishedNewDailyMission(player);
+            Guide.trigV2(player, Guide.StageV2.DAILY_MISSION_STAR);
         });
     }
 

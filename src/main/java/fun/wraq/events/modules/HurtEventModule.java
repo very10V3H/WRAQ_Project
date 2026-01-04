@@ -44,13 +44,4 @@ public class HurtEventModule {
 
         }
     }
-
-    public static void ManaSkill2(CompoundTag data, Player player) {
-        int TickCount = Tick.get();
-        if (Compute.getManaSkillLevel(data, 2) > 0) {
-            data.putInt(StringUtils.ManaSkillNum.Skill2, TickCount + 200);
-            ModNetworking.sendToClient(new SkillImageS2CPacket(3, 10, 10, 0, 2), (ServerPlayer) player);
-
-        }
-    }
 }

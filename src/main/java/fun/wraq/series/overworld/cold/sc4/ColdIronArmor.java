@@ -63,9 +63,9 @@ public class ColdIronArmor extends WraqArmor implements ForgeItem {
 
     public static double[] getWithstandDamageReductionRate = new double[]{0.1, 0.15, 0.25};
 
-    public static double getWithstandDamageReductionRate(Player player) {
+    public static double getWithstandDamageRate(Player player) {
         if (player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ColdIronArmor armor) {
-            return getWithstandDamageReductionRate[armor.tier];
+            return -getWithstandDamageReductionRate[armor.tier];
         }
         return 0;
     }

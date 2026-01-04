@@ -3,9 +3,7 @@ package fun.wraq.projectiles.mana;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.util.StringUtils;
-import fun.wraq.core.ManaAttackModule;
 import fun.wraq.process.func.damage.Damage;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -86,10 +84,6 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     @Override
     protected void onHitBlock(BlockHitResult p_36755_) {
         super.onHitBlock(p_36755_);
-        if (this.player != null && !this.level().isClientSide) {
-            CompoundTag data = player.getPersistentData();
-            ManaAttackModule.ManaSkill6Attack(data, player, false);
-        }
         this.remove(RemovalReason.KILLED);
     }
 
@@ -132,10 +126,6 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
             }
         }
         if ((this.tickCount >= 100) && player != null) {
-            if (!this.level().isClientSide) {
-                CompoundTag data = player.getPersistentData();
-                ManaAttackModule.ManaSkill6Attack(data, player, false);
-            }
             this.remove(RemovalReason.KILLED);
         }
         if (this.getDeltaMovement().length() <= 0.05) {

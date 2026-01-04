@@ -41,7 +41,7 @@ public class IceHolyRune extends IceHolyCurio {
         return components;
     }
 
-    public static double getExDamageDecreaseRate(Player player) {
+    public static double getPlayerWithstandDamageRate(Player player) {
         List<IceHolyRune> list = Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .filter(stack -> stack.getItem() instanceof IceHolyRune)
                 .map(stack -> (IceHolyRune) stack.getItem())
@@ -49,7 +49,7 @@ public class IceHolyRune extends IceHolyCurio {
         double elementStrength = Math.min(10, ElementValue.getPlayerIceElementValue(player));
         if (!list.isEmpty()) {
             IceHolyRune holyRune = list.stream().findAny().orElse(null);
-            return rate[holyRune.tier] * elementStrength / 10;
+            return -rate[holyRune.tier] * elementStrength / 10;
         }
         return 0;
     }

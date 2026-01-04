@@ -2273,8 +2273,8 @@ public class Compute {
         }
     }
 
-    public static @Nullable Mob getDefaultTarget(Player player) {
-        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, 32);
+    public static @Nullable Mob getDefaultTarget(Player player, double maxDistance) {
+        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, maxDistance);
         if (!set.isEmpty()) {
             return set.stream().min(new Comparator<Mob>() {
                 @Override
@@ -2284,6 +2284,10 @@ public class Compute {
             }).orElse(null);
         }
         return null;
+    }
+
+    public static @Nullable Mob getDefaultTarget(Player player) {
+        return getDefaultTarget(player, 32);
     }
 
     public static void addImprisonEffectToMob(Mob mob, int lastTick) {

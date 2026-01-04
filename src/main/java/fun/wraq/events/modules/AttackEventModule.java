@@ -8,7 +8,6 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.struct.BowSkillStruct.BowSkill3;
 import fun.wraq.common.util.struct.BowSkillStruct.BowSkill6;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill13;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill3;
@@ -39,7 +38,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.Objects;
 import java.util.Random;
@@ -283,54 +281,6 @@ public class AttackEventModule {
         return ExDamageIgnoreDefence;
     }
 
-    public static void BowSkill3Attack(CompoundTag data, Player player, Entity entity) {
-        int TickCount = Tick.get();
-        String name = player.getName().getString();
-        if (Compute.getBowSkillLevel(data, 3) > 0) {
-            if (Utils.BowSkill3Map.containsKey(name)) {
-                BowSkill3 bowSkill3 = Utils.BowSkill3Map.get(name);
-                if (bowSkill3.getTime() > TickCount && bowSkill3.getEntity().equals(entity)) {
-                    if (bowSkill3.getCount() < 3) bowSkill3.setCount(bowSkill3.getCount() + 1);
-                    bowSkill3.setTime(TickCount + 200);
-                } else {
-                    bowSkill3.setEntity(entity);
-                    bowSkill3.setCount(1);
-                    bowSkill3.setTime(TickCount + 200);
-                }
-            } else {
-                BowSkill3 bowSkill3 = new BowSkill3(entity, 1, TickCount + 200);
-                Utils.BowSkill3Map.put(name, bowSkill3);
-            }
-            BowSkill3 bowSkill3 = Utils.BowSkill3Map.get(name);
-            ModNetworking.sendToClient(new SkillImageS2CPacket(4, 10, 10, bowSkill3.getCount(), 1), (ServerPlayer) player);
-        }
-    }
-
-    public static double BowSkill3(CompoundTag data, Player player, LivingEntity monster) {
-        double DamageEnhance = 0;
-        int TickCount = Tick.get();
-        String name = player.getName().getString();
-        if (Compute.getBowSkillLevel(data, 3) > 0 && Utils.BowSkill3Map.containsKey(name)) {
-            BowSkill3 bowSkill3 = Utils.BowSkill3Map.get(name);
-            if (bowSkill3.getEntity().equals(monster) && bowSkill3.getTime() > TickCount) {
-                DamageEnhance += Compute.getBowSkillLevel(data, 3) * 0.033 / 5 * bowSkill3.getCount();
-            }
-        }
-        return DamageEnhance;
-    }
-
-    public static double NetherBowDamageEnhance(Entity Arrow, CompoundTag dataArrow, LivingEntity hurter) {
-        double EnhanceDamage = 1;
-        if (Arrow.getPersistentData().contains("IsNetherBow") && Arrow.getPersistentData().getBoolean("IsNetherBow")) {
-            Vec3 ShootPos = new Vec3(dataArrow.getDouble("PosX"), dataArrow.getDouble("PosY"), dataArrow.getDouble("PosZ"));
-            Vec3 TargetPos = new Vec3(hurter.getX(), hurter.getY(), hurter.getZ());
-            double Distance = ShootPos.distanceTo(TargetPos);
-            if (Distance > 100) Distance = 100;
-            EnhanceDamage = (1.5 + Distance / 100.0);
-        }
-        return EnhanceDamage;
-    }
-
     public static void BowSkill5(CompoundTag data, Player player) {
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
         if (Compute.getBowSkillLevel(data, 5) > 0) {
@@ -347,7 +297,7 @@ public class AttackEventModule {
                 if (Utils.BowSkill6Map.containsKey(name)) {
                     BowSkill6 bowSkill6 = Utils.BowSkill6Map.get(name);
                     if (bowSkill6.getTime() > TickCount) {
-                        if (bowSkill6.getCount() < 3) bowSkill6.setCount(bowSkill6.getCount() + 1);
+                        bowSkill6.setCount(Math.min(10, bowSkill6.getCount() + 1));
                         bowSkill6.setTime(TickCount + 200);
                     } else {
                         bowSkill6.setTime(TickCount + 200);

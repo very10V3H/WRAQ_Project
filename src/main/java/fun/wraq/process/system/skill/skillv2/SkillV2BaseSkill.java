@@ -46,10 +46,14 @@ public abstract class SkillV2BaseSkill extends SkillV2 {
         }
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         return skillLevel < maxPassiveSkillLevel && skillLevel < maxSkillLevel
-                && InventoryOperation.checkPlayerHasItem(player, getUpgradeNeedMaterial(skillLevel));
+                && InventoryOperation.checkPlayerHasItem(player, getUpgradeMaterials(skillLevel));
     }
 
-    private List<ItemStack> getUpgradeNeedMaterial(int skillLevel) {
+    protected List<ItemStack> getUpgradeMaterials(int skillLevel) {
+        return getUpgradeNeedMaterial(skillLevel);
+    }
+
+    public static List<ItemStack> getUpgradeNeedMaterial(int skillLevel) {
         switch (skillLevel) {
             case 5 -> {
                 return List.of(new ItemStack(ModItems.GOLD_COIN.get(), 3));
@@ -90,7 +94,7 @@ public abstract class SkillV2BaseSkill extends SkillV2 {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("1.", CustomStyle.styleOfWorld, "任意", "被动技能", ChatFormatting.GREEN,
                 "的等级达到", (skillLevel + 1) + "级", ChatFormatting.AQUA));
-        List<ItemStack> upgradeNeedMaterial = getUpgradeNeedMaterial(skillLevel);
+        List<ItemStack> upgradeNeedMaterial = getUpgradeMaterials(skillLevel);
         for (int i = 0; i < upgradeNeedMaterial.size(); i++) {
             ItemStack itemStack = upgradeNeedMaterial.get(i);
             components.add(Te.s((i + 2) + ".", CustomStyle.styleOfWorld,
@@ -102,6 +106,6 @@ public abstract class SkillV2BaseSkill extends SkillV2 {
     @Override
     protected void upgradeOperation(Player player) {
         InventoryOperation.removeItemWithoutCheck(player,
-                getUpgradeNeedMaterial(getPlayerSkillLevelBySkillV2(player, this) - 1));
+                getUpgradeMaterials(getPlayerSkillLevelBySkillV2(player, this) - 1));
     }
 }

@@ -71,6 +71,7 @@ public class Mana {
         return player.getPersistentData().getDouble("MAXMANA");
     }
 
-
-
+    public static double getPlayerLostMana(Player player) {
+        return getPlayerMaxManaNum(player) - getPlayerCurrentManaNum(player);
+    }
 }

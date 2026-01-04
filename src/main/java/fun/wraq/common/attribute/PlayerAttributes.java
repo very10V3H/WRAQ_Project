@@ -208,9 +208,10 @@ public class PlayerAttributes {
             exDamage += baseAttackDamage * Compute.getSwordSkillLevel(data, 6) * 0.003 * Utils.SwordSkill6Map.get(name).getCount();
         } // 完美（持续造成暴击，将提供至多30%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
 
-        if (Compute.getBowSkillLevel(data, 6) > 0 && Utils.BowSkill6Map.containsKey(name) && Utils.BowSkill6Map.get(name).getTime() > TickCount) {
-            exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 6) * 0.005 * Utils.BowSkill6Map.get(name).getCount();
-        } // 完美（持续的命中目标的箭矢，将提供至多3%攻击力，持续10s，在十次命中后达最大值，在未命中时重置层数）
+        if (Compute.getBowSkillLevel(data, 6) > 0
+                && Utils.BowSkill6Map.containsKey(name) && Utils.BowSkill6Map.get(name).getTime() > Tick.get()) {
+            exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 6) * 0.02 * Utils.BowSkill6Map.get(name).getCount() / 10;
+        } // 完美（持续的命中目标的箭矢，将提供至多20%攻击力，持续10s，在十次命中后达最大值，在未命中时重置层数）
 
         if (Compute.getBowSkillLevel(data, 8) > 0 && BowAttribute.isHandling(player)) {
             exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 8) * 0.02;
@@ -332,6 +333,9 @@ public class PlayerAttributes {
         if (Compute.getBowSkillLevel(data, 11) > 0 && BowAttribute.isHandling(player)) {
             critRate += Compute.getBowSkillLevel(data, 11) * 0.02;
         } // 锻弦-平衡（手持弓时，获得额外2%暴击几率）
+        if (SceptreAttribute.isHandling(player)) {
+            critRate += Compute.getManaSkillLevel(data, 10) * 0.015; // 力凝魔核
+        }
 
         int luckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
         if (data.contains(StringUtils.Ability.Lucky) && data.getInt(StringUtils.Ability.Lucky) > 0) {
@@ -382,8 +386,8 @@ public class PlayerAttributes {
             critDamage += 0.2;
 
         if (Compute.getBowSkillLevel(data, 7) > 0 && BowAttribute.isHandling(player)) {
-            critDamage += Compute.getBowSkillLevel(data, 7) * 0.1;
-        } // 锻矢-锋利（手持弓时，获得10%暴击伤害）
+            critDamage += Compute.getBowSkillLevel(data, 7) * 0.04;
+        } // 锻矢-锋利（手持弓时，获得2%暴击伤害）
 
         if (SuitCount.getVolcanoSuitCount(player) >= 4) critDamage += 0.35;
 
@@ -819,7 +823,7 @@ public class PlayerAttributes {
         releaseSpeed += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCooldownModifier);
         releaseSpeed += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.coolDownDecrease);
         if (SceptreAttribute.isHandling(player)) {
-            releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.02; // 术法全析
+            releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.03; // 术法全析
         }
         releaseSpeed += SevenShadePiece.getEnhanceValue(player, Utils.coolDownDecrease);
 
@@ -1079,10 +1083,6 @@ public class PlayerAttributes {
             exDamage += intelligentAbilityPoint * 2;
         } // 能力
 
-        if (Compute.getManaSkillLevel(data, 2) > 0 && data.contains(StringUtils.ManaSkillNum.Skill2) && data.getInt(StringUtils.ManaSkillNum.Skill2) > tickCount) {
-            exDamage += baseDamage * Compute.getManaSkillLevel(data, 2) * 0.02;
-        } // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
-
         if (leggings.equals(ModItems.MINE_PANTS.get()) && (Utils.overworldIsNight || player.getY() < 63))
             exDamage += 75;
         // 矿工裤被动
@@ -1209,7 +1209,7 @@ public class PlayerAttributes {
         if (Compute.getSwordSkillLevel(data, 8) > 0 && mainhand instanceof SwordAttribute)
             manaRecover += Compute.getSwordSkillLevel(data, 8); // 洞悉（手持近战武器时，获得1额外法力回复）
         if (Compute.getManaSkillLevel(data, 1) > 0 && SceptreAttribute.isHandling(player))
-            manaRecover += Compute.getManaSkillLevel(data, 1) * 0.5; // 仙女护符（持有法杖时，获得额外0.5点法力回复）
+            manaRecover += Compute.getManaSkillLevel(data, 1); // 仙女护符（持有法杖时，获得额外1点法力回复）
         if (Compute.getManaSkillLevel(data, 8) > 0 && SceptreAttribute.isHandling(player))
             manaRecover += Compute.getManaSkillLevel(data, 8); // 洞悉（手持法杖时，获得1额外法力回复）
 

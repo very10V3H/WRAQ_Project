@@ -79,6 +79,8 @@ public class Guide {
         public static final String MINE_EQUIP = "mineEquip";
         public static final String VOLCANO_EQUIP = "volcanoEquip";
         public static final String MANA_DAILY_INSTANCE = "manaDailyInstance";
+        public static final String DAILY_MISSION_STAR = "dailyMissionStar";
+        public static final String DAILY_MISSION_COLLECT = "dailyMissionCollect";
         public static final String PLAIN_BOSS = "plainBoss";
         public static final String PASSIVE_4_LEVEL = "passive4Level";
         public static final String ENTRUSTMENT = "entrustment";
@@ -86,14 +88,16 @@ public class Guide {
         public static final String TO_NETHER = "toNether";
         public static final String NETHER_BOSS = "netherBoss";
         public static final String PURPLE_IRON_BOSS = "purpleIronBoss";
+        public static final String CORRIDOR = "corridor";
         public static final String ICE_KNIGHT = "iceKnight";
+        public static final String WEEKLY_STORE = "weeklyStore";
         public static final String SAKURA_BOSS = "sakuraBoss";
         public static final String DEVIL_BOSS = "devilBoss";
         public static final String MOON_BOSS = "moonBoss";
         public static final String FINAL = "final";
     }
 
-    private static List<Guide> guides = new ArrayList<>();
+    private static final List<Guide> guides = new ArrayList<>();
 
     public static List<Guide> getGuides() {
         if (guides.isEmpty()) {
@@ -159,6 +163,7 @@ public class Guide {
                         .forEach(itemStack -> {
                     InventoryOperation.giveItemStackWithMSG(player, itemStack);
                 });
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
             }), StageV2.FOREST_EQUIP));
             guides.add(new Guide(List.of(
                     Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "森林装备", CustomStyle.styleOfForest),
@@ -223,6 +228,26 @@ public class Guide {
                             "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.U_DISK.get()));
+            }), StageV2.DAILY_MISSION_STAR));
+            // 增加完成日常任务
+            guides.add(new Guide(List.of(
+                    Te.s("*任务 ", ChatFormatting.AQUA, "完成一个", "日常任务", CustomStyle.styleOfFlexible),
+                    Te.s("身份卡", ChatFormatting.AQUA, " -> ", "任务列表", CustomStyle.styleOfFlexible),
+                    Te.s("接取并完成任意一个日常任务."),
+                    Te.s("完成日常任务，可以获得", ModItems.WORLD_SOUL_5, "等奖励."),
+                    Te.s(ModItems.WORLD_SOUL_5.get(), "可以在", "vp商城", CustomStyle.styleOfWorld, "购买补给包.")
+            ), null, (player -> {
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.REVELATION_HEART.get(), 2));
+            }), StageV2.DAILY_MISSION_COLLECT));
+            // 增加完成每日任务
+            guides.add(new Guide(List.of(
+                    Te.s("*任务 ", ChatFormatting.AQUA, "完成一个", "每日收集任务", CustomStyle.styleOfFlexible),
+                    Te.s("身份卡", ChatFormatting.AQUA, " -> ", "每日/悬赏", CustomStyle.styleOfFlexible),
+                    Te.s("接取并完成一次每日收集任务."),
+                    Te.s("完成每日收集任务，可以获得大量", ModItems.GEM_PIECE)
+            ), null, (player -> {
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1));
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
             }), StageV2.PLAIN_BOSS));
             guides.add(new Guide(List.of(
                     Te.s("*任务 ", ChatFormatting.AQUA, "击败", "普莱尼", CustomStyle.styleOfPlain),
@@ -248,6 +273,7 @@ public class Guide {
                     Te.s("接取委托任务，完成获取丰富奖励!")
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
             }), 75, StageV2.ENHANCE_EQUIP));
             guides.add(new Guide(List.of(
                     Te.s("锻造一件", "天空城进阶装备", CustomStyle.styleOfSky),
@@ -276,12 +302,34 @@ public class Guide {
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.PURPLE_IRON_BOW_2.get(), 1));
-            }), 96, StageV2.ICE_KNIGHT));
+            }), 96, StageV2.CORRIDOR));
+            // 增加挑战本源回廊
+            guides.add(new Guide(List.of(
+                    Te.s("*任务 ", ChatFormatting.AQUA, "挑战", "本源回廊", CustomStyle.styleOfWorld),
+                    Te.s("在", "天空城附近，打开", ModItems.ID_CARD),
+                    Te.s("身份卡", CustomStyle.styleOfWorld,
+                            " -> ", "特殊挑战", ChatFormatting.RED,
+                            " -> ", "本源回廊", CustomStyle.styleOfWorld),
+                    Te.s("每日通关", "本源回廊", CustomStyle.styleOfWorld, "可以获得", ModItems.WORLD_SOUL_5),
+                    Te.s(ModItems.WORLD_SOUL_5.get(), "可以在", "vp商城", CustomStyle.styleOfWorld, "购买补给包.")
+            ), null, (player -> {
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.PURPLE_IRON_BOW_2.get(), 1));
+            }), 100, StageV2.ICE_KNIGHT));
             guides.add(new Guide(List.of(
                     Te.s("*任务 ", ChatFormatting.AQUA, "击败", "冰霜骑士", CustomStyle.styleOfIce)
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
                 InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.ICE_BOSS_SOUL.get(), 16));
+            }), 108, StageV2.WEEKLY_STORE));
+            // 增加购买研发采购物品
+            guides.add(new Guide(List.of(
+                    Te.s("*任务 ", ChatFormatting.AQUA, "购买", "研发采购物品", CustomStyle.styleOfWorld),
+                    Te.s("打开 ", "身份卡", CustomStyle.styleOfWorld, " -> ", "研发采购", CustomStyle.styleOfWorld),
+                    Te.s("购买任意物品."),
+                    Te.s("采购的内容每周五更新.")
+            ), null, (player -> {
+                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
             }), 108, StageV2.SAKURA_BOSS));
             guides.add(new Guide(List.of(
                     Te.s("*任务 ", ChatFormatting.AQUA, "击败", "突见忍", CustomStyle.styleOfSakura)

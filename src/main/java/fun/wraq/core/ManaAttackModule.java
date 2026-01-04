@@ -17,7 +17,6 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill3;
-import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios1;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.networking.ModNetworking;
@@ -29,6 +28,7 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -83,21 +83,15 @@ public class ManaAttackModule {
         double defence = MobAttributes.manaDefence(mob);
         double exDamage = 0;
         double trueDamage = 0;
-        double healthSteal = PlayerAttributes.manaHealthSteal(player);
 
         exDamage += ManaSkill12(data, player, damage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
         exDamage += BlackForestCore(player, mob); // 收割魔核
         exDamage += EarthManaArmor(player, mob); // 地蕴魔法被动
 
         trueDamage += Compute.getManaSkillLevel(data, 0) * damage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
-        trueDamage += ManaSKill6(data, player, damage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
         trueDamage += SeaCore(player, mob); // 救赎魔核
         trueDamage += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
         trueDamage += CastleManaArmor.ExIgnoreDefenceDamage(player);
-
-        if (Compute.getManaSkillLevel(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.8) {
-            trueDamage += damage * 0.02 * Compute.getManaSkillLevel(data, 5);
-        } // 危机意识（当生命值低于50%时，造成额外20%真实伤害）
 
         double damageEnhance = 0; // 乘区0
         damageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
@@ -169,7 +163,6 @@ public class ManaAttackModule {
 
         // effect
         ManaSkill3Attack(data, player, mob); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-        ManaSkill6Attack(data, player, true); // 完美（持续命中目标，将至多造成50%额外真实伤害）
         ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
         SakuraCore(player); // 樱妖魔核
 
@@ -184,6 +177,7 @@ public class ManaAttackModule {
         SameTypeModule.onNormalAttackHitMob(player, mob, 1, damage + trueDamage);
 
         ManaCurios1.getManaDamageExTrueDamage(player, mob, damage);
+        ManaSkillTree.handleManaDamageExTrueDamage(player, mob, damage);
 
         if (mainShoot) {
             OnHitEffectEquip.hit(player, mob);
@@ -254,41 +248,6 @@ public class ManaAttackModule {
         return DamageEnhance;
     }
 
-    public static void ManaSkill6Attack(CompoundTag data, Player player, boolean flag) {
-        int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
-        String name = player.getName().getString();
-        if (Compute.getManaSkillLevel(data, 6) > 0) {
-            if (flag) {
-                if (Utils.ManaSkill6Map.containsKey(name)) {
-                    ManaSkill6 manaSkill6 = Utils.ManaSkill6Map.get(name);
-                    if (manaSkill6.getTime() > TickCount) {
-                        if (manaSkill6.getCount() < 3) manaSkill6.setCount(manaSkill6.getCount() + 1);
-                        manaSkill6.setTime(TickCount + 200);
-                    } else {
-                        manaSkill6.setTime(TickCount + 200);
-                        manaSkill6.setCount(1);
-                    }
-                } else {
-                    ManaSkill6 manaSkill6 = new ManaSkill6(1, TickCount + 200);
-                    Utils.ManaSkill6Map.put(name, manaSkill6);
-                }
-                ManaSkill6 manaSkill6 = Utils.ManaSkill6Map.get(name);
-                ModNetworking.sendToClient(new SkillImageS2CPacket(7, 10, 10, manaSkill6.getCount(), 2), (ServerPlayer) player);
-
-            } else {
-                if (Utils.ManaSkill6Map.containsKey(name)) {
-                    ManaSkill6 manaSkill6 = Utils.ManaSkill6Map.get(name);
-                    manaSkill6.setCount(0);
-                } else {
-                    ManaSkill6 manaSkill6 = new ManaSkill6(0, 0);
-                    Utils.ManaSkill6Map.put(name, manaSkill6);
-                }
-                ModNetworking.sendToClient(new SkillImageS2CPacket(7, 0, 0, 0, 2), (ServerPlayer) player);
-
-            }
-        }
-    }
-
     public static double ManaSkill12(CompoundTag data, Player player, double BaseDamage) {
         String name = player.getName().getString();
         if (Compute.getManaSkillLevel(data, 12) > 0 && Utils.ManaSkill12.containsKey(name)
@@ -320,15 +279,6 @@ public class ManaAttackModule {
             MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
 
         }
-    }
-
-    public static double ManaSKill6(CompoundTag data, Player player, double BaseDamage) {
-        int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
-        String name = player.getName().getString();
-        if (Compute.getManaSkillLevel(data, 6) > 0 && Utils.ManaSkill6Map.containsKey(name) && Utils.ManaSkill6Map.get(name).getTime() > TickCount) {
-            return Compute.getManaSkillLevel(data, 6) * 0.0066f * BaseDamage * Utils.ManaSkill6Map.get(name).getCount();
-        }
-        return 0;
     }
 
     public static double SeaCore(Player player, Mob mob) {

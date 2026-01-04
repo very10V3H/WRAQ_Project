@@ -38,7 +38,7 @@ public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMo
         ComponentUtils.descriptionPassive(components, Te.s("寄生", hoverStyle));
         components.add(Te.s(" 击杀敌人", ChatFormatting.RED, "后，将掉落一个", "菌", hoverStyle));
         components.add(Te.s(" 拾取", "菌", hoverStyle, "将提供",
-                ComponentUtils.AttributeDescription.maxHealth("等级 * " + (isEnhanced ? "2.5%" : "2%"))));
+                ComponentUtils.AttributeDescription.maxHealth("层数 * " + (isEnhanced ? "2.5%" : "2%"))));
         components.add(Te.s(" 持续30s", ChatFormatting.AQUA, "，最多可叠加至", "10层", hoverStyle));
         components.add(Te.s(" 在提供最大生命值时，将会回复等量生命值", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         components.add(Te.s(" 当层数达10层时继续拾取，仅提供生命回复", ChatFormatting.GRAY, ChatFormatting.ITALIC));

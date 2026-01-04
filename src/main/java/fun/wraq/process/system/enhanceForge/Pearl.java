@@ -21,14 +21,17 @@ public class Pearl extends WraqItem {
 
     public static List<Item> list = new ArrayList<>();
 
-    public Pearl(Properties properties) {
+    private final String num;
+
+    public Pearl(Properties properties, String num) {
         super(properties, true, true);
         list.add(this);
+        this.num = num;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        stack.setHoverName(RainBowName());
+        stack.setHoverName(getRainBowName());
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }
 
@@ -52,7 +55,7 @@ public class Pearl extends WraqItem {
         put(new Color.RGB(0, 255, 127), new Color.RGB(0, 255, 0));
     }};
 
-    public static Component RainBowName() {
+    public Component getRainBowName() {
         for (int i = 0; i < colorList.size(); i++) {
             Color color = colorList.get(i);
             if (color.Add()) {
@@ -64,6 +67,6 @@ public class Pearl extends WraqItem {
                 append(Component.literal("珍").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(2).getRGB()))).withStyle(ChatFormatting.BOLD)).
                 append(Component.literal("珠").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(3).getRGB()))).withStyle(ChatFormatting.BOLD)).
                 append(Component.literal(" - ").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(4).getRGB()))).withStyle(ChatFormatting.BOLD)).
-                append(Component.literal("VI").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(5).getRGB()))).withStyle(ChatFormatting.BOLD));
+                append(Component.literal(num).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(5).getRGB()))).withStyle(ChatFormatting.BOLD));
     }
 }

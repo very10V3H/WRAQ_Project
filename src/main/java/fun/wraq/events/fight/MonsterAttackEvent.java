@@ -53,9 +53,7 @@ public class MonsterAttackEvent {
 
     public static void mobAttack(Mob mob, Player player, double damage) {
         CompoundTag data = player.getPersistentData();
-        double withStandDamageRate = 0;
-        withStandDamageRate += DamageInfluence.modifyPlayerWithstandDamageRate(player, mob, damage);
-        damage *= (1 + withStandDamageRate);
+        damage *= DamageInfluence.modifyPlayerWithstandDamageRate(player, mob, damage);
         damage *= SkySkeletonSpawnController.getDamageRate(mob);
         if (data.contains(StringUtils.SakuraDemonSword)
                 && data.getInt(StringUtils.SakuraDemonSword) > Tick.get()) {

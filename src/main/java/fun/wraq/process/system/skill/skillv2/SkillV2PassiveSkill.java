@@ -41,10 +41,14 @@ public abstract class SkillV2PassiveSkill extends SkillV2 {
     protected boolean canUpgrade(Player player) {
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         return skillLevel < player.experienceLevel / 20 + 1 && skillLevel < maxSkillLevel
-                && InventoryOperation.checkPlayerHasItem(player, getUpgradeNeedMaterial(skillLevel));
+                && InventoryOperation.checkPlayerHasItem(player, getUpgradeMaterials(skillLevel, professionType));
     }
 
-    private List<ItemStack> getUpgradeNeedMaterial(int skillLevel) {
+    protected List<ItemStack> getUpgradeMaterials(int skillLevel, int professionType) {
+        return getUpgradeNeedMaterial(skillLevel, professionType);
+    }
+
+    public static List<ItemStack> getUpgradeNeedMaterial(int skillLevel, int professionType) {
         switch (skillLevel) {
             case 3 -> {
                 return List.of(new ItemStack(ModItems.PLAIN_COMPLETE_GEM.get()));
@@ -93,8 +97,8 @@ public abstract class SkillV2PassiveSkill extends SkillV2 {
     protected List<Component> getUpgradeConditionDescription(int skillLevel) {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("1.", CustomStyle.styleOfWorld, "达到",
-                Utils.getLevelDescription(skillLevel * 20)));
-        List<ItemStack> upgradeNeedMaterial = getUpgradeNeedMaterial(skillLevel);
+                Utils.getLevelDescription(Math.max(0, skillLevel) * 20)));
+        List<ItemStack> upgradeNeedMaterial = getUpgradeMaterials(skillLevel, professionType);
         for (int i = 0; i < upgradeNeedMaterial.size(); i++) {
             ItemStack itemStack = upgradeNeedMaterial.get(i);
             components.add(Te.s((i + 2) + ".", CustomStyle.styleOfWorld,
@@ -106,6 +110,6 @@ public abstract class SkillV2PassiveSkill extends SkillV2 {
     @Override
     protected void upgradeOperation(Player player) {
         InventoryOperation.removeItemWithoutCheck(player,
-                getUpgradeNeedMaterial(getPlayerSkillLevelBySkillV2(player, this) - 1));
+                getUpgradeMaterials(getPlayerSkillLevelBySkillV2(player, this) - 1, professionType));
     }
 }

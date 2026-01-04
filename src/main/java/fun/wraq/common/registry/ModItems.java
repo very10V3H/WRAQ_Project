@@ -2458,17 +2458,17 @@ public class ModItems {
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), HEALTH_RECOVER_UP_POTION.get()));
 
     public static final RegistryObject<Item> PEARL_1 = ITEMS.register("pearl1",
-            () -> new Pearl(new Item.Properties().rarity(CustomStyle.LifeBold)));
+            () -> new Pearl(new Item.Properties().rarity(CustomStyle.LifeBold), "I"));
     public static final RegistryObject<Item> PEARL_2 = ITEMS.register("pearl2",
-            () -> new Pearl(new Item.Properties().rarity(CustomStyle.SkyBold)));
+            () -> new Pearl(new Item.Properties().rarity(CustomStyle.SkyBold), "II"));
     public static final RegistryObject<Item> PEARL_3 = ITEMS.register("pearl3",
-            () -> new Pearl(new Item.Properties().rarity(CustomStyle.NetherBold)));
+            () -> new Pearl(new Item.Properties().rarity(CustomStyle.NetherBold), "III"));
     public static final RegistryObject<Item> PEARL_4 = ITEMS.register("pearl4",
-            () -> new Pearl(new Item.Properties().rarity(CustomStyle.EndBold)));
+            () -> new Pearl(new Item.Properties().rarity(CustomStyle.EndBold), "IV"));
     public static final RegistryObject<Item> PEARL_5 = ITEMS.register("pearl5",
-            () -> new Pearl(new Item.Properties().rarity(CustomStyle.SakuraBold)));
+            () -> new Pearl(new Item.Properties().rarity(CustomStyle.SakuraBold), "V"));
     public static final RegistryObject<Item> PEARL_6 = ITEMS.register("pearl6",
-            () -> new Pearl(new Item.Properties().rarity(CustomStyle.MoonBold)));
+            () -> new Pearl(new Item.Properties().rarity(CustomStyle.MoonBold), "VI"));
 
     public static final RegistryObject<Item> WORLD_FORGE_STONE = ITEMS.register("world_forge_stone",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));

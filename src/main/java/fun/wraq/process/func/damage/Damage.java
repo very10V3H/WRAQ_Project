@@ -43,7 +43,9 @@ import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
+import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase2_1;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -324,21 +326,21 @@ public class Damage {
         double baseDamage = PlayerAttributes.manaDamage(player) * num;
         double defencePenetration = PlayerAttributes.manaPenetration(player);
         double defencePenetration0 = PlayerAttributes.manaPenetration0(player);
-        double DamageEnhance = 0;
-        double ExDamage = 0;
-        DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
-        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(mob); // 冰霜骑士伤害修正
-        DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
+        double damageEnhance = 0;
+        double exDamage = 0;
+        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        damageEnhance += IceInstance.IceKnightHealthManaDamageFix(mob); // 冰霜骑士伤害修正
+        damageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("---ManaPower---"));
             player.sendSystemMessage(Component.literal("BaseDamage : " + baseDamage));
-            player.sendSystemMessage(Component.literal("ExDamage : " + ExDamage));
+            player.sendSystemMessage(Component.literal("ExDamage : " + exDamage));
         }
         baseDamage *= Damage.defenceDamageDecreaseRate(player, mob,
                 defence, defencePenetration, defencePenetration0);
-        ExDamage *= Damage.defenceDamageDecreaseRate(player, mob,
+        exDamage *= Damage.defenceDamageDecreaseRate(player, mob,
                 defence, defencePenetration, defencePenetration0);
-        double totalDamage = (baseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
+        double totalDamage = (baseDamage + exDamage) * (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
         // 元素
         double ElementDamageEnhance = 0;
         double ElementDamageEffect = 1;
@@ -368,9 +370,10 @@ public class Damage {
             Compute.additionEffects(player, mob, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, mob);
             ManaNewSkillPassive0.onManaPowerHit(player, mob);
+            ManaSkillTree.handleManaDamageExTrueDamage(player, mob, totalDamage);
         }
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
-            player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
+            player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,mob) : "
                     + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));
             player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : "
@@ -595,7 +598,6 @@ public class Damage {
                     MobSpawn.drop(mob, player);
                     HurtEventModule.SwordSkill2(data, player); // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
                     HurtEventModule.BowSkill2(data, player); // 狩猎渴望（击杀一个单位时，提升2%攻击力，持续10s）
-                    HurtEventModule.ManaSkill2(data, player); // 魔力汲取（击杀一个单位时，提升2%法术攻击，持续10s）
                     NetherNewRune.onKill(player, mob);
                     HuskNewRune.onKill(player, mob);
                     DailyEndlessInstance.onKillMob(player, mob);
@@ -610,6 +612,8 @@ public class Damage {
                     Summer2025.onKill(player, mob);
                     MidAutumnUtil.onKillMob(player);
                     Compute.incrementPlayerDailyKillCount(player);
+                    ManaSkillTree.skill2OnKillMob(player); // 魔力汲取（击杀一个单位回复4 * c法力值）
+                    SwordNewSkillBase2_1.onMobDead(mob);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }

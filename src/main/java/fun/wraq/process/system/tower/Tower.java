@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.items.m.BackSpawn;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.element.Element;
@@ -214,6 +215,7 @@ public class Tower {
                 Te.s(this.currentPlayer, " 完成了 ",
                         "本源回廊 - " + Tower.numToRoma[instanceList.indexOf(this)], CustomStyle.styleOfWorld, " 的 ",
                         stage + "★", CustomStyle.styleOfWorld, "挑战."));
+        Guide.trigV2(currentPlayer, Guide.StageV2.CORRIDOR);
     }
 
     public static void playerTryToChallenging(ServerPlayer serverPlayer, int index) throws SQLException {
