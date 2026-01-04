@@ -9,6 +9,7 @@ import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase2_1;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -21,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaNewSkillBase2_1 extends SkillV2BaseSkill {
+public class ManaNewSkillBase2_1 extends SkillV2BaseSkill implements SkillV2AllowReleaseAnyTime {
     public ManaNewSkillBase2_1(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
