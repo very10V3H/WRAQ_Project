@@ -11,9 +11,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MyRespawnRule {
     public record SpawnPoint(Vec3 vec3, float rotX, Component zoneName) {
@@ -33,7 +34,7 @@ public class MyRespawnRule {
     public record SpawnPos(Vec3 vec3, float rotX) {
     }
 
-    public static Map<String, SpawnPos> playerLastOverWorldPos = new HashMap<>();
+    public static Map<String, SpawnPos> playerLastOverWorldPos = new ConcurrentHashMap<>();
 
     public static List<SpawnPoint> overworldSpawnPos = new ArrayList<>() {{
         add(new SpawnPoint(956, 232, 17, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky))); // 天空城
@@ -57,12 +58,14 @@ public class MyRespawnRule {
             String name = serverPlayer.getName().getString();
             Level level = serverPlayer.level();
             if (level.dimension().equals(Level.OVERWORLD)) {
-                SpawnPoint spawnPoint = findNearestSpawnPoint(player);
-                serverPlayer.setRespawnPosition(Level.OVERWORLD,
-                        new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z),
-                        spawnPoint.rotX, true, false);
-                playerLastOverWorldPos.put(name, new SpawnPos(player.position(), player.getXRot()));
-                ModNetworking.sendToClient(new NearestSpawnPointS2CPacket(spawnPoint.zoneName), serverPlayer);
+                CompletableFuture.runAsync(() -> {
+                    SpawnPoint spawnPoint = findNearestSpawnPoint(player);
+                    serverPlayer.setRespawnPosition(Level.OVERWORLD,
+                            new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z),
+                            spawnPoint.rotX, true, false);
+                    playerLastOverWorldPos.put(name, new SpawnPos(player.position(), player.getXRot()));
+                    ModNetworking.sendToClient(new NearestSpawnPointS2CPacket(spawnPoint.zoneName), serverPlayer);
+                });
             }
         }
     }
