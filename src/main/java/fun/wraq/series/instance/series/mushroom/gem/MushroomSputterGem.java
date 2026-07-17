@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
@@ -63,7 +64,7 @@ public class MushroomSputterGem extends WraqPassiveGem implements Decomposable, 
                         mob.getMaxHealth() * (isEnhanced ? 0.12 : 0.08) * (count + 1));
                 ParticleProvider.createLineEffectParticle(mob.level(), (int) nearMob.distanceTo(mob) * 5,
                         mob.getEyePosition(), nearMob.getEyePosition(), hoverStyle);
-                Compute.sendMobEffectHudToNearPlayer(nearMob, "item/mushroom_gem", "MushroomSputterGem",
+                BuffSystem.sendMobEffectHudToNearPlayer(nearMob, "item/mushroom_gem", "MushroomSputterGem",
                         8888, count + 1, true);
                 mobCount.compute(nearMob, (k, v) -> v == null ? 1 : v + 1);
             }

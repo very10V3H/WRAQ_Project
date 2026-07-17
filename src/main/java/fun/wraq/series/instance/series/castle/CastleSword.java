@@ -110,7 +110,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem, Enh
 
     @Override
     public void active(Player player) {
-        Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
+        Damage.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
         Compute.playerItemCoolDown(player, ModItems.CASTLE_SWORD.get(), 15);
         Compute.playerItemCoolDown(player, ModItems.CASTLE_SWORD_E.get(), 15);

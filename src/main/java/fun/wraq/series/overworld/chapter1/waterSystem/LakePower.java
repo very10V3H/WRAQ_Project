@@ -13,6 +13,7 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -110,7 +111,7 @@ public class LakePower extends WraqPower {
         playerList.forEach(player1 -> {
             LakePower.playerDefendRateMap.put(player1, tier + 1);
             LakePower.playerDefendTickMap.put(player1, tick + 80);
-            Compute.sendEffectLastTime(player1, ModItems.LAKE_POWER.get().getDefaultInstance(), 80);
+            BuffSystem.sendEffectLastTime(player1, ModItems.LAKE_POWER.get().getDefaultInstance(), 80);
             SpecialEffectOnPlayer.cleanse(player1);
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfLake.getColor().getValue());

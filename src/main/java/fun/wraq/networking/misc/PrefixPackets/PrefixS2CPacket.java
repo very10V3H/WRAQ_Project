@@ -1,6 +1,6 @@
 package fun.wraq.networking.misc.PrefixPackets;
 
-import fun.wraq.items.prefix.PrefixInfo;
+import fun.wraq.process.system.prefix.PrefixInfo;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.util.ClientUtils;
 import net.minecraft.network.FriendlyByteBuf;

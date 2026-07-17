@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Name;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.GameProfileArgument;
 import net.minecraft.nbt.CompoundTag;
@@ -41,7 +42,7 @@ public class SpecificPlayerTagCommand implements Command<CommandSourceStack> {
             return 0;
         }
 
-        CompoundTag data = Compute.getPlayerSpecificKeyCompoundTagData(target, topKey);
+        CompoundTag data = PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(target, topKey);
         switch (type) {
             case "int" -> {
                 int value = Integer.parseInt(valueString);

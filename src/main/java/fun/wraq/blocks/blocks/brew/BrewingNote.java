@@ -1,6 +1,6 @@
 package fun.wraq.blocks.blocks.brew;
 
-import fun.wraq.common.Compute;
+import fun.wraq.blocks.entity.HBrewingEntity;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -88,7 +88,7 @@ public class BrewingNote extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             CompoundTag data = player.getPersistentData();
-            data.putInt("BrewingLevel", Compute.BrewingLevel(player.getItemInHand(InteractionHand.MAIN_HAND)));
+            data.putInt("BrewingLevel", HBrewingEntity.BrewingLevel(player.getItemInHand(InteractionHand.MAIN_HAND)));
         }
         return super.use(level, player, interactionHand);
     }

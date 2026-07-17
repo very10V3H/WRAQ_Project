@@ -14,7 +14,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.items.prefix.PrefixInfo;
+import fun.wraq.process.system.prefix.PrefixInfo;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -23,6 +23,7 @@ import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
@@ -334,11 +335,11 @@ public class VariousEvents {
         ExperienceOrb orb = event.getOrb();
         CompoundTag data = orb.getPersistentData();
         if (data.contains(MobSpawn.fromMobSpawnTag)) {
-            Compute.givePercentExpToPlayer(player,
+            MyExpSystem.givePercentExpToPlayer(player,
                     data.getDouble(ItemAndRate.expRate), PlayerAttributes.expUp(player), orb.value);
         }
         if (data.contains(MineSpur.fromMineReward)) {
-            Compute.givePercentExpToPlayer(player, data.getDouble(ItemAndRate.expRate), 0, orb.value);
+            MyExpSystem.givePercentExpToPlayer(player, data.getDouble(ItemAndRate.expRate), 0, orb.value);
         }
     }
 
@@ -358,9 +359,14 @@ public class VariousEvents {
             String color = String.valueOf(CustomStyle.styleOfMine.getColor());
             String rank = RankData.getCurrentRank(player);
             component.append(RankData.getRankPrefix(rank));
-            if (data.contains(PrefixCommand.prefix)) prefix = data.getString(PrefixCommand.prefix);
-            if (data.contains(PrefixCommand.prefixColor)) color = data.getString(PrefixCommand.prefixColor);
+            if (data.contains(PrefixCommand.prefix)) {
+                prefix = data.getString(PrefixCommand.prefix);
+            }
+            if (data.contains(PrefixCommand.prefixColor)) {
+                color = data.getString(PrefixCommand.prefixColor);
+            }
             component.append(Te.s("|", ChatFormatting.GOLD,
+                    PrefixCommand.SAKURA,
                     prefix, Style.EMPTY.withColor(TextColor.parseColor(color)), "|", ChatFormatting.GOLD,
                     "[Lv." + player.experienceLevel + "]", Utils.getLevelStyle(player.experienceLevel),
                     event.getDisplayname().getString(), CustomStyle.styleOfBloodMana));
@@ -415,7 +421,7 @@ public class VariousEvents {
     public static void onCurioEquip(CurioEquipEvent event) {
         if (event.getEntity() instanceof Player player && !player.level().isClientSide) {
             ItemStack itemStack = event.getStack();
-            if (Compute.CuriosAttribute.getDistinctCuriosList(player)
+            if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player)
                     .stream().anyMatch(
                             stack -> stack.is(itemStack.getItem()) && !(stack.getItem() instanceof RepeatableCurios)
                                     && stack.getItem() instanceof WraqCurios)) {
@@ -447,11 +453,11 @@ public class VariousEvents {
                         }
                     }
                 });
-                Compute.CuriosAttribute.curiosListCache.put(player, curiosList);
-                Set<Item> set = new HashSet<>(Compute.CuriosAttribute.getDistinctCuriosList(player)
+                WraqCurios.CuriosAttribute.curiosListCache.put(player, curiosList);
+                Set<Item> set = new HashSet<>(WraqCurios.CuriosAttribute.getDistinctCuriosList(player)
                         .stream().map(ItemStack::getItem)
                         .toList());
-                Compute.CuriosAttribute.curiosSetCache.put(player, set);
+                WraqCurios.CuriosAttribute.curiosSetCache.put(player, set);
             }
         }
     }

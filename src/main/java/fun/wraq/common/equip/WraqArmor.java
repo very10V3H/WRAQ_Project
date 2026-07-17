@@ -5,6 +5,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.CsvAttributeLoader;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomArmor;
 import fun.wraq.events.mob.loot.RandomLootEquip;
@@ -54,6 +55,7 @@ public abstract class WraqArmor extends ArmorItem {
         if (type.equals(Type.BOOTS) && !(this instanceof RandomArmor)) {
             Display.bootsList.add(this);
         }
+        CsvAttributeLoader.trackArmor(this, type);
     }
 
     public abstract Style getMainStyle();

@@ -11,6 +11,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -113,7 +114,7 @@ public class SnowPower extends WraqPower {
                 Damage.causeRateApDamageWithElement(player, mob, effect, true,
                         Element.ice, ElementValue.getElementValueJudgeByType(player, Element.ice) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
-                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SNOW_POWER.get(), "SnowPowerImprison", 20, 0, false);
+                BuffSystem.sendMobEffectHudToNearPlayer(mob, ModItems.SNOW_POWER.get(), "SnowPowerImprison", 20, 0, false);
             }
         });
 
@@ -123,7 +124,7 @@ public class SnowPower extends WraqPower {
             if (player1.distanceTo(player) < 6) {
                 Shield.providePlayerShield(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
                 Compute.createIceParticle(player1);
-                sendEffectLastTime(player, ModItems.SNOW_POWER.get().getDefaultInstance(), 50);
+                BuffSystem.sendEffectLastTime(player, ModItems.SNOW_POWER.get().getDefaultInstance(), 50);
             }
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfSnow.getColor().getValue());

@@ -1,13 +1,14 @@
 package fun.wraq.series.events.midautumn;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -87,14 +88,14 @@ public class MidAutumnRabbitEvent extends KillMobEvent {
                     return (int) (o1.distanceTo(mob) - o2.distanceTo(mob));
                 }
             }).ifPresent(player -> {
-                Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.05,
+                Damage.decreasePlayerHealth(player, player.getMaxHealth() * 0.05,
                         Te.s("被月轮割裂", style));
             });
             Random random = new Random();
             if ((int) (mob.getHealth() * 5 / mob.getMaxHealth()) != lastHealthRate) {
                 lastHealthRate = (int) (mob.getHealth() * 5 / mob.getMaxHealth());
                 players.forEach(player -> {
-                    Compute.causeGatherEffect(player, Tick.s(1),
+                    BuffSystem.causeGatherEffect(player, Tick.s(1),
                             mob.position().add(
                                     4 - random.nextDouble(8),
                                     2,

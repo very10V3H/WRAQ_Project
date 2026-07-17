@@ -14,6 +14,7 @@ import fun.wraq.events.mob.chapter2.SlimeSpawnController;
 import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -114,7 +115,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                         new StableAttributesModifier(critDamageTag, 0.15, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
                         new StableAttributesModifier(defencePenetrationTag, 30, tick + 6000));
-                Compute.sendEffectLastTime(player, ModItems.GOLD_COIN.get(), 6000);
+                BuffSystem.sendEffectLastTime(player, ModItems.GOLD_COIN.get(), 6000);
             }
         }
         return super.use(level, player, interactionHand);
@@ -159,7 +160,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritRateModifier, critRateTag);
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritDamageModifier, critDamageTag);
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerDefencePenetrationModifier, defencePenetrationTag);
-            Compute.removeEffectLastTime(player, ModItems.GOLD_COIN.get());
+            BuffSystem.removeEffectLastTime(player, ModItems.GOLD_COIN.get());
         }
     }
 }

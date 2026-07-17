@@ -2,6 +2,7 @@ package fun.wraq.events.core;
 
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -113,7 +114,7 @@ public class InventoryCheck {
                 itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                 CountPassiveComsumableItem.onCheck(player, itemStack);
             }
-            Compute.CuriosAttribute.getDistinctCuriosList(player).forEach(stack -> {
+            WraqCurios.CuriosAttribute.getDistinctCuriosList(player).forEach(stack -> {
                 if (LavenderBracelet.resetBugAttributes(stack)) {
                     Compute.sendFormatMSG(player, Te.s("bug修复", ChatFormatting.RED),
                             Te.s("以下物品属性已修复:", stack.getDisplayName()));

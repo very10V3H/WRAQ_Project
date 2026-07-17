@@ -12,6 +12,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
@@ -46,14 +47,14 @@ public interface SilverDragonBloodWeapon extends OnCauseFinalDamageEquip, Active
         mobCountMap.compute(mob, (k, v) -> v == null ? count : Math.min(maxCount, v + count));
         mobMaxCountMap.compute(mob,
                 (k, v) -> v == null ? maxCount : Math.max(v, maxCount));
-        Compute.sendMobEffectHudToNearPlayer(mob, SpecialEventItems.DRAGON_DIAMOND.get(),
+        BuffSystem.sendMobEffectHudToNearPlayer(mob, SpecialEventItems.DRAGON_DIAMOND.get(),
                 MOB_EFFECT_HUD_TAG, 8888, mobCountMap.get(mob), true);
     }
 
     static void addCountToPlayer(Player player, int maxCount, int count) {
         playerCountMap.compute(Name.get(player),
                 (k, v) -> v == null ? count : Math.min(maxCount, v + count));
-        Compute.sendEffectLastTime(player, SpecialEventItems.DRAGON_DIAMOND.get(),
+        BuffSystem.sendEffectLastTime(player, SpecialEventItems.DRAGON_DIAMOND.get(),
                 playerCountMap.get(Name.get(player)), true);
     }
 
@@ -79,7 +80,7 @@ public interface SilverDragonBloodWeapon extends OnCauseFinalDamageEquip, Active
                 int sum = Compute.getNearMob(player, 6).stream().mapToInt(mob -> {
                     int count = mobCountMap.getOrDefault(mob, 0);
                     mobCountMap.put(mob, 0);
-                    Compute.removeMobEffectHudToNearPlayer(mob,
+                    BuffSystem.removeMobEffectHudToNearPlayer(mob,
                             SpecialEventItems.DRAGON_DIAMOND.get(), MOB_EFFECT_HUD_TAG);
                     ParticleProvider.createLineEffectParticle(player.level(),
                             mob, player, CustomStyle.SILVER_DRAGON_STYLE);
@@ -116,7 +117,7 @@ public interface SilverDragonBloodWeapon extends OnCauseFinalDamageEquip, Active
                                 });
                     }
                     playerCountMap.put(Name.get(player), 0);
-                    Compute.removeEffectLastTime(player, SpecialEventItems.DRAGON_DIAMOND.get());
+                    BuffSystem.removeEffectLastTime(player, SpecialEventItems.DRAGON_DIAMOND.get());
                 }
                 MySound.soundToPlayer(player, SoundEvents.ENDER_DRAGON_SHOOT);
             }

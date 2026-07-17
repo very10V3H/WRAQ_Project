@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.WraqUniformCurios;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -67,11 +68,11 @@ public class BowCurios2 extends WraqBowUniformCurios {
 
     public static void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, UniformItems.BOW_CURIOS_2.get());
+            BuffSystem.removeEffectLastTime(player, UniformItems.BOW_CURIOS_2.get());
             return;
         }
         if (playerNearbyHasNoOthers(player))
-            Compute.sendEffectLastTime(player, UniformItems.BOW_CURIOS_2.get(), 8888, 0, true);
-        else Compute.sendEffectLastTime(player, UniformItems.BOW_CURIOS_2.get(), 0, 0, true);
+            BuffSystem.sendEffectLastTime(player, UniformItems.BOW_CURIOS_2.get(), 8888, 0, true);
+        else BuffSystem.sendEffectLastTime(player, UniformItems.BOW_CURIOS_2.get(), 0, 0, true);
     }
 }

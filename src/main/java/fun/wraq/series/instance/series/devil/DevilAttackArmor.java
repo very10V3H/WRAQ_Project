@@ -9,6 +9,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -70,7 +71,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
             DevilAttackArmorPassiveNumMap.put(player,
                     MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.attackDamage) * 0.5);
             DevilAttackArmorPassiveTickMap.put(player, TickCount + 40);
-            Compute.sendEffectLastTime(player, ModItems.DEVIL_BLOOD.get().getDefaultInstance(), 40);
+            BuffSystem.sendEffectLastTime(player, ModItems.DEVIL_BLOOD.get().getDefaultInstance(), 40);
         }
     }
 

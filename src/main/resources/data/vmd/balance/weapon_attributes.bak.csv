@@ -1,0 +1,128 @@
+# VMD Weapon BASE Attributes — aligned to balance_framework.md v2 (2026-05-11)
+# Formula: Sword ATK = segmented exponential (Lv1=15, Lv50=100, Lv100=280, Lv200=1100, Lv300=3200)
+#   Sceptre manaDamage = Sword ATK * 2.2; Bow ATK = Sword ATK * 0.95
+# Effective attribute = baseValue * tierMultiplier(0.8~3.0) + forgingValue(piecewise linear)
+# Columns: type,className,registryName,chineseName,tiers,attackDamage,critRate,critDamage,manaDamage,manaRecover,coolDown,defencePen,defencePen0,healthSteal,manaHealthSteal,manaPen,manaPen0,maxHealth,movementSpeed,elementType,elementValue,levelRequire,notes
+type,className,registryName,chineseName,tiers,attackDamage,critRate,critDamage,manaDamage,manaRecover,coolDown,defencePen,defencePen0,healthSteal,manaHealthSteal,manaPen,manaPen0,maxHealth,movementSpeed,elementType,elementValue,levelRequire,notes
+# ===== DEV TOOLS =====
+SWORD,ManageSword,manage_sword,管理剑,1,,,,,,,,,,,,,,,,,,,,dev tool
+BOW,ManageBow,manage_bow,管理弓,1,,,,,,,,,,,,,,,,,,,,dev tool
+SCEPTRE,ManageSceptre,manage_sceptre,管理法杖,1,,,,,,,,,,,,,,,,,,,,dev tool
+# ===== RANDOM LOOT =====
+SWORD,RandomSword,random_sword,随机剑,1,,,,,,,,,,,,,,,,,,,,dynamic attrs
+BOW,RandomBow,random_bow,随机弓,1,,,,,,,,,,,,,,,,,,,,dynamic attrs
+SCEPTRE,RandomSceptre,random_sceptre,随机法杖,1,,,,,,,,,,,,,,,,,,,,dynamic attrs
+# ===== CHAPTER 1 - PLAIN (Lv ~4) =====
+SWORD,PlainSword,plain_sword_N,平原短匕,4,"14,17,20,27","0.25,0.25,0.25,0.25",,,,,,,,,,,,,life,"0.2,0.4,0.6,0.8",,
+BOW,PlainBow,plain_bow_N,平原短弓,4,"13,16,22,26","0.2,0.2,0.2,0.25",,,,,,,,,,,,,life,"0.2,0.4,0.6,0.8",,
+SCEPTRE,LifeSceptre,plain_sceptre_N,生命法杖,5,,,,"30,37,52,67,89",5,"0.1,0.12,0.14,0.16,0.2",,,,"1,1,2,2,3",,,,,life,"0.2,0.4,0.6,0.8,1.0",,
+# ===== CHAPTER 1 - FOREST (Lv ~12) =====
+SWORD,ForestSword,forest_sword_N,森林短剑,4,"21,23,25,29","0.3,0.3,0.3,0.3",,,,,,"1,1,2,2","0.02",,,,,,life,"0.2,0.4,0.6,0.8",,
+BOW,ForestBow,forest_bow_N,森林短弓,4,"20,22,24,28","0.2,0.2,0.2,0.25",,,,,,"1,1,2,2",,,,,,life,"0.2,0.4,0.6,0.8",,
+SWORD,ForestSword4,forest_sword4,森林剑(强化),1,23,0.3,,,,,,,18,0.05,,,,,,life,1.0,,强化版
+# ===== CHAPTER 1 - VOLCANO (Lv ~16) =====
+SWORD,VolcanoSword,volcano_sword_N,火山剑,5,"25,27,29,32,38","0.2,0.2,0.2,0.2,0.2",,,,,,"2,2,3,3,6",,,,,,fire,"0.2,0.4,0.6,0.8,1.0",,
+BOW,VolcanoBow,volcano_bow_N,火山弓,4,"24,26,28,31","0.2,0.2,0.2,0.25",,,,,,"2,2,3,3",,,,,,fire,"0.2,0.4,0.6,0.8",,
+# ===== CHAPTER 1 - SNOW (Lv 100) =====
+SWORD,SnowSword,snow_sword_N,雪域短剑,5,"267,280,293,320,533","0.3,0.33,0.36,0.45,0.45",,,,,,"6,7,8,9,18","0.02,0.03,0.04,0.08,0.08",,,,,,ice,"0.2,0.4,0.6,0.8,1.0",100
+# ===== CHAPTER 1 - MINE (Lv ~20, 高暴击) =====
+SWORD,MineSword,mine_sword_N,矿洞短剑,4,"28,31,34,39","0.55,0.6,0.65,0.7",,,,,,"3,4,5,6",0.04,,,,,,stone,0.2,,
+BOW,MineBow,mine_bow_N,矿洞短弓,4,"26,29,32,40","0.2,0.2,0.2,0.25",,,,,,"3,4,5,6",,,,,,stone,"0.2,0.4,0.6,0.8",,
+# ===== CHAPTER 1 - FIELD (Lv ~14, 吸血特化) =====
+SWORD,FieldSword,field_sword_N,原野短剑,4,"25,25,25,30",0.5,,,,,,,"4,5,6,7",0.2,,,,,,life,"0.2,0.4,0.6,0.8",,
+# ===== CHAPTER 1 - LAKE (Lv ~18) =====
+SWORD,LakeSword,lake_sword_N,澈源之剑,4,"24,29,34,39",0.3,,,,,,"2,2.5,3,4",,,,,,water,"0.2,0.4,0.6,0.8",,
+BOW,LakeBow,lake_bow_N,澈源之弓,4,"23,28,33,37","0.4,0.4,0.4,0.4",,,,,,"2,2,3,3",,,,,,water,"0.2,0.4,0.6,0.8",,
+SCEPTRE,LakeSceptre,lake_sceptre_N,澈源之杖,4,,,,,"50,60,70,80",7,0.2,,,,,"2,2,3,3",,,,water,"0.2,0.4,0.6,0.8",,
+# ===== CHAPTER 1 - PLAIN BOSS =====
+SCEPTRE,PlainBossSceptre,plain_boss_sceptre,普莱尼生机权杖,1,,,,,,,,,,,,,,,,,,PercentHealthRecover:0.025,HealthRecover:100
+# ===== CHAPTER 2 - SKY (Lv 72) =====
+SWORD,SkySword,sky_sword,天空之锋,1,157,0.25,,,,,,,6,,,,,,,wind,0.8,72
+BOW,SkyBow,sky_bow,天空之弓,1,149,0.25,,,,,,,6,,,,,,,wind,0.8,72
+BOW,SkyBossBow,sky_boss_bow,次元级寰宇之耀,1,100,0.5,,,,,,0.25,,,,,,,,wind,1.25,,Boss掉落
+# ===== CHAPTER 2 - HUSK (Lv 84) =====
+SWORD,HuskSword,husk_sword_N,岩屑,5,"189,201,213,236,473",0.3,,,,,,"9,10,11,12,15",0.05,,,,,,stone,"0.2,0.4,0.6,0.8,1.0",84
+# ===== CHAPTER 2 - SEA (Lv 100) =====
+SWORD,SeaSword,sea_sword_N,灵晶剑,5,"264,280,296,329,659",0.3,,,,,,"9,10,11,12,15",0.05,,,,,,water,"0.2,0.4,0.6,0.8,1.0",100
+BOW,SeaBow,sea_bow,灵晶锻弓,1,400,0.25,,,,,,,18,,,,,,,water,1.0,100
+# ===== CHAPTER 2 - EVOKER (Lv 56) =====
+SCEPTRE,EvokerSceptre,evoker_sceptre,唤魔者魔法书,4,,,,,"220,260,300,360",10,0.2,,,,,"4,5,6,7",,,,lightning,"0.8,0.9,1.0,1.2",56
+# ===== CHAPTER 2 - STONE SPIDER =====
+SWORD,StoneSpiderKnife,stone_spider_knife_N,锯齿石刀,4,,,,,,,,0.8,,,,,,,,,,,纯穿透刀
+# ===== CHAPTER 2 - LIGHTNING ZOMBIE / 额外 =====
+# ===== NETHER (Lv 80) =====
+SWORD,WitherSword,wither_sword_N,凋零碳刃,4,"148,185,222,259","0.2,0.22,0.24,0.3",,,,,,"9,10,11,12","0.04,0.06,0.08,0.1",,,,,,fire,"0.2,0.4,0.6,0.8",80
+BOW,WitherBow,wither_bow_N,凋零长弓,4,"141,176,211,246","0.2,0.25,0.25,0.25",,,,,,"9,10,11,12",,,,,,,,80
+SWORD,ManaSword,mana_sword,魔力剑,1,130,0.3,,,,,,,,,,,,,,fire,0.8,80
+SWORD,ManaSword1,mana_sword_1,魔力剑(强化),1,90,0.35,,,,,,,18,0.1,,,,,,,fire,1.0,,强化版
+SWORD,QuartzSword,quartz_sword,石英剑,1,80,0.45,,65,,,,,12,0.08,,,,,,fire,0.8,80,混合(物+法)
+SWORD,QuartzSabre,quartz_sabre,石英军刀,1,70,0.5,,,,,,0.15,,0.08,,,,,,fire,0.8,,
+SWORD,NetherSword,nether_sword,玄武岩,2,185,0.25,,,,,,,12,,,,,,,fire,1.0,80
+BOW,NetherBow,nether_bow,下界长弓,1,176,0.25,,,,,,,9,,,,,,,fire,1.0,80
+SCEPTRE,NetherSceptre,nether_sceptre,下界混沌解构魔杖,3,,,,"407,407,5088",14,"0.35,0.35,0.3",,,,,,"24,24,60",,,,fire,"1.0,1.0,1.5",80,Tier2为特殊版(Lv225) CritRate[,,0.4] CritDmg[,,0.1] ManaRecover[14,14,40]
+SCEPTRE,MagmaSceptre,magma_sceptre_N,爆裂魔杖,4,,,,,"160,200,240,280",12,,,,,,"4,5,5,6",,,,fire,"0.2,0.4,0.6,0.8",80,manaCost:150
+# ===== INSTANCE - ICE (Lv 135) =====
+SWORD,IceSword,ice_sword,蔚境冰锥,2,452,0.3,,,,,,,21,0.3,,,,2500,,ice,1.25,135,coolDown:0.1
+BOW,IceBow,ice_bow,凛冬雄鹰,2,429,0.25,,,,,,,21,,,,,,,ice,1.25,135
+SCEPTRE,IceSceptre,ice_sceptre,天源流光,2,,,,994,18,0.25,,,,,21,,,,ice,1.25,135
+# ===== INSTANCE - MOON (Lv 160) =====
+SWORD,MoonSword,moon_sword,星蚀,2,636,0.3,,,,,,,29,0.3,,,,8000,,,,160,coolDown:0.15
+BOW,MoonBow,moon_bow,尘风,2,604,0.25,,,,,,,29,,,,,,,,160
+SCEPTRE,MoonSceptre,moon_sceptre,穹玉,2,,,,1399,22,0.3,,,,,29,,,,,,160
+# ===== INSTANCE - CASTLE (Lv 180) =====
+SWORD,CastleSword,castle_sword,暗黑烬刃,2,836,0.3,,,,,,,36,0.08,,,,8000,,,,180,coolDown:0.22
+BOW,CastleBow,castle_bow,暗黑烈弓,2,794,0.25,,,,,,,36,,,,,,,,180
+SCEPTRE,CastleSceptre,castle_sceptre,暗黑圣杖,2,,,,1839,24,0.35,,,,,36,,,,,,180
+# ===== INSTANCE - HARBINGER (Lv 225) =====
+SWORD,HarbingerSword,harbinger_sword,鹰眼长剑,1,1437,0.35,0.05,,,,,,50,0.08,,,,10000,,fire,1.6,225,coolDown:0.28
+BOW,HarbingerBow,harbinger_bow,鹰眼长弓,1,1365,0.3,0.05,,,,,,50,,,,,,,fire,1.6,225
+SCEPTRE,HarbingerSceptre,harbinger_sceptre,鹰眼手镜,1,,,,3161,30,0.25,,,,,50,,,,fire,1.6,225
+# ===== DIVINE (Lv 230-250) =====
+SWORD,DivineSword,divine_sword_N,圣光长剑,3,"1299,1515,1731",0.35,,,,,,"60,70,80",0.08,,,,14000,,,,,"230,240,250",coolDown:0.33
+BOW,DivineBow,divine_bow_N,圣光长弓,3,"1233,1439,1645",0.35,,,,,,"60,70,80",0.08,,,,,,,,,"230,240,250"
+SCEPTRE,DivineSceptre,divine_sceptre_N,圣光权杖,3,,,,,"6000,7000,8000",35,"0.3,0.35,0.4",,,,,,"70,80,90",,,,,,"230,240,250"
+SWORD,DivineKnife,divine_knife,班尼之牙,1,,,,,,,,,0.25,,,,,,,,,,elementStrength:0.25,纯吸血刀
+# ===== SILVER DRAGON BLOOD (xpLevel scaling, 3 tiers) =====
+SWORD,SilverDragonBloodSword,silver_dragon_blood_sword_N,银龙血牙,3,xpLevelAtk:"10,12,15","0.35,0.4,0.45","0.05,0.15,0.25",,,,,,"0.3,0.35,0.4",0.08,,,,xpLevelDefPen0:"0.3,0.35,0.4",,,,,"0.2,0.25,0.3",
+BOW,SilverDragonBloodBow,silver_dragon_blood_bow_N,银龙血爪,3,xpLevelAtk:"10,12,15","0.35,0.4,0.45","0.05,0.15,0.25",,,,,,"0.3,0.35,0.4",0.08,,,,xpLevelDefPen0:"0.3,0.35,0.4",,,,,"0.2,0.25,0.3",
+SCEPTRE,SilverDragonBloodSceptre,silver_dragon_blood_sceptre_N,银龙血脊,3,,,,"xpLevelManaDmg:20,24,30","40,60,80","0.3,0.4,0.5",,,,,,0.08,"0.3,0.35,0.4",xpLevelManaPen0:"0.3,0.35,0.4",,,,,,"0.2,0.25,0.3",
+# ===== MOONTAIN (Lv 210) =====
+SWORD,MoontainSword,moontain_sword,望山刀,1,1224,0.3,,,,,,,40,0.08,,,,9000,,,,210,coolDown:0.24
+BOW,MoontainBow,moontain_bow,望山弓,1,1163,0.25,,,,,,,40,,,,,,,,210
+SCEPTRE,MoontainSceptre,moontain_sceptre,望山杖,1,,,,2693,25,0.3,,,,,60,,,,,,210
+# ===== VD CHAPTER 7 (Lv 220) =====
+SWORD,VdSword,vd_sword,全熵利刃,1,1362,0.3,,,,,,,40,0.08,,,,8000,,,,220,coolDown:0.2
+BOW,VdBow,vd_bow,全熵长弓,1,1294,0.25,,,,,,,40,,,,,,,,220
+SCEPTRE,VdSceptre,vd_sceptre,全熵法杖,1,,,,2996,25,0.35,,,,,40,,,,,,220
+# ===== SUPER COLD DRAGON (Lv 225) =====
+SWORD,SuperColdDragonSword,super_cold_dragon_sword_N,极寒龙牙,3,"1232,1437,1848",0.35,"0.1,0.15,0.25",,,,,,"60,75,90",0.08,,,,,"10000,12000,15000",,ice,"2.5,3.5,5.0",225,coolDown:0.28
+BOW,SuperColdDragonBow,super_cold_dragon_bow_N,极寒龙爪,3,"1170,1365,1755",0.3,"0.2,0.3,0.45",,,,,,"60,75,90",,,,,,,ice,"2.5,3.5,5.0",225
+SCEPTRE,SuperColdDragonSceptre,super_cold_dragon_sceptre_N,极寒龙脊,3,,,,,"6000,7000,9000",50,0.3,,,,,"60,75,90",,,,,ice,"2.5,3.5,5.0",225
+# ===== ELEMENT WEAPONS (6元素各1组, 同规格) =====
+SWORD,WaterElementSword,water_element_sword,若水之剑,1,600,0.3,,,,,,,40,0.08,,,,,,water,2.0,,
+BOW,WaterElementBow,water_element_bow,若水长弓,1,600,0.25,,,,,,,40,,,,,,,water,2.0,,
+SCEPTRE,WaterElementSceptre,water_element_sceptre,若水之杖,1,,,,1774,30,0.2,,,,,40,,,,water,2.0,,
+SWORD,LifeElementSword,life_element_sword,盎然之剑,1,600,0.3,,,,,,,40,0.08,,,,,,life,2.0,,
+BOW,LifeElementBow,life_element_bow,盎然长弓,1,600,0.25,,,,,,,40,,,,,,,life,2.0,,
+SCEPTRE,LifeElementSceptre,life_element_sceptre,盎然之杖,1,,,,1774,30,0.2,,,,,40,,,,life,2.0,,
+SWORD,FireElementSword,fire_element_sword,焰烬之剑,1,600,0.3,,,,,,,40,0.08,,,,,,fire,2.0,,
+BOW,FireElementBow,fire_element_bow,焰烬长弓,1,600,0.25,,,,,,,40,,,,,,,fire,2.0,,
+SCEPTRE,FireElementSceptre,fire_element_sceptre,焰烬之杖,1,,,,1774,30,0.2,,,,,40,,,,fire,2.0,,
+# ===== WIND / SPECIAL =====
+SWORD,WindSword,wind_sword_N,灵风,5,"732,836,940,1254,1568",0.3,,,,,,"20,22,24,28,35",0.08,,,,,,wind,"0.8,1.0,1.2,1.6,2.0",180,moveSpeedWithoutBattle:"0.8,0.8,0.8,1.0,1.2"
+BOW,ShiroBow,shiro_bow,白羽弓,1,3000,0.3,0.05,,,,,0.25,50,,,,,,,wind,1.5,225,moveSpeedCommon:0.2
+SWORD,KanupusSword,kanupus_sword,卡纽帕斯之刃,1,3000,0.35,0.05,6000,20,,0.25,50,0.08,0.08,0.25,50,,,,,225,双修剑(物+法均衡)
+# ===== 渐进武器 (SilverDragonAssassin/INaRi/DeepSea, 5 tiers xpLevel) =====
+SWORD,SilverDragonAssassinPickaxe,silver_dragon_assassin_pickaxe,银龙刺客之击,5,"50,100,500,1000,1500",0.35,"0.02,0.05,0.08,0.12,0.2",,,,,,"6,18,29,36,80",0.08,,,,,,,,"50,100,150,200,250"
+BOW,INaRiBow,inari_bow,稻荷神,5,"48,95,475,950,1425",0.35,"0.02,0.05,0.08,0.12,0.2",,,,,,"6,18,29,36,80",,,,,,,,"50,100,150,200,250"
+SCEPTRE,DeepSeaLegendary,deep_sea_legendary,深海神话,5,,,,,"240,480,2400,4800,7200","10,15,20,25,30","0.1,0.15,0.2,0.25,0.3",,,,,,"6,18,29,36,80",,,,,,"50,100,150,200,250"
+# ===== SOUL (Lv 260) =====
+SWORD,SoulSword,soulsword,隙石尖刃,1,2088,0.4,0.55,,,,,,12,0.04,,,,,,,,260
+BOW,SoulBow,soulbow,隙石锻弓,1,1984,0.2,1.05,,,,,,12,,,,,,,,260
+SCEPTRE,SoulSceptre,soulsceptre,隙石权杖,1,,,,4594,15,,,,,,12,,,,,,,260
+# ===== SAKURA / SHIP (Lv 132-140) =====
+SWORD,SakuraSword,sakura_sword,妖刀-樱,1,434,0.3,,,,,,,18,0.08,,,,,,life,1.25,132
+BOW,SakuraBow,sakura_bow,妖弓-樱,1,412,0.25,,,,,,,18,,,,,,,life,1.0,132
+SWORD,ShipSword,ship_sword,船厂遗锚,1,484,0.3,,,,,,,22,0.08,,,,,,water,1.0,140
+BOW,ShipBow,ship_bow,普朗克之弓,1,460,0.25,,,,,,,22,,,,,,,water,1.0,140
+SCEPTRE,ShipSceptre,ship_sceptre,唤潮之杖,1,,,,1065,20,0.2,,,,,22,,,,water,1.0,140

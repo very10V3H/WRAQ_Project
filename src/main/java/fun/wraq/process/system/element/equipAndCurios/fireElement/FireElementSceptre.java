@@ -10,6 +10,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.particles.ModParticles;
@@ -49,9 +50,9 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
         List<fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.IgniteMob> list = fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword.playerIgniteMobMap.get(player);
         list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
         if (list.size() > 0)
-            Compute.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_SCEPTRE.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
+            BuffSystem.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_SCEPTRE.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
         else
-            Compute.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_SCEPTRE.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
+            BuffSystem.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_SCEPTRE.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
     }
 
     public static void PlayerIgniteMobEffect(Player player, Mob mob) {

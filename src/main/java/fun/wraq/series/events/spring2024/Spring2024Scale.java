@@ -5,6 +5,7 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
@@ -61,7 +62,7 @@ public class Spring2024Scale extends Item implements ActiveItem {
         int tickCount = Tick.get();
         Utils.SpringScaleTime.put(player, tickCount + 1200);
         Utils.SpringScaleEffect.put(player, tier);
-        Compute.sendEffectLastTime(player, SpecialEventItems.SCALE_0.get().getDefaultInstance(), 1200);
+        BuffSystem.sendEffectLastTime(player, SpecialEventItems.SCALE_0.get().getDefaultInstance(), 1200);
         Compute.playerItemCoolDown(player, SpecialEventItems.SCALE_0.get(), 60);
         Compute.playerItemCoolDown(player, SpecialEventItems.SCALE_1.get(), 60);
         Compute.playerItemCoolDown(player, SpecialEventItems.SCALE_2.get(), 60);

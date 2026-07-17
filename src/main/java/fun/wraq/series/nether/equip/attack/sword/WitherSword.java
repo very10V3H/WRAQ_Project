@@ -12,6 +12,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -71,7 +72,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
         player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_3.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        Compute.sendEffectLastTime(player, ModItems.WITHER_SWORD_0.get().getDefaultInstance(), 240);
+        BuffSystem.sendEffectLastTime(player, ModItems.WITHER_SWORD_0.get().getDefaultInstance(), 240);
         if (player.getHealth() <= player.getMaxHealth() * 0.3f) {
             player.kill();
             Compute.formatBroad(player.level(), Component.literal("死亡").withStyle(ChatFormatting.RED),

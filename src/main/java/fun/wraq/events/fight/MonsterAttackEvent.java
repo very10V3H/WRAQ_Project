@@ -21,6 +21,7 @@ import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.teamInstance.instances.spring.SpringSnakeInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnWithstandDamage;
@@ -208,7 +209,7 @@ public class MonsterAttackEvent {
     public static void mineShield(Player player) {
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MINE_SHIELD.get())) {
             Utils.MineShieldEffect.put(player, Tick.get() + 100);
-            Compute.sendEffectLastTime(player, ModItems.ORE_RUNE.get().getDefaultInstance(), 100);
+            BuffSystem.sendEffectLastTime(player, ModItems.ORE_RUNE.get().getDefaultInstance(), 100);
         }
     }
 }

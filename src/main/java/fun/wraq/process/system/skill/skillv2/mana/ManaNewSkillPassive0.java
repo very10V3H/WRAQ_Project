@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2PassiveSkill;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -41,7 +42,7 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
             int count = mobCountMap.getOrDefault(mob, 0);
             count = Math.min(maxCount, count + addCount);
             mobCountMap.put(mob, count);
-            Compute.sendMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(),
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(),
                     ICON_TAG, 8888, count, true);
         }
     }
@@ -61,10 +62,10 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
                 mobCountMap.compute(mob, (k, v) -> v == null ? 0 : v - 1);
                 int count = mobCountMap.get(mob);
                 if (count > 0) {
-                    Compute.sendMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(), ICON_TAG,
+                    BuffSystem.sendMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(), ICON_TAG,
                             8888, count, true);
                 } else {
-                    Compute.removeMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(), ICON_TAG);
+                    BuffSystem.removeMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(), ICON_TAG);
                 }
                 SkillV2 manaFinalSkill = getPlayerCurrentSkillByType(player, 4);
                 if (manaFinalSkill instanceof ManaNewSkillFinal0) {

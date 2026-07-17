@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter1.plain;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
@@ -55,7 +56,7 @@ public class PlainSuitDescription {
         }
 
         String crestName = "[平原纹章]";
-        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+        if (WraqCurios.CuriosAttribute.getClientCuriosSet(player)
                 .stream().anyMatch(item -> item instanceof PlainCrest)) {
             components.add(Component.literal(crestName).withStyle(mainStyle));
             count++;

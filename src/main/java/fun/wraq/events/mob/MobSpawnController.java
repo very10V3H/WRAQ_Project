@@ -2,6 +2,7 @@ package fun.wraq.events.mob;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.util.MobAttrCsvLoader;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
@@ -44,6 +45,31 @@ public abstract class MobSpawnController {
     public boolean spawnFlag = false;
     public Vec3 averagePos;
     public Set<Vec3> spawnedPos = new HashSet<>();
+    public Map<Vec3, RateAttr> posToAttrAndDropMap = new HashMap<>();
+
+    public static class RateAttr {
+
+        // 生成等级
+        public int xpLevel;
+
+        // 属性倍率
+        public double attributesRate;
+
+        // 掉落物数量倍率
+        public double dropRate;
+
+        public RateAttr(int xpLevel, double attributesRate, double dropRate) {
+            this.xpLevel = xpLevel;
+            this.attributesRate = attributesRate;
+            this.dropRate = dropRate;
+        }
+
+        public RateAttr(int xpLevel) {
+            this.xpLevel = xpLevel;
+            this.attributesRate = 1;
+            this.dropRate = 1;
+        }
+    }
 
     public record Boundary(Vec3 upPos, Vec3 downPos) {
     }
@@ -82,6 +108,10 @@ public abstract class MobSpawnController {
             averageY /= canSpawnPos.size();
             averageZ /= canSpawnPos.size();
             averagePos = new Vec3(averageX, averageY, averageZ);
+        }
+
+        if (level != null && !level.isClientSide) {
+            fun.wraq.process.system.afk.AfkSystem.register(this);
         }
     }
 
@@ -149,6 +179,22 @@ public abstract class MobSpawnController {
                 -Integer.MAX_VALUE, -Integer.MAX_VALUE, -Integer.MAX_VALUE, 2, detectionRange,
                 level, mobPlayerRate, averageLevel);
         this.multiBoundaryList = multiBoundaryList;
+    }
+
+    public MobSpawnController(Component mobName, Map<Vec3, RateAttr> attrAndDropRateMap,
+                              Level level, List<Boundary> multiBoundaryList) {
+        this(mobName, attrAndDropRateMap.keySet().stream().toList(),
+                attrAndDropRateMap.size() * 3, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
+                -Integer.MAX_VALUE, -Integer.MAX_VALUE, -Integer.MAX_VALUE, 2, 16,
+                level, 1, -1);
+        this.posToAttrAndDropMap = attrAndDropRateMap;
+        this.multiBoundaryList = multiBoundaryList;
+
+        Map<Integer, Double> dropRateMap = new HashMap<>();
+        for (Map.Entry<Vec3, RateAttr> entry : attrAndDropRateMap.entrySet()) {
+            dropRateMap.put(entry.getValue().xpLevel, entry.getValue().dropRate);
+        }
+        MobSpawn.MobBaseAttributes.mobXpDropRateMap.put(mobName.getString(), dropRateMap);
     }
 
     public void handleTick() {
@@ -256,10 +302,29 @@ public abstract class MobSpawnController {
         if (canSpawnPos.size() == 1) {
             summonTimes = 3 + playerList.size();
         }
+        Random r = new Random();
         for (int i = 0; i < summonTimes; i++) {
             Mob mob = this.mobItemAndAttributeSet();
+
+            int xpLevel = Math.max(1, averageLevel + 5 - r.nextInt(11));
+            // 设置等级
+            if (!posToAttrAndDropMap.isEmpty()) {
+                xpLevel = posToAttrAndDropMap.get(pos).xpLevel;
+            }
+            MobSpawn.setMobCustomName(mob, mobName, xpLevel);
+
+            // 设置属性
+            double attributeRate = posToAttrAndDropMap.isEmpty() ? 1 : posToAttrAndDropMap.get(pos).attributesRate;
+            MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes(), attributeRate);
+
+            // 设置掉落
+            MobSpawn.dropList.put(MobSpawn.getMobOriginName(mob), getDropList());
+            if (!getDropList(xpLevel).isEmpty()) {
+                MobSpawn.dropList.put(mob.getName().getString(), getDropList(xpLevel));
+            }
+
+            /*applyCsvAttributes(mob, playerList.size());*/
             DragonBoatFes.handleOnMobSpawn(mob);
-            Random r = new Random();
             Vec3 offset = Vec3.ZERO;
             if (summonOffset > 0) {
                 offset = new Vec3(
@@ -294,6 +359,15 @@ public abstract class MobSpawnController {
         return null;
     }
 
+    /** Apply CSV attributes to a spawned mob, overriding hardcoded values if a CSV entry exists */
+    private void applyCsvAttributes(Mob mob, int playerCount) {
+        String originName = MobSpawn.getMobOriginName(mob);
+        MobAttributes csvAttrs = MobAttrCsvLoader.getScaledMobAttributes(originName, playerCount);
+        if (csvAttrs != null) {
+            MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, csvAttrs);
+        }
+    }
+
     // 生成怪物
     public abstract Mob mobItemAndAttributeSet();
 
@@ -302,7 +376,13 @@ public abstract class MobSpawnController {
 
     }
 
-    public abstract List<ItemAndRate> getDropList();
+    public List<ItemAndRate> getDropList() {
+        return List.of();
+    }
+
+    public List<ItemAndRate> getDropList(int xpLevel) {
+        return List.of();
+    }
 
     public abstract String getKillCountDataKey();
 

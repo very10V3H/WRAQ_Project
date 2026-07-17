@@ -11,6 +11,8 @@ import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.*;
+import fun.wraq.common.util.CsvAttributeLoader;
+import fun.wraq.common.util.MobAttrCsvLoader;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.customized.UniformItems;
@@ -25,6 +27,9 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.backpack.BackpackFileManager;
+import fun.wraq.process.system.backpack.BackpackMenuTypes;
+import fun.wraq.process.system.backpack.BackpackScreen;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
@@ -163,6 +168,7 @@ public class VMD {
         ModSounds.register(modEvenBus);
         ModEffects.register(modEvenBus);
         ModMenuTypes.register(modEvenBus);
+        BackpackMenuTypes.register(modEvenBus);
         ModBlockEntities.Register(modEvenBus);
         modEvenBus.addListener(this::Attribute);
         ModPotions.register(modEvenBus);
@@ -178,6 +184,7 @@ public class VMD {
         RandomEventsHandler.server = event.getServer();
         MarketInfo.marketItemInfoRead(event.getServer().overworld());
         MarketInfo.marketProfitInfoRead(event.getServer().overworld());
+        BackpackFileManager.init(event.getServer());
     }
 
     @SubscribeEvent
@@ -199,6 +206,7 @@ public class VMD {
         NewTeamInstanceHandler.getInstances().forEach(NewTeamInstance::clear);
         SkillV2.playerSkillV2AllowReleaseTickMap.clear();
         SecretChest.onServerStop();
+        BackpackFileManager.shutdown();
         LogUtils.getLogger().info("VMD stopping event done.");
     }
 
@@ -208,6 +216,8 @@ public class VMD {
         replaceAttributeValue((RangedAttribute) Attributes.ARMOR, Double.MAX_VALUE);
         replaceAttributeValue((RangedAttribute) Attributes.ARMOR_TOUGHNESS, Double.MAX_VALUE);
         Utils.Init();
+        CsvAttributeLoader.processAll();
+        MobAttrCsvLoader.load();
         ForgeRecipe.forgeDrawRecipeInit();
         ForgeEquipUtils.setZoneForgeItemListMap();
     }
@@ -219,6 +229,7 @@ public class VMD {
         MenuScreens.register(ModMenuTypes.INJECT_BLOCK_MENU.get(), InjectBlockScreen::new);
         MenuScreens.register(ModMenuTypes.Furnace_Menu.get(), FurnaceScreen::new);
         MenuScreens.register(ModMenuTypes.PET_MENU.get(), PetScreen::new);
+        MenuScreens.register(BackpackMenuTypes.BACKPACK_MENU.get(), BackpackScreen::new);
 
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 new ResourceLocation(Utils.MOD_ID, "animation"),

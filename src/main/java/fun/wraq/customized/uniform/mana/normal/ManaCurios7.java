@@ -1,12 +1,12 @@
 package fun.wraq.customized.uniform.mana.normal;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.ModifySkillDamageRateCurios;
 import fun.wraq.common.impl.onhit.OnHitEffectCurios;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -60,14 +60,14 @@ public class ManaCurios7 extends WraqManaUniformCurios implements OnHitEffectCur
     public void onHit(Player player, Mob mob) {
         if (targetMap.containsKey(Name.get(player)) && !targetMap.get(Name.get(player)).equals(mob)) {
             countMap.put(Name.get(player), 0);
-            Compute.sendEffectLastTime(player, this,
+            BuffSystem.sendEffectLastTime(player, this,
                     countMap.getOrDefault(Name.get(player), 0), true);
         }
         if (Tick.get() >= nextAllowGetCountTickMap.getOrDefault(Name.get(player), 0)) {
             targetMap.put(Name.get(player), mob);
             nextAllowGetCountTickMap.put(Name.get(player), Tick.get() + 10);
             countMap.compute(Name.get(player), (k, v) -> v == null ? 1 : v + 1);
-            Compute.sendEffectLastTime(player, this,
+            BuffSystem.sendEffectLastTime(player, this,
                     countMap.getOrDefault(Name.get(player), 0), true);
         }
     }

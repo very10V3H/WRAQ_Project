@@ -7,6 +7,7 @@ import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.bonuschest.BonusChestContent;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -65,7 +66,7 @@ public class RestZone {
 
                 Random random = new Random();
                 // 奖励 给予经验 + vb奖励 + 随机物品奖励
-                Compute.givePercentExpToPlayer(serverPlayer, 0.02, 0, serverPlayer.experienceLevel);
+                MyExpSystem.givePercentExpToPlayer(serverPlayer, 0.02, 0, serverPlayer.experienceLevel);
                 Compute.VBIncomeAndMSGSend(serverPlayer, 12);
                 if (random.nextDouble() < 0.2) {
                     List<Pair<ItemStack, Integer>> bonusContent = BonusChestContent.getBonusContent(1);

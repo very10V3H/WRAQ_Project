@@ -1,9 +1,9 @@
 package fun.wraq.series.overworld.extraordinary.curio;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -47,8 +47,8 @@ public class TianShou extends WraqCurios {
 
     @Override
     public void tick(Player player) {
-        if (Compute.playerIsInBattle(player) && player.getHealth() == player.getMaxHealth()) {
-            Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.4, 0.1);
+        if (Damage.playerIsInBattle(player) && player.getHealth() == player.getMaxHealth()) {
+            Damage.decreasePlayerHealth(player, player.getMaxHealth() * 0.4, 0.1);
         }
         super.tick(player);
     }

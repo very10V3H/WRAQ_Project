@@ -18,8 +18,10 @@ import fun.wraq.process.func.PersistentRangeEffectOperation;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.reason.Reason;
+import fun.wraq.process.system.reputation.ReputationSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import net.minecraft.ChatFormatting;
@@ -76,7 +78,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
             sendMSG(player, Te.s("需要至少", "20理智", "才能获取奖励."));
             return;
         }
-        if (Compute.getPlayerReputation(player) < 40) {
+        if (ReputationSystem.getPlayerReputation(player) < 40) {
             sendMSG(player, Te.s("需要至少", "40声望", "才能获得奖励."));
             return;
         }
@@ -85,7 +87,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
             return;
         }
         Reason.addOrCostPlayerReasonValue(player, -20);
-        Compute.addOrCostReputation(player, -40);
+        ReputationSystem.addOrCostReputation(player, -40);
         InventoryOperation.removeItem(player, SuperColdItems.SUPER_COLD_CRYSTAL.get(), 1);
         InventoryOperation.giveItemStackWithMSG(player, SuperColdItems.SUPER_COLD_DRAGON_LOTTERY.get());
     }
@@ -130,7 +132,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
         }
         super.handleMobTick(mob);
         players.forEach(player -> {
-            Compute.sendEffectLastTime(player, SuperColdItems.SUPER_COLD_STONE.get(),
+            BuffSystem.sendEffectLastTime(player, SuperColdItems.SUPER_COLD_STONE.get(),
                     (int) (damageCount.getOrDefault(Name.get(player), 0d) * 100 / MAX_HEALTH), true);
         });
     }
@@ -138,7 +140,7 @@ public class IceDragonSpawnController extends JungleMobSpawnController {
     @Override
     public void clear() {
         players.forEach(player -> {
-            Compute.removeEffectLastTime(player, SuperColdItems.SUPER_COLD_STONE.get());
+            BuffSystem.removeEffectLastTime(player, SuperColdItems.SUPER_COLD_STONE.get());
         });
         super.clear();
     }

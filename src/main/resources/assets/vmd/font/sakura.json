@@ -1,0 +1,11 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "vmd:item/sakura.png",
+      "ascent": 16,
+      "height": 16,
+      "chars": ["\uE000"]
+    }
+  ]
+}

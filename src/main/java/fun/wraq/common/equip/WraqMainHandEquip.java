@@ -9,6 +9,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.CsvAttributeLoader;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -42,6 +43,7 @@ public abstract class WraqMainHandEquip extends SwordItem {
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
+        CsvAttributeLoader.trackWeapon(this);
     }
 
     public abstract Style getMainStyle();

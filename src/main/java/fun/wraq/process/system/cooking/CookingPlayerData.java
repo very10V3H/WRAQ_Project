@@ -1,9 +1,9 @@
 package fun.wraq.process.system.cooking;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.cooking.network.CookingDataS2CPacket;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -16,7 +16,7 @@ public class CookingPlayerData {
 
     public static final String COOKING_DATA_KEY = "CookingData";
     public static CompoundTag getData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, COOKING_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, COOKING_DATA_KEY);
     }
 
     public static void incrementTimesCount(Player player, String dataKey, int count) {

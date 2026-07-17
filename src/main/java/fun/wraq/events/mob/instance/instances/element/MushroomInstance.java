@@ -174,7 +174,7 @@ public class MushroomInstance extends NoTeamInstance {
         List<Player> playerList = players.stream().toList();
         if (playerList.isEmpty()) return;
         Player randomPlayer = playerList.get(RandomUtils.nextInt(0, playerList.size()));
-        Compute.createRangeEffectDot(boss, randomPlayer.position(), 5, ((mob, player) -> {
+        Damage.createRangeEffectDot(boss, randomPlayer.position(), 5, ((mob, player) -> {
             Damage.causeManaDamageToPlayer(mob, player, 10000, 0, 100);
         }), CustomStyle.MUSHROOM_STYLE, 5, 40);
     }

@@ -17,6 +17,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +34,7 @@ import java.util.*;
 public class MissionV2Helper {
     public static final String MISSION_V2_DATA_KEY = "MissionV2Data";
     public static CompoundTag getMissionV2Data(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, MISSION_V2_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, MISSION_V2_DATA_KEY);
     }
 
     public static final String MISSION_V2_STATUS_KEY = "MissionV2Status";

@@ -7,6 +7,8 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -41,6 +43,26 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
         }
         Utils.attackDamage.put(this, 50d);
         Utils.levelRequire.put(this, 72);
+    }
+
+    public static double SkySuitEffectRate(Player player) {
+        int Count = SuitCount.getSkySuitCount(player);
+        switch (Count) {
+            case 1 -> {
+                return 0.2;
+            }
+            case 2 -> {
+                return 0.5;
+            }
+            case 3 -> {
+                return 0.7;
+            }
+            case 4 -> {
+                return 1;
+            }
+        }
+        return 0;
+
     }
 
     @Override
@@ -97,7 +119,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
         } else {
             effectTier = 1;
         }
-        Compute.sendEffectLastTime(player, ModItems.SKY_HELMET.get(), effectTier, true);
+        BuffSystem.sendEffectLastTime(player, ModItems.SKY_HELMET.get(), effectTier, true);
         super.tick(player);
     }
 }

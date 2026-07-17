@@ -1,6 +1,7 @@
 package fun.wraq.series.worldsoul;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.util.SkillDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -30,7 +31,7 @@ public class SkillReset extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            Compute.resetSkillAndAbility(player);
+            SkillDataUtil.resetSkillAndAbility(player);
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);

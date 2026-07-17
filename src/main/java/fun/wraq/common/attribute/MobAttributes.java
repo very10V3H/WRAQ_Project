@@ -47,7 +47,8 @@ public class  MobAttributes {
 
     public static double defence(Mob mob) {
         int tickCount = Tick.get();
-        double defence = MobSpawn.MobBaseAttributes.defence.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double defence = MobSpawn.MobBaseAttributes.defence.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.defence.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exDefence = 0;
         double rate = 1;
         // 固定
@@ -75,7 +76,8 @@ public class  MobAttributes {
 
     public static double manaDefence(Mob mob) {
         int tick = Tick.get();
-        double defence = MobSpawn.MobBaseAttributes.manaDefence.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double defence = MobSpawn.MobBaseAttributes.manaDefence.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.manaDefence.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exDefence = 0;
         double rate = 1;
         exDefence += defence * EarthPower.MobManaDefenceDecrease(mob); // 地蕴法术
@@ -95,37 +97,43 @@ public class  MobAttributes {
     }
 
     public static double attackDamage(Mob mob) {
-        double baseValue = MobSpawn.MobBaseAttributes.attackDamage.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double baseValue = MobSpawn.MobBaseAttributes.attackDamage.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.attackDamage.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exValue = 0;
-        return (baseValue + exValue) * 2;
+        return baseValue + exValue;
     }
 
     public static double critRate(Mob mob) {
-        double baseValue = MobSpawn.MobBaseAttributes.critRate.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double baseValue = MobSpawn.MobBaseAttributes.critRate.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.critRate.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exValue = 0;
         return baseValue + exValue;
     }
 
     public static double defencePenetration(Mob mob) {
-        double baseValue = MobSpawn.MobBaseAttributes.defencePenetration.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double baseValue = MobSpawn.MobBaseAttributes.defencePenetration.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.defencePenetration.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exValue = 0;
         return baseValue + exValue;
     }
 
     public static double defencePenetration0(Mob mob) {
-        double baseValue = MobSpawn.MobBaseAttributes.defencePenetration0.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double baseValue = MobSpawn.MobBaseAttributes.defencePenetration0.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.defencePenetration0.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exValue = 0;
         return baseValue + exValue;
     }
 
     public static double healthSteal(Mob mob) {
-        double baseValue = MobSpawn.MobBaseAttributes.healthSteal.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double baseValue = MobSpawn.MobBaseAttributes.healthSteal.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.healthSteal.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exValue = 0;
         return baseValue + exValue;
     }
 
     public static double critDamage(Mob mob) {
-        double baseValue = MobSpawn.MobBaseAttributes.critDamage.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
+        double baseValue = MobSpawn.MobBaseAttributes.critDamage.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.critDamage.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exValue = 0;
         return baseValue + exValue;
     }

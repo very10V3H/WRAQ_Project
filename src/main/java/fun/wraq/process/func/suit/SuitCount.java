@@ -1,6 +1,6 @@
 package fun.wraq.process.func.suit;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
@@ -36,7 +36,7 @@ public class SuitCount {
 
     public static int getPlainSuitCount(Player player) {
         int count = getPlainSuitCountWithoutCrest(player);
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof PlainCrest)) {
             count ++;
         }
@@ -54,7 +54,7 @@ public class SuitCount {
 
     public static int getForestSuitCount(Player player) {
         int count = getForestSuitCountWithoutCrest(player);
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof ForestCrest)) {
             count ++;
         }
@@ -72,7 +72,7 @@ public class SuitCount {
 
     public static int getLakeSuitCount(Player player) {
         int count = getLakeSuitCountWithoutCrest(player);
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof LakeCrest)) {
             count ++;
         }
@@ -90,7 +90,7 @@ public class SuitCount {
 
     public static int getVolcanoSuitCount(Player player) {
         int count = getVolcanoCountWithoutCrest(player);
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof VolcanoCrest)) {
             count ++;
         }
@@ -112,7 +112,7 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LIFE_MANA_CHEST.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LIFE_MANA_LEGGINGS.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LIFE_MANA_BOOTS.get())) count++;
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof ManaCrest)) {
             count ++;
         }
@@ -135,7 +135,7 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.OBSI_MANA_CHEST.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.OBSI_MANA_LEGGINGS.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.OBIS_MANA_BOOTS.get())) count++;
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof ManaCrest)) {
             count ++;
         }
@@ -158,7 +158,7 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.MINE_CHEST.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MINE_LEGGINGS.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.MINE_BOOTS.get())) count++;
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof MineCrest)) {
             count ++;
         }
@@ -171,7 +171,7 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SNOW_CHEST.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SNOW_LEGGINGS.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SNOW_BOOTS.get())) count++;
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof SnowCrest)) {
             count ++;
         }
@@ -184,7 +184,7 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SKY_CHEST.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SKY_LEGGINGS.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SKY_BOOTS.get())) count++;
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof SkyCrest)) {
             count ++;
         }

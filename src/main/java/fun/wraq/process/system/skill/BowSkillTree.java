@@ -1,6 +1,5 @@
 package fun.wraq.process.system.skill;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.PlayerHashMap;
 import fun.wraq.common.fast.PlayerIntegerHashMap;
 import fun.wraq.common.fast.Tick;
@@ -8,6 +7,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.StableTierAttributeModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +50,7 @@ public class BowSkillTree {
         double rate = 0.3 * tier
                 * Math.min(1, (Tick.get() - skillIndex14RecordMap.getOrDefault(player, 0) - 10) / 20);
         skillIndex14RecordMap.put(player, Tick.get());
-        Compute.sendCoolDownTime(player, "skills/bow/bow_6_3", 20);
+        BuffSystem.sendCoolDownTime(player, "skills/bow/bow_6_3", 20);
         return Math.max(0, rate);
     }
 

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git stash *)",
+      "Bash(javac -version)",
+      "Bash(./gradlew.bat compileJava)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(jar tf *)",
+      "Bash(java -jar \"/c/Users/Administrator/.gradle/caches/modules-2/files-2.1/top.theillusivec4.curios/curios-forge/5.9.0+1.20.1/4f31b73c1a6b9e24ad3d41edc02c8b5c60cd64e4/curios-forge-5.9.0+1.20.1.jar\")",
+      "Bash(unzip -l \"/c/Users/Administrator/.gradle/caches/modules-2/files-2.1/top.theillusivec4.curios/curios-forge/5.9.0+1.20.1/4f31b73c1a6b9e24ad3d41edc02c8b5c60cd64e4/curios-forge-5.9.0+1.20.1.jar\")",
+      "Bash(javap -cp curios-forge-5.9.0+1.20.1.jar -verbose -p top.theillusivec4.curios.api.type.util.ISlotHelper)",
+      "Bash(javap -cp curios-forge-5.9.0+1.20.1.jar -verbose -p top.theillusivec4.curios.api.CuriosApi)",
+      "Bash(unzip -p \"/c/Users/Administrator/.gradle/caches/modules-2/files-2.1/top.theillusivec4.curios/curios-forge/5.9.0+1.20.1/ed9caabc7bcc0803bdd34cd1f50dbde706a4eb93/curios-forge-5.9.0+1.20.1-api.jar\")",
+      "Bash(unzip -p curios-forge-5.9.0+1.20.1.jar top/theillusivec4/curios/api/CuriosApi.class)",
+      "Bash(unzip -l \"/c/Users/Administrator/.gradle/caches/forge_gradle/maven_downloader/top/theillusivec4/curios/curios-forge/5.9.0+1.20.1/curios-forge-5.9.0+1.20.1-sources.jar\")",
+      "Bash(unzip *)"
+    ]
+  }
+}

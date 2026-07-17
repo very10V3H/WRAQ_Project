@@ -11,6 +11,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ElementEffectTimeS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.ElementParticle.*;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.season.MySeason;
@@ -431,7 +432,7 @@ public class Element {
     }
 
     public static void resonance(Player player, String type) {
-        if (Compute.playerIsInBattle(player) && !DivineArmorCommon.isWearingDivineArmor(player)) {
+        if (Damage.playerIsInBattle(player) && !DivineArmorCommon.isWearingDivineArmor(player)) {
             Compute.sendFormatMSG(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("请脱离战斗状态后重试").withStyle(ChatFormatting.WHITE));
             return;
@@ -462,7 +463,7 @@ public class Element {
                 Component.literal("共鸣").withStyle(CustomStyle.styleOfMoon).
                         append(Component.literal("类型已变更为 ").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(nameMap.get(type))).withStyle(styleMap.get(type)));
-        if (Compute.playerIsInBattle(player)) {
+        if (Damage.playerIsInBattle(player)) {
             Compute.setPlayerShortTitleAndSubTitle(player, Te.s(nameMap.get(type), styleMap.get(type)),
                     Te.s(componentMap.get(type), styleMap.get(type)));
         } else {

@@ -17,6 +17,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -116,7 +117,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
                         Tick.get() + Tick.s(10), ModItems.MOON_SWORD.get());
             }
         }));
-        Compute.sendEffectLastTime(player, ModItems.MOON_SWORD.get().getDefaultInstance(), 8888, 0, true);
+        BuffSystem.sendEffectLastTime(player, ModItems.MOON_SWORD.get().getDefaultInstance(), 8888, 0, true);
     }
 
     @Override
@@ -128,7 +129,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
     public void onHit(Player player, Mob mob) {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
-                .forEach(mob1 -> Compute.causeGatherEffect(mob1, 2, mob.position()));
+                .forEach(mob1 -> BuffSystem.causeGatherEffect(mob1, 2, mob.position()));
     }
 
     @Override

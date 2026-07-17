@@ -10,6 +10,7 @@ import fun.wraq.core.bow.MyArrow;
 import fun.wraq.core.bow.MyArrowHitBlock;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -36,7 +37,7 @@ public class BowNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Allow
     @Override
     protected void releaseOperation(Player player) {
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
-        Compute.sendEffectLastTime(player, getTexture1Url(), 0, true);
+        BuffSystem.sendEffectLastTime(player, getTexture1Url(), 0, true);
         nextHitEffectMap.put(Name.get(player), new MyArrowHitBlock() {
             @Override
             public void onHit(MyArrow myArrow) {
@@ -53,7 +54,7 @@ public class BowNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Allow
                             + (FrameArrow.enhanceBowSkillV2_2(player) ? 1 : 0)) * (1 + getEnhanceRate(player)));
                     SuperColdDragonWeaponCommon.addImprisonEffectToMob(player, eachMob);
                 });
-                Compute.removeEffectLastTime(player, getTexture1Url());
+                BuffSystem.removeEffectLastTime(player, getTexture1Url());
             }
         });
     }

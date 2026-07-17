@@ -26,7 +26,7 @@ public class TraditionalTooltip implements ClientTooltipComponent {
 
     @Override
     public int getWidth(Font font) {
-        return 10;
+        return font.width(myTooltip.component);
     }
 
     @Override

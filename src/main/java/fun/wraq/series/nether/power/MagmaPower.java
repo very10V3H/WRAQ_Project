@@ -1,12 +1,12 @@
 package fun.wraq.series.nether.power;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import net.minecraft.ChatFormatting;
@@ -67,11 +67,11 @@ public class MagmaPower extends WraqPower {
     @Override
     public void release(Player player) {
         playerItemCoolDown(player, this, 3);
-        Compute.sendEffectLastTime(player, this, 0, true);
+        BuffSystem.sendEffectLastTime(player, this, 0, true);
         EnhanceNormalAttackModifier.addModifier(player,
                 new EnhanceNormalAttackModifier("MagmaPowerAttack", 2, ((player1, mob) -> {
                     onHit(player, mob, damageRate[tier]);
-                    Compute.removeEffectLastTime(player, this);
+                    BuffSystem.removeEffectLastTime(player, this);
                 })));
     }
 

@@ -11,6 +11,7 @@ import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.newarea.NewAreaItems;
@@ -127,7 +128,7 @@ public class StoneSpiderSpawnController extends MobSpawnController {
     public static void skill1(Mob mob) {
         Player player = Compute.getNearestPlayer(mob, 24);
         if (player != null) {
-            Compute.causeGatherEffect(player, 10, mob.position());
+            BuffSystem.causeGatherEffect(player, 10, mob.position());
         }
     }
 

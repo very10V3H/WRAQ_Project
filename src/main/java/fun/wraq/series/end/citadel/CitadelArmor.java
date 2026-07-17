@@ -1,6 +1,5 @@
 package fun.wraq.series.end.citadel;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
@@ -8,6 +7,7 @@ import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -83,7 +83,7 @@ public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttrib
         if (player.isShiftKeyDown()) {
             player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 10));
             if (player.tickCount % 10 == 0) {
-                Compute.sendEffectLastTime(player, "item/citadel_armor_enhancer", 20, 0, false);
+                BuffSystem.sendEffectLastTime(player, "item/citadel_armor_enhancer", 20, 0, false);
             }
         }
         super.tick(player);

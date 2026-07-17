@@ -1,6 +1,5 @@
 package fun.wraq.series.events.midautumn;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -9,6 +8,7 @@ import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -41,7 +41,7 @@ public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillE
         Random random = new Random();
         if (random.nextDouble() <= rate[tier]) {
             mob.addEffect(new MobEffectInstance(MobEffects.LEVITATION, (int) (seconds[tier] * 20)));
-            Compute.sendMobEffectHudToNearPlayer(mob, this,
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, this,
                     "moonFeatherPassiveLevitationEffect", (int) (seconds[tier] * 20), 0, false);
         }
     }
@@ -53,7 +53,7 @@ public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillE
                     new StableAttributesModifier("moonFeatherPassiveEffect", rate[tier], Tick.get() + 200));
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCommonDamageEnhance,
                     new StableAttributesModifier("moonFeatherPassiveEffect", rate[tier], Tick.get() + 200));
-            Compute.sendEffectLastTime(player, this, 200);
+            BuffSystem.sendEffectLastTime(player, this, 200);
         }
     }
 

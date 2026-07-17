@@ -7,6 +7,8 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -82,8 +84,8 @@ public class SoulSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 60)) {
-            Compute.sendEffectLastTime(player, ModItems.SOUL_SWORD.get().getDefaultInstance(), 8888, 0, true);
+        if (Mana.playerManaCost(player, 60)) {
+            BuffSystem.sendEffectLastTime(player, ModItems.SOUL_SWORD.get().getDefaultInstance(), 8888, 0, true);
             Utils.SoulSwordMap.put(player, true);
         }
     }

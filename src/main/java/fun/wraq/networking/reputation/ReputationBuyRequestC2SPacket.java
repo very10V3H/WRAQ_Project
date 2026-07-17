@@ -5,6 +5,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.reputation.ReputationSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -44,7 +45,7 @@ public class ReputationBuyRequestC2SPacket {
             }
             Item item = Utils.ReputationStoreItemList.get(index);
             int Price = Utils.ReputationStorePrice.get(item);
-            if (Compute.addOrCostReputation(serverPlayer, -Price)) {
+            if (ReputationSystem.addOrCostReputation(serverPlayer, -Price)) {
                 ItemStack itemStack = item.getDefaultInstance();
                 if (item.equals(ModItems.NOTE_PAPER.get())) {
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, itemStack);

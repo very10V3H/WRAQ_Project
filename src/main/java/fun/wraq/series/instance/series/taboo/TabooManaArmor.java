@@ -10,6 +10,7 @@ import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -80,7 +81,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
         List<NearCostMana> list = nearCostListMap.get(player);
         list.add(new NearCostMana(Tick.get() + 100, costManaValue));
         if (Math.abs(getStoredTotalValue(player) * 0.04) >= 1) {
-            Compute.sendEffectLastTime(player, this, 100,
+            BuffSystem.sendEffectLastTime(player, this, 100,
                     (int) (-getStoredTotalValue(player) * 0.04), false);
         }
     }

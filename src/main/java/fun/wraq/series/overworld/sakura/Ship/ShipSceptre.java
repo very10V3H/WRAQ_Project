@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -71,10 +72,10 @@ public class ShipSceptre extends WraqSceptre implements InCuriosOrEquipSlotAttri
     @Override
     public void tick(Player player) {
         if (waterBlockCount.getOrDefault(player, 0) >= 10 && player.getMainHandItem().is(this)) {
-            Compute.sendEffectLastTime(player, this, Math.min(40, waterBlockCount.getOrDefault(player, 0) / 10), true);
+            BuffSystem.sendEffectLastTime(player, this, Math.min(40, waterBlockCount.getOrDefault(player, 0) / 10), true);
         }
         else {
-            Compute.removeEffectLastTime(player, this);
+            BuffSystem.removeEffectLastTime(player, this);
         }
     }
 

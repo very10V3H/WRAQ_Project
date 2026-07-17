@@ -7,6 +7,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -96,7 +97,7 @@ public class CookingVillager {
         sendMSG(player, Te.s("五麦！你已经累计为老八做了",
                 CookingPlayerData.getEntrustmentFinishedTimesCount(player) + "次", CustomStyle.MUSHROOM_STYLE, "美味佳肴了!"));
         MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
-        Compute.givePercentExpToPlayer(player, 0.1, 0, player.experienceLevel);
+        MyExpSystem.givePercentExpToPlayer(player, 0.1, 0, player.experienceLevel);
         CookingPlayerData.sendCookingExpToClient(player);
     }
 

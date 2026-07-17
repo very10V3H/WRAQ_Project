@@ -1,6 +1,6 @@
 package fun.wraq.series.overworld.knife;
 
-import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -10,12 +10,12 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class OriginKnife extends WraqOffHandItem {
+public class OriginKnife extends WraqSword {
 
     private final Style style;
     private final Component suffix;
     public OriginKnife(Properties properties, Style style, Component suffix, int tier) {
-        super(properties, Te.s("短匕", CustomStyle.styleOfFlexible));
+        super(properties);
         this.style = style;
         this.suffix = suffix;
         Utils.attackDamage.put(this, new double[]{5, 10, 15, 20, 30, 45}[tier]);
@@ -36,5 +36,10 @@ public class OriginKnife extends WraqOffHandItem {
     @Override
     public Component getSuffix() {
         return suffix;
+    }
+
+    @Override
+    public Component getType() {
+        return Te.s("匕首", CustomStyle.styleOfFlexible);
     }
 }

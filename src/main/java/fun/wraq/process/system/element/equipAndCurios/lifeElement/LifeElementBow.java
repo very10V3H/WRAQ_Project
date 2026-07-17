@@ -8,6 +8,8 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -63,7 +65,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
     public static void Tick(Player player) {
         if (LifeElementSword.lifeElementActiveLastTick.containsKey(player) && LifeElementSword.lifeElementActiveLastTick.get(player) >= Tick.get()) {
             int tickCount = LifeElementSword.lifeElementActiveLastTick.get(player) - Tick.get();
-            Compute.sendEffectLastTime(player, ModItems.LIFE_ELEMENT_SWORD.get().getDefaultInstance(), tickCount, tickCount, true);
+            BuffSystem.sendEffectLastTime(player, ModItems.LIFE_ELEMENT_SWORD.get().getDefaultInstance(), tickCount, tickCount, true);
             Compute.playerHeal(player, LifeElementSword.lifeElementActiveHealth.get(player) * 0.01);
         }
     }
@@ -99,7 +101,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
         if (Compute.PlayerUseWithHud(player, LifeElementSword.lifeElementActiveCoolDown, this, LifeElementSword.lifeElementActiveLastTick, 100, 0, 25)) {
             Compute.playerItemCoolDown(player, this, 25);
             LifeElementSword.lifeElementActiveHealth.put(player, player.getHealth() * 0.8);
-            Compute.decreasePlayerHealth(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
+            Damage.decreasePlayerHealth(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
         }
     }
 

@@ -9,6 +9,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.network.RankChangeS2CPacket;
 import fun.wraq.process.func.rank.network.RankDataS2CPacket;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -348,8 +349,8 @@ public class RankData {
     public static final String COMPENSATE_DATA_KEY = "EntrustmentCompensate";
 
     public static void onPlayerLoginCompensate(Player player) {
-        if (!Compute.getDataBooleanValue(player, COMPENSATE_DATA_KEY)) {
-            Compute.setDataBooleanValue(player, COMPENSATE_DATA_KEY, true);
+        if (!PersistentDataUtil.getDataBooleanValue(player, COMPENSATE_DATA_KEY)) {
+            PersistentDataUtil.setDataBooleanValue(player, COMPENSATE_DATA_KEY, true);
             Compute.VBIncomeAndMSGSend(player, rankWagesMap.get(getCurrentRank(player)) * 100
                     * MobKillEntrustment.getTotalFinishedTimes(player));
             sendFormatMSG(player, Te.s("你已收到来自委托与职级的VB补偿!", CustomStyle.styleOfGold));

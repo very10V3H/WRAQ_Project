@@ -12,6 +12,7 @@ import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -77,7 +78,7 @@ public class DevilSwiftArmor extends WraqArmor implements OnKillEffectEquip, InC
         Queue<Double> q = recentKillEntityAttackDamage.get(player);
         while (q.size() >= 5) q.poll();
         q.add(MobAttributes.attackDamage(mob) * 0.3);
-        Compute.sendEffectLastTime(player, this,
+        BuffSystem.sendEffectLastTime(player, this,
                 (int) Math.min(PlayerAttributes.getBaseAttackDamage(player) * 0.35,
                         q.stream().mapToDouble(value -> value).sum()), true);
     }

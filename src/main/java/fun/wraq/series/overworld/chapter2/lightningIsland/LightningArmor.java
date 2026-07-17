@@ -14,6 +14,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -112,10 +113,10 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip, Forge
                                                 Damage.causeAutoAdaptionRateDamageToMob(player1, target, finalRate, false);
                                             });
                                 });
-                        Compute.removeEffectLastTime(player, ModItems.LIGHTNING_CHEST.get());
-                        Compute.sendCoolDownTime(player, ModItems.LIGHTNING_CHEST.get(), 80);
+                        BuffSystem.removeEffectLastTime(player, ModItems.LIGHTNING_CHEST.get());
+                        BuffSystem.sendCoolDownTime(player, ModItems.LIGHTNING_CHEST.get(), 80);
                     }));
-            Compute.sendEffectLastTime(player, ModItems.LIGHTNING_CHEST.get(), 0, true);
+            BuffSystem.sendEffectLastTime(player, ModItems.LIGHTNING_CHEST.get(), 0, true);
         }
     }
 

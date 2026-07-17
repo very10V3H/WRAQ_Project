@@ -7,6 +7,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -53,7 +54,7 @@ public class BowCurios0 extends WraqBowUniformCurios {
             return;
         }
         effectExpiredTickMap.put(Name.get(player), Tick.get() + Tick.s(3));
-        Compute.sendEffectLastTime(player, UniformItems.BOW_CURIOS_0.get().getDefaultInstance(), 60);
+        BuffSystem.sendEffectLastTime(player, UniformItems.BOW_CURIOS_0.get().getDefaultInstance(), 60);
     }
 
     public static double getArrowBaseDamageEnhanceRate(Player player) {

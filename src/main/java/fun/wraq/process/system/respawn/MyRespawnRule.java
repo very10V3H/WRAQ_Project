@@ -1,10 +1,14 @@
 package fun.wraq.process.system.respawn;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.Utils;
 import fun.wraq.items.m.NearestSpawnPointS2CPacket;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -17,6 +21,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MyRespawnRule {
+    public static void respawnPlayer(Player player) {
+        player.heal(player.getMaxHealth());
+        ServerLevel overWorld = player.level().getServer().getLevel(Level.OVERWORLD);
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        BlockPos spawnPos = serverPlayer.getRespawnPosition();
+        if (spawnPos != null) {
+            serverPlayer.teleportTo(overWorld,
+                    spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), serverPlayer.getRespawnAngle(), 0);
+        } else {
+            Compute.teleportPlayerToPos(player, Utils.RESPAWN_POS);
+        }
+    }
+
     public record SpawnPoint(Vec3 vec3, float rotX, Component zoneName) {
         public SpawnPoint(double x, double y, double z, float rotX, Component zoneName) {
             this(new Vec3(x, y, z), rotX, zoneName);
@@ -37,19 +54,7 @@ public class MyRespawnRule {
     public static Map<String, SpawnPos> playerLastOverWorldPos = new ConcurrentHashMap<>();
 
     public static List<SpawnPoint> overworldSpawnPos = new ArrayList<>() {{
-        add(new SpawnPoint(956, 232, 17, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky))); // 天空城
-        add(new SpawnPoint(756, 84, 207, 0, Component.literal("平原村").withStyle(CustomStyle.styleOfPlain))); // 平原村
-        add(new SpawnPoint(1091, 80, 40, 0, Component.literal("雨林村").withStyle(CustomStyle.styleOfForest))); // 雨林村
-        add(new SpawnPoint(889, 62, -422, 0, Component.literal("海岸村").withStyle(CustomStyle.styleOfLake))); // 海岸村
-        add(new SpawnPoint(2573, 120, -492, 0, Component.literal("火山村").withStyle(CustomStyle.styleOfVolcano))); // 火山村
-        add(new SpawnPoint(1157, 76, -1077, 0, Component.literal("薰楠村").withStyle(CustomStyle.styleOfJacaranda))); // 薰楠村
-        add(new SpawnPoint(1036, 76, -1288, 0, Component.literal("薰曦村").withStyle(CustomStyle.styleOfJacaranda))); // 薰曦村
-        add(new SpawnPoint(1329, 71, -1612, 0, Component.literal("北洋村").withStyle(CustomStyle.styleOfIce))); // 北洋村
-        add(new SpawnPoint(1911, 86, 1688, 0, Component.literal("沙岸村").withStyle(CustomStyle.styleOfHusk))); // 沙岸村
-        add(new SpawnPoint(2381, 182, 1752, 0, Component.literal("绯樱村").withStyle(CustomStyle.styleOfSakura))); // 绯樱村
-        add(new SpawnPoint(1883, 147, -461, 0, Component.literal("月影坡").withStyle(CustomStyle.styleOfMoon)));
-        add(new SpawnPoint(1921, 151, -936, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfMoontain)));
-        add(new SpawnPoint(1808, 74, 339, 90, Component.literal("旭升岛").withStyle(CustomStyle.styleOfSunIsland)));
+        add(new SpawnPoint(3925, 82, 3491, 0, Te.s("潮汐之城", CustomStyle.styleOfSky)));
     }};
 
     public static void setPlayerSpawnPoint(Player player) {

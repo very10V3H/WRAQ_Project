@@ -15,6 +15,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
@@ -141,7 +142,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                 SpecialEffectOnPlayer.addHealingReduction(player, "MoontainBoss3HealingReduction", 0.4, 100);
                 StableAttributesModifier.addM(player, StableAttributesModifier.playerMonsterControlDamageEffect,
                         "MoontainBoss3DamageControl", -0.4, Tick.get() + 100);
-                Compute.sendDebuffTime(player, "hud/damage_reduction", 100, 40, false);
+                BuffSystem.sendDebuffTime(player, "hud/damage_reduction", 100, 40, false);
                 ParticleProvider.createBreakBlockParticle(player, Blocks.DARK_PRISMARINE);
                 SpecialEffectOnPlayer.addSlowdownEffect(player, 0.6, 100, "MoontainBoss3SlowdownEffect");
             });
@@ -160,7 +161,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                                 "MoontainBoss3DefenceReduction", 100 * stage, Tick.get() + 100);
                         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceDecreaseModifier,
                                 "MoontainBoss3ManaDefenceReduction", 40 * stage, Tick.get() + 100);
-                        Compute.sendDebuffTime(player, "hud/defence_reduction", 100, stage, false);
+                        BuffSystem.sendDebuffTime(player, "hud/defence_reduction", 100, stage, false);
                     });
         }
     }

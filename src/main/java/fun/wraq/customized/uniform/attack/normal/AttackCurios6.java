@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.attack.normal;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.common.impl.withstand.ModifyPlayerWithstandDamageInfluenceCurios;
@@ -43,7 +44,7 @@ public class AttackCurios6 extends WraqAttackUniformCurios implements OnHitDamag
     }
 
     public static boolean isOn(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.ATTACK_CURIOS_6.get());
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.ATTACK_CURIOS_6.get());
     }
 
     public static boolean isSingleTarget(Mob mob) {

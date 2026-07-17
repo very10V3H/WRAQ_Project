@@ -8,6 +8,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.RandomEvent;
+import fun.wraq.process.system.reputation.ReputationSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import net.minecraft.core.BlockPos;
@@ -90,7 +91,7 @@ public class UrgentEvent extends RandomEvent {
             reward.forEach(stack -> {
                 InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
             });
-            Compute.giveReputation(player, 20, Te.s("随机事件奖励", CustomStyle.styleOfFlexible));
+            ReputationSystem.giveReputation(player, 20, Te.s("随机事件奖励", CustomStyle.styleOfFlexible));
         });
         if (!rankQueue.isEmpty()) {
             broad(Te.s("比拼谁跑得更快活动结束了，下面宣布前几名的成绩单!"));

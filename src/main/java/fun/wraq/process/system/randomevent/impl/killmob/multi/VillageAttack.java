@@ -1,9 +1,9 @@
 package fun.wraq.process.system.randomevent.impl.killmob.multi;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.system.reputation.ReputationSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -38,7 +38,7 @@ public class VillageAttack extends MultiMobEvent {
                          List<Vec3> summonPosList, List<ItemAndRate> rewardList) {
         super(dimension, pos, readyAnnouncement, beginAnnouncement, endAnnouncement, overTimeAnnouncement,
                 server, summonPosList, rewardList, (player -> {
-                    Compute.giveReputation(player, 20, Te.s("随机事件奖励", CustomStyle.styleOfFlexible));
+                    ReputationSystem.giveReputation(player, 20, Te.s("随机事件奖励", CustomStyle.styleOfFlexible));
                 }));
         this.mobName1 = mobName1;
         this.mobName2 = mobName2;

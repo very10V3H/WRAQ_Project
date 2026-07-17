@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.chapter2.sky;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -9,6 +8,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -63,6 +63,6 @@ public class SkySword extends WraqSword implements OnHitEffectEquip {
                 "SkySword passive critDamage", 0.1, Tick.get() + 60);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
                 "SkySword passive critDamage", 0.2, Tick.get() + 60);
-        Compute.sendEffectLastTime(player, ModItems.SKY_SWORD.get(), 60);
+        BuffSystem.sendEffectLastTime(player, ModItems.SKY_SWORD.get(), 60);
     }
 }

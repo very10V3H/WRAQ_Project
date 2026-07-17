@@ -1,11 +1,12 @@
 package fun.wraq.customized.uniform.mana.normal;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.network.chat.Component;
@@ -47,7 +48,7 @@ public class ManaCurios4 extends WraqManaUniformCurios {
     }
 
     public static boolean isOn(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.MANA_CURIOS_4.get());
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.MANA_CURIOS_4.get());
     }
 
     public static boolean isExpired(Player player) {
@@ -65,7 +66,7 @@ public class ManaCurios4 extends WraqManaUniformCurios {
             }
             countMap.compute(name, (k, v) -> v == null ? 1 : Math.min(100, v + 1));
             countExpiredMap.put(name, Tick.get() + Tick.s(5));
-            Compute.sendEffectLastTime(player, UniformItems.MANA_CURIOS_4.get(), 
+            BuffSystem.sendEffectLastTime(player, UniformItems.MANA_CURIOS_4.get(),
                     Tick.s(5), countMap.get(name), false);
         }
     }

@@ -13,6 +13,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -99,12 +100,12 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
             statusType.put(player, 0);
             storedDamage.put(player, 0d);
             coolDown.put(player, tick + 200);
-            Compute.sendCoolDownTime(player, ModItems.MOON_BELT.get().getDefaultInstance(), 200);
+            BuffSystem.sendCoolDownTime(player, ModItems.MOON_BELT.get().getDefaultInstance(), 200);
             ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(),
                     1, 1, 120, ParticleTypes.FIREWORK, 1);
             ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(),
                     1.5, 1, 120, ParticleTypes.FIREWORK, 1);
-            Compute.removeEffectLastTime(player, this);
+            BuffSystem.removeEffectLastTime(player, this);
         }
     }
 
@@ -127,7 +128,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
                     storedDamage.put(player, Math.min(getUpperLimit(player), value));
                 }
             }
-            Compute.sendEffectLastTime(player, ModItems.MOON_BELT.get().getDefaultInstance(),
+            BuffSystem.sendEffectLastTime(player, ModItems.MOON_BELT.get().getDefaultInstance(),
                     damageTick.getOrDefault(player, 0) - Tick.get(),
                     storedDamage.get(player).intValue(), false);
         }
@@ -151,7 +152,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
                     storedDamage.put(player, Math.min(getUpperLimit(player), value));
                 }
             }
-            Compute.sendEffectLastTime(player, ModItems.MOON_BELT.get().getDefaultInstance(),
+            BuffSystem.sendEffectLastTime(player, ModItems.MOON_BELT.get().getDefaultInstance(),
                     damageTick.getOrDefault(player, 0) - Tick.get(),
                     storedDamage.get(player).intValue(), false);
         }

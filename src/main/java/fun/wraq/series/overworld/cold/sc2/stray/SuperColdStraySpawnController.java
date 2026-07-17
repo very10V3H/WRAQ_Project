@@ -10,6 +10,7 @@ import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.SuperColdItems;
@@ -105,7 +106,7 @@ public class SuperColdStraySpawnController extends MobSpawnController {
 
     public void skill(Mob mob) {
         Compute.getNearPlayer(mob.level(), mob.position(), 24).forEach(player -> {
-            Compute.createRangeEffectDot(mob.level(), player.position(), 4, new Compute.CauseDamageToPlayer() {
+            Damage.createRangeEffectDot(mob.level(), player.position(), 4, new Damage.CauseDamageToPlayer() {
                 @Override
                 public void causeDamage(Player player) {
                     MonsterAttackEvent.causeCommonAttackToPlayer(mob, player);

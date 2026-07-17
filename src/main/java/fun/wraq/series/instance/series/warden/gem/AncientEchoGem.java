@@ -4,6 +4,8 @@ import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
@@ -65,14 +67,14 @@ public class AncientEchoGem extends WraqPassiveGem implements GemWithstandDamage
             double lastRecordSumMap = AncientEchoGem.lastRecordSumMap.getOrDefault(player, 0d);
             if (Math.abs(lastRecordSumMap - 0) > 1e-6 && withstandDamageSumMap.getOrDefault(player, 0d) > 0) {
                 double damage = lastRecordSumMap / 6;
-                Compute.decreasePlayerHealth(player, damage, Te.s("被", "黑暗回响", CustomStyle.styleOfWarden, "吞没了"));
+                Damage.decreasePlayerHealth(player, damage, Te.s("被", "黑暗回响", CustomStyle.styleOfWarden, "吞没了"));
                 withstandDamageSumMap.compute(player, (k, v) -> v == null ? 0 : v - damage);
                 double storedValue = withstandDamageSumMap.get(player);
                 if (storedValue > 0) {
-                    Compute.sendDebuffTime(player, "item/warden_matrix", (int) (storedValue * 20),
+                    BuffSystem.sendDebuffTime(player, "item/warden_matrix", (int) (storedValue * 20),
                             (int) ((storedValue - damage) / player.getMaxHealth() * 100), true);
                 } else {
-                    Compute.removeDebuffTime(player, "item/warden_matrix");
+                    BuffSystem.removeDebuffTime(player, "item/warden_matrix");
                 }
             }
         }
@@ -80,7 +82,7 @@ public class AncientEchoGem extends WraqPassiveGem implements GemWithstandDamage
 
     public static void clear(Player player) {
         withstandDamageSumMap.remove(player);
-        Compute.removeDebuffTime(player, "item/warden_matrix");
+        BuffSystem.removeDebuffTime(player, "item/warden_matrix");
     }
 
     @Override

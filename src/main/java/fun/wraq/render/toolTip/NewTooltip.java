@@ -25,7 +25,7 @@ public class NewTooltip implements ClientTooltipComponent {
 
     @Override
     public int getWidth(Font font) {
-        return 10;
+        return 12 + font.width(myNewTooltip.component);
     }
 
     @Override

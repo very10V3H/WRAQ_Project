@@ -1,6 +1,5 @@
 package fun.wraq.series.newrunes.chapter6;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.BowAttribute;
 import fun.wraq.common.equip.SceptreAttribute;
@@ -68,7 +67,7 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.CASTLE_NEW_RUNE.get());
+        return WraqCurios.hasCurios(player, NewRuneItems.CASTLE_NEW_RUNE.get());
     }
 
     public static double attackDamage(Player player) {

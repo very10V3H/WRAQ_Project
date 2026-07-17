@@ -1,6 +1,6 @@
 package fun.wraq.common.impl.inslot;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +18,7 @@ public interface InCuriosOrEquipSlotAttributesModify {
 
     static double getAttributes(Player player, Map<Item, Double> baseAttributeMap) {
         double value = 0;
-        for (ItemStack stack : Compute.CuriosAttribute.getDistinctCuriosList(player)) {
+        for (ItemStack stack : WraqCurios.CuriosAttribute.getDistinctCuriosList(player)) {
             Item item = stack.getItem();
             if (Utils.levelRequire.getOrDefault(item, 0) > player.experienceLevel) {
                 continue;

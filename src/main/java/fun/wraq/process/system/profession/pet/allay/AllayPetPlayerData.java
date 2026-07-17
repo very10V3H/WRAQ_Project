@@ -8,7 +8,9 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +25,7 @@ public class AllayPetPlayerData {
     public static final String ALLAY_PET_PLAYER_DATA_KEY = "AllayPetData";
 
     public static CompoundTag getAllayPetData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, ALLAY_PET_PLAYER_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, ALLAY_PET_PLAYER_DATA_KEY);
     }
 
     public static final String CUSTOM_NAME_KEY = "AllayCustomName";
@@ -158,7 +160,7 @@ public class AllayPetPlayerData {
         }
         if (InventoryOperation.checkPlayerHasItem(player, getIncrementTierNeedMaterial(tier))) {
             InventoryOperation.removeItemWithoutCheck(player, getIncrementTierNeedMaterial(tier));
-            Compute.incrementSpecificKeyDataIntValue(player, ALLAY_PET_PLAYER_DATA_KEY, TIER_KEY, 1);
+            PersistentDataUtil.incrementSpecificKeyDataIntValue(player, ALLAY_PET_PLAYER_DATA_KEY, TIER_KEY, 1);
             sendMSG(player, Te.s(getAllayName(player), "已达到新的等阶:", getAllayTierDescription(tier + 1)));
             MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
         } else {
@@ -187,19 +189,19 @@ public class AllayPetPlayerData {
         if (currentXpLevel >= player.experienceLevel || currentXpLevel >= getAllayXpLevelUpperLimit(player)) {
             return false;
         }
-        if (expLevel >= Compute.expGetUpperLimit) {
-            num *= (double) expLevel / Compute.expGetUpperLimit;
-            expLevel = Compute.expGetUpperLimit;
+        if (expLevel >= MyExpSystem.expGetUpperLimit) {
+            num *= (double) expLevel / MyExpSystem.expGetUpperLimit;
+            expLevel = MyExpSystem.expGetUpperLimit;
         }
         if (expLevel - currentXpLevel > 8) expLevel = player.experienceLevel;
-        double getXpValue = Compute.getCurrentXpLevelUpNeedXpPoint(expLevel) * num;
+        double getXpValue = MyExpSystem.getCurrentXpLevelUpNeedXpPoint(expLevel) * num;
         getAllayPetData(player).putDouble(XP_VALUE_KEY, getAllayXpValue(player) + getXpValue);
         sendMSG(player, Te.s(getAllayName(player), CustomStyle.styleOfWorld, " 获得了 ",
                 Compute.getSimplifiedNumberDescription(getXpValue) + "经验值", ChatFormatting.LIGHT_PURPLE));
-        if (getAllayXpValue(player) > Compute.getCurrentXpLevelUpNeedXpPoint(currentXpLevel)) {
+        if (getAllayXpValue(player) > MyExpSystem.getCurrentXpLevelUpNeedXpPoint(currentXpLevel)) {
             // 提升等级
             getAllayPetData(player).putDouble(XP_VALUE_KEY,
-                    getAllayXpValue(player) - Compute.getCurrentXpLevelUpNeedXpPoint(currentXpLevel));
+                    getAllayXpValue(player) - MyExpSystem.getCurrentXpLevelUpNeedXpPoint(currentXpLevel));
             getAllayPetData(player).putInt(XP_LEVEL_KEY, currentXpLevel + 1);
             sendMSG(player, Te.s(getAllayName(player), CustomStyle.styleOfWorld));
             String name = player.getName().getString();
@@ -219,7 +221,7 @@ public class AllayPetPlayerData {
                 getAllayTierDescription(getAllayTier(player))));
         player.sendSystemMessage(Te.s(" ".repeat(4), "经验值 ", ChatFormatting.LIGHT_PURPLE,
                 Compute.getSimplifiedNumberDescription(getAllayXpValue(player)), ChatFormatting.LIGHT_PURPLE, " / ",
-                Compute.getSimplifiedNumberDescription(Compute.getCurrentXpLevelUpNeedXpPoint(getAllayXpLevel(player))),
+                Compute.getSimplifiedNumberDescription(MyExpSystem.getCurrentXpLevelUpNeedXpPoint(getAllayXpLevel(player))),
                 CustomStyle.styleOfLucky));
         int attackSkillLevel = getSkillLevel(player, ATTACK_LEVEL_KEY);
         player.sendSystemMessage(Te.s(" ".repeat(4), "∮", CustomStyle.styleOfWorld,

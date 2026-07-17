@@ -1,6 +1,5 @@
 package fun.wraq.series.newrunes.chapter2;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
@@ -9,6 +8,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.LightningZombieController;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -74,20 +74,20 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
     public static Map<String, Integer> cooldownMap = new HashMap<>();
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.LIGHTNING_NEW_RUNE.get());
+        return WraqCurios.hasCurios(player, NewRuneItems.LIGHTNING_NEW_RUNE.get());
     }
 
     @Override
     public void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get());
+            BuffSystem.removeEffectLastTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get());
             return;
         }
         int tick = Tick.get();
         String name = player.getName().getString();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) == tick) {
             cooldownMap.put(name, tick);
-            Compute.sendEffectLastTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get(), 0, true);
+            BuffSystem.sendEffectLastTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get(), 0, true);
         }
     }
 
@@ -98,7 +98,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
         Random random = new Random();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) < tick) {
             cooldownMap.put(name, tick + 160);
-            Compute.sendCoolDownTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get(), 160);
+            BuffSystem.sendCoolDownTime(player, NewRuneItems.LIGHTNING_NEW_RUNE.get(), 160);
             List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 16, 16, 16));
             mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 8);
             mobList.forEach(soleMob -> {

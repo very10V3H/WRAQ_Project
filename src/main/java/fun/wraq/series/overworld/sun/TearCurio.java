@@ -1,12 +1,13 @@
 package fun.wraq.series.overworld.sun;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.onshoot.OnReleaseSkillCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -64,12 +65,12 @@ public class TearCurio extends WraqCurios implements OnReleaseSkillCurios, InCur
 
     @Override
     public void onReleaseSkill(Player player) {
-        if (Compute.playerIsInBattle(player)) {
+        if (Damage.playerIsInBattle(player)) {
             if (countMap.getOrDefault(player, 0) < upperLimit[tier]) {
                 Mana.addOrCostPlayerMana(player, 20);
             }
             countMap.compute(player, (k, v) -> v == null ? 20 : Math.min(upperLimit[tier], v + 20));
-            Compute.sendEffectLastTime(player, "item/tear_curio", 1200, countMap.get(player), false);
+            BuffSystem.sendEffectLastTime(player, "item/tear_curio", 1200, countMap.get(player), false);
         }
     }
 
@@ -82,9 +83,9 @@ public class TearCurio extends WraqCurios implements OnReleaseSkillCurios, InCur
 
     @Override
     public void tick(Player player) {
-        if (!Compute.playerIsInBattle(player, 1200)) {
+        if (!Damage.playerIsInBattle(player, 1200)) {
             countMap.put(player, 0);
-            Compute.removeEffectLastTime(player, this);
+            BuffSystem.removeEffectLastTime(player, this);
         }
         super.tick(player);
     }

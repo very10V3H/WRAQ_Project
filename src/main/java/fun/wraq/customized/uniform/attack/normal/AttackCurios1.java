@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.process.system.buff.BuffSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -62,7 +63,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         }
         int counts = Math.min(maxCount, playerCountsMap.getOrDefault(player, 0) + 1);
         playerCountsMap.put(player, counts);
-        Compute.sendEffectLastTime(player, UniformItems.ATTACK_CURIOS_1.get(), 100, counts, false);
+        BuffSystem.sendEffectLastTime(player, UniformItems.ATTACK_CURIOS_1.get(), 100, counts, false);
     }
 
     public static double playerCritDamageUp(Player player) {

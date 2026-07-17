@@ -1,6 +1,6 @@
 package fun.wraq.series.holy.ice.curio;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -41,7 +41,7 @@ public class IceHolySceptre extends IceHolyCurio {
     }
 
     public static double getExSkillDamageRate(Player player) {
-        List<IceHolySceptre> list = Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        List<IceHolySceptre> list = WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .filter(stack -> stack.getItem() instanceof IceHolySceptre)
                 .map(stack -> (IceHolySceptre) stack.getItem())
                 .toList();

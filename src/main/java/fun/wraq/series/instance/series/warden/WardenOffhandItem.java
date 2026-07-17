@@ -14,6 +14,7 @@ import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -111,7 +112,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
             Map<Mob, Double> map = targetIntervalDamageMap.get(player);
             map.forEach((mob, damage) -> {
                 Damage.causeDirectDamageToMob(player, mob, damage);
-                Compute.summonValueItemEntity(mob.level(), player, mob,
+                Compute.summonValue(mob.level(), player, mob,
                         Te.s(String.format("%.0f", damage), CustomStyle.styleOfSea), 2);
             });
             map.clear();
@@ -122,7 +123,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
                     "WardenOffHandHealAmplifier", 0.2, Tick.get() + 60);
             StableAttributesModifier.addM(player, StableAttributesModifier.playerManaRecoverModifier,
                     "WardenOffHandManaRecover", 100, Tick.get() + 60);
-            Compute.sendEffectLastTime(player, WardenItems.WARDEN_HEART.get(), 60);
+            BuffSystem.sendEffectLastTime(player, WardenItems.WARDEN_HEART.get(), 60);
         }
         if (isMoon && player.tickCount % 60 == 0) {
             boolean isAttackDamage = true;
@@ -144,7 +145,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
                     enhanceNormalAttackType, new EnhanceNormalAttack() {
                 @Override
                 public void hit(Player player, Mob mob) {
-                    Compute.sendEffectLastTime(player, finalIcon, Tick.s(3));
+                    BuffSystem.sendEffectLastTime(player, finalIcon, Tick.s(3));
                     double attackDamageSum = mob.level().getEntitiesOfClass(Mob.class,
                                     AABB.ofSize(mob.position(), 15, 15, 15))
                             .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6)
@@ -163,7 +164,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
                     Shield.providePlayerShield(player, Tick.s(3), enhanceValue);
                 }
             }));
-            Compute.sendEffectLastTime(player, finalIcon, 0, true);
+            BuffSystem.sendEffectLastTime(player, finalIcon, 0, true);
         }
         super.tick(player);
     }

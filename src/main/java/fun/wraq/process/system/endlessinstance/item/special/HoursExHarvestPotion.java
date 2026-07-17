@@ -3,6 +3,7 @@ package fun.wraq.process.system.endlessinstance.item.special;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.world.InteractionHand;
@@ -41,7 +42,7 @@ public class HoursExHarvestPotion extends WraqItem {
     public static void tick(Player player) {
         if (player.tickCount % 200 == 0) {
             if (expiredTickMap.getOrDefault(player, 0) > Tick.get()) {
-                Compute.sendEffectLastTime(player, "item/gold_ingot", 1200, 0, false);
+                BuffSystem.sendEffectLastTime(player, "item/gold_ingot", 1200, 0, false);
             }
         }
     }

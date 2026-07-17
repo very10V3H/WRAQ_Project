@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.chapter1.mine;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -8,6 +7,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -131,7 +131,7 @@ public class MinePower extends WraqPower {
     public static void addStoneEffect(Player player) {
         stoneEffectCountMap.put(player, 2);
         stoneEffectExpiredTickMap.put(player, Tick.get() + Tick.s(3));
-        Compute.sendEffectLastTime(player, ModItems.MINE_POWER.get(), Tick.s(3));
+        BuffSystem.sendEffectLastTime(player, ModItems.MINE_POWER.get(), Tick.s(3));
     }
 
     public static double onPlayerWithstand(Player player) {
@@ -139,7 +139,7 @@ public class MinePower extends WraqPower {
                 && stoneEffectExpiredTickMap.getOrDefault(player, 0) > Tick.get()) {
             stoneEffectCountMap.compute(player, (k, v) -> v == null ? v = 0 : v - 1);
             if (stoneEffectCountMap.getOrDefault(player, 0) <= 0) {
-                Compute.removeEffectLastTime(player, ModItems.MINE_POWER.get());
+                BuffSystem.removeEffectLastTime(player, ModItems.MINE_POWER.get());
                 stoneEffectCountMap.remove(player);
             }
             ParticleProvider.createBreakBlockParticle(player, Blocks.STONE);

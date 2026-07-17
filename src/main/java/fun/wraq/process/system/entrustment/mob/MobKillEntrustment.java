@@ -18,8 +18,11 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.bank.Bank;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
+import fun.wraq.process.system.reputation.ReputationSystem;
 import fun.wraq.process.system.tower.Tower;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventCommon;
 import fun.wraq.series.events.SpecialEventItems;
@@ -57,7 +60,7 @@ public class MobKillEntrustment {
     public static final String PLAYER_DATA_KEY = "MobKillEntrustmentData";
 
     public static CompoundTag getPlayerData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, PLAYER_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, PLAYER_DATA_KEY);
     }
 
     public static final String REPUTATION_DATA_KEY = "Reputation";
@@ -226,12 +229,12 @@ public class MobKillEntrustment {
     public static final String WEEKLY_FINISHED_TIMES_KEY = "WeeklyFinishedTimes";
 
     public static int getWeeklyFinishedTimes(Player player) {
-        return Compute.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY);
+        return PersistentDataUtil.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY);
     }
 
     public static void incrementWeeklyFinishedTimes(Player player, int increment) {
-        Compute.incrementSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY, increment);
-        int currentFinishedTime = Compute.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY);
+        PersistentDataUtil.incrementSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY, increment);
+        int currentFinishedTime = PersistentDataUtil.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY);
         if (currentFinishedTime == 20) {
             InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SPECIAL_BOND.get()));
             Tower.givePlayerStar(player, 10, "委托任务每周进度奖励");
@@ -298,7 +301,7 @@ public class MobKillEntrustment {
     }
 
     public static void setWeeklyFinishedTimes(Player player, int times) {
-        Compute.setSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY, times);
+        PersistentDataUtil.setSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY, times);
     }
 
     public static final String TOTAL_FINISHED_TIMES = "TotalFinishedTimes";
@@ -318,19 +321,19 @@ public class MobKillEntrustment {
     public static final String AVERAGE_FINISHED_TICK_KEY = "AverageFinishedTick";
 
     public static int getAverageFinishedTick(Player player) {
-        return Compute.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY);
+        return PersistentDataUtil.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY);
     }
 
     public static void onFinished(Player player, int costTick) {
         int totalFinishedTimes = getTotalFinishedTimes(player);
         if (totalFinishedTimes == 1) {
-            Compute.setSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY, totalFinishedTimes);
+            PersistentDataUtil.setSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY, totalFinishedTimes);
             return;
         }
-        int oldAverageTick = Compute.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY);
+        int oldAverageTick = PersistentDataUtil.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY);
         int newAverageTick = (int) (oldAverageTick * 1.0 * (totalFinishedTimes - 1) / totalFinishedTimes
                 + costTick * 1.0 / totalFinishedTimes);
-        Compute.setSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY, newAverageTick);
+        PersistentDataUtil.setSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, AVERAGE_FINISHED_TICK_KEY, newAverageTick);
     }
 
     public static void handleTick(Player player) {
@@ -533,17 +536,17 @@ public class MobKillEntrustment {
 
                 double entrustmentReputationReward = rate * ((double) player.experienceLevel / 20)
                         * (1 + getExRateOfReputation(getPlayerReputation(player)) * 6) + 8;
-                Compute.giveReputation(player, entrustmentReputationReward,
+                ReputationSystem.giveReputation(player, entrustmentReputationReward,
                         Te.s("委托任务", CustomStyle.styleOfWorld));
                 double rankExReputationRewardRate = RankData.getExReputationMissionRewardRate(player);
                 if (rankExReputationRewardRate > 0) {
-                    Compute.giveReputation(player, entrustmentReputationReward * rankExReputationRewardRate,
+                    ReputationSystem.giveReputation(player, entrustmentReputationReward * rankExReputationRewardRate,
                             Te.s("职级奖励", CustomStyle.styleOfWorld));
                 }
                 if (getPlayerReputation(player) > 5) {
                     Bank.incomeGB(player, getExRateOfReputation(getPlayerReputation(player)) * 0.5);
                 }
-                Compute.givePercentExpToPlayer(player,
+                MyExpSystem.givePercentExpToPlayer(player,
                         0.05 * (1 + rate) * (1 + getExRateOfReputation(getPlayerReputation(player))),
                         0, player.experienceLevel);
                 InventoryOperation.giveItemStackWithMSG(player, ModItems.NOTE_PAPER.get());

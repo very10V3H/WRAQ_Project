@@ -13,31 +13,16 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
-import fun.wraq.events.mob.chapter1.LakeDrownSpawnController;
-import fun.wraq.events.mob.chapter1.MineSkeletonSpawnController;
 import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import fun.wraq.events.mob.chapter2.*;
-import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
-import fun.wraq.events.mob.chapter3_nether.NetherSkeletonSpawnController;
-import fun.wraq.events.mob.chapter3_nether.PiglinSpawnController;
 import fun.wraq.events.mob.chapter3_nether.WitherSkeletonSpawnController;
-import fun.wraq.events.mob.chapter4_end.EnderManSpawnController;
-import fun.wraq.events.mob.chapter4_end.EndermiteSpawnController;
-import fun.wraq.events.mob.chapter4_end.ShulkerSpawnController;
-import fun.wraq.events.mob.chapter5.origin.*;
-import fun.wraq.events.mob.chapter6_castle.BeaconSpawnController;
-import fun.wraq.events.mob.chapter6_castle.BlazeSpawnController;
-import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
-import fun.wraq.events.mob.chapter7.*;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.events.mob.moontain.*;
-import fun.wraq.events.mob.ore.Ore2SpawnController;
-import fun.wraq.events.mob.ore.Ore3SpawnController;
 import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.EquipPiece;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
@@ -52,22 +37,8 @@ import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
-import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter1.plain.PlainCrest;
-import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderSpawnController;
-import fun.wraq.series.overworld.cold.sc2.stray.SuperColdStraySpawnController;
 import fun.wraq.series.overworld.cold.sc3.aurora.AuroraSheepSpawnController;
-import fun.wraq.series.overworld.cold.sc3.fir.FirElfSpawnController;
-import fun.wraq.series.overworld.cold.sc3.maple.MapleHunterSpawnController;
-import fun.wraq.series.overworld.cold.sc4.SuperColdIronGolemSpawnController;
-import fun.wraq.series.overworld.cold.sc4.SuperColdSnowGolemSpawnController;
-import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
-import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
-import fun.wraq.series.overworld.divine.mob.common.GhastlyCreeperSpawnController;
-import fun.wraq.series.overworld.divine.mob.common.GhastlyHuskSpawnController;
-import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
-import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
-import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import fun.wraq.series.overworld.wind.mob.WindSkeletonSpawnController;
 import net.minecraft.nbt.CompoundTag;
@@ -106,6 +77,7 @@ public class MobSpawn {
                     }
                     mobSpawnController.handleTick();
                 });
+                AreaMobSpawnController.tickAll(event.level, event.level.dimension());
                 mountsMap.forEach((k, v) -> {
                     if (v.isRemoved()) {
                         if (k instanceof Animal) {
@@ -128,6 +100,7 @@ public class MobSpawn {
                     }
                     mobSpawnController.handleTick();
                 });
+                AreaMobSpawnController.tickAll(event.level, event.level.dimension());
             }
             if (event.level.dimension().equals(Level.END)) {
                 if (endList.isEmpty()) setEndList(event.level);
@@ -137,6 +110,7 @@ public class MobSpawn {
                     }
                     mobSpawnController.handleTick();
                 });
+                AreaMobSpawnController.tickAll(event.level, event.level.dimension());
             }
         }
     }
@@ -145,6 +119,8 @@ public class MobSpawn {
 
     public static void setOverWorldList(Level overWorld) {
         overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
+        overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
+/*        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(LakeDrownSpawnController.getInstance(overWorld));
         overWolrdList.add(MineSkeletonSpawnController.getInstance(overWorld));
@@ -203,7 +179,7 @@ public class MobSpawn {
         overWolrdList.add(FirElfSpawnController.getInstance(overWorld));
         overWolrdList.add(MapleHunterSpawnController.getInstance(overWorld));
         overWolrdList.add(SuperColdIronGolemSpawnController.getInstance(overWorld));
-        overWolrdList.add(SuperColdSnowGolemSpawnController.getInstance(overWorld));
+        overWolrdList.add(SuperColdSnowGolemSpawnController.getInstance(overWorld));*/
         overWolrdList.forEach(mobSpawnController -> {
             if (mobSpawnController.level != overWorld) {
                 mobSpawnController.level = overWorld;
@@ -214,10 +190,10 @@ public class MobSpawn {
     public static List<MobSpawnController> netherList = new ArrayList<>();
 
     public static void setNetherList(Level nether) {
-        netherList.add(WitherSkeletonSpawnController.getInstance(nether));
+/*        netherList.add(WitherSkeletonSpawnController.getInstance(nether));
         netherList.add(NetherSkeletonSpawnController.getInstance(nether));
         netherList.add(MagmaSpawnController.getInstance(nether));
-        netherList.add(PiglinSpawnController.getInstance(nether));
+        netherList.add(PiglinSpawnController.getInstance(nether));*/
         netherList.forEach(mobSpawnController -> {
             if (mobSpawnController.level != nether) {
                 mobSpawnController.level = nether;
@@ -228,9 +204,9 @@ public class MobSpawn {
     public static List<MobSpawnController> endList = new ArrayList<>();
 
     public static void setEndList(Level end) {
-        endList.add(EnderManSpawnController.getInstance(end));
+/*        endList.add(EnderManSpawnController.getInstance(end));
         endList.add(EndermiteSpawnController.getInstance(end));
-        endList.add(ShulkerSpawnController.getInstance(end));
+        endList.add(ShulkerSpawnController.getInstance(end));*/
         endList.forEach(mobSpawnController -> {
             if (mobSpawnController.level != end) {
                 mobSpawnController.level = end;
@@ -261,6 +237,10 @@ public class MobSpawn {
             getAllControllers(true).forEach(mobSpawnController -> {
                 mobNameChineseToDataKeyMap.put(mobSpawnController.mobName.getString(),
                         mobSpawnController.getKillCountDataKey());
+            });
+            AreaMobSpawnController.getAllControllers().forEach(controller -> {
+                mobNameChineseToDataKeyMap.put(controller.mobName.getString(),
+                        controller.getKillCountDataKey());
             });
             NoTeamInstanceModule.getAllInstance().forEach(instance -> {
                 mobNameChineseToDataKeyMap.put(instance.name.getString(), instance.getKillCountDataKey());
@@ -299,6 +279,7 @@ public class MobSpawn {
             mobSpawnController.mobList.clear();
         });
         endList.clear();
+        AreaMobSpawnController.onServerStop();
         LogUtils.getLogger().info("done.");
     }
 
@@ -335,63 +316,69 @@ public class MobSpawn {
         public static Map<String, Double> healthSteal = new HashMap<>();
         public static Map<String, Double> movementSpeed = new HashMap<>();
 
+        public static Map<String, Map<Integer, Double>> mobXpDropRateMap = new HashMap<>();
+
         public static Map<String, Map<String, Double>> fromCSVAttributes = new HashMap<>();
 
         public static double getMobBaseAttribute(Mob mob, Map<String, Double> map) {
-            return map.getOrDefault(getMobOriginName(mob), 0d);
+            return map.getOrDefault(mob.getName().getString(), 0d);
         }
 
         public static void setMobBaseAttributes(Mob mob, MobAttributes attributes) {
-            String mobOriginName = getMobOriginName(mob);
-            MobBaseAttributes.attackDamage.put(mobOriginName, attributes.attackDamage * 2);
-            MobBaseAttributes.defence.put(mobOriginName, attributes.defence);
-            MobBaseAttributes.manaDefence.put(mobOriginName, attributes.manaDefence);
-            MobBaseAttributes.critRate.put(mobOriginName, attributes.critRate);
-            MobBaseAttributes.critDamage.put(mobOriginName, attributes.critDamage);
-            MobBaseAttributes.defencePenetration.put(mobOriginName, attributes.defencePenetration);
-            MobBaseAttributes.defencePenetration0.put(mobOriginName, attributes.defencePenetration0);
-            MobBaseAttributes.healthSteal.put(mobOriginName, attributes.healthSteal * 0.2);
-            mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(attributes.maxHealth);
+            setMobBaseAttributes(mob, attributes, 1);
+        }
+
+        public static void setMobBaseAttributes(Mob mob, MobAttributes attributes, double rate) {
+            String mobName = mob.getName().getString();
+            MobBaseAttributes.attackDamage.put(mobName, attributes.attackDamage * rate);
+            MobBaseAttributes.defence.put(mobName, attributes.defence * rate);
+            MobBaseAttributes.manaDefence.put(mobName, attributes.manaDefence * rate);
+            MobBaseAttributes.critRate.put(mobName, attributes.critRate * rate);
+            MobBaseAttributes.critDamage.put(mobName, attributes.critDamage * rate);
+            MobBaseAttributes.defencePenetration.put(mobName, attributes.defencePenetration * rate);
+            MobBaseAttributes.defencePenetration0.put(mobName, attributes.defencePenetration0 * rate);
+            MobBaseAttributes.healthSteal.put(mobName, attributes.healthSteal * rate);
+            mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(attributes.maxHealth * rate);
             mob.setHealth(mob.getMaxHealth());
-            MobBaseAttributes.movementSpeed.put(mobOriginName, attributes.movementSpeed);
-            mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(attributes.movementSpeed);
-            mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
+            MobBaseAttributes.movementSpeed.put(mobName, attributes.movementSpeed * rate);
+            mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(attributes.movementSpeed * rate);
+            mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(rate);
         }
 
         public static void setMobBaseAttributes(Mob mob, double attackDamage, double defence, double manaDefence,
                                                 double critRate, double critDamage, double defencePenetration,
                                                 double defencePenetration0, double healthSteal, double maxHealth,
                                                 double movementSpeed) {
-            String mobOriginName = getMobOriginName(mob);
+            String mobName = mob.getName().getString();
 
             if (fromCSVAttributes.isEmpty()) {
-                MobBaseAttributes.attackDamage.put(mobOriginName, attackDamage * 2);
-                MobBaseAttributes.defence.put(mobOriginName, defence);
-                MobBaseAttributes.manaDefence.put(mobOriginName, manaDefence);
-                MobBaseAttributes.critRate.put(mobOriginName, critRate);
-                MobBaseAttributes.critDamage.put(mobOriginName, critDamage);
-                MobBaseAttributes.defencePenetration.put(mobOriginName, defencePenetration);
-                MobBaseAttributes.defencePenetration0.put(mobOriginName, defencePenetration0);
-                MobBaseAttributes.healthSteal.put(mobOriginName, healthSteal * 0.2);
+                MobBaseAttributes.attackDamage.put(mobName, attackDamage * 2);
+                MobBaseAttributes.defence.put(mobName, defence);
+                MobBaseAttributes.manaDefence.put(mobName, manaDefence);
+                MobBaseAttributes.critRate.put(mobName, critRate);
+                MobBaseAttributes.critDamage.put(mobName, critDamage);
+                MobBaseAttributes.defencePenetration.put(mobName, defencePenetration);
+                MobBaseAttributes.defencePenetration0.put(mobName, defencePenetration0);
+                MobBaseAttributes.healthSteal.put(mobName, healthSteal * 0.2);
                 mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
                 mob.setHealth(mob.getMaxHealth());
-                MobBaseAttributes.movementSpeed.put(mobOriginName, movementSpeed);
+                MobBaseAttributes.movementSpeed.put(mobName, movementSpeed);
                 mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movementSpeed);
                 mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
             } else {
-                if (fromCSVAttributes.containsKey(mobOriginName)) {
-                    Map<String, Double> attributeMap = fromCSVAttributes.get(mobOriginName);
-                    MobBaseAttributes.attackDamage.put(mobOriginName, attributeMap.get("attack"));
-                    MobBaseAttributes.defence.put(mobOriginName, attributeMap.get("defence"));
-                    MobBaseAttributes.manaDefence.put(mobOriginName, attributeMap.get("manaDefence"));
-                    MobBaseAttributes.critRate.put(mobOriginName, attributeMap.get("critRate"));
-                    MobBaseAttributes.critDamage.put(mobOriginName, attributeMap.get("critDamage"));
-                    MobBaseAttributes.defencePenetration.put(mobOriginName, attributeMap.get("defencePenetration"));
-                    MobBaseAttributes.defencePenetration0.put(mobOriginName, attributeMap.get("defencePenetration0"));
-                    MobBaseAttributes.healthSteal.put(mobOriginName, attributeMap.get("healthSteal"));
+                if (fromCSVAttributes.containsKey(mobName)) {
+                    Map<String, Double> attributeMap = fromCSVAttributes.get(mobName);
+                    MobBaseAttributes.attackDamage.put(mobName, attributeMap.get("attack"));
+                    MobBaseAttributes.defence.put(mobName, attributeMap.get("defence"));
+                    MobBaseAttributes.manaDefence.put(mobName, attributeMap.get("manaDefence"));
+                    MobBaseAttributes.critRate.put(mobName, attributeMap.get("critRate"));
+                    MobBaseAttributes.critDamage.put(mobName, attributeMap.get("critDamage"));
+                    MobBaseAttributes.defencePenetration.put(mobName, attributeMap.get("defencePenetration"));
+                    MobBaseAttributes.defencePenetration0.put(mobName, attributeMap.get("defencePenetration0"));
+                    MobBaseAttributes.healthSteal.put(mobName, attributeMap.get("healthSteal"));
                     mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(attributeMap.get("health"));
                     mob.setHealth(mob.getMaxHealth());
-                    MobBaseAttributes.movementSpeed.put(mobOriginName, attributeMap.get("movementSpeed"));
+                    MobBaseAttributes.movementSpeed.put(mobName, attributeMap.get("movementSpeed"));
                     mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(attributeMap.get("movementSpeed"));
                     mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
                 }
@@ -401,13 +388,13 @@ public class MobSpawn {
         public static void setMobBaseAttributes(Mob mob, int xpLevel, double attackDamage, double defence, double manaDefence,
                                                 double critRate, double critDamage, double defencePenetration,
                                                 double defencePenetration0, double healthSteal, double maxHealth, double movementSpeed) {
-            MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
+            MobBaseAttributes.xpLevel.put(mob.getName().getString(), xpLevel);
             setMobBaseAttributes(mob, attackDamage, defence, manaDefence, critRate, critDamage, defencePenetration,
                     defencePenetration0, healthSteal, maxHealth, movementSpeed);
         }
 
         public static void setMobBaseAttributes(Mob mob, int xpLevel, MobAttributes attributes) {
-            MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
+            MobBaseAttributes.xpLevel.put(mob.getName().getString(), xpLevel);
             setMobBaseAttributes(mob, attributes);
         }
 
@@ -434,7 +421,7 @@ public class MobSpawn {
 
     public static double getNum(Player player) {
         double num = 1;
-        num += Compute.playerExHarvest(player);
+        num += PlayerAttributes.playerExHarvest(player);
         return num;
     }
 
@@ -454,6 +441,8 @@ public class MobSpawn {
 
     public static void drop(Mob mob, Player player) {
         int xpLevel = getMobXpLevel(mob);
+        String mobOriginName = MobSpawn.getMobOriginName(mob);
+        String mobName = mob.getName().getString();
         if (RandomUtils.nextInt(0, 10000) < 100) {
             ItemAndRate.send(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }
@@ -469,42 +458,42 @@ public class MobSpawn {
         DragonBoatFes.onKillMob(mob, player);
         recall(mob, player);
         EquipPiece.onKillMob(player, mob);
-        if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) {
+        if (!MobSpawn.dropList.containsKey(mobOriginName)) {
             return;
         }
-        List<ItemAndRate> list = MobSpawn.dropList.get(MobSpawn.getMobOriginName(mob));
+
+        // 如果掉落物表里，含怪物的全名（带等级），那么以带等级的掉落表为准
+        List<ItemAndRate> list = new ArrayList<>(MobSpawn.dropList.get(mobOriginName));
+        if (MobSpawn.dropList.containsKey(mobName)) {
+            list = new ArrayList<>(MobSpawn.dropList.get(mobName));
+        }
+
+        // 合并多个 ofExp 创建的经验给予项
+        ItemAndRate.mergeExpEntries(list);
+
         AuroraSheepSpawnController.handleColorItemDrop(mob, list);
-        if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName)) {
+        if (mobOriginName.equals(PlainZombieSpawnController.mobName)) {
             Guide.trigV2(player, Guide.StageV2.FIRST_KILL);
         }
-        double num = getNum(player);
-        // 直接送至背包或掉落
-        if (dropsDirectToInventory.containsKey(MobSpawn.getMobOriginName(mob))
-                || Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(NewRuneItems.END_NEW_RUNE.get())) {
-            Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
-            list.forEach(itemAndRate -> {
-                itemAndRate.send(player, num);
-            });
-        } else {
-            double rate = MobSpawn.getMobOriginName(mob).equals(MagmaSpawnController.mobName)
-                    || MobSpawn.getMobOriginName(mob).equals(SlimeSpawnController.mobName) ? 0.003 : 0.01;
-            ItemAndRate.dropOrbs(xpLevel, rate, mob.level(), mob.position(), fromMobSpawnTag);
-            list.forEach(itemAndRate -> {
-                itemAndRate.dropWithoutBounding(mob, num, player);
-            });
-        }
+
+        // 根据怪物等级的掉落概率调整
+        double num = getNum(player) * MobBaseAttributes.mobXpDropRateMap
+                .getOrDefault(mobOriginName, Collections.emptyMap())
+                .getOrDefault(xpLevel, 1d);
+
+        // 直接送至背包
+        list.forEach(itemAndRate -> {
+            itemAndRate.send(player, num);
+        });
+
         computeKillCount(player);
         incrementPlayerKillCount(player, MobSpawn.getMobOriginName(mob));
         MissionV2Helper.onKillMob(player, mob);
         oldVersionMaterial(mob, player);
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
-            if (Compute.hasCurios(player, NewRuneItems.END_NEW_RUNE.get())) {
-                ItemAndRate itemAndRate = new ItemAndRate(ModItems.WORLD_SOUL_1.get(), 1);
-                itemAndRate.send(player, 1);
-            } else {
-                ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WORLD_SOUL_1.get()), player);
-            }
+            ItemAndRate itemAndRate = new ItemAndRate(ModItems.WORLD_SOUL_1.get(), 1);
+            itemAndRate.send(player, 1);
         }
         PlainCrest.onKillMob(player, mob);
     }
@@ -513,7 +502,7 @@ public class MobSpawn {
 
     public static String KILL_COUNT_DATA_KEY = "KillCountDataV2";
     public static CompoundTag getKillCountData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, KILL_COUNT_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, KILL_COUNT_DATA_KEY);
     }
 
     public static int getPlayerKillCount(Player player, String mobName) {
@@ -644,9 +633,7 @@ public class MobSpawn {
                         String name = player.getName().getString();
                         if (!getMap.containsKey(name) || getMap.get(name) <= 36) {
                             getMap.put(name, getMap.getOrDefault(name, 0) + 1);
-                            if (Compute.hasCurios(player, NewRuneItems.END_NEW_RUNE.get())) {
-                                InventoryOperation.giveItemStack(player, item.getDefaultInstance());
-                            } else ItemAndRate.summonBoundingItemEntity(mob, item.getDefaultInstance(), player);
+                            InventoryOperation.giveItemStack(player, item.getDefaultInstance());
                         }
                     }
                 }

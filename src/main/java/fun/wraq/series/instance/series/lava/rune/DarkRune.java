@@ -1,9 +1,9 @@
 package fun.wraq.series.instance.series.lava.rune;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -62,8 +62,8 @@ public class DarkRune extends WraqCurios implements RuneItem {
     public void tick(Player player) {
         int count = MoonNewRune.getPassiveCount(player);
         if (count > 0) {
-            Compute.sendEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get(), count, true);
-        } else Compute.removeEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get());
+            BuffSystem.sendEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get(), count, true);
+        } else BuffSystem.removeEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get());
     }
 
     @Override

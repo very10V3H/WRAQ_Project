@@ -7,7 +7,6 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.divine.DivineUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -97,7 +96,7 @@ public class MyWayPoint {
     }
 
     public static List<ZonePoint> overWorldZonePointList = new ArrayList<>() {{
-        add(new ZonePoint(new Vec3(756, 84, 207),
+/*        add(new ZonePoint(new Vec3(756, 84, 207),
                 Te.s("平原村", CustomStyle.styleOfPlain),
                 Te.s("田园诗意，物阜民丰", CustomStyle.styleOfPlain)));
         add(new ZonePoint(new Vec3(956, 232, 17),
@@ -192,7 +191,7 @@ public class MyWayPoint {
                 Te.s("", CustomStyle.MUSHROOM_STYLE)));
         add(new ZonePoint(new Vec3(1364, 79, 44),
                 Te.s("年兽出没地", CustomStyle.styleOfSpring),
-                Te.s("", CustomStyle.styleOfSpring)));
+                Te.s("", CustomStyle.styleOfSpring)));*/
     }};
 
     public static Map<Player, String> playerLastZoneMap = new WeakHashMap<>();
@@ -282,7 +281,7 @@ public class MyWayPoint {
     }
 
     public static List<MyWayPoint> overworldPointList = new ArrayList<>() {{
-        add(VillageWayPoint.PLAIN_VILLAGE);
+/*        add(VillageWayPoint.PLAIN_VILLAGE);
         add(VillageWayPoint.SKY_CITY);
         add(new MyWayPoint(new Vec3(754, 181, -86), "德朗斯蒂克", colorMap.get(green), CustomStyle.styleOfPlain, 0));
         add(VillageWayPoint.FOREST_VILLAGE);
@@ -455,14 +454,14 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1057, 80, -41), "玉林小饭店", colorMap.get(purple), CustomStyle.MUSHROOM_STYLE, 0));
         add(new MyWayPoint(new Vec3(1052, 80, -81), "玉林公共厨房", colorMap.get(purple), CustomStyle.MUSHROOM_STYLE, 0));
         add(new MyWayPoint(new Vec3(1075, 80, -61), "玉林小镇", colorMap.get(darkGreen), CustomStyle.styleOfLife, 0));
-        add(new MyWayPoint(new Vec3(796, 186, 13), "云上城", colorMap.get(aqua), CustomStyle.styleOfSky, 0));
+        add(new MyWayPoint(new Vec3(796, 186, 13), "云上城", colorMap.get(aqua), CustomStyle.styleOfSky, 0));*/
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{
-        add(new MyWayPoint(new Vec3(603, 79, -601), "下界猪灵刷怪点", colorMap.get(gold), CustomStyle.styleOfGold, 0));
+/*        add(new MyWayPoint(new Vec3(603, 79, -601), "下界猪灵刷怪点", colorMap.get(gold), CustomStyle.styleOfGold, 0));
         add(new MyWayPoint(new Vec3(558, 67, -633), "下界凋零骷髅/骷髅刷怪点", colorMap.get(gray), CustomStyle.styleOfWither, 0));
         add(new MyWayPoint(new Vec3(529, 64, -541), "燃魂挑战点", colorMap.get(red), CustomStyle.styleOfFire, 0));
-        add(new MyWayPoint(new Vec3(480, 64, -617), "熔岩能量聚合物刷怪点", colorMap.get(red), CustomStyle.styleOfMagma, 0));
+        add(new MyWayPoint(new Vec3(480, 64, -617), "熔岩能量聚合物刷怪点", colorMap.get(red), CustomStyle.styleOfMagma, 0));*/
     }};
 
     @OnlyIn(Dist.CLIENT)

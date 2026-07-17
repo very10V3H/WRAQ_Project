@@ -1,9 +1,9 @@
 package fun.wraq.series.instance.series.lava.rune;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -53,7 +53,7 @@ public class WindRune extends WraqCurios implements RuneItem {
 
     @Override
     public void tick(Player player) {
-        Compute.sendEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get(), 0, true);
+        BuffSystem.sendEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get(), 0, true);
     }
 
     @Override

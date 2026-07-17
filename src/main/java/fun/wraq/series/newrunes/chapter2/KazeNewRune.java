@@ -1,10 +1,10 @@
 package fun.wraq.series.newrunes.chapter2;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.series.overworld.wind.mob.WindSkeletonSpawnController;
 import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -68,10 +68,10 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static void onHit(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.KAZE_NEW_RUNE.get())) {
+        if (WraqCurios.hasCurios(player, NewRuneItems.KAZE_NEW_RUNE.get())) {
             ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.movementSpeedUp,
                     "kazeNewRuneMovementSpeed", 0.2, 40, true);
-            Compute.sendEffectLastTime(player, NewRuneItems.KAZE_NEW_RUNE.get(), 40);
+            BuffSystem.sendEffectLastTime(player, NewRuneItems.KAZE_NEW_RUNE.get(), 40);
         }
     }
 }

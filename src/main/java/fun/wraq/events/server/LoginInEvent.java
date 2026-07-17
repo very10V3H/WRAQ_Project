@@ -9,6 +9,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.common.util.SkillDataUtil;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
@@ -30,9 +31,11 @@ import fun.wraq.networking.reputationMission.ReputationMissionContentS2CPacket;
 import fun.wraq.networking.reputationMission.ReputationMissionStartTimeS2CPacket;
 import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.func.guide.waypoint.WaypointServerManager;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.backpack.BackpackFileManager;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
@@ -49,11 +52,13 @@ import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.randomevent.RandomEventData;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.reason.Reason;
+import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
 import fun.wraq.process.system.vp.VpDataHandler;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.gui.trade.single.SingleItemChangePurchaseLimit;
 import fun.wraq.render.gui.trade.weekly.WeeklyStorePlayerData;
 import fun.wraq.render.hud.main.QuickUseHud;
@@ -95,6 +100,8 @@ public class LoginInEvent {
             if (!Security.checkModBladeList(serverPlayer)) {
                 return;
             }
+            // 预加载背包数据
+            BackpackFileManager.get(player.getUUID());
             Scoreboard scoreboard = player.getServer().getScoreboard();
             scoreboard.entityRemoved(player);
             CompoundTag data = player.getPersistentData();
@@ -136,15 +143,15 @@ public class LoginInEvent {
             if (isNewPlayer) data.putBoolean(expAdjust, true);
             if (!data.contains(expAdjust) && player.experienceLevel > 180) {
                 data.putBoolean(expAdjust, true);
-                double levelUpNeedXp = Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
+                double levelUpNeedXp = MyExpSystem.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
                 double currentXpRate = data.getDouble("Xp") / levelUpNeedXp;
                 int newXpLevel = (int) (180 + (player.experienceLevel - 180) * 0.1);
                 data.putInt(StringUtils.ExpLevel, newXpLevel);
                 ((ServerPlayer) player).setExperienceLevels(newXpLevel);
-                data.putDouble("Xp", Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel) * currentXpRate);
+                data.putDouble("Xp", MyExpSystem.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel) * currentXpRate);
                 Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你的经验已经被改动，原因可查看群公告更新通知").withStyle(ChatFormatting.LIGHT_PURPLE));
-                Compute.resetSkillAndAbility(player);
+                SkillDataUtil.resetSkillAndAbility(player);
                 Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("因经验改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
             }
@@ -215,7 +222,7 @@ public class LoginInEvent {
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).
                                 append(Component.literal("的到来！").withStyle(ChatFormatting.GOLD)));
-                Compute.respawnPlayer(player);
+                MyRespawnRule.respawnPlayer(player);
             }
             data.putBoolean("FirstReward", true);
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
@@ -249,6 +256,7 @@ public class LoginInEvent {
             Reason.sendReasonValuePacketToClient(player);
             MobKillEntrustment.sendPacketToClient(player);
             Guide.sendGuideCloseStatusToClient(player);
+            WaypointServerManager.syncToClient(player);
             SkillV2.syncSkillV2Data(player);
             SkillV2.sendInfoToClient(player);
             SkillV2.afterVerUpdateLogin(player);
@@ -486,6 +494,7 @@ public class LoginInEvent {
 
             MacServer.onLogOut(serverPlayer);
             Civil.onPlayerLogOut(serverPlayer);
+            BackpackFileManager.unload(player.getUUID());
         }
     }
 

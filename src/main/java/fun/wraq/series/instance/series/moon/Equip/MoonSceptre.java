@@ -19,6 +19,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -108,7 +109,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
             @Override
             public void hit(Player player, Mob mob) {
                 Shield.providePlayerShield(player, Tick.s(10), PlayerAttributes.manaDamage(player));
-                Compute.sendEffectLastTime(player, ModItems.MOON_SCEPTRE.get().getDefaultInstance(), 200);
+                BuffSystem.sendEffectLastTime(player, ModItems.MOON_SCEPTRE.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
                 double attackDamage = 0;
@@ -121,7 +122,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
                         Tick.get() + Tick.s(10), ModItems.MOON_SCEPTRE.get());
             }
         }));
-        Compute.sendEffectLastTime(player, ModItems.MOON_SCEPTRE.get().getDefaultInstance(), 8888, 0, true);
+        BuffSystem.sendEffectLastTime(player, ModItems.MOON_SCEPTRE.get().getDefaultInstance(), 8888, 0, true);
     }
 
     @Override
@@ -133,7 +134,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
     public void onHit(Player player, Mob mob) {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
-                .forEach(mob1 -> Compute.causeGatherEffect(mob1, 2, mob.position()));
+                .forEach(mob1 -> BuffSystem.causeGatherEffect(mob1, 2, mob.position()));
     }
 
     @Override

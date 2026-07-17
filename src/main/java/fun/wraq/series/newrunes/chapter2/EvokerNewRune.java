@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.EvokerSpawnController;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -61,7 +62,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     @Override
     public void tick(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.EVOKER_NEW_RUNE.get())) {
+        if (WraqCurios.hasCurios(player, NewRuneItems.EVOKER_NEW_RUNE.get())) {
             int tick = Tick.get();
             if (tick % 80 == 0) {
                 List<Mob> mobList = Compute.getNearMob(player, 8);
@@ -74,7 +75,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                             player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
                 });
                 Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.02);
-                Compute.sendCoolDownTime(player, NewRuneItems.EVOKER_NEW_RUNE.get(), 80);
+                BuffSystem.sendCoolDownTime(player, NewRuneItems.EVOKER_NEW_RUNE.get(), 80);
             }
         }
     }

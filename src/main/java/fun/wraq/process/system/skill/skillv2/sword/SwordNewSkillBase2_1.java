@@ -9,6 +9,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
@@ -97,7 +98,7 @@ public class SwordNewSkillBase2_1 extends SkillV2BaseSkill implements SkillV2All
         if (targetMap.containsKey(player)) {
             Mob oldMob = targetMap.get(player);
             oldMob.removeEffect(MobEffects.GLOWING);
-            Compute.removeMobEffectHudToNearPlayer(oldMob, "skills/v2/sword/sword2_1", "swordNewSkillBase2_1");
+            BuffSystem.removeMobEffectHudToNearPlayer(oldMob, "skills/v2/sword/sword2_1", "swordNewSkillBase2_1");
         }
         targetMap.put(player, mob);
         int skillLevel = getPlayerSkillLevel(player);
@@ -106,7 +107,7 @@ public class SwordNewSkillBase2_1 extends SkillV2BaseSkill implements SkillV2All
         Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob, rate);
         ParticleProvider.createVerticalCircleParticle(player.level().dimension(), mob.getEyePosition(),
                 0, 0.5, 8, ParticleTypes.CRIT);
-        Compute.sendMobEffectHudToNearPlayer(mob, "skills/v2/sword/sword2_1", "swordNewSkillBase2_1",
+        BuffSystem.sendMobEffectHudToNearPlayer(mob, "skills/v2/sword/sword2_1", "swordNewSkillBase2_1",
                 8888, 0, true);
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, Tick.min(10)));
         MySound.soundToPlayer(player, SoundEvents.ARROW_HIT_PLAYER, mob.getEyePosition());

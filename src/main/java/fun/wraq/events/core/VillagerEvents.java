@@ -23,21 +23,25 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.entity.vehicle.MinecartChest;
 import net.minecraft.world.entity.vehicle.MinecartHopper;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Set;
+import noppes.npcs.entity.EntityCustomNpc;
 
 @Mod.EventBusSubscriber
 public class VillagerEvents {
     @SubscribeEvent
     public static void Trade(PlayerInteractEvent.EntityInteract event) {
-        if (event.getSide().isServer() && event.getTarget() instanceof Villager villager) {
-            String name = villager.getName().getString();
+        if (event.getSide().isServer() && event.getTarget() instanceof Villager) {
+            event.setCanceled(true);
+        }
+
+        if (event.getSide().isServer() && event.getTarget() instanceof EntityCustomNpc npc) {
+            String name = npc.getName().getString();
             Player player = event.getEntity();
+            if (player.isCreative() && player.getMainHandItem().getItem().toString().contains("npcwand")) {
+                return;
+            }
             switch (name) {
                 case MobKillEntrustment.VILLAGER_NAME -> {
                     MobKillEntrustment.onPlayerInteractWithVillager(player);
@@ -100,23 +104,20 @@ public class VillagerEvents {
                     return;
                 }
             }
-            boolean flag = false;
+            boolean isWraqMetchant = false;
             for (MutableComponent value : StringUtils.VillagerNameMap.values()) {
-                if (value.getString().equals(villager.getName().getString())) flag = true;
+                if (value.getString().equals(npc.getName().getString())) {
+                    isWraqMetchant = true;
+                }
             }
             for (MutableComponent value : MyVillagerData.villagerNameMap.values()) {
-                if (value.getString().equals(villager.getName().getString())) flag = true;
-            }
-            if (flag) {
-                ModNetworking.sendToClient(new VillagerTradeScreenS2CPacket(
-                        villager.getName().getString()), (ServerPlayer) event.getEntity());
-                event.setCanceled(true);
-            } else {
-                Set<Item> itemList = Set.of(Items.RAW_IRON, Items.RAW_COPPER, Items.RAW_GOLD, Items.DIAMOND);
-                if (villager.getOffers().stream()
-                        .anyMatch(merchantOffer -> itemList.contains(merchantOffer.getResult().getItem()))) {
-                    event.setCanceled(true);
+                if (value.getString().equals(npc.getName().getString())) {
+                    isWraqMetchant = true;
                 }
+            }
+            if (isWraqMetchant) {
+                ModNetworking.sendToClient(new VillagerTradeScreenS2CPacket(
+                        npc.getName().getString()), (ServerPlayer) event.getEntity());
             }
         }
 

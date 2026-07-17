@@ -10,6 +10,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -221,7 +222,7 @@ public class SpringMobEvent extends KillMobEvent {
 
     public static void givePlayerSpringCurios(Player player, int count) {
         if (RandomUtils.nextInt(0, 100) < 5 + count) {
-            CompoundTag data = Compute.getPlayerSpecificKeyCompoundTagData(player, SPRING_CURIO_TAG);
+            CompoundTag data = PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, SPRING_CURIO_TAG);
             List<String> curiosDataKeys = new ArrayList<>(springCuriosDataKeys);
             Item msgItem;
             if (curiosDataKeys.stream().allMatch(data::contains)) {

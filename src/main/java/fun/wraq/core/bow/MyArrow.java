@@ -163,7 +163,7 @@ public class MyArrow extends AbstractArrow {
         double critRate = PlayerAttributes.critRate(player);
         double critDamage = PlayerAttributes.critDamage(player);
         if (SpecialEffectOnPlayer.inBlind(player)) {
-            Compute.summonValueItemEntity(mob.level(), player, mob,
+            Compute.summonValue(mob.level(), player, mob,
                     Te.s("未命中", CustomStyle.styleOfEnd), 0);
             return;
         }
@@ -265,12 +265,12 @@ public class MyArrow extends AbstractArrow {
         Damage.beforeCauseDamage(player, mob, damage + trueDamage);
         Damage.causeDirectDamageToMob(player, entity, damage + trueDamage);
         if (critFlag)
-            Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
+            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
         else
-            Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
+            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
         if (elementDamage != 0 && !elementType.isEmpty())
-            Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
-        else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
+            Damage.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
+        else Damage.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
         // Health steal
         Compute.healByHealthSteal(player, mob, damage);
         BowSkillTree.skillIndex3Hit(player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2% * c，在10次攻击后达到最大值）

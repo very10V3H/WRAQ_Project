@@ -16,6 +16,7 @@ import fun.wraq.process.system.cooking.CookingOperationCommand;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
 import fun.wraq.process.system.estate.*;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
+import fun.wraq.process.system.stock.StockCommand;
 import fun.wraq.series.crystal.CrystalOperationCommand;
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
@@ -832,6 +833,20 @@ public class CommandHandler {
                                                 .executes(VpRechargeCommand.instance)
                                 )
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher92 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd92 = dispatcher92.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("afk")
+                                .executes(AfkCommand.instance)
+                )
+        );
+        event.getDispatcher().register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("stock")
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                                .executes(StockCommand.instance)
                 )
         );
     }

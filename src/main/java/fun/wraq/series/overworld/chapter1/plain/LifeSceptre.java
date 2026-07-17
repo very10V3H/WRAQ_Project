@@ -10,6 +10,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -95,7 +96,7 @@ public class LifeSceptre extends WraqSceptre implements OnHitEffectEquip, InCuri
                 "PlainSceptrePassiveDefence", 15, Tick.get() + 100);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceModifier,
                 "PlainSceptrePassiveManaDefence", 15, Tick.get() + 100);
-        Compute.sendEffectLastTime(player,this, 100);
+        BuffSystem.sendEffectLastTime(player,this, 100);
         Compute.playerHeal(player, player.getMaxHealth() * 0.01);
     }
 }

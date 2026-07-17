@@ -12,6 +12,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -198,7 +199,7 @@ public class EarthPower extends WraqPower {
             }
             case 1 -> {
                 playerList.forEach(player1 -> {
-                    Compute.sendEffectLastTime(player1, ModItems.EARTH_POWER.get().getDefaultInstance(), 60);
+                    BuffSystem.sendEffectLastTime(player1, ModItems.EARTH_POWER.get().getDefaultInstance(), 60);
                     Forest_PlayerDefenceEnhance.put(player1, tick + 60);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
@@ -213,7 +214,7 @@ public class EarthPower extends WraqPower {
                     Compute.addManaDefenceDecreaseEffectParticle(mob1, 60);
                 });
                 playerList.forEach(player1 -> {
-                    Compute.sendEffectLastTime(player1, ModItems.EARTH_POWER.get().getDefaultInstance(), 60);
+                    BuffSystem.sendEffectLastTime(player1, ModItems.EARTH_POWER.get().getDefaultInstance(), 60);
                     Lake_PlayerCoolDownEnhance.put(player1, tick + 60);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.DRIPPING_WATER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.DRIPPING_WATER, 0);
@@ -224,7 +225,7 @@ public class EarthPower extends WraqPower {
             }
             case 3 -> {
                 playerList.forEach(player1 -> {
-                    Compute.sendEffectLastTime(player1, ModItems.EARTH_POWER.get().getDefaultInstance(), 60);
+                    BuffSystem.sendEffectLastTime(player1, ModItems.EARTH_POWER.get().getDefaultInstance(), 60);
                     Volcano_PlayerDamageEnhance.put(player1, tick + 60);
                 });
                 mobList.forEach(mob1 -> {

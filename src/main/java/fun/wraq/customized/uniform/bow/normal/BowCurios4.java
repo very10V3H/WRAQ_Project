@@ -1,6 +1,6 @@
 package fun.wraq.customized.uniform.bow.normal;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
@@ -35,7 +35,7 @@ public class BowCurios4 extends WraqBowUniformCurios {
     }
 
     public static int getExArrowCount(Player player) {
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.BOW_CURIOS_4.get())) {
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.BOW_CURIOS_4.get())) {
             return 7;
         }
         return 0;

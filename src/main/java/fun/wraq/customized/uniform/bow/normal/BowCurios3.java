@@ -1,6 +1,6 @@
 package fun.wraq.customized.uniform.bow.normal;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -37,7 +37,7 @@ public class BowCurios3 extends WraqBowUniformCurios {
     }
 
     public static float getArrowExFlySpeed(Player player) {
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.BOW_CURIOS_3.get())) {
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.BOW_CURIOS_3.get())) {
             return 1.5f;
         }
         return 0;

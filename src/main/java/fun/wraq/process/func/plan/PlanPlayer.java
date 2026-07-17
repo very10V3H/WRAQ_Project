@@ -3,6 +3,7 @@ package fun.wraq.process.func.plan;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
@@ -41,7 +42,7 @@ public class PlanPlayer {
     public static final String TOWER_STATUS_KEY = "TowerStatus";
 
     public static CompoundTag getPlanData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, PLAN_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, PLAN_DATA_KEY);
     }
 
     public static final String LOTTERY_KEY = "Lottery";

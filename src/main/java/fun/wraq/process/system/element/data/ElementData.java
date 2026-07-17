@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public class ElementData {
     public static final String ELEMENT_DATA_KEY = "ElementData";
     public static CompoundTag getElementData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, ELEMENT_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, ELEMENT_DATA_KEY);
     }
 
     public static List<String> allPieceCountKey = new ArrayList<>();

@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
@@ -61,7 +62,7 @@ public class QingTuan extends WraqItem {
                 StableAttributesModifier.addM(player, StableAttributesModifier.playerExHarvestModifier,
                         "QingTuanEffectExHarvestIncrease", 0.2, Tick.get() + Tick.min(5));
             }
-            Compute.sendEffectLastTime(player, this, Tick.min(5));
+            BuffSystem.sendEffectLastTime(player, this, Tick.min(5));
             player.getCooldowns().addCooldown(this, Tick.s(10));
             MySound.soundToPlayer(player, SoundEvents.GENERIC_EAT);
         }

@@ -1,0 +1,154 @@
+# VMD Curio BASE Attributes — compiled from WraqCurios subclasses (2026-05-12)
+# Columns: type,className,registryName,chineseName,tiers,levelRequire,
+#   attackDamage,critRate,critDamage,manaDamage,defence,manaDefence,maxHealth,
+#   healthSteal,manaHealthSteal,defencePenetration,defencePenetration0,manaPenetration,manaPenetration0,
+#   healthRecover,manaRecover,maxMana,coolDown,movementSpeed,healingAmplification,expUp,
+#   elementType,elementValue,passiveDescription,estimatedDamageAmpPercent,modificationSuggestion
+# estimatedDamageAmpPercent: rough estimate of DPS gain from passive, ±10% tolerance
+# modificationSuggestion: NORMAL=合理, HIGH=偏高建议下调, LOW=偏低建议上调, REVIEW=需人工复核
+type,className,registryName,chineseName,tiers,levelRequire,attackDamage,critRate,critDamage,manaDamage,defence,manaDefence,maxHealth,healthSteal,manaHealthSteal,defencePenetration,defencePenetration0,manaPenetration,manaPenetration0,healthRecover,manaRecover,maxMana,coolDown,movementSpeed,healingAmplification,expUp,elementType,elementValue,passiveDescription,estimatedDamageAmpPercent,modificationSuggestion
+
+# ===== NEW RUNES (chapter 1) =====
+RUNE,MineNewRune,mine_new_rune,致密金属符文,1,,,,,,4,,,,,,,,,,,,,,,"health>60%:-15%承伤+8%通用增伤",8,NORMAL
+RUNE,ForestNewRune,forest_new_rune,狂野生长符文,1,,,,,,,,1600,,,,,,,,,,,,,"濒死免疫(20%HP线)+5s内10%maxHP/s回复",0,NORMAL
+RUNE,LakeNewRune,lake_new_rune,流线适应符文,1,,,,,,,,,,,,,,,0.1,,,,,,,"水下呼吸+200%游泳速度",0,NORMAL
+RUNE,PlainNewRune,plain_new_rune,复苏之风符文,1,,,,,,,,,,,,,,5,,,,,,,"每秒回复1%已损失生命值",0,NORMAL
+RUNE,VolcanoNewRune,volcano_new_rune,熔岩强击符文,1,,30,,,60,,,,,,,,,,,,,,,"每第3次攻击基础伤害翻倍",20,NORMAL
+# ===== NEW RUNES (chapter 2) =====
+RUNE,KazeNewRune,kaze_new_rune,顺势风动符文,1,,,,,,,,,,,,,,,,0.04,,,,,"受击后20%移速加成(2s衰减)",0,NORMAL
+RUNE,EvokerNewRune,evoker_new_rune,魔源汲取符文,1,,,,,,,,,,,,0.1,,,,,,,,"每4s对8格内怪物造成100%MD+回蓝(最高10%)",25,REVIEW
+RUNE,LightningNewRune,lightning_new_rune,唤雷符文,1,,,,,,,,,,0.08,,,0.08,,,,,,,,"每8s下次攻击召唤闪电(50%自适应伤害)",6,NORMAL
+RUNE,HuskNewRune,husk_new_rune,灵魂收集符文,1,,,,,,,,,,,,,,,,,0.1,,,,"击杀收集灵魂(最高20层,每层+1%通用增伤,5min)",10,NORMAL
+RUNE,SkyNewRune,sky_new_rune,腾云凌风符文,1,,,,0.1,,,,,,,,,,,,,,,,"暴击伤害-10%总爆伤换取+20%移速",-4,NORMAL
+# ===== NEW RUNES (chapter 3-6) =====
+RUNE,NetherNewRune,nether_new_rune,熔岩爆裂符文,1,,,,0.1,,,,,,,,,,,,,,,,,"击杀爆炸:8%maxHP物理+100%AD真伤(范围)",5,NORMAL
+RUNE,CastleNewRune,castle_new_rune,物法兼修符文,1,,,,,,200,,,,,,,,,,,,,,,"剑/弓获20%MD转AD;法杖获40%AD转MD(已禁用)",20,HIGH
+RUNE,MoonNewRune,moon_new_rune,明镜止水符文,1,,,,,,,,,,,,,,,0.08,,,,,,,"快捷栏4-9每空CD主动物品+6%通用增伤",18,REVIEW
+
+# ===== CRESTS (章纹, RepeatableCurios maxSlotSize=16) =====
+CREST,ForestCrest,forest_crest,森林章纹,16,,,,"40-640/tier",,,,,,,,,,,,,,,,life,,"套装效果(shift查看)",0,NORMAL
+CREST,MineCrest,mine_crest,矿洞章纹,16,,,,,,,"1-11/tier",,,,,,,,,,,,,,stone,"0.05-0.5/tier","套装效果(shift查看)",0,NORMAL
+CREST,PlainCrest,plain_crest,平原章纹,16,,,,,,,,"400-6400/tier",,,,,,,"1-14/tier",,,,,life,"0.05-0.5/tier","套装效果(shift查看)",0,NORMAL
+CREST,SnowCrest,snow_crest,雪原章纹,16,,,,,,,,,,,,,,"1-8/tier",,,,,,,,ice,"0.05-0.5/tier","套装效果(shift查看)",0,NORMAL
+CREST,VolcanoCrest,volcano_crest,火山章纹,16,,"25-250/tier",,,,,,,,,,,,,,,,,fire,"0.05-0.5/tier","套装效果(shift查看)",0,NORMAL
+CREST,LakeCrest,lake_crest,澈源章纹,16,,,,,,,,,,,,,,,,0.03-0.18/tier,,,,water,"0.05-0.5/tier","套装效果(shift查看)",0,NORMAL
+CREST,ManaCrest,mana_crest,魔力章纹,16,,,,"50-500/tier",,,,,,,,,,,,,,,,lightning,"0.05-0.5/tier","可作魔力套组件",0,NORMAL
+CREST,SkyCrest,sky_crest,天空章纹,16,,,,0.01-0.06/tier,,,,,,,,,,"1-8/tier",,,,,,,wind,"0.05-0.5/tier","血量决定AD/移速加成+低血护盾",5,REVIEW
+CREST,BunkerCrest,bunker_crest,地堡章纹,16,,,,,,,,,,,,,,,,,,,,,"(无独立属性)",0,NORMAL
+
+# ===== RINGS (指环) =====
+RING,ForestRing,forest_ring,森林指环,1,,,,0.02,,,,,,,,,2,,,,,,0.1,,,"percentDefenceEnhance:0.1",0,NORMAL
+RING,PlainRing,plain_ring,平原指环,1,,,,0.02,,,,,,,,,2,,,,,,0.1,,,"+0.5格步高",0,NORMAL
+RING,VolcanoRing,volcano_ring,火山指环,1,,,,0.02,,,,,,,,,2,,,,,,0.1,,,"percentAttackDamageEnhance:0.1,percentManaDamageEnhance:0.1",10,HIGH
+RING,LakeRing,lake_ring,澈源指环,1,,,,0.02,,,,,,,,,2,,,,,0.1,,0.1,,,"percentDefenceEnhance:0.1",0,NORMAL
+
+# ===== SUN ISLAND (Lv 150) =====
+CURIO,TabooPaper,taboo_paper,禁忌秘法残页,1,150,,,,,,,,,,,,0.04,,,,,,,,"法系技能V2伤害+20%+持续+1s;每秒回复2%已损失法力",20,NORMAL
+CURIO,DevilPowerCurio,devil_power_curio,超凡邪力,1,,,,,,,,,,,,,,,,,,,,"按总击杀数叠最终伤害(每10000杀+0.2%,上限20%)",10,NORMAL
+CURIO,FrameArrow,frame_arrow,红莲弓矢,1,150,,,0.04,,,,,,,,,,,,,,,,"弓技能伤害+100%,冷却-1s",50,HIGH
+CURIO,BrokenBlade,broken_blade,剑气残刃,1,150,70,,,,,,,,,,,,,,,,,,"剑技能伤害+100%,持续+1s",50,HIGH
+CURIO,TearCurio,tear_curio,法力积攒之泪,1,,,,,,,,,,,,,,,,10,250,,,,,"战斗中每次释放技能+20maxMana(上限360-900),脱战60s后清空",10,NORMAL
+
+# ===== SAKURA / BLOOD-EARTH MANA (Lv 116-124) =====
+CURIO,BloodManaCurios,blood_mana_curios,腥月魔浴,2,,,,,,4,8,100,200,,,0.04,0.08,,,,,,8,16,,,,,,,"受法伤后5s内每秒恢复5%maxHP",0,NORMAL
+CURIO,EarthManaCurios,earth_mana_curios,地蕴魔浴,2,,,,,,4,8,,200,400,,,0.04,0.08,,,,8,16,,,,,,,"受法伤后5s内每秒恢复5%maxHP",0,NORMAL
+CURIO,BunkerCurio,bunker_curio,炉护爆沸,2,230,,,,,,40,40,,,,,,,,,,,,,fire,"0.6,0.8","受击后3s护盾(等级×火元素);血量<30%击退+眩晕+10s增伤10%(10sCD)",10,REVIEW
+
+# ===== END SERIES =====
+CURIO,CitadelCurio,citadel_curio,影珀护符,5,215,,,,,,,,,,,,,,,,,,,,"0.44-1.11/tier","击杀留下残影(最高10个)造成10%自适应/s;致命伤时满血复活+4阶段增减益",15,REVIEW
+CURIO,EndCuriosMana,end_curios_mana,跃迁法饰,1,,,,"194",,,,,,0.05,,,,,10,20,,,,,"法力箭穿透敌人,每穿透一个+33%伤害",33,REVIEW
+CURIO,EndCuriosBow,end_curios_bow,折跃弓饰,1,,88,,0.05,,,,,0.05,,,,,,,,,,,,"箭矢穿透敌人,每穿透一个+33%伤害",33,REVIEW
+CURIO,EndRune,end_rune,终末符文,1,,,,,,,,,,,,,,,,,,,0.15,,,"怪物掉落与经验直接传送到玩家位置",0,NORMAL
+
+# ===== INSTANCE — PLAIN BOSS RINGS (Decomposable, level-based) =====
+RING,PlainAttackRing,plain_attack_ring,普莱尼攻击指环,8,,30-120/level,,,,,,,,,,,,,,,,,,,(纯属性),0,NORMAL
+RING,PlainManaAttackRing,plain_mana_attack_ring,普莱尼魔力指环,8,,,,50-200/level,,,,,,,,,,,,,,,,,(纯属性),0,NORMAL
+RING,PlainDefenceRing,plain_defence_ring,普莱尼防御指环,8,,,,,2-5/level,,,,,,,,,,,,,,,,(纯属性),0,NORMAL
+RING,PlainHealthRing,plain_health_ring,普莱尼生命指环,8,,,,,,,800-3200/level,,,,,,,,,,,,,,,(纯属性),0,NORMAL
+
+# ===== INSTANCE — SAKURA BOSS 2 RINGS (Lv 150) =====
+RING,Boss2AttackRing,boss2_attack_ring,突见忍攻击指环,3,150,160,200,280,,,,,,,,,,,,,,,,,,"percentAttackDamageEnhance:0.01-0.025/tier",4,NORMAL
+RING,Boss2ManaAttackRing,boss2_mana_attack_ring,突见忍魔力指环,3,150,,,,"280,400,520",,,,,,,,,,,,,,,,"percentManaDamageEnhance:0.01-0.025/tier",4,NORMAL
+RING,Boss2DefenceRing,boss2_defence_ring,突见忍防御指环,3,150,,,,,7,9,10,,,,,,,,,,,,,,,"percentDefenceEnhance:0.01-0.025/tier",0,NORMAL
+RING,Boss2HealthRing,boss2_health_ring,突见忍生命指环,3,150,,,,,,,"3600,6000,8400",,,,,,,,,,,,,,"percentMaxHealthEnhance:0.01-0.025/tier",0,NORMAL
+
+# ===== INSTANCE — COMBINED RUNES (Lava Alchemy) =====
+RUNE,WindRune,wind_rune,风语符文,1,,,,0.1,,,,,,,,,,,,0.04,,,,,,"顺势风动(20%移速)+腾云凌风(-10%爆伤+20%移速)",-4,NORMAL
+RUNE,TabooRune,taboo_rune,禁忌符文,1,,,,,,,,,,,,0.1,,,,,,,0.1,,,"魔源汲取(每4s100%MD)+灵魂收集(每魂+1%增伤)",20,REVIEW
+RUNE,BlazeRune,blaze_rune,炽焰符文,1,,30,,,60,,,,,,,,,,,,,,,,"熔岩强击(每3次双倍)+熔岩爆裂(击杀爆炸)",25,REVIEW
+RUNE,LifeRune,life_rune,生命符文,1,,,,,,,,1600,,,,,,5,,,,,,,,"复苏之风(1%已损HP回复)+狂野生长(濒死免疫)",0,NORMAL
+RUNE,DarkRune,dark_rune,暗影符文,1,,,,,,200,,,,,,,,,0.08,,,,,,,"明镜止水(+6%/空CD物品)+物法兼修(20%转换)",24,HIGH
+
+# ===== INSTANCE — OTHER BOSS CURIOS =====
+CURIO,IceBelt,ice_belt,冰霜束带,1,135,,,,,,,,,,,,,,,,,,,ice,0.5,"随机6属性(攻击/防御/功能各2),满条率0.7",0,NORMAL
+CURIO,HarbingerCurio,harbinger_curio,先驱饰品,1,225,,,,,,,,,,,,,,,,,,,,"随机属性+受火元素怪伤害+12%双穿5s",6,NORMAL
+CURIO,MushroomCurio,mushroom_curio,蘑菇煲,1,,,,,,,,,,,,,,,,,,,,"饥饿≤8时消耗33%当前HP回满饥饿",0,NORMAL
+CURIO,MoonBelt,moon_belt,苍白之瀑,1,160,150,,,300,,,,,,10,,10,,,0.1,,,,,"10s充能存储2%输出+1000%承伤→释放真伤+护盾(10sCD)",20,REVIEW
+CURIO,CastleNecklace,castle_necklace,暗黑城堡项链,1,180,,,,,,,,,,,,,,,,,,,,"随机全属性6条,满条率1.0",0,NORMAL
+
+# ===== SPUR CHARMS (支线护符, serial 1-10, level 40-160) =====
+CHARM,SeaCharm,sea_charm,海洋护符,10,40-160,,,,,,,,,,,,,,"5-38/serial",,,"0.02-0.15/serial",,,,"percentHealthRecover:0.002-0.008/serial,swiftnessUp:0.2-1.5/serial",0,NORMAL
+CHARM,MineCharm,mine_charm,矿工护符,10,40-160,,,,,,,,,,,"0.01-0.13/serial","1-13/serial","0.01-0.13/serial","1-13/serial",,,,,,,,(纯属性),0,NORMAL
+CHARM,LogCharm,log_charm,伐木护符,10,40-160,,,,,,"2-15/serial","2-15/serial",,,,,,,,,,,,,"percentDefenceEnhance:0.02-0.15/serial,percentManaDefenceEnhance:0.02-0.15/serial",0,NORMAL
+CHARM,CropCharm,crop_charm,农耕护符,10,40-160,,,,,,,,"800-11500/serial",,,,,,,"5-110/serial",,,,,,,"percentMaxHealthEnhance:0.01-0.13/serial",0,NORMAL
+
+# ===== SPRING 2025 EVENT CURIOS (tier 0-4, level 50-250) =====
+CURIO,Spring2025Hand,spring2025_hand,春晓之握,5,50-250,200-1000/tier,,0.01-0.05/tier,,,,,,0.01-0.05/tier,,"15-55/tier",,,,,,,,,"percentAttackDamageEnhance:0.01-0.05/tier",0,NORMAL
+CURIO,Spring2025Necklace,spring2025_necklace,春晓项链,5,50-250,,,,"400-2000/tier",,,,,0.01-0.05/tier,,,"15-55/tier",,,"2-6/tier",,,,,,"percentManaDamageEnhance:0.01-0.05/tier",0,NORMAL
+CURIO,Spring2025Belt,spring2025_belt,春晓束带,5,50-250,,,,,20-100/tier,20-100/tier,,,,,,,,,,,,0.03-0.15/tier,,,"percentMaxHealthEnhance:0.01-0.05/tier,percentHealthRecover:0.0015-0.006/tier",0,NORMAL
+CURIO,Spring2025Ring,spring2025_ring,春晓指环,5,50-250,,,,,,,,,,,,,,,,0.03-0.15/tier,0.02-0.1/tier,,0.04-0.2/tier,,,0,NORMAL
+CURIO,Spring2025Scale,spring2025_scale,春晓鳞片,5,50-250,,,,,,,,,,,,,,,,,,,,,"所有基础属性最终值提升(tier+1)%",5,HIGH
+
+# ===== SUMMER EVENT CURIOS =====
+CURIO,SummerCuriosOrEquip2024,summer_curios_2024,夏日饰品2024,6,60-210,,,,,,,,"600-1600/tier",,,,,,,,,,,,0.2-0.5/tier,,,"夏季获得AD/MD/释放速度(夏季/水中翻倍);每15s钓鱼",5,NORMAL
+CURIO,SodaAttackCurio,soda_attack_curio,冰爽汽水-攻击,6,80-225,200-1600/tier,,,,,,,,,,,,,,,,,,"percentAttackDamageEnhance:0-0.03/tier,夏季额外+AD%",5,NORMAL
+CURIO,SodaManaCurio,soda_mana_curio,冰爽汽水-魔力,6,80-225,,,,"400-3200/tier",,,,,,,,,,,,,,,,"percentManaDamageEnhance:0-0.03/tier,夏季额外+MD%",5,NORMAL
+CURIO,ShakeHealthCurio,shake_health_curio,清凉沙冰-生命,6,80-225,,,,,,,,"1000-8000/tier",,,,,,,,,,,,,"percentMaxHealthEnhance:0-0.05/tier",0,NORMAL
+CURIO,ShakeDefenceCurio,shake_defence_curio,清凉沙冰-防御,6,80-225,,,,,40-500/tier,40-500/tier,,,,,,,,,,,,,,,"percentDefenceEnhance:0-0.06/tier",0,NORMAL
+
+# ===== MID-AUTUMN / QINGMING EVENT CURIOS =====
+CURIO,MidAutumnLetterCurio,midautumn_letter,太阴之书,3,0-250,,,,,,,,,,,,,,,,,,,,"战斗中-83%重力;基于高度差增伤(最高10-25%,4格满);空中近战范围增加",15,NORMAL
+CURIO,MoonFeather,moon_feather,月之羽,3,0-250,,,,,,,,,,,,,,,,,,,,"5-20%几率击中浮空目标;击杀浮空目标10s移速+伤害buff",8,NORMAL
+CURIO,QingMingCommonRing,qingming_common_ring,清明-往生,1,,,,,,,,,,,,,,,,,,,,"每50击杀获得5minbuff;伤害基于目标已损失生命(最高+10%)",5,NORMAL
+CURIO,QingMingAttackRing,qingming_attack_ring,清明-雨纷纷,1,,,,,,,,0.04,0.04,,,,,,,,,,,,,"每次击杀叠'清'(最高10层,每层+0.5%AD/MD,10s)",5,NORMAL
+CURIO,QingMingDefenceRing,qingming_defence_ring,清明-欲断魂,1,,,,,,,,,,,,,,,,,,,,"每次受击叠'明'(最高10层,每层+1%双防,10s)",0,NORMAL
+CURIO,TrainSouvenirs,train_souvenirs,列车纪念品,1,,,,,,,,,,0.08,,,,0.08,,,0.08,,,,,(纯属性),0,NORMAL
+
+# ===== MOONTAIN / OVERWORLD CURIOS =====
+CURIO,MoontainCurios,moontain_curios,望山饰品,1,,,,,,,,,,,,,,,,,,,,,"随机3属性(攻击/防御/功能),可强化",0,NORMAL
+CURIO,RubyNecklace,ruby_necklace,红宝石项链,4,,,,,,,,"2000,4000,6000,8000",,,,,,,,,,,,,,(纯属性),0,NORMAL
+CURIO,SapphireNecklace,sapphire_necklace,蓝宝石项链,4,,,,,,,,,,,,,,,,0.04,0.06,0.08,0.1,,,,,(纯属性),0,NORMAL
+CURIO,FancySapphireNecklace,fancy_sapphire_necklace,极品蓝宝石项链,2,,,,,,,,"12000,24000",,,,,,,,,,0.12,0.2,,,,,(纯属性),0,NORMAL
+
+# ===== EXTRAORDINARY CURIOS (超凡) =====
+CURIO,TongTian,tong_tian,通天,1,,,,,,,,,,,,,,,,,,,,"跳跃提升;空中时+30%通用增伤",30,HIGH
+CURIO,NanHai,nan_hai,南海A,1,,,,,,,,,0.1,20,0.1,20,,,,,,,,,"无视40%HP以下目标的全部防御",30,HIGH
+CURIO,TianShou,tian_shou,天狩,1,,,,,,,,,,,,,,,,,,,,,"满血时消耗40%HP(供奉)",0,REVIEW
+
+# ===== ELEMENT HOLY STONE =====
+CURIO,ElementHolyStone,element_holy_stone,元素圣石,3,200,"200,0,0",,,,,,,,,,,,,,,,,,,"type0:200AD,type1:1.5敏捷,type2:400MD;elementValue:0.7",0,NORMAL
+
+# ===== MOB DROP CURIOS (random) =====
+CURIO,PlainNecklace,plain_necklace,普莱尼项链,1,50,,,,,,,,,,,,,,,,,,,,随机3功能属性,0,NORMAL
+CURIO,NetherHand,nether_hand,下界之手,1,90,,,,,,,,,,,,,,,,,,,,随机3攻击属性,0,NORMAL
+
+# ===== PROFESSION / COOKING / COMPOSITES =====
+CURIO,SmithHammer,smith_hammer,匠魂之锤,6,,,,0-0.05/tier,,,,,,,,,0-50/tier,,,,,,,,,"兼作锻造锤(tier决定品质);每日任务奖励",0,NORMAL
+CURIO,FoodMedal,food_medal,吃货勋章,5,,,,,,,,,,,,,,,,,,,,,"基于烹饪等级增加maxHealth",0,NORMAL
+CURIO,SpeedComposites,speed_composites,速度合成,1,,,,,,,,,,,,,,,,0.2,0.2,,,,"attackSpeedEnhance:0.2",0,NORMAL
+
+# ===== SUPER COLD DRAGON (Lv 300+) =====
+CURIO,SuperColdDragonCurio,super_cold_dragon_curio,极寒龙饰,1,,,,,,,,,,,,,,,,,,,,,随机1属性(19选1),0,NORMAL
+
+# ===== STAR BOTTLE (chapter 7) =====
+CURIO,StarBottle,star_bottle,聚星瓶,1,,,,,,,,,0.09,,,,0.09,,,,,,,,,,"战斗中收集星尘/s;每10颗+1.5%伤害;70颗时自动攻击附近目标",15,REVIEW
+
+# ===== LAVENDER BRACELET (Lv 80) =====
+CURIO,LavenderBracelet,lavender_bracelet,薰衣草手环,1,80,,,,,,,,,,,,,,,,,,,,,"每1s获得1.5s护盾(5%maxHP);随机3防御属性",0,NORMAL
+
+# ===== ICE HOLY CURIOS (Lv 230, Decomposable) =====
+CURIO,IceHolyCrest,ice_holy_crest,冰圣章纹,6,230,,,,,,,,,,,,"10-60/tier",,,,,,,,ice,"0.2-1.2/tier","冰元素决定防御穿透(最高2-12% at 1000%冰)",6,NORMAL
+CURIO,IceHolyRune,ice_holy_rune,冰圣符文,6,230,,,,,,,,,,,,,,,,,,,ice,"0.2-1.2/tier","冰元素决定减伤(最高2-12% at 1000%冰);percentMaxHealthEnhance:0.02-0.12/tier",0,NORMAL
+CURIO,IceHolySword,ice_holy_sword,冰圣剑饰,6,230,,,,,,,,,,,,,,,,,,,ice,"0.2-1.2/tier","冰元素决定额外普攻率(最高4-24% at 1000%冰);attackDamageEnhance:0.02-0.12/tier",12,REVIEW
+CURIO,IceHolySceptre,ice_holy_sceptre,冰圣法饰,6,230,,,,,,,,,,,,,,,,,,,ice,"0.2-1.2/tier","冰元素决定技能伤害率(最高2-12% at 1000%冰);commonDamageEnhance:0.02-0.12/tier",8,NORMAL
+CURIO,IceHolyStone,ice_holy_stone,冰圣之石,6,230,,,,,,,,,,,,,,,,,,,ice,"0.2-1.2/tier",(纯属性),0,NORMAL

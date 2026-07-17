@@ -1,12 +1,13 @@
 package fun.wraq.networking.unSorted;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.projectiles.mana.Meteorite;
+import fun.wraq.render.hud.Mana;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -35,7 +36,7 @@ public class SoulSceptreC2SPacket {
         context.enqueueWork(() -> {
             if ((!Utils.PlayerSoulSceptreCoolDown.containsKey(serverPlayer) ||
                     (Utils.PlayerSoulSceptreCoolDown.containsKey(serverPlayer) && Utils.PlayerSoulSceptreCoolDown.get(serverPlayer) < TickCount))
-                    && Compute.playerManaCost(serverPlayer, 120)) {
+                    && Mana.playerManaCost(serverPlayer, 120)) {
                 Meteorite meteorite = new Meteorite(ModEntityType.METEORITE.get(), serverPlayer, serverPlayer.level(), false);
                 Vec3 vec3 = serverPlayer.pick(5, 0, false).getLocation();
                 meteorite.setSilent(true);
@@ -44,7 +45,7 @@ public class SoulSceptreC2SPacket {
                 serverPlayer.level().addFreshEntity(meteorite);
                 Utils.PlayerSoulSceptreCoolDown.put((Player) serverPlayer,
                         TickCount + (int) (160 * (1 - PlayerAttributes.coolDownDecrease(serverPlayer))));
-                Compute.sendCoolDownTime(serverPlayer, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(),
+                BuffSystem.sendCoolDownTime(serverPlayer, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(),
                         (int) (160 * (1 - PlayerAttributes.coolDownDecrease(serverPlayer))));
             }
         });

@@ -5,8 +5,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.series.newrunes.NewRuneItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -32,12 +30,7 @@ public class ForNew extends Item {
     }
 
     private List<ItemStack> getItemList() {
-        ItemStack sword = new ItemStack(ModItems.PLAIN_SWORD_0.get());
-        ItemStack bow = new ItemStack(ModItems.PLAIN_BOW_0.get());
-        ItemStack sceptre = new ItemStack(ModItems.LIFE_SCEPTRE_0.get());
-        ForgeEquipUtils.setForgeQualityOnEquip(sword, 6);
-        ForgeEquipUtils.setForgeQualityOnEquip(bow, 6);
-        ForgeEquipUtils.setForgeQualityOnEquip(sceptre, 6);
+
         ItemStack elyTra = Items.ELYTRA.getDefaultInstance();
         elyTra.getOrCreateTag().putBoolean("Unbreakable", true);
         Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(elyTra);
@@ -45,22 +38,12 @@ public class ForNew extends Item {
         EnchantmentHelper.setEnchantments(map, elyTra);
 
         return List.of(
-                sword, bow, sceptre,
                 new ItemStack(ModItems.BAMBOO_KANATA.get()),
                 new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()),
-                new ItemStack(ModItems.PLAIN_MANA_BOOK.get()),
-                new ItemStack(NewRuneItems.PLAIN_NEW_RUNE.get()),
-                new ItemStack(NewRuneItems.FOREST_NEW_RUNE.get()),
-                new ItemStack(NewRuneItems.LAKE_NEW_RUNE.get()),
-                new ItemStack(NewRuneItems.VOLCANO_NEW_RUNE.get()),
-                new ItemStack(NewRuneItems.END_NEW_RUNE.get()),
-                new ItemStack(ModItems.BACKPACK_TICKETS.get()),
                 new ItemStack(ModItems.COPPER_HAMMER.get()),
                 new ItemStack(ModItems.BACK_SPAWN_TICKET.get()),
                 new ItemStack(Items.GOLDEN_CARROT, 64),
-                new ItemStack(ModItems.NOTE_PAPER.get(), 320),
-                elyTra,
-                new ItemStack(ModItems.TP_PASS_3DAY.get(), 1));
+                elyTra);
     }
 
     @Override

@@ -2,10 +2,12 @@ package fun.wraq.common.equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.blade.WraqBlade;
@@ -17,6 +19,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.TooltipFlag;
@@ -24,7 +28,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 public abstract class WraqPassiveEquip extends PickaxeItem {
 
@@ -84,5 +90,46 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
             });
         }
         return true;
+    }
+
+    public static class PassiveEquip {
+
+        public static double getAttribute(Player player, Map<Item, Double> map) {
+            HashSet<Class<? extends Item>> set = new HashSet<>();
+            double value = 0;
+            for (int i = 3; i < 9; i++) {
+                ItemStack equip = player.getInventory().getItem(i);
+                Item item = equip.getItem();
+                if (!set.contains(item.getClass()) && Utils.passiveEquipTag.containsKey(item)
+                        && map.containsKey(item)
+                        && (!Utils.levelRequire.containsKey(item)
+                        || Utils.levelRequire.get(item) <= player.experienceLevel)) {
+                    if (item instanceof WraqMainHandOrPassiveEquip wraqMainHandOrPassiveEquip) {
+                        if (!(player.getMainHandItem().is(item) && player.getInventory().selected >= 3)) {
+                            double computeValue = 0;
+                            double baseValue = 0;
+                            baseValue += ForgeEquipUtils
+                                    .getTraditionalEquipBaseValue(equip, map, player,
+                                            map.equals(Utils.attackDamage)
+                                                    || map.equals(Utils.manaDamage)
+                                                    || map.equals(Utils.maxHealth));
+                            computeValue += baseValue;
+                            // 只有能被强化的属性才能用这个公式去计算数值
+                            if (map.equals(Utils.attackDamage)
+                                    || map.equals(Utils.manaDamage)
+                                    || map.equals(Utils.maxHealth)) {
+                                computeValue += Compute.forgingValue(equip, baseValue);
+                            }
+                            computeValue *= wraqMainHandOrPassiveEquip.rate();
+                            value += computeValue;
+                        }
+                    } else {
+                        value += map.get(item);
+                    }
+                    set.add(item.getClass());
+                }
+            }
+            return value;
+        }
     }
 }

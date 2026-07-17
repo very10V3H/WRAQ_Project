@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.network.chat.Component;
@@ -35,7 +36,7 @@ public class SuperColdCarrot extends WraqItem implements ActiveItem {
         InventoryOperation.removeItem(player, this, 1);
         effectExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(10));
         player.addEffect(new MobEffectInstance(MobEffects.SATURATION, Tick.min(10)));
-        Compute.sendEffectLastTime(player, this, Tick.min(10));
+        BuffSystem.sendEffectLastTime(player, this, Tick.min(10));
     }
 
     @Override

@@ -4,7 +4,7 @@ import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
 import fun.wraq.blocks.entity.Decomposable;
-import fun.wraq.common.Compute;
+import fun.wraq.blocks.entity.HBrewingEntity;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
@@ -188,7 +188,7 @@ public class ToolTipEvent {
                 CompoundTag BrewingData = stack.getOrCreateTagElement(Utils.MOD_ID);
                 event.getToolTip().add(Component.literal(" "));
                 event.getToolTip().add(Component.literal("~当前酿造等阶: ").withStyle(ChatFormatting.WHITE).
-                        append(Utils.BrewingLevelName[Compute.BrewingLevel(stack)]));
+                        append(Utils.BrewingLevelName[HBrewingEntity.BrewingLevel(stack)]));
                 ComponentUtils.descriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
                 event.getToolTip().add(Component.literal(" 酿造经验明细:").withStyle(CustomStyle.styleOfBrew));
                 for (int i = 0; i < Name.length; i++) {

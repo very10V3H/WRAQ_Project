@@ -16,6 +16,7 @@ import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.power.PowerLogic;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.bow.*;
@@ -245,7 +246,7 @@ public abstract class SkillV2 {
     private static final String SKILL_V2_DATA_KEY = "SkillV2Data";
 
     private static CompoundTag getSkillV2Data(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, SKILL_V2_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, SKILL_V2_DATA_KEY);
     }
 
     private static final String SWORD_SKILL_DATA_KEY = "SwordSkillData";

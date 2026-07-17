@@ -3,6 +3,7 @@ package fun.wraq.process.system.element.piece;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.element.networking.ElementPieceS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +16,7 @@ public class ElementPieceData {
     public static CompoundTag clientData;
     private static final String DATA_KEY = "ElementPieceData";
     public static CompoundTag getData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, DATA_KEY);
     }
 
     public static void setCount(Player player, Item item, int count) {

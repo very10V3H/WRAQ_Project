@@ -6,6 +6,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.moontain.MoontainEntities;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceCondition;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceOperation;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -144,7 +145,7 @@ public class MoontainUtils {
     public static void tick(Player player) {
         if (player.tickCount % 20 == 0 && player.isAlive()) {
             if (player.hasEffect(BornInChaosV1ModMobEffects.INFERNAL_FLAME.get())) {
-                Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.06,
+                Damage.decreasePlayerHealth(player, player.getMaxHealth() * 0.06,
                         Te.s("被", "望山黯魂", CustomStyle.styleOfMoontain, "吞噬了", ChatFormatting.RED));
             }
         }

@@ -8,6 +8,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class EstatePlayerData {
     public static final String ESTATE_DATA_KEY = "EstateData";
     public static CompoundTag getEstateData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, ESTATE_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, ESTATE_DATA_KEY);
     }
 
     public static final String SERIAL_KEY = "EstateSerial";

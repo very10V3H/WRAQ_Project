@@ -1,7 +1,7 @@
 package fun.wraq.render.gui.trade.weekly;
 
-import fun.wraq.common.Compute;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 
@@ -11,7 +11,7 @@ import java.util.Map;
 public class WeeklyStorePlayerData {
     private static final String DATA_KEY = "WeeklyStoreData";
     public static CompoundTag getData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, DATA_KEY);
     }
 
     private static final String ISSUE_COUNT_KEY = "IssueCount";

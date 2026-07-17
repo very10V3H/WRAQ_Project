@@ -1,6 +1,6 @@
 package fun.wraq.common.impl.onhit;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 
@@ -11,7 +11,7 @@ public interface OnHitDamageInfluenceCurios {
 
     static double damageInfluence(Player player, Mob mob) {
         AtomicReference<Double> influence = new AtomicReference<>((double) 0);
-        Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .filter(stack -> stack.getItem() instanceof OnHitDamageInfluenceCurios)
                 .map(stack -> (OnHitDamageInfluenceCurios) stack.getItem())
                 .forEach(curios -> {

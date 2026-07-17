@@ -1,12 +1,12 @@
 package fun.wraq.series.overworld.sakura.BloodMana;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -56,18 +56,18 @@ public class BloodManaCurios extends WraqCurios {
     }
 
     public static void passive(Player player) {
-        if (Compute.hasCurios(player, ModItems.BLOOD_MANA_CURIOS.get())
-                || Compute.hasCurios(player, ModItems.EARTH_MANA_CURIOS.get())
-                || Compute.hasCurios(player, ModItems.DEVIL_BLOOD_MANA_CURIOS.get())
-                || Compute.hasCurios(player, ModItems.DEVIL_EARTH_MANA_CURIOS.get())) {
+        if (WraqCurios.hasCurios(player, ModItems.BLOOD_MANA_CURIOS.get())
+                || WraqCurios.hasCurios(player, ModItems.EARTH_MANA_CURIOS.get())
+                || WraqCurios.hasCurios(player, ModItems.DEVIL_BLOOD_MANA_CURIOS.get())
+                || WraqCurios.hasCurios(player, ModItems.DEVIL_EARTH_MANA_CURIOS.get())) {
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerHealthRecoverModifier,
                     new StableAttributesModifier("manaCuriosPassiveHealthRecover",
                             player.getMaxHealth() * 0.05, Tick.get() + 60));
-            if (Compute.hasCurios(player, ModItems.BLOOD_MANA_CURIOS.get())
-                    || Compute.hasCurios(player, ModItems.DEVIL_BLOOD_MANA_CURIOS.get())) {
-                Compute.sendEffectLastTime(player, ModItems.BLOOD_MANA_CURIOS.get(), 60);
+            if (WraqCurios.hasCurios(player, ModItems.BLOOD_MANA_CURIOS.get())
+                    || WraqCurios.hasCurios(player, ModItems.DEVIL_BLOOD_MANA_CURIOS.get())) {
+                BuffSystem.sendEffectLastTime(player, ModItems.BLOOD_MANA_CURIOS.get(), 60);
             } else {
-                Compute.sendEffectLastTime(player, ModItems.EARTH_MANA_CURIOS.get(), 60);
+                BuffSystem.sendEffectLastTime(player, ModItems.EARTH_MANA_CURIOS.get(), 60);
             }
         }
     }

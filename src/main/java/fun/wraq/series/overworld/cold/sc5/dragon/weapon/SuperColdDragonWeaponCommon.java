@@ -53,7 +53,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable, ForgeItem {
                 EnumParticles.DragonIce);
         List<Mob> mobs = player.level().getEntitiesOfClass(Mob.class,
                 AABB.ofSize(mob.position(), 4, 4, 4));
-        double rate = 1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 2.5);
+        double rate = Math.min(1, ElementValue.getPlayerIceElementValue(player) / 10);
         mobs.forEach(eachMob -> {
             Compute.createIceParticle(eachMob);
             adaptiveNormalAttack(player, eachMob, rate);
@@ -69,7 +69,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable, ForgeItem {
         Vec3 startPos = Compute.getPlayerHandItemPos(player, true);
         ParticleProvider.createIafLineParticle(player.level(),
                 (int) pos.distanceTo(startPos) * 5, startPos, pos, EnumParticles.DragonIce);
-        double rate = (1 + Math.min(4, ElementValue.getPlayerIceElementValue(player) / 2.5)) * 0.33;
+        double rate = Math.min(1, ElementValue.getPlayerIceElementValue(player) / 10) * 0.33;
         Compute.getNearMob(player.level(), pos, 8).forEach(mob -> {
             adaptiveNormalAttack(player, mob, rate);
         });
@@ -131,7 +131,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable, ForgeItem {
         ComponentUtils.descriptionPassive(components, Te.s("极寒龙息", style));
         components.add(Te.s(" 间隔1s，对准星选定或最近的敌人释放", "极寒龙息", style));
         components.add(Te.s(" 造成", "自适应伤害", CustomStyle.styleOfSea));
-        components.add(Te.s(" 倍率可由", "冰元素强度", style, "，至多提升至", "500%", style));
+        components.add(Te.s(" 倍率基于", "冰元素强度", style, "，至多提升至", "100%", style));
         components.add(Te.s(" 拥有", "1000冰元素强度", style, "获得最大倍率"));
     }
 
@@ -157,7 +157,7 @@ public interface SuperColdDragonWeaponCommon extends Decomposable, ForgeItem {
         ComponentUtils.descriptionActive(components, Te.s("极寒之域", style));
         components.add(Te.s(" 在目标区域制造一片领域，领域持续", "3s", ChatFormatting.AQUA));
         components.add(Te.s(" 每秒对领域内的敌人造成", "自适应伤害", CustomStyle.styleOfSea));
-        components.add(Te.s(" 倍率可由", "冰元素强度", style, "，至多提升至", "500%", style));
+        components.add(Te.s(" 倍率可由", "冰元素强度", style, "，至多提升至", "100%", style));
         ComponentUtils.getStableCoolDownTimeDescription(components, 1);
     }
 }

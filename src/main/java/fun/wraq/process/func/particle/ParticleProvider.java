@@ -302,6 +302,48 @@ public class ParticleProvider {
         });
     }
 
+    public static void createPlayerPowerParticle(Player player) {
+        EntityEffectVerticleCircleParticle(player, 1.5, 0.4, 8, ParticleTypes.WITCH, 0);
+        EntityEffectVerticleCircleParticle(player, 1.25, 0.4, 8, ParticleTypes.WITCH, 0);
+        EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
+        EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
+        EntityEffectVerticleCircleParticle(player, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
+        ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(ParticleTypes.WITCH, true,
+                player.getX(),
+                player.getY(),
+                player.getZ(),
+                0.5f,
+                0.5f,
+                0.5f,
+                1,
+                0);
+        List<ServerPlayer> list = player.getServer().getPlayerList().getPlayers();
+        for (ServerPlayer serverPlayer1 : list) {
+            serverPlayer1.connection.send(clientboundLevelParticlesPacket);
+        }
+    }
+
+    public static Vec3 getFaceCircleVec(Player player, double angle) {
+        double r = 1;
+        Vector3f pickVec3 = player.pick(10, 0, true).getLocation().toVector3f();
+        Vector3f faceVec3 = player.pick(1, 0, true).getLocation().toVector3f();
+        Vector3f vector3f = pickVec3.sub(faceVec3);
+        Vec3 nVec = new Vec3(vector3f.x, vector3f.y, vector3f.z);
+        Vec3 iVec = new Vec3(1, 0, 0);
+        Vec3 jVec = new Vec3(0, 1, 0);
+        Vec3 kVec = new Vec3(0, 0, 1);
+        Vec3 aVec;
+        if (nVec.cross(iVec).length() == 0) {
+            aVec = nVec.cross(jVec);
+        } else aVec = nVec.cross(iVec);
+        aVec = aVec.normalize();
+        Vec3 bVec = nVec.cross(aVec).normalize();
+
+        return new Vec3(r * cos(angle) * aVec.x + r * sin(angle) * bVec.x,
+                r * cos(angle) * aVec.y + r * sin(angle) * bVec.y,
+                r * cos(angle) * aVec.z + r * sin(angle) * bVec.z);
+    }
+
     public record ClientLastVerticalCircleParticle(Vec3 pos, double r, int num,
                                                    ParticleOptions particleOptions, int expiredTick) {}
 

@@ -10,6 +10,8 @@ import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.reputation.ReputationSystem;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -55,12 +57,12 @@ public class DailyMissionFinishedRequestC2SPacket {
                 data.putString(StringUtils.LastDailyMissionFinishedTime, Compute.CalendarToString(Calendar.getInstance()));
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了每日任务！").withStyle(ChatFormatting.WHITE));
-                Compute.givePercentExpToPlayer(serverPlayer, 0.5, 0, serverPlayer.experienceLevel);
+                MyExpSystem.givePercentExpToPlayer(serverPlayer, 0.5, 0, serverPlayer.experienceLevel);
                 ItemStack gemPiece = ModItems.GEM_PIECE.get().getDefaultInstance();
                 gemPiece.setCount(serverPlayer.experienceLevel);
                 InventoryOperation.giveItemStack(serverPlayer, gemPiece);
                 RankData.onPlayerFinishDailyReputationMission(serverPlayer);
-                Compute.giveReputation(serverPlayer, serverPlayer.experienceLevel, Te.s("每日任务"));
+                ReputationSystem.giveReputation(serverPlayer, serverPlayer.experienceLevel, Te.s("每日任务"));
                 ModNetworking.sendToClient(new DailyMissionFinishedTimeS2CPacket(data.getString(StringUtils.LastDailyMissionFinishedTime)), serverPlayer);
                 Utils.playerDailyMissionContent.remove(serverPlayer.getName().getString());
                 ModNetworking.sendToClient(new DailyMissionContentS2CPacket(Items.AIR.getDefaultInstance(), 0), serverPlayer);

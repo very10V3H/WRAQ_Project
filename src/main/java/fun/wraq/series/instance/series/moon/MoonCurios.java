@@ -1,6 +1,7 @@
 package fun.wraq.series.instance.series.moon;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.registry.ModItems;
@@ -8,6 +9,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.quiver.WraqQuiver;
@@ -63,7 +65,7 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
     }
 
     public static boolean isOn(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MOON_CURIOS.get());
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MOON_CURIOS.get());
     }
 
     public static double getExCommonDamageEnhance(Player player) {
@@ -90,11 +92,11 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
     public static WeakHashMap<Player, Integer> passiveCoolDownMap = new WeakHashMap<>();
 
     public static double Passive(Player player, Mob mob) {
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MOON_CURIOS.get())) {
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MOON_CURIOS.get())) {
             int TickCount = Tick.get();
             if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
                 passiveCoolDownMap.put(player, TickCount + 200);
-                Compute.sendCoolDownTime(player, ModItems.MOON_CURIOS.get().getDefaultInstance(), 200);
+                BuffSystem.sendCoolDownTime(player, ModItems.MOON_CURIOS.get().getDefaultInstance(), 200);
                 Shield.providePlayerShield(player, 200, player.experienceLevel * 20);
                 return mob.getMaxHealth() * 0.01;
             }

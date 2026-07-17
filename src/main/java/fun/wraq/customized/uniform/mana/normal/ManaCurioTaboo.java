@@ -1,12 +1,13 @@
 package fun.wraq.customized.uniform.mana.normal;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
 import fun.wraq.common.impl.onshoot.OnReleaseSkillCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -47,12 +48,12 @@ public class ManaCurioTaboo extends WraqManaUniformCurios implements OnPowerRele
     @Override
     public void onPowerRelease(Player player) {
         passiveCountMap.compute(Name.get(player), (k, v) -> v == null ? 1 : v + 1);
-        Compute.sendEffectLastTime(player, "item/mana_curios_0",
+        BuffSystem.sendEffectLastTime(player, "item/mana_curios_0",
                 passiveCountMap.get(Name.get(player)), true);
     }
 
     public static boolean isActive(Player player) {
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.MANA_CURIO_TABOO.get())) {
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.MANA_CURIO_TABOO.get())) {
             return passiveCountMap.getOrDefault(Name.get(player), 0) >= 4;
         }
         return false;
@@ -62,7 +63,7 @@ public class ManaCurioTaboo extends WraqManaUniformCurios implements OnPowerRele
     public void onReleaseSkill(Player player) {
         if (passiveCountMap.getOrDefault(Name.get(player), 0) > 4) {
             passiveCountMap.put(Name.get(player), 1);
-            Compute.sendEffectLastTime(player, "item/mana_curios_0", 1, true);
+            BuffSystem.sendEffectLastTime(player, "item/mana_curios_0", 1, true);
         }
     }
 }

@@ -430,17 +430,17 @@ public class ForgeEquipUtils {
         put(0, new TierValueAndDescription(0.8, "粗糙", Style.EMPTY.applyFormat(ChatFormatting.GRAY)));
         put(1, new TierValueAndDescription(1, "优秀", Style.EMPTY.applyFormat(ChatFormatting.GREEN)));
         put(2, new TierValueAndDescription(1.1, "精良", Style.EMPTY.applyFormat(ChatFormatting.AQUA)));
-        put(3, new TierValueAndDescription(1.2, "史诗", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)));
-        put(4, new TierValueAndDescription(1.3, "传说", Style.EMPTY.applyFormat(ChatFormatting.GOLD)));
-        put(5, new TierValueAndDescription(1.4, "神话", Style.EMPTY.applyFormat(ChatFormatting.RED)));
-        put(6, new TierValueAndDescription(1.5, "终末", CustomStyle.styleOfEnd));
-        put(7, new TierValueAndDescription(1.65, "思旧", CustomStyle.styleOfMoon));
-        put(8, new TierValueAndDescription(1.8, "追忆", CustomStyle.styleOfMoon1));
-        put(9, new TierValueAndDescription(2, "不可思议", CustomStyle.styleOfPower));
-        put(10, new TierValueAndDescription(2.25, "望尘莫及", CustomStyle.styleOfCastleCrystal));
-        put(11, new TierValueAndDescription(2.5, "仅存于梦", CustomStyle.styleOfSakura));
-        put(12, new TierValueAndDescription(2.75, "绝无仅有", CustomStyle.styleOfYSR));
-        put(13, new TierValueAndDescription(3d, "巅峰之作", CustomStyle.styleOfSky));
+        put(3, new TierValueAndDescription(1.15, "史诗", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)));
+        put(4, new TierValueAndDescription(1.2, "传说", Style.EMPTY.applyFormat(ChatFormatting.GOLD)));
+        put(5, new TierValueAndDescription(1.25, "神话", Style.EMPTY.applyFormat(ChatFormatting.RED)));
+        put(6, new TierValueAndDescription(1.3, "终末", CustomStyle.styleOfEnd));
+        put(7, new TierValueAndDescription(1.4, "思旧", CustomStyle.styleOfMoon));
+        put(8, new TierValueAndDescription(1.5, "追忆", CustomStyle.styleOfMoon1));
+        put(9, new TierValueAndDescription(1.6, "不可思议", CustomStyle.styleOfPower));
+        put(10, new TierValueAndDescription(1.7, "望尘莫及", CustomStyle.styleOfCastleCrystal));
+        put(11, new TierValueAndDescription(1.8, "仅存于梦", CustomStyle.styleOfSakura));
+        put(12, new TierValueAndDescription(1.9, "绝无仅有", CustomStyle.styleOfYSR));
+        put(13, new TierValueAndDescription(2, "巅峰之作", CustomStyle.styleOfSky));
     }};
 
     public static List<Component> getTierAndValueDescription() {

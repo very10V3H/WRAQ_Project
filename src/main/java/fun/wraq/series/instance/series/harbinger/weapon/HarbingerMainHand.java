@@ -14,8 +14,10 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceCondition;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -85,24 +87,24 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnCauseF
 
     static void tick(Player player) {
         if (player.tickCount % 20 == 0) {
-            if (isHandHeld(player) && Compute.playerIsInBattle(player)) {
+            if (isHandHeld(player) && Damage.playerIsInBattle(player)) {
                 ItemStack stack = player.getMainHandItem();
                 int countPerSecond = stack.getItem() instanceof BunkerMainHand ? 2 : 1;
                 countMap.compute(player, (k, v)
                         -> v == null ? countPerSecond : Math.min(getMaxCount(stack), v + countPerSecond));
                 countExpiredTickMap.put(player, Tick.get() + Tick.s(30));
-                Compute.sendEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get(), Tick.s(30), countMap.get(player), true);
+                BuffSystem.sendEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get(), Tick.s(30), countMap.get(player), true);
             }
             if (countMap.containsKey(player) && Tick.get() > countExpiredTickMap.getOrDefault(player, 0)) {
                 countMap.remove(player);
                 countExpiredTickMap.remove(player);
-                Compute.removeEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get());
+                BuffSystem.removeEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get());
             }
         }
     }
 
     static void active(Player player) {
-        if (Compute.playerIsInBattle(player)) {
+        if (Damage.playerIsInBattle(player)) {
             ItemStack stack = player.getMainHandItem();
             List<Item> list = List.of(
                     HarbingerItems.HARBINGER_SWORD.get(),
@@ -118,14 +120,14 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge, OnCauseF
                 list.forEach(item -> {
                     player.getCooldowns().addCooldown(item, Tick.s(30));
                 });
-                Compute.sendEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get(), Tick.s(30), countMap.get(player), true);
+                BuffSystem.sendEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get(), Tick.s(30), countMap.get(player), true);
             } else {
                 countMap.compute(player, (k, v) -> v == null ? 5 : Math.min(getMaxCount(stack), v + 5));
                 countExpiredTickMap.put(player, Tick.get() + Tick.s(10));
                 list.forEach(item -> {
                     player.getCooldowns().addCooldown(item, Tick.s(10));
                 });
-                Compute.sendEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get(), Tick.s(30), countMap.get(player), true);
+                BuffSystem.sendEffectLastTime(player, HarbingerItems.HARBINGER_HEART.get(), Tick.s(30), countMap.get(player), true);
             }
         }
     }

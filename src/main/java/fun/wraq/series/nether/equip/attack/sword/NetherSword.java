@@ -12,6 +12,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -66,11 +67,11 @@ public class NetherSword extends WraqSword implements ActiveItem, ForgeItem, Enh
     @Override
     public void active(Player player) {
         Compute.playerItemCoolDown(player, this, 10);
-        Compute.sendEffectLastTime(player, ModItems.NETHER_SWORD.get(), 0, true);
+        BuffSystem.sendEffectLastTime(player, ModItems.NETHER_SWORD.get(), 0, true);
         EnhanceNormalAttackModifier.addModifier(player,
                 new EnhanceNormalAttackModifier("Nether sword active", true, tier == 0 ? 0.75 : 1.5, 0,
                         (p, mob) -> {
-                            Compute.removeEffectLastTime(p, ModItems.NETHER_SWORD.get());
+                            BuffSystem.removeEffectLastTime(p, ModItems.NETHER_SWORD.get());
                             ItemAndRate.summonItemEntity(ModItems.BASALT_ROCK.get().getDefaultInstance(),
                                     mob.getEyePosition(), mob.level(), 20);
                             ParticleProvider.createBreakBlockParticle(mob, Blocks.BASALT);

@@ -1,6 +1,5 @@
 package fun.wraq.series.newrunes.chapter1;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter1.LakeDrownSpawnController;
@@ -56,7 +55,7 @@ public class LakeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.LAKE_NEW_RUNE.get());
+        return WraqCurios.hasCurios(player, NewRuneItems.LAKE_NEW_RUNE.get());
     }
 
     public static double exSwimSpeed(Player player) {

@@ -9,6 +9,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.BowAttribute;
 import fun.wraq.common.equip.SceptreAttribute;
 import fun.wraq.common.equip.SwordAttribute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -19,6 +20,8 @@ import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.common.util.HudUtil;
+import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios1;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios4;
 import fun.wraq.entities.entities.Civil.Civil;
@@ -34,6 +37,8 @@ import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.mob.instance.instances.tower.ManaTowerEachFloorMob;
 import fun.wraq.events.mob.jungle.JungleMobSpawn;
 import fun.wraq.events.modules.HurtEventModule;
+import fun.wraq.process.func.PersistentRangeEffect;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
@@ -48,6 +53,8 @@ import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase2_1;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
+import fun.wraq.process.system.tower.Tower;
+import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.events.midautumn.MidAutumnRabbitEvent;
@@ -57,6 +64,7 @@ import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
 import fun.wraq.series.holy.ice.FrostInstance;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
+import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
@@ -69,11 +77,13 @@ import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
 import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
+import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
 import fun.wraq.series.overworld.wind.mob.WindBossInstance;
 import fun.wraq.series.overworld.wind.mob.WindJungleMob0SpawnController;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -83,6 +93,8 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.HashMap;
@@ -146,7 +158,7 @@ public class Damage {
                 || MobSpawn.getMobOriginName(mob).equals(SimulateIceDragonSpawnController.MOB_NAME)) {
             return damage;
         }
-        Compute.summonValueItemEntity(mob.level(), player, mob,
+        Compute.summonValue(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
@@ -170,7 +182,7 @@ public class Damage {
 
         baseDamage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, mob));
 
-        Compute.summonValueItemEntity(mob.level(), player, mob,
+        Compute.summonValue(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", baseDamage * num)).withStyle(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, baseDamage * num);
         causeDirectDamageToMob(player, mob, baseDamage * num);
@@ -210,7 +222,7 @@ public class Damage {
                 PlayerAttributes.defencePenetration(player),
                 PlayerAttributes.defencePenetration0(player));
         damage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, mob));
-        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -226,7 +238,7 @@ public class Damage {
             damage *= (1 + DamageInfluence.getPlayerAttackDamageEnhance(player, mob));
         }
 
-        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -238,7 +250,7 @@ public class Damage {
         }
         damage *= defenceDamageDecreaseRate(player, mob, MobAttributes.defence(mob),
                 PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
-        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -253,7 +265,7 @@ public class Damage {
                     PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
             damage *= (1 + DamageInfluence.getPlayerManaDamageEnhance(player));
         }
-        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         Damage.beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -292,10 +304,10 @@ public class Damage {
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + elementDamageEnhance) * elementDamageEffect;
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
-        Compute.summonValueItemEntity(mob.level(), player, mob,
+        Compute.summonValue(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
-            Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+            damageActionBarPacketSend(player, totalDamage, 0, true, false);
         }
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
@@ -351,14 +363,14 @@ public class Damage {
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
-        Compute.summonValueItemEntity(mob.level(), player, mob,
+        Compute.summonValue(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
             if (elementDamage != 0 && !elementType.isEmpty() && elementValue != 0) {
-                Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false, elementType, elementDamage);
+                damageActionBarPacketSend(player, totalDamage, 0, true, false, elementType, elementDamage);
             }
             else {
-                Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+                damageActionBarPacketSend(player, totalDamage, 0, true, false);
             }
         }
         beforeCauseDamage(player, mob, totalDamage);
@@ -410,7 +422,7 @@ public class Damage {
         double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
-        Compute.summonValueItemEntity(mob.level(), player, mob,
+        Compute.summonValue(mob.level(), player, mob,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
@@ -456,7 +468,7 @@ public class Damage {
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
 
-        Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.manaDamageExEffect(player, mob, totalDamage);
@@ -522,7 +534,7 @@ public class Damage {
             if (CitadelCurio.onPlayerNearToDead(player)) {
                 return;
             }
-            Compute.playerDeadModule(player);
+            playerDeadModule(player);
             Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                     Component.literal("").
                             append(player.getDisplayName()).
@@ -578,7 +590,7 @@ public class Damage {
 
             double finalDamage = damage;
             if (finalDamage == 0) {
-                Compute.damageActionBarPacketSend(player, 0, 0, false, false);
+                damageActionBarPacketSend(player, 0, 0, false, false);
             }
             finalDamage *= getAfterScornAdjustRate(player, mob);
             finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
@@ -681,7 +693,7 @@ public class Damage {
     public static double defenceDamageDecreaseRate(Player player, Mob mob, double defence,
                                                    double defencePenetration, double defencePenetration0) {
         double defenceAfterCompute = Math.max(0, defence * (1 - defencePenetration) - defencePenetration0);
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ExtraordinaryItems.NAN_HAI_A.get())
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(ExtraordinaryItems.NAN_HAI_A.get())
                 && mob.getHealth() / mob.getMaxHealth() < 0.4) {
             defenceAfterCompute = 0;
         }
@@ -700,5 +712,106 @@ public class Damage {
 
     public static void onPlayerReleaseNormalAttack(Player player) {
         WardenInstance.onPlayerNormalAttackOrReleasePower(player);
+    }
+
+    public static void damageActionBarPacketSend(Player player, double baseDamage, double ignoreDefenceDamage,
+                                                 boolean isMana, boolean isCrit) {
+        HudUtil.damageActionBarPacketSend(player, baseDamage, ignoreDefenceDamage, isMana, isCrit);
+    }
+
+    public static void damageActionBarPacketSend(Player player, double baseDamage, double ignoreDefenceDamage,
+                                                 boolean isMana, boolean isCrit, String elementType, double elementDamageValue) {
+        HudUtil.damageActionBarPacketSend(player, baseDamage, ignoreDefenceDamage, isMana, isCrit, elementType, elementDamageValue);
+    }
+
+    public static void decreasePlayerHealth(Player player, double value, Component component) {
+        if (player.isDeadOrDying()) {
+            return;
+        }
+        if (value == 0) {
+            return;
+        }
+        if (player.getHealth() <= value) {
+            if (CitadelCurio.onPlayerNearToDead(player)) {
+                return;
+            }
+            Compute.formatBroad(player.level(), Component.literal("孽").withStyle(ChatFormatting.RED),
+                    Component.literal("").withStyle(ChatFormatting.WHITE).
+                            append(player.getDisplayName()).
+                            append(component));
+            player.setHealth(0);
+            playerDeadModule(player);
+        } else {
+            player.setHealth((float) (player.getHealth() - value));
+        }
+    }
+
+    public static void decreasePlayerHealth(Player player, double value, double threshold) {
+        if (value == 0) {
+            return;
+        }
+        if ((player.getHealth() - value) / player.getMaxHealth() < threshold) {
+            player.setHealth((float) (player.getMaxHealth() * threshold));
+        } else player.setHealth((float) (player.getHealth() - value));
+    }
+
+    public static void playerDeadModule(Player player) {
+        Tower.playerInChallengingDeadOrLogout(player);
+        Utils.PlayerDeadTimeMap.put(player.getName().getString(), Tick.get() + 6000);
+        NoTeamInstanceModule.onDead(player);
+        AncientEchoGem.lastRecordSumMap.remove(player);
+        AncientEchoGem.withstandDamageSumMap.remove(player);
+        BunkerArmor.onPlayerDead(player);
+        ColdData.addPlayerColdValue(player, -100);
+    }
+
+    public static boolean playerIsInBattle(Player player) {
+        return StarBottle.playerLastBattleTick.containsKey(player)
+                && StarBottle.playerLastBattleTick.get(player) + 100 > Tick.get();
+    }
+
+    public static boolean playerIsInBattle(Player player, int tick) {
+        return StarBottle.playerLastBattleTick.containsKey(player)
+                && StarBottle.playerLastBattleTick.get(player) + tick > Tick.get();
+    }
+
+    public static void createRangeEffectDot(Mob boss, Vec3 pos, double radius,
+                                            MobCauseDamageToPlayer cause, Style style,
+                                            int trigTick, int lastTick) {
+        // 造成伤害
+        PersistentRangeEffect.addEffect(boss, pos, radius, (effect -> {
+            Compute.getNearEntity(boss.level(), effect.center, Player.class, radius)
+                    .stream().filter(e -> e instanceof Player)
+                    .map(e -> (Player) e)
+                    .forEach(eachPlayer -> {
+                        cause.causeDamage(boss, eachPlayer);
+                    });
+        }), trigTick, lastTick);
+
+        // 制造粒子
+        ParticleProvider.createSpaceEffectParticle(boss.level(), pos, radius, 100, style, lastTick);
+    }
+
+    public static void createRangeEffectDot(Level level, Vec3 pos, double radius,
+                                            CauseDamageToPlayer cause, Style style,
+                                            int startTick, int trigTick, int lastTick) {
+        // 造成伤害
+        PersistentRangeEffect.addEffect(level, pos, radius, (effect -> {
+            Compute.getNearEntity(level, effect.center, Player.class, radius)
+                    .stream().filter(e -> e instanceof Player)
+                    .map(e -> (Player) e)
+                    .forEach(cause::causeDamage);
+        }), startTick, trigTick, lastTick);
+        // 制造粒子
+        ParticleProvider.createSpaceEffectParticle(level, pos, radius,
+                100, style, lastTick + (startTick - Tick.get()));
+    }
+
+    public interface MobCauseDamageToPlayer {
+        void causeDamage(Mob mob, Player player);
+    }
+
+    public interface CauseDamageToPlayer {
+        void causeDamage(Player player);
     }
 }

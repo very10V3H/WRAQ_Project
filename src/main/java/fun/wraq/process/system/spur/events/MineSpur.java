@@ -102,12 +102,12 @@ public class MineSpur {
         InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
         if (extraDropMap.containsKey(block)) {
             extraDropMap.get(block).forEach(itemAndRate -> {
-                itemAndRate.send(player, 1 + Compute.playerExHarvest(player));
+                itemAndRate.send(player, 1 + PlayerAttributes.playerExHarvest(player));
             });
         }
         mineReward(player, blockState, blockPos);
         Random random = new Random();
-        if (random.nextDouble() < Compute.playerExHarvest(player)) {
+        if (random.nextDouble() < PlayerAttributes.playerExHarvest(player)) {
             InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
             mineReward(player, blockState, blockPos);
         }

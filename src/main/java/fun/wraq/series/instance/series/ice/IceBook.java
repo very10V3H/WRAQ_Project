@@ -10,6 +10,7 @@ import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -64,10 +65,10 @@ public class IceBook extends WraqOffHandItem implements OnHitEffectEquip, OnHitD
             coolDownMap.put(player, Tick.get() + 100);
             effectTargetMap.put(Name.get(player), mob);
             effectLastTickMap.put(player, Tick.get() + 60);
-            Compute.sendCoolDownTime(player, ModItems.ICE_BOOK.get().getDefaultInstance(), 100);
+            BuffSystem.sendCoolDownTime(player, ModItems.ICE_BOOK.get().getDefaultInstance(), 100);
             Compute.addSlowDownEffect(mob, 60, 3);
             Compute.createIceParticle(mob);
-            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.ICE_BOOK.get(), "IceBookDamageEnhance", 60, 0, false);
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, ModItems.ICE_BOOK.get(), "IceBookDamageEnhance", 60, 0, false);
         }
     }
 

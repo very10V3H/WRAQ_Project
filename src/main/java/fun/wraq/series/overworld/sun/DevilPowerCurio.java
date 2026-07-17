@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.sun;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
@@ -15,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+/** 未知术法核心 */
 public class DevilPowerCurio extends WraqCurios {
 
     public static int clientTotalKillCount = 0;
@@ -34,10 +34,10 @@ public class DevilPowerCurio extends WraqCurios {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("超凡邪力", hoverMainStyle()));
         components.add(Te.s(" 根据你的", "总击杀数", hoverMainStyle(), "为你提供至多",
-                "20%最终伤害加成", hoverMainStyle()));
-        components.add(Te.s(" 每", "10000总击杀数", hoverMainStyle(), "提供", "0.2%最终伤害加成", hoverMainStyle()));
+                "10%最终伤害加成", hoverMainStyle()));
+        components.add(Te.s(" 每", "10000总击杀数", hoverMainStyle(), "提供", "0.1%最终伤害加成", hoverMainStyle()));
         components.add(Te.s(" 当前提供的", "最终伤害加成", hoverMainStyle(), ": ",
-                String.format("%.2f%%", Math.min(20, clientTotalKillCount / 10000d * 0.2)), hoverMainStyle()));
+                String.format("%.2f%%", Math.min(10, clientTotalKillCount / 10000d * 0.1)), hoverMainStyle()));
         components.add(Te.s(" 总击杀数: ", String.valueOf(clientTotalKillCount), hoverMainStyle()));
         return components;
     }
@@ -53,9 +53,9 @@ public class DevilPowerCurio extends WraqCurios {
     }
 
     public static double finalDamageEnhanceRate(Player player) {
-        if (Compute.hasCurios(player, SunIslandItems.DEVIL_POWER_CURIO.get())
+        if (WraqCurios.hasCurios(player, SunIslandItems.DEVIL_POWER_CURIO.get())
                 && MobSpawn.totalKillCountCache.containsKey(player.getName().getString())) {
-            return Math.min(0.2, MobSpawn.totalKillCountCache.get(player.getName().getString()) / 10000d * 0.002);
+            return Math.min(0.1, MobSpawn.totalKillCountCache.get(player.getName().getString()) / 10000d * 0.001);
         }
         return 0;
     }

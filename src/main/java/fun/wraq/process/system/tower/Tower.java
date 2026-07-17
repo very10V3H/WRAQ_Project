@@ -13,6 +13,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -172,7 +173,7 @@ public class Tower {
     }
 
     private void reset() {
-        if (currentPlayer != null) Compute.respawnPlayer(this.currentPlayer);
+        if (currentPlayer != null) MyRespawnRule.respawnPlayer(this.currentPlayer);
         isChallenging = false;
         mobSummonTimes = -1;
         currentPlayer = null;

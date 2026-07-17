@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
@@ -135,7 +136,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                             if (player1.distanceTo(this) < 5) {
                                 Utils.MeteoriteDefenceMap.put(player1, (int) (PlayerAttributes.manaDamage(player) * 0.05));
                                 Utils.MeteoriteDefenceTimeMap.put(player1, TickCount + 80);
-                                Compute.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
+                                BuffSystem.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
                             }
                         });
                     }
@@ -143,7 +144,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                         playerList.forEach(player1 -> {
                             if (player1.distanceTo(this) < 5) {
                                 Utils.MeteoriteAttackTimeMap.put(player1, TickCount + 80);
-                                Compute.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
+                                BuffSystem.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
                             }
                         });
                     }
@@ -151,7 +152,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                         playerList.forEach(player1 -> {
                             if (player1.distanceTo(this) < 5) {
                                 Utils.MeteoritePenetrationTimeMap.put(player1, TickCount + 80);
-                                Compute.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
+                                BuffSystem.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
                             }
                         });
                     }
@@ -244,7 +245,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                             if (player1.distanceTo(this) < 5) {
                                 Utils.MeteoriteDefenceMap.put(player1, (int) (PlayerAttributes.manaDamage(player) * 0.05));
                                 Utils.MeteoriteDefenceTimeMap.put(player1, TickCount + 80);
-                                Compute.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
+                                BuffSystem.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
                             }
                         });
                     }
@@ -252,7 +253,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                         playerList.forEach(player1 -> {
                             if (player1.distanceTo(this) < 5) {
                                 Utils.MeteoriteAttackTimeMap.put(player1, TickCount + 80);
-                                Compute.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
+                                BuffSystem.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
                             }
                         });
                     }
@@ -260,7 +261,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                         playerList.forEach(player1 -> {
                             if (player1.distanceTo(this) < 5) {
                                 Utils.MeteoritePenetrationTimeMap.put(player1, TickCount + 80);
-                                Compute.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
+                                BuffSystem.sendEffectLastTime(player1, ModItems.SOUL_SCEPTRE.get().getDefaultInstance(), 80);
                             }
                         });
                     }

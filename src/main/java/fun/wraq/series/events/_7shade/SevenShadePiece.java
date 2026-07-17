@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import fun.wraq.series.gems.WraqGem;
@@ -62,7 +63,7 @@ public class SevenShadePiece extends WraqItem {
 
     public static final String DATA_KEY = "SevenShadePiece";
     public static CompoundTag getData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, DATA_KEY);
     }
 
     public static void sendMSG(Player player, Component content) {

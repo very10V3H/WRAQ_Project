@@ -9,6 +9,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -78,6 +79,6 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
                 new StableAttributesModifier("witherBowActiveDefencePenetration0",
                         new int[]{4, 6, 8, 12}[tier], Tick.get() + 100));
 
-        Compute.sendEffectLastTime(player, ModItems.WITHER_BOW_0.get().getDefaultInstance(), 100);
+        BuffSystem.sendEffectLastTime(player, ModItems.WITHER_BOW_0.get().getDefaultInstance(), 100);
     }
 }

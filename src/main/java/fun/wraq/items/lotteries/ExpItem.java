@@ -2,6 +2,7 @@ package fun.wraq.items.lotteries;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -39,7 +40,7 @@ public class ExpItem extends Item {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             Compute.playerItemUseWithRecord(player);
             Random random = new Random();
-            Compute.givePercentExpToPlayer(player, random.nextDouble(rateOrigin, rateBound),
+            MyExpSystem.givePercentExpToPlayer(player, random.nextDouble(rateOrigin, rateBound),
                     0, player.experienceLevel);
         }
         return super.use(level, player, interactionHand);

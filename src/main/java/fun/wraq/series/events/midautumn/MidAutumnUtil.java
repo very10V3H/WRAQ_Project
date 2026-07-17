@@ -6,6 +6,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.nbt.CompoundTag;
@@ -28,7 +29,7 @@ public class MidAutumnUtil {
     private static final String DATA_TOP_KEY = "mid_autumn_data";
 
     private static CompoundTag getData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, DATA_TOP_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, DATA_TOP_KEY);
     }
 
     public static boolean isInActivityDate() {

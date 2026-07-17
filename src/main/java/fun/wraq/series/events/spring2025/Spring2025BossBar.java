@@ -1,9 +1,9 @@
 package fun.wraq.series.events.spring2025;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
@@ -54,7 +54,7 @@ public class Spring2025BossBar {
     }
 
     public static void handleServerPlayerTick(ServerPlayer player) {
-        if (Compute.playerIsInBattle(player)) {
+        if (Damage.playerIsInBattle(player)) {
             bossEvent.removePlayer(player);
         } else {
             bossEvent.addPlayer(player);

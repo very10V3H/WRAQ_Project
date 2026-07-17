@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter1.volcano;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
@@ -56,7 +57,7 @@ public class VolcanoSuitDescription {
         }
 
         String crestName = "[火山纹章]";
-        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+        if (WraqCurios.CuriosAttribute.getClientCuriosSet(player)
                 .stream().anyMatch(item -> item instanceof VolcanoCrest)) {
             components.add(Component.literal(crestName).withStyle(MainStyle));
             count++;
@@ -67,7 +68,7 @@ public class VolcanoSuitDescription {
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.exAttackDamage("15%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaDamage("25%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("15%")));
         ComponentUtils.suitQuadraDescription(components, count);
         Compute.DescriptionPassive(components, Component.literal("地层震荡").withStyle(ChatFormatting.YELLOW));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).

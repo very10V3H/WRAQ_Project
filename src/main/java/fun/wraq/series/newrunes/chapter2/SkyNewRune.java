@@ -1,11 +1,11 @@
 package fun.wraq.series.newrunes.chapter2;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.SkyVexSpawnController;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -62,13 +62,13 @@ public class SkyNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDes
 
     @Override
     public void tick(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.SKY_NEW_RUNE.get())) {
-            Compute.sendEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get(), 0, true);
-        } else Compute.removeEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get());
+        if (WraqCurios.hasCurios(player, NewRuneItems.SKY_NEW_RUNE.get())) {
+            BuffSystem.sendEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get(), 0, true);
+        } else BuffSystem.removeEffectLastTime(player, NewRuneItems.SKY_NEW_RUNE.get());
     }
 
     public static double critDamageInfluence(Player player) {
-        if (Compute.hasCurios(player, NewRuneItems.SKY_NEW_RUNE.get())) {
+        if (WraqCurios.hasCurios(player, NewRuneItems.SKY_NEW_RUNE.get())) {
             return -0.1;
         }
         return 0;

@@ -20,6 +20,7 @@ import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.overworld.chapter1.mine.MineSword;
 import fun.wraq.series.overworld.chapter1.snow.SnowSword;
@@ -423,7 +424,7 @@ public class AttackEventModule {
     public static double SoulSwordActive(Player player) {
         if (Utils.SoulSwordMap.containsKey(player) && Utils.SoulSwordMap.get(player)) {
             Utils.SoulSwordMap.put(player, false);
-            Compute.sendEffectLastTime(player, ModItems.SOUL_SWORD.get().getDefaultInstance(), 0);
+            BuffSystem.sendEffectLastTime(player, ModItems.SOUL_SWORD.get().getDefaultInstance(), 0);
             return 0.5;
         }
         return 0;
@@ -436,8 +437,8 @@ public class AttackEventModule {
             Utils.SnowShieldPlayerEffectMap.put(player, (MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence) / 4));
             Utils.SnowShieldMobEffectMap.put(mob, TickCount + 40);
             Compute.addDefenceDecreaseEffectParticle(mob, 40);
-            Compute.sendEffectLastTime(player, ModItems.SNOW_SOUL.get().getDefaultInstance(), 40);
-             Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SNOW_SHIELD.get(), "SnowShieldDefenceDecrease", 40, 0, false);
+            BuffSystem.sendEffectLastTime(player, ModItems.SNOW_SOUL.get().getDefaultInstance(), 40);
+             BuffSystem.sendMobEffectHudToNearPlayer(mob, ModItems.SNOW_SHIELD.get(), "SnowShieldDefenceDecrease", 40, 0, false);
         }
     }
 

@@ -1,6 +1,5 @@
 package fun.wraq.series.nether.equip.attack.sword;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
@@ -10,6 +9,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -68,7 +68,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        Compute.PlayerPowerParticle(player);
+        ParticleProvider.createPlayerPowerParticle(player);
         Level level = player.level();
         player.getCooldowns().addCooldown(ModItems.QUARTZ_SWORD.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
         List<Mob> monsterList = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));

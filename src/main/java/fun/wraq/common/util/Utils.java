@@ -628,8 +628,6 @@ public class Utils {
 
     public static Queue<BlockAndResetTime> netherMineList = new LinkedList<>();
 
-    public static Queue<ItemEntityAndResetTime> valueItemEntity = new LinkedList<>();
-
     public static Queue<BlockAndResetTime> worldWoodList = new LinkedList<>();
 
     public static Map<String, Component> playerNameMap = new HashMap<>();
@@ -752,4 +750,7 @@ public class Utils {
             new Vec3(1, 0, 0), new Vec3(-1, 0, 0),
             new Vec3(0, 0, 1), new Vec3(0, 0, -1)
     );
+
+    // 潮汐之城重生点
+    public static final Vec3 RESPAWN_POS = new Vec3(3925, 82, 3491);
 }

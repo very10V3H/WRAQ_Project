@@ -1,8 +1,10 @@
 package fun.wraq.common.equip;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.equip.impl.Souvenirs;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -11,25 +13,29 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.moontain.equip.curios.MoontainCurios;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class WraqCurios extends Item implements ICurioItem {
 
@@ -54,6 +60,10 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
+    }
+
+    public static boolean hasCurios(Player player, Item curios) {
+        return CuriosAttribute.getDistinctCuriosSet(player).contains(curios);
     }
 
     @Override
@@ -110,12 +120,12 @@ public abstract class WraqCurios extends Item implements ICurioItem {
     }
 
     public static boolean isOn(Class<? extends Item> clazz, Player player) {
-        List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
+        List<ItemStack> curiosList = CuriosAttribute.getDistinctCuriosList(player);
         return curiosList.stream().anyMatch(itemStack -> itemStack.getItem().getClass() == clazz);
     }
 
     public static ItemStack isOnWithStack(Class<? extends Item> clazz, Player player) {
-        List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
+        List<ItemStack> curiosList = CuriosAttribute.getDistinctCuriosList(player);
         return curiosList.stream()
                 .filter(itemStack -> itemStack.getItem().getClass() == clazz)
                 .findFirst()
@@ -147,13 +157,126 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         ICurioItem.super.curioTick(slotContext, stack);
     }
 
-    @SuppressWarnings("ALL")
     public static void shrinkOtherModSlot(ServerPlayer serverPlayer) {
-        CuriosApi.getSlotHelper().shrinkSlotType("feet", 1, serverPlayer);
-        CuriosApi.getSlotHelper().shrinkSlotType("mask", 1, serverPlayer);
+        CuriosApi.getCuriosInventory(serverPlayer).ifPresent(handler -> {
+            Multimap<String, AttributeModifier> modifiers = ArrayListMultimap.create();
+            modifiers.put("feet", new AttributeModifier(
+                    "vmd_feet_slot_modifier", -1, AttributeModifier.Operation.ADDITION));
+            modifiers.put("mask", new AttributeModifier(
+                    "vmd_mask_slot_modifier", -1, AttributeModifier.Operation.ADDITION));
+            handler.addTransientSlotModifiers(modifiers);
+        });
     }
 
     public static boolean hasCurio(Player player, Item item) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(item);
+        return CuriosAttribute.getDistinctCuriosSet(player).contains(item);
+    }
+
+    public static boolean hasCurio(Player player, Class<? extends WraqCurios> clazz) {
+        return CuriosAttribute.getDistinctCuriosSet(player)
+                .stream()
+                .anyMatch(item -> item.getClass().equals(clazz));
+    }
+
+    public static class CuriosAttribute {
+
+        public static Map<Player, List<ItemStack>> curiosListCache = new HashMap<>();
+
+        /**
+         * 获取玩家去重饰品列表
+         */
+        public static List<ItemStack> getDistinctCuriosList(Player player) {
+            if (!curiosListCache.containsKey(player)) {
+                List<ItemStack> curiosList = new ArrayList<>();
+                CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
+                    int size = iCuriosItemHandler.getEquippedCurios().getSlots();
+                    Set<Item> curiosItemSet = new HashSet<>();
+                    for (int i = 0; i < size; i++) {
+                        ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                        if (stack.is(Items.AIR)) continue;
+                        if (!curiosItemSet.contains(stack.getItem())) {
+                            if (!(stack.getItem() instanceof RepeatableCurios)) {
+                                curiosItemSet.add(stack.getItem());
+                            }
+                            curiosList.add(stack);
+                        }
+                    }
+                });
+                curiosListCache.put(player, curiosList);
+            }
+            return curiosListCache.get(player);
+        }
+
+        @OnlyIn(Dist.CLIENT)
+        public static Set<Item> getClientCuriosSet(Player player) {
+            Set<Item> set = new HashSet<>();
+            CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
+                int size = iCuriosItemHandler.getEquippedCurios().getSlots();
+                for (int i = 0; i < size; i++) {
+                    ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                    set.add(stack.getItem());
+                }
+            });
+            return set;
+        }
+
+        public static Map<Player, Set<Item>> curiosSetCache = new HashMap<>();
+
+        public static Set<Item> getDistinctCuriosSet(Player player) {
+            if (!curiosSetCache.containsKey(player)) {
+                Set<Item> set = new HashSet<>(getDistinctCuriosList(player)
+                        .stream().map(itemStack -> (Item) itemStack.getItem())
+                        .toList());
+                curiosSetCache.put(player, set);
+            }
+            return curiosSetCache.get(player);
+        }
+
+        public static double attributeValue(Player player, Map<Item, Double> attributeMap, String attributeName) {
+            if (attributeMap.equals(Utils.defencePenetration) || attributeMap.equals(Utils.manaPenetration)) {
+                double rate = 1;
+                for (ItemStack curioStack : getDistinctCuriosList(player)) {
+                    Item curiosItem = curioStack.getItem();
+                    if (attributeMap.containsKey(curiosItem)
+                            && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
+                        rate *= (1 - attributeMap.get(curiosItem));
+                    }
+                    if (attributeName != null) {
+                        CompoundTag data = curioStack.getOrCreateTagElement(Utils.MOD_ID);
+                        if (data.contains(attributeName)) {
+                            if (curiosItem instanceof RandomCurios) {
+                                rate *= (1 - data.getDouble(attributeName)
+                                        * RandomCuriosAttributesUtil.attributeValueMap.getOrDefault(attributeName, 0d));
+                            } else {
+                                rate *= (1 - data.getInt(attributeName));
+                            }
+                        }
+                    }
+                }
+                return 1 - rate;
+            } else {
+                return getDistinctCuriosList(player).stream()
+                        .mapToDouble(stack -> {
+                            double value = 0;
+                            Item curiosItem = stack.getItem();
+                            if (attributeMap.containsKey(curiosItem)
+                                    && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
+                                value += attributeMap.get(curiosItem);
+                            }
+                            if (attributeName != null) {
+                                CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
+                                if (data.contains(attributeName)) {
+                                    if (curiosItem instanceof RandomCurios) {
+                                        value += data.getDouble(attributeName)
+                                                * RandomCuriosAttributesUtil.attributeValueMap.getOrDefault(attributeName, 0d);
+                                    } else {
+                                        value += data.getInt(attributeName);
+                                    }
+                                }
+                            }
+                            return value;
+                        }).sum();
+            }
+        }
     }
 }

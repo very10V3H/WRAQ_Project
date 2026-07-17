@@ -1,7 +1,7 @@
 package fun.wraq.process.func;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.process.system.buff.BuffSystem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -74,7 +74,7 @@ public class StableTierAttributeModifier {
                 .forEach(modifier -> {
                     modifier.setTier(modifier.tier + relativeTier);
                     if (!url.isEmpty()) {
-                        Compute.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(),
+                        BuffSystem.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(),
                                 modifier.tier + relativeTier, false);
                     }
                 });
@@ -106,10 +106,10 @@ public class StableTierAttributeModifier {
                 modifier.stopTick, finalTier, maxTier));
         if (!url.isEmpty()) {
             if (entity instanceof Mob mob) {
-                Compute.sendMobEffectHudToNearPlayer(mob, url, modifier.tag, modifier.stopTick - Tick.get(), finalTier, false);
+                BuffSystem.sendMobEffectHudToNearPlayer(mob, url, modifier.tag, modifier.stopTick - Tick.get(), finalTier, false);
             }
             if (entity instanceof Player player) {
-                Compute.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(), finalTier, false);
+                BuffSystem.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(), finalTier, false);
             }
         }
     }
@@ -128,7 +128,7 @@ public class StableTierAttributeModifier {
                                                String tag, Item icon) {
         getAttributeModifierList(entity, modifierMap).removeIf(modifier -> modifier.tag.equals(tag));
         if (entity instanceof Mob mob) {
-            Compute.removeMobEffectHudToNearPlayer(mob, icon, tag);
+            BuffSystem.removeMobEffectHudToNearPlayer(mob, icon, tag);
         }
     }
 

@@ -70,7 +70,7 @@ public class ManaAttackModule {
             return;
         }
         if (SpecialEffectOnPlayer.inBlind(player)) {
-            Compute.summonValueItemEntity(mob.level(), player, mob,
+            Compute.summonValue(mob.level(), player, mob,
                     Te.s("未命中", CustomStyle.styleOfEnd), 1);
             return;
         }
@@ -153,13 +153,13 @@ public class ManaAttackModule {
 
         // display
         if (isCrit)
-            Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfEntropy), 1);
+            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfEntropy), 1);
         else
-            Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfMana), 1);
+            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfMana), 1);
 
         if (elementDamage != 0 && !elementType.isEmpty())
-            Compute.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit, elementType, elementDamage);
-        else Compute.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit);
+            Damage.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit, elementType, elementDamage);
+        else Damage.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit);
 
         // effect
         ManaSkill3Attack(data, player, mob); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）

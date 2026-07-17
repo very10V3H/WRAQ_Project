@@ -1,11 +1,13 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -46,7 +48,7 @@ public class FishEvent {
         ItemStack seaSoul = ModItems.SEA_SOUL.get().getDefaultInstance();
         Utils.dayFishCount.put(player.getName().getString(),
                 Utils.dayFishCount.getOrDefault(player.getName().getString(), 0) + 1);
-        double rateEnhance = Compute.playerExHarvest(player);
+        double rateEnhance = PlayerAttributes.playerExHarvest(player);
         double rate = getLevel(player) * 0.01 * (1 + rateEnhance);
         if (r.nextDouble() < rate) {
             Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
@@ -59,7 +61,7 @@ public class FishEvent {
         if (r.nextDouble() < rate) {
             InventoryOperation.giveItemStack(player, seaSoul);
         }
-        Compute.givePercentExpToPlayer(player, 0.05, 0, Math.min(player.experienceLevel, 50));
+        MyExpSystem.givePercentExpToPlayer(player, 0.05, 0, Math.min(player.experienceLevel, 50));
     }
 
     public static void sendMSG(Player player, Component content) {

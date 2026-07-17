@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
+import fun.wraq.common.util.MobAttrCsvLoader;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -222,38 +223,51 @@ public class MobInfoGui extends Screen {
 
     public static List<MobInfo> mobInfoList = new ArrayList<>();
 
+    /** Resolve attributes: prefer CSV values over hardcoded, falling back if no CSV entry exists */
+    private static MobAttributes resolveAttributes(String mobName, MobAttributes fallback) {
+        MobAttrCsvLoader.MobAttrEntry entry = MobAttrCsvLoader.getByMobName(mobName);
+        if (entry != null) {
+            return MobAttrCsvLoader.toMobAttributes(entry);
+        }
+        return fallback;
+    }
+
     public List<MobInfo> getMobInfoList() {
         if (mobInfoList.isEmpty()) {
             NoTeamInstanceModule.getAllInstance().forEach(noTeamInstance -> {
+                String mobName = noTeamInstance.name.getString();
                 mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
                         Utils.getLevelDescription(noTeamInstance.level), " ", noTeamInstance.name),
                         noTeamInstance.level,
                         noTeamInstance.getRewardList(),
                         noTeamInstance.getIntroduction(),
-                        noTeamInstance.getMainMobAttributes()));
+                        resolveAttributes(mobName, noTeamInstance.getMainMobAttributes())));
             });
             MobSpawn.getAllControllers(false).forEach(mobSpawnController -> {
+                String mobName = mobSpawnController.mobName.getString();
                 mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(mobSpawnController.averageLevel),
                         " ", mobSpawnController.mobName),
                         mobSpawnController.averageLevel,
                         mobSpawnController.getDropList(),
                         List.of(),
-                        mobSpawnController.getMobAttributes()));
+                        resolveAttributes(mobName, mobSpawnController.getMobAttributes())));
             });
             NewTeamInstanceHandler.instances.forEach(newTeamInstance -> {
+                String mobName = newTeamInstance.description.getString();
                 mobInfoList.add(new MobInfo(newTeamInstance.description,
                         newTeamInstance.levelRequire,
                         newTeamInstance.getRewardList(),
                         List.of(),
-                        newTeamInstance.getMainMobAttributes()));
+                        resolveAttributes(mobName, newTeamInstance.getMainMobAttributes())));
             });
             JungleMobSpawn.getOverworldController().forEach(controller -> {
+                String mobName = controller.name.getString();
                 mobInfoList.add(new MobInfo(Te.s(Utils.getLevelDescription(controller.mobXpLevel),
                         " ", controller.name),
                         controller.mobXpLevel,
                         controller.getRewardItemList(),
                         controller.getSpecialDescription(),
-                        controller.getMobAttributes()));
+                        resolveAttributes(mobName, controller.getMobAttributes())));
             });
         }
         return mobInfoList;

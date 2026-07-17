@@ -7,6 +7,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.SkillDataUtil;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -46,7 +47,7 @@ public class QSCommand implements Command<CommandSourceStack> {
                     return 0;
                 }
             }
-            Compute.resetSkillAndAbility(player);
+            SkillDataUtil.resetSkillAndAbility(player);
             if (profession.equals(sword)) {
                 data.putInt(StringUtils.Skill.SwordBase, xpLevel / 2);
                 data.putInt(StringUtils.SkillPoint_Used, xpLevel / 2);

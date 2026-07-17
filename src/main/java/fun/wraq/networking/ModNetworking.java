@@ -1,12 +1,14 @@
 package fun.wraq.networking;
 
-import fun.wraq.items.dev.rail.RailwayPillarSetToolModeC2SPacket;
-import fun.wraq.items.m.NearestSpawnPointS2CPacket;
 import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.instances.tower.network.ManaTowerS2CPacket;
+import fun.wraq.items.dev.rail.RailwayPillarSetToolModeC2SPacket;
+import fun.wraq.items.m.NearestSpawnPointS2CPacket;
+import fun.wraq.networking.afk.AfkDataS2CPacket;
+import fun.wraq.networking.afk.AfkOperationC2SPacket;
 import fun.wraq.networking.bowAndSceptreActive.CommonActiveC2SPacket;
 import fun.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionFinishedRequestC2SPacket;
@@ -55,6 +57,7 @@ import fun.wraq.process.func.guide.networking.GuideDisplayS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
+import fun.wraq.process.func.guide.waypoint.networking.WaypointSyncS2CPacket;
 import fun.wraq.process.func.particle.packets.*;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyS2CPacket;
@@ -66,6 +69,8 @@ import fun.wraq.process.func.rank.network.RankChangeS2CPacket;
 import fun.wraq.process.func.rank.network.RankDataS2CPacket;
 import fun.wraq.process.func.security.mac.network.MacC2SPacket;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
+import fun.wraq.process.system.backpack.networking.BackpackUpgradeC2SPacket;
+import fun.wraq.process.system.backpack.networking.OpenBackpackC2SPacket;
 import fun.wraq.process.system.cooking.network.CookingDataS2CPacket;
 import fun.wraq.process.system.element.networking.*;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
@@ -80,6 +85,12 @@ import fun.wraq.process.system.randomStore.networking.TradeListS2CPacket;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobDamageS2CPacket;
 import fun.wraq.process.system.skill.skillv2.network.*;
 import fun.wraq.process.system.smelt.*;
+import fun.wraq.process.system.stock.networking.StockBuyC2SPacket;
+import fun.wraq.process.system.stock.networking.StockDataSyncS2CPacket;
+import fun.wraq.process.system.stock.networking.StockKLineRequestC2SPacket;
+import fun.wraq.process.system.stock.networking.StockKLineSyncS2CPacket;
+import fun.wraq.process.system.stock.networking.StockPortfolioSyncS2CPacket;
+import fun.wraq.process.system.stock.networking.StockSellC2SPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstancePrepareInfoS2CPacket;
@@ -105,18 +116,39 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ModNetworking {
     private static SimpleChannel INSTANCE;
     private static int packetID = 0;
 
+    private static SimpleChannel INSTANCE_V2;
+    private static int packetID_V2 = 0;
+
+    /** V2 channel 覆盖的包路径前缀 */
+    private static final Set<Class<?>> V2_PACKAGE_CLASS = new HashSet<>();
+
     private static int id() {
         return packetID++;
+    }
+
+    private static int idV2() {
+        return packetID_V2++;
+    }
+
+    private static SimpleChannel channelFor(Class<?> msgClass) {
+        if (V2_PACKAGE_CLASS.contains(msgClass)) {
+            return INSTANCE_V2;
+        }
+        return INSTANCE;
     }
 
     public static void register() {
@@ -128,6 +160,15 @@ public class ModNetworking {
                 .simpleChannel();
 
         INSTANCE = net;
+
+        SimpleChannel netV2 = NetworkRegistry.ChannelBuilder
+                .named(new ResourceLocation(Utils.MOD_ID, "messages_v2"))
+                .networkProtocolVersion(() -> "1.0")
+                .clientAcceptedVersions(s -> true)
+                .serverAcceptedVersions(s -> true)
+                .simpleChannel();
+
+        INSTANCE_V2 = netV2;
 
         net.messageBuilder(UseC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(UseC2SPacket::new)
@@ -1314,6 +1355,11 @@ public class ModNetworking {
                 .encoder(GuideDisplayS2CPacket::toBytes)
                 .consumerMainThread(GuideDisplayS2CPacket::handle)
                 .add();
+        net.messageBuilder(WaypointSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(WaypointSyncS2CPacket::new)
+                .encoder(WaypointSyncS2CPacket::toBytes)
+                .consumerMainThread(WaypointSyncS2CPacket::handle)
+                .add();
         net.messageBuilder(LastVerticalCircleParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(LastVerticalCircleParticleS2CPacket::new)
                 .encoder(LastVerticalCircleParticleS2CPacket::toBytes)
@@ -1399,12 +1445,88 @@ public class ModNetworking {
                 .encoder(SecretChestS2CPacket::toBytes)
                 .consumerMainThread(SecretChestS2CPacket::handle)
                 .add();
+        net.messageBuilder(DamageNumberS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(DamageNumberS2CPacket::new)
+                .encoder(DamageNumberS2CPacket::toBytes)
+                .consumerMainThread(DamageNumberS2CPacket::handle)
+                .add();
+        netV2.messageBuilder(OpenBackpackC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OpenBackpackC2SPacket::new)
+                .encoder(OpenBackpackC2SPacket::toBytes)
+                .consumerMainThread(OpenBackpackC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(OpenBackpackC2SPacket.class);
+
+        netV2.messageBuilder(BackpackUpgradeC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(BackpackUpgradeC2SPacket::new)
+                .encoder(BackpackUpgradeC2SPacket::toBytes)
+                .consumerMainThread(BackpackUpgradeC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(BackpackUpgradeC2SPacket.class);
+
+        netV2.messageBuilder(AfkDataS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(AfkDataS2CPacket::new)
+                .encoder(AfkDataS2CPacket::toBytes)
+                .consumerMainThread(AfkDataS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(AfkDataS2CPacket.class);
+
+        netV2.messageBuilder(AfkOperationC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(AfkOperationC2SPacket::new)
+                .encoder(AfkOperationC2SPacket::toBytes)
+                .consumerMainThread(AfkOperationC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(AfkOperationC2SPacket.class);
+
+        netV2.messageBuilder(StockBuyC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(StockBuyC2SPacket::new)
+                .encoder(StockBuyC2SPacket::toBytes)
+                .consumerMainThread(StockBuyC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(StockBuyC2SPacket.class);
+
+        netV2.messageBuilder(StockSellC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(StockSellC2SPacket::new)
+                .encoder(StockSellC2SPacket::toBytes)
+                .consumerMainThread(StockSellC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(StockSellC2SPacket.class);
+
+        netV2.messageBuilder(StockDataSyncS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(StockDataSyncS2CPacket::new)
+                .encoder(StockDataSyncS2CPacket::toBytes)
+                .consumerMainThread(StockDataSyncS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(StockDataSyncS2CPacket.class);
+
+        netV2.messageBuilder(StockPortfolioSyncS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(StockPortfolioSyncS2CPacket::new)
+                .encoder(StockPortfolioSyncS2CPacket::toBytes)
+                .consumerMainThread(StockPortfolioSyncS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(StockPortfolioSyncS2CPacket.class);
+
+        netV2.messageBuilder(StockKLineRequestC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(StockKLineRequestC2SPacket::new)
+                .encoder(StockKLineRequestC2SPacket::toBytes)
+                .consumerMainThread(StockKLineRequestC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(StockKLineRequestC2SPacket.class);
+
+        netV2.messageBuilder(StockKLineSyncS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(StockKLineSyncS2CPacket::new)
+                .encoder(StockKLineSyncS2CPacket::toBytes)
+                .consumerMainThread(StockKLineSyncS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(StockKLineSyncS2CPacket.class);
     }
 
+    @SuppressWarnings("unchecked")
     public static <MSG> void sendToServer(MSG message) {
         ClientUtils.clientPacketLimit--;
-        if (ClientUtils.clientPacketLimit > 0) INSTANCE.sendToServer(message);
-        else {
+        if (ClientUtils.clientPacketLimit > 0) {
+            channelFor((Class<MSG>) message.getClass()).sendToServer(message);
+        } else {
             if (ClientUtils.clientPlayer != null) {
                 Compute.sendFormatMSG(ClientUtils.clientPlayer, Component.literal("安全").withStyle(ChatFormatting.GREEN),
                         Component.literal("请减少操作频率或降低连点器/脚本每秒操作频率！当前频率已超过100/s").withStyle(ChatFormatting.RED));
@@ -1412,11 +1534,18 @@ public class ModNetworking {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static <MSG> void sendToClient(MSG message, ServerPlayer player) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+        channelFor((Class<MSG>) message.getClass()).send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 
+    @SuppressWarnings("unchecked")
     public static <MSG> void sendToClient(MSG message, Player player) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), message);
+        channelFor((Class<MSG>) message.getClass()).send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), message);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <MSG> void sendToClientsTrackingEntity(MSG message, Entity entity) {
+        channelFor((Class<MSG>) message.getClass()).send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
     }
 }

@@ -7,8 +7,10 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBalanceInstance;
@@ -67,7 +69,7 @@ public class DivineUtils {
     }
 
     public static void decreasePlayerHealth(Player player, double value) {
-        Compute.decreasePlayerHealth(player, value, Te.s("被", "圣光", style, "辐照飞升"));
+        Damage.decreasePlayerHealth(player, value, Te.s("被", "圣光", style, "辐照飞升"));
     }
 
     public static Map<String, Integer> nextTpTickMap = new HashMap<>();
@@ -160,7 +162,7 @@ public class DivineUtils {
     public static void setHolyLightCount(Player player, int count) {
         holyLightCountMap.put(Name.get(player), count);
         if (holyLightCountMap.get(Name.get(player)) == 0) {
-            Compute.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get());
+            BuffSystem.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get());
         }
     }
 
@@ -170,7 +172,7 @@ public class DivineUtils {
 
     public static void addHolyLightCount(Player player, int count) {
         holyLightCountMap.compute(Name.get(player), (k, v) -> v == null ? count : Math.min(1000, v + count));
-        Compute.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get(),
+        BuffSystem.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get(),
                 holyLightCountMap.get(Name.get(player)), true);
     }
 
@@ -180,9 +182,9 @@ public class DivineUtils {
         }
         holyLightCountMap.compute(Name.get(player), (k, v) -> v == null ? 0 : Math.max(0, v - count));
         if (holyLightCountMap.get(Name.get(player)) == 0) {
-            Compute.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get());
+            BuffSystem.removeEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get());
         } else {
-            Compute.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get(),
+            BuffSystem.sendEffectLastTime(player, DivineIslandItems.DIVINE_RUNE_ARMOR.get(),
                     holyLightCountMap.get(Name.get(player)), true);
         }
     }
@@ -198,8 +200,8 @@ public class DivineUtils {
             }
             if (RandomUtils.nextDouble(0, 1) < 0.1) {
                 MySound.soundToPlayer(player, SoundEvents.BLAZE_SHOOT);
-                Compute.createRangeEffectDot(player.level(), player.position(), 4, (eachPlayer -> {
-                    Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1,
+                Damage.createRangeEffectDot(player.level(), player.position(), 4, (eachPlayer -> {
+                    Damage.decreasePlayerHealth(player, player.getMaxHealth() * 0.1,
                             Te.s("被", "圣光辐照", style, "飞升"));
                 }), style, Tick.get() + 20, 6, 80);
             }
@@ -207,7 +209,7 @@ public class DivineUtils {
     }
 
     public static void handleHolyLightTick(Player player) {
-        if (player.tickCount % 100 == 14 && !Compute.playerIsInBattle(player, Tick.s(60))) {
+        if (player.tickCount % 100 == 14 && !Damage.playerIsInBattle(player, Tick.s(60))) {
             if (getHolyLightCount(player) > 0) {
                 decreaseHolyLightCount(player, 10);
                 decreasePlayerHealth(player, player.getMaxHealth() * 0.1);
@@ -240,7 +242,7 @@ public class DivineUtils {
     public static void addManifestOnMob(Mob mob, int lastTick, Item icon) {
         manifestExpiredTickMap.entrySet().removeIf(entry -> entry.getKey().isDeadOrDying());
         manifestExpiredTickMap.put(mob, Tick.get() + lastTick);
-        Compute.sendMobEffectHudToNearPlayer(mob, icon, "DivineManifest", lastTick, 0, false);
+        BuffSystem.sendMobEffectHudToNearPlayer(mob, icon, "DivineManifest", lastTick, 0, false);
     }
 
     public static Set<String> manifestControlMobs = new HashSet<>() {{

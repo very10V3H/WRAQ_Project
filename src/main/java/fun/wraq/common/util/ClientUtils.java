@@ -538,5 +538,12 @@ public class ClientUtils {
 
     public static Map<UUID, Integer> clientPlayerLevelIdMap = new HashMap<>();
     public static Map<UUID, Vec3> clientPlayerLocationMap = new HashMap<>();
+
+    // AFK System
+    public static String afkSelectedMobTypeId = "";
+    public static long afkLastHarvestTime = 0;
+    public static long afkServerTick = 0;
+    public static List<Map<String, String>> afkMobTypeList = new ArrayList<>();
+    public static boolean afkScreenOpenFlag = false;
 }
 

@@ -40,6 +40,7 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.border.WorldBorder;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
@@ -63,6 +64,7 @@ import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.spur.events.WoodSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -77,6 +79,7 @@ import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
+import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmor;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenBook;
@@ -193,12 +196,12 @@ public class ServerPlayerTickEvent {
                     && (player.isOnFire()
                     || (player.getBlockStateOn().is(Blocks.MAGMA_BLOCK) && !player.isShiftKeyDown()))) {
                 if (!player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.REVENANT_GOLDEN_HELMET.get())) {
-                    Compute.decreasePlayerHealth(player, player.getHealth() * 0.03,
+                    Damage.decreasePlayerHealth(player, player.getHealth() * 0.03,
                             Te.s("被火焰吞没了", CustomStyle.styleOfPower));
                 }
             }
             if (player.tickCount % 20 == 0) {
-                ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Compute.playerIsInBattle(player)), serverPlayer);
+                ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Damage.playerIsInBattle(player)), serverPlayer);
             }
             if (player.tickCount % 6000 == 0) {
                 Smelt.checkIfAnyProgressFinished(player);
@@ -216,7 +219,7 @@ public class ServerPlayerTickEvent {
                 TeamInfoRequestC2SPacket.module(serverPlayer);
             }
             if (player.tickCount % 20 == 0 && TowerMob.playerIsChallenging3FloorAndInFire(player)) {
-                Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1, Component.literal("被烈焰吞噬了").withStyle(CustomStyle.styleOfFire));
+                Damage.decreasePlayerHealth(player, player.getMaxHealth() * 0.1, Component.literal("被烈焰吞噬了").withStyle(CustomStyle.styleOfFire));
             }
             if (player.level().equals(player.getServer().getLevel(Level.END))) {
                 Vec3 vec3 = new Vec3(24.5, 88, -135.5);
@@ -312,7 +315,7 @@ public class ServerPlayerTickEvent {
             if (player.tickCount % 200 == 0 && SuitCount.getPurpleIronSuitCount(player) > 0) {
                 int Rate = SuitCount.getPurpleIronSuitCount(player);
                 Shield.providePlayerShield(player, 100, player.getMaxHealth() * 0.1 * Rate);
-                Compute.sendEffectLastTime(player, ModItems.PURPLE_IRON_INGOT.get().getDefaultInstance(), 100);
+                BuffSystem.sendEffectLastTime(player, ModItems.PURPLE_IRON_INGOT.get().getDefaultInstance(), 100);
             }
             CompoundTag data = player.getPersistentData();
             int TmpNum = player.tickCount;
@@ -368,7 +371,7 @@ public class ServerPlayerTickEvent {
                 if (data.contains("Xp")) {
                     double xpValue = data.getDouble("Xp");
                     int oldLevel = player.experienceLevel;
-                    double needXpForLevelUp = Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
+                    double needXpForLevelUp = MyExpSystem.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
                     double rate = xpValue / needXpForLevelUp;
                     if (rate >= 1) {
                         ((ServerPlayer) player).setExperiencePoints(0);
@@ -457,7 +460,7 @@ public class ServerPlayerTickEvent {
             if (flag && shieldQueue != null) shieldQueue.clear();
             Shield.computePlayerShield(player);
             if (SuitCount.getSkySuitCount(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
-                Shield.providePlayerShield(player, 200, PlayerAttributes.attackDamage(player) * 0.1 * Compute.SkySuitEffectRate(player));
+                Shield.providePlayerShield(player, 200, PlayerAttributes.attackDamage(player) * 0.1 * SkyArmor.SkySuitEffectRate(player));
             }
             if (TmpNum % 20 == 0) {
                 if (data.getInt(StringUtils.MineMonsterEffect) >= TickCount) {

@@ -11,6 +11,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -68,7 +69,7 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
         ParticleProvider.createRandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
-        Compute.sendEffectLastTime(player, ModItems.VOLCANO_SWORD_3.get().getDefaultInstance(), 200);
+        BuffSystem.sendEffectLastTime(player, ModItems.VOLCANO_SWORD_3.get().getDefaultInstance(), 200);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerAttackDamageModifier,
                 "Volcano Sword Active", exAttackDamage[tier], Tick.get() + 200);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,

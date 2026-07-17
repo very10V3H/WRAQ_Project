@@ -7,6 +7,8 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.reputation.ReputationSystem;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -63,18 +65,18 @@ public class ReputationMissionFinishedRequestC2SPacket {
                 long minuteDelta = timeDelta / (1000 * 60);
                 if (minuteDelta >= 25) minuteDelta = 25;
                 int tier = 5 - (int) (minuteDelta / 5);
-                Compute.givePercentExpToPlayer(serverPlayer, 0.02 * tier, 0, serverPlayer.experienceLevel);
+                MyExpSystem.givePercentExpToPlayer(serverPlayer, 0.02 * tier, 0, serverPlayer.experienceLevel);
                 double reputationReward = tier * ((double) serverPlayer.experienceLevel / 20);
-                Compute.giveReputation(serverPlayer, reputationReward,
+                ReputationSystem.giveReputation(serverPlayer, reputationReward,
                         Te.s("悬赏任务", ChatFormatting.GOLD));
                 double rankExReputationRewardRate = RankData.getExReputationMissionRewardRate(serverPlayer);
                 if (rankExReputationRewardRate > 0) {
-                    Compute.giveReputation(serverPlayer, reputationReward * rankExReputationRewardRate,
+                    ReputationSystem.giveReputation(serverPlayer, reputationReward * rankExReputationRewardRate,
                             Te.s("职级奖励", CustomStyle.styleOfWorld));
                 }
 
-                if (serverPlayer.experienceLevel == Compute.levelUpperLimit) {
-                    Compute.giveReputation(serverPlayer, tier,
+                if (serverPlayer.experienceLevel == MyExpSystem.levelUpperLimit) {
+                    ReputationSystem.giveReputation(serverPlayer, tier,
                             Te.s("悬赏任务满级额外声望", ChatFormatting.LIGHT_PURPLE));
                 }
                 Utils.playerReputationMissionContent.remove(serverPlayer.getName().getString());

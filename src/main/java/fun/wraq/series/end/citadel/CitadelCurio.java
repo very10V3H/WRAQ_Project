@@ -14,6 +14,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -116,21 +117,24 @@ public class CitadelCurio extends WraqCurios implements Decomposable, OnKillEffe
     }
 
     public static boolean onPlayerNearToDead(Player player) {
+        if (!hasCurio(player, CitadelCurio.class)) {
+            return false;
+        }
         if (player.isDeadOrDying()) {
             return false;
         }
         // 如果有，则说明已经触发过被动，则死亡
         if (nearDeadStatusStartTick.containsKey(player)) {
             nearDeadStatusStartTick.remove(player);
-            Compute.removeEffectLastTime(player, "item/citadel_curio");
+            BuffSystem.removeEffectLastTime(player, "item/citadel_curio");
             SpecialEffectOnPlayer.cleanse(player);
-            Compute.removeDebuffTime(player, "item/citadel_curio");
+            BuffSystem.removeDebuffTime(player, "item/citadel_curio");
             return false;
         }
         // 如果没有，触发被动
         nearDeadStatusStartTick.put(player, Tick.get());
         player.setHealth(player.getMaxHealth());
-        Compute.sendEffectLastTime(player, "item/citadel_curio", Tick.s(30), 1, false);
+        BuffSystem.sendEffectLastTime(player, "item/citadel_curio", Tick.s(30), 1, false);
         MySound.soundToPlayer(player, SoundEvents.WITHER_AMBIENT);
         return true;
     }
@@ -181,9 +185,9 @@ public class CitadelCurio extends WraqCurios implements Decomposable, OnKillEffe
             }
             if (phase == 4) {
                 SpecialEffectOnPlayer.addHealingReduction(player, "CitadelPhase4", 1, Tick.get() + Tick.s(10));
-                Compute.sendDebuffTime(player, "item/citadel_curio", Tick.get() + Tick.s(10), 0, false);
+                BuffSystem.sendDebuffTime(player, "item/citadel_curio", Tick.get() + Tick.s(10), 0, false);
             }
-            Compute.decreasePlayerHealth(player, maxHealth * rate, Te.s("已归终.", hoverMainStyle()));
+            Damage.decreasePlayerHealth(player, maxHealth * rate, Te.s("已归终.", hoverMainStyle()));
         }
 
         // 被动：归终之石Buff图标
@@ -191,11 +195,11 @@ public class CitadelCurio extends WraqCurios implements Decomposable, OnKillEffe
             int startTick = nearDeadStatusStartTick.get(player);
             int difference = Tick.get() - startTick;
             if (difference == Tick.s(30)) {
-                Compute.sendEffectLastTime(player, "item/citadel_curio", Tick.s(30), 2, false);
+                BuffSystem.sendEffectLastTime(player, "item/citadel_curio", Tick.s(30), 2, false);
             } else if (difference == Tick.s(60)) {
-                Compute.sendEffectLastTime(player, "item/citadel_curio", Tick.s(60), 3, false);
+                BuffSystem.sendEffectLastTime(player, "item/citadel_curio", Tick.s(60), 3, false);
             } else if (difference == Tick.s(90)) {
-                Compute.sendEffectLastTime(player, "item/citadel_curio", Tick.s(90), 4, false);
+                BuffSystem.sendEffectLastTime(player, "item/citadel_curio", Tick.s(90), 4, false);
             }
         }
     }

@@ -5,7 +5,9 @@ import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.util.MobAttrCsvLoader;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -41,6 +43,7 @@ public abstract class JungleMobSpawnController {
         this.mobXpLevel = mobXpLevel;
         this.detectionRadius = detectionRadius;
         this.refreshInterval = refreshInterval;
+        fun.wraq.process.system.afk.AfkSystem.register(this);
     }
 
     public void handleLevelTick(Level level) {
@@ -52,6 +55,7 @@ public abstract class JungleMobSpawnController {
             if (Tick.get() % 20 == 0) {
                 if (Tick.get() > lastSpawnTick + refreshInterval) {
                     spawnMob(level);
+                    applyCsvAttributes(level);
                     removeNearArmorStand(level);
                 } else {
                     removeNearArmorStand(level);
@@ -116,6 +120,18 @@ public abstract class JungleMobSpawnController {
         mobs.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobs.clear();
         damageCount.clear();
+    }
+
+    /** Apply CSV attributes to all spawned mobs, overriding hardcoded values if a CSV entry exists */
+    private void applyCsvAttributes(Level level) {
+        int playerCount = getNearbyPlayers(level).size();
+        for (Mob mob : mobs) {
+            String originName = MobSpawn.getMobOriginName(mob);
+            MobAttributes csvAttrs = MobAttrCsvLoader.getScaledMobAttributes(originName, playerCount);
+            if (csvAttrs != null) {
+                MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, csvAttrs);
+            }
+        }
     }
 
     public Set<Player> getNearbyPlayers(Level level) {

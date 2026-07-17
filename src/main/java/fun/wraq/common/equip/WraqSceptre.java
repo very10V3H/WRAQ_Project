@@ -17,6 +17,7 @@ import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillBase3_0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.ManaArrowHitEntity;
 import fun.wraq.render.gui.illustrate.Display;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -47,7 +48,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip implements SceptreAt
 
     public void shootManaArrow(Player player, double rate, boolean mainShoot, boolean computeManaCost,
                                ManaArrowHitEntity manaArrowHitEntity) {
-        if (!computeManaCost || Compute.playerManaCost(player,
+        if (!computeManaCost || Mana.playerManaCost(player,
                 Utils.manaCost.getOrDefault(player.getMainHandItem().getItem(), 0d))) {
             ManaArrow manaArrow = summonManaArrow(player, rate);
             if (manaArrow == null) return;

@@ -5,6 +5,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.process.system.xp.MyExpSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -119,7 +120,7 @@ public class CropSpur {
         if (blockState.is(Blocks.SWEET_BERRY_BUSH))
             data.putInt(StringUtils.Gardening.SweetBerries, data.getInt(StringUtils.Gardening.SweetBerries) + 1);
         addPlayerGardeningExp(player, 2);
-        Compute.givePercentExpToPlayer(player, 0.0025, 0, Math.min(player.experienceLevel, 50));
+        MyExpSystem.givePercentExpToPlayer(player, 0.0025, 0, Math.min(player.experienceLevel, 50));
         Utils.dayCropCount.put(player.getName().getString(), Utils.dayCropCount.getOrDefault(player.getName().getString(), 0) + 1);
         Random random = new Random();
         if (random.nextDouble() < 0.035) {

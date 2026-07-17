@@ -15,8 +15,10 @@ import fun.wraq.process.func.EffectOnMob;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.summer2025.Summer2025;
 import fun.wraq.series.instance.series.mushroom.UnknownGem;
@@ -118,7 +120,7 @@ public class LevelEvents {
             if (tick % 100 == 0) {
                 tryToRemoveMobInMap();
             }
-            Compute.gather(tick); // 聚集
+            BuffSystem.gather(tick); // 聚集
             if (tick % 20 == 1) {
                 UnknownGem.handleLevelTick(level);
             }
@@ -126,12 +128,6 @@ public class LevelEvents {
         }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
-
-            while (Utils.valueItemEntity.peek() != null) {
-                if (Utils.valueItemEntity.peek().getResetTick() < Tick.get())
-                    Utils.valueItemEntity.poll().getItemEntity().remove(Entity.RemovalReason.KILLED);
-                else break;
-            }
 
             if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))
                     && Tick.get() % 100 == 0) {
@@ -230,7 +226,7 @@ public class LevelEvents {
                             Component.literal("早上好！新的一天有新的开始！").withStyle(ChatFormatting.WHITE));
                     Utils.TimeEventFlag = 9;
                     playerList.forEach(serverPlayer -> {
-                        Compute.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
+                        MyExpSystem.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
                     });
                 }
                 if (calendar.get(Calendar.HOUR_OF_DAY) == 12 && Utils.TimeEventFlag != 12) {
@@ -246,7 +242,7 @@ public class LevelEvents {
                             Component.literal("三点几嘞！饮茶先咯！").withStyle(ChatFormatting.WHITE));
                     Utils.TimeEventFlag = 15;
                     playerList.forEach(serverPlayer -> {
-                        Compute.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
+                        MyExpSystem.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
                     });
                 }
                 if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && Utils.TimeEventFlag != 18) {
@@ -262,7 +258,7 @@ public class LevelEvents {
                             Component.literal("夜生活才刚刚开始！").withStyle(ChatFormatting.WHITE));
                     Utils.TimeEventFlag = 21;
                     playerList.forEach(serverPlayer -> {
-                        Compute.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
+                        MyExpSystem.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
                     });
                 }
                 if (calendar.get(Calendar.HOUR_OF_DAY) == 0 && Utils.TimeEventFlag != 0) {

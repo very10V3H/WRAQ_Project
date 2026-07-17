@@ -5,6 +5,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.xp.MyExpSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -76,7 +77,7 @@ public class Daily extends Item {
                     ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
                     itemStack.setCount(itemStack.getCount() - 1);
                     player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
-                    Compute.givePercentExpToPlayer(player, 0.5, 0, player.experienceLevel);
+                    MyExpSystem.givePercentExpToPlayer(player, 0.5, 0, player.experienceLevel);
                     Compute.formatBroad(level, Component.literal("每日任务").withStyle(ChatFormatting.AQUA),
                             Component.literal(player.getName().getString() + "完成了每日任务！").withStyle(ChatFormatting.WHITE));
                     for (int i = 1; i <= 17; i++) data.putInt("DailyMission" + i, 0);

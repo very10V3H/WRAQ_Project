@@ -1,12 +1,12 @@
 package fun.wraq.series.newrunes.chapter1;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -58,7 +58,7 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.FOREST_NEW_RUNE.get());
+        return WraqCurios.hasCurios(player, NewRuneItems.FOREST_NEW_RUNE.get());
     }
 
     public static Map<String, Integer> passiveNextActiveTime = new HashMap<>();
@@ -72,8 +72,8 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
             if ((player.getHealth() - damage) / (player.getMaxHealth() - damage) <= 0.2) {
                 passiveNextActiveTime.put(name, tick + 1200);
                 healthRecoverUpTime.put(name, tick + 100);
-                Compute.sendEffectLastTime(player, NewRuneItems.FOREST_NEW_RUNE.get(), 100);
-                Compute.sendCoolDownTime(player, NewRuneItems.FOREST_NEW_RUNE.get(), 1200);
+                BuffSystem.sendEffectLastTime(player, NewRuneItems.FOREST_NEW_RUNE.get(), 100);
+                BuffSystem.sendCoolDownTime(player, NewRuneItems.FOREST_NEW_RUNE.get(), 1200);
                 return true;
             }
         }

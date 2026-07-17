@@ -8,6 +8,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -64,7 +65,7 @@ public class WoodSpur {
                         Utils.worldWoodList.add(new BlockAndResetTime(blockState, blockPos1, Tick.get() + 36000));
                         level.setBlockAndUpdate(blockPos1, getStrippedLog(level.getBlockState(blockPos1).getBlock()).defaultBlockState());
                         Random random = new Random();
-                        if (random.nextDouble() < Compute.playerExHarvest(player)) {
+                        if (random.nextDouble() < PlayerAttributes.playerExHarvest(player)) {
                             logReward(player);
                             InventoryOperation.giveItemStack(player, new ItemStack(blockState.getBlock().asItem(), 2));
                         }
@@ -79,7 +80,7 @@ public class WoodSpur {
     public static void logReward(Player player) {
         CompoundTag data = player.getPersistentData();
         addPlayerLopExp(player, 2);
-        Compute.givePercentExpToPlayer(player, 0.005, 0, Math.min(player.experienceLevel, 50));
+        MyExpSystem.givePercentExpToPlayer(player, 0.005, 0, Math.min(player.experienceLevel, 50));
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
         Random random = new Random();
         if (random.nextDouble() < 0.05) {

@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter1.snow;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -52,7 +53,7 @@ public class SnowSuitDescription {
         }
 
         String crestName = "[冰川纹章]";
-        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+        if (WraqCurios.CuriosAttribute.getClientCuriosSet(player)
                 .stream().anyMatch(item -> item instanceof SnowCrest)) {
             components.add(Component.literal(crestName).withStyle(MainStyle));
             count++;

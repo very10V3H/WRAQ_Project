@@ -9,6 +9,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Dot;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -54,7 +55,7 @@ public class BlazePowerSpawnController extends JungleMobSpawnController {
             itemAndRate.sendWithMSG(player, 1);
         });
         buffExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(8));
-        Compute.sendEffectLastTime(player, "item/blaze_powder", Tick.min(8), 0,false);
+        BuffSystem.sendEffectLastTime(player, "item/blaze_powder", Tick.min(8), 0,false);
         sendMSG(player, Te.s("获得了持续", "8min", ChatFormatting.AQUA, "的", "余烬之冠", STYLE,
                 "。在持续时间内，你的普通攻击将会对目标造成基于你最大生命值的持续伤害，并施加减速，持续3s。"));
     }
@@ -66,7 +67,7 @@ public class BlazePowerSpawnController extends JungleMobSpawnController {
             Dot.addDotOnMob(mob,
                     new Dot(0, player.getHealth() * 0.25, 2, Tick.get() + Tick.s(3),
                             Name.get(player), false, "RedBuff"));
-            Compute.sendMobEffectHudToNearPlayer(mob, "item/blaze_powder",
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, "item/blaze_powder",
                     "RedBuff",Tick.s(3), 0, false);
             Compute.addSlowDownEffect(mob, Tick.s(3), 1);
         }

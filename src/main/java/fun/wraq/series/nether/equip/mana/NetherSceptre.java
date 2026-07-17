@@ -1,17 +1,23 @@
 package fun.wraq.series.nether.equip.mana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.BowAttribute;
 import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.Laser;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.EnhancedForgedItem;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.core.ManaAttackModule;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.projectiles.mana.ManaArrow;
@@ -19,18 +25,18 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, EnhancedForgedItem,
         SwordAttribute, BowAttribute {
@@ -59,6 +65,30 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
             Utils.levelRequire.put(this, 225);
         }
         this.tier = tier;
+    }
+
+    public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double rate, int tickCoolDown) {
+        Level level = player.level();
+        int TickCount = Tick.get();
+        Vec3 targetPos = location;
+        Vec3 startPos = Compute.getPlayerHandItemPos(player, true);
+        double distance = targetPos.distanceTo(startPos);
+        ParticleProvider.createLineParticle(level, (int) distance * 5, startPos, targetPos, particleOptions);
+        if (!Utils.playerLaserCoolDown.containsKey(Name.get(player))) {
+            Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
+        }
+        Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(Name.get(player));
+
+        Compute.getPlayerRayMobList(player, 0.5, 0.5, distance).forEach(mob -> {
+            if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
+                laserCoolDownMap.put(mob, TickCount + tickCoolDown);
+                ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
+                        rate, PlayerAttributes.manaPenetration(player),
+                        PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
+                ManaAttackModule.causeBaseAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                        PlayerAttributes.manaPenetration0(player), level, newArrow, true);
+            }
+        });
     }
 
     @Override
@@ -120,7 +150,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
             if (tier < 2 && Tick.get() % 10 == 0) {
                 Mana.addOrCostPlayerMana(player, -45);
             }
-            Compute.TargetLocationLaser(player, Compute.getPickLocationIgnoreBlock(player, tier >= 2 ? 40 : 24),
+            TargetLocationLaser(player, Compute.getPickLocationIgnoreBlock(player, tier >= 2 ? 40 : 24),
                     ModParticles.YSR1.get(), 1, 10);
         }
     }

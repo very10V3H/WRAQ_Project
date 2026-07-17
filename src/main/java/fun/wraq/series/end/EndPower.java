@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.power.PowerLogic;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -70,7 +71,7 @@ public class EndPower extends Item implements ActiveItem {
     };
 
     public static void Release(Player player) {
-        if (Compute.playerManaCost(player, (PowerLogic.playerLastTimeReleasePowerManaCost.getOrDefault(player, 45d) * 1.5), true)) {
+        if (Mana.playerManaCost(player, (PowerLogic.playerLastTimeReleasePowerManaCost.getOrDefault(player, 45d) * 1.5), true)) {
             Compute.playerItemCoolDown(player, ModItems.END_POWER.get(), CoolDownTime[0]);
             Compute.playerItemCoolDown(player, ModItems.END_POWER_1.get(), CoolDownTime[1]);
             Compute.playerItemCoolDown(player, ModItems.END_POWER_2.get(), CoolDownTime[2]);

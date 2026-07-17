@@ -1,6 +1,5 @@
 package fun.wraq.series.newrunes.chapter1;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
@@ -50,7 +49,7 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.PLAIN_NEW_RUNE.get());
+        return WraqCurios.hasCurios(player, NewRuneItems.PLAIN_NEW_RUNE.get());
     }
 
     public static double playerHealthRecover(Player player) {

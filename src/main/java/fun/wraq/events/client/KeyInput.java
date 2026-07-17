@@ -170,6 +170,10 @@ public class KeyInput {
             if (KeyBoradInput.TEAM.consumeClick()) {
                 ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());
             }
+
+            if (KeyBoradInput.BACKPACK.consumeClick()) {
+                ModNetworking.sendToServer(new fun.wraq.process.system.backpack.networking.OpenBackpackC2SPacket());
+            }
         }
     }
 
@@ -207,6 +211,7 @@ public class KeyInput {
             event.register(KeyBoradInput.GUIDE);
             event.register(KeyBoradInput.ElementRoulette);
             event.register(KeyBoradInput.TEAM);
+            event.register(KeyBoradInput.BACKPACK);
         }
     }
 }

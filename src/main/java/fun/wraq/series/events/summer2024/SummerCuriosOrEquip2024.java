@@ -6,6 +6,7 @@ import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -98,7 +99,7 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
         if (player.isInWater()
                 || (player.level().dimension().equals(Level.OVERWORLD)
                 && MySeason.clientSeason != null && MySeason.clientSeason.contains(MySeason.summer))) rate = 2;
-        Compute.sendEffectLastTimeToClientPlayer(this, rate, 20, false);
+        BuffSystem.sendEffectLastTimeToClientPlayer(this, rate, 20, false);
         super.clientTick(player);
     }
 

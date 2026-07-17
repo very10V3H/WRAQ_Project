@@ -8,6 +8,7 @@ import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
@@ -34,7 +35,7 @@ public class BowNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2Allow
         int skillLevel = getPlayerSkillLevel(player);
         int lastTick = Tick.s(5) + 10 * skillLevel;
         effectExpiredTickMap.put(player, Tick.get() + lastTick);
-        Compute.sendEffectLastTime(player, getTexture1Url(), lastTick, 0, false);
+        BuffSystem.sendEffectLastTime(player, getTexture1Url(), lastTick, 0, false);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerExAttackSpeed,
                 "BowNewSkillBase3_0ExAttackSpeedEffect", 0.3, Tick.get() + lastTick);
     }

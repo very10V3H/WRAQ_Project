@@ -8,6 +8,7 @@ import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -71,7 +72,7 @@ public class BloodManaPower extends WraqPower {
                     double damageEnhanceRate = (player.getMaxHealth() - player.getHealth()) / player.getMaxHealth();
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                             "BloodManaPowerPlayerCommonDamageEnhance", damageEnhanceRate, Tick.get() + 100);
-                    Compute.sendEffectLastTime(player, this, 100, (int) (damageEnhanceRate * 100), false);
+                    BuffSystem.sendEffectLastTime(player, this, 100, (int) (damageEnhanceRate * 100), false);
                     ParticleProvider.createBreakBlockParticle(player, Blocks.NETHERRACK);
                 });
         produceDefaultDustParticle(player, CustomStyle.styleOfBloodMana);

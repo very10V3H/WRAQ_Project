@@ -13,6 +13,7 @@ import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -378,7 +379,7 @@ public class Guide {
             }
             Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
                     Component.literal("你完成了引导任务，获得了奖励！").withStyle(ChatFormatting.WHITE));
-            Compute.giveExpToPlayer(player, (stage + 1) * 10);
+            MyExpSystem.giveExpToPlayer(player, (stage + 1) * 10);
             MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
             if (guide.myWayPoint != null) {
                 MyWayPoint.sendRemovePacketToClient(player, guide.myWayPoint.name);

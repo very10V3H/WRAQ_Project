@@ -3,7 +3,8 @@ package fun.wraq.commands.changeable;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.items.prefix.PrefixInfo;
+import fun.wraq.process.system.data.PersistentDataUtil;
+import fun.wraq.process.system.prefix.PrefixInfo;
 import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
@@ -53,6 +54,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -141,7 +143,7 @@ public class PrefixCommand implements Command<CommandSourceStack> {
 
         @Override
         public int matchCondition(Player player) {
-            CompoundTag data = Compute.getPlayerSpecificKeyCompoundTagData(player, dataKey);
+            CompoundTag data = PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, dataKey);
             int count = data.getInt(tag);
             if (downBoundary == upBoundary) {
                 if (count == downBoundary) return 1;
@@ -206,6 +208,34 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         @Override
         public Style getStyle() {
             return style;
+        }
+    }
+
+    public static final Component SAKURA = Component.literal("\uE000").withStyle(
+            Style.EMPTY.withFont(new ResourceLocation("vmd", "sakura"))
+    );
+
+    public record ImageFlagPrefixType(String tag, String prefix, Style style, String imageIcon) implements PrefixCondition {
+
+        @Override
+        public int matchCondition(Player player) {
+            CompoundTag data = player.getPersistentData();
+            CompoundTag prefixData = data.getCompound(simpleFlagPrefixDataKey);
+            return prefixData.contains(tag) ? 1 : 0;
+        }
+
+        @Override
+        public String getPrefixDescription() {
+            return prefix;
+        }
+
+        @Override
+        public Style getStyle() {
+            return style;
+        }
+
+        public String getImageIcon() {
+            return imageIcon;
         }
     }
 

@@ -17,6 +17,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -90,7 +91,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
     public void onHit(Player player, Mob mob) {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
-                .forEach(mob1 -> Compute.causeGatherEffect(mob1, 2, mob.position()));
+                .forEach(mob1 -> BuffSystem.causeGatherEffect(mob1, 2, mob.position()));
     }
 
     @Override
@@ -100,7 +101,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
             @Override
             public void hit(Player player, Mob mob) {
                 Shield.providePlayerShield(player, Tick.s(10), PlayerAttributes.attackDamage(player) * 2);
-                Compute.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 200);
+                BuffSystem.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
                 double attackDamage = 0;
@@ -113,7 +114,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
                         Tick.get() + Tick.s(10), ModItems.MOON_BOW.get());
             }
         }));
-        Compute.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 8888, 0, true);
+        BuffSystem.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 8888, 0, true);
     }
 
     @Override

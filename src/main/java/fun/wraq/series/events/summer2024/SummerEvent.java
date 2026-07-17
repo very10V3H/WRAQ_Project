@@ -5,8 +5,10 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
@@ -119,9 +121,9 @@ public class SummerEvent {
         }
         if (player.tickCount % 20 == 0) {
             if (playerExHarvestEndTick.getOrDefault(name, 0) > tick) {
-                Compute.sendEffectLastTime(player, ModItems.GOLDEN_APPLE.get(), 0, true);
+                BuffSystem.sendEffectLastTime(player, ModItems.GOLDEN_APPLE.get(), 0, true);
             } else {
-                Compute.removeEffectLastTime(player, ModItems.GOLDEN_APPLE.get());
+                BuffSystem.removeEffectLastTime(player, ModItems.GOLDEN_APPLE.get());
             }
         }
     }
@@ -177,7 +179,7 @@ public class SummerEvent {
             if (dailyExpGetTimes < 20) {
                 quitJudge = true;
                 incrementIntData(player, dailyExpGetTimesKey);
-                Compute.givePercentExpToPlayer(player, 0.05, 0, player.experienceLevel);
+                MyExpSystem.givePercentExpToPlayer(player, 0.05, 0, player.experienceLevel);
                 sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(String.valueOf(20 - (dailyExpGetTimes + 1)) + "次").withStyle(CustomStyle.styleOfWater)).
                         append(Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE)));

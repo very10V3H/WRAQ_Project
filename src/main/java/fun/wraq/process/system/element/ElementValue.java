@@ -1,7 +1,7 @@
 package fun.wraq.process.system.element;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.element.*;
@@ -46,7 +46,7 @@ public class ElementValue {
         double value = 0;
         value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, elementValueMap, false);
         value += QiLingJudge(player, elementValueMap);
-        value += Compute.CuriosAttribute.attributeValue(player, elementValueMap, attributeName);
+        value += WraqCurios.CuriosAttribute.attributeValue(player, elementValueMap, attributeName);
         value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, elementValueMap);
         value += DivineWeaponCommon.getEnhanceElementValue(player, type);
         value *= (1 + PlayerAttributes.getElementStrength(player));

@@ -118,7 +118,7 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem,
 
     @Override
     public void active(Player player) {
-        Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
+        Damage.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
         Compute.playerItemCoolDown(player, ModItems.CASTLE_SCEPTRE.get(), 15);
         Compute.playerItemCoolDown(player, ModItems.CASTLE_SCEPTRE_E.get(), 15);

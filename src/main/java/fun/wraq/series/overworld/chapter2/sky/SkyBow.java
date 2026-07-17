@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqBow;
@@ -65,6 +66,6 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
                 "SkyBow passive critDamage", 0.1, Tick.get() + 60);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
                 "SkyBow passive critDamage", 0.2, Tick.get() + 60);
-        Compute.sendEffectLastTime(player, ModItems.SKY_BOW.get(), 60);
+        BuffSystem.sendEffectLastTime(player, ModItems.SKY_BOW.get(), 60);
     }
 }

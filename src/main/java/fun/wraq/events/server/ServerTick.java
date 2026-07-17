@@ -10,12 +10,15 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
+import fun.wraq.process.system.stock.StockPriceFetcher;
+import fun.wraq.process.system.stock.StockTradingSystem;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.secret.SecretChest;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -65,6 +68,12 @@ public class ServerTick {
             if (tickCount % 200 == 98) {
                 WeeklyStore.handleServerTick();
                 SecretChest.handleServerTick();
+            }
+            if (tickCount % 20 == 11) StockPriceFetcher.handleServerTick();
+            if (tickCount % 100 == 51) {
+                for (ServerPlayer player : event.getServer().getPlayerList().getPlayers()) {
+                    StockTradingSystem.checkAutoLiquidation(player);
+                }
             }
             Main0.handleServerTick();
         }

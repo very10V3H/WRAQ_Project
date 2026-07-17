@@ -3,6 +3,7 @@ package fun.wraq.process.system.profession.alchemy;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class AlchemyPlayerData {
     public static final String ALCHEMY_DATA_KEY = "AlchemyData";
     public static CompoundTag getAlchemyData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, ALCHEMY_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, ALCHEMY_DATA_KEY);
     }
 
     public static final String TIER_KEY = "Tier";

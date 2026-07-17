@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +21,7 @@ import java.util.List;
 public class SmithPlayerData {
     public static final String SMITH_PLAYER_DATA_KEY = "SmithData";
     public static CompoundTag getSmithData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, SMITH_PLAYER_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, SMITH_PLAYER_DATA_KEY);
     }
 
     public static final String TIER_KEY = "Tier";
@@ -159,7 +160,7 @@ public class SmithPlayerData {
         if (InventoryOperation.checkPlayerHasItem(player, getIncrementTierNeedMaterial(tier))) {
             InventoryOperation.removeItemWithoutCheck(player, getIncrementTierNeedMaterial(tier));
             InventoryOperation.giveItemStackWithMSG(player, SmithHammer.getHammerByTier(tier));
-            Compute.incrementSpecificKeyDataIntValue(player, SMITH_PLAYER_DATA_KEY, TIER_KEY, 1);
+            PersistentDataUtil.incrementSpecificKeyDataIntValue(player, SMITH_PLAYER_DATA_KEY, TIER_KEY, 1);
             sendMSG(player, Te.s("已达到新的等阶:", getTierDescription(tier + 1)));
             MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
         } else {

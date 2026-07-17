@@ -10,6 +10,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -88,7 +89,7 @@ public class MoonKnife extends WraqOffHandItem implements OnArrowHitEffectCurios
             Mob oldMob = PlayerMoonKnifeMap.get(Name.get(player));
             oldMob.removeEffect(MobEffects.GLOWING);
             PlayerMoonKnifeCountMap.put(player, 0);
-            Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MOON_SOUL.get(), "MoonKnifeCount");
+            BuffSystem.removeMobEffectHudToNearPlayer(oldMob, ModItems.MOON_SOUL.get(), "MoonKnifeCount");
         }
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
         PlayerMoonKnifeMap.put(Name.get(player), mob);
@@ -103,10 +104,10 @@ public class MoonKnife extends WraqOffHandItem implements OnArrowHitEffectCurios
                 }
             });
             playerDamageEnhanceTickMap.put(player, TickCount + 60);
-            Compute.sendEffectLastTime(player, ModItems.MOON_SOUL.get(), 60);
-            Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonKnifeCount");
+            BuffSystem.sendEffectLastTime(player, ModItems.MOON_SOUL.get(), 60);
+            BuffSystem.removeMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonKnifeCount");
         } else {
-            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonKnifeCount", 8888, count, true);
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonKnifeCount", 8888, count, true);
         }
     }
 }

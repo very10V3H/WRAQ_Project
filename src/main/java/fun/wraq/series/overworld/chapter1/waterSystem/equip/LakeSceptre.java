@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.chapter1.waterSystem.equip;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
@@ -10,6 +9,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -77,6 +77,6 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectEquip {
                 new StableAttributesModifier("lakeSceptrePassiveCooldown", (this.num + 1) * 0.1, Tick.get() + 80));
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
                 new StableAttributesModifier("lakeSceptrePassiveMovementSpeed", (this.num + 1) * 0.03, Tick.get() + 80));
-        Compute.sendEffectLastTime(player, ModItems.LAKE_SCEPTRE_0.get(), 40);
+        BuffSystem.sendEffectLastTime(player, ModItems.LAKE_SCEPTRE_0.get(), 40);
     }
 }

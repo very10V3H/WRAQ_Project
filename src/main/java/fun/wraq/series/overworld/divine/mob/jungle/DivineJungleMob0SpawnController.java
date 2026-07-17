@@ -8,6 +8,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.jungle.JungleMobSpawnController;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -88,7 +89,7 @@ public class DivineJungleMob0SpawnController extends JungleMobSpawnController {
     public void handleMobTick(Mob mob) {
         DivineUtils.handleMobTick(mob);
         players.stream().filter(player -> player.distanceTo(mob) > 8).forEach(player -> {
-            Compute.causeGatherEffect(player, 10, mob.position());
+            BuffSystem.causeGatherEffect(player, 10, mob.position());
         });
     }
 

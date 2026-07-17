@@ -15,6 +15,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.reason.Reason;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.ChatFormatting;
@@ -197,7 +198,7 @@ public abstract class NoTeamInstance {
                             }
                         });
                         MobSpawn.incrementPlayerKillCount(player, name.getString());
-                        Compute.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
+                        MyExpSystem.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
                         exReward(player);
                     } else {
                         if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get()) && !checkReason(player)) {

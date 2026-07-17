@@ -11,6 +11,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.projectiles.mana.ManaArrow;
@@ -43,7 +44,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
     public static void Passive(LivingEntity livingEntity) {
         if (livingEntity instanceof Player player && player.getMainHandItem().is(ModItems.WATER_ELEMENT_SCEPTRE.get())) {
             fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword.playerElementEnhanceTickMap.put(player, Tick.get() + 140);
-            Compute.sendEffectLastTime(player, ModItems.WATER_ELEMENT_SCEPTRE.get().getDefaultInstance(), 140);
+            BuffSystem.sendEffectLastTime(player, ModItems.WATER_ELEMENT_SCEPTRE.get().getDefaultInstance(), 140);
         }
     }
 

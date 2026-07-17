@@ -1,7 +1,7 @@
 package fun.wraq.process.func;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.process.system.buff.BuffSystem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -90,10 +90,10 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
                             String tag, double value, int stopTick, Item icon) {
         addAttributeModifier(entity, modifierMap, new StableAttributesModifier(tag, value, stopTick));
         if (entity instanceof Player player) {
-            Compute.sendEffectLastTime(player, icon, stopTick - Tick.get());
+            BuffSystem.sendEffectLastTime(player, icon, stopTick - Tick.get());
         }
         if (entity instanceof Mob mob) {
-            Compute.sendMobEffectHudToNearPlayer(mob, icon, tag, stopTick - Tick.get(), 0, false);
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, icon, tag, stopTick - Tick.get(), 0, false);
         }
     }
 
@@ -101,10 +101,10 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
                             String tag, double value, int stopTick, String url) {
         addAttributeModifier(entity, modifierMap, new StableAttributesModifier(tag, value, stopTick));
         if (entity instanceof Player player) {
-            Compute.sendEffectLastTime(player, url, stopTick - Tick.get(), 0, false);
+            BuffSystem.sendEffectLastTime(player, url, stopTick - Tick.get(), 0, false);
         }
         if (entity instanceof Mob mob) {
-            Compute.sendMobEffectHudToNearPlayer(mob, url, tag, stopTick - Tick.get(), 0, false);
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, url, tag, stopTick - Tick.get(), 0, false);
         }
     }
 

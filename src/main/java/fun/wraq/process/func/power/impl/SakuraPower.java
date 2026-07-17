@@ -68,7 +68,7 @@ public class SakuraPower extends WraqPower {
                 });
         getDefaultTargetPlayerList(player)
                 .forEach(eachPlayer -> {
-                    Compute.decreasePlayerHealth(eachPlayer, eachPlayer.getHealth() * 0.2, Te.s("樱花轻抚"));
+                    Damage.decreasePlayerHealth(eachPlayer, eachPlayer.getHealth() * 0.2, Te.s("樱花轻抚"));
                     ParticleProvider.createLineEffectParticle(player.level(),
                             (int) eachPlayer.distanceTo(player) * 5,
                             eachPlayer.getEyePosition(), player.getEyePosition(),

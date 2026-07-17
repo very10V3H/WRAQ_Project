@@ -1,12 +1,12 @@
 package fun.wraq.series.overworld.cold.sc5.dragon.gem;
 
 import fun.wraq.blocks.entity.Decomposable;
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.PlayerHashMap;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.struct.Shield;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemCommonDamageEnhanceRateModifier;
@@ -63,7 +63,7 @@ public class SuperColdGlacierGem extends WraqPassiveGem implements GemCommonDama
     public void onWithStandDamage(Player player, Mob mob, double damage) {
         if (Tick.get() > allowTriggerTick.getOrDefault(player, 0)) {
             allowTriggerTick.put(player, Tick.get() + Tick.s(30));
-            Compute.removeEffectLastTime(player, "item/super_cold_dragon_gem");
+            BuffSystem.removeEffectLastTime(player, "item/super_cold_dragon_gem");
             Shield.providePlayerShield(player, Tick.s(30), player.getMaxHealth() * getDefenceValueRate());
         }
     }

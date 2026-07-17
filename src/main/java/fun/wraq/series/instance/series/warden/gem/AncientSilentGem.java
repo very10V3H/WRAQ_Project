@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableTierAttributeModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
@@ -69,9 +70,9 @@ public class AncientSilentGem extends WraqPassiveGem implements GemTickHandler, 
                         StableTierAttributeModifier.playerCommonDamageEnhance, DAMAGE_ENHANCE_KEY);
             }
             if (tier > 0) {
-                Compute.sendEffectLastTime(player, "item/warden_matrix", 88, tier, true);
+                BuffSystem.sendEffectLastTime(player, "item/warden_matrix", 88, tier, true);
             } else {
-                Compute.removeEffectLastTime(player, "item/warden_matrix");
+                BuffSystem.removeEffectLastTime(player, "item/warden_matrix");
             }
         }
     }

@@ -1,6 +1,5 @@
 package fun.wraq.series.newrunes.chapter2;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
@@ -8,6 +7,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.HuskSpawnController;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -66,7 +66,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean isOn(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.HUSK_NEW_RUNE.get());
+        return WraqCurios.hasCurios(player, NewRuneItems.HUSK_NEW_RUNE.get());
     }
 
     public static Map<String, Queue<Integer>> soulCollectionMap = new HashMap<>();
@@ -80,11 +80,11 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     @Override
     public void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, NewRuneItems.HUSK_NEW_RUNE.get());
+            BuffSystem.removeEffectLastTime(player, NewRuneItems.HUSK_NEW_RUNE.get());
             return;
         }
         int size = handleQueue(player).size();
-        Compute.sendEffectLastTime(player, NewRuneItems.HUSK_NEW_RUNE.get(), size, true);
+        BuffSystem.sendEffectLastTime(player, NewRuneItems.HUSK_NEW_RUNE.get(), size, true);
     }
 
     public static double damageEnhance(Player player) {

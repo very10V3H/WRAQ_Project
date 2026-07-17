@@ -97,7 +97,7 @@ public class DamageInfluence {
         rate += EnhancePurpleIronArmor.getCommonDamageEnhanceRate(player);
         rate += DivineUtils.getPlayerExCommonDamageEnhanceRate(player);
         rate += MoonCurios.getExCommonDamageEnhance(player);
-        rate += Compute.CuriosAttribute
+        rate += WraqCurios.CuriosAttribute
                 .attributeValue(player, Utils.commonDamageEnhance, StringUtils.RandomCuriosAttribute.commonDamageEnhance);
         rate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.commonDamageEnhance);
         return rate;
@@ -120,7 +120,7 @@ public class DamageInfluence {
         rate += LabourDayIronPickaxe.playerAttackDamageEnhance(player);
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.ATTACK_DAMAGE_ENHANCE.get(), 0.35, 0.5);
-        rate += Compute.CuriosAttribute
+        rate += WraqCurios.CuriosAttribute
                 .attributeValue(player, Utils.attackDamageEnhance, StringUtils.RandomCuriosAttribute.attackDamageEnhance);
         rate += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player,
                 Utils.attackDamageEnhance, false);
@@ -141,7 +141,7 @@ public class DamageInfluence {
         rate += LabourDayIronHoe.playerManaDamageEnhance(player);
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.MANA_DAMAGE_ENHANCE.get(), 0.35, 0.5);
-        rate += Compute.CuriosAttribute
+        rate += WraqCurios.CuriosAttribute
                 .attributeValue(player, Utils.manaDamageEnhance, StringUtils.RandomCuriosAttribute.manaDamageEnhance);
         rate += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player,
                 Utils.manaDamageEnhance, false);
@@ -168,7 +168,7 @@ public class DamageInfluence {
 
     public static double getPlayerFinalDamageEnhance(Player player) {
         double rate = 0;
-        rate += Compute.CuriosAttribute.getDistinctCuriosList(player)
+        rate += WraqCurios.CuriosAttribute.getDistinctCuriosList(player)
                 .stream().filter(curios -> {
                     boolean isUniform = curios.getItem() instanceof WraqUniformCurios;
                     if (isUniform) {
@@ -188,7 +188,7 @@ public class DamageInfluence {
                     return false;
                 }).mapToDouble(curio -> ((WraqUniformCurios) curio.getItem()).getFinalDamageEnhanceRate())
                 .sum();
-        rate += Compute.CuriosAttribute
+        rate += WraqCurios.CuriosAttribute
                 .attributeValue(player, Utils.finalDamageEnhance, StringUtils.RandomCuriosAttribute.finalDamageEnhance);
         rate += DevilPowerCurio.finalDamageEnhanceRate(player);
         return rate;

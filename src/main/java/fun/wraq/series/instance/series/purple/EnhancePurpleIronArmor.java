@@ -1,7 +1,6 @@
 package fun.wraq.series.instance.series.purple;
 
 import fun.wraq.blocks.entity.Decomposable;
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -9,6 +8,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -71,7 +71,7 @@ public class EnhancePurpleIronArmor extends WraqArmor implements Decomposable {
         super.tick(player);
         if (player.tickCount % 200 == 0) {
             Shield.providePlayerShield(player, Tick.s(5), player.getMaxHealth() * 0.2);
-            Compute.sendEffectLastTime(player, this, 100);
+            BuffSystem.sendEffectLastTime(player, this, 100);
         }
     }
 

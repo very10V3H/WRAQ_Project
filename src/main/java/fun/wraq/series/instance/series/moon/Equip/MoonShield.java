@@ -10,6 +10,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -86,7 +87,7 @@ public class MoonShield extends WraqOffHandItem implements OnHitEffectEquip {
         if (PlayerMoonShieldMap.containsKey(Name.get(player)) && !PlayerMoonShieldMap.get(Name.get(player)).equals(mob)) {
             Mob oldMob = PlayerMoonShieldMap.get(Name.get(player));
             oldMob.removeEffect(MobEffects.GLOWING);
-            Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MOON_SOUL.get(), "MoonShieldCount");
+            BuffSystem.removeMobEffectHudToNearPlayer(oldMob, ModItems.MOON_SOUL.get(), "MoonShieldCount");
             PlayerMoonShieldCountMap.put(player, 0);
         }
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
@@ -96,11 +97,11 @@ public class MoonShield extends WraqOffHandItem implements OnHitEffectEquip {
         if (count == 7) {
             PlayerMoonShieldCountMap.put(player, 0);
             playerDamageEnhanceTickMap.put(player, TickCount + 60);
-            Compute.sendEffectLastTime(player, ModItems.MOON_SOUL.get(), 60);
-            Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonShieldCount");
+            BuffSystem.sendEffectLastTime(player, ModItems.MOON_SOUL.get(), 60);
+            BuffSystem.removeMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonShieldCount");
             Damage.causeAutoAdaptionRateDamageToMob(player, mob, 14, true);
         } else {
-            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonShieldCount", 8888, count, true);
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, ModItems.MOON_SOUL.get(), "MoonShieldCount", 8888, count, true);
         }
     }
 }

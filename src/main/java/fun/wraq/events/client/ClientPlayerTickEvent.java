@@ -26,6 +26,7 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.bgm.WraqBgm;
+import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.process.system.cooking.item.FoodCoinStore;
 import fun.wraq.process.system.element.networking.ElementPieceC2SPacket;
 import fun.wraq.process.system.element.piece.ElementPieceGui;
@@ -33,6 +34,7 @@ import fun.wraq.process.system.element.piece.ElementPieceRecipe;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
 import fun.wraq.process.system.forge.ForgeScreen;
+import fun.wraq.process.system.afk.AfkScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
@@ -48,6 +50,7 @@ import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import fun.wraq.render.hud.main.ItemAndExpGetHud;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
+import fun.wraq.process.system.stock.StockScreen;
 import fun.wraq.series.crystal.CrystalScreen;
 import fun.wraq.series.overworld.cold.sc4.BlizzardBoots;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
@@ -147,6 +150,10 @@ public class ClientPlayerTickEvent {
             if (ClientUtils.missionScreenFlag != -1) {
                 Minecraft.getInstance().setScreen(new MissionScreen(ClientUtils.missionScreenFlag, 0));
                 ClientUtils.missionScreenFlag = -1;
+            }
+            if (ClientUtils.afkScreenOpenFlag) {
+                Minecraft.getInstance().setScreen(new AfkScreen());
+                ClientUtils.afkScreenOpenFlag = false;
             }
             if (event.player.tickCount % 100 == 0) {
                 Inventory inventory = event.player.getInventory();
@@ -293,7 +300,7 @@ public class ClientPlayerTickEvent {
                 ClientUtils.TradeScreenOpenFlag = !ClientUtils.TradeScreenOpenFlag;
             }
 
-            if (event.player.tickCount % 20 == 0 && Compute.hasBonfireNearBy(event.player))
+            if (event.player.tickCount % 20 == 0 && ColdSystem.hasBonfireNearBy(event.player))
                 ModNetworking.sendToServer(new PlayerIsNearbyCampfireC2SPacket());
 
             if (ClientUtils.clientTeamScreenFlag) {
@@ -326,6 +333,7 @@ public class ClientPlayerTickEvent {
                     case 8 -> mc.setScreen(new FoodCoinStore());
                     case 10 -> mc.setScreen(new TradeScreen(true, TradeListNew.WEEKLY_STORE_VILLAGER_NAME));
                     case 11 -> mc.setScreen(new CrystalScreen());
+                    case 12 -> mc.setScreen(new StockScreen());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

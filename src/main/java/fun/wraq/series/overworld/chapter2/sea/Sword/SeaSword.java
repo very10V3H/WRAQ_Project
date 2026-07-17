@@ -9,6 +9,7 @@ import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -74,7 +75,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
         if (tier == 4) Utils.SeaSwordActiveMap.put(player, 3);
         else if (tier == 3) Utils.SeaSwordActiveMap.put(player, 2);
         else Utils.SeaSwordActiveMap.put(player, 1);
-        Compute.sendEffectLastTime(player, ModItems.SEA_SWORD_0.get().getDefaultInstance(), 8888, 0, true);
+        BuffSystem.sendEffectLastTime(player, ModItems.SEA_SWORD_0.get().getDefaultInstance(), 8888, 0, true);
         MySound.soundToNearPlayer(player, ModSounds.Attack.get());
     }
 
@@ -101,7 +102,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
                 }
             }
             Utils.SeaSwordActiveMap.remove(player);
-            Compute.removeEffectLastTime(player, ModItems.SEA_SWORD_0.get());
+            BuffSystem.removeEffectLastTime(player, ModItems.SEA_SWORD_0.get());
         }
     }
 }

@@ -1,7 +1,7 @@
 package fun.wraq.series.nether.power;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -12,6 +12,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -82,7 +83,7 @@ public class PiglinPower extends WraqPower {
 
     @Override
     public void release(Player player) {
-        Compute.PlayerPowerParticle(player);
+        ParticleProvider.createPlayerPowerParticle(player);
         playerItemCoolDown(player, this, 10);
         Level level = player.level();
         Vec3 TargetPos = player.pick(15, 0, false).getLocation();
@@ -105,14 +106,14 @@ public class PiglinPower extends WraqPower {
         double manaDamageUpValue = 0;
         if (StableAttributesModifier.getAttributeModifierList(player, StableAttributesModifier.playerAttackDamageModifier).
                 stream().anyMatch(attributesModifier -> attributesModifier.tag().equals("piglinPowerAttackDamageUp"))
-                && Compute.hasCurios(player, NewRuneItems.CASTLE_NEW_RUNE.get())) {
+                && WraqCurios.hasCurios(player, NewRuneItems.CASTLE_NEW_RUNE.get())) {
             manaDamageUpValue = (PlayerAttributes.manaDamage(player) - StableAttributesModifier.getAttributeModifierList(player, StableAttributesModifier.playerAttackDamageModifier).
                     stream().filter(attributesModifier -> attributesModifier.tag().equals("piglinPowerAttackDamageUp")).findFirst().get().value() * 0.4) * 0.03;
         } else manaDamageUpValue = 0.03 * PlayerAttributes.manaDamage(player);
 
         for (Player player1 : playerList) {
             if (player1.distanceTo(player) < 6) {
-                Compute.sendEffectLastTime(player1, ModItems.PIGLIN_POWER.get(), 100);
+                BuffSystem.sendEffectLastTime(player1, ModItems.PIGLIN_POWER.get(), 100);
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
                         new StableAttributesModifier("piglinPowerMovementSpeedUp", 0.04 * playerList.size(), Tick.get() + 100));
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerAttackDamageModifier,

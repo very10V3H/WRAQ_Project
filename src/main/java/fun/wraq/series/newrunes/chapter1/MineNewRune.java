@@ -1,11 +1,11 @@
 package fun.wraq.series.newrunes.chapter1;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter1.MineSkeletonSpawnController;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -18,11 +18,13 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+/** 层岩符石 */
 public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDescriptionItem {
 
     public MineNewRune(Properties properties) {
         super(properties);
-        Utils.defence.put(this, 4d);
+        Utils.percentDefenceEnhance.put(this, 0.05);
+        Utils.percentManaDefenceEnhance.put(this, 0.05);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean passiveTrig(Player player) {
-        return Compute.hasCurios(player, NewRuneItems.MINE_NEW_RUNE.get())
+        return WraqCurios.hasCurios(player, NewRuneItems.MINE_NEW_RUNE.get())
                 && player.getHealth() / player.getMaxHealth() >= 0.6;
     }
 
@@ -64,9 +66,9 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public void tick(Player player) {
         if (player.tickCount % 20 == 8) {
             if (passiveTrig(player)) {
-                Compute.sendEffectLastTime(player, NewRuneItems.MINE_NEW_RUNE.get(), 0, true);
+                BuffSystem.sendEffectLastTime(player, NewRuneItems.MINE_NEW_RUNE.get(), 0, true);
             } else {
-                Compute.removeEffectLastTime(player, NewRuneItems.MINE_NEW_RUNE.get());
+                BuffSystem.removeEffectLastTime(player, NewRuneItems.MINE_NEW_RUNE.get());
             }
         }
     }

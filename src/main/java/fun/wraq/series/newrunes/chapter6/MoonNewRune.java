@@ -1,11 +1,11 @@
 package fun.wraq.series.newrunes.chapter6;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -64,7 +64,7 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static int getPassiveCount(Player player) {
-        if (!Compute.hasCurios(player, NewRuneItems.MOON_NEW_RUNE.get())) return 0;
+        if (!WraqCurios.hasCurios(player, NewRuneItems.MOON_NEW_RUNE.get())) return 0;
         int count = 0;
         for (int i = 0; i < 6; i++) {
             ItemStack itemStack = player.getInventory().getItem(3 + i);
@@ -80,8 +80,8 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public void tick(Player player) {
         int count = getPassiveCount(player);
         if (count > 0) {
-            Compute.sendEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get(), count, true);
-        } else Compute.removeEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get());
+            BuffSystem.sendEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get(), count, true);
+        } else BuffSystem.removeEffectLastTime(player, NewRuneItems.MOON_NEW_RUNE.get());
     }
 
     public static double damageEnhance(Player player) {

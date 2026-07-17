@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.WraqSword;
@@ -70,7 +71,7 @@ public class ManaSword1 extends WraqSword implements ActiveItem {
         data.putInt("ManaSwordActive", data.getInt("MANA"));
         data.putInt("MANA", 0);
         Mana.updateManaStatus(player);
-        Compute.PlayerPowerParticle(player);
+        ParticleProvider.createPlayerPowerParticle(player);
     }
 
     @Override

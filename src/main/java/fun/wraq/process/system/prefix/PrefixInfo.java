@@ -1,4 +1,4 @@
-package fun.wraq.items.prefix;
+package fun.wraq.process.system.prefix;
 
 public class PrefixInfo {
     private String prefix;

@@ -1,17 +1,12 @@
 package fun.wraq.process.system.bgm;
 
-import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
-import fun.wraq.common.util.ClientUtils;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.EntityBoundSoundInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -71,7 +66,7 @@ public class WraqBgm {
     public static boolean isRain = false;
 
     public static void handleClientPlayerTick(Player player) {
-        if (hasSoundMod() && !ClientUtils.isInBattle && player.level().dimension().equals(Level.OVERWORLD)
+/*        if (hasSoundMod() && !ClientUtils.isInBattle && player.level().dimension().equals(Level.OVERWORLD)
                 && ClientUtils.clientPlayerTick % Tick.min(10) == Tick.s(10)) {
             if (ClientUtils.clientPlayerTick == Tick.s(10)) {
                 player.sendSystemMessage(Te.s("正在播放BGM，音量可在[唱片机/音符盒]调节.", ChatFormatting.AQUA));
@@ -87,7 +82,7 @@ public class WraqBgm {
                 isRain = false;
                 normalPlay(player);
             }
-        }
+        }*/
     }
 
     public static boolean hasSoundMod() {

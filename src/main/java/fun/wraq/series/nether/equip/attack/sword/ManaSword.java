@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.WraqSword;
@@ -66,7 +67,7 @@ public class ManaSword extends WraqSword implements ActiveItem {
     @Override
     public void active(Player player) {
         CompoundTag data = player.getPersistentData();
-        Compute.PlayerPowerParticle(player);
+        ParticleProvider.createPlayerPowerParticle(player);
         player.getCooldowns().addCooldown(ModItems.MANA_SWORD.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
         data.putInt("ManaSwordActive", data.getInt("MANA"));
         data.putInt("MANA", 0);

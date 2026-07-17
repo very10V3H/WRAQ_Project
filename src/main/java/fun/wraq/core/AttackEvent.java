@@ -32,7 +32,6 @@ import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.passive.whetstone.Whetstone;
 import fun.wraq.series.comsumable.passive.whetstone.WhetstoneAttack;
-import fun.wraq.series.end.citadel.CitadelCurio;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
@@ -159,12 +158,12 @@ public class AttackEvent {
         return RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player);
     }
 
-    public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean crit) {
-        if (!Compute.isWraqMob(monster)) {
+    public static void attackToMonster(Mob mob, Player player, double rate, boolean mainAttack, boolean crit) {
+        if (!Compute.isWraqMob(mob)) {
             return;
         }
         if (SpecialEffectOnPlayer.inBlind(player)) {
-            Compute.summonValueItemEntity(monster.level(), player, monster,
+            Compute.summonValue(mob.level(), player, mob,
                     Te.s("未命中", CustomStyle.styleOfEnd), 0);
             return;
         }
@@ -172,11 +171,11 @@ public class AttackEvent {
         CompoundTag data = player.getPersistentData();
         Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
 
-        double defence = MobAttributes.defence(monster);
+        double defence = MobAttributes.defence(mob);
 
         if (mainAttack) {
             rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 0);
-            rate += AttackCurios4.getAttackDamageRate(player, monster);
+            rate += AttackCurios4.getAttackDamageRate(player, mob);
         }
 
         double baseDamage = PlayerAttributes.attackDamage(player) * rate;
@@ -185,10 +184,10 @@ public class AttackEvent {
 
         double critDamage = PlayerAttributes.critDamage(player);
 
-        if (monster instanceof Evoker && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ManaSword)
+        if (mob instanceof Evoker && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ManaSword)
             defencePenetration = 1.0d;
 
-        if (defence == 0) defence = (monster.getAttribute(Attributes.ARMOR).getValue());
+        if (defence == 0) defence = (mob.getAttribute(Attributes.ARMOR).getValue());
 
         double damage;
         double exDamage = 0;
@@ -198,21 +197,21 @@ public class AttackEvent {
 
         // 变量定义与部分效果附加
 
-        AttackEventModule.MineSwordAndSnowSwordSlowDownForce(equip, monster);
-        AttackEventModule.SnowArmorEffect(player, monster); //冰川增幅
+        AttackEventModule.MineSwordAndSnowSwordSlowDownForce(equip, mob);
+        AttackEventModule.SnowArmorEffect(player, mob); //冰川增幅
 
-        exDamage += HuskSword.getHuskSwordExDamage(player, monster); // 灵魂收割者主动
+        exDamage += HuskSword.getHuskSwordExDamage(player, mob); // 灵魂收割者主动
         exDamage += AttackEventModule.SwordSkill12(data, player, baseDamage); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
         exDamage += AttackEventModule.SoulSwordActive(player); // 本源具象
 
-        trueDamage += SeaSword.getSeaSwordExDamage(player, monster); //灵魂救赎者主动
+        trueDamage += SeaSword.getSeaSwordExDamage(player, mob); //灵魂救赎者主动
         trueDamage += AttackEventModule.SwordSkill0(data, baseDamage); //剑术热诚（获得1%额外真实伤害）
         trueDamage += AttackEventModule.SwordSkill13(data, player, baseDamage); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-        trueDamage += AttackEventModule.SwordSkill14(data, player, baseDamage, monster); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
+        trueDamage += AttackEventModule.SwordSkill14(data, player, baseDamage, mob); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
         trueDamage += CastleAttackArmor.ExIgnoreDefenceDamage(player);
-        damageEnhance += AttackEventModule.SwordSkill3(data, player, monster); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
-        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
+        damageEnhance += AttackEventModule.SwordSkill3(data, player, mob); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
+        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
+        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
 
         double NormalAttackDamageEnhance = 0;
         NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalSwordAttackDamageEnhance(player); // 普通近战攻击伤害加成
@@ -224,20 +223,20 @@ public class AttackEvent {
                 AttackEventModule.SwordSkill5Attack(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续3s）
                 AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
                 AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-                HurtEventModule.SabreDamage(player, monster);
-                AttackEventModule.snowShieldEffect(player, monster);
+                HurtEventModule.SabreDamage(player, mob);
+                AttackEventModule.snowShieldEffect(player, mob);
                 AttackCurios1.playerCritEffect(player);
-                OnCritHitEffectMainHandWeapon.critHit(player, monster);
+                OnCritHitEffectMainHandWeapon.critHit(player, mob);
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_ATTACK_CRIT);
             }
-            ModNetworking.sendToClient(new CritHitParticleS2CPacket(monster.getX(), monster.getY(), monster.getZ()), (ServerPlayer) player);
+            ModNetworking.sendToClient(new CritHitParticleS2CPacket(mob.getX(), mob.getY(), mob.getZ()), (ServerPlayer) player);
         } else {
             damageBeforeDefence = baseDamage;
             data.putBoolean(StringUtils.DamageTypes.Crit, false);
             if (mainAttack) {
                 AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
                 AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-                HurtEventModule.SabreDamage(player, monster);
+                HurtEventModule.SabreDamage(player, mob);
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_ATTACK_STRONG);
             }
         }
@@ -259,19 +258,19 @@ public class AttackEvent {
         // 妖刀伤害影响
         trueDamage += SakuraSword.SakuraDemonSword(player, damageBeforeDefence);
         // Final damage decrease
-        damageBeforeDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-        trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+        damageBeforeDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
+        trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
         // Defence compute
-        damage = damageBeforeDefence * Damage.defenceDamageDecreaseRate(player, monster,
+        damage = damageBeforeDefence * Damage.defenceDamageDecreaseRate(player, mob,
                 defence, defencePenetration, defencePenetration0);
         // total damage
         damage *= DamageInfluence.getPlayerTotalDamageRate(player);
         trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
         // livingEntity control
-        damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-        trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+        damage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
+        trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         // 至此 关于基本的计算已结束 下方是最终乘区的计算
-        trueDamage += BoneImpKnife.exTrueDamage(player, monster) * damage;
+        trueDamage += BoneImpKnife.exTrueDamage(player, mob) * damage;
 
         // 元素
         double ElementDamageEnhance = 0;
@@ -281,7 +280,7 @@ public class AttackEvent {
         Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
         elementType = playerUnit.type();
         if (playerUnit.value() > 0) {
-            ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(),
+            ElementDamageEffect = Element.ElementEffectAddToEntity(player, mob, playerUnit.type(),
                     playerUnit.value(), true, damage + trueDamage);
         }
 
@@ -290,45 +289,45 @@ public class AttackEvent {
         damage *= ((1 + ElementDamageEnhance) * ElementDamageEffect);
         trueDamage *= ((1 + ElementDamageEnhance) * ElementDamageEffect);
         // Final damage cause
-        Damage.beforeCauseDamage(player, monster, damage + trueDamage);
-        Damage.causeDirectDamageToMob(player, monster, damage + trueDamage);
+        Damage.beforeCauseDamage(player, mob, damage + trueDamage);
+        Damage.causeDirectDamageToMob(player, mob, damage + trueDamage);
         // Health steal
-        Compute.healByHealthSteal(player, monster, damage);
+        Compute.healByHealthSteal(player, mob, damage);
         // Display
         if (crit) {
-            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
+            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
         }
         else {
-            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
+            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
         }
         if (mainAttack) {
             if (elementDamage != 0 && !elementType.isEmpty())
-                Compute.damageActionBarPacketSend(player, damage, trueDamage, false, crit, elementType, elementDamage);
-            else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, crit);
-            SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + trueDamage);
-            OnHitEffectEquip.hit(player, monster);
-            OnHitEffectCurios.hit(player, monster);
-            OnHitEffectPassiveEquip.hit(player, monster);
-            EnhanceNormalAttackModifier.onHitEffect(player, monster, 0);
-            Compute.additionEffects(player, monster, damage + trueDamage, 0);
+                Damage.damageActionBarPacketSend(player, damage, trueDamage, false, crit, elementType, elementDamage);
+            else Damage.damageActionBarPacketSend(player, damage, trueDamage, false, crit);
+            SameTypeModule.onNormalAttackHitMob(player, mob, 0, damage + trueDamage);
+            OnHitEffectEquip.hit(player, mob);
+            OnHitEffectCurios.hit(player, mob);
+            OnHitEffectPassiveEquip.hit(player, mob);
+            EnhanceNormalAttackModifier.onHitEffect(player, mob, 0);
+            Compute.additionEffects(player, mob, damage + trueDamage, 0);
         }
         // effect
         Compute.ChargingModule(data, player);
-        CastleSword.onNormalAttack(player, monster, damage);
+        CastleSword.onNormalAttack(player, mob, damage);
         WraqBlade.onAttackHitEachTarget(player);
-        SeaSword.checkSeaSwordEffect(player, monster);
-        HuskSword.checkHuskSwordEffect(player, monster);
+        SeaSword.checkSeaSwordEffect(player, mob);
+        HuskSword.checkHuskSwordEffect(player, mob);
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : "
-                    + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
+                    + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));
             player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : "
-                    + Damage.defenceDamageDecreaseRate(player, monster, defence, defencePenetration, defencePenetration0)));
+                    + Damage.defenceDamageDecreaseRate(player, mob, defence, defencePenetration, defencePenetration0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
-            player.sendSystemMessage(Component.literal("MonsterControl : " + DamageInfluence.getMonsterControlDamageEffect(player, monster)));
+            player.sendSystemMessage(Component.literal("MonsterControl : " + DamageInfluence.getMonsterControlDamageEffect(player, mob)));
             player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
             player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
         }

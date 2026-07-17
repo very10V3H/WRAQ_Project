@@ -5,16 +5,22 @@ import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.active.HeatInjection;
 import fun.wraq.series.overworld.sakura.bunker.armor.BunkerArmor;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import oshi.util.tuples.Pair;
 
@@ -109,12 +115,12 @@ public class ColdSystem {
                 }
                 playerLastColdLevelMap.put(Name.get(player), coldLevel);
                 if (heatTier > 0) {
-                    Compute.sendEffectLastTime(player, "item/bunker_curio", heatTier, true);
+                    BuffSystem.sendEffectLastTime(player, "item/bunker_curio", heatTier, true);
                 } else {
-                    Compute.removeEffectLastTime(player, "item/bunker_curio");
+                    BuffSystem.removeEffectLastTime(player, "item/bunker_curio");
                 }
                 if (coldLevel > 0) {
-                    Compute.sendDebuffTime(player, "hud/cold", 8888, coldLevel, true);
+                    BuffSystem.sendDebuffTime(player, "hud/cold", 8888, coldLevel, true);
                     if (heatTier < coldLevel) {
                         if (player.isInWater()) {
                             ColdData.addPlayerColdValue(player, 5);
@@ -130,7 +136,7 @@ public class ColdSystem {
                         ColdData.addPlayerColdValue(player, -1);
                     }
                 } else {
-                    Compute.removeDebuffTime(player, "hud/cold");
+                    BuffSystem.removeDebuffTime(player, "hud/cold");
                     ColdData.addPlayerColdValue(player, -1);
                 }
             }
@@ -139,7 +145,7 @@ public class ColdSystem {
                 if (player.tickCount % 20 == 0) {
                     SpecialEffectOnPlayer.addHealingReduction(player, "coldEffect", Tick.s(2));
                     if (currentColdValue >= 75) {
-                        Compute.decreasePlayerHealth(player,
+                        Damage.decreasePlayerHealth(player,
                                 player.getMaxHealth() * (currentColdValue == 100 ? 0.5 : 0.1),
                                 Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
                     }
@@ -148,7 +154,7 @@ public class ColdSystem {
             if (currentColdValue == 100) {
                 player100ColdValueLastTickMap.compute(Name.get(player), (k, v) -> v == null ? 1 : v + 1);
                 if (player100ColdValueLastTickMap.get(Name.get(player)) >= Tick.s(10)) {
-                    Compute.decreasePlayerHealth(player, player.getMaxHealth() * 10,
+                    Damage.decreasePlayerHealth(player, player.getMaxHealth() * 10,
                             Te.s("因", "失温", CustomStyle.styleOfIce, "而死."));
                     player100ColdValueLastTickMap.remove(Name.get(player));
                 }
@@ -166,5 +172,21 @@ public class ColdSystem {
             return -0.5;
         }
         return 0;
+    }
+
+    public static boolean hasBonfireNearBy(Player player) {
+        int x = player.getBlockX() - 5, y = player.getBlockY() - 5, z = player.getBlockZ() - 5;
+        Level level = player.level();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                for (int k = 0; k < 10; k++) {
+                    BlockState blockState = level.getBlockState(new BlockPos(x + i, y + j, z + k));
+                    if (blockState.is(Blocks.CAMPFIRE) || blockState.is(Blocks.SOUL_CAMPFIRE)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

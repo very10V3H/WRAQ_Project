@@ -37,7 +37,7 @@ public class MapleKnife extends WraqOffHandItem implements OnHitDamageInfluenceE
     }
 
     public double getRate() {
-        return new double[]{0.15, 0.35, 0.65, 1}[tier];
+        return new double[]{0.1, 0.15, 0.2, 0.3}[tier];
     }
 
     @Override

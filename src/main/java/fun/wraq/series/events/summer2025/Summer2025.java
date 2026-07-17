@@ -8,6 +8,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.cooking.CookingValue;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.spring2024.FireworkGun;
@@ -361,8 +362,8 @@ public class Summer2025 {
             playerEachRoundKillCount.compute(Name.get(player), (k, v) -> v == null ? 1 : v + 1);
             playerTotalKillCount.compute(Name.get(player), (k, v) -> v == null ? 1 : v + 1);
             if (RandomUtils.nextBoolean()) {
-                if (Compute.getDataIntValue(player, DAY_GET_SILVER_COIN_COUNT_KEY) < 100) {
-                    Compute.incrementDataIntValue(player, DAY_GET_SILVER_COIN_COUNT_KEY, 1);
+                if (PersistentDataUtil.getDataIntValue(player, DAY_GET_SILVER_COIN_COUNT_KEY) < 100) {
+                    PersistentDataUtil.incrementDataIntValue(player, DAY_GET_SILVER_COIN_COUNT_KEY, 1);
                     InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.SNACK_SILVER_COIN.get());
                 }
             }

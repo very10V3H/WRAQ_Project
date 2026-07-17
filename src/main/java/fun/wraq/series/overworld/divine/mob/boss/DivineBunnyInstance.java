@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.divine.mob.boss;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -102,7 +101,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
 
     private void dotAttack() {
         Player randomPlayer = players.stream().toList().get(RandomUtils.nextInt(0, players.size()));
-        Compute.createRangeEffectDot(boss, randomPlayer.position(), 5, ((mob, player) -> {
+        Damage.createRangeEffectDot(boss, randomPlayer.position(), 5, ((mob, player) -> {
             Damage.causeManaDamageToPlayer(boss, player, player.getMaxHealth() * 0.1 * getDamageRate());
         }), style, 5, 40);
     }

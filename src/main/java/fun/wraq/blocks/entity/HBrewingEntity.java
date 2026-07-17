@@ -4,11 +4,14 @@ package fun.wraq.blocks.entity;
 import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.blocks.blocks.brew.BrewingRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.system.potion.NewThrowablePotion;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.gui.blocks.BrewingMenu;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -38,6 +41,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppable {
@@ -78,6 +82,71 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
                 return 2;
             }
         };
+    }
+
+    public static int BrewingLevel(ItemStack itemStack) {
+        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+        String[] DataName = {
+                "PlainBrewingExp",
+                "ForestBrewingExp",
+                "LakeBrewingExp",
+                "VolcanoBrewingExp",
+                "SnowBrewingExp",
+                "SkyBrewingExp",
+                "EvokerBrewingExp",
+                "NetherBrewingExp"
+        };
+        boolean flag = true;
+        for (int i = 0; i < 8; i++) {
+            if (data.getInt(DataName[i]) <= 1500) flag = false;
+        }
+        if (flag) return 6;
+
+        flag = true;
+        for (int i = 0; i < 8; i++) {
+            if (data.getInt(DataName[i]) <= 800) flag = false;
+        }
+        if (flag) return 5;
+
+        int Count = 0;
+        for (int i = 0; i < 8; i++) {
+            if (data.getInt(DataName[i]) >= 400) Count++;
+        }
+        if (Count >= 6) return 4;
+
+        Count = 0;
+        for (int i = 0; i < 8; i++) {
+            if (data.getInt(DataName[i]) >= 200) Count++;
+        }
+        if (Count >= 5) return 3;
+
+        Count = 0;
+        for (int i = 0; i < 8; i++) {
+            if (data.getInt(DataName[i]) >= 100) Count++;
+        }
+        if (Count >= 5) return 2;
+
+        Count = 0;
+        for (int i = 0; i < 8; i++) {
+            if (data.getInt(DataName[i]) >= 50) Count++;
+        }
+        if (Count >= 4) return 1;
+        return 0;
+    }
+
+    public static boolean BrewingLevelReward(Player player, int Level, CompoundTag data) {
+        Random random = new Random();
+        double[] LevelRate = {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3};
+        double ExpUp = PlayerAttributes.expUp(player);
+        if (random.nextDouble() < LevelRate[Level]) {
+            if (data.contains(InventoryCheck.owner)) {
+                Compute.sendFormatMSG(player, Component.literal("酿造").withStyle(CustomStyle.styleOfBrew),
+                        Component.literal("你的酿造经验为你节省了这次酿造的材料消耗并为你提供了经验值。"));
+                MyExpSystem.givePercentExpToPlayer(player, 0.02, ExpUp, player.experienceLevel);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -203,12 +272,12 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
             }
             blockEntity.itemStackHandler.setStackInSlot(6, new ItemStack(output.getItem(), potion.getCount() + purifiedWaterCount));
 
-            int BrewingLevel = Compute.BrewingLevel(brewingNote);
+            int BrewingLevel = BrewingLevel(brewingNote);
             boolean flag = false;
             if (player != null) {
-                flag = Compute.BrewingLevelReward(player, BrewingLevel, data);
+                flag = BrewingLevelReward(player, BrewingLevel, data);
                 CompoundTag playerTag = player.getPersistentData();
-                playerTag.putInt("BrewingLevel", Compute.BrewingLevel(brewingNote));
+                playerTag.putInt("BrewingLevel", BrewingLevel(brewingNote));
             }
 
             if (!flag) {
@@ -390,7 +459,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         if (BrewingRecipe.outputNeedBrewingLevelMap.isEmpty()) BrewingRecipe.setOutputNeedBrewingLevelMap();
         if (output == null) return false;
         if (BrewingRecipe.outputNeedBrewingLevelMap.containsKey(output.getItem())
-                && Compute.BrewingLevel(brewingNote) < BrewingRecipe.outputNeedBrewingLevelMap.get(output.getItem()))
+                && BrewingLevel(brewingNote) < BrewingRecipe.outputNeedBrewingLevelMap.get(output.getItem()))
             return false;
 
         boolean canInsertIntoBrewedSlot = brewedPotion.isEmpty() ||
@@ -569,7 +638,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         ItemStack brewedPotion = blockEntity.itemStackHandler.getStackInSlot(6);
         ItemStack brewingNote = blockEntity.itemStackHandler.getStackInSlot(7);
 
-        if (Compute.BrewingLevel(brewingNote) < 6) return false;
+        if (BrewingLevel(brewingNote) < 6) return false;
         ItemStack potion = null;
         int potionCount = 0;
         for (int i = 2; i <= 5; i++) {

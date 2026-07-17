@@ -1,6 +1,6 @@
 package fun.wraq.customized.uniform.mana.normal;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
@@ -38,7 +38,7 @@ public class ManaCurios5 extends WraqManaUniformCurios {
     }
     
     public static boolean isOn(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.MANA_CURIOS_5.get());
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.MANA_CURIOS_5.get());
     }
     
     public static double getExSkillRangeRate(Player player) {

@@ -54,5 +54,8 @@ public class KeyBoradInput {
     public static final KeyMapping SPACE = new KeyMapping("key.vmd.space", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_SPACE, KEY_CATEGORY);
 
+    public static final KeyMapping BACKPACK = new KeyMapping("key.vmd.backpack", KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_B, KEY_CATEGORY);
+
 }
 

@@ -2,7 +2,6 @@ package fun.wraq.common.registry;
 
 import fun.wraq.blocks.blocks.brew.*;
 import fun.wraq.blocks.blocks.brew.solidifiedSouls.*;
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
@@ -42,6 +41,7 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
 import fun.wraq.process.func.power.impl.*;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.process.system.element.RainbowPowder;
@@ -899,10 +899,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> PHOENIX_LEATHER = ITEMS.register("phoenix_leather",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
-                Compute.sendEffectLastTimeByItemId(player, "phoenix_leather", 0, true);
+                BuffSystem.sendEffectLastTimeByItemId(player, "phoenix_leather", 0, true);
                 EnhanceNormalAttackModifier.addModifier(player,
                         new EnhanceNormalAttackModifier("PHOENIX_LEATHER", true, 1, 1, (p, mob) -> {
-                            Compute.removeEffectLastTimeByItemId(p, "phoenix_leather");
+                            BuffSystem.removeEffectLastTimeByItemId(p, "phoenix_leather");
                         }));
             }));
 

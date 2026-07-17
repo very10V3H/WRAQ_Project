@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.sun;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
@@ -53,11 +52,11 @@ public class TabooPaper extends WraqCurios {
     }
 
     public static boolean enhanceManaSkillV2_2(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.TABOO_PAPER_CURIO.get());
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.TABOO_PAPER_CURIO.get());
     }
 
     public static double getExManaRecoverValue(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.TABOO_PAPER_CURIO.get()) ?
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.TABOO_PAPER_CURIO.get()) ?
                 (Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player)) * 0.02 : 0;
     }
 }

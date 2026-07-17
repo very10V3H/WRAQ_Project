@@ -1,6 +1,5 @@
 package fun.wraq.process.system.skill.skillv2.sword;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
@@ -8,6 +7,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowReleaseAnyTime;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
@@ -46,7 +46,7 @@ public class SwordNewSkillFinal0 extends SkillV2FinalSkill implements SkillV2All
                 + (BrokenBlade.enhanceSwordSkillV2_4(player) ? 1 : 0);
         effectExpiredTickMap.put(player, Tick.get() + Tick.s(lastSeconds));
         effectTierMap.put(player, getPlayerSkillLevelBySkillV2(player, this));
-        Compute.sendEffectLastTime(player, getTexture1Url(), Tick.s(lastSeconds), 0, false);
+        BuffSystem.sendEffectLastTime(player, getTexture1Url(), Tick.s(lastSeconds), 0, false);
         player.addEffect(new MobEffectInstance(MobEffects.GLOWING, Tick.s(lastSeconds)));
         StableAttributesModifier.addM(player, StableAttributesModifier.playerExAttackSpeed,
                 "SwordNewSkillFinal0_ExAttackSpeedEffect", 0.3, Tick.get() + Tick.s(lastSeconds));

@@ -4,8 +4,10 @@ import com.mojang.datafixers.util.Pair;
 import com.simibubi.create.content.trains.entity.CarriageContraptionEntity;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.render.hud.Mana;
@@ -92,16 +94,16 @@ public class AttributeSet {
             if (Compute.inLowGravityEnvironment(player) && player.level().dimension().equals(Level.OVERWORLD)) {
                 player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.013);
             } else {
-                if (Compute.CuriosAttribute.getDistinctCuriosSet(player).stream().anyMatch(item -> {
+                if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).stream().anyMatch(item -> {
                     return MidAutumnLetterCurio.items.contains(item);
-                }) && Compute.playerIsInBattle(player)) {
+                }) && Damage.playerIsInBattle(player)) {
                     player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.013);
                 } else {
                     player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.08);
                 }
             }
 
-            if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.PLAIN_RING.get())) {
+            if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.PLAIN_RING.get())) {
                 if (!Compute.getNearEntity(player, CarriageContraptionEntity.class, 16).isEmpty()) {
                     player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()).setBaseValue(0);
                 } else {

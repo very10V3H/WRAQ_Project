@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public class Bank {
     public static final String BANK_DATA_KEY = "BankData";
     public static CompoundTag getBankData(Player player) {
-        return Compute.getPlayerSpecificKeyCompoundTagData(player, BANK_DATA_KEY);
+        return PersistentDataUtil.getPlayerSpecificKeyCompoundTagData(player, BANK_DATA_KEY);
     }
 
     public static final String GB_VALUE_DATA_KEY = "GBValue";

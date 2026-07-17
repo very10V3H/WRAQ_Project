@@ -8,6 +8,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -44,9 +45,9 @@ public class FireElementBow extends WraqBow implements ActiveItem {
         List<FireElementSword.IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
         list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
         if (list.size() > 0)
-            Compute.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_BOW.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
+            BuffSystem.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_BOW.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
         else
-            Compute.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_BOW.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
+            BuffSystem.sendEffectLastTime(player, ModItems.FIRE_ELEMENT_BOW.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
     }
 
     public static void PlayerIgniteMobEffect(Player player, Mob mob) {

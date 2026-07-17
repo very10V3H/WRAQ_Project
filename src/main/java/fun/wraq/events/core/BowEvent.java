@@ -70,8 +70,20 @@ public class BowEvent {
             MonsterAttackEvent.causeCommonAttackToPlayer(snowGolem, player);
         }
         if (!list.isEmpty() && (list.get(0) instanceof ArmorStand || list.get(0) instanceof Allay)) {
-            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
-            return;
+            Entity hitEntity = list.get(0);
+            ProjectileImpactEvent.ImpactResult skip = ProjectileImpactEvent.ImpactResult.SKIP_ENTITY;
+            if (hitEntity instanceof ArmorStand) {
+                event.setImpactResult(skip);
+                return;
+            }
+            if (hitEntity instanceof Allay) {
+                event.setImpactResult(skip);
+                return;
+            }
+            if (hitEntity instanceof LivingEntity livingEntity && livingEntity.isDeadOrDying()) {
+                event.setImpactResult(skip);
+                return;
+            }
         }
         if (!entity.level().isClientSide && entity instanceof MyArrow myArrow) {
             if (!list0.isEmpty()) {

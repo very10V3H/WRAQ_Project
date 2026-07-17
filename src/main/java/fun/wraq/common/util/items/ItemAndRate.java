@@ -1,9 +1,13 @@
 package fun.wraq.common.util.items;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.xp.MyExpSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +31,9 @@ public class ItemAndRate {
 
     private ItemStack itemStack;
     private final double rate;
+    private boolean expDrop = false;
+    private int expValue = 0;
+    private int expLevel = 0;
 
     public ItemAndRate(ItemStack itemStack, double rate) {
         this.itemStack = itemStack;
@@ -37,7 +45,26 @@ public class ItemAndRate {
         this.rate = rate;
     }
 
+    /** 创建一个经验掉落项，rate 含义与普通物品相同：&lt;1 为概率，&gt;1 为保底倍率 */
+    public static ItemAndRate ofExp(int expValue, int expLevel) {
+        ItemAndRate instance = new ItemAndRate(Items.AIR, 1);
+        instance.expDrop = true;
+        instance.expValue = expValue;
+        instance.expLevel = expLevel;
+        return instance;
+    }
+
+    public static ItemAndRate ofExp(int expValue) {
+        return ofExp(expValue, 0);
+    }
+
     public void give(Player player) {
+        if (expDrop) {
+            if (new Random().nextDouble() < rate) {
+                MyExpSystem.giveExpToPlayer(player, expValue, PlayerAttributes.expUp(player), expLevel);
+            }
+            return;
+        }
         if (rate > 1) {
             int num = (int) Math.floor(rate);
             itemStack.setCount(num);
@@ -48,6 +75,15 @@ public class ItemAndRate {
     }
 
     public void giveByNewObject(Player player) {
+        if (expDrop) {
+            Random random = new Random();
+            int num = (int) Math.floor(rate);
+            if (random.nextDouble() < rate) num++;
+            if (num > 0) {
+                MyExpSystem.giveExpToPlayer(player, expValue * num, PlayerAttributes.expUp(player), expLevel);
+            }
+            return;
+        }
         Random random = new Random();
         ItemStack newStack = itemStack.copy();
         int num = (int) Math.floor(rate);
@@ -58,6 +94,9 @@ public class ItemAndRate {
     }
 
     public void drop(Mob mob) {
+        if (expDrop) {
+            return;
+        }
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, mob.level());
         itemEntity.setItem(itemStack);
         itemEntity.setPos(mob.position().add(0, 0.5, 0));
@@ -68,9 +107,12 @@ public class ItemAndRate {
     }
 
     public void drop(Mob mob, double num) {
-        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
         Random rand = new Random();
         double finalRate = rate * num;
+        if (expDrop) {
+            return;
+        }
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
         if (finalRate < 1 && rand.nextDouble() >= finalRate) return;
         if (finalRate > 1) {
             dropItemStack.setCount((int) finalRate);
@@ -96,11 +138,21 @@ public class ItemAndRate {
     }
 
     public boolean send(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
+        Random rand = new Random();
+        double finalRate = rate * num;
+        if (expDrop) {
+            if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
+            int value = expValue;
+            if (finalRate > 1) {
+                value = (int) (expValue * finalRate);
+                if (rand.nextDouble() < finalRate % 1) value += expValue;
+            }
+            MyExpSystem.giveExpToPlayer(player, value, PlayerAttributes.expUp(player), expLevel);
+            return true;
+        }
         ItemStack dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        Random rand = new Random();
-        double finalRate = rate * num;
         if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
         if (finalRate > 1) {
             dropItemStack.setCount((int) finalRate);
@@ -111,7 +163,7 @@ public class ItemAndRate {
         if (adjustStackBeforeGive != null) {
             adjustStackBeforeGive.adjust(dropItemStack);
         }
-        summonItemEntity(dropItemStack, player.getEyePosition(), player.level(), 0);
+        InventoryOperation.giveItemStack(player, dropItemStack);
         return true;
     }
 
@@ -122,7 +174,7 @@ public class ItemAndRate {
     public static void send(Player player, ItemStack itemStack) {
         ItemStack dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        summonItemEntity(dropItemStack, player.getEyePosition(), player.level(), 0);
+        InventoryOperation.giveItemStack(player, dropItemStack);
     }
 
     public ItemStack sendWithMSG(Player player, double num) {
@@ -130,11 +182,25 @@ public class ItemAndRate {
     }
 
     public ItemStack sendWithMSG(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
+        Random rand = new Random();
+        double finalRate = rate * num;
+        if (expDrop) {
+            if (finalRate < 1 && rand.nextDouble() >= finalRate) {
+                return Items.AIR.getDefaultInstance();
+            }
+            int value = expValue;
+            if (finalRate > 1) {
+                value = (int) (expValue * finalRate);
+                if (rand.nextDouble() < finalRate % 1) value += expValue;
+            }
+            MyExpSystem.giveExpToPlayer(player, value, PlayerAttributes.expUp(player), expLevel);
+            Compute.sendFormatMSG(player, Te.s("掉落", ChatFormatting.GOLD),
+                    Te.s("经验 +" + value, ChatFormatting.WHITE));
+            return Items.AIR.getDefaultInstance();
+        }
         ItemStack dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        Random rand = new Random();
-        double finalRate = rate * num;
         if (finalRate < 1 && rand.nextDouble() >= finalRate) {
             return Items.AIR.getDefaultInstance();
         }
@@ -183,11 +249,21 @@ public class ItemAndRate {
     }
 
     public boolean dropWithBounding(Mob mob, double num, Player player) {
+        Random rand = new Random();
+        double finalRate = rate * num;
+        if (expDrop) {
+            if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
+            int value = expValue;
+            if (finalRate > 1) {
+                value = (int) (expValue * finalRate);
+                if (rand.nextDouble() < finalRate % 1) value += expValue;
+            }
+            MyExpSystem.giveExpToPlayer(player, value, PlayerAttributes.expUp(player), expLevel);
+            return true;
+        }
         ItemStack dropItemStack = new ItemStack(itemStack.getItem());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        Random rand = new Random();
-        double finalRate = rate * num;
         if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
         if (finalRate > 1) {
             dropItemStack.setCount((int) finalRate);
@@ -201,11 +277,21 @@ public class ItemAndRate {
     }
 
     public void dropWithoutBounding(Mob mob, double num, Player player) {
+        Random rand = new Random();
+        double finalRate = rate * num;
+        if (expDrop) {
+            if (finalRate < 1 && rand.nextDouble() >= finalRate) return;
+            int value = expValue;
+            if (finalRate > 1) {
+                value = (int) (expValue * finalRate);
+                if (rand.nextDouble() < finalRate % 1) value += expValue;
+            }
+            MyExpSystem.giveExpToPlayer(player, value, PlayerAttributes.expUp(player), expLevel);
+            return;
+        }
         ItemStack dropItemStack = new ItemStack(itemStack.getItem());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        Random rand = new Random();
-        double finalRate = rate * num;
         if (finalRate < 1 && rand.nextDouble() >= finalRate) return;
         if (finalRate > 1) {
             dropItemStack.setCount((int) finalRate);
@@ -242,6 +328,7 @@ public class ItemAndRate {
     }
 
     public static String expRate = "expRate";
+    public static String fromMobExpDropTag = "fromMobExpDrop";
 
     public static void dropOrbs(int xpLevel, double rate, Level level, Vec3 pos, String tag) {
         Random rand = new Random();
@@ -268,6 +355,29 @@ public class ItemAndRate {
             }
         });
         return result;
+    }
+
+    /**
+     * 合并列表中所有由 {@link #ofExp(int)} 创建的经验给予项。
+     * 合并后保留一个条目，其 expValue 为所有条目之和。
+     */
+    public static void mergeExpEntries(List<ItemAndRate> list) {
+        int total = 0;
+        boolean hasExp = false;
+        Iterator<ItemAndRate> iter = list.iterator();
+        while (iter.hasNext()) {
+            ItemAndRate item = iter.next();
+            if (item.expDrop) {
+                if (!hasExp) {
+                    hasExp = true;
+                }
+                total += item.expValue;
+                iter.remove();
+            }
+        }
+        if (hasExp) {
+            list.add(ofExp(total));
+        }
     }
 
 }

@@ -10,6 +10,8 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -37,7 +39,7 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
     public static void Tick(Player player) {
         if (fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.containsKey(player) && fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) >= Tick.get()) {
             int tickCount = fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) - Tick.get();
-            Compute.sendEffectLastTime(player, ModItems.LIFE_ELEMENT_SWORD.get().getDefaultInstance(), tickCount, tickCount, true);
+            BuffSystem.sendEffectLastTime(player, ModItems.LIFE_ELEMENT_SWORD.get().getDefaultInstance(), tickCount, tickCount, true);
             Compute.playerHeal(player, fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveHealth.get(player) * 0.01);
         }
     }
@@ -114,7 +116,7 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
         if (Compute.PlayerUseWithHud(player, fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveCoolDown, this, fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick, 100, 0, 25)) {
             Compute.playerItemCoolDown(player, this, 25);
             LifeElementSword.lifeElementActiveHealth.put(player, player.getHealth() * 0.8);
-            Compute.decreasePlayerHealth(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
+            Damage.decreasePlayerHealth(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
         }
     }
 

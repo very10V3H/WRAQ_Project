@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter2.manaArmor.ObsiMana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -71,7 +72,7 @@ public class ObsiManaSuitDescription {
             components.add(Component.literal(OffHands.get(0).getDefaultInstance().getDisplayName().getString()).withStyle(ChatFormatting.GRAY));
 
         String CrestName = "[唤魔纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof ManaCrest)) {
             components.add(Component.literal(CrestName).withStyle(MainStyle));
             Count++;

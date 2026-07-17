@@ -10,6 +10,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -103,7 +104,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
     private static void countAdd(Player player) {
         if (PlayerIsInCollectMode(player) && playerLastBattleTick.containsKey(player) && playerLastBattleTick.get(player) + 100 > Tick.get()) {
             playerCountsMap.put(player, Math.min(70, playerCountsMap.getOrDefault(player, 0) + 1));
-            Compute.sendEffectLastTime(player, ModItems.STAR_BOTTLE.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
+            BuffSystem.sendEffectLastTime(player, ModItems.STAR_BOTTLE.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
         }
     }
 
@@ -117,7 +118,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
                 ParticleProvider.createLineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });
-        Compute.sendEffectLastTime(player, ModItems.STAR_BOTTLE.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
+        BuffSystem.sendEffectLastTime(player, ModItems.STAR_BOTTLE.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
     }
 
     @Override

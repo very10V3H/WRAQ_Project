@@ -1,6 +1,6 @@
 package fun.wraq.customized.uniform.attack.normal;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
@@ -39,7 +39,7 @@ public class AttackCurios5 extends WraqAttackUniformCurios {
     }
 
     public static boolean isOn(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.ATTACK_CURIOS_5.get());
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.ATTACK_CURIOS_5.get());
     }
 
     public static boolean onHealHealthRecover(Player player, double healNum) {

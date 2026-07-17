@@ -12,6 +12,7 @@ import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -191,7 +192,7 @@ public class NewCastleInstance extends NewTeamInstance {
             getRewardList().forEach(itemAndRate -> {
                 itemAndRate.sendWithMSG(player, 4);
             });
-            Compute.givePercentExpToPlayer(player, 4, PlayerAttributes.expUp(player), 180);
+            MyExpSystem.givePercentExpToPlayer(player, 4, PlayerAttributes.expUp(player), 180);
         } else {
             Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).

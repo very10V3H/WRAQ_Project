@@ -1,7 +1,7 @@
 package fun.wraq.process.system.skill.skillv2.network;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.FriendlyByteBuf;
@@ -33,7 +33,7 @@ public class SkillV2PlayerTryToChooseProfessionTypeC2SPacket {
             if (player == null) {
                 return;
             }
-            if (!player.isCreative() && Compute.playerIsInBattle(player)) {
+            if (!player.isCreative() && Damage.playerIsInBattle(player)) {
                 SkillV2.sendMSG(player, Te.s("请脱离", "战斗状态", CustomStyle.styleOfRed, "5s后重试"));
                 return;
             }

@@ -1,11 +1,11 @@
 package fun.wraq.series.comsumable.active;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
@@ -59,7 +59,7 @@ public class HeatInjection extends WraqItem implements ActiveItem {
         } else {
             effectExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(20));
         }
-        Compute.sendEffectLastTime(player, "item/heat_injection",
+        BuffSystem.sendEffectLastTime(player, "item/heat_injection",
                 effectExpiredTickMap.getOrDefault(Name.get(player), 0) - Tick.get(),
                 effectTierMap.get(Name.get(player)), false);
         player.getCooldowns().addCooldown(this, Tick.s(5));

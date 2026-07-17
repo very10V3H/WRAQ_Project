@@ -7,6 +7,7 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -89,7 +90,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
     public void active(Player player) {
         if (player.experienceLevel < Utils.levelRequire.get(this)) return;
         effectLastTickMap.put(player, (int) (Tick.get() + lastSecond * 20));
-        Compute.sendEffectLastTime(player, this, (int) (lastSecond * 20));
+        BuffSystem.sendEffectLastTime(player, this, (int) (lastSecond * 20));
         MixtureItems.ITEMS.getEntries().forEach(item -> {
             Compute.playerItemCoolDown(player, item.get(), coolDownSecond);
         });

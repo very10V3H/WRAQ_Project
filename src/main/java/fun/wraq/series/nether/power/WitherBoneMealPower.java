@@ -1,6 +1,5 @@
 package fun.wraq.series.nether.power;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -74,8 +73,8 @@ public class WitherBoneMealPower extends WraqPower {
 
     @Override
     public void release(Player player) {
-        if (!Compute.playerManaCost(player, Mana.getPlayerMaxManaNum(player) * 0.33, true)) return;
-        Compute.PlayerPowerParticle(player);
+        if (!Mana.playerManaCost(player, Mana.getPlayerMaxManaNum(player) * 0.33, true)) return;
+        ParticleProvider.createPlayerPowerParticle(player);
         playerItemCoolDown(player, this, 10);
         Level level = player.level();
         Vec3 TargetPos = player.pick(15, 0, false).getLocation();

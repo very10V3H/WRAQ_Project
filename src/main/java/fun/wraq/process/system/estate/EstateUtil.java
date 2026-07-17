@@ -10,6 +10,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -299,7 +300,7 @@ public class EstateUtil {
             if (estateBuffExpiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
                 estateBuffExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(20));
                 player.addEffect(new MobEffectInstance(MobEffects.SATURATION, Tick.min(20)));
-                Compute.sendEffectLastTime(player, ModItems.ESTATE_KEY.get(), Tick.min(20));
+                BuffSystem.sendEffectLastTime(player, ModItems.ESTATE_KEY.get(), Tick.min(20));
                 StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                         "estateEffect", 0.2, Tick.get() + Tick.min(20));
                 sendMSG(player, Te.s("夜间首次打开房产门，获得持续", "20min", ChatFormatting.AQUA,
@@ -317,7 +318,7 @@ public class EstateUtil {
         if (!Compute.isOverworldNight()) {
             if (realEstateBuffExpiredTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {
                 realEstateBuffExpiredTickMap.put(Name.get(player), Tick.get() + Tick.min(20));
-                Compute.sendEffectLastTime(player, ModItems.GOLDEN_BEANS.get(), Tick.min(20));
+                BuffSystem.sendEffectLastTime(player, ModItems.GOLDEN_BEANS.get(), Tick.min(20));
                 sendMSG(player, Te.s("日间首次打开资产门，获得持续", "20min", ChatFormatting.AQUA,
                         "的", "20%额外产出", ChatFormatting.GOLD));
             }

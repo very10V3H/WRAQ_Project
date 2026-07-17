@@ -7,6 +7,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.SpecialEventItems;
@@ -150,7 +151,7 @@ public class SpringSnakeInstance extends NewTeamInstance {
                 SpecialEffectOnPlayer.addVertigoEffect(player, Tick.s(2));
                 passiveCountMap.put(player, 0);
             } else {
-                Compute.sendDebuffTime(player, SpecialEventItems.SCALE_PIECE.get(), Tick.s(2), count);
+                BuffSystem.sendDebuffTime(player, SpecialEventItems.SCALE_PIECE.get(), Tick.s(2), count);
             }
         }
     }

@@ -1,6 +1,5 @@
 package fun.wraq.series.events.qingMing;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Name;
@@ -11,6 +10,7 @@ import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.network.chat.Component;
@@ -82,7 +82,7 @@ public class QingMingAttackRing extends WraqCurios implements OnKillEffectCurios
             countMap.compute(Name.get(player), (k, v) -> v == null ? 1 : Math.min(10, v + 1));
         }
         countExpiredTickMap.put(Name.get(player), Tick.get() + Tick.s(10));
-        Compute.sendEffectLastTime(player, this, Tick.s(10), countMap.get(Name.get(player)), false);
+        BuffSystem.sendEffectLastTime(player, this, Tick.s(10), countMap.get(Name.get(player)), false);
     }
 
     @Override

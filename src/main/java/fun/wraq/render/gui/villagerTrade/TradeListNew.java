@@ -1,6 +1,8 @@
 package fun.wraq.render.gui.villagerTrade;
 
 import club.someoneice.cofe_delight.init.ItemInit;
+import com.ibm.icu.impl.Pair;
+import fun.wraq.common.fast.Is;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.cooking.CookingValue;
@@ -9,12 +11,8 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.crystal.CrystalItems;
-import fun.wraq.series.crystal.OriginStone;
-import fun.wraq.series.events.midautumn.MidAutumnStoreRecipe;
-import fun.wraq.series.events.summer2025.Summer2025StoreRecipe;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
-import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonTpUtil;
 import fun.wraq.series.overworld.wind.WindItems;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.ChatFormatting;
@@ -26,6 +24,8 @@ import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static fun.wraq.common.registry.ModItems.*;
 
 public class TradeListNew {
 
@@ -49,7 +49,8 @@ public class TradeListNew {
     }
 
     public static void init() {
-        cookingCrop();
+        stage1();
+/*        cookingCrop();
         cookingFruit();
         cookingMushroom();
         cookingMilkAndEgg();
@@ -72,7 +73,19 @@ public class TradeListNew {
         Summer2025StoreRecipe.setVillagerTradeRecipe();
         windEquip();
         MidAutumnStoreRecipe.setVillagerData();
-        castleSoulEquip();
+        castleSoulEquip();*/
+    }
+
+    public static void stage1() {
+        MyVillagerData.setMyVillagerDataWraq3("阶段1商人", "阶段1商人", CustomStyle.styleOfPlain,
+                List.of(
+                        Pair.of(Is.n(PLAIN_SWORD_0),
+                                List.of(Is.n(COPPER_COIN, 30))),
+                        Pair.of(Is.n(PLAIN_BOW_0),
+                                List.of(Is.n(COPPER_COIN, 30))),
+                        Pair.of(Is.n(LIFE_SCEPTRE_0),
+                                List.of(Is.n(COPPER_COIN, 30)))
+                ));
     }
 
     public static List<ItemStack> getCoinList(int vb) {
@@ -84,7 +97,7 @@ public class TradeListNew {
             stacks.add(new ItemStack(ModItems.SILVER_COIN.get(), vb % 144 / 12));
         }
         if (vb % 12 > 0) {
-            stacks.add(new ItemStack(ModItems.COPPER_COIN.get(), vb % 12));
+            stacks.add(new ItemStack(COPPER_COIN.get(), vb % 12));
         }
         return stacks;
     }

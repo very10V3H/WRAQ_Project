@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.sun;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
@@ -52,6 +51,6 @@ public class FrameArrow extends WraqCurios {
     }
 
     public static boolean enhanceBowSkillV2_2(Player player) {
-        return Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.FRAME_ARROW_0.get());
+        return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(SunIslandItems.FRAME_ARROW_0.get());
     }
 }

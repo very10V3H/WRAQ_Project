@@ -10,6 +10,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,7 +33,7 @@ public class SpecialEffectOnPlayer {
         tick -= (int) (tick * PlayerAttributes.playerToughness(player));
         StableAttributesModifier.addM(player, StableAttributesModifier.playerSlowdownEffectModifier,
                 tag, rate, Tick.get() + tick);
-        Compute.sendDebuffTime(player, "hud/speed_reduction", tick, (int) (rate * 100), false);
+        BuffSystem.sendDebuffTime(player, "hud/speed_reduction", tick, (int) (rate * 100), false);
     }
 
     // 持续衰减减速效果
@@ -46,7 +47,7 @@ public class SpecialEffectOnPlayer {
         slowdownEffectMap.put(name, fullEffect);
         slowdownStartTimeMap.put(name, tick);
         slowdownEndTimeMap.put(name, tick + lastTick);
-        Compute.sendDebuffTime(player, ModItems.SLIME_BALL.get(), lastTick, 0);
+        BuffSystem.sendDebuffTime(player, ModItems.SLIME_BALL.get(), lastTick, 0);
     }
 
     public static double slowdownEffectValue(Player player) {
@@ -68,13 +69,13 @@ public class SpecialEffectOnPlayer {
         tick -= (int) (tick * PlayerAttributes.playerToughness(player));
         String name = player.getName().getString();
         vertigoTickMap.put(name, Tick.get() + tick);
-        Compute.sendDebuffTime(player, "hud/vertigo", tick);
+        BuffSystem.sendDebuffTime(player, "hud/vertigo", tick);
         imprisonPosMap.put(name, player.position());
         imprisonRotMap.put(name, Pair.of(player.getXRot(), player.getYRot()));
 
-        Compute.sendDebuffTime(player, "hud/blind", tick, 0, false);
+        BuffSystem.sendDebuffTime(player, "hud/blind", tick, 0, false);
         ModNetworking.sendToClient(new BlindTickS2CPacket(tick), (ServerPlayer) player);
-        Compute.sendDebuffTime(player, "hud/silent", tick, 0, false);
+        BuffSystem.sendDebuffTime(player, "hud/silent", tick, 0, false);
         ModNetworking.sendToClient(new SilentTickS2CPacket(tick), (ServerPlayer) player);
     }
 
@@ -92,7 +93,7 @@ public class SpecialEffectOnPlayer {
         tick -= (int) (tick * PlayerAttributes.playerToughness(player));
         String name = player.getName().getString();
         imprisonTickMap.put(name, Tick.get() + tick);
-        Compute.sendDebuffTime(player, "hud/imprison", tick);
+        BuffSystem.sendDebuffTime(player, "hud/imprison", tick);
         imprisonPosMap.put(name, player.position());
         imprisonRotMap.put(name, Pair.of(player.getXRot(), player.getYRot()));
     }
@@ -122,7 +123,7 @@ public class SpecialEffectOnPlayer {
         StableAttributesModifier.addM(player,
                 StableAttributesModifier.playerHealAmplifierReductionModifier,
                 tag, value, Tick.get() + tick);
-        Compute.sendDebuffTime(player, "hud/healing_reduction",
+        BuffSystem.sendDebuffTime(player, "hud/healing_reduction",
                 tick, (int) (value * 100), false);
     }
 
@@ -131,7 +132,7 @@ public class SpecialEffectOnPlayer {
     public static void addSilentEffect(Player player, int tick) {
         tick -= (int) (tick * PlayerAttributes.playerToughness(player));
         silentExpiredTickMap.put(player, Tick.get() + tick);
-        Compute.sendDebuffTime(player, "hud/silent", tick, 0, false);
+        BuffSystem.sendDebuffTime(player, "hud/silent", tick, 0, false);
         ModNetworking.sendToClient(new SilentTickS2CPacket(tick), (ServerPlayer) player);
     }
 
@@ -144,7 +145,7 @@ public class SpecialEffectOnPlayer {
     public static void addBlindEffect(Player player, int tick) {
         tick -= (int) (tick * PlayerAttributes.playerToughness(player));
         blindExpiredTickMap.put(player, Tick.get() + tick);
-        Compute.sendDebuffTime(player, "hud/blind", tick, 0, false);
+        BuffSystem.sendDebuffTime(player, "hud/blind", tick, 0, false);
         ModNetworking.sendToClient(new BlindTickS2CPacket(tick), (ServerPlayer) player);
     }
 
@@ -158,34 +159,34 @@ public class SpecialEffectOnPlayer {
         if (vertigoTickMap.containsKey(name)) {
             effective = true;
             vertigoTickMap.remove(name);
-            Compute.removeDebuffTime(player, "hud/vertigo");
+            BuffSystem.removeDebuffTime(player, "hud/vertigo");
         }
         if (imprisonTickMap.containsKey(name)) {
             effective = true;
             imprisonTickMap.remove(name);
-            Compute.removeDebuffTime(player, "hud/imprison");
+            BuffSystem.removeDebuffTime(player, "hud/imprison");
         }
         if (silentExpiredTickMap.containsKey(player)) {
             effective = true;
             silentExpiredTickMap.remove(player);
-            Compute.removeDebuffTime(player, "hud/silent");
+            BuffSystem.removeDebuffTime(player, "hud/silent");
         }
         if (blindExpiredTickMap.containsKey(player)) {
             effective = true;
             blindExpiredTickMap.remove(player);
-            Compute.removeDebuffTime(player, "hud/blind");
+            BuffSystem.removeDebuffTime(player, "hud/blind");
         }
         if (StableAttributesModifier.playerSlowdownEffectModifier.containsKey(player)) {
             effective = true;
             StableAttributesModifier.playerSlowdownEffectModifier.get(player).clear();
             StableAttributesModifier.playerSlowdownEffectModifier.remove(player);
-            Compute.removeDebuffTime(player, "hud/slowdown");
+            BuffSystem.removeDebuffTime(player, "hud/slowdown");
         }
         if (StableAttributesModifier
                 .getModifierValue(player, StableAttributesModifier.playerHealAmplifierReductionModifier) - 0 > 1e-6) {
             effective = true;
             StableAttributesModifier.playerHealAmplifierReductionModifier.remove(player);
-            Compute.removeDebuffTime(player, "hud/healing_reduction");
+            BuffSystem.removeDebuffTime(player, "hud/healing_reduction");
         }
         if (effective) {
             MySound.soundToPlayer(player, SoundEvents.DOLPHIN_JUMP);
@@ -197,13 +198,13 @@ public class SpecialEffectOnPlayer {
     public static void causeDefenceReductionToPlayer(Player player, String tag, int lastTick, double value) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceDecreaseModifier,
                 tag, value, Tick.get() + lastTick);
-        Compute.sendDebuffTime(player, "hud/defence_reduction", lastTick, 0, false);
+        BuffSystem.sendDebuffTime(player, "hud/defence_reduction", lastTick, 0, false);
     }
 
     public static void causeManaDefenceReductionToPlayer(Player player, String tag, int lastTick, double value) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceDecreaseModifier,
                 tag, value, Tick.get() + lastTick);
-        Compute.sendDebuffTime(player, "hud/defence_reduction", lastTick, 0, false);
+        BuffSystem.sendDebuffTime(player, "hud/defence_reduction", lastTick, 0, false);
     }
 
     public static void causeBothDefenceReductionToPlayer(Player player, String defenceTag, int defenceLastTick, double defenceValue,

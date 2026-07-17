@@ -2,13 +2,17 @@ package fun.wraq.render.hud;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
+import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ManaSyncS2CPacket;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.skill.ManaSkillTree;
+import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthBook;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
@@ -73,5 +77,35 @@ public class Mana {
 
     public static double getPlayerLostMana(Player player) {
         return getPlayerMaxManaNum(player) - getPlayerCurrentManaNum(player);
+    }
+
+    public static boolean playerManaCost(Player player, double manaCost) {
+        if (getPlayerCurrentManaNum(player) < manaCost) {
+            CompoundTag data = player.getPersistentData();
+            if (!data.getBoolean(StringUtils.IgnoreType.Mana)) {
+                player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("魔力").withStyle(CustomStyle.styleOfMana)).
+                        append(Component.literal("]").withStyle(ChatFormatting.GRAY)).
+                        append(Component.literal("魔力不足。").withStyle(ChatFormatting.WHITE)));
+            }
+            return false;
+        } else {
+            addOrCostPlayerMana(player, -manaCost);
+        }
+        return true;
+    }
+
+    public static boolean playerManaCost(Player player, double manaCost, boolean IsMana) {
+        if (getPlayerCurrentManaNum(player) < manaCost) {
+            CompoundTag data = player.getPersistentData();
+            if (!data.getBoolean(StringUtils.IgnoreType.Mana)) {
+                player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("魔力").withStyle(CustomStyle.styleOfMana)).
+                        append(Component.literal("]").withStyle(ChatFormatting.GRAY)).
+                        append(Component.literal("魔力不足。").withStyle(ChatFormatting.WHITE)));
+            }
+            return false;
+        } else {
+            addOrCostPlayerMana(player, -manaCost);
+        }
+        return true;
     }
 }

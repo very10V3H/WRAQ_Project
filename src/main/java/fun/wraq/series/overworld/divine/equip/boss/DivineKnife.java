@@ -1,12 +1,12 @@
 package fun.wraq.series.overworld.divine.equip.boss;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -59,7 +59,7 @@ public class DivineKnife extends WraqSword implements OnHitEffectEquip {
         if (!set.contains(Name.get(player))) {
             set.add(Name.get(player));
             mobCountMap.compute(mob, (k, v) -> v == null ? 1 : v + 1);
-            Compute.sendMobEffectHudToNearPlayer(mob, this, "DivineKnifeWithstandDamageEnhance",
+            BuffSystem.sendMobEffectHudToNearPlayer(mob, this, "DivineKnifeWithstandDamageEnhance",
                     8888, mobCountMap.get(mob), true);
         }
     }

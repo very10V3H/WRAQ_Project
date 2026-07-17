@@ -1,6 +1,5 @@
 package fun.wraq.series.events.qingMing;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
@@ -9,6 +8,7 @@ import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -64,11 +64,11 @@ public class QingMingCommonRing extends WraqCurios implements OnKillEffectCurios
         killCountMap.compute(Name.get(player), (k, v) -> v == null ? 1 : Math.min(50, v + 1));
         int count = killCountMap.get(Name.get(player));
         if (count >= 50) {
-            Compute.sendEffectLastTime(player, "item/" + TEXTURE_URL, Tick.min(5), 0, false);
+            BuffSystem.sendEffectLastTime(player, "item/" + TEXTURE_URL, Tick.min(5), 0, false);
             killCountMap.put(Name.get(player), 0);
             passiveExpireTickMap.put(Name.get(player), Tick.get() + Tick.min(5));
         } else {
-            Compute.sendEffectLastTime(player, this, count, true);
+            BuffSystem.sendEffectLastTime(player, this, count, true);
         }
     }
 

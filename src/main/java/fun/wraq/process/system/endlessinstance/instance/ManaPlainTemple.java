@@ -1,6 +1,5 @@
 package fun.wraq.process.system.endlessinstance.instance;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -10,6 +9,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.reason.Reason;
+import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -99,7 +99,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
         stack.setCount(5 + Math.min(20, getKillCount() / 15));
         InventoryOperation.giveItemStackWithMSG(player, stack);
         if (player.experienceLevel >= 180) {
-            Compute.givePercentExpToPlayer(player, getKillCount() / 10.0,
+            MyExpSystem.givePercentExpToPlayer(player, getKillCount() / 10.0,
                     0, player.experienceLevel, true,
                     Te.s("高等级额外经验收益", CustomStyle.styleOfLucky));
         }

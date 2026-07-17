@@ -1,6 +1,6 @@
 package fun.wraq.customized.uniform.attack.normal;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
@@ -36,7 +36,7 @@ public class AttackCurios4 extends WraqAttackUniformCurios {
     }
 
     public static double getAttackDamageRate(Player player, Mob mob) {
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.ATTACK_CURIOS_4.get())) {
+        if (WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(UniformItems.ATTACK_CURIOS_4.get())) {
             if (mob.distanceTo(player) > 3) {
                 return 0.75;
             }

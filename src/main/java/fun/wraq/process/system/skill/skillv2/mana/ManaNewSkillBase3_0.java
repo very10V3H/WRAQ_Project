@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.DelayOperationWithAnimation;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
@@ -54,7 +55,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2Allo
             @Override
             public void trig() {
                 effectExpiredTickMap.put(player, Tick.get() + Tick.s(3));
-                Compute.sendEffectLastTime(player, getTexture1Url(), Tick.s(3), 0, false);
+                BuffSystem.sendEffectLastTime(player, getTexture1Url(), Tick.s(3), 0, false);
                 Item item = player.getMainHandItem().getItem();
                 if (item instanceof WraqSceptre wraqSceptre) {
                     MySound.soundToNearPlayer(player.level(), player.getEyePosition(), SoundEvents.EVOKER_CAST_SPELL);

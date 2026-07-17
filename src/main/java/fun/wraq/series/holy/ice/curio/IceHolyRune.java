@@ -1,6 +1,6 @@
 package fun.wraq.series.holy.ice.curio;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -42,7 +42,7 @@ public class IceHolyRune extends IceHolyCurio {
     }
 
     public static double getPlayerWithstandDamageRate(Player player) {
-        List<IceHolyRune> list = Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+        List<IceHolyRune> list = WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .filter(stack -> stack.getItem() instanceof IceHolyRune)
                 .map(stack -> (IceHolyRune) stack.getItem())
                 .toList();

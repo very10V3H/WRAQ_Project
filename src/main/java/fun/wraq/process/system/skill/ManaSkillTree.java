@@ -1,10 +1,10 @@
 package fun.wraq.process.system.skill;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.SceptreAttribute;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.world.entity.Mob;
@@ -44,14 +44,14 @@ public class ManaSkillTree {
             return;
         }
         int tier = getManaSkillTier(player, 14);
-        if (tier > 0 && Compute.playerIsInBattle(player)) {
+        if (tier > 0 && Damage.playerIsInBattle(player)) {
             skill14Map.compute(player, (k, v) -> v == null ? value : v + value);
             double maxMana = PlayerAttributes.maxMana(player);
             if (skill14Map.getOrDefault(player, 0d) >= maxMana) {
                 WraqMixture.batchAddExShoot(player, (maxMana) / 100 * 0.05, tier);
                 skill14Map.put(player, 0d);
             }
-            Compute.sendEffectLastTime(player, "skills/mana/mana_6_3", 0,
+            BuffSystem.sendEffectLastTime(player, "skills/mana/mana_6_3", 0,
                     (int) (skill14Map.getOrDefault(player, 0d) / maxMana * 100), true);
         }
     }

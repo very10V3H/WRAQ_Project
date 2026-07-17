@@ -13,6 +13,7 @@ import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -95,7 +96,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
                         new StableAttributesModifier(cooldownTag, 0.3, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerManaRecoverModifier,
                         new StableAttributesModifier(manaRecoverTag, 30, tick + 6000));
-                Compute.sendEffectLastTime(player, ModItems.GOLD_COIN.get(), 6000);
+                BuffSystem.sendEffectLastTime(player, ModItems.GOLD_COIN.get(), 6000);
             }
         }
         return super.use(level, player, interactionHand);
@@ -128,7 +129,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritRateModifier, critRateTag);
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritDamageModifier, cooldownTag);
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerDefencePenetrationModifier, manaRecoverTag);
-            Compute.removeEffectLastTime(player, ModItems.GOLD_COIN.get());
+            BuffSystem.removeEffectLastTime(player, ModItems.GOLD_COIN.get());
         }
     }
 }

@@ -1,11 +1,11 @@
 package fun.wraq.series.overworld.extraordinary.curio;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -62,9 +62,9 @@ public class TongTian extends WraqCurios implements OnHitDamageInfluenceCurios {
     public void tick(Player player) {
         player.addEffect(new MobEffectInstance(MobEffects.JUMP, 400, 4));
         if (!player.onGround() && !player.isInWater()) {
-            Compute.sendEffectLastTime(player, this, 0, true);
+            BuffSystem.sendEffectLastTime(player, this, 0, true);
         } else {
-            Compute.removeEffectLastTime(player, this);
+            BuffSystem.removeEffectLastTime(player, this);
         }
         super.tick(player);
     }
