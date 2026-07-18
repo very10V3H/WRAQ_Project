@@ -23,7 +23,7 @@ public class ForestArmor extends WraqArmor {
                 Utils.defence.put(this, 2.5d);
             }
             case CHESTPLATE -> {
-                Utils.defence.put(this, 4.5d);
+                Utils.defence.put(this, 10d);
             }
             case LEGGINGS -> {
                 Utils.defence.put(this, 3.5d);

@@ -533,7 +533,23 @@ public class Compute {
 
     public static boolean stopSummon = false;
 
-    public static void summonValue(Level level, Player player, Mob mob, Component component, int type) {
+    public static void summonValue(Player player, Mob mob, double value, Style style, int type) {
+        if (stopSummon || value < 1) {
+            return;
+        }
+        Component component = Component.literal(String.format("%.0f", value)).withStyle(style);
+        Vec3 pos = mob.getEyePosition();
+        Random r = new Random();
+        if (type == 0)
+            pos = pos.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(r.nextDouble()));
+        if (type == 1)
+            pos = pos.add(player.getHandHoldingItemAngle(ModItems.PLAIN_SWORD_0.get()).scale(-1 * r.nextDouble()));
+        pos = pos.add(r.nextDouble(0.5) - 0.25, r.nextDouble(0.5) - 0.25, r.nextDouble(0.5) - 0.25);
+        DamageNumberS2CPacket packet = new DamageNumberS2CPacket(pos, component, 1000);
+        ModNetworking.sendToClientsTrackingEntity(packet, mob);
+    }
+
+    public static void summonValue(Player player, Mob mob, Component component, int type) {
         if (stopSummon) {
             return;
         }

@@ -44,6 +44,7 @@ import fun.wraq.series.overworld.sakura.SakuraMob.SakuraSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -163,7 +164,7 @@ public class AttackEvent {
             return;
         }
         if (SpecialEffectOnPlayer.inBlind(player)) {
-            Compute.summonValue(mob.level(), player, mob,
+            Compute.summonValue(player, mob,
                     Te.s("未命中", CustomStyle.styleOfEnd), 0);
             return;
         }
@@ -295,10 +296,10 @@ public class AttackEvent {
         Compute.healByHealthSteal(player, mob, damage);
         // Display
         if (crit) {
-            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
+            Compute.summonValue(player, mob, damage + trueDamage, CustomStyle.styleOfPower, 0);
         }
         else {
-            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
+            Compute.summonValue(player, mob, damage + trueDamage, Style.EMPTY.applyFormat(ChatFormatting.YELLOW), 0);
         }
         if (mainAttack) {
             if (elementDamage != 0 && !elementType.isEmpty())

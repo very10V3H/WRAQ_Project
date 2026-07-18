@@ -70,7 +70,7 @@ public class ManaAttackModule {
             return;
         }
         if (SpecialEffectOnPlayer.inBlind(player)) {
-            Compute.summonValue(mob.level(), player, mob,
+            Compute.summonValue(player, mob,
                     Te.s("未命中", CustomStyle.styleOfEnd), 1);
             return;
         }
@@ -153,9 +153,9 @@ public class ManaAttackModule {
 
         // display
         if (isCrit)
-            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfEntropy), 1);
+            Compute.summonValue(player, mob, damage + trueDamage, CustomStyle.styleOfEntropy, 1);
         else
-            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfMana), 1);
+            Compute.summonValue(player, mob, damage + trueDamage, CustomStyle.styleOfMana, 1);
 
         if (elementDamage != 0 && !elementType.isEmpty())
             Damage.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit, elementType, elementDamage);

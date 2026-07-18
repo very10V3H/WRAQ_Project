@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 public class StockKLineRequestC2SPacket {
@@ -38,8 +39,11 @@ public class StockKLineRequestC2SPacket {
             StockIndex[] indices = StockIndex.values();
             if (indexOrdinal < 0 || indexOrdinal >= indices.length) return;
             StockIndex index = indices[indexOrdinal];
-            List<StockKLineData> data = StockKLineFetcher.getKLineData(index, scale);
-            StockKLineSyncS2CPacket.sendTo(player, indexOrdinal, scale, data);
+            // 在异步线程执行 HTTP 请求，避免阻塞游戏主进程
+            CompletableFuture.supplyAsync(() -> StockKLineFetcher.getKLineData(index, scale))
+                    .thenAcceptAsync(data ->
+                                    StockKLineSyncS2CPacket.sendTo(player, indexOrdinal, scale, data),
+                            player.server);
         });
         return true;
     }

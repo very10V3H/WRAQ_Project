@@ -15,7 +15,7 @@ public class BackpackItemStackHandler extends ItemStackHandler {
     private int slotLimitTier = 0; // 0→64, 1→128, 2→256 …
 
     public BackpackItemStackHandler() {
-        super(27); // 默认 27 格（3 行）
+        super(72); // 默认 72 格（8 行）
     }
 
     public BackpackItemStackHandler(int slots, int slotLimitTier) {

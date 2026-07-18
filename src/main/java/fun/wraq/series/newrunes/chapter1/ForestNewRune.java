@@ -24,7 +24,8 @@ import java.util.Map;
 public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDescriptionItem {
     public ForestNewRune(Properties properties) {
         super(properties);
-        Utils.maxHealth.put(this, 1600d);
+        Utils.maxHealth.put(this, 800d);
+        Utils.percentMaxHealthEnhance.put(this, 0.05);
     }
 
     @Override

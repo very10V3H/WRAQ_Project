@@ -12,8 +12,6 @@ import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.stock.StockPriceFetcher;
 import fun.wraq.process.system.stock.StockTradingSystem;
-import fun.wraq.process.system.randomevent.RandomEventsHandler;
-import fun.wraq.process.system.reason.Reason;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
@@ -45,7 +43,6 @@ public class ServerTick {
             if (tickCount % 20 == 1) {
                 BowEvent.handleServerTick();
             }
-            RandomEventsHandler.tick();
             AllayPet.handleServerTick();
             SputteringDamage.handleServerTick();
             if (tickCount % 100 == 97) {

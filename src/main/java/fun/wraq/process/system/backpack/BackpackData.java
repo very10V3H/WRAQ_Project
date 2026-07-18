@@ -18,7 +18,7 @@ public class BackpackData implements INBTSerializable<CompoundTag> {
     private BackpackItemStackHandler handler;
 
     public BackpackData() {
-        this.handler = new BackpackItemStackHandler(27, 0);
+        this.handler = new BackpackItemStackHandler(72, 0);
     }
 
     public BackpackData(int slots, int slotLimitTier) {
@@ -60,6 +60,11 @@ public class BackpackData implements INBTSerializable<CompoundTag> {
         return handler.getSlotCount();
     }
 
+    /** 当前总格数对应的最大页码（每页 36 格 = 4 行），0-indexed */
+    public int getMaxPage() {
+        return Math.max(0, (handler.getSlotCount() - 1) / 36);
+    }
+
     /* ---------- NBT 序列化 ---------- */
 
     @Override
@@ -94,6 +99,11 @@ public class BackpackData implements INBTSerializable<CompoundTag> {
             if (slot >= 0 && slot < handler.getSlotCount()) {
                 handler.setStackInSlot(slot, ItemStack.of(slotTag));
             }
+        }
+
+        // 迁移：不足 8 行（72 格）的存档自动补齐
+        if (handler.getSlotCount() < 72) {
+            handler.expandRows((72 - handler.getSlotCount() + 8) / 9);
         }
     }
 

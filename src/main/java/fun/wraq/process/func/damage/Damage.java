@@ -158,8 +158,7 @@ public class Damage {
                 || MobSpawn.getMobOriginName(mob).equals(SimulateIceDragonSpawnController.MOB_NAME)) {
             return damage;
         }
-        Compute.summonValue(mob.level(), player, mob,
-                Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
+        Compute.summonValue(player, mob, damage, CustomStyle.styleOfSea, 2);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -182,8 +181,7 @@ public class Damage {
 
         baseDamage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, mob));
 
-        Compute.summonValue(mob.level(), player, mob,
-                Component.literal(String.format("%.0f", baseDamage * num)).withStyle(ChatFormatting.YELLOW), 0);
+        Compute.summonValue(player, mob, baseDamage * num, Style.EMPTY.applyFormat(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, baseDamage * num);
         causeDirectDamageToMob(player, mob, baseDamage * num);
         return baseDamage * num;
@@ -222,7 +220,7 @@ public class Damage {
                 PlayerAttributes.defencePenetration(player),
                 PlayerAttributes.defencePenetration0(player));
         damage *= (1 + DamageInfluence.getAdjustAttackDamageRate(player, mob));
-        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        Compute.summonValue(player, mob, damage, Style.EMPTY.applyFormat(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -238,7 +236,7 @@ public class Damage {
             damage *= (1 + DamageInfluence.getPlayerAttackDamageEnhance(player, mob));
         }
 
-        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        Compute.summonValue(player, mob, damage, Style.EMPTY.applyFormat(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -250,7 +248,7 @@ public class Damage {
         }
         damage *= defenceDamageDecreaseRate(player, mob, MobAttributes.defence(mob),
                 PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
-        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
+        Compute.summonValue(player, mob, damage, Style.EMPTY.applyFormat(ChatFormatting.YELLOW), 0);
         beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -265,7 +263,7 @@ public class Damage {
                     PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
             damage *= (1 + DamageInfluence.getPlayerManaDamageEnhance(player));
         }
-        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValue(player, mob, damage, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1);
         Damage.beforeCauseDamage(player, mob, damage);
         causeDirectDamageToMob(player, mob, damage);
         return damage;
@@ -304,8 +302,7 @@ public class Damage {
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + elementDamageEnhance) * elementDamageEffect;
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
-        Compute.summonValue(mob.level(), player, mob,
-                Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValue(player, mob, totalDamage, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
             damageActionBarPacketSend(player, totalDamage, 0, true, false);
         }
@@ -363,8 +360,7 @@ public class Damage {
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
-        Compute.summonValue(mob.level(), player, mob,
-                Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValue(player, mob, totalDamage, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
             if (elementDamage != 0 && !elementType.isEmpty() && elementValue != 0) {
                 damageActionBarPacketSend(player, totalDamage, 0, true, false, elementType, elementDamage);
@@ -422,8 +418,7 @@ public class Damage {
         double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, mob);
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
-        Compute.summonValue(mob.level(), player, mob,
-                Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValue(player, mob, totalDamage, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1);
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.manaDamageExEffect(player, mob, totalDamage);
@@ -468,7 +463,7 @@ public class Damage {
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
 
-        Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValue(player, mob, totalDamage, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1);
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.manaDamageExEffect(player, mob, totalDamage);
@@ -495,8 +490,7 @@ public class Damage {
     public static void causeManaDamageToPlayer(Mob mob, Player player, double damage) {
         double manaDefence = PlayerAttributes.manaDefence(player);
         damage *= defenceDamageDecreaseRate(manaDefence,
-                MobSpawn.MobBaseAttributes.defencePenetration.get(MobSpawn.getMobOriginName(mob)),
-                MobSpawn.MobBaseAttributes.defencePenetration0.get(MobSpawn.getMobOriginName(mob)));
+                MobAttributes.defencePenetration(mob), MobAttributes.defencePenetration0(mob));
         MonsterAttackEvent.mobAttack(mob, player, damage);
         BloodManaCurios.passive(player);
     }
@@ -714,11 +708,13 @@ public class Damage {
         WardenInstance.onPlayerNormalAttackOrReleasePower(player);
     }
 
+    @Deprecated
     public static void damageActionBarPacketSend(Player player, double baseDamage, double ignoreDefenceDamage,
                                                  boolean isMana, boolean isCrit) {
         HudUtil.damageActionBarPacketSend(player, baseDamage, ignoreDefenceDamage, isMana, isCrit);
     }
 
+    @Deprecated
     public static void damageActionBarPacketSend(Player player, double baseDamage, double ignoreDefenceDamage,
                                                  boolean isMana, boolean isCrit, String elementType, double elementDamageValue) {
         HudUtil.damageActionBarPacketSend(player, baseDamage, ignoreDefenceDamage, isMana, isCrit, elementType, elementDamageValue);

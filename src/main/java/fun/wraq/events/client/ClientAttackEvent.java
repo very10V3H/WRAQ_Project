@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -79,6 +80,48 @@ public class ClientAttackEvent {
             leftClick(player);
             activeBowAndSceptre(player);
         }
+    }
+
+    // === 按住左键连续攻击 ===
+    /** 鼠标左键是否处于按下状态 */
+    private static boolean isLeftClickDown = false;
+
+    /** 上次通过按住逻辑发送攻击的 client tick */
+    private static int lastHoldAttackTick = 0;
+
+    /** 按住攻击的最小间隔（tick） */
+    private static final int HOLD_ATTACK_INTERVAL = 4;
+
+    /**
+     * 监听鼠标按键，追踪左键的按下/释放状态。
+     * 仅用于连续攻击的开关，不替代现有的左键事件。
+     */
+    @SubscribeEvent
+    public static void onMouseButton(InputEvent.MouseButton event) {
+        if (event.getButton() == 0) { // 0 = 左键
+            if (event.getAction() == 1) { // PRESS
+                isLeftClickDown = true;
+            } else if (event.getAction() == 0) { // RELEASE
+                isLeftClickDown = false;
+            }
+        }
+    }
+
+    /**
+     * 每个 client tick 调用一次，检查左键是否按住并在冷却结束后发包。
+     * 从客户端的 PlayerTickEvent / ClientTickEvent 中调用。
+     */
+    public static void tick() {
+        if (!isLeftClickDown) return;
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null || mc.screen != null) return;
+
+        int currentTick = mc.player.tickCount;
+        if (currentTick - lastHoldAttackTick < HOLD_ATTACK_INTERVAL) return;
+        lastHoldAttackTick = currentTick;
+
+        leftClick(mc.player);
+        activeBowAndSceptre(mc.player);
     }
 
     // 客户端侧左键发包

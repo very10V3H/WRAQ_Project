@@ -22,7 +22,7 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
 
     public PlainNecklace(Properties properties) {
         super(properties);
-        Utils.levelRequire.put(this, 50);
+        Utils.levelRequire.put(this, 32);
     }
 
     @Override

@@ -289,7 +289,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     }
 
     @Override
-    public Item getSummonAndRewardNeedItem() {
+    public Item getSummonNeedItem() {
         return MoontainItems.HEART.get();
     }
 

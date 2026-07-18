@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -42,14 +44,14 @@ public class PlainInstance extends NoTeamInstance {
 
     public static PlainInstance getInstance() {
         if (instance == null) {
-            instance = new PlainInstance(new Vec3(1167, 112, 28), 30, 60, new Vec3(1167, 112, 28),
-                    Component.literal("普莱尼").withStyle(ChatFormatting.GREEN));
+            instance = new PlainInstance(new Vec3(4135.5, 67, 3164.5), 30, 60, new Vec3(4135.5, 67, 3164.5),
+                    Te.s("普莱尼", ChatFormatting.GREEN));
         }
         return instance;
     }
 
     public PlainInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name, 50);
+        super(pos, range, delayTick, armorStandPos, name, 40);
     }
 
     @Override
@@ -62,9 +64,9 @@ public class PlainInstance extends NoTeamInstance {
         if (mob.tickCount % 100 == 0) {
             players.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
-                    player.heal(75);
+                    player.heal(150);
                 } else {
-                    Damage.causeManaDamageToPlayer(mob, player, 250);
+                    Damage.causeManaDamageToPlayer(mob, player, 500);
                     mob.heal(125);
                 }
             });
@@ -76,8 +78,8 @@ public class PlainInstance extends NoTeamInstance {
         if (mob.tickCount % 100 == 50) {
             players.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
-                    Damage.causeManaDamageToPlayer(mob, player, 400);
-                    mob.heal(200);
+                    Damage.causeManaDamageToPlayer(mob, player, 800);
+                    mob.heal(400);
                 } else {
                     player.heal(100);
                 }
@@ -151,12 +153,12 @@ public class PlainInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return true;
+        return player.experienceLevel >= 32;
     }
 
     @Override
     public Component allowRewardCondition() {
-        return null;
+        return Te.s("需要达到", Utils.getLevelDescription(32), "才能获取奖励");
     }
 
     public List<ItemAndRate> getRewardList() {
@@ -174,5 +176,20 @@ public class PlainInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "PlainBoss";
+    }
+
+    @Override
+    public Item getSummonNeedItem() {
+        return ModItems.PLAIN_SOUL.get();
+    }
+
+    @Override
+    public Item getRewardNeedItem() {
+        return ModItems.REASON.get();
+    }
+
+    @Override
+    public int getRewardNeedItemCount() {
+        return 5;
     }
 }

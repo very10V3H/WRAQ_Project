@@ -50,13 +50,22 @@ public class BackpackFileManager {
 
     /** 获取玩家背包数据（懒加载） */
     public static BackpackData get(UUID uuid) {
-        return CACHE.computeIfAbsent(uuid, key -> {
+        BackpackData data = CACHE.computeIfAbsent(uuid, key -> {
             Path file = fileFor(key);
             if (Files.exists(file)) {
                 return loadFromDisk(file);
             }
             return new BackpackData();
         });
+        // 迁移：缓存中的老存档不足 8 行（72 格）自动补齐
+        if (data.getSlotCount() < 72) {
+            int rowsToAdd = (72 - data.getSlotCount() + 8) / 9;
+            for (int i = 0; i < rowsToAdd; i++) {
+                data.expandRow();
+            }
+            markDirty(uuid);
+        }
+        return data;
     }
 
     /** 获取玩家背包数据，targetUuid 可不同于在线玩家——支持管理员查看离线玩家 */

@@ -1,7 +1,7 @@
 package fun.wraq.series.overworld.chapter1.plain;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
@@ -21,11 +21,14 @@ import java.util.List;
 
 public class PlainBow extends WraqBow implements OnHitEffectEquip {
 
-    public PlainBow(Properties p_40524_, int tier) {
-        super(p_40524_);
-        Utils.attackDamage.put(this, new double[]{20, 25, 35, 40}[tier]);
-        Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.25}[tier]);
+    private final int tier;
+
+    public PlainBow(Properties properties, int tier) {
+        super(properties);
+        Utils.attackDamage.put(this, new double[]{12, 25, 35, 40}[tier]);
+        Utils.critRate.put(this, new double[]{0.1, 0.2, 0.2, 0.25}[tier]);
         Element.lifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        this.tier = tier;
     }
 
     @Override
@@ -36,9 +39,9 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("平原祝福").withStyle(ChatFormatting.GREEN));
-        components.add(Component.literal("箭矢命中目标后提供持续2s的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.movementSpeed("10%")));
+        ComponentUtils.descriptionPassive(components, Te.s("平原祝福", ChatFormatting.GREEN));
+        components.add(Te.s("箭矢命中目标后提供持续2s的",
+                ComponentUtils.AttributeDescription.movementSpeed(tier == 0 ? "10%" : "20%")));
         return components;
     }
 
@@ -50,6 +53,6 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                "plainBowPassiveExMovementSpeed", 0.1, Tick.get() + 40, this);
+                "plainBowPassiveExMovementSpeed", tier == 0 ? 0.1 : 0.2, Tick.get() + 40, this);
     }
 }

@@ -30,12 +30,12 @@ public class PlainSword extends WraqSword implements ActiveItem {
         super(properties);
         this.tier = num;
         Utils.attackDamage.put(this, new double[]{12, 25, 30, 40}[num]);
-        Utils.critRate.put(this, new double[]{0.1, 0.25, 0.25, 0.25}[num]);
-        Utils.attackSpeedEnhance.put(this, 0.2);
+        Utils.critRate.put(this, new double[]{0.05, 0.15, 0.25, 0.25}[num]);
+        Utils.attackSpeedEnhance.put(this, new double[]{0.1, 0.2, 0.2, 0.2}[num]);
         Element.lifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[num]);
     }
 
-    private final double[] effectRate = new double[]{0.1, 0.12, 0.15, 0.20};
+    private final double[] effectRate = new double[]{0.1, 0.2, 0.2, 0.2};
 
     @Override
     public Style getMainStyle() {

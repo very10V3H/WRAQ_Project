@@ -36,6 +36,7 @@ import fun.wraq.series.overworld.chapter7.BoneImpKnife;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -163,7 +164,7 @@ public class MyArrow extends AbstractArrow {
         double critRate = PlayerAttributes.critRate(player);
         double critDamage = PlayerAttributes.critDamage(player);
         if (SpecialEffectOnPlayer.inBlind(player)) {
-            Compute.summonValue(mob.level(), player, mob,
+            Compute.summonValue(player, mob,
                     Te.s("未命中", CustomStyle.styleOfEnd), 0);
             return;
         }
@@ -265,9 +266,9 @@ public class MyArrow extends AbstractArrow {
         Damage.beforeCauseDamage(player, mob, damage + trueDamage);
         Damage.causeDirectDamageToMob(player, entity, damage + trueDamage);
         if (critFlag)
-            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
+            Compute.summonValue(player, mob, damage + trueDamage, CustomStyle.styleOfPower, 0);
         else
-            Compute.summonValue(mob.level(), player, mob, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
+            Compute.summonValue(player, mob, damage + trueDamage, Style.EMPTY.applyFormat(ChatFormatting.YELLOW), 0);
         if (elementDamage != 0 && !elementType.isEmpty())
             Damage.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
         else Damage.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);

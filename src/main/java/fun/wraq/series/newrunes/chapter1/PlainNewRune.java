@@ -22,6 +22,7 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
     public PlainNewRune(Properties properties) {
         super(properties);
         Utils.healthRecover.put(this, 5d);
+        Utils.healingAmplification.put(this, 0.02);
     }
 
     @Override

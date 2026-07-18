@@ -11,60 +11,81 @@ import net.minecraftforge.items.SlotItemHandler;
 
 /**
  * AI-Generated, 2026-07-12
- * 背包 Container Menu。服务端持有 BackpackData 引用，客户端从 buffer 重建尺寸。
+ * 背包 Container Menu。支持分页，每页固定 4 行（36 格）。
+ * 翻页栏位于背包区域与玩家背包之间。
+ * 服务端持有 BackpackData 引用，客户端从 buffer 重建尺寸与页码。
  */
 public class BackpackMenu extends AbstractContainerMenu {
 
+    private static final int PAGE_SIZE = 36;       // 每页 4 行 × 9 列
+    private static final int PLAYER_INV_GAP = 14;
+    private static final int HOTBAR_GAP = 4;
+    private static final int PAGE_BAR_HEIGHT = 16;
+
     private final BackpackData backpackData;
-    private final int slotCount;
+    private final int slotCount;                   // 总格数
+    private final int pageOffset;                  // 当前页码（0-indexed）
+    private final int slotsOnThisPage;             // 本页实际显示的格数
 
     /** 服务端构造 */
-    public static BackpackMenu server(int id, Inventory inv, BackpackData data) {
-        return new BackpackMenu(id, inv, data);
+    public static BackpackMenu server(int id, Inventory inv, BackpackData data, int pageOffset) {
+        return new BackpackMenu(id, inv, data, pageOffset);
     }
 
-    /** 客户端构造（从 buffer 读取尺寸信息） */
+    /** 客户端构造（从 buffer 读取） */
     public BackpackMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-        this(id, inv, new BackpackData(buf.readInt(), buf.readInt()));
+        this(id, inv, new BackpackData(buf.readInt(), buf.readInt()), buf.readInt());
     }
 
-    private BackpackMenu(int id, Inventory inv, BackpackData data) {
+    private BackpackMenu(int id, Inventory inv, BackpackData data, int pageOffset) {
         super(BackpackMenuTypes.BACKPACK_MENU.get(), id);
         this.backpackData = data;
         this.slotCount = data.getSlotCount();
+        this.pageOffset = pageOffset;
 
         IItemHandlerModifiable handler = data.getHandler();
+        int startIndex = pageOffset * PAGE_SIZE;
+        this.slotsOnThisPage = Math.min(PAGE_SIZE, Math.max(0, slotCount - startIndex));
+        int rowsOnThisPage = (slotsOnThisPage + 8) / 9;
 
         // 背包格子（居中排列，每行 9 格）
-        int rows = (slotCount + 8) / 9;
-        int backpackStartY = 18;
-        for (int row = 0; row < rows; row++) {
+        for (int row = 0; row < rowsOnThisPage; row++) {
             for (int col = 0; col < 9; col++) {
-                int index = row * 9 + col;
-                if (index >= slotCount) break;
+                int localIndex = row * 9 + col;
+                int handlerIndex = startIndex + localIndex;
+                if (handlerIndex >= slotCount) break;
                 int x = 11 + col * 19;
                 int y = 21 + row * 19;
-                this.addSlot(new SlotItemHandler(handler, index, x, y));
+                this.addSlot(new SlotItemHandler(handler, handlerIndex, x, y));
             }
         }
 
         // 玩家背包（27 格）
-        int playerInvStartY = backpackStartY + rows * 19 + 14;
+        int backpackEndY = 21 + rowsOnThisPage * 19;
+        int playerInvStartY = backpackEndY + PLAYER_INV_GAP + PAGE_BAR_HEIGHT + PLAYER_INV_GAP;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                this.addSlot(new Slot(inv, col + row * 9 + 9, 11 + col * 19, playerInvStartY + 3 + row * 19));
+                this.addSlot(new Slot(inv, col + row * 9 + 9, 11 + col * 19, playerInvStartY + row * 19));
             }
         }
 
         // 快捷栏（9 格）
         int hotbarY = playerInvStartY + 3 * 19 + 4;
         for (int col = 0; col < 9; col++) {
-            this.addSlot(new Slot(inv, col, 11 + col * 19, hotbarY + 3));
+            this.addSlot(new Slot(inv, col, 11 + col * 19, hotbarY - 2));
         }
     }
 
     public int getSlotCount() {
         return slotCount;
+    }
+
+    public int getSlotsOnThisPage() {
+        return slotsOnThisPage;
+    }
+
+    public int getPageOffset() {
+        return pageOffset;
     }
 
     public int getSlotLimitTier() {
@@ -89,7 +110,7 @@ public class BackpackMenu extends AbstractContainerMenu {
         ItemStack stack = slot.getItem();
         ItemStack copy = stack.copy();
 
-        int backpackSlotEnd = slotCount;
+        int backpackSlotEnd = slotsOnThisPage;
         int playerInvStart = backpackSlotEnd;
         int playerInvEnd = backpackSlotEnd + 27;
         int hotbarEnd = playerInvEnd + 9;

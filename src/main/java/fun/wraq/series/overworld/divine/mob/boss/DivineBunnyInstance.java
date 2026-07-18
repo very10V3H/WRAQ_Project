@@ -125,7 +125,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
     }
 
     @Override
-    public Item getSummonAndRewardNeedItem() {
+    public Item getSummonNeedItem() {
         return ModItems.REASON.get();
     }
 

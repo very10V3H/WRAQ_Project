@@ -3,11 +3,11 @@ package fun.wraq.events.mob.instance;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
 import fun.wraq.events.mob.instance.instances.element.*;
+import fun.wraq.events.mob.instance.instances.world.WorldChallengeDrowned;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss1Instance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss2Instance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
@@ -17,7 +17,6 @@ import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.holy.ice.FrostInstance;
-import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBalanceInstance;
 import fun.wraq.series.overworld.divine.mob.boss.DivineBunnyInstance;
 import fun.wraq.series.overworld.sakura.bunker.mob.BunkerInstance;
@@ -108,6 +107,7 @@ public class NoTeamInstanceModule {
         add(DivineBalanceInstance.getInstance());
         add(FrostInstance.getInstance());
         add(WindBossInstance.getInstance());
+        add(WorldChallengeDrowned.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{
@@ -200,30 +200,33 @@ public class NoTeamInstanceModule {
     }
 
     public static void handlePlayerRightClick(Player player) {
-        if ((player.getMainHandItem().is(ModItems.NOTE_PAPER.get()))
-                || player.getMainHandItem().is(MoontainItems.HEART.get())) {
-            Item item = player.getMainHandItem().getItem();
-            getMap().forEach((k, v) -> {
-                if (player.level().dimension().equals(k)) {
-                    v.forEach(instance -> {
-                        int playerNum = instance.getNearPlayers(player.level()).size();
-                        if (playerNum > instance.getMaxPlayerNum()) {
-                            Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
-                                    Te.s("周围玩家数(" + playerNum + ")超过了" +
-                                            "副本最大容纳玩家数(" + instance.getMaxPlayerNum() + ")"));
-                            return;
-                        }
-                        boolean reasonJudge = instance.getSummonAndRewardNeedItem().equals(ModItems.REASON.get())
-                                && item.equals(ModItems.NOTE_PAPER.get());
-                        if ((instance.getSummonAndRewardNeedItem().equals(item) || reasonJudge)
-                                && player.position().distanceTo(instance.pos) < 12
-                                && Tick.get() > instance.summonTick) {
-                            instance.ready = true;
-                        }
-                    });
-                }
-            });
-        }
+        Item item = player.getMainHandItem().getItem();
+        getMap().forEach((k, v) -> {
+            if (player.level().dimension().equals(k)) {
+                v.stream().filter(instance -> instance.getSummonNeedItem().equals(item))
+                        .forEach(instance -> {
+                            int playerNum = instance.getNearPlayers(player.level()).size();
+                            if (playerNum > instance.getMaxPlayerNum()) {
+                                Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
+                                        Te.s("周围玩家数(" + playerNum + ")超过了" +
+                                                "副本最大容纳玩家数(" + instance.getMaxPlayerNum() + ")"));
+                                return;
+                            }
+
+                            if (!instance.allowSummon(player)) {
+                                if (instance.disallowReason(player) != null) {
+                                    Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
+                                            instance.disallowReason(player));
+                                }
+                                return;
+                            }
+
+                            if (player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
+                                instance.ready = true;
+                            }
+                        });
+            }
+        });
     }
 
     public static List<NoTeamInstance> getAllInstance() {

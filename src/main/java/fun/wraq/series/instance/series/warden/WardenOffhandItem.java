@@ -112,8 +112,7 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
             Map<Mob, Double> map = targetIntervalDamageMap.get(player);
             map.forEach((mob, damage) -> {
                 Damage.causeDirectDamageToMob(player, mob, damage);
-                Compute.summonValue(mob.level(), player, mob,
-                        Te.s(String.format("%.0f", damage), CustomStyle.styleOfSea), 2);
+                Compute.summonValue(player, mob, damage, CustomStyle.styleOfSea, 2);
             });
             map.clear();
 

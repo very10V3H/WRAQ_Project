@@ -41,7 +41,6 @@ public class ForNew extends Item {
                 new ItemStack(ModItems.BAMBOO_KANATA.get()),
                 new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()),
                 new ItemStack(ModItems.COPPER_HAMMER.get()),
-                new ItemStack(ModItems.BACK_SPAWN_TICKET.get()),
                 new ItemStack(Items.GOLDEN_CARROT, 64),
                 elyTra);
     }

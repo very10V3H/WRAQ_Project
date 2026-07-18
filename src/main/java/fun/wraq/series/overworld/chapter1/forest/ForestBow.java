@@ -19,11 +19,11 @@ import java.util.List;
 
 public class ForestBow extends WraqBow implements OnHitEffectEquip {
 
-    public ForestBow(Properties p_40524_, int tier) {
-        super(p_40524_);
-        Utils.attackDamage.put(this, new double[]{50, 55, 60, 70}[tier]);
-        Utils.defencePenetration0.put(this, new double[]{1, 1, 2, 2}[tier]);
-        Utils.critRate.put(this, new double[]{0.2f, 0.2f, 0.2f, 0.25f}[tier]);
+    public ForestBow(Properties properties, int tier) {
+        super(properties);
+        Utils.attackDamage.put(this, new double[]{25, 45, 60, 70}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{3, 5, 2, 2}[tier]);
+        Utils.critRate.put(this, new double[]{0.15, 0.25, 0.2, 0.25}[tier]);
         Element.lifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

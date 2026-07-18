@@ -127,7 +127,7 @@ public class BowEvent {
                             List<Mob> mobList = myArrow.level().getEntitiesOfClass(Mob.class,
                                     AABB.ofSize(pos, 0.75, 0.75, 0.75));
                             for (Mob mob : mobList) {
-                                if (mob.getEyePosition().distanceTo(pos) < distance) {
+                                if (Compute.isWraqMob(mob) && mob.getEyePosition().distanceTo(pos) < distance) {
                                     distance = mob.getEyePosition().distanceTo(pos);
                                     nearestMob = mob;
                                 }

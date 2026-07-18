@@ -72,7 +72,7 @@ public class ForestZombieSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList(int xpLevel) {
         List<ItemAndRate> drops = new ArrayList<>();
-        drops.add(new ItemAndRate(ModItems.FOREST_SOUL.get(), 0.8));
+        drops.add(new ItemAndRate(ModItems.FOREST_SOUL.get(), 0.1));
         drops.add(new ItemAndRate(ModItems.COPPER_COIN.get(), 1.5));
         drops.add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01));
         drops.add(ItemAndRate.ofExp(2));

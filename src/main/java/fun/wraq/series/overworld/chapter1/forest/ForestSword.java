@@ -32,10 +32,11 @@ public class ForestSword extends WraqSword implements ActiveItem {
     public ForestSword(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.attackDamage.put(this, new double[]{50, 55, 60, 70}[tier]);
-        Utils.defencePenetration0.put(this, new double[]{1, 1, 2, 2}[tier]);
+        Utils.attackDamage.put(this, new double[]{25, 45, 60, 70}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{3, 5, 2, 2}[tier]);
         Utils.healthSteal.put(this, new double[]{0.02, 0.02, 0.02, 0.02}[tier]);
-        Utils.critRate.put(this, new double[]{0.3, 0.3, 0.3, 0.3}[tier]);
+        Utils.critRate.put(this, new double[]{0.1, 0.2, 0.3, 0.3}[tier]);
+        Utils.attackSpeedEnhance.put(this, -0.2);
         Element.lifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

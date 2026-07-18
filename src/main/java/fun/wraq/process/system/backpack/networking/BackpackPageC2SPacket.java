@@ -7,8 +7,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkHooks;
@@ -16,18 +16,23 @@ import net.minecraftforge.network.NetworkHooks;
 import java.util.function.Supplier;
 
 /**
- * AI-Generated, 2026-07-12
- * 客户端按下 B 键后发送到此包 → 服务端打开背包 GUI（第 0 页）。
+ * AI-Generated, 2026-07-18
+ * 客户端请求翻页。服务端收到后在目标页打开新背包菜单。
  */
-public class OpenBackpackC2SPacket {
+public class BackpackPageC2SPacket {
 
-    public OpenBackpackC2SPacket() {
+    private final int targetPage;
+
+    public BackpackPageC2SPacket(int targetPage) {
+        this.targetPage = targetPage;
     }
 
-    public OpenBackpackC2SPacket(FriendlyByteBuf buf) {
+    public BackpackPageC2SPacket(FriendlyByteBuf buf) {
+        this.targetPage = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
+        buf.writeInt(targetPage);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -37,6 +42,9 @@ public class OpenBackpackC2SPacket {
             if (player == null) return;
 
             BackpackData data = BackpackFileManager.get(player.getUUID());
+            int maxPage = data.getMaxPage();
+            int page = Math.max(0, Math.min(targetPage, maxPage));
+            int finalPage = page;
 
             NetworkHooks.openScreen(player, new MenuProvider() {
                 @Override
@@ -46,12 +54,12 @@ public class OpenBackpackC2SPacket {
 
                 @Override
                 public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-                    return BackpackMenu.server(id, inv, data, 0);
+                    return BackpackMenu.server(id, inv, data, finalPage);
                 }
             }, buf -> {
                 buf.writeInt(data.getSlotCount());
                 buf.writeInt(data.getSlotLimitTier());
-                buf.writeInt(0); // pageOffset
+                buf.writeInt(finalPage);
             });
         });
         return true;

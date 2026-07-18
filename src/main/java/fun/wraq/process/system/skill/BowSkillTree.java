@@ -59,6 +59,10 @@ public class BowSkillTree {
     private static final PlayerHashMap<Mob> skillIndex3TargetMap = new PlayerHashMap<>();
 
     public static void skillIndex3Hit(Player player, Mob mob) {
+        int tier = getBowSkillTier(player, 3);
+        if (tier <= 0) {
+            return;
+        }
         if (mob.equals(skillIndex3TargetMap.getOrDefault(player, null))) {
             skillIndex3CountMap.increment(player, 10);
             ModNetworking.sendToClient(new SkillImageS2CPacket(4, 10, 10,

@@ -91,7 +91,7 @@ public class Reason {
         if (value < 0) {
             data.putInt(REASON_KEY, reasonValue);
             sendReasonValuePacketToClient(player);
-            sendFormatMSG(player, Te.s("失去了", ChatFormatting.RED, value + "理智", CustomStyle.styleOfFlexible,
+            sendFormatMSG(player, Te.s("失去了", ChatFormatting.RED, -value + "理智", CustomStyle.styleOfFlexible,
                     "，当前拥有", getPlayerReasonValue(player) + "理智", CustomStyle.styleOfFlexible));
         } else {
             data.putInt(REASON_KEY, Math.min(reasonValue, maxReasonValue));

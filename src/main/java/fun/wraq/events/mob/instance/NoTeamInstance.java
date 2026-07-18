@@ -57,6 +57,7 @@ public abstract class NoTeamInstance {
     public Set<Player> players = new CopyOnWriteArraySet<>();
     public int spawnTick = 0;
     public int clearTick = 0;
+    protected long startTime;
 
     public NoTeamInstance(final Vec3 pos, final double range, final int delayTick,
                           final Vec3 armorStandPos, final MutableComponent name, int level) {
@@ -91,6 +92,7 @@ public abstract class NoTeamInstance {
             spawnTick = Tick.get();
             players.addAll(getNearPlayers(level));
             summonModule(level);
+            startTime = System.currentTimeMillis();
         }
         if (getNearPlayers (level).isEmpty()
                 && (players.isEmpty() || players.stream().allMatch(LivingEntity::isDeadOrDying))) {
@@ -132,7 +134,11 @@ public abstract class NoTeamInstance {
 
     public abstract void summonModule(Level level);
 
-    public Item getSummonAndRewardNeedItem() {
+    public Item getSummonNeedItem() {
+        return ModItems.NOTE_PAPER.get();
+    }
+
+    public Item getRewardNeedItem() {
         return ModItems.NOTE_PAPER.get();
     }
 
@@ -145,7 +151,7 @@ public abstract class NoTeamInstance {
     }
 
     private boolean checkReason(Player player) {
-        if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
+        if (getRewardNeedItem().equals(ModItems.REASON.get())) {
             return Reason.getPlayerReasonValue(player) >= getRewardNeedItemCount();
         }
         return false;
@@ -154,67 +160,59 @@ public abstract class NoTeamInstance {
     public void rewardPlayers() {
         players.forEach(player -> {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
-                int needLevel = (int) (level * 0.8);
                 if (!player.isCreative() && !allowReward(player) && allowRewardCondition() != null) {
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             allowRewardCondition());
                     return;
                 }
-                if (player.experienceLevel < needLevel) {
-                    Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
-                            Component.literal("你没有达到获取奖励所需的等级: ").withStyle(ChatFormatting.WHITE).
-                                    append(Component.literal("Lv." + needLevel).withStyle(Utils.levelStyleList.get(needLevel / 25))).
-                                    append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
-                } else {
-                    if (InventoryOperation.checkItemRemoveIfHas(player,
-                            List.of(new ItemStack(getSummonAndRewardNeedItem(), getRewardNeedItemCount())))
-                            || checkReason(player)) {
-                        if (checkReason(player)) {
-                            Reason.addOrCostPlayerReasonValue(player, -getRewardNeedItemCount());
-                        }
-                        List<ItemAndRate> rewardList = getRewardList();
-                        rewardList.forEach(itemAndRate -> {
-                            ItemStack copyStack = itemAndRate.getItemStack().copy();
-                            Item copyItem = copyStack.getItem();
-                            AdjustStackBeforeGive adjustStackBeforeGive = stack -> {
-                                ForgeEquipUtils.setForgeQualityOnEquip(stack, RandomUtils.nextInt(2, 6));
-                            };
-                            boolean isEquip
-                                    = Utils.mainHandTag.containsKey(copyItem) || Utils.armorTag.containsKey(copyItem);
-                            ItemStack rewardStack = itemAndRate.sendWithMSG(player, getRewardNum(),
-                                    isEquip ? adjustStackBeforeGive : null);
-                            boolean reward = !rewardStack.is(Items.AIR);
-                            if (itemAndRate.getRate() <= 0.01 && reward) {
-                                if (isEquip) {
-                                    Compute.forgingHoverName(rewardStack);
-                                }
-                                Compute.formatBroad(Te.s("领主级怪物", CustomStyle.styleOfRed),
-                                        Te.s(player.getDisplayName(), "击败", name,
-                                        "获得了", rewardStack));
-                                if (copyItem instanceof PurpleIronCommon) {
-                                    NoTeamInstanceModule.putPlayerAllowReward(player,
-                                            NoTeamInstanceModule.AllowRewardKey.iceKnight, true);
-                                }
-                            }
-                        });
-                        MobSpawn.incrementPlayerKillCount(player, name.getString());
-                        MyExpSystem.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
-                        exReward(player);
-                    } else {
-                        if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get()) && !checkReason(player)) {
-                            Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
-                                    Te.s("需要至少", getRewardNeedItemCount() + "理智",
-                                            CustomStyle.styleOfFlexible, "才能获取奖励."));
-                        } else {
-                            Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
-                                    Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
-                                            append(getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName()).
-                                            append(Te.s(" * " + getRewardNeedItemCount(), ChatFormatting.AQUA)).
-                                            append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
-                        }
+                if (InventoryOperation.checkItemRemoveIfHas(player,
+                        List.of(new ItemStack(getRewardNeedItem(), getRewardNeedItemCount())))
+                        || checkReason(player)) {
+                    if (checkReason(player)) {
+                        Reason.addOrCostPlayerReasonValue(player, -getRewardNeedItemCount());
                     }
-                    MissionV2Helper.onChallengeFinished(player, name.getString());
+                    List<ItemAndRate> rewardList = getRewardList();
+                    rewardList.forEach(itemAndRate -> {
+                        ItemStack copyStack = itemAndRate.getItemStack().copy();
+                        Item copyItem = copyStack.getItem();
+                        AdjustStackBeforeGive adjustStackBeforeGive = stack -> {
+                            ForgeEquipUtils.setForgeQualityOnEquip(stack, RandomUtils.nextInt(2, 6));
+                        };
+                        boolean isEquip
+                                = Utils.mainHandTag.containsKey(copyItem) || Utils.armorTag.containsKey(copyItem);
+                        ItemStack rewardStack = itemAndRate.sendWithMSG(player, getRewardNum(),
+                                isEquip ? adjustStackBeforeGive : null);
+                        boolean reward = !rewardStack.is(Items.AIR);
+                        if (itemAndRate.getRate() <= 0.01 && reward) {
+                            if (isEquip) {
+                                Compute.forgingHoverName(rewardStack);
+                            }
+                            Compute.formatBroad(prefix(),
+                                    Te.s(player.getDisplayName(), "击败", name,
+                                            "获得了", rewardStack));
+                            if (copyItem instanceof PurpleIronCommon) {
+                                NoTeamInstanceModule.putPlayerAllowReward(player,
+                                        NoTeamInstanceModule.AllowRewardKey.iceKnight, true);
+                            }
+                        }
+                    });
+                    MobSpawn.incrementPlayerKillCount(player, name.getString());
+                    MyExpSystem.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
+                    exReward(player);
+                } else {
+                    if (getRewardNeedItem().equals(ModItems.REASON.get()) && !checkReason(player)) {
+                        Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
+                                Te.s("需要至少", getRewardNeedItemCount() + "理智",
+                                        CustomStyle.styleOfFlexible, "才能获取奖励."));
+                    } else {
+                        Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                                Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
+                                        append(getRewardNeedItem().getDefaultInstance().getDisplayName()).
+                                        append(Te.s(" * " + getRewardNeedItemCount(), ChatFormatting.AQUA)).
+                                        append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
+                    }
                 }
+                MissionV2Helper.onChallengeFinished(player, name.getString());
             }
         });
     }
@@ -223,7 +221,7 @@ public abstract class NoTeamInstance {
         Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
-            if (stack.is(getSummonAndRewardNeedItem())) return true;
+            if (stack.is(getSummonNeedItem())) return true;
         }
         return false;
     }
@@ -241,15 +239,15 @@ public abstract class NoTeamInstance {
             int tick = Tick.get();
             int count = 2;
             if (tick > summonTick) {
-                if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
+                if (getSummonNeedItem().equals(ModItems.REASON.get())) {
                     summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
                             ModItems.NOTE_PAPER.get(), "右键以召唤", ChatFormatting.AQUA));
                 } else {
                     summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
-                            getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName(),
+                            getSummonNeedItem().getDefaultInstance().getDisplayName(),
                             "右键以召唤", ChatFormatting.AQUA));
                 }
-                if (getSummonAndRewardNeedItem().equals(ModItems.REASON.get())) {
+                if (getRewardNeedItem().equals(ModItems.REASON.get()) && getRewardNeedItemCount() > 0) {
                     summonArmorStand(level, new Vec3(0, -0.25 * count, 0),
                             Te.s("获取奖励需要消耗",
                                     getRewardNeedItemCount() + "理智", CustomStyle.styleOfFlexible));
@@ -263,7 +261,7 @@ public abstract class NoTeamInstance {
                         append(Component.literal(String.valueOf((summonTick - tick) / 20)).withStyle(ChatFormatting.WHITE)).
                         append(Component.literal("秒").withStyle(ChatFormatting.WHITE)));
             }
-            summonArmorStand(level, new Vec3(0, 0, 0), Te.s("领主级怪物", ChatFormatting.RED, ":", name));
+            summonArmorStand(level, new Vec3(0, 0, 0), Te.s(prefix(), ":", name));
         } else {
             List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos, range * 2, range * 2, range * 2));
             armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
@@ -354,5 +352,17 @@ public abstract class NoTeamInstance {
 
     public MobAttributes getMainMobAttributes() {
         return null;
+    }
+
+    protected boolean allowSummon(Player player) {
+        return true;
+    }
+
+    protected Component disallowReason(Player player) {
+        return null;
+    }
+
+    protected Component prefix() {
+        return Te.s("领主级怪物", CustomStyle.styleOfRed);
     }
 }

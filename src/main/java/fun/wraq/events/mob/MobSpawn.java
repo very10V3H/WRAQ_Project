@@ -349,17 +349,17 @@ public class MobSpawn {
                                                 double critRate, double critDamage, double defencePenetration,
                                                 double defencePenetration0, double healthSteal, double maxHealth,
                                                 double movementSpeed) {
-            String mobName = mob.getName().getString();
+            String mobName = getMobOriginName(mob);
 
             if (fromCSVAttributes.isEmpty()) {
-                MobBaseAttributes.attackDamage.put(mobName, attackDamage * 2);
+                MobBaseAttributes.attackDamage.put(mobName, attackDamage);
                 MobBaseAttributes.defence.put(mobName, defence);
                 MobBaseAttributes.manaDefence.put(mobName, manaDefence);
                 MobBaseAttributes.critRate.put(mobName, critRate);
                 MobBaseAttributes.critDamage.put(mobName, critDamage);
                 MobBaseAttributes.defencePenetration.put(mobName, defencePenetration);
                 MobBaseAttributes.defencePenetration0.put(mobName, defencePenetration0);
-                MobBaseAttributes.healthSteal.put(mobName, healthSteal * 0.2);
+                MobBaseAttributes.healthSteal.put(mobName, healthSteal);
                 mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
                 mob.setHealth(mob.getMaxHealth());
                 MobBaseAttributes.movementSpeed.put(mobName, movementSpeed);

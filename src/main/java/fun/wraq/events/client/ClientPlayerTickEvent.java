@@ -147,6 +147,7 @@ public class ClientPlayerTickEvent {
         }
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)
                 && event.player.equals(Minecraft.getInstance().player)) {
+            ClientAttackEvent.tick();
             if (ClientUtils.missionScreenFlag != -1) {
                 Minecraft.getInstance().setScreen(new MissionScreen(ClientUtils.missionScreenFlag, 0));
                 ClientUtils.missionScreenFlag = -1;

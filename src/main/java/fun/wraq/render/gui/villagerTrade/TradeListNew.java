@@ -11,6 +11,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.crystal.CrystalItems;
+import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.wind.WindItems;
@@ -50,6 +51,8 @@ public class TradeListNew {
 
     public static void init() {
         stage1();
+        stage2();
+        curio1();
 /*        cookingCrop();
         cookingFruit();
         cookingMushroom();
@@ -84,7 +87,80 @@ public class TradeListNew {
                         Pair.of(Is.n(PLAIN_BOW_0),
                                 List.of(Is.n(COPPER_COIN, 30))),
                         Pair.of(Is.n(LIFE_SCEPTRE_0),
-                                List.of(Is.n(COPPER_COIN, 30)))
+                                List.of(Is.n(COPPER_COIN, 30))),
+                        Pair.of(Is.n(PLAIN_BOOTS),
+                                List.of(Is.n(COPPER_COIN, 30))),
+
+                        Pair.of(Is.n(PLAIN_RUNE),
+                                List.of(Is.n(COPPER_COIN, 200), Is.n(PLAIN_SOUL, 30))),
+                        Pair.of(Is.n(PLAIN_SWORD_1),
+                                List.of(Is.n(PLAIN_SWORD_0), Is.n(PLAIN_RUNE))),
+                        Pair.of(Is.n(PLAIN_BOW_1),
+                                List.of(Is.n(PLAIN_BOW_0), Is.n(PLAIN_RUNE))),
+                        Pair.of(Is.n(LIFE_SCEPTRE_1),
+                                List.of(Is.n(LIFE_SCEPTRE_0), Is.n(PLAIN_RUNE))),
+                        Pair.of(Is.n(NewRuneItems.PLAIN_NEW_RUNE),
+                                List.of(Is.n(PLAIN_RUNE, 2))),
+                        Pair.of(Is.n(U_DISK),
+                                List.of(Is.n(COPPER_COIN, 300)))
+                ));
+    }
+
+    public static void stage2() {
+        MyVillagerData.setMyVillagerDataWraq3("阶段2商人", "阶段2商人", CustomStyle.styleOfForest,
+                List.of(
+                        Pair.of(Is.n(FOREST_SWORD_0),
+                                List.of(Is.n(COPPER_COIN, 100))),
+                        Pair.of(Is.n(FOREST_BOW_0),
+                                List.of(Is.n(COPPER_COIN, 100))),
+                        Pair.of(Is.n(FOREST_CHEST),
+                                List.of(Is.n(COPPER_COIN, 100))),
+
+                        Pair.of(Is.n(FOREST_RUNE),
+                                List.of(Is.n(COPPER_COIN, 300), Is.n(FOREST_SOUL, 30))),
+                        Pair.of(Is.n(FOREST_SWORD_1),
+                                List.of(Is.n(FOREST_RUNE), Is.n(FOREST_SWORD_0))),
+                        Pair.of(Is.n(FOREST_BOW_1),
+                                List.of(Is.n(FOREST_RUNE), Is.n(FOREST_BOW_0))),
+                        Pair.of(Is.n(LIFE_SCEPTRE_2),
+                                List.of(Is.n(FOREST_RUNE), Is.n(LIFE_SCEPTRE_1))),
+                        Pair.of(Is.n(NewRuneItems.FOREST_NEW_RUNE),
+                                List.of(Is.n(FOREST_RUNE, 2)))
+                ));
+    }
+
+    public static void curio1() {
+        MyVillagerData.setMyVillagerDataWraq3("宝石商人", "宝石商人", CustomStyle.styleOfGold,
+                List.of(
+                        Pair.of(Is.n(PLAIN_RING),
+                                List.of(Is.n(COPPER_COIN, 888), Is.n(COMPLETE_GEM), Is.n(PLAIN_RUNE))),
+                        Pair.of(Is.n(FOREST_RING),
+                                List.of(Is.n(COPPER_COIN, 888), Is.n(COMPLETE_GEM), Is.n(FOREST_RUNE))),
+                        Pair.of(Is.n(LAKE_RING),
+                                List.of(Is.n(COPPER_COIN, 888), Is.n(COMPLETE_GEM), Is.n(LAKE_RUNE))),
+                        Pair.of(Is.n(VOLCANO_RING),
+                                List.of(Is.n(COPPER_COIN, 888), Is.n(COMPLETE_GEM), Is.n(VOLCANO_RUNE))),
+
+                        Pair.of(Is.n(RUBY_NECKLACE),
+                                List.of(Is.n(COPPER_COIN, 8888))),
+                        Pair.of(Is.n(RUBY_NECKLACE_1),
+                                List.of(Is.n(COPPER_COIN, 18888), Is.n(RUBY_NECKLACE))),
+                        Pair.of(Is.n(RUBY_NECKLACE_2),
+                                List.of(Is.n(COPPER_COIN, 28888), Is.n(RUBY_NECKLACE))),
+                        Pair.of(Is.n(RUBY_NECKLACE_3),
+                                List.of(Is.n(COPPER_COIN, 38888), Is.n(RUBY_NECKLACE))),
+
+                        Pair.of(Is.n(SAPPHIRE_NECKLACE),
+                                List.of(Is.n(COPPER_COIN, 8888))),
+                        Pair.of(Is.n(SAPPHIRE_NECKLACE_1),
+                                List.of(Is.n(COPPER_COIN, 18888), Is.n(SAPPHIRE_NECKLACE))),
+                        Pair.of(Is.n(SAPPHIRE_NECKLACE_2),
+                                List.of(Is.n(COPPER_COIN, 28888), Is.n(SAPPHIRE_NECKLACE))),
+                        Pair.of(Is.n(SAPPHIRE_NECKLACE_3),
+                                List.of(Is.n(COPPER_COIN, 38888), Is.n(SAPPHIRE_NECKLACE))),
+
+                        Pair.of(Is.n(FANCY_SAPPHIRE_NECKLACE),
+                                List.of(Is.n(COPPER_COIN, 88888), Is.n(RUBY_NECKLACE_3), Is.n(SAPPHIRE_NECKLACE_3)))
                 ));
     }
 

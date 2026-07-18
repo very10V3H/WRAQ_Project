@@ -71,6 +71,7 @@ import fun.wraq.process.func.security.mac.network.MacC2SPacket;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.backpack.networking.BackpackUpgradeC2SPacket;
 import fun.wraq.process.system.backpack.networking.OpenBackpackC2SPacket;
+import fun.wraq.process.system.backpack.networking.BackpackPageC2SPacket;
 import fun.wraq.process.system.cooking.network.CookingDataS2CPacket;
 import fun.wraq.process.system.element.networking.*;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
@@ -96,6 +97,7 @@ import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlay
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstancePrepareInfoS2CPacket;
 import fun.wraq.process.system.tower.TowerChallengeC2SPacket;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
+import fun.wraq.process.system.tp.networking.WaypointTeleportS2CPacket;
 import fun.wraq.process.system.vp.networking.VpStoreBuyC2SPacket;
 import fun.wraq.process.system.vp.networking.VpValueS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.ClientWayPointS2CPacket;
@@ -915,6 +917,11 @@ public class ModNetworking {
                 .encoder(TowerStatusS2CPacket::toBytes)
                 .consumerMainThread(TowerStatusS2CPacket::handle)
                 .add();
+        net.messageBuilder(WaypointTeleportS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(WaypointTeleportS2CPacket::new)
+                .encoder(WaypointTeleportS2CPacket::toBytes)
+                .consumerMainThread(WaypointTeleportS2CPacket::handle)
+                .add();
         net.messageBuilder(TowerChallengeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(TowerChallengeC2SPacket::new)
                 .encoder(TowerChallengeC2SPacket::toBytes)
@@ -1456,6 +1463,13 @@ public class ModNetworking {
                 .consumerMainThread(OpenBackpackC2SPacket::handle)
                 .add();
         V2_PACKAGE_CLASS.add(OpenBackpackC2SPacket.class);
+
+        netV2.messageBuilder(BackpackPageC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(BackpackPageC2SPacket::new)
+                .encoder(BackpackPageC2SPacket::toBytes)
+                .consumerMainThread(BackpackPageC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(BackpackPageC2SPacket.class);
 
         netV2.messageBuilder(BackpackUpgradeC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(BackpackUpgradeC2SPacket::new)

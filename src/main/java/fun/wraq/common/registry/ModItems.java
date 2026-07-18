@@ -301,7 +301,7 @@ public class ModItems {
     public static final RegistryObject<Item> PLAIN_SOUL = ITEMS.register("plain_souls",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Plain)));
     public static final RegistryObject<Item> PLAIN_RUNE = ITEMS.register("plain_runes",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PlainBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PlainBold), true, true));
     public static final RegistryObject<Item> PLAIN_SWORD_0 = ITEMS.register("plainsword0",
             () -> new PlainSword(new Item.Properties().rarity(CustomStyle.PlainItalic), 0));
     public static final RegistryObject<Item> PLAIN_SWORD_1 = ITEMS.register("plainsword1",
@@ -356,7 +356,7 @@ public class ModItems {
     public static final RegistryObject<Item> FOREST_SOUL = ITEMS.register("forestsoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Forest)));
     public static final RegistryObject<Item> FOREST_RUNE = ITEMS.register("forestrune",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.ForestBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.ForestBold), true, true));
 
     public static final RegistryObject<Item> FOREST_SWORD_0 = ITEMS.register("forestsword0",
             () -> new ForestSword(new Item.Properties().rarity(CustomStyle.ForestItalic), 0));

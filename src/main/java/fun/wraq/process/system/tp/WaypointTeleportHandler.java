@@ -6,24 +6,31 @@ import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.tp.networking.WaypointTeleportS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.spring2024.FireworkGun;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,34 +40,188 @@ public class WaypointTeleportHandler {
 
     /** 允许传送的目的地列表 (名称 → 坐标) */
     public static final Map<String, Vec3> ALLOWED_WAYPOINTS = new LinkedHashMap<>() {{
-        put("平原村", new Vec3(756, 84, 207));
-        put("天空城", new Vec3(956, 232, 17));
-        put("雨林村", new Vec3(1091, 80, 40));
-        put("海岸村", new Vec3(889, 62, -422));
-        put("火山村", new Vec3(2573, 120, -492));
-        put("薰楠村", new Vec3(1157, 76, -1077));
-        put("薰曦村", new Vec3(1036, 76, -1288));
-        put("北洋村", new Vec3(1329, 71, -1612));
-        put("沙岸村", new Vec3(1911, 86, 1688));
-        put("绯樱村", new Vec3(2381, 182, 1752));
-        put("望山据点", new Vec3(1921, 151, -936));
-        put("旭升岛", new Vec3(1808, 74, 339));
-        put("北望村", new Vec3(1731, 137, 1875));
-        put("极冬村", new Vec3(2742, 131, -3862));
-        put("东洋塔", new Vec3(2335, 148, 17));
-        put("尘月之梦", new Vec3(1147, 300, 554));
-        put("暗黑城堡", new Vec3(2417, 152, -1372));
-        put("菌菇聚落", new Vec3(2006, 130, -1785));
-        put("海底神殿", new Vec3(1088, 23, 892));
-        put("雷光岛", new Vec3(1743, 68, 1285));
+        put("潮汐城中央广场", new Vec3(3925, 82, 3499));
+        put("潮汐城东北门", new Vec3(3977, 76, 3416));
+        put("项潮林", new Vec3(4021, 119, 3158));
     }};
 
     /** 坐标匹配容差 (方块半径) */
     private static final double MATCH_TOLERANCE = 3.0;
 
+    /** 解锁交互范围 */
+    private static final double UNLOCK_RANGE = 4.0;
+
     /** 匹配 /tp @s <x> <y> <z> 格式 */
     private static final Pattern TP_SELF_COORDS_PATTERN =
             Pattern.compile("^/?tp @s (-?\\d+(?:\\.\\d+)?) (-?\\d+(?:\\.\\d+)?) (-?\\d+(?:\\.\\d+)?)$");
+
+    // =================================================================
+    //  待传送队列：冷却时记录目标，冷却结束后自动传送
+    // =================================================================
+
+    /** 玩家名 → {目标坐标, 锚点名} */
+    private static final Map<String, PendingTeleport> pendingTeleports = new HashMap<>();
+
+    private record PendingTeleport(Vec3 pos, String name) {}
+
+    @SubscribeEvent
+    public static void onServerTick(net.minecraftforge.event.TickEvent.ServerTickEvent event) {
+        if (event.phase != net.minecraftforge.event.TickEvent.Phase.END) return;
+
+        Iterator<Map.Entry<String, PendingTeleport>> it = pendingTeleports.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, PendingTeleport> entry = it.next();
+            String pName = entry.getKey();
+            PendingTeleport pending = entry.getValue();
+
+            int tick = Tick.get();
+            int cooldownEnd = GateWay.playerTPCooldownMap.getOrDefault(pName, 0);
+            if (tick >= cooldownEnd) {
+                ServerPlayer player = Tick.server.getPlayerList().getPlayerByName(pName);
+                if (player != null && player.isAlive()) {
+                    Vec3 target = pending.pos();
+                    player.teleportTo(player.server.getLevel(Level.OVERWORLD),
+                            target.x, target.y, target.z, player.getYRot(), player.getXRot());
+                    Compute.sendFormatMSG(player,
+                            Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
+                            Te.s("冷却结束，已自动传送至 - ", pending.name(), CustomStyle.styleOfWorld));
+                }
+                it.remove();
+            }
+        }
+    }
+
+
+    // =================================================================
+    //  玩家 persistentData 存储 key
+    // =================================================================
+
+    private static final String WAYPOINT_TP_DATA_KEY = "WaypointTPData";
+
+    /**
+     * 获取玩家传送锚点数据所在的 CompoundTag
+     */
+    private static CompoundTag getWaypointData(Player player) {
+        CompoundTag data = player.getPersistentData();
+        if (!data.contains(WAYPOINT_TP_DATA_KEY)) {
+            data.put(WAYPOINT_TP_DATA_KEY, new CompoundTag());
+        }
+        return data.getCompound(WAYPOINT_TP_DATA_KEY);
+    }
+
+    /**
+     * 判断玩家是否已解锁指定锚点
+     */
+    public static boolean isWaypointUnlocked(Player player, String waypointName) {
+        return getWaypointData(player).getBoolean(waypointName);
+    }
+
+    /**
+     * 设置锚点解锁状态
+     */
+    private static void setWaypointUnlocked(Player player, String waypointName) {
+        getWaypointData(player).putBoolean(waypointName, true);
+    }
+
+    /**
+     * 获取所有锚点的解锁状态数组（用于 S2C 同步）
+     */
+    private static String[] getAllWaypointNames() {
+        return ALLOWED_WAYPOINTS.keySet().toArray(new String[0]);
+    }
+
+    private static boolean[] getUnlockedStatusArray(Player player) {
+        String[] names = getAllWaypointNames();
+        boolean[] status = new boolean[names.length];
+        for (int i = 0; i < names.length; i++) {
+            status[i] = isWaypointUnlocked(player, names[i]);
+        }
+        return status;
+    }
+
+    /**
+     * 向客户端同步所有锚点的解锁状态
+     */
+    private static void syncAllToClient(Player player) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            ModNetworking.sendToClient(
+                    new WaypointTeleportS2CPacket(getAllWaypointNames(), getUnlockedStatusArray(player)),
+                    serverPlayer);
+        }
+    }
+
+    // =================================================================
+    //  玩家登录时同步锚点状态
+    // =================================================================
+
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            syncAllToClient(serverPlayer);
+        }
+    }
+
+    // =================================================================
+    //  右键解锁锚点 (监听所有右键方式：物品/空点/方块)
+    // =================================================================
+
+    @SubscribeEvent
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        tryUnlockWaypoint(event);
+    }
+
+    @SubscribeEvent
+    public static void onRightClickEmpty(PlayerInteractEvent.RightClickEmpty event) {
+        tryUnlockWaypoint(event);
+    }
+
+    @SubscribeEvent
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        tryUnlockWaypoint(event);
+    }
+
+    private static void tryUnlockWaypoint(PlayerInteractEvent event) {
+        if (event.getSide().isClient()) return;
+        if (event.getHand() != net.minecraft.world.InteractionHand.MAIN_HAND) return;
+        Player player = event.getEntity();
+        if (!(player instanceof ServerPlayer serverPlayer)) return;
+
+        // 检查是否在任意锚点附近且可解锁
+        for (Map.Entry<String, Vec3> entry : ALLOWED_WAYPOINTS.entrySet()) {
+            String name = entry.getKey();
+            Vec3 wpPos = entry.getValue();
+            double dist = player.position().distanceTo(wpPos);
+
+            if (dist < UNLOCK_RANGE && !isWaypointUnlocked(player, name)) {
+                // 解锁
+                setWaypointUnlocked(player, name);
+
+                // 全量同步客户端状态 (避免单点更新覆盖其他条目)
+                syncAllToClient(serverPlayer);
+
+                // 播放烟花特效
+                FireworkGun.summonFireWork(player.level(), wpPos);
+                // 额外在附近随机位置放几个烟花
+                Random random = new Random();
+                for (int i = 0; i < 3; i++) {
+                    Vec3 offset = new Vec3(
+                            (random.nextDouble() - 0.5) * 3,
+                            0.5,
+                            (random.nextDouble() - 0.5) * 3);
+                    FireworkGun.summonFireWork(player.level(), wpPos.add(offset));
+                }
+
+                Compute.sendFormatMSG(player,
+                        Te.s("传送锚点", CustomStyle.styleOfEnd),
+                        Te.s("已解锁传送锚点 - ", name, CustomStyle.styleOfWorld,
+                                "。按\"M\"打开地图右键路径点进行传送"));
+
+                event.setCanceled(true);
+                return;
+            }
+        }
+    }
+
 
     // =================================================================
     //  1. 反射移除 /tp 的 OP 要求
@@ -113,7 +274,7 @@ public class WaypointTeleportHandler {
     }
 
     // =================================================================
-    //  2. CommandEvent 拦截 /tp → 校验坐标 + 传送券 + 冷却
+    //  2. CommandEvent 拦截 /tp → 校验坐标 + 解锁状态 + 冷却
     // =================================================================
 
     @SubscribeEvent
@@ -129,7 +290,8 @@ public class WaypointTeleportHandler {
         if (!"tp".equals(cmdName)) return;
 
         // OP 玩家 → 放行 (完整 /tp 权限)
-        if (player.hasPermissions(2)) return;
+        /*if (player.hasPermissions(2)) return;*/
+        if (player.isCreative()) return;
 
         // 非 OP 玩家 → 拒绝执行，改为 VMD 的受控传送流
         event.setCanceled(true);
@@ -148,13 +310,29 @@ public class WaypointTeleportHandler {
 
         // 检查是否在允许的路径点列表中
         Vec3 target = new Vec3(x, y, z);
-        boolean allowed = ALLOWED_WAYPOINTS.values().stream()
-                .anyMatch(wp -> wp.distanceTo(target) < MATCH_TOLERANCE);
 
-        if (!allowed) {
+        // 找到匹配的锚点名称
+        String matchedName = null;
+        for (Map.Entry<String, Vec3> entry : ALLOWED_WAYPOINTS.entrySet()) {
+            if (entry.getValue().distanceTo(target) < MATCH_TOLERANCE) {
+                matchedName = entry.getKey();
+                break;
+            }
+        }
+
+        if (matchedName == null) {
             Compute.sendFormatMSG(player,
                     Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
                     Component.literal("此路径点不可传送").withStyle(ChatFormatting.RED));
+            return;
+        }
+
+        // 检查锚点是否已解锁
+        if (!isWaypointUnlocked(player, matchedName)) {
+            Compute.sendFormatMSG(player,
+                    Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
+                    Te.s("传送锚点 - ", matchedName, CustomStyle.styleOfWorld,
+                            " 尚未解锁！请前往该位置右键以解锁"));
             return;
         }
 
@@ -163,32 +341,21 @@ public class WaypointTeleportHandler {
         int tick = Tick.get();
         int cooldownEnd = GateWay.playerTPCooldownMap.getOrDefault(pName, 0);
         if (tick < cooldownEnd) {
+            // 记录待传送目标，冷却结束后自动传送
+            pendingTeleports.put(pName, new PendingTeleport(target, matchedName));
             Compute.sendFormatMSG(player,
                     Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
-                    Component.literal("传送冷却中，剩余 " + (cooldownEnd - tick) / 20 + " 秒")
-                            .withStyle(ChatFormatting.RED));
+                    Te.s("传送冷却中，剩余 ", String.valueOf((cooldownEnd - tick) / 20), " 秒",
+                            CustomStyle.styleOfFlexible, "。冷却结束后将自动传送至 ",
+                            matchedName, CustomStyle.styleOfWorld));
             return;
         }
-
-/*        // 检查传送券/通票 (复用 TpPass/GateWay 逻辑)
-        ItemStack validTpPass = TpPass.playerHasValidTpPass(player);
-        boolean hasTicket = InventoryOperation.itemStackCount(player, ModItems.TP_TICKET.get()) > 0;
-        boolean isPlanTier2 = PlanPlayer.getPlayerTier(player) >= 2;
-        if (!isPlanTier2 && validTpPass == null && !hasTicket) {
-            Compute.sendFormatMSG(player,
-                    Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
-                    Te.s("需要", ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName(), "或传送通票")
-                            .withStyle(ChatFormatting.RED));
-            return;
-        }
-
-        // 消耗传送券
-        if (!isPlanTier2 && hasTicket && validTpPass == null) {
-            InventoryOperation.removeItem(player.getInventory(), ModItems.TP_TICKET.get(), 1);
-        }*/
 
         // 执行传送
         player.teleportTo(player.server.getLevel(Level.OVERWORLD), x, y, z, player.getYRot(), player.getXRot());
+
+        // 清除待传送记录（主动传送后不再需要）
+        pendingTeleports.remove(pName);
 
         // 设置传送冷却 (3秒冷却，与 GateWay 的 60 tick 一致)
         GateWay.playerTPCooldownMap.put(pName, tick + 60);
@@ -214,13 +381,27 @@ public class WaypointTeleportHandler {
             double z = DoubleArgumentType.getDouble(context, "z");
 
             Vec3 target = new Vec3(x, y, z);
-            boolean allowed = ALLOWED_WAYPOINTS.values().stream()
-                    .anyMatch(wp -> wp.distanceTo(target) < MATCH_TOLERANCE);
 
-            if (!allowed) {
+            String matchedName = null;
+            for (Map.Entry<String, Vec3> entry : ALLOWED_WAYPOINTS.entrySet()) {
+                if (entry.getValue().distanceTo(target) < MATCH_TOLERANCE) {
+                    matchedName = entry.getKey();
+                    break;
+                }
+            }
+
+            if (matchedName == null) {
                 Compute.sendFormatMSG(player,
                         Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("此路径点不可传送").withStyle(ChatFormatting.RED));
+                return 0;
+            }
+
+            if (!isWaypointUnlocked(player, matchedName)) {
+                Compute.sendFormatMSG(player,
+                        Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
+                        Te.s("传送锚点 - ", matchedName, CustomStyle.styleOfWorld,
+                                " 尚未解锁！请前往该位置右键以解锁"));
                 return 0;
             }
 
