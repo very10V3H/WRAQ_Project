@@ -1,6 +1,7 @@
 /** AI-Generated, 2026-05-17 */
 package fun.wraq.process.system.stock;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.process.system.stock.StockIndex.ApiSource;
 
 import java.net.URI;
@@ -60,6 +61,7 @@ public class StockKLineFetcher {
             return new ArrayList<>(cached);
         }
 
+        LogUtils.getLogger().info("[Stock] try to fetch {}", index.getDisplayName());
         List<StockKLineData> result;
         try {
             if (index.getApiSource() == ApiSource.SINA) {

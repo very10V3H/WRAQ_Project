@@ -9,11 +9,8 @@ import fun.wraq.process.func.guide.networking.GuideDisplayS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
-import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
-import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +20,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -30,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/** AI-Generated, 2026-07-18 */
 public class Guide {
 
     public final List<Component> description;
@@ -66,290 +65,289 @@ public class Guide {
         player.getPersistentData().putString(keyV2, tag);
     }
 
+    // ==================== 引导阶段常量 ====================
+
     public static class StageV2 {
-        public static final String BACKPACK = "backpack";
+        // ===== 新引导流程 =====
+        public static final String UNLOCK_TIDE_CENTER = "unlockTideCenter";
+        public static final String MAP_TELEPORT_TIDE_CENTER = "mapTeleportTideCenter";
+        public static final String OPEN_BACKPACK = "openBackpack";
+        public static final String CLAIM_DAILY_SUPPLY = "claimDailySupply";
         public static final String ROLLING = "rolling";
-        public static final String ILLUSTRATE = "illustrate";
-        public static final String FIRST_KILL = "firstKill";
-        public static final String CHOOSE_SKILL_V2 = "chooseSkillV2";
-        public static final String FIRST_FORGE = "firstForge";
-        public static final String FIRST_INJECT = "firstInject";
-        public static final String ELEMENT_ROULETTE = "elementRoulette";
-        public static final String FOREST_EQUIP = "forestEquip";
-        public static final String LAKE_EQUIP = "lakeEquip";
-        public static final String MINE_EQUIP = "mineEquip";
-        public static final String VOLCANO_EQUIP = "volcanoEquip";
-        public static final String MANA_DAILY_INSTANCE = "manaDailyInstance";
-        public static final String DAILY_MISSION_STAR = "dailyMissionStar";
-        public static final String DAILY_MISSION_COLLECT = "dailyMissionCollect";
-        public static final String PLAIN_BOSS = "plainBoss";
-        public static final String PASSIVE_4_LEVEL = "passive4Level";
-        public static final String ENTRUSTMENT = "entrustment";
-        public static final String ENHANCE_EQUIP = "enhanceEquip";
-        public static final String TO_NETHER = "toNether";
-        public static final String NETHER_BOSS = "netherBoss";
-        public static final String PURPLE_IRON_BOSS = "purpleIronBoss";
-        public static final String CORRIDOR = "corridor";
-        public static final String ICE_KNIGHT = "iceKnight";
-        public static final String WEEKLY_STORE = "weeklyStore";
-        public static final String SAKURA_BOSS = "sakuraBoss";
-        public static final String DEVIL_BOSS = "devilBoss";
-        public static final String MOON_BOSS = "moonBoss";
-        public static final String FINAL = "final";
+        public static final String UNLOCK_TIDE_NORTHEAST = "unlockTideNortheast";
+        public static final String CHOOSE_SWORD_SKILL = "chooseSwordSkill";
+        public static final String KILL_10_PLAIN_ZOMBIE = "kill10PlainZombie";
+        public static final String BUY_PLAIN_WEAPON = "buyPlainWeapon";
+        public static final String BUY_U_DISK = "buyUDisk";
+        public static final String BUY_PLAIN_WEAPON_1 = "buyPlainWeapon1";
+        public static final String LEVEL_15 = "level15";
+        public static final String KILL_20_FOREST_ZOMBIE = "kill20ForestZombie";
+        public static final String BUY_FOREST_WEAPON = "buyForestWeapon";
+        public static final String LEVEL_32 = "level32";
+        public static final String UNLOCK_XIANGCHAOLIN = "unlockXiangchaolin";
+        public static final String DEFEAT_PLAIN_BOSS = "defeatPlainBoss";
+        public static final String DROWNED_CHALLENGE = "drownedChallenge";
+
+        // ===== 旧版常量保留（仅用于避免编译错误，无实际作用） =====
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String BACKPACK = "backpack";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String ILLUSTRATE = "illustrate";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String CHOOSE_SKILL_V2 = "chooseSkillV2";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String FIRST_KILL = "firstKill";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String FIRST_FORGE = "firstForge";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String FIRST_INJECT = "firstInject";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String ELEMENT_ROULETTE = "elementRoulette";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String FOREST_EQUIP = "forestEquip";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String LAKE_EQUIP = "lakeEquip";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String MINE_EQUIP = "mineEquip";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String VOLCANO_EQUIP = "volcanoEquip";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String MANA_DAILY_INSTANCE = "manaDailyInstance";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String DAILY_MISSION_STAR = "dailyMissionStar";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String DAILY_MISSION_COLLECT = "dailyMissionCollect";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String PLAIN_BOSS = "plainBoss";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String PASSIVE_4_LEVEL = "passive4Level";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String ENTRUSTMENT = "entrustment";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String ENHANCE_EQUIP = "enhanceEquip";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String TO_NETHER = "toNether";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String NETHER_BOSS = "netherBoss";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String PURPLE_IRON_BOSS = "purpleIronBoss";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String CORRIDOR = "corridor";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String ICE_KNIGHT = "iceKnight";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String WEEKLY_STORE = "weeklyStore";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String SAKURA_BOSS = "sakuraBoss";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String DEVIL_BOSS = "devilBoss";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String MOON_BOSS = "moonBoss";
+        /** @deprecated 旧版引导，仅保留兼容性 */
+        @Deprecated public static final String FINAL = "final";
     }
 
     private static final List<Guide> guides = new ArrayList<>();
 
+    // ==================== 引导定义 ====================
+
     public static List<Guide> getGuides() {
         if (guides.isEmpty()) {
+            // 1. 解锁潮汐城中央广场传送锚点
             guides.add(new Guide(List.of(
-                    Component.literal("引导 - 兑换背包").withStyle(ChatFormatting.GOLD),
-                    Te.s("根据路径点，找到", "背包商人", CustomStyle.styleOfGold, "，兑换背包")
-            ), new MyWayPoint(new Vec3(949, 236, -7), "背包商人", MyWayPoint.colorMap.get(MyWayPoint.gold), 1), null,
-                    StageV2.ROLLING));
+                    Component.literal("引导 - 解锁传送锚点").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往潮汐城中央广场，找到发光的", "传送锚点", CustomStyle.styleOfEnd),
+                    Te.s("站在附近", "右键", ChatFormatting.AQUA, "以解锁"),
+                    Te.s("按M打开世界地图可以看到自己的位置")
+            ), new MyWayPoint(new Vec3(3925, 82, 3499), "潮汐城中央广场传送锚点",
+                    MyWayPoint.colorMap.get(MyWayPoint.gold), 1), (player -> {
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()));
+            }), StageV2.MAP_TELEPORT_TIDE_CENTER));
+
+            // 2. 按下M使用世界地图传送
+            guides.add(new Guide(List.of(
+                    Component.literal("引导 - 使用路径点传送").withStyle(ChatFormatting.GOLD),
+                    Te.s("按", "M", ChatFormatting.AQUA, "打开世界地图"),
+                    Te.s("在地图上找到", "潮汐城中央广场", CustomStyle.styleOfSea, "的路径点标记"),
+                    Te.s("右键点击路径点，执行", "T", ChatFormatting.GREEN, "Teleport to Waypoint", "命令进行传送")
+            ), null, (player -> {
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(Items.GOLDEN_CARROT, 50));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(Items.BAKED_POTATO, 50));
+            }), StageV2.OPEN_BACKPACK));
+
+            // 3. 按下B打开背包
+            guides.add(new Guide(List.of(
+                    Component.literal("引导 - 打开个人背包").withStyle(ChatFormatting.GOLD),
+                    Te.s("按下", "B", ChatFormatting.AQUA, "键打开个人背包"),
+                    Te.s("你可以在背包中存放物品")
+            ), null, (player -> {
+                ItemStack elytra = new ItemStack(Items.ELYTRA);
+                elytra.enchant(Enchantments.UNBREAKING, 10);
+                InventoryOperation.giveItemStackWithMSG(player, elytra);
+            }), StageV2.CLAIM_DAILY_SUPPLY));
+
+            // 4. 右键身份卡领取每日补给
+            guides.add(new Guide(List.of(
+                    Component.literal("引导 - 领取每日补给").withStyle(ChatFormatting.GOLD),
+                    Te.s("右键", ModItems.ID_CARD, "打开身份卡"),
+                    Te.s("点击", "每日补给", CustomStyle.styleOfGold, "领取今日补给")
+            ), null, null, StageV2.ROLLING));
+
+            // 5. 按下z键使用翻滚
             guides.add(new Guide(List.of(
                     Component.literal("引导 - 使用翻滚").withStyle(ChatFormatting.GOLD),
-                    Te.s("按下z键，使用", "翻滚", CustomStyle.styleOfFlexible)), null, null,
-                    StageV2.ILLUSTRATE));
-            guides.add(new Guide(List.of(
-                    Component.literal("引导 - 打开图鉴").withStyle(ChatFormatting.GOLD),
-                    Te.s("右键", ModItems.ID_CARD, "打开", "图鉴", CustomStyle.styleOfGold)), null, null,
-                    StageV2.CHOOSE_SKILL_V2));
-            guides.add(new Guide(List.of(
-                    Component.literal("引导 - 选择技能组").withStyle(ChatFormatting.GOLD),
-                    Te.s("按下[N]键，打开",
-                            "技能配置页面", CustomStyle.styleOfWorld),
-                    Te.s("选择一个", "技能组", CustomStyle.styleOfWorld)), null, null,
-                    StageV2.FIRST_KILL));
-            guides.add(new Guide(new ArrayList<>() {{
-                add(Component.literal("引导 - 击杀第一只怪物").withStyle(ChatFormatting.GOLD));
-                add(Component.literal("前往平原村东侧，击杀").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("平原僵尸").withStyle(ChatFormatting.GREEN)));
-                add(Te.s("平原村", CustomStyle.styleOfPlain,
-                        "在", "天空城", CustomStyle.styleOfSky, "的西南方."));
-                add(Component.literal("你可以按下M打开地图，查看位置").withStyle(ChatFormatting.WHITE));
-            }}, new MyWayPoint(new Vec3(754, 78, 265), "平原僵尸刷怪点", MyWayPoint.colorMap.get(MyWayPoint.green), 1), null,
-                    StageV2.FIRST_FORGE));
-            guides.add(new Guide(new ArrayList<>() {{
-                add(Component.literal("引导 - 完成第一次锻造").withStyle(ChatFormatting.GOLD));
-                add(Component.literal("手持锻造锤右键锻造台").withStyle(ChatFormatting.WHITE));
-                add(Component.literal("打开锻造界面，进行锻造").withStyle(ChatFormatting.WHITE));
-                add(Component.literal("提示：推荐首先锻造").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("平原靴子").withStyle(ChatFormatting.GREEN)));
-                add(Te.s("离开", "平原村", CustomStyle.styleOfPlain, "之前，可以备一组", Items.LEATHER, "在身上"));
-                add(Te.s("后续制作", "防具", CustomStyle.styleOfStone, "时可能需要使用"));
-            }}, new MyWayPoint(new Vec3(730, 85, 211), "锻造台", MyWayPoint.colorMap.get(MyWayPoint.aqua), 1), null,
-                    StageV2.FIRST_INJECT));
-            guides.add(new Guide(new ArrayList<>() {{
-                add(Component.literal("引导 - 完成第一次灌注").withStyle(ChatFormatting.GOLD));
-                add(Component.literal("右键灌注台，对任意武器进行一次灌注").withStyle(ChatFormatting.WHITE));
-                add(Component.literal("对于描述最后一行有").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("[可灌注/增幅]").withStyle(CustomStyle.styleOfInject)));
-                add(Component.literal("的物品或装备，你可以把它放到").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("灌注台").withStyle(CustomStyle.styleOfInject)));
-                add(Component.literal("查看其灌注获得的物品及所需材料").withStyle(ChatFormatting.WHITE));
-            }}, new MyWayPoint(new Vec3(730, 85, 211), "灌注台", MyWayPoint.colorMap.get(MyWayPoint.purple), 1), null,
-                    StageV2.ELEMENT_ROULETTE));
-            guides.add(new Guide(new ArrayList<>() {{
-                add(Component.literal("引导 - 打开元素轮盘").withStyle(ChatFormatting.AQUA));
-                add(Component.literal("按下[左ALT]打开元素轮盘").withStyle(ChatFormatting.WHITE));
-            }}, null, (player -> {
-                ItemStack stack = new ItemStack(ModItems.PLAIN_RING.get());
-                Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
-                        Te.s("你完成了所有基础引导任务，接下来的引导将会指引你进行一般流程的游玩。",
-                                "这件", stack.getDisplayName(), "应该能在探索的途中帮到你。"));
-                sendFormatMSG(player, Te.s("你也可以", "关闭引导", ChatFormatting.RED, "自行探索"));
-                InventoryOperation.giveItemStackWithMSG(player, stack);
-                List.of(new ItemStack(ModItems.FOREST_RUNE.get()), new ItemStack(ModItems.SKILL_RESET.get(), 8))
-                        .forEach(itemStack -> {
-                    InventoryOperation.giveItemStackWithMSG(player, itemStack);
-                });
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
-            }), StageV2.FOREST_EQUIP));
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "森林装备", CustomStyle.styleOfForest),
-                    Te.s("击杀", "森林僵尸", CustomStyle.styleOfForest, "收集", ModItems.FOREST_SOUL.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.FOREST_RUNE.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
-                            "锻造任意", "森林装备", CustomStyle.styleOfForest),
-                    Te.s("注: 装备一般包含", "武器", ChatFormatting.AQUA, "与", "防具", CustomStyle.styleOfStone),
-                    Te.s("选择", "法术", CustomStyle.styleOfMana, "的玩家可以选择灌注", ModItems.LIFE_SCEPTRE_2),
-                    Te.s("至", ModItems.LIFE_SCEPTRE_3, "或", ModItems.LIFE_SCEPTRE_X),
-                    Te.s("或兑换", ModItems.FOREST_MANA_BOOK)
+                    Te.s("按下", "Z", ChatFormatting.AQUA, "键使用翻滚"),
+                    Te.s("翻滚可以躲避敌人的攻击")
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.LAKE_RUNE.get()));
-            }), StageV2.LAKE_EQUIP));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.BAMBOO_KANATA.get()));
+            }), StageV2.UNLOCK_TIDE_NORTHEAST));
+
+            // 6. 解锁潮汐城东北门传送锚点
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "湖泊装备", CustomStyle.styleOfLake),
-                    Te.s("击杀", "河流故灵", CustomStyle.styleOfLake, "收集", ModItems.LAKE_SOUL.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.LAKE_RUNE.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
-                            "锻造任意", "湖泊装备", CustomStyle.styleOfLake),
-                    Te.s("注: 装备一般包含", "武器", ChatFormatting.AQUA, "与", "防具", CustomStyle.styleOfStone),
-                    Te.s("选择", "法术", CustomStyle.styleOfMana, "的玩家可以选择兑换", ModItems.LAKE_MANA_BOOK)
+                    Component.literal("引导 - 解锁传送锚点").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往潮汐城", "东北门", CustomStyle.styleOfSea, "，找到传送锚点"),
+                    Te.s("站在附近", "右键", ChatFormatting.AQUA, "以解锁")
+            ), new MyWayPoint(new Vec3(3977, 76, 3416), "潮汐城东北门传送锚点",
+                    MyWayPoint.colorMap.get(MyWayPoint.gold), 1), (player -> {
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.COPPER_COIN.get(), 30));
+            }), StageV2.CHOOSE_SWORD_SKILL));
+
+            // 7. 按下N选择剑术-技能组，使用一次横扫
+            guides.add(new Guide(List.of(
+                    Component.literal("引导 - 使用剑术技能").withStyle(ChatFormatting.GOLD),
+                    Te.s("按下", "N", ChatFormatting.AQUA, "键打开技能界面"),
+                    Te.s("选择", "剑术", ChatFormatting.AQUA, "技能组"),
+                    Te.s("按下", "Q", ChatFormatting.AQUA, "键使用技能", "横扫", CustomStyle.styleOfPower)
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.MINE_RUNE.get()));
-            }), StageV2.MINE_EQUIP));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.PLAIN_CREST_0.get()));
+            }), StageV2.KILL_10_PLAIN_ZOMBIE));
+
+            // 8. 击杀10只平原僵尸
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "矿洞装备", CustomStyle.styleOfMine),
-                    Te.s("击杀", "被遗忘的矿工", CustomStyle.styleOfMine, "收集", ModItems.MINE_SOUL.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.MINE_RUNE.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
-                            "锻造任意", "矿洞装备", CustomStyle.styleOfMine),
-                    Te.s("注: 装备一般包含", "武器", ChatFormatting.AQUA, "与", "防具", CustomStyle.styleOfStone),
-                    Te.s("选择", "法术", CustomStyle.styleOfMana, "的玩家可以选择兑换", ModItems.MINE_MANA_NOTE),
-                    Te.s(""),
-                    Te.s("需要", Items.IRON_INGOT, "?", "找", "雨林村", CustomStyle.styleOfForest, "的",
-                            "采矿大师", CustomStyle.styleOfMine),
-                    Te.s("购买一把镐子，你可以用镐子", "挖掘", CustomStyle.styleOfStone, "任意矿石"),
-                    Te.s("在", "11", ChatFormatting.AQUA, "层以下，你还可以挖掘石头与深板岩"),
-                    Te.s("此外，你还可以通过", "击杀", ChatFormatting.RED, "矿区的怪物来获取矿石"),
-                    Te.s("在收集到粗矿石后，你可以使用", "冶炼炉", CustomStyle.styleOfPower,
-                            "来", "冶炼", CustomStyle.styleOfPower, "矿石", CustomStyle.styleOfMine)
+                    Component.literal("引导 - 击杀平原僵尸").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往潮汐城外，击杀", "10", ChatFormatting.RED, "只",
+                            "平原僵尸", ChatFormatting.GREEN),
+                    Te.s("装备上获得的武器，可以让你更轻松地战斗"),
+                    Te.s("可以按住左键进行普攻"),
+                    Te.s("合理释放技能可以提高清怪效率")
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.VOLCANO_RUNE.get()));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(PickaxeItems.TINKER_STONE.get(), 3));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(PickaxeItems.TINKER_IRON.get(), 1));
-            }), StageV2.VOLCANO_EQUIP));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.PLAIN_SOUL.get(), 10));
+            }), StageV2.BUY_PLAIN_WEAPON));
+
+            // 8. 购买平原短匕或平原长弓或生机权杖
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "锻造任意", "火山装备", CustomStyle.styleOfVolcano),
-                    Te.s("击杀", "焰芒虫/燃魂", CustomStyle.styleOfVolcano, "收集", ModItems.VOLCANO_SOUL.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "兑换", ModItems.VOLCANO_RUNE.get()),
-                    Te.s("在", "雨林村", CustomStyle.styleOfForest, "锻造台", CustomStyle.styleOfStone,
-                            "锻造任意", "火山装备", CustomStyle.styleOfVolcano),
-                    Te.s("注: 装备一般包含", "武器", ChatFormatting.AQUA, "与", "防具", CustomStyle.styleOfStone),
-                    Te.s("选择", "法术", CustomStyle.styleOfMana, "的玩家可以选择兑换", ModItems.VOLCANO_MANA_BOOK)
+                    Component.literal("引导 - 购买武器").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往潮汐城找到", "武器商人", CustomStyle.styleOfGold),
+                    Te.s("购买", "平原短匕", ChatFormatting.AQUA, "或",
+                            "平原长弓", ChatFormatting.GREEN, "或",
+                            "生机权杖", ChatFormatting.LIGHT_PURPLE)
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.SKY_RUNE.get()));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.EVOKER_RUNE.get()));
-            }), StageV2.MANA_DAILY_INSTANCE));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.COPPER_COIN.get(), 300));
+            }), StageV2.BUY_U_DISK));
+
+            // 9. 购买U盾
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "挑战", ManaPlainTemple.getInstance().name),
-                    Te.s("可前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
-                            "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
+                    Component.literal("引导 - 购买U盾").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往潮汐城找到", "武器商人", CustomStyle.styleOfGold),
+                    Te.s("购买", "U盾", CustomStyle.styleOfWorld)
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.U_DISK.get()));
-            }), StageV2.DAILY_MISSION_STAR));
-            // 增加完成日常任务
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 10));
+            }), StageV2.BUY_PLAIN_WEAPON_1));
+
+            // 10. 购买平原短匕1或平原长弓1或生机权杖1
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "完成一个", "日常任务", CustomStyle.styleOfFlexible),
-                    Te.s("身份卡", ChatFormatting.AQUA, " -> ", "任务列表", CustomStyle.styleOfFlexible),
-                    Te.s("接取并完成任意一个日常任务."),
-                    Te.s("完成日常任务，可以获得", ModItems.WORLD_SOUL_5, "等奖励."),
-                    Te.s(ModItems.WORLD_SOUL_5.get(), "可以在", "vp商城", CustomStyle.styleOfWorld, "购买补给包.")
+                    Component.literal("引导 - 升级武器").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往潮汐城找到", "武器商人", CustomStyle.styleOfGold),
+                    Te.s("购买", "平原短匕¹", ChatFormatting.AQUA, "或",
+                            "平原长弓¹", ChatFormatting.GREEN, "或",
+                            "生机权杖¹", ChatFormatting.LIGHT_PURPLE)
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.REVELATION_HEART.get(), 2));
-            }), StageV2.DAILY_MISSION_COLLECT));
-            // 增加完成每日任务
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.COPPER_COIN.get(), 100));
+            }), StageV2.LEVEL_15));
+
+            // 11. 达到15级
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "完成一个", "每日收集任务", CustomStyle.styleOfFlexible),
-                    Te.s("身份卡", ChatFormatting.AQUA, " -> ", "每日/悬赏", CustomStyle.styleOfFlexible),
-                    Te.s("接取并完成一次每日收集任务."),
-                    Te.s("完成每日收集任务，可以获得大量", ModItems.GEM_PIECE)
+                    Component.literal("引导 - 提升等级").withStyle(ChatFormatting.GOLD),
+                    Te.s("需要达到", "15级", ChatFormatting.LIGHT_PURPLE),
+                    Te.s("击杀怪物可以获得经验值")
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.REPUTATION_MEDAL.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
-            }), StageV2.PLAIN_BOSS));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 10));
+            }), 15, StageV2.KILL_20_FOREST_ZOMBIE));
+
+            // 12. 击杀20只森林僵尸
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "普莱尼", CustomStyle.styleOfPlain),
-                    Te.s("提示:", ChatFormatting.AQUA, "需要", "大量经验", ChatFormatting.LIGHT_PURPLE, "?"),
-                    Te.s("可前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
-                            "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
+                    Component.literal("引导 - 击杀森林僵尸").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往雨林地区，击杀", "20", ChatFormatting.RED, "只",
+                            "森林僵尸", ChatFormatting.GREEN)
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.PLAIN_BOSS_SOUL.get(), 8));
-            }), 40, StageV2.PASSIVE_4_LEVEL));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.FOREST_SOUL.get(), 10));
+            }), StageV2.BUY_FOREST_WEAPON));
+
+            // 13. 购买森林粉碎者或森林长弓或生机权杖2
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "将", "任意被动技能", ChatFormatting.GREEN,
-                            "提升至", "4级", ChatFormatting.LIGHT_PURPLE),
-                    Te.s("提示:", ChatFormatting.AQUA, "需要", "大量经验", ChatFormatting.LIGHT_PURPLE, "?"),
-                    Te.s("可前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
-                            "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
+                    Component.literal("引导 - 购买森林武器").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往雨林村找到", "武器商人", CustomStyle.styleOfGold),
+                    Te.s("购买", "森林粉碎者", ChatFormatting.AQUA, "或",
+                            "森林长弓", ChatFormatting.GREEN, "或",
+                            "生机权杖²", ChatFormatting.LIGHT_PURPLE)
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GEM_PIECE.get(), 16));
-            }), 60, StageV2.ENTRUSTMENT));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.COPPER_COIN.get(), 300));
+            }), StageV2.LEVEL_32));
+
+            // 14. 达到32级
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "完成一次", "委托任务", CustomStyle.styleOfWorld),
-                    Te.s("前往车站或者传送中枢"),
-                    Te.s("找到", "联合研院秘书 - 贝尔", CustomStyle.styleOfWorld),
-                    Te.s("接取委托任务，完成获取丰富奖励!")
+                    Component.literal("引导 - 提升等级").withStyle(ChatFormatting.GOLD),
+                    Te.s("需要达到", "32级", ChatFormatting.LIGHT_PURPLE),
+                    Te.s("击杀高等级怪物可以获得更多经验"),
+                    Te.s("前往", "炼魔庙", CustomStyle.styleOfMana, "挑战无尽熵增获取大量经验")
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
-            }), 75, StageV2.ENHANCE_EQUIP));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 20));
+            }), 32, StageV2.UNLOCK_XIANGCHAOLIN));
+
+            // 15. 解锁项潮林传送锚点
             guides.add(new Guide(List.of(
-                    Te.s("锻造一件", "天空城进阶装备", CustomStyle.styleOfSky),
-                    Te.s("法师", CustomStyle.styleOfMana, "可以选择", ModItems.EVOKER_SWORD.get()),
-                    Te.s("物理职业", CustomStyle.styleOfAttack, "可以选择", "天空装备", CustomStyle.styleOfSky),
-                    Te.s("注: 装备一般包含", "武器", ChatFormatting.AQUA, "与", "防具", CustomStyle.styleOfStone)
+                    Component.literal("引导 - 解锁传送锚点").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往", "项潮林", CustomStyle.styleOfForest, "，找到传送锚点"),
+                    Te.s("站在附近", "右键", ChatFormatting.AQUA, "以解锁")
+            ), new MyWayPoint(new Vec3(4021, 119, 3158), "项潮林传送锚点",
+                    MyWayPoint.colorMap.get(MyWayPoint.gold), 1), (player -> {
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.PLAIN_RING.get()));
+            }), StageV2.DEFEAT_PLAIN_BOSS));
+
+            // 16. 击败普莱尼
+            guides.add(new Guide(List.of(
+                    Component.literal("引导 - 击败普莱尼").withStyle(ChatFormatting.GOLD),
+                    Te.s("前往", "普莱尼所在处", CustomStyle.styleOfPlain, "击败他"),
+                    Te.s("普莱尼是平原地区的BOSS，需要足够的实力才能挑战")
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-            }), StageV2.TO_NETHER));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.PLAIN_HEALTH_RING_0.get()));
+            }), StageV2.DROWNED_CHALLENGE));
+
+            // 17. 完成本源挑战Drowned
             guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "前往", "下界", CustomStyle.styleOfNether),
-                    Te.s("前往", "天空城下界协会", CustomStyle.styleOfNether, "购买", ModItems.NETHER_PEARL.get()),
-                    Te.s("右键使用", ChatFormatting.AQUA, "前往", "下界", CustomStyle.styleOfNether),
-                    Te.s("提示: ", ChatFormatting.AQUA, "若要前往", "终界", CustomStyle.styleOfEnd, "也可购买", ModItems.END_PEARL.get())
-            ), new MyWayPoint(new Vec3(985, 227, 29), "下界协会", MyWayPoint.colorMap.get(MyWayPoint.red), 1), (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.NETHER_PEARL.get(), 8));
-            }), StageV2.NETHER_BOSS));
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "燃魂", CustomStyle.styleOfPower),
-                    Te.s("在下界找到", "燃魂", CustomStyle.styleOfPower, "并击败他!")
+                    Component.literal("引导 - 完成本源挑战").withStyle(ChatFormatting.GOLD),
+                    Te.s("手持", ModItems.WORLD_SOUL_1, "右键以召唤本源溺尸"),
+                    Te.s("击败4只本源溺尸完成挑战")
             ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.NETHER_IMPRINT.get(), 4));
-            }), 80, StageV2.PURPLE_IRON_BOSS));
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "紫水晶巨蟹", CustomStyle.styleOfPurpleIron)
-            ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.PURPLE_IRON_BOW_2.get(), 1));
-            }), 96, StageV2.CORRIDOR));
-            // 增加挑战本源回廊
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "挑战", "本源回廊", CustomStyle.styleOfWorld),
-                    Te.s("在", "天空城附近，打开", ModItems.ID_CARD),
-                    Te.s("身份卡", CustomStyle.styleOfWorld,
-                            " -> ", "特殊挑战", ChatFormatting.RED,
-                            " -> ", "本源回廊", CustomStyle.styleOfWorld),
-                    Te.s("每日通关", "本源回廊", CustomStyle.styleOfWorld, "可以获得", ModItems.WORLD_SOUL_5),
-                    Te.s(ModItems.WORLD_SOUL_5.get(), "可以在", "vp商城", CustomStyle.styleOfWorld, "购买补给包.")
-            ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.PURPLE_IRON_BOW_2.get(), 1));
-            }), 100, StageV2.ICE_KNIGHT));
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "冰霜骑士", CustomStyle.styleOfIce)
-            ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.ICE_BOSS_SOUL.get(), 16));
-            }), 108, StageV2.WEEKLY_STORE));
-            // 增加购买研发采购物品
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "购买", "研发采购物品", CustomStyle.styleOfWorld),
-                    Te.s("打开 ", "身份卡", CustomStyle.styleOfWorld, " -> ", "研发采购", CustomStyle.styleOfWorld),
-                    Te.s("购买任意物品."),
-                    Te.s("采购的内容每周五更新.")
-            ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
-            }), 108, StageV2.SAKURA_BOSS));
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "突见忍", CustomStyle.styleOfSakura)
-            ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.Boss2Piece.get(), 8));
-            }), 150, StageV2.DEVIL_BOSS));
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "魔王", CustomStyle.styleOfDemon)
-            ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.DEVIL_LOOT.get(), 8));
-            }), 150, StageV2.MOON_BOSS));
-            guides.add(new Guide(List.of(
-                    Te.s("*任务 ", ChatFormatting.AQUA, "击败", "阿尔忒弥斯", CustomStyle.styleOfMoon)
-            ), null, (player -> {
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
-                InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.MOON_LOOT.get(), 8));
-            }), 160, StageV2.FINAL));
+                InventoryOperation.giveItemStackWithMSG(player,
+                        new ItemStack(ModItems.WORLD_SOUL_5.get(), 40));
+            }), StageV2.FINAL));
         }
         return guides;
     }
@@ -361,10 +359,12 @@ public class Guide {
             for (int i = 0; i < getGuides().size(); i++) {
                 stageToIndexMap.put(getGuides().get(i).nextStageTag, i + 1);
             }
-            stageToIndexMap.put(StageV2.BACKPACK, 0);
+            stageToIndexMap.put(StageV2.UNLOCK_TIDE_CENTER, 0);
         }
         return stageToIndexMap;
     }
+
+    // ==================== 核心触发方法 ====================
 
     public static void trigV2(Player player, String stageTag) {
         if (getPlayerCurrentStageV2(player).equals(stageTag)) {
@@ -379,7 +379,6 @@ public class Guide {
             }
             Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
                     Component.literal("你完成了引导任务，获得了奖励！").withStyle(ChatFormatting.WHITE));
-            MyExpSystem.giveExpToPlayer(player, (stage + 1) * 10);
             MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
             if (guide.myWayPoint != null) {
                 MyWayPoint.sendRemovePacketToClient(player, guide.myWayPoint.name);
@@ -392,13 +391,30 @@ public class Guide {
         }
     }
 
+    // ==================== 击杀计数（用于僵尸击杀检测） ====================
+
+    private static final String GUIDE_KILL_COUNT_KEY = "GuideKillCount";
+
+    public static void incrementMobKill(Player player, String mobKey) {
+        CompoundTag data = player.getPersistentData();
+        CompoundTag killData = data.getCompound(GUIDE_KILL_COUNT_KEY);
+        killData.putInt(mobKey, killData.getInt(mobKey) + 1);
+        data.put(GUIDE_KILL_COUNT_KEY, killData);
+    }
+
+    public static int getMobKillCount(Player player, String mobKey) {
+        return player.getPersistentData().getCompound(GUIDE_KILL_COUNT_KEY).getInt(mobKey);
+    }
+
+    // ==================== 客户端同步 ====================
+
     public static void sendStageToClientV2(Player player) {
         if (!player.getPersistentData().contains(keyV2)) {
-            setPlayerCurrentStageV2(player, StageV2.BACKPACK);
+            setPlayerCurrentStageV2(player, StageV2.UNLOCK_TIDE_CENTER);
         }
         String currentStageTag = getPlayerCurrentStageV2(player);
         if (!getStageToIndexMap().containsKey(currentStageTag)) {
-            setPlayerCurrentStageV2(player, StageV2.BACKPACK);
+            setPlayerCurrentStageV2(player, StageV2.UNLOCK_TIDE_CENTER);
         }
         int currentStageIndex = getStageToIndexMap().get(currentStageTag);
         ModNetworking.sendToClient(new GuideStageS2CPacket(currentStageIndex), (ServerPlayer) player);
@@ -412,10 +428,18 @@ public class Guide {
 
     public static void handlePlayerTick(Player player) {
         if (player.tickCount % 200 == 101) {
+            // 等级检测
+            if (player.experienceLevel >= 15) {
+                trigV2(player, StageV2.LEVEL_15);
+            }
+            if (player.experienceLevel >= 32) {
+                trigV2(player, StageV2.LEVEL_32);
+            }
+            // 被动技能等级检测（与旧版兼容，但可移除）
             if (SkillV2.getProfessionSkillLevel(player, 0, 0, 0) >= 4
                     || SkillV2.getProfessionSkillLevel(player, 1, 0, 0) >= 4
                     || SkillV2.getProfessionSkillLevel(player, 2, 0, 0) >= 4) {
-                trigV2(player, StageV2.PASSIVE_4_LEVEL);
+                // 不再触发旧的 PASSIVE_4_LEVEL，保留空方法体避免破坏已有调用
             }
         }
     }

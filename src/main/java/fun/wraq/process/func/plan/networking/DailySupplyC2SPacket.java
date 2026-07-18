@@ -1,5 +1,6 @@
 package fun.wraq.process.func.plan.networking;
 
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.plan.DailySupply;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,6 +34,7 @@ public class DailySupplyC2SPacket {
             } catch (SQLException | ParseException | IOException e) {
                 throw new RuntimeException(e);
             }
+            Guide.trigV2(serverPlayer, Guide.StageV2.CLAIM_DAILY_SUPPLY);
         });
         return true;
     }

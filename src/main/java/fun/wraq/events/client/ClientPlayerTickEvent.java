@@ -7,7 +7,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.ClientPlayerTeam;
-import fun.wraq.common.util.struct.ManaAttackParticle;
 import fun.wraq.common.util.struct.OldMission;
 import fun.wraq.items.m.BackSpawn;
 import fun.wraq.items.m.Main0;
@@ -244,7 +243,7 @@ public class ClientPlayerTickEvent {
                 }
             }
 
-            if (event.player.tickCount % 20 == 0) {
+            if (event.player.tickCount % 200 == 0) {
                 Inventory inventory = event.player.getInventory();
                 boolean hasUDisk = InventoryOperation
                         .checkPlayerHasItem(inventory, ModItems.U_DISK.get(), 1);
@@ -448,17 +447,7 @@ public class ClientPlayerTickEvent {
 
     @SubscribeEvent
     public static void ClientParticleEvent(TickEvent.PlayerTickEvent event) {
-        if (event.side.isClient() && event.player.equals(Minecraft.getInstance().player)) {
-            Player player = event.player;
-            Level level = player.level();
-            for (ManaAttackParticle manaAttackParticle : ClientUtils.manaAttackParticleArrayList) {
-                ParticleProvider.BallParticle(manaAttackParticle.getPos(), level,
-                        2 * (20 - manaAttackParticle.getTickTime()) / 20.0,
-                        Utils.ParticleStringToParticleMap.get(manaAttackParticle.getType()), 20);
-                manaAttackParticle.setTickTime(Math.max(-1, manaAttackParticle.getTickTime() - 1));
-            }
-            ClientUtils.manaAttackParticleArrayList.removeIf(manaAttackParticle -> manaAttackParticle.getTickTime() == -1);
-        }
+        // 旧 ManaAttackParticle 粒子渲染已迁移至 ManaAoeRenderer（基于 RenderLevelStageEvent）
     }
 
     private static Vec3 windVec = Vec3.ZERO;

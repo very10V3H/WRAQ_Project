@@ -163,7 +163,7 @@ public class BowEvent {
                         ManaAttackModule.causeBaseAttack(manaArrow.player, nearestMob, manaArrow.manaPenetration,
                                 manaArrow.manaPenetration0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
                         ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(nearestMob.getX(), nearestMob.getY(),
-                                nearestMob.getZ(), manaArrow.particleType), (ServerPlayer) manaArrow.player);
+                                nearestMob.getZ(), manaArrow.getStyle()), (ServerPlayer) manaArrow.player);
                         manaArrow.remove(Entity.RemovalReason.KILLED);
                     } else {
                         event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);

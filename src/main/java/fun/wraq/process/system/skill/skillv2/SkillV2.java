@@ -545,6 +545,10 @@ public abstract class SkillV2 {
             ModNetworking.sendToClient(new SkillV2CooldownS2CPacket(skillType, afterDecreaseCooldownTick,
                     afterDecreaseCooldownTick), player);
             releaseOperation(player);
+            // 引导系统：检测剑术技能释放
+            if (this.professionType == 0) {
+                Guide.trigV2(player, Guide.StageV2.CHOOSE_SWORD_SKILL);
+            }
             if (professionType == 2) {
                 PowerLogic.playerReleasePower(player);
                 OnPowerReleaseEquip.release(player);

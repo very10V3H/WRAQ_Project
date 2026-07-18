@@ -148,7 +148,7 @@ public class PlainInstance extends NoTeamInstance {
 
     @Override
     public void exReward(Player player) {
-        Guide.trigV2(player, Guide.StageV2.PLAIN_BOSS);
+        Guide.trigV2(player, Guide.StageV2.DEFEAT_PLAIN_BOSS);
     }
 
     @Override

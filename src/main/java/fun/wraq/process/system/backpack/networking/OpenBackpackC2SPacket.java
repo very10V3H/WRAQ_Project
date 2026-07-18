@@ -1,5 +1,6 @@
 package fun.wraq.process.system.backpack.networking;
 
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.backpack.BackpackData;
 import fun.wraq.process.system.backpack.BackpackFileManager;
 import fun.wraq.process.system.backpack.BackpackMenu;
@@ -35,6 +36,8 @@ public class OpenBackpackC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player == null) return;
+
+            Guide.trigV2(player, Guide.StageV2.OPEN_BACKPACK);
 
             BackpackData data = BackpackFileManager.get(player.getUUID());
 

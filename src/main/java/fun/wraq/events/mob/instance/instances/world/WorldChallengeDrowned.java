@@ -15,6 +15,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.tower.Tower;
@@ -131,6 +132,8 @@ public class WorldChallengeDrowned extends NoTeamInstance {
                         mobName, CustomStyle.styleOfSea, " 的 ",
                         stage + "★", CustomStyle.styleOfWorld, " 挑战.",
                         " (" + timeStr + ")", CustomStyle.styleOfWorld));
+
+        Guide.trigV2(player, Guide.StageV2.DROWNED_CHALLENGE);
     }
 
     @Override

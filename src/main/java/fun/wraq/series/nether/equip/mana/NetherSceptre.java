@@ -84,7 +84,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, Enha
                 laserCoolDownMap.put(mob, TickCount + tickCoolDown);
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
                         rate, PlayerAttributes.manaPenetration(player),
-                        PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
+                        PlayerAttributes.manaPenetration0(player), 0xFFFF6600);
                 ManaAttackModule.causeBaseAttack(player, mob, PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), level, newArrow, true);
             }

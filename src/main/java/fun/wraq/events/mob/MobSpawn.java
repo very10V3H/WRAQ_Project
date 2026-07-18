@@ -472,8 +472,18 @@ public class MobSpawn {
         ItemAndRate.mergeExpEntries(list);
 
         AuroraSheepSpawnController.handleColorItemDrop(mob, list);
+        // 引导系统：击杀计数
         if (mobOriginName.equals(PlainZombieSpawnController.mobName)) {
-            Guide.trigV2(player, Guide.StageV2.FIRST_KILL);
+            Guide.incrementMobKill(player, "plainZombie");
+            if (Guide.getMobKillCount(player, "plainZombie") >= 10) {
+                Guide.trigV2(player, Guide.StageV2.KILL_10_PLAIN_ZOMBIE);
+            }
+        }
+        if (mobOriginName.equals(ForestZombieSpawnController.mobName)) {
+            Guide.incrementMobKill(player, "forestZombie");
+            if (Guide.getMobKillCount(player, "forestZombie") >= 20) {
+                Guide.trigV2(player, Guide.StageV2.KILL_20_FOREST_ZOMBIE);
+            }
         }
 
         // 根据怪物等级的掉落概率调整

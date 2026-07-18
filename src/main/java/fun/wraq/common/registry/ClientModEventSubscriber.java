@@ -38,15 +38,16 @@ public class ClientModEventSubscriber {
     public static void OnClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SakuraMob.get(), SakuraMobRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.Scarecrow.get(), ScarecrowRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_PLAIN.get(), NewArrowPlainRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW.get(), NewArrowRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_MAGMA.get(), NewArrowMagmaRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_WORLD.get(), NewArrowWorldRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_NETHER.get(), NewArrowNetherRender::new);
+        // 所有 ManaArrow EntityType 使用统一的程序化球体渲染器
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_PLAIN.get(), ManaArrowSphereRenderer::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW.get(), ManaArrowSphereRenderer::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_MAGMA.get(), ManaArrowSphereRenderer::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_WORLD.get(), ManaArrowSphereRenderer::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_NETHER.get(), ManaArrowSphereRenderer::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.FIRE_WORK.get(), FireworkRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SEA.get(), NewArrowSeaRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SAKURA.get(), NewArrowSakuraRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SNOW.get(), NewArrowSnowRender::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SEA.get(), ManaArrowSphereRenderer::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SAKURA.get(), ManaArrowSphereRenderer::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SNOW.get(), ManaArrowSphereRenderer::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.METEORITE.get(), MeteoriteRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SWORD_AIR.get(), SwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SORA_SWORD_AIR.get(), SoraSwordAirRender::new);

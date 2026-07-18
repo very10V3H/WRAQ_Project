@@ -171,6 +171,22 @@ public class TradeBuyRequestC2SPacket {
                 if (product.is(ModItems.EVOKER_SWORD.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.ENHANCE_EQUIP);
                 }
+                // 引导系统：购买检测
+                if (product.is(ModItems.PLAIN_SWORD_0.get()) || product.is(ModItems.PLAIN_BOW_0.get())
+                        || product.is(ModItems.LIFE_SCEPTRE_0.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.BUY_PLAIN_WEAPON);
+                }
+                if (product.is(ModItems.U_DISK.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.BUY_U_DISK);
+                }
+                if (product.is(ModItems.PLAIN_SWORD_1.get()) || product.is(ModItems.PLAIN_BOW_1.get())
+                        || product.is(ModItems.LIFE_SCEPTRE_1.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.BUY_PLAIN_WEAPON_1);
+                }
+                if (product.is(ModItems.FOREST_SWORD_0.get()) || product.is(ModItems.FOREST_BOW_0.get())
+                        || product.is(ModItems.LIFE_SCEPTRE_2.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.BUY_FOREST_WEAPON);
+                }
                 Item productItem = product.getItem();
                 if (Utils.mainHandTag.containsKey(productItem) || Utils.armorTag.containsKey(productItem)) {
                     ForgeEquipUtils.setForgeQualityOnEquip(product, 4);

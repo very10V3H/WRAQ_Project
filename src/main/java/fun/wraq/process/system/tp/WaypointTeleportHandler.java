@@ -9,6 +9,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.tp.networking.WaypointTeleportS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.spring2024.FireworkGun;
@@ -17,6 +18,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -38,12 +40,30 @@ import java.util.regex.Pattern;
 @Mod.EventBusSubscriber
 public class WaypointTeleportHandler {
 
-    /** 允许传送的目的地列表 (名称 → 坐标) */
-    public static final Map<String, Vec3> ALLOWED_WAYPOINTS = new LinkedHashMap<>() {{
-        put("潮汐城中央广场", new Vec3(3925, 82, 3499));
-        put("潮汐城东北门", new Vec3(3977, 76, 3416));
-        put("项潮林", new Vec3(4021, 119, 3158));
+    /** 传送锚点信息 */
+    public record WaypointInfo(Vec3 pos, Style style) {}
+
+    /** 允许传送的目的地列表 (名称 → 信息) */
+    public static final Map<String, WaypointInfo> ALLOWED_WAYPOINTS = new LinkedHashMap<>() {{
+        put("潮汐城中央广场", new WaypointInfo(new Vec3(3925, 82, 3499), CustomStyle.styleOfSea));
+        put("潮汐城东北门", new WaypointInfo(new Vec3(3977, 76, 3416), CustomStyle.styleOfSea));
+        put("项潮林", new WaypointInfo(new Vec3(4021, 119, 3158), CustomStyle.styleOfForest));
     }};
+
+    /** 获取指定锚点的颜色值（用于网络包序列化） */
+    public static int getWaypointColor(String name) {
+        WaypointInfo info = ALLOWED_WAYPOINTS.get(name);
+        if (info != null && info.style().getColor() != null) {
+            return info.style().getColor().getValue();
+        }
+        return 0xFFD700;
+    }
+
+    /** 获取指定锚点的 Style */
+    public static Style getWaypointStyle(String name) {
+        WaypointInfo info = ALLOWED_WAYPOINTS.get(name);
+        return info != null ? info.style() : Style.EMPTY.withColor(0xFFD700);
+    }
 
     /** 坐标匹配容差 (方块半径) */
     private static final double MATCH_TOLERANCE = 3.0;
@@ -85,6 +105,10 @@ public class WaypointTeleportHandler {
                     Compute.sendFormatMSG(player,
                             Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
                             Te.s("冷却结束，已自动传送至 - ", pending.name(), CustomStyle.styleOfWorld));
+                    // 引导系统：使用地图传送至潮汐城中央广场
+                    if ("潮汐城中央广场".equals(pending.name())) {
+                        Guide.trigV2(player, Guide.StageV2.MAP_TELEPORT_TIDE_CENTER);
+                    }
                 }
                 it.remove();
             }
@@ -124,10 +148,19 @@ public class WaypointTeleportHandler {
     }
 
     /**
-     * 获取所有锚点的解锁状态数组（用于 S2C 同步）
+     * 获取所有锚点的数据数组（用于 S2C 同步）
      */
     private static String[] getAllWaypointNames() {
         return ALLOWED_WAYPOINTS.keySet().toArray(new String[0]);
+    }
+
+    private static int[] getAllWaypointColors() {
+        String[] names = getAllWaypointNames();
+        int[] colors = new int[names.length];
+        for (int i = 0; i < names.length; i++) {
+            colors[i] = getWaypointColor(names[i]);
+        }
+        return colors;
     }
 
     private static boolean[] getUnlockedStatusArray(Player player) {
@@ -140,12 +173,15 @@ public class WaypointTeleportHandler {
     }
 
     /**
-     * 向客户端同步所有锚点的解锁状态
+     * 向客户端同步所有锚点的解锁状态与颜色
      */
     private static void syncAllToClient(Player player) {
         if (player instanceof ServerPlayer serverPlayer) {
             ModNetworking.sendToClient(
-                    new WaypointTeleportS2CPacket(getAllWaypointNames(), getUnlockedStatusArray(player)),
+                    new WaypointTeleportS2CPacket(
+                            getAllWaypointNames(),
+                            getUnlockedStatusArray(player),
+                            getAllWaypointColors()),
                     serverPlayer);
         }
     }
@@ -187,9 +223,9 @@ public class WaypointTeleportHandler {
         if (!(player instanceof ServerPlayer serverPlayer)) return;
 
         // 检查是否在任意锚点附近且可解锁
-        for (Map.Entry<String, Vec3> entry : ALLOWED_WAYPOINTS.entrySet()) {
+        for (Map.Entry<String, WaypointInfo> entry : ALLOWED_WAYPOINTS.entrySet()) {
             String name = entry.getKey();
-            Vec3 wpPos = entry.getValue();
+            Vec3 wpPos = entry.getValue().pos();
             double dist = player.position().distanceTo(wpPos);
 
             if (dist < UNLOCK_RANGE && !isWaypointUnlocked(player, name)) {
@@ -215,6 +251,15 @@ public class WaypointTeleportHandler {
                         Te.s("传送锚点", CustomStyle.styleOfEnd),
                         Te.s("已解锁传送锚点 - ", name, CustomStyle.styleOfWorld,
                                 "。按\"M\"打开地图右键路径点进行传送"));
+
+                // 引导系统触发
+                if ("潮汐城中央广场".equals(name)) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.UNLOCK_TIDE_CENTER);
+                } else if ("潮汐城东北门".equals(name)) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.UNLOCK_TIDE_NORTHEAST);
+                } else if ("项潮林".equals(name)) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.UNLOCK_XIANGCHAOLIN);
+                }
 
                 event.setCanceled(true);
                 return;
@@ -313,8 +358,8 @@ public class WaypointTeleportHandler {
 
         // 找到匹配的锚点名称
         String matchedName = null;
-        for (Map.Entry<String, Vec3> entry : ALLOWED_WAYPOINTS.entrySet()) {
-            if (entry.getValue().distanceTo(target) < MATCH_TOLERANCE) {
+        for (Map.Entry<String, WaypointInfo> entry : ALLOWED_WAYPOINTS.entrySet()) {
+            if (entry.getValue().pos().distanceTo(target) < MATCH_TOLERANCE) {
                 matchedName = entry.getKey();
                 break;
             }
@@ -345,7 +390,7 @@ public class WaypointTeleportHandler {
             pendingTeleports.put(pName, new PendingTeleport(target, matchedName));
             Compute.sendFormatMSG(player,
                     Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
-                    Te.s("传送冷却中，剩余 ", String.valueOf((cooldownEnd - tick) / 20), " 秒",
+                    Te.s("传送冷却中，剩余 ", String.valueOf((cooldownEnd - tick) / 20 + 1), " 秒",
                             CustomStyle.styleOfFlexible, "。冷却结束后将自动传送至 ",
                             matchedName, CustomStyle.styleOfWorld));
             return;
@@ -353,6 +398,11 @@ public class WaypointTeleportHandler {
 
         // 执行传送
         player.teleportTo(player.server.getLevel(Level.OVERWORLD), x, y, z, player.getYRot(), player.getXRot());
+
+        // 引导系统：使用地图传送至潮汐城中央广场
+        if ("潮汐城中央广场".equals(matchedName)) {
+            Guide.trigV2(player, Guide.StageV2.MAP_TELEPORT_TIDE_CENTER);
+        }
 
         // 清除待传送记录（主动传送后不再需要）
         pendingTeleports.remove(pName);
@@ -383,8 +433,8 @@ public class WaypointTeleportHandler {
             Vec3 target = new Vec3(x, y, z);
 
             String matchedName = null;
-            for (Map.Entry<String, Vec3> entry : ALLOWED_WAYPOINTS.entrySet()) {
-                if (entry.getValue().distanceTo(target) < MATCH_TOLERANCE) {
+            for (Map.Entry<String, WaypointInfo> entry : ALLOWED_WAYPOINTS.entrySet()) {
+                if (entry.getValue().pos().distanceTo(target) < MATCH_TOLERANCE) {
                     matchedName = entry.getKey();
                     break;
                 }

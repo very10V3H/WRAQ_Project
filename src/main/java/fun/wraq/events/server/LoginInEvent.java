@@ -130,7 +130,6 @@ public class LoginInEvent {
                     });
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             Component.literal("所有副本的前置条件已解锁").withStyle(ChatFormatting.WHITE));
-                    InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.FOR_NEW.get()));
                 }
             }
             String singleReward = CompensateCommand.singleReward;
@@ -217,7 +216,6 @@ public class LoginInEvent {
             tryToRefreshWeeklyAndMonthly(player);
 
             if (!data.contains("FirstReward")) {
-                InventoryOperation.giveItemStack(player, ModItems.FOR_NEW.get().getDefaultInstance());
                 Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.WHITE),
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).

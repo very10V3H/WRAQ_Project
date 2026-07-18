@@ -2,8 +2,10 @@ package fun.wraq.projectiles.mana;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.process.func.damage.Damage;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,36 +19,43 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.object.PlayState;
-
 import java.util.List;
 
-public class ManaArrow extends AbstractArrow implements GeoEntity {
+public class ManaArrow extends AbstractArrow {
 
-    private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+    private static final EntityDataAccessor<Integer> DATA_STYLE =
+            SynchedEntityData.defineId(ManaArrow.class, EntityDataSerializers.INT);
 
     public double manaPenetration;
     public double manaPenetration0;
     public Player player;
     private boolean AdjustOneTimes = false;
     private Vec3 InWaterVec3;
-    public String particleType;
     private Mob mob;
     public double rate = 1;
     public boolean mainShoot = true;
     public ManaArrowHitEntity manaArrowHitEntity;
 
+    public int getStyle() {
+        return this.entityData.get(DATA_STYLE);
+    }
+
+    public void setStyle(int style) {
+        this.entityData.set(DATA_STYLE, style);
+    }
+
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_STYLE, 0xFFAA88FF);
+    }
+
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double rate, double manaPenetration, double manaPenetration0, String particleType,
+                     double rate, double manaPenetration, double manaPenetration0, int style,
                      ManaArrowHitEntity manaArrowHitEntity) {
         super(entityType, Compute.getPlayerHandItemPos(shooter, true).x,
                 Compute.getPlayerHandItemPos(shooter, true).y,
@@ -56,24 +65,25 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
         this.rate = rate;
         this.manaPenetration = manaPenetration;
         this.manaPenetration0 = manaPenetration0;
-        this.particleType = particleType;
+        setStyle(style);
         this.manaArrowHitEntity = manaArrowHitEntity;
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, Player player, double rate) {
         this(entityType, player, player.level(), rate, PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
+                PlayerAttributes.manaPenetration0(player), 0xFFAA88FF);
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double rate, double manaPenetration, double manaPenetration0, String particleType) {
-        this(entityType, shooter, level, rate, manaPenetration, manaPenetration0, particleType, null);
+                     double rate, double manaPenetration, double manaPenetration0, int style) {
+        this(entityType, shooter, level, rate, manaPenetration, manaPenetration0, style, null);
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob, Level level, double rate) {
         super(entityType, mob, level);
         this.mob = (Mob) mob;
         this.rate = rate;
+        setStyle(0xFFAA88FF);
     }
 
     @Override
@@ -140,22 +150,6 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
         if (!this.level().isClientSide && this.isNoGravity() && player != null && this.distanceTo(player) > 60)
             this.remove(RemovalReason.KILLED);
 
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
-
-        tAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.model.new", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
     }
 
     public boolean shootFromMob() {

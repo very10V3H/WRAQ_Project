@@ -75,8 +75,23 @@ public abstract class WraqSceptre extends WraqMainHandEquip implements SceptreAt
         return ModEntityType.NEW_ARROW.get();
     }
 
+    /** 返回法球的粒子类型字符串（用于旧版兼容/动画效果） */
     protected String getParticleType() {
         return StringUtils.ParticleTypes.EVOKER;
+    }
+
+    /** 返回法球渲染颜色（ARGB），默认根据 getParticleType() 转换 */
+    public int getStyle() {
+        String type = getParticleType();
+        if (type.equals(StringUtils.ParticleTypes.Lava)) return 0xFFFF6600;
+        if (type.equals(StringUtils.ParticleTypes.FireElement1TickParticle)) return 0xFFFF8800;
+        if (type.equals(StringUtils.ParticleTypes.WaterElement1TickParticle)) return 0xFF5555FF;
+        if (type.equals(StringUtils.ParticleTypes.LifeElement1TickParticle)) return 0xFFFF5555;
+        if (type.equals(StringUtils.ParticleTypes.Plain)) return 0xFF88CC88;
+        if (type.equals(StringUtils.ParticleTypes.Sky)) return 0xFF88CCFF;
+        if (type.equals(StringUtils.ParticleTypes.Snow)) return 0xFFEEEEFF;
+        if (type.equals(StringUtils.ParticleTypes.Sea)) return 0xFF4488CC;
+        return 0xFFAA88FF; // 默认紫色
     }
 
     protected float getManaArrowSpeed() {
@@ -87,7 +102,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip implements SceptreAt
         Level level = player.level();
         ManaArrow manaArrow = new ManaArrow(getArrowType(), player, level, rate,
                 PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
-                getParticleType());
+                getStyle());
         manaArrow.setSilent(true);
         manaArrow.setNoGravity(true);
 /*        manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,

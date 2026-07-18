@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * 客户端世界渲染：在传送锚点坐标处渲染名称与解锁状态（类似原神传送锚点）
- * 参考 DamageNumberRenderer 使用 RenderLevelStageEvent + PoseStack 实现世界空间文字
+ * 锚点名称使用服务端下发的 Style（含颜色），体现不同锚点的特色
  */
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WaypointTeleportHud {
@@ -45,9 +45,11 @@ public class WaypointTeleportHud {
         MultiBufferSource.BufferSource buffer = mc.renderBuffers().bufferSource();
         Font font = mc.font;
 
-        for (Map.Entry<String, Vec3> entry : WaypointTeleportHandler.ALLOWED_WAYPOINTS.entrySet()) {
+        for (Map.Entry<String, WaypointTeleportHandler.WaypointInfo> entry :
+                WaypointTeleportHandler.ALLOWED_WAYPOINTS.entrySet()) {
             String name = entry.getKey();
-            Vec3 wpPos = entry.getValue();
+            Vec3 wpPos = entry.getValue().pos();
+            Style nameStyle = WaypointTeleportClientData.getWaypointStyle(name);
 
             double dx = wpPos.x - camPos.x;
             double dy = wpPos.y - camPos.y;
@@ -62,8 +64,8 @@ public class WaypointTeleportHud {
 
             boolean unlocked = WaypointTeleportClientData.isUnlocked(name);
 
-            // 锚点名称（金）
-            Component nameComp = Component.literal("传送锚点 - " + name).withStyle(Style.EMPTY.withColor(0xFFD700));
+            // 锚点名称（使用服务端下发的 Style/颜色）
+            Component nameComp = Component.literal("传送锚点 - " + name).withStyle(nameStyle);
 
             // 解锁状态（绿/红）
             Component statusComp = unlocked
@@ -90,9 +92,6 @@ public class WaypointTeleportHud {
         buffer.endBatch();
     }
 
-    /**
-     * 在 3D 世界空间渲染一个面向摄像机的文字标签
-     */
     private static void renderLabel(PoseStack poseStack, MultiBufferSource buffer, Font font,
                                     double dx, double dy, double dz, Component text,
                                     float distScale) {
