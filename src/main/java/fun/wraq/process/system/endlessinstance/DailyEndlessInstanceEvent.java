@@ -1,6 +1,7 @@
 package fun.wraq.process.system.endlessinstance;
 
 import fun.wraq.common.fast.Tick;
+import fun.wraq.process.system.endlessinstance.instance.DailyExpInstance;
 import fun.wraq.process.system.endlessinstance.instance.EasternTower;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.process.system.endlessinstance.instance.MansionInstance;
@@ -21,6 +22,7 @@ public class DailyEndlessInstanceEvent {
     public static List<fun.wraq.process.system.endlessinstance.DailyEndlessInstance> endlessInstanceList = new ArrayList<>();
 
     public static void initEndlessInstanceList() {
+        endlessInstanceList.add(DailyExpInstance.getInstance());
         endlessInstanceList.add(EasternTower.getInstance());
         endlessInstanceList.add(ManaPlainTemple.getInstance());
         endlessInstanceList.add(MansionInstance.getInstance());

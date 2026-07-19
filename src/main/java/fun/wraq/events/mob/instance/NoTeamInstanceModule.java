@@ -121,47 +121,40 @@ public class NoTeamInstanceModule {
     public static void tick(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             ServerLevel level = (ServerLevel) event.level;
-            Level overworld = event.level.getServer().getLevel(Level.OVERWORLD);
             int tick = Tick.get();
-            if (level.equals(overworld)) {
-                for (NoTeamInstance noTeamInstance : noTeamInstancesOverworld) {
-                    if (hasPlayerNearInstance(level, noTeamInstance)) {
-                        noTeamInstance.detectAndSummonThenHandleTick(level);
-                        if (tick % 20 == 0) {
-                            noTeamInstance.summonLeftSecondsArmorStand(level);
-                        }
-                    } else {
-                        noTeamInstance.reset(tick, true);
+            if (level.dimension().equals(Level.OVERWORLD)) {
+                tickInstancesInDimension(level, noTeamInstancesOverworld, tick);
+            } else if (level.dimension().equals(Level.NETHER)) {
+                tickInstancesInDimension(level, noTeamInstancesNether, tick);
+            } else if (level.dimension().equals(Level.END)) {
+                tickInstancesInDimension(level, noTeamInstancesEnd, tick);
+            }
+        }
+    }
+
+    private static void tickInstancesInDimension(ServerLevel level,
+                                                  List<NoTeamInstance> instances, int tick) {
+        for (NoTeamInstance noTeamInstance : instances) {
+            if (noTeamInstance.allowAutoStart()
+                    && !noTeamInstance.inChallenge && !noTeamInstance.ready && tick > noTeamInstance.summonTick) {
+                for (ServerPlayer serverPlayer : level.getServer().getPlayerList().getPlayers()) {
+                    if (serverPlayer.isAlive()
+                            && Compute.getHorizonDistance(serverPlayer.position(), noTeamInstance.pos) < 25
+                            && noTeamInstance.allowSummon(serverPlayer)) {
+                        noTeamInstance.ready = true;
+                        break;
                     }
-                    noTeamInstance.bossInfoSet(level);
                 }
             }
-            if (level.dimension().equals(Level.NETHER)) {
-                for (NoTeamInstance noTeamInstance : noTeamInstancesNether) {
-                    if (hasPlayerNearInstance(level, noTeamInstance)) {
-                        noTeamInstance.detectAndSummonThenHandleTick(level);
-                        if (tick % 20 == 0) {
-                            noTeamInstance.summonLeftSecondsArmorStand(level);
-                        }
-                    } else {
-                        noTeamInstance.reset(tick, true);
-                    }
-                    noTeamInstance.bossInfoSet(level);
+            if (hasPlayerNearInstance(level, noTeamInstance)) {
+                noTeamInstance.detectAndSummonThenHandleTick(level);
+                if (tick % 20 == 0) {
+                    noTeamInstance.summonLeftSecondsArmorStand(level);
                 }
+            } else {
+                noTeamInstance.reset(tick, true);
             }
-            if (level.dimension().equals(Level.END)) {
-                for (NoTeamInstance noTeamInstance : noTeamInstancesEnd) {
-                    if (hasPlayerNearInstance(level, noTeamInstance)) {
-                        noTeamInstance.detectAndSummonThenHandleTick(level);
-                        if (tick % 20 == 0) {
-                            noTeamInstance.summonLeftSecondsArmorStand(level);
-                        }
-                    } else {
-                        noTeamInstance.reset(tick, true);
-                    }
-                    noTeamInstance.bossInfoSet(level);
-                }
-            }
+            noTeamInstance.bossInfoSet(level);
         }
     }
 

@@ -48,6 +48,7 @@ public class WaypointTeleportHandler {
         put("潮汐城中央广场", new WaypointInfo(new Vec3(3925, 82, 3499), CustomStyle.styleOfSea));
         put("潮汐城东北门", new WaypointInfo(new Vec3(3977, 76, 3416), CustomStyle.styleOfSea));
         put("项潮林", new WaypointInfo(new Vec3(4021, 119, 3158), CustomStyle.styleOfForest));
+        put("苍岩隘口", new WaypointInfo(new Vec3(3725, 69, 2976), CustomStyle.styleOfStone));
     }};
 
     /** 获取指定锚点的颜色值（用于网络包序列化） */

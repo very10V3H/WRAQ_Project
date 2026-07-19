@@ -138,7 +138,7 @@ public abstract class DailyEndlessInstance {
     }
 
     public void summonArmorStand(Level level, Vec3 offset, Component name) {
-        Compute.summonArmorStand(level, pos.add(offset), name);
+        Compute.renderTextInLevel(level, pos.add(offset), name);
     }
 
     public static boolean prohibitPlayerCauseDamage(Player player, Mob mob) {

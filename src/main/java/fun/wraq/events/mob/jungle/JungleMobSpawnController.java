@@ -59,8 +59,8 @@ public abstract class JungleMobSpawnController {
                     removeNearArmorStand(level);
                 } else {
                     removeNearArmorStand(level);
-                    Compute.summonArmorStand(level, descriptionPos, name);
-                    Compute.summonArmorStand(level, descriptionPos.add(0, -0.25, 0),
+                    Compute.renderTextInLevel(level, descriptionPos, name);
+                    Compute.renderTextInLevel(level, descriptionPos.add(0, -0.25, 0),
                             Te.s("下次刷新：",
                                     (lastSpawnTick + refreshInterval - Tick.get()) / 20 + "s", ChatFormatting.AQUA));
                 }

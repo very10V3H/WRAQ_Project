@@ -12,6 +12,7 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.events.mob.chapter1.AreaForestMobSpawnController;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import fun.wraq.events.mob.chapter2.*;
@@ -120,6 +121,7 @@ public class MobSpawn {
     public static void setOverWorldList(Level overWorld) {
         overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
+        AreaForestMobSpawnController.getInstance(overWorld);
 /*        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(LakeDrownSpawnController.getInstance(overWorld));

@@ -284,6 +284,8 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(3925, 82, 3499), "潮汐城中央广场", colorMap.get(aqua), CustomStyle.styleOfWorld, 0));
         add(new MyWayPoint(new Vec3(3977, 76, 3416), "潮汐城东北门", colorMap.get(aqua), CustomStyle.styleOfWorld, 0));
         add(new MyWayPoint(new Vec3(4021, 119, 3158), "项潮林", colorMap.get(green), CustomStyle.styleOfWorld, 0));
+        add(new MyWayPoint(new Vec3(3725, 69, 2976), "苍岩隘口", colorMap.get(gray), CustomStyle.styleOfStone, 0));
+
 /*        add(VillageWayPoint.PLAIN_VILLAGE);
         add(VillageWayPoint.SKY_CITY);
         add(new MyWayPoint(new Vec3(754, 181, -86), "德朗斯蒂克", colorMap.get(green), CustomStyle.styleOfPlain, 0));

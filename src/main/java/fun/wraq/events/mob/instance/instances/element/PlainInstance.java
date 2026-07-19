@@ -51,7 +51,7 @@ public class PlainInstance extends NoTeamInstance {
     }
 
     public PlainInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name, 40);
+        super(pos, range, delayTick, armorStandPos, name, 32);
     }
 
     @Override
@@ -105,9 +105,9 @@ public class PlainInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         ZombieVillager zombie = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, level);
-        MobSpawn.setMobCustomName(zombie, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
+        MobSpawn.setMobCustomName(zombie, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 32);
         zombie.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LIBRARIAN, 0));
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 50);
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 32);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMainMobAttributes());
         zombie.setHealth(zombie.getMaxHealth());
         MobSpawn.setStainArmorOnMob(zombie, CustomStyle.styleOfLife);
@@ -135,7 +135,7 @@ public class PlainInstance extends NoTeamInstance {
 
     private void spawnBabyZombie(Level level, Vec3 pos) {
         ZombieVillager babyZombie = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, level);
-        MobSpawn.setMobCustomName(babyZombie, Te.s("普莱尼信徒"), 50);
+        MobSpawn.setMobCustomName(babyZombie, Te.s("普莱尼信徒"), 32);
         babyZombie.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LIBRARIAN, 0));
         babyZombie.setBaby(true);
         double maxHealth = 2000 * (1 + 0.75 * (players.size()) - 1);

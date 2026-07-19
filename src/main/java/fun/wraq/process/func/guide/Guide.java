@@ -312,7 +312,8 @@ public class Guide {
                     Component.literal("引导 - 提升等级").withStyle(ChatFormatting.GOLD),
                     Te.s("需要达到", "32级", ChatFormatting.LIGHT_PURPLE),
                     Te.s("击杀高等级怪物可以获得更多经验"),
-                    Te.s("前往", "炼魔庙", CustomStyle.styleOfMana, "挑战无尽熵增获取大量经验")
+                    Te.s("前往", "项潮林锚点西侧", CustomStyle.styleOfForest),
+                    Te.s("挑战", "无尽熵增 - ", CustomStyle.styleOfWorld, "尸潮", CustomStyle.styleOfForest, "可以快速获取经验")
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player,
                         new ItemStack(ModItems.WORLD_SOUL_5.get(), 20));

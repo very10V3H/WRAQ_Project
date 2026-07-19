@@ -33,9 +33,9 @@ public class ManaAoeRenderer {
     /** 每个 AOE 使用 2 个同心圆环，间隔 75ms 出发 */
     private static final int RING_COUNT = 2;
     private static final long RING_DELAY_MS = 75;
-    /** 环从半径 0.5 扩展到 3.0 */
+    /** 环从半径 0.5 扩展到 1.5 */
     private static final double MIN_RADIUS = 0.5;
-    private static final double MAX_RADIUS = 3.0;
+    private static final double MAX_RADIUS = 1.5;
     /** 环分段数 */
     private static final int SEGMENTS = 48;
 

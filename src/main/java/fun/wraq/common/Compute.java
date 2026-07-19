@@ -1,6 +1,7 @@
 package fun.wraq.common;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import fun.wraq.process.system.worldtext.WorldTextDataManager;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.attribute.PlayerAttributes;
@@ -1114,17 +1115,11 @@ public class Compute {
         return eyePos.add(shortPickPos.subtract(eyePos).normalize().scale(distance));
     }
 
-    public static void summonArmorStand(Level level, Vec3 pos, Component name) {
-        ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, level);
-        armorStand.setNoGravity(true);
-        armorStand.setCustomNameVisible(true);
-        armorStand.setCustomName(name);
-        armorStand.setInvulnerable(true);
-        armorStand.setInvisible(true);
-        armorStand.noPhysics = true;
-        armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
-        armorStand.moveTo(pos);
-        level.addFreshEntity(armorStand);
+    public static void renderTextInLevel(Level level, Vec3 pos, Component name) {
+        // [WorldText 渲染迁移] 注册到客户端渲染管线，后续替换盔甲架方案
+        if (level instanceof ServerLevel serverLevel) {
+            WorldTextDataManager.addEntry(serverLevel, pos.add(0, 1.5, 0), name);
+        }
     }
 
     public static void removeNearArmorStand(Level level, Vec3 pos, double radius) {
@@ -1132,6 +1127,11 @@ public class Compute {
                 .forEach(armorStand -> {
                     armorStand.remove(Entity.RemovalReason.KILLED);
                 });
+
+        // [WorldText 渲染迁移] 同步从客户端渲染管线中移除
+        if (level instanceof ServerLevel serverLevel) {
+            WorldTextDataManager.removeEntriesInRadius(serverLevel, pos, radius);
+        }
     }
 
     public static final String TEMP_TAG_KEY = PlayerDataUtil.TEMP_TAG_KEY;

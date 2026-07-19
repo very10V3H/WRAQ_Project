@@ -12,6 +12,7 @@ import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.stock.StockPriceFetcher;
 import fun.wraq.process.system.stock.StockTradingSystem;
+import fun.wraq.process.system.worldtext.WorldTextDataManager;
 import fun.wraq.render.gui.trade.weekly.WeeklyStore;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
@@ -71,6 +72,9 @@ public class ServerTick {
                 for (ServerPlayer player : event.getServer().getPlayerList().getPlayers()) {
                     StockTradingSystem.checkAutoLiquidation(player);
                 }
+            }
+            if (tickCount % 20 == 3) {
+                WorldTextDataManager.tick(event.getServer());
             }
             Main0.handleServerTick();
         }

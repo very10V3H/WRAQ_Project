@@ -269,7 +269,7 @@ public abstract class NoTeamInstance {
     }
 
     public void summonArmorStand(Level level, Vec3 offset, Component name) {
-        Compute.summonArmorStand(level, armorStandPos.add(offset), name);
+        Compute.renderTextInLevel(level, armorStandPos.add(offset), name);
     }
 
     public void exReward(Player player) {
@@ -364,5 +364,9 @@ public abstract class NoTeamInstance {
 
     protected Component prefix() {
         return Te.s("领主级怪物", CustomStyle.styleOfRed);
+    }
+
+    protected boolean allowAutoStart() {
+        return true;
     }
 }

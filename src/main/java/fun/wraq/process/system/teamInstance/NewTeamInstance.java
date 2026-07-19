@@ -369,7 +369,7 @@ public abstract class NewTeamInstance {
     }
 
     public void summonArmorStand(Level level, Vec3 offset, Component name) {
-        Compute.summonArmorStand(level, prepareCenterPos.add(offset), name);
+        Compute.renderTextInLevel(level, prepareCenterPos.add(offset), name);
     }
 
     public void startByTeam(PlayerTeam playerTeam) {

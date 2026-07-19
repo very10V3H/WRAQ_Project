@@ -2,6 +2,7 @@
 package fun.wraq.events.mob;
 
 import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
@@ -15,9 +16,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.IPlantable;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,11 +77,25 @@ public abstract class AreaMobSpawnController {
     /**
      * 根据维度获取对应的控制器列表。
      */
-    private static List<AreaMobSpawnController> getListForDimension(ResourceKey<Level> dimension) {
+    public static List<AreaMobSpawnController> getListForDimension(ResourceKey<Level> dimension) {
         if (dimension.equals(Level.OVERWORLD)) return overworldControllers;
         if (dimension.equals(Level.NETHER)) return netherControllers;
         if (dimension.equals(Level.END)) return endControllers;
         return List.of();
+    }
+
+    /**
+     * 将控制器注册到指定维度对应的静态列表中（幂等，可重复调用）。
+     * <p>用于替代构造函数中的自动注册，使得单例子类在 {@code onServerStop} 清空列表后
+     * 也能通过 {@code getInstance()} 重新注册。</p>
+     */
+    public static void registerController(AreaMobSpawnController controller, Level level) {
+        if (level != null && !level.isClientSide) {
+            List<AreaMobSpawnController> list = getListForDimension(level.dimension());
+            if (!list.contains(controller)) {
+                list.add(controller);
+            }
+        }
     }
 
     /**
@@ -114,6 +132,8 @@ public abstract class AreaMobSpawnController {
     public final List<Mob> mobList = new ArrayList<>();
     public final List<MobSpawnController.Boundary> multiBoundaryList;
     private int tickCounter;
+    /** 上次有玩家在区域内的 server tick，用于无玩家时的自动清理。 */
+    private long lastPlayerInBoundaryTick = 0;
 
     // ==================== 构造函数 ====================
 
@@ -130,15 +150,6 @@ public abstract class AreaMobSpawnController {
         this.averageLevel = averageLevel;
         this.multiBoundaryList = boundaries;
         this.tickCounter = 0;
-
-        // 按维度注册到对应静态列表
-        if (level != null && !level.isClientSide) {
-            ResourceKey<Level> dimension = level.dimension();
-            List<AreaMobSpawnController> list = getListForDimension(dimension);
-            if (!list.contains(this)) {
-                list.add(this);
-            }
-        }
     }
 
     // ==================== 抽象方法（子类必须实现） ====================
@@ -186,7 +197,7 @@ public abstract class AreaMobSpawnController {
      * 默认每 30 秒尝试一次。
      */
     public int getSpawnFrequencyTicks() {
-        return 20 * 30;
+        return Tick.s(10);
     }
 
     /**
@@ -229,6 +240,25 @@ public abstract class AreaMobSpawnController {
      */
     public int getGlobalCheckRadius() {
         return 96;
+    }
+
+    /**
+     * 区域内无玩家时的怪物存活时间（tick）。
+     * 超过此时间后区域内所有怪物将被自动清理。默认 40 秒。
+     * <p>返回 0 或负数表示不启用此机制。</p>
+     */
+    public int getDespawnDelayTicks() {
+        return Tick.s(40);
+    }
+
+    /**
+     * 禁止刷怪的区域列表。
+     * 子类可覆写此方法返回 {@link MobSpawnController.Boundary} 列表，
+     * 若玩家在这些区域内将不会生成怪物。
+     * <p>默认返回空列表（不排除任何区域）。</p>
+     */
+    public List<MobSpawnController.Boundary> getExcludedBoundaries() {
+        return List.of();
     }
 
     // ==================== 可覆盖的方法（掉落/元素/tick/坐骑） ====================
@@ -276,12 +306,26 @@ public abstract class AreaMobSpawnController {
         // 1. 清理已死亡的怪物
         mobList.removeIf(mob -> !mob.isAlive());
 
+        // 1.5 区域内无玩家时自动清理怪物
+        if (getDespawnDelayTicks() > 0 && !multiBoundaryList.isEmpty()) {
+            if (isAnyPlayerInBoundary()) {
+                lastPlayerInBoundaryTick = Tick.get();
+            } else {
+                if (mobList.size() > 0 && Tick.get() - lastPlayerInBoundaryTick > getDespawnDelayTicks()) {
+                    mobList.forEach(mob -> {
+                        if (mob.isAlive()) mob.discard();
+                    });
+                    mobList.clear();
+                    tickCounter = 0;
+                    return;
+                }
+            }
+        }
+
         // 2. 频率控制
-        tickCounter++;
-        if (tickCounter < getSpawnFrequencyTicks()) {
+        if (RandomUtils.nextDouble(0, 1) > 1.0 / getSpawnFrequencyTicks()) {
             return;
         }
-        tickCounter = 0;
 
         // 3. 处理存活怪物的每 tick 逻辑和边界检测
         judgeOverBoundary();
@@ -306,6 +350,10 @@ public abstract class AreaMobSpawnController {
             }
             // 跳过不在区域内的玩家
             if (!isPlayerInBoundary(player)) {
+                continue;
+            }
+            // 跳过在禁止刷怪区域内的玩家
+            if (isPlayerInExcludedZone(player)) {
                 continue;
             }
             // 跳过战斗中的玩家
@@ -366,9 +414,41 @@ public abstract class AreaMobSpawnController {
     }
 
     /**
-     * 判断玩家是否在定义的区域内。
+     * 判断是否有任何在线玩家在定义的区域内。
      */
-    private boolean isPlayerInBoundary(Player player) {
+    private boolean isAnyPlayerInBoundary() {
+        if (multiBoundaryList.isEmpty()) {
+            return true; // 无边界限制，视为一直有玩家
+        }
+        if (level == null || level.getServer() == null) return false;
+        for (ServerPlayer player : level.getServer().getPlayerList().getPlayers()) {
+            if (isPlayerInBoundary(player)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断玩家是否在任意禁止刷怪区域内。
+     * 若玩家处于排除区域，则不为此玩家刷怪。
+     */
+    private boolean isPlayerInExcludedZone(Player player) {
+        List<MobSpawnController.Boundary> excluded = getExcludedBoundaries();
+        if (excluded.isEmpty()) return false;
+        for (MobSpawnController.Boundary boundary : excluded) {
+            if (player.getX() > boundary.downPos().x && player.getY() > boundary.downPos().y
+                    && player.getZ() > boundary.downPos().z && player.getX() < boundary.upPos().x
+                    && player.getY() < boundary.upPos().y && player.getZ() < boundary.upPos().z) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断玩家是否在定义的区域内。
+     */ private boolean isPlayerInBoundary(Player player) {
         if (multiBoundaryList.isEmpty()) {
             return true; // 无边界限制
         }
@@ -431,7 +511,22 @@ public abstract class AreaMobSpawnController {
             Block headBlock = level.getBlockState(headPos).getBlock();
 
             if (isValidSpawnBlock(feetBlock) && isValidSpawnBlock(headBlock)) {
-                return new Vec3(x + 0.5, groundY, z + 0.5);
+                // 检查上方 3 格是否有遮挡（防止刷新在树冠下/树叶中）
+                boolean hasClearance = true;
+                for (int dy = 2; dy <= 4; dy++) {
+                    Block checkBlock = level.getBlockState(feetPos.above(dy)).getBlock();
+                    if (!(checkBlock instanceof IPlantable
+                            || checkBlock instanceof SnowLayerBlock
+                            || checkBlock.equals(Blocks.AIR)
+                            || checkBlock instanceof LeavesBlock
+                            || checkBlock instanceof RotatedPillarBlock)) {
+                        hasClearance = false;
+                        break;
+                    }
+                }
+                if (hasClearance) {
+                    return new Vec3(x + 0.5, groundY, z + 0.5);
+                }
             }
         }
         return null;
@@ -449,7 +544,9 @@ public abstract class AreaMobSpawnController {
             Block above = level.getBlockState(pos.above()).getBlock();
             boolean blockIsSolid = !(block instanceof IPlantable
                     || block instanceof SnowLayerBlock
-                    || block.equals(Blocks.AIR));
+                    || block.equals(Blocks.AIR)
+                    || block instanceof LeavesBlock
+                    || block instanceof RotatedPillarBlock);
             boolean aboveIsFree = above instanceof IPlantable
                     || above instanceof SnowLayerBlock
                     || above.equals(Blocks.AIR);
@@ -486,7 +583,8 @@ public abstract class AreaMobSpawnController {
         double levelRate = getLevelScalingRate(xpLevel);
 
         // 设置自定义名称（Lv.X 怪物名）
-        MobSpawn.setMobCustomName(mob, mobName, xpLevel);
+        Component customMobName = getMobName(mob);
+        MobSpawn.setMobCustomName(mob, customMobName != null ? customMobName : mobName, xpLevel);
 
         // 设置属性（应用等级倍率）
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes(), levelRate);
@@ -539,5 +637,9 @@ public abstract class AreaMobSpawnController {
             }
         }
         return count;
+    }
+
+    protected Component getMobName(Mob mob) {
+        return null;
     }
 }

@@ -47,6 +47,26 @@ public class ClientAttackEvent {
     @SubscribeEvent
     public static void changeDimensionEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity().equals(Minecraft.getInstance().player)) ClientUtils.AnimationTickReset();
+        resetHoldState();
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity().equals(Minecraft.getInstance().player)) {
+            resetHoldState();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity().equals(Minecraft.getInstance().player)) {
+            resetHoldState();
+        }
+    }
+
+    private static void resetHoldState() {
+        isLeftClickDown = false;
+        lastHoldAttackTick = 0;
     }
 
     @SubscribeEvent
@@ -117,7 +137,7 @@ public class ClientAttackEvent {
         if (mc.player == null || mc.screen != null) return;
 
         int currentTick = mc.player.tickCount;
-        if (currentTick - lastHoldAttackTick < HOLD_ATTACK_INTERVAL) return;
+        if (currentTick - lastHoldAttackTick < HOLD_ATTACK_INTERVAL || currentTick <= lastHoldAttackTick) return;
         lastHoldAttackTick = currentTick;
 
         leftClick(mc.player);

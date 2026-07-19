@@ -204,4 +204,9 @@ public class WorldChallengeDrowned extends NoTeamInstance {
     protected Component prefix() {
         return Te.s("本源挑战", CustomStyle.styleOfWorld);
     }
+
+    @Override
+    protected boolean allowAutoStart() {
+        return false;
+    }
 }

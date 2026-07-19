@@ -47,6 +47,7 @@ import fun.wraq.networking.misc.USE.*;
 import fun.wraq.networking.misc.attack.AttackRequestC2SPacket;
 import fun.wraq.networking.misc.attack.BowAttackRequestC2SPacket;
 import fun.wraq.networking.misc.attack.ManaAttackRequestC2SPacket;
+import fun.wraq.process.system.worldtext.networking.WorldTextS2CPacket;
 import fun.wraq.networking.reputation.ReputationBuyRequestC2SPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
 import fun.wraq.networking.reputationMission.*;
@@ -1456,6 +1457,11 @@ public class ModNetworking {
                 .decoder(DamageNumberS2CPacket::new)
                 .encoder(DamageNumberS2CPacket::toBytes)
                 .consumerMainThread(DamageNumberS2CPacket::handle)
+                .add();
+        net.messageBuilder(WorldTextS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(WorldTextS2CPacket::new)
+                .encoder(WorldTextS2CPacket::toBytes)
+                .consumerMainThread(WorldTextS2CPacket::handle)
                 .add();
         netV2.messageBuilder(OpenBackpackC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(OpenBackpackC2SPacket::new)
