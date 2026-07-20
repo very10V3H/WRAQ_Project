@@ -23,7 +23,9 @@ public class StoneSpiderKnife extends WraqSword implements OnHitEffectEquip {
     public StoneSpiderKnife(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.defencePenetration.put(this, 0.8);
+        Utils.attackDamage.put(this, 40d);
+        Utils.defencePenetration0.put(this, 5d);
+        Utils.expUp.put(this, 0.25);
     }
 
     public double getEffectRate() {

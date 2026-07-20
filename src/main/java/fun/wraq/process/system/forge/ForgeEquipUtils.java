@@ -406,6 +406,10 @@ public class ForgeEquipUtils {
                 itemList.addAll(list);
             }
         });
+        // TODO: 测试用——任何区域都可锻造矿洞头盔
+        if (itemList.isEmpty()) {
+            itemList.add(new ItemStack(ModItems.MINE_HELMET.get()));
+        }
         return itemList;
     }
 

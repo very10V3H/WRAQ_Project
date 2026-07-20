@@ -89,10 +89,10 @@ public class QingMingDefenceRing extends WraqCurios implements OnWithStandDamage
     public void setAttribute(ItemStack stack) {
         if (RandomUtils.nextBoolean()) {
             RandomCuriosAttributesUtil.provideSingleAttribute(stack,
-                    StringUtils.RandomCuriosAttribute.percentDefenceEnhance, fullRate(), 0.25, 1);
+                    StringUtils.RandomAttributes.percentDefenceEnhance, fullRate(), 0.25, 1);
         } else {
             RandomCuriosAttributesUtil.provideSingleAttribute(stack,
-                    StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance, fullRate(), 0.25, 1);
+                    StringUtils.RandomAttributes.percentManaDefenceEnhance, fullRate(), 0.25, 1);
         }
     }
 

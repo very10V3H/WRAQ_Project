@@ -20,7 +20,6 @@ import fun.wraq.customized.Customize;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.moontain.MoontainFloorTitle;
-import fun.wraq.items.forge.WraqForge;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AttributePackets.*;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
@@ -148,7 +147,6 @@ public class ServerPlayerTickEvent {
             LabourDayIronPickaxe.tick(player);
             RoadCommand.tick(player);
             MyRespawnRule.setPlayerSpawnPoint(player);
-            WraqForge.tick(event);
             PlanPlayer.setFoodData(serverPlayer);
             WorldBorder.playerTick(event);
             /*SummerEvent.tick(player);*/

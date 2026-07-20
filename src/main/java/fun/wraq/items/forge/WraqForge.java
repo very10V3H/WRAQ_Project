@@ -8,6 +8,8 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.BeforeRemoveMaterialOnForge;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.impl.forge.ForgeRandomEquip;
+import fun.wraq.common.impl.forge.ForgeRandomEquipUtils;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -23,7 +25,6 @@ import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.TickEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -94,6 +94,11 @@ public class WraqForge extends Item {
                 SmithHammer smithHammer = (SmithHammer) hammer;
                 tier = ForgeEquipUtils.getOneTimeForgeTier(smithHammer.getTier());
             }
+            // 重铸随机属性装备：清除旧属性并重新 roll
+            if (sameStack.getItem() instanceof ForgeRandomEquip randomEquip) {
+                ForgeRandomEquipUtils.clearAttributes(sameStack, randomEquip);
+                ForgeRandomEquipUtils.rollAttributes(sameStack, randomEquip);
+            }
             Component oldDisplayName = sameStack.getDisplayName();
             ForgeEquipUtils.setForgeQualityOnEquip(sameStack, tier);
             Compute.formatBroad(Te.s("锻造", CustomStyle.styleOfStone),
@@ -135,6 +140,11 @@ public class WraqForge extends Item {
                 }
                 ForgeEquipUtils.setForgeQualityOnEquip(productItemStack, tier);
                 Compute.forgingHoverName(productItemStack);
+                // 为实现了 ForgeRandomEquip 的物品赋予随机属性
+                if (forgedItem instanceof ForgeRandomEquip randomEquip) {
+                    ForgeRandomEquipUtils.rollAttributes(productItemStack, randomEquip);
+                    Compute.forgingHoverName(productItemStack);
+                }
                 Compute.formatBroad(player.level(), Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).
                                 append(Component.literal(" 成功锻造了 ").withStyle(ChatFormatting.WHITE)).
@@ -271,30 +281,6 @@ public class WraqForge extends Item {
         if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
             StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
             playerMSGSendDelayMap.put(player.getName().getString(), Tick.get() + 100);
-        }
-    }
-
-    public static void tick(TickEvent.PlayerTickEvent event) throws IOException {
-        ServerPlayer serverPlayer = (ServerPlayer) event.player;
-        String name = serverPlayer.getName().getString();
-        int tick = Tick.get();
-        if (playerMSGSendDelayMap.containsKey(name)) {
-            if (playerMSGSendDelayMap.get(name) < tick) {
-                playerMSGSendDelayMap.remove(name);
-                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("恭喜你完成了第一次打造！可能你已经注意到了，在一些武器的描述下方有").withStyle(ChatFormatting.WHITE).append(Component.literal("[可灌注/增幅]").withStyle(CustomStyle.styleOfPurpleIron)).append(Component.literal("的字样。").withStyle(ChatFormatting.WHITE)));
-                playerMSGSendDelayMap1.put(name, tick + 40);
-                MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
-            }
-        }
-
-        if (playerMSGSendDelayMap1.containsKey(name)) {
-            if (playerMSGSendDelayMap1.get(name) < tick) {
-                playerMSGSendDelayMap1.remove(name);
-                ItemStack itemStack = new ItemStack(ModItems.PLAIN_RUNE.get(), 2);
-                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
-                InventoryOperation.giveItemStack(serverPlayer, itemStack);
-                MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
-            }
         }
     }
 

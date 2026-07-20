@@ -446,5 +446,12 @@ public class ForgeRecipe {
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
             add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 3));
         }});
+
+        // TODO: 测试配方 - 矿洞头盔
+        recipes.put(ModItems.MINE_HELMET.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.MINE_RUNE.get(), 2));
+            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 7));
+            add(new ItemStack(Items.LEATHER, 5));
+        }});
     }
 }

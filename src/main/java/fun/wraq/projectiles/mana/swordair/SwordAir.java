@@ -1,5 +1,6 @@
 package fun.wraq.projectiles.mana.swordair;
 
+import fun.wraq.common.Compute;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -9,12 +10,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MinecartItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
+
+import java.util.Comparator;
+import java.util.Set;
 
 
 public class SwordAir extends AbstractArrow implements GeoEntity {
@@ -34,10 +39,29 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
     }
 
     public void shootFromRotation(float speed) {
-        if (player != null) {
-            super.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, Math.min(5, speed), 1);
-            player.level().addFreshEntity(this);
+        if (player == null) return;
+
+        this.setPos(position().add(0, -0.25, 0));
+        Vec3 startPos = player.getEyePosition();
+        Vec3 targetPos = Compute.getPickLocationIgnoreBlock(player, 32);
+        Vec3 delta = targetPos.subtract(startPos);
+
+        Set<Mob> set = Compute.getPlayerRayMobList(player, 0.5, 1, 32);
+        if (!set.isEmpty()) {
+            Mob mob = set.stream().min(Comparator.comparingDouble(m -> m.distanceTo(player))).orElse(null);
+            if (mob != null) {
+                if (mob.distanceTo(player) < 2) {
+                    delta = mob.getEyePosition().subtract(player.getEyePosition());
+                    this.moveTo(player.getEyePosition());
+                } else {
+                    delta = mob.getEyePosition().subtract(Compute.getPlayerHandItemPos(player, true));
+                }
+            }
         }
+
+        this.shoot(delta.x, delta.y, delta.z, Math.min(5, speed), 1);
+        this.setNoGravity(true);
+        player.level().addFreshEntity(this);
     }
 
     @Override

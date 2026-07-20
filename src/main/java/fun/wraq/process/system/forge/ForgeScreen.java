@@ -7,6 +7,8 @@ import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.impl.forge.ForgeRandomEquip;
+import fun.wraq.common.impl.forge.ForgeRandomEquipUtils;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -130,7 +132,20 @@ public class ForgeScreen extends WraqScreen {
                 Compute.forgingHoverName(itemStack);
                 if (x > this.width / 2 + xOffset && x < this.width / 2 + xOffset + 16
                         && y > this.height / 2 + yOffset && y < this.height / 2 + 16 + yOffset) {
-                    guiGraphics.renderTooltip(font, itemStack, x, y);
+                    // ForgeRandomEquip 新物品：显示随机属性范围预览
+                    if (item instanceof ForgeRandomEquip randomEquip) {
+                        List<Component> previewLines = ForgeRandomEquipUtils.getPreviewTooltipLines(randomEquip);
+                        List<Component> tooltipLines = new ArrayList<>();
+                        tooltipLines.add(itemStack.getDisplayName());
+                        tooltipLines.add(Component.literal(""));
+                        tooltipLines.addAll(previewLines);
+                        tooltipLines.add(Component.literal(""));
+                        tooltipLines.add(Component.literal("最终数值 = 随机值 x 锻造品质倍率(0.8x~2.0x)")
+                                .withStyle(style -> style.withColor(0x888888)));
+                        guiGraphics.renderComponentTooltip(fontRenderer, tooltipLines, x, y);
+                    } else {
+                        guiGraphics.renderTooltip(font, itemStack, x, y);
+                    }
                 }
                 if (!playerStacks.isEmpty() && playerStacks.contains(itemStack)) {
                     guiGraphics.drawCenteredString(fontRenderer, itemStack.getDisplayName(),

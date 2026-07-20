@@ -541,7 +541,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> MINE_MANA_NOTE = ITEMS.register("mine_mana_note",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.MineItalic), 3,
-                    80, 0.17, 2, 175, 14, 0.2, 0.25));
+                    40, 0, 2, 200, 3, 0, 0.25));
 
     public static final RegistryObject<Item> MINE_HELMET = ITEMS.register("minearmorhelmet",
             () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.HELMET));

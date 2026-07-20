@@ -3,6 +3,7 @@ package fun.wraq.common.registry;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.entities.entities.GraySlime.GraySlime;
 import fun.wraq.entities.entities.MainBoss.MainBoss;
 import fun.wraq.entities.entities.SakuraMob.SakuraMob;
 import fun.wraq.entities.entities.Scarecrow.Scarecrow;
@@ -126,4 +127,10 @@ public class ModEntityType {
                             .sized(0.75f, 1.83f)
                             .build(new ResourceLocation(Utils.MOD_ID, "civil").toString()));
 
+    public static final RegistryObject<EntityType<GraySlime>> GRAY_SLIME =
+            ENTITY_TYPES.register("gray_slime",
+                    () -> EntityType.Builder.of(GraySlime::new, MobCategory.MONSTER)
+                            .sized(2.04F, 2.04F)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(Utils.MOD_ID, "gray_slime").toString()));
 }

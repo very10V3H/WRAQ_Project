@@ -389,26 +389,6 @@ public class StringUtils {
     public static String ForgeNum = "ForgeNum";
     public static String ForgeLevel = "Forging";
 
-    public static class RandomAttribute {
-        public static String attackDamage = "RandomAttackDamage";
-        public static String manaDamage = "RandomManaDamage";
-        public static String defence = "RandomDefence";
-        public static String maxHealth = "RandomMaxHealth";
-        public static String coolDown = "RandomCoolDown";
-        public static String movementSpeedWithoutBattle = "RandomMovementSpeed";
-
-        public static String critDamage = "RandomCritDamage";
-        public static String critRate = "RandomCritRate";
-        public static String manaRecover = "RandomManaRecover";
-        public static String defencePenetration0 = "RandomDefencePenetration0";
-
-        public static String healthRecover = "RandomHealthRecover";
-        public static String manaPenetration0 = "RandomManaPenetration0";
-        public static String healthSteal = "RandomHealthSteal";
-
-        public static String maxMana = "RandomMaxMana";
-    }
-
     public static String MaxCold = "MaxCold";
     public static String CurrentCold = "CurrentCold";
 
@@ -765,50 +745,51 @@ public class StringUtils {
     public static String MoonCuriosXpLevel = "MoonCuriosXpLevel";
     public static String MoonCuriosPlayerName = "MoonCuriosPlayerName";
 
-    public static class RandomCuriosAttribute {
-        public static String attackDamage = "CuriosAttackDamage";
-        public static String manaDamage = "CuriosManaDamage";
-        public static String maxHealth = "MaxHealth";
-        public static String defence = "Defence";
-        public static String defencePenetration0 = "CuriosDefencePenetration0";
-        public static String manaPenetration0 = "CuriosManaPenetration0";
-        public static String coolDown = "CuriosCoolDown";
-        public static String manaRecover = "CuriosManaRecover";
-        public static String maxMana = "CuriosMaxMana";
-        public static String swiftnessUp = "CuriosSwiftnessUp";
-        public static String critDamage = "CuriosCritDamage";
-        public static String expUp = "CuriosExpUp";
-        public static String critRate = "CuriosCritRate";
-        public static String healthSteal = "CuriosHealthSteal";
-        public static String defencePenetration = "CuriosDefencePenetration";
-        public static String movementSpeed = "CuriosMovementSpeed";
-        public static String healthRecover = "CuriosHealthRecover";
-        public static String healEffectUp = "CuriosHealEffectUp";
-        public static String manaPenetration = "CuriosManaPenetration";
-        public static String manaHealthSteal = "CuriosManaHealthSteal";
-        public static String LuckyUp = "CuriosLuckyUp";
-        public static String manaDefence = "CuriosManaDefence";
-        public static String commonMovementSpeed = "commonMovementSpeed";
-        public static String toughness = "CuriosToughness";
-        public static String percentAttackDamage = "percentAttackDamage";
-        public static String percentDefenceEnhance = "percentDefenceEnhance";
-        public static String percentMaxHealthEnhance = "percentMaxHealthEnhance";
-        public static String percentManaDamageEnhance = "percentManaDamageEnhance";
-        public static String percentManaDefenceEnhance = "percentManaDefenceEnhance";
-        public static String percentHealthRecover = "percentHealthRecover";
-        public static String xpLevelAttackDamage = "xpLevelAttackDamage";
-        public static String xpLevelCritDamage = "xpLevelCritDamage";
-        public static String xpLevelDefencePenetration0 = "xpLevelDefencePenetration0";
-        public static String xpLevelManaDamage = "xpLevelManaDamage";
-        public static String xpLevelManaPenetration0 = "xpLevelManaPenetration0";
-        public static String xpLevelDefence = "xpLevelDefence";
-        public static String xpLevelManaDefence = "xpLevelManaDefence";
-        public static String finalDamageEnhance = "finalDamageEnhance";
-        public static String attackDamageEnhance = "attackDamageEnhance";
-        public static String manaDamageEnhance = "manaDamageEnhance";
-        public static String commonDamageEnhance = "commonDamageEnhance";
-        public static String attackSpeedEnhance = "attackSpeedEnhance";
-        public static String percentManaRecoverEnhance = "percentManaRecoverEnhance";
+    public static class RandomAttributes {
+        public static String attackDamage = "randomAttackDamage";
+        public static String manaDamage = "randoManaDamage";
+        public static String maxHealth = "randomMaxHealth";
+        public static String defence = "randomDefence";
+        public static String defencePenetration0 = "randomDefencePenetration0";
+        public static String manaPenetration0 = "randoManaPenetration0";
+        public static String coolDown = "randomCoolDown";
+        public static String manaRecover = "randomManaRecover";
+        public static String maxMana = "randomMaxMana";
+        public static String swiftnessUp = "randomSwiftnessUp";
+        public static String critDamage = "randomCritDamage";
+        public static String expUp = "randomExpUp";
+        public static String critRate = "randomCritRate";
+        public static String healthSteal = "randomHealthSteal";
+        public static String defencePenetration = "randomDefencePenetration";
+        public static String movementSpeed = "randomMovementSpeed";
+        public static String movementSpeedWithoutBattle = "randomMovementSpeedWithoutBattle";
+        public static String healthRecover = "randomHealthRecover";
+        public static String healEffectUp = "randomHealEffectUp";
+        public static String manaPenetration = "randomManaPenetration";
+        public static String manaHealthSteal = "randomManaHealthSteal";
+        public static String LuckyUp = "randomLuckyUp";
+        public static String manaDefence = "randomManaDefence";
+        public static String commonMovementSpeed = "randomCommonMovementSpeed";
+        public static String toughness = "randomToughness";
+        public static String percentAttackDamage = "randomPercentAttackDamage";
+        public static String percentDefenceEnhance = "randomPercentDefenceEnhance";
+        public static String percentMaxHealthEnhance = "randomPercentMaxHealthEnhance";
+        public static String percentManaDamageEnhance = "randomPercentManaDamageEnhance";
+        public static String percentManaDefenceEnhance = "randomPercentManaDefenceEnhance";
+        public static String percentHealthRecover = "randomPercentHealthRecover";
+        public static String xpLevelAttackDamage = "randomXpLevelAttackDamage";
+        public static String xpLevelCritDamage = "randomXpLevelCritDamage";
+        public static String xpLevelDefencePenetration0 = "randomXpLevelDefencePenetration0";
+        public static String xpLevelManaDamage = "randomXpLevelManaDamage";
+        public static String xpLevelManaPenetration0 = "randomXpLevelManaPenetration0";
+        public static String xpLevelDefence = "randomXpLevelDefence";
+        public static String xpLevelManaDefence = "randomXpLevelManaDefence";
+        public static String finalDamageEnhance = "randomFinalDamageEnhance";
+        public static String attackDamageEnhance = "randomAttackDamageEnhance";
+        public static String manaDamageEnhance = "randomManaDamageEnhance";
+        public static String commonDamageEnhance = "randomCommonDamageEnhance";
+        public static String attackSpeedEnhance = "randomAttackSpeedEnhance";
+        public static String percentManaRecoverEnhance = "randomPercentManaRecoverEnhance";
     }
 
     public static String PlayerInstanceProgress = "PlayerInstanceProgress";

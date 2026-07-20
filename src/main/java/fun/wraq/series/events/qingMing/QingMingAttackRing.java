@@ -89,10 +89,10 @@ public class QingMingAttackRing extends WraqCurios implements OnKillEffectCurios
     public void setAttribute(ItemStack stack) {
         if (RandomUtils.nextBoolean()) {
             RandomCuriosAttributesUtil.provideSingleAttribute(stack,
-                    StringUtils.RandomCuriosAttribute.percentAttackDamage, fullRate(), 0.25, 1);
+                    StringUtils.RandomAttributes.percentAttackDamage, fullRate(), 0.25, 1);
         } else {
             RandomCuriosAttributesUtil.provideSingleAttribute(stack,
-                    StringUtils.RandomCuriosAttribute.percentManaDamageEnhance, fullRate(), 0.25, 1);
+                    StringUtils.RandomAttributes.percentManaDamageEnhance, fullRate(), 0.25, 1);
         }
     }
 

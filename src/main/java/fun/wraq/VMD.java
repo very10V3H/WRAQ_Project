@@ -19,6 +19,7 @@ import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.composites.CompositesItems;
 import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.entities.entities.GraySlime.GraySlime;
 import fun.wraq.entities.entities.MainBoss.MainBoss;
 import fun.wraq.entities.entities.SakuraMob.SakuraMob;
 import fun.wraq.entities.entities.Scarecrow.Scarecrow;
@@ -256,6 +257,7 @@ public class VMD {
         event.put(ModEntityType.Scarecrow.get(), Scarecrow.setAttributes());
         event.put(ModEntityType.Boss2.get(), Boss2.setAttributes());
         event.put(ModEntityType.CIVIL.get(), Civil.setAttributes());
+        event.put(ModEntityType.GRAY_SLIME.get(), GraySlime.setAttributes());
     }
 
     @SubscribeEvent

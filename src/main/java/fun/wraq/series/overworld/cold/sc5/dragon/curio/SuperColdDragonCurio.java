@@ -45,53 +45,53 @@ public class SuperColdDragonCurio extends WraqCurios implements RandomCurios, De
     }
 
     public static Map<String, Double> attributeValueMap = new HashMap<>() {{
-        put(StringUtils.RandomCuriosAttribute.percentAttackDamage, 0.14);
-        put(StringUtils.RandomCuriosAttribute.attackDamageEnhance, 0.14);
-        put(StringUtils.RandomCuriosAttribute.critDamage, 0.14);
-        put(StringUtils.RandomCuriosAttribute.critRate, 0.1);
-        put(StringUtils.RandomCuriosAttribute.defencePenetration0, 100d);
+        put(StringUtils.RandomAttributes.percentAttackDamage, 0.14);
+        put(StringUtils.RandomAttributes.attackDamageEnhance, 0.14);
+        put(StringUtils.RandomAttributes.critDamage, 0.14);
+        put(StringUtils.RandomAttributes.critRate, 0.1);
+        put(StringUtils.RandomAttributes.defencePenetration0, 100d);
 
-        put(StringUtils.RandomCuriosAttribute.percentManaDamageEnhance, 0.14);
-        put(StringUtils.RandomCuriosAttribute.manaDamageEnhance, 0.14);
-        put(StringUtils.RandomCuriosAttribute.manaPenetration0, 100d);
-        put(StringUtils.RandomCuriosAttribute.maxMana, 800d);
-        put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, 0.04);
+        put(StringUtils.RandomAttributes.percentManaDamageEnhance, 0.14);
+        put(StringUtils.RandomAttributes.manaDamageEnhance, 0.14);
+        put(StringUtils.RandomAttributes.manaPenetration0, 100d);
+        put(StringUtils.RandomAttributes.maxMana, 800d);
+        put(StringUtils.RandomAttributes.percentManaRecoverEnhance, 0.04);
 
-        put(StringUtils.RandomCuriosAttribute.defence, 800d);
-        put(StringUtils.RandomCuriosAttribute.manaDefence, 400d);
-        put(StringUtils.RandomCuriosAttribute.percentHealthRecover, 0.05);
-        put(StringUtils.RandomCuriosAttribute.healEffectUp, 0.1);
-        put(StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance, 0.2);
+        put(StringUtils.RandomAttributes.defence, 800d);
+        put(StringUtils.RandomAttributes.manaDefence, 400d);
+        put(StringUtils.RandomAttributes.percentHealthRecover, 0.05);
+        put(StringUtils.RandomAttributes.healEffectUp, 0.1);
+        put(StringUtils.RandomAttributes.percentMaxHealthEnhance, 0.2);
 
-        put(StringUtils.RandomCuriosAttribute.attackSpeedEnhance, 0.2);
-        put(StringUtils.RandomCuriosAttribute.coolDown, 0.35);
-        put(StringUtils.RandomCuriosAttribute.commonMovementSpeed, 0.35);
-        put(StringUtils.RandomCuriosAttribute.swiftnessUp, 5d);
+        put(StringUtils.RandomAttributes.attackSpeedEnhance, 0.2);
+        put(StringUtils.RandomAttributes.coolDown, 0.35);
+        put(StringUtils.RandomAttributes.commonMovementSpeed, 0.35);
+        put(StringUtils.RandomAttributes.swiftnessUp, 5d);
     }};
 
     public static Map<String, String> attributeTypeMap = new HashMap<>() {{
-        put(StringUtils.RandomCuriosAttribute.percentAttackDamage, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.attackDamageEnhance, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.critDamage, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.critRate, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.defencePenetration0, Type.ATTACK);
+        put(StringUtils.RandomAttributes.percentAttackDamage, Type.ATTACK);
+        put(StringUtils.RandomAttributes.attackDamageEnhance, Type.ATTACK);
+        put(StringUtils.RandomAttributes.critDamage, Type.ATTACK);
+        put(StringUtils.RandomAttributes.critRate, Type.ATTACK);
+        put(StringUtils.RandomAttributes.defencePenetration0, Type.ATTACK);
 
-        put(StringUtils.RandomCuriosAttribute.percentManaDamageEnhance, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.manaDamageEnhance, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.manaPenetration0, Type.ATTACK);
-        put(StringUtils.RandomCuriosAttribute.maxMana, Type.ATTACK);
+        put(StringUtils.RandomAttributes.percentManaDamageEnhance, Type.ATTACK);
+        put(StringUtils.RandomAttributes.manaDamageEnhance, Type.ATTACK);
+        put(StringUtils.RandomAttributes.manaPenetration0, Type.ATTACK);
+        put(StringUtils.RandomAttributes.maxMana, Type.ATTACK);
         /*put(StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance, Type.ATTACK);*/
 
-        put(StringUtils.RandomCuriosAttribute.defence, Type.DEFENCE);
-        put(StringUtils.RandomCuriosAttribute.manaDefence, Type.DEFENCE);
-        put(StringUtils.RandomCuriosAttribute.percentHealthRecover, Type.DEFENCE);
-        put(StringUtils.RandomCuriosAttribute.healEffectUp, Type.DEFENCE);
-        put(StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance, Type.DEFENCE);
+        put(StringUtils.RandomAttributes.defence, Type.DEFENCE);
+        put(StringUtils.RandomAttributes.manaDefence, Type.DEFENCE);
+        put(StringUtils.RandomAttributes.percentHealthRecover, Type.DEFENCE);
+        put(StringUtils.RandomAttributes.healEffectUp, Type.DEFENCE);
+        put(StringUtils.RandomAttributes.percentMaxHealthEnhance, Type.DEFENCE);
 
-        put(StringUtils.RandomCuriosAttribute.attackSpeedEnhance, Type.FUNCTION);
-        put(StringUtils.RandomCuriosAttribute.coolDown, Type.FUNCTION);
-        put(StringUtils.RandomCuriosAttribute.commonMovementSpeed, Type.FUNCTION);
-        put(StringUtils.RandomCuriosAttribute.swiftnessUp, Type.FUNCTION);
+        put(StringUtils.RandomAttributes.attackSpeedEnhance, Type.FUNCTION);
+        put(StringUtils.RandomAttributes.coolDown, Type.FUNCTION);
+        put(StringUtils.RandomAttributes.commonMovementSpeed, Type.FUNCTION);
+        put(StringUtils.RandomAttributes.swiftnessUp, Type.FUNCTION);
     }};
 
     public static List<String> attributeList = new ArrayList<>() {{

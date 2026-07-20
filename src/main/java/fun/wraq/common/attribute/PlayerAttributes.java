@@ -5,6 +5,7 @@ import fun.wraq.common.equip.*;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.forge.ForgeRandomEquipUtils;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -144,7 +145,7 @@ public class PlayerAttributes {
     public static double getBaseAttackDamage(Player player) {
         double baseAttackDamage = player.experienceLevel;
         baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.attackDamage, true);
-        baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.attackDamage);
+        baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.attackDamage);
         baseAttackDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelAttackDamage, true);
         return baseAttackDamage;
     }
@@ -169,7 +170,7 @@ public class PlayerAttributes {
         }
 
         baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.attackDamage, true);
-        baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.attackDamage);
+        baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.attackDamage);
 
         // 计算线性等级强度属性数值
         baseAttackDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelAttackDamage, true);
@@ -264,9 +265,9 @@ public class PlayerAttributes {
         exDamage += baseAttackDamage * EarthPower.PlayerDamageEnhance(player);
 
         // 新版饰品属性加成
-        exDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.RandomCuriosAttribute.attackDamage);
+        exDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.RandomAttributes.attackDamage);
         exDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelAttackDamage,
-                StringUtils.RandomCuriosAttribute.xpLevelAttackDamage) * player.experienceLevel;
+                StringUtils.RandomAttributes.xpLevelAttackDamage) * player.experienceLevel;
 
         // 器灵属性加成
         exDamage += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.attackDamage);
@@ -292,7 +293,7 @@ public class PlayerAttributes {
         exRate += HarbingerMainHand.getAttackDamageRate(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance)
                 + WraqCurios.CuriosAttribute.attributeValue(player, Utils.percentAttackDamageEnhance,
-                StringUtils.RandomCuriosAttribute.percentAttackDamage);
+                StringUtils.RandomAttributes.percentAttackDamage);
         exRate += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.percentAttackDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.attackDamage);
@@ -326,7 +327,7 @@ public class PlayerAttributes {
         }
         critRate += computeAllEquipSlotBaseAttributeValue(player, Utils.critRate, false);
         critRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.critRate);
-        critRate += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.critRate);
+        critRate += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.critRate);
 
         // 器灵属性加成
         critRate += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.critRate);
@@ -352,7 +353,7 @@ public class PlayerAttributes {
             critRate +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.CritRate;
 
-        critRate += WraqCurios.CuriosAttribute.attributeValue(player, Utils.critRate, StringUtils.RandomCuriosAttribute.critRate); // 新版饰品属性加成
+        critRate += WraqCurios.CuriosAttribute.attributeValue(player, Utils.critRate, StringUtils.RandomAttributes.critRate); // 新版饰品属性加成
 
         critRate += AttackCurios2.playerCritRateUp(player);
         critRate += BowCurios2.playerCritRateUp(player);
@@ -379,11 +380,11 @@ public class PlayerAttributes {
 
         critDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.critDamage, false);
         // 计算随机属性装备数值
-        critDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.critDamage);
+        critDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.critDamage);
         // 计算线性等级强度装备数值
         critDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelCritDamage, false);
         critDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelCritDamage,
-                StringUtils.RandomCuriosAttribute.xpLevelCritDamage) * player.experienceLevel;
+                StringUtils.RandomAttributes.xpLevelCritDamage) * player.experienceLevel;
         critDamage += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.critDamage);
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 0)
             critDamage += 0.1;
@@ -411,7 +412,7 @@ public class PlayerAttributes {
             critDamage += data.getDouble("HealthStealAfterCompute") * 1;
         } // 猎魔者小刀
 
-        critDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.RandomCuriosAttribute.critDamage); // 新版饰品属性加成
+        critDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.RandomAttributes.critDamage); // 新版饰品属性加成
 
         critDamage += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.critDamage); // 器灵属性加成
         critDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExCritDamage);
@@ -514,7 +515,7 @@ public class PlayerAttributes {
         }
 
         movementSpeedUp += WraqCurios.CuriosAttribute.attributeValue(player, Utils.movementSpeedCommon,
-                StringUtils.RandomCuriosAttribute.commonMovementSpeed); // 新版饰品属性加成
+                StringUtils.RandomAttributes.commonMovementSpeed); // 新版饰品属性加成
 
         movementSpeedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedCommon);
 
@@ -551,7 +552,7 @@ public class PlayerAttributes {
 
         speedUp += computeAllEquipSlotBaseAttributeValue(player, Utils.movementSpeedWithoutBattle, false);
 
-        speedUp += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.movementSpeedWithoutBattle);
+        speedUp += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.movementSpeedWithoutBattle);
 
         speedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedWithoutBattle);
 
@@ -563,7 +564,7 @@ public class PlayerAttributes {
                 stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.MovementSpeed;
 
         speedUp += WraqCurios.CuriosAttribute.attributeValue(player, Utils.movementSpeedWithoutBattle,
-                StringUtils.RandomCuriosAttribute.movementSpeed); // 新版饰品属性加成
+                StringUtils.RandomAttributes.movementSpeed); // 新版饰品属性加成
         speedUp += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.movementSpeedWithoutBattle); // 器灵属性加成
         speedUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMovementSpeedWithoutBattleModifier);
 
@@ -588,7 +589,7 @@ public class PlayerAttributes {
             expUp += luckyAbilityPoint * 0.01;
         }
         expUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.expUp);
-        expUp += WraqCurios.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.RandomCuriosAttribute.expUp); // 新版饰品属性加成
+        expUp += WraqCurios.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.RandomAttributes.expUp); // 新版饰品属性加成
         expUp += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.expUp); // 器灵属性加成
         int tier = PlanPlayer.getPlayerTier(player);
         expUp += new double[]{0, 1, 2, 3}[tier];
@@ -614,14 +615,14 @@ public class PlayerAttributes {
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
 
         baseDefence += computeAllEquipSlotBaseAttributeValue(player, Utils.defence, true);
-        baseDefence += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.defence);
+        baseDefence += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.defence);
         exDefence += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.defence);
 
         // 计算线性等级强度装备数值
         baseDefence += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelDefence, false);
 
         baseDefence += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelDefence,
-                StringUtils.RandomCuriosAttribute.xpLevelDefence) * player.experienceLevel;
+                StringUtils.RandomAttributes.xpLevelDefence) * player.experienceLevel;
 
         // 以下为额外护甲
         if (SuitCount.getForestSuitCount(player) >= 2) exDefence += baseDefence * 0.25;
@@ -653,7 +654,7 @@ public class PlayerAttributes {
             exDefence += Utils.SnowShieldPlayerEffectMap.get(player);
         } // 玉山圆盾
 
-        exDefence += WraqCurios.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.RandomCuriosAttribute.defence); // 新版饰品属性加成
+        exDefence += WraqCurios.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.RandomAttributes.defence); // 新版饰品属性加成
 
         exDefence += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.defence); // 器灵属性加成
 
@@ -674,7 +675,7 @@ public class PlayerAttributes {
         exRate += MineShield.defenceEnhance(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance) +
                 WraqCurios.CuriosAttribute.attributeValue(player, Utils.percentDefenceEnhance,
-                        StringUtils.RandomCuriosAttribute.percentDefenceEnhance);
+                        StringUtils.RandomAttributes.percentDefenceEnhance);
         exRate += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.percentDefenceEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.defence);
@@ -715,7 +716,7 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.MineMonsterEffect) >= tick) healEffectUp -= 0.8;
 
         healEffectUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.healingAmplification);
-        healEffectUp += WraqCurios.CuriosAttribute.attributeValue(player, Utils.healingAmplification, StringUtils.RandomCuriosAttribute.healEffectUp); // 新版饰品属性加成
+        healEffectUp += WraqCurios.CuriosAttribute.attributeValue(player, Utils.healingAmplification, StringUtils.RandomAttributes.healEffectUp); // 新版饰品属性加成
         healEffectUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealAmplifierModifier);
 
         writeToCache(player, Utils.healingAmplification, healEffectUp * (1 - healEffectDecrease(player)));
@@ -747,7 +748,7 @@ public class PlayerAttributes {
             if (BowSkill > Math.max(SwordSkill, ManaSkill)) swiftnessUp += Utils.SpringScaleEffect.get(player) + 1;
         } //年兽鳞片
         swiftnessUp += WraqCurios.CuriosAttribute.attributeValue(player, Utils.swiftnessUp,
-                StringUtils.RandomCuriosAttribute.swiftnessUp); // 新版饰品属性加成
+                StringUtils.RandomAttributes.swiftnessUp); // 新版饰品属性加成
         swiftnessUp += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.swiftnessUp); // 器灵属性加成
         swiftnessUp += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExSwiftnessUp);
         swiftnessUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerSwiftnessModifier);
@@ -802,7 +803,7 @@ public class PlayerAttributes {
         if (SuitCount.getLakeSuitCount(player) >= 2) releaseSpeed += 0.1;
         if (SuitCount.getObsiManaSuitCount(player) >= 4) releaseSpeed += 0.2;
 
-        releaseSpeed += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.coolDown);
+        releaseSpeed += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.coolDown);
 
         if (player.getEffect(ModEffects.COOLDOWNUP.get()) != null && player.getEffect(ModEffects.COOLDOWNUP.get()).getAmplifier() == 0)
             releaseSpeed += 0.2;
@@ -816,7 +817,7 @@ public class PlayerAttributes {
 
         releaseSpeed += EarthPower.PlayerCoolDownEnhance(player); // 地蕴法术
 
-        releaseSpeed += WraqCurios.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.RandomCuriosAttribute.coolDown); // 新版饰品属性加成
+        releaseSpeed += WraqCurios.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.RandomAttributes.coolDown); // 新版饰品属性加成
         releaseSpeed += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExCoolDownDecrease);
         releaseSpeed += LakeArmor.exCooldown(player);
 
@@ -869,7 +870,7 @@ public class PlayerAttributes {
             defenceRate *= (1 - decreaseRate);
         }
         defenceRate *= (1 - WraqCurios.CuriosAttribute.attributeValue(player,
-                Utils.defencePenetration, StringUtils.RandomCuriosAttribute.defencePenetration)); // 新版饰品属性加成
+                Utils.defencePenetration, StringUtils.RandomAttributes.defencePenetration)); // 新版饰品属性加成
         defenceRate *= (1 - StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration));
         defenceRate *= (1 - WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.defencePenetration));
@@ -893,10 +894,10 @@ public class PlayerAttributes {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
-        defencePenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.defencePenetration0);
+        defencePenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.defencePenetration0);
         defencePenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelDefencePenetration0, false);
         defencePenetration0 += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelDefencePenetration0,
-                StringUtils.RandomCuriosAttribute.xpLevelDefencePenetration0) * player.experienceLevel;
+                StringUtils.RandomAttributes.xpLevelDefencePenetration0) * player.experienceLevel;
 
         // 器灵属性加成
         defencePenetration0 += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.defencePenetration0);
@@ -918,7 +919,7 @@ public class PlayerAttributes {
         }
 
         defencePenetration0 += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.defencePenetration0);
-        defencePenetration0 += WraqCurios.CuriosAttribute.attributeValue(player, Utils.defencePenetration0, StringUtils.RandomCuriosAttribute.defencePenetration0); // 新版饰品属性加成
+        defencePenetration0 += WraqCurios.CuriosAttribute.attributeValue(player, Utils.defencePenetration0, StringUtils.RandomAttributes.defencePenetration0); // 新版饰品属性加成
 
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
         defencePenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defencePenetration0);
@@ -943,7 +944,7 @@ public class PlayerAttributes {
         CompoundTag data = player.getPersistentData();
 
         // 处理随机属性装备
-        healthRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.healthRecover);
+        healthRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.healthRecover);
 
         // 处理宝石属性
         healthRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.healthRecover);
@@ -967,7 +968,7 @@ public class PlayerAttributes {
         }
 
         healthRecover += WraqCurios.CuriosAttribute
-                .attributeValue(player, Utils.healthRecover, StringUtils.RandomCuriosAttribute.healthRecover);
+                .attributeValue(player, Utils.healthRecover, StringUtils.RandomAttributes.healthRecover);
         healthRecover += PlainNewRune.playerHealthRecover(player);
         healthRecover += ForestNewRune.playerHealthRecoverUp(player);
         healthRecover += StableAttributesModifier.getModifierValue(player,
@@ -981,7 +982,7 @@ public class PlayerAttributes {
                 StableAttributesModifier.playerPercentHealthRecoverModifier) * player.getMaxHealth();
         healthRecover += WraqCurios.CuriosAttribute
                 .attributeValue(player, Utils.percentHealthRecover,
-                        StringUtils.RandomCuriosAttribute.percentHealthRecover) * player.getMaxHealth();
+                        StringUtils.RandomAttributes.percentHealthRecover) * player.getMaxHealth();
         healthRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentHealthRecover)
                 * player.getMaxHealth();
         healthRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentHealthRecover)
@@ -1005,14 +1006,14 @@ public class PlayerAttributes {
         CompoundTag data = player.getPersistentData();
         maxHealth += computeAllEquipSlotBaseAttributeValue(player, Utils.maxHealth, true);
         maxHealth += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.maxHealth);
-        maxHealth += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxHealth);
+        maxHealth += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.maxHealth);
         if (SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 800;
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
             maxHealth += vitalityAbilityPoint * 40;
         }
         maxHealth += WraqCurios.CuriosAttribute.attributeValue(player, Utils.maxHealth,
-                StringUtils.RandomCuriosAttribute.maxHealth); // 新版饰品属性加成
+                StringUtils.RandomAttributes.maxHealth); // 新版饰品属性加成
         maxHealth += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.maxHealth); // 器灵属性加成
         maxHealth += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExMaxHealth);
         maxHealth += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExMaxHealth);
@@ -1025,7 +1026,7 @@ public class PlayerAttributes {
         exRate += FantasyCurio.playerFantasyAttributeEnhance(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
                 WraqCurios.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
-                        StringUtils.RandomCuriosAttribute.percentMaxHealthEnhance);
+                        StringUtils.RandomAttributes.percentMaxHealthEnhance);
         exRate += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.percentMaxHealthEnhance);
         exRate += Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.maxHealth);
@@ -1043,7 +1044,7 @@ public class PlayerAttributes {
     public static double getBaseManaDamage(Player player) {
         double baseDamage = 0;
         baseDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDamage, true);
-        baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaDamage);
+        baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.manaDamage);
         baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
         return baseDamage;
     }
@@ -1069,10 +1070,10 @@ public class PlayerAttributes {
         }
 
         baseDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDamage, true);
-        baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaDamage);
+        baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.manaDamage);
         baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
         exDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDamage,
-                StringUtils.RandomCuriosAttribute.xpLevelManaDamage) * player.experienceLevel;
+                StringUtils.RandomAttributes.xpLevelManaDamage) * player.experienceLevel;
         exDamage += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.xpLevelManaDamage) * player.experienceLevel;
         exDamage += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaDamage);
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDamageModifier);
@@ -1115,7 +1116,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDamage += 1600;
 
         exDamage += baseDamage * EarthPower.PlayerDamageEnhance(player);
-        exDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaDamage, StringUtils.RandomCuriosAttribute.manaDamage); // 新版饰品属性加成
+        exDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaDamage, StringUtils.RandomAttributes.manaDamage); // 新版饰品属性加成
 
         exDamage += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.manaDamage); // 器灵属性加成
         exDamage += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDamage);
@@ -1135,7 +1136,7 @@ public class PlayerAttributes {
         exRate += HarbingerMainHand.getManaDamageRate(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance) +
                 WraqCurios.CuriosAttribute.attributeValue(player, Utils.percentManaDamageEnhance,
-                        StringUtils.RandomCuriosAttribute.percentManaDamageEnhance);
+                        StringUtils.RandomAttributes.percentManaDamageEnhance);
         exRate += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.percentManaDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDamage);
@@ -1170,7 +1171,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player))
             manaHealSteal += 0.05;
 
-        manaHealSteal += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaHealthSteal, StringUtils.RandomCuriosAttribute.manaHealthSteal); // 新版饰品属性加成
+        manaHealSteal += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaHealthSteal, StringUtils.RandomAttributes.manaHealthSteal); // 新版饰品属性加成
         //请在上方添加
         double exRate = 0;
         exRate += FantasyCurio.playerFantasyAttributeEnhance(player);
@@ -1193,7 +1194,7 @@ public class PlayerAttributes {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
         manaRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.manaRecover, false);
-        manaRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaRecover);
+        manaRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.manaRecover);
         manaRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaRecover);
         if (SuitCount.getLifeManaSuitCount(player) >= 2) {
             manaRecover += 5;
@@ -1222,13 +1223,13 @@ public class PlayerAttributes {
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaRecover;
 
         manaRecover += WraqCurios.CuriosAttribute.attributeValue(player,
-                Utils.manaRecover, StringUtils.RandomCuriosAttribute.manaRecover); // 新版饰品属性加成
+                Utils.manaRecover, StringUtils.RandomAttributes.manaRecover); // 新版饰品属性加成
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
         manaRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaRecover);
         manaRecover += TabooPaper.getExManaRecoverValue(player);
         manaRecover += SevenShadePiece.getEnhanceValue(player, Utils.manaRecover);
         manaRecover += WraqCurios.CuriosAttribute.attributeValue(player, Utils.percentManaRecover,
-                StringUtils.RandomCuriosAttribute.percentManaRecoverEnhance) * maxMana(player);
+                StringUtils.RandomAttributes.percentManaRecoverEnhance) * maxMana(player);
         manaRecover += StableAttributesModifier
                 .getModifierValue(player, StableAttributesModifier.playerPercentManaRecoverModifier) * maxMana(player);
         // 请在上方添加
@@ -1254,7 +1255,7 @@ public class PlayerAttributes {
         baseDefence += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDefence, true);
         baseDefence += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDefence, false);
         baseDefence += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDefence,
-                StringUtils.RandomCuriosAttribute.xpLevelManaDefence) * player.experienceLevel;
+                StringUtils.RandomAttributes.xpLevelManaDefence) * player.experienceLevel;
 
         // 以下为额外魔法抗性
         if (SuitCount.getForestSuitCount(player) >= 4) {
@@ -1275,7 +1276,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDefence += 4;
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) exDefence += 4;
 
-        exDefence += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.RandomCuriosAttribute.manaDefence); // 新版饰品属性加成
+        exDefence += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.RandomAttributes.manaDefence); // 新版饰品属性加成
         exDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExManaDefence);
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDefence);
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
@@ -1291,7 +1292,7 @@ public class PlayerAttributes {
         exRate += MineShield.defenceEnhance(player);
         exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance) +
                 WraqCurios.CuriosAttribute.attributeValue(player, Utils.percentManaDefenceEnhance,
-                        StringUtils.RandomCuriosAttribute.percentManaDefenceEnhance);
+                        StringUtils.RandomAttributes.percentManaDefenceEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDefence);
         exRate += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.percentManaDefenceEnhance);
@@ -1318,7 +1319,7 @@ public class PlayerAttributes {
         }
 
         healthSteal += computeAllEquipSlotBaseAttributeValue(player, Utils.healthSteal, false);
-        healthSteal += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.healthSteal);
+        healthSteal += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.healthSteal);
 
         // 器灵属性加成
         healthSteal += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.healthSteal);
@@ -1344,7 +1345,7 @@ public class PlayerAttributes {
 
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) healthSteal += 0.05;
 
-        healthSteal += WraqCurios.CuriosAttribute.attributeValue(player, Utils.healthSteal, StringUtils.RandomCuriosAttribute.healthSteal); // 新版饰品属性加成
+        healthSteal += WraqCurios.CuriosAttribute.attributeValue(player, Utils.healthSteal, StringUtils.RandomAttributes.healthSteal); // 新版饰品属性加成
 
         // 请在上方添加
 
@@ -1396,7 +1397,7 @@ public class PlayerAttributes {
         if (decreaseRate > 0) defenceRate *= (1 - decreaseRate);
 
         defenceRate *= (1 - WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaPenetration,
-                StringUtils.RandomCuriosAttribute.manaPenetration)); // 新版饰品属性加成
+                StringUtils.RandomAttributes.manaPenetration)); // 新版饰品属性加成
         defenceRate *= (1 - WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.manaPenetration));
         defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
         defenceRate *= (1 - ManaCurios4.getExManaPenetrationRate(player));
@@ -1420,10 +1421,10 @@ public class PlayerAttributes {
         }
 
         manaPenetration0 += computeAllEquipSlotBaseAttributeValue(player, Utils.manaPenetration0, false);
-        manaPenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaPenetration0);
+        manaPenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.manaPenetration0);
         manaPenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaPenetration0, false);
         manaPenetration0 += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelManaPenetration0,
-                StringUtils.RandomCuriosAttribute.xpLevelManaPenetration0) * player.experienceLevel;
+                StringUtils.RandomAttributes.xpLevelManaPenetration0) * player.experienceLevel;
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && SceptreAttribute.isHandling(player))
             manaPenetration0 +=
@@ -1437,7 +1438,7 @@ public class PlayerAttributes {
         if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 10;
 
         manaPenetration0 += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaPenetration0);
-        manaPenetration0 += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.RandomCuriosAttribute.manaPenetration0); // 新版饰品属性加成
+        manaPenetration0 += WraqCurios.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.RandomAttributes.manaPenetration0); // 新版饰品属性加成
         manaPenetration0 += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaPenetration0);
         if (SceptreAttribute.isHandling(player)) {
@@ -1479,9 +1480,9 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && SceptreAttribute.isHandling(player))
             maxMana +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.MaxMana;
-        maxMana += WraqCurios.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.RandomCuriosAttribute.maxMana); // 新版饰品属性加成
+        maxMana += WraqCurios.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.RandomAttributes.maxMana); // 新版饰品属性加成
         maxMana += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.maxMana); // 器灵属性加成
-        maxMana += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxMana);
+        maxMana += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.maxMana);
         maxMana += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.maxMana);
         // 请在上方添加
         double exRate = 0;
@@ -1520,7 +1521,7 @@ public class PlayerAttributes {
         rate += computeAllEquipSlotBaseAttributeValue(player, Utils.attackSpeedEnhance, false);
         rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerExAttackSpeed);
         rate += WraqCurios.CuriosAttribute.attributeValue(player, Utils.attackSpeedEnhance,
-                StringUtils.RandomCuriosAttribute.attackSpeedEnhance);
+                StringUtils.RandomAttributes.attackSpeedEnhance);
         CompoundTag data = player.getPersistentData();
         if (Compute.getSwordSkillLevel(data, 10) > 0 && SwordAttribute.isHandling(player)) {
             rate += Compute.getSwordSkillLevel(data, 10) * 0.03;

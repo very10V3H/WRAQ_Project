@@ -21,8 +21,8 @@ public class MineShield extends WraqOffHandItem {
     public MineShield() {
         super(new Properties().rarity(CustomStyle.VolcanoItalic), Te.s("手盾", CustomStyle.styleOfMine));
         Utils.maxHealth.put(this, 800d);
-        Utils.expUp.put(this, 0.3);
-        Utils.defence.put(this, 1d);
+        Utils.expUp.put(this, 0.25);
+        Utils.defence.put(this, 5d);
         Utils.shieldTag.put(this, 1d);
     }
 

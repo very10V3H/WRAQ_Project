@@ -98,7 +98,7 @@ public class DamageInfluence {
         rate += DivineUtils.getPlayerExCommonDamageEnhanceRate(player);
         rate += MoonCurios.getExCommonDamageEnhance(player);
         rate += WraqCurios.CuriosAttribute
-                .attributeValue(player, Utils.commonDamageEnhance, StringUtils.RandomCuriosAttribute.commonDamageEnhance);
+                .attributeValue(player, Utils.commonDamageEnhance, StringUtils.RandomAttributes.commonDamageEnhance);
         rate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.commonDamageEnhance);
         return rate;
     }
@@ -121,7 +121,7 @@ public class DamageInfluence {
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.ATTACK_DAMAGE_ENHANCE.get(), 0.35, 0.5);
         rate += WraqCurios.CuriosAttribute
-                .attributeValue(player, Utils.attackDamageEnhance, StringUtils.RandomCuriosAttribute.attackDamageEnhance);
+                .attributeValue(player, Utils.attackDamageEnhance, StringUtils.RandomAttributes.attackDamageEnhance);
         rate += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player,
                 Utils.attackDamageEnhance, false);
         return rate;
@@ -142,7 +142,7 @@ public class DamageInfluence {
         rate += Compute.getPlayerPotionEffectRate(player,
                 ModEffects.MANA_DAMAGE_ENHANCE.get(), 0.35, 0.5);
         rate += WraqCurios.CuriosAttribute
-                .attributeValue(player, Utils.manaDamageEnhance, StringUtils.RandomCuriosAttribute.manaDamageEnhance);
+                .attributeValue(player, Utils.manaDamageEnhance, StringUtils.RandomAttributes.manaDamageEnhance);
         rate += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player,
                 Utils.manaDamageEnhance, false);
         rate += MixtureAttack.getManaDamageEnhance(player);
@@ -189,7 +189,7 @@ public class DamageInfluence {
                 }).mapToDouble(curio -> ((WraqUniformCurios) curio.getItem()).getFinalDamageEnhanceRate())
                 .sum();
         rate += WraqCurios.CuriosAttribute
-                .attributeValue(player, Utils.finalDamageEnhance, StringUtils.RandomCuriosAttribute.finalDamageEnhance);
+                .attributeValue(player, Utils.finalDamageEnhance, StringUtils.RandomAttributes.finalDamageEnhance);
         rate += DevilPowerCurio.finalDamageEnhanceRate(player);
         return rate;
     }

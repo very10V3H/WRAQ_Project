@@ -7,6 +7,7 @@ import fun.wraq.entities.entities.Civil.CivilRender;
 import fun.wraq.entities.entities.SakuraMob.SakuraMobRender;
 import fun.wraq.entities.entities.SoraSword.SoraRedSwordAirRender;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
+import fun.wraq.entities.entities.GraySlime.GraySlimeRenderer;
 import fun.wraq.entities.render.*;
 import fun.wraq.process.func.guide.GuideHud;
 import fun.wraq.process.func.guide.waypoint.WaypointHud;
@@ -54,6 +55,7 @@ public class ClientModEventSubscriber {
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SORA_RED_SWORD_AIR.get(), SoraRedSwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.BLAZE_SWORD.get(), BlazeSwordRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.CIVIL.get(), CivilRender::new);
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.GRAY_SLIME.get(), GraySlimeRenderer::new);
 
 
         ClientUtils.SwordSkillsResource.init();

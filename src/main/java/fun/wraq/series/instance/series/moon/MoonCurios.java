@@ -117,9 +117,9 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
             data.putString(StringUtils.MoonCuriosPlayerName, player.getName().getString());
         }
         playerXpLevel = data.getInt(StringUtils.MoonCuriosXpLevel);
-        data.putInt(StringUtils.RandomCuriosAttribute.attackDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
-        data.putInt(StringUtils.RandomCuriosAttribute.manaDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
-        data.putInt(StringUtils.RandomCuriosAttribute.defence, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
-        data.putInt(StringUtils.RandomCuriosAttribute.maxHealth, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomAttributes.attackDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomAttributes.manaDamage, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomAttributes.defence, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
+        data.putInt(StringUtils.RandomAttributes.maxHealth, (int) (playerXpLevel * AttributeBase[baseValueIndex++]));
     }
 }
