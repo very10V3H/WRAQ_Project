@@ -87,6 +87,7 @@ import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.overworld.wind.WindItems;
 import fun.wraq.series.secret.SecretChest;
 import fun.wraq.series.secret.SecretChestContent;
+import fun.wraq.series.overworld.c1.NewC1Items;
 import fun.wraq.series.secret.SecretItems;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -160,6 +161,7 @@ public class VMD {
         SpecialEventItems.ITEMS.register(modEvenBus);
         WindItems.ITEMS.register(modEvenBus);
         SecretItems.ITEMS.register(modEvenBus);
+        NewC1Items.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);

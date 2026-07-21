@@ -14,6 +14,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.chapter1.AreaForestMobSpawnController;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
+import fun.wraq.events.mob.chapter1.GraySlimeSpawnController;
 import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import fun.wraq.events.mob.chapter2.*;
 import fun.wraq.events.mob.chapter3_nether.WitherSkeletonSpawnController;
@@ -121,6 +122,7 @@ public class MobSpawn {
     public static void setOverWorldList(Level overWorld) {
         overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
+        overWolrdList.add(GraySlimeSpawnController.getInstance(overWorld));
         AreaForestMobSpawnController.getInstance(overWorld);
 /*        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));

@@ -3064,5 +3064,8 @@
 
   "entity.vmd.hboss": "铁头的方块哥",
   "entity.vmd.sakuramob": "樱灵",
-  "entity.vmd.boss2": "突见忍"
+  "entity.vmd.boss2": "突见忍",
+  "entity.vmd.gray_slime": "苍峡软玉",
+
+  "item.vmd.gray_slime_ball": "苍岩玉膏"
 }

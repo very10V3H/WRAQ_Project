@@ -3,6 +3,7 @@ package fun.wraq.events.mob;
 
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.util.GeometryUtils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
@@ -131,6 +132,8 @@ public abstract class AreaMobSpawnController {
     public Level level;
     public final List<Mob> mobList = new ArrayList<>();
     public final List<MobSpawnController.Boundary> multiBoundaryList;
+    /** 多边形边界列表，用于定义不规则形状区域。为空时仅使用 AABB 边界 {@link #multiBoundaryList}。 */
+    public final List<PolygonBoundary> polygonBoundaryList;
     private int tickCounter;
     /** 上次有玩家在区域内的 server tick，用于无玩家时的自动清理。 */
     private long lastPlayerInBoundaryTick = 0;
@@ -145,10 +148,24 @@ public abstract class AreaMobSpawnController {
      */
     public AreaMobSpawnController(Component mobName, Level level, int averageLevel,
                                   List<MobSpawnController.Boundary> boundaries) {
+        this(mobName, level, averageLevel, boundaries, List.of());
+    }
+
+    /**
+     * @param mobName           怪物显示名称
+     * @param level             所在世界
+     * @param averageLevel      平均等级
+     * @param boundaries        轴对齐矩形边界列表（玩家在这些 AABB 内时才会刷怪）
+     * @param polygonBoundaries 多边形边界列表（玩家在这些多边形棱柱内时也会刷怪）
+     */
+    public AreaMobSpawnController(Component mobName, Level level, int averageLevel,
+                                  List<MobSpawnController.Boundary> boundaries,
+                                  List<PolygonBoundary> polygonBoundaries) {
         this.mobName = mobName;
         this.level = level;
         this.averageLevel = averageLevel;
         this.multiBoundaryList = boundaries;
+        this.polygonBoundaryList = polygonBoundaries;
         this.tickCounter = 0;
     }
 
@@ -261,6 +278,16 @@ public abstract class AreaMobSpawnController {
         return List.of();
     }
 
+    /**
+     * 禁止刷怪的多边形区域列表。
+     * 子类可覆写此方法返回 {@link PolygonBoundary} 列表，
+     * 若玩家在这些多边形区域内将不会生成怪物。
+     * <p>默认返回空列表（不排除任何区域）。</p>
+     */
+    public List<PolygonBoundary> getExcludedPolygonBoundaries() {
+        return List.of();
+    }
+
     // ==================== 可覆盖的方法（掉落/元素/tick/坐骑） ====================
 
     /**
@@ -307,7 +334,7 @@ public abstract class AreaMobSpawnController {
         mobList.removeIf(mob -> !mob.isAlive());
 
         // 1.5 区域内无玩家时自动清理怪物
-        if (getDespawnDelayTicks() > 0 && !multiBoundaryList.isEmpty()) {
+        if (getDespawnDelayTicks() > 0 && (!multiBoundaryList.isEmpty() || !polygonBoundaryList.isEmpty())) {
             if (isAnyPlayerInBoundary()) {
                 lastPlayerInBoundaryTick = Tick.get();
             } else {
@@ -390,9 +417,10 @@ public abstract class AreaMobSpawnController {
                 }
                 eachMobTick(mob);
 
-                // 越界检测
-                if (!multiBoundaryList.isEmpty()) {
-                    boolean mobIsInBoundary = false;
+                // 越界检测（同时检查 AABB 边界和多边形边界）
+                boolean mobIsInBoundary = multiBoundaryList.isEmpty() && polygonBoundaryList.isEmpty();
+                if (!mobIsInBoundary) {
+                    // 检查 AABB 边界
                     for (MobSpawnController.Boundary boundary : multiBoundaryList) {
                         if (mob.getX() > boundary.downPos().x && mob.getY() > boundary.downPos().y
                                 && mob.getZ() > boundary.downPos().z && mob.getX() < boundary.upPos().x
@@ -401,12 +429,21 @@ public abstract class AreaMobSpawnController {
                             break;
                         }
                     }
-                    if (!mobIsInBoundary) {
-                        // 传送到区域内随机玩家的位置
-                        Vec3 safePos = findRandomPositionInBoundary();
-                        if (safePos != null) {
-                            mob.moveTo(safePos);
+                }
+                if (!mobIsInBoundary) {
+                    // 检查多边形边界
+                    for (PolygonBoundary pb : polygonBoundaryList) {
+                        if (GeometryUtils.isPointInPolygonBoundary(mob.position(), pb)) {
+                            mobIsInBoundary = true;
+                            break;
                         }
+                    }
+                }
+                if (!mobIsInBoundary && (!multiBoundaryList.isEmpty() || !polygonBoundaryList.isEmpty())) {
+                    // 传送到区域内随机位置
+                    Vec3 safePos = findRandomPositionInBoundary();
+                    if (safePos != null) {
+                        mob.moveTo(safePos);
                     }
                 }
             }
@@ -417,7 +454,7 @@ public abstract class AreaMobSpawnController {
      * 判断是否有任何在线玩家在定义的区域内。
      */
     private boolean isAnyPlayerInBoundary() {
-        if (multiBoundaryList.isEmpty()) {
+        if (multiBoundaryList.isEmpty() && polygonBoundaryList.isEmpty()) {
             return true; // 无边界限制，视为一直有玩家
         }
         if (level == null || level.getServer() == null) return false;
@@ -435,7 +472,6 @@ public abstract class AreaMobSpawnController {
      */
     private boolean isPlayerInExcludedZone(Player player) {
         List<MobSpawnController.Boundary> excluded = getExcludedBoundaries();
-        if (excluded.isEmpty()) return false;
         for (MobSpawnController.Boundary boundary : excluded) {
             if (player.getX() > boundary.downPos().x && player.getY() > boundary.downPos().y
                     && player.getZ() > boundary.downPos().z && player.getX() < boundary.upPos().x
@@ -443,19 +479,33 @@ public abstract class AreaMobSpawnController {
                 return true;
             }
         }
+        List<PolygonBoundary> excludedPolygons = getExcludedPolygonBoundaries();
+        for (PolygonBoundary pb : excludedPolygons) {
+            if (GeometryUtils.isPointInPolygonBoundary(player.position(), pb)) {
+                return true;
+            }
+        }
         return false;
     }
 
     /**
-     * 判断玩家是否在定义的区域内。
-     */ private boolean isPlayerInBoundary(Player player) {
-        if (multiBoundaryList.isEmpty()) {
+     * 判断玩家是否在定义的区域内（同时检查 AABB 边界和多边形边界）。
+     */
+    private boolean isPlayerInBoundary(Player player) {
+        if (multiBoundaryList.isEmpty() && polygonBoundaryList.isEmpty()) {
             return true; // 无边界限制
         }
+        // 检查 AABB 边界
         for (MobSpawnController.Boundary boundary : multiBoundaryList) {
             if (player.getX() > boundary.downPos().x && player.getY() > boundary.downPos().y
                     && player.getZ() > boundary.downPos().z && player.getX() < boundary.upPos().x
                     && player.getY() < boundary.upPos().y && player.getZ() < boundary.upPos().z) {
+                return true;
+            }
+        }
+        // 检查多边形边界
+        for (PolygonBoundary pb : polygonBoundaryList) {
+            if (GeometryUtils.isPointInPolygonBoundary(player.position(), pb)) {
                 return true;
             }
         }
@@ -466,13 +516,25 @@ public abstract class AreaMobSpawnController {
      * 在边界内随机找一个位置（用于越界怪物传送）。
      */
     private Vec3 findRandomPositionInBoundary() {
-        if (multiBoundaryList.isEmpty()) return null;
-        MobSpawnController.Boundary boundary = multiBoundaryList.get(
-                new Random().nextInt(multiBoundaryList.size()));
-        double x = boundary.downPos().x + Math.random() * (boundary.upPos().x - boundary.downPos().x);
-        double y = boundary.downPos().y + Math.random() * (boundary.upPos().y - boundary.downPos().y);
-        double z = boundary.downPos().z + Math.random() * (boundary.upPos().z - boundary.downPos().z);
-        return new Vec3(x, y, z);
+        if (multiBoundaryList.isEmpty() && polygonBoundaryList.isEmpty()) return null;
+        Random random = new Random();
+        // 两种边界都有时，随机选择从哪种生成
+        boolean usePolygon = !polygonBoundaryList.isEmpty()
+                && (multiBoundaryList.isEmpty() || random.nextBoolean());
+        if (usePolygon) {
+            PolygonBoundary pb = polygonBoundaryList.get(random.nextInt(polygonBoundaryList.size()));
+            return GeometryUtils.randomPointInPolygon(pb, random);
+        } else {
+            MobSpawnController.Boundary boundary = multiBoundaryList.get(
+                    random.nextInt(multiBoundaryList.size()));
+            double x = boundary.downPos().x + random.nextDouble()
+                    * (boundary.upPos().x - boundary.downPos().x);
+            double y = boundary.downPos().y + random.nextDouble()
+                    * (boundary.upPos().y - boundary.downPos().y);
+            double z = boundary.downPos().z + random.nextDouble()
+                    * (boundary.upPos().z - boundary.downPos().z);
+            return new Vec3(x, y, z);
+        }
     }
 
     // ==================== 刷怪位置查找（防卡方块） ====================

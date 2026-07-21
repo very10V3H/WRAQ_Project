@@ -5,7 +5,6 @@ import fun.wraq.common.equip.*;
 import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.forge.ForgeRandomEquipUtils;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -1597,7 +1596,7 @@ public class PlayerAttributes {
     public static double handleMainHandRandomAttribute(Player player, String attributeType) {
         double value = 0;
         ItemStack mainHand = player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (mainHand.getTagElement(Utils.MOD_ID) != null) {
+        if (mainHand.getItem() instanceof WraqMainHandEquip && mainHand.getTagElement(Utils.MOD_ID) != null) {
             CompoundTag tag = mainHand.getOrCreateTagElement(Utils.MOD_ID);
             if (tag.contains(attributeType)) {
                 double baseValue = ForgeEquipUtils.getRandomEquipBaseValue(player, mainHand, attributeType);
