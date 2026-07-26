@@ -17,6 +17,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -100,6 +101,21 @@ public class PlainInstance extends NoTeamInstance {
     @Override
     public Element.Unit getElementUnit() {
         return new Element.Unit(Element.life, 2);
+    }
+
+    @Override
+    public List<Component> getIntroduction() {
+        Style style = CustomStyle.styleOfPlain;
+        return List.of(
+                Te.s("1.生命绽放:", style, "每5s对附近玩家施加效果:"),
+                Te.s("  • 6格内:", ChatFormatting.GREEN, "回复150生命值"),
+                Te.s("  • 6格外:", ChatFormatting.RED, "受到500魔法伤害，Boss回复125生命值"),
+                Te.s("2.生命凋零:", style, "每5s（相位偏移2.5s）对附近玩家施加效果:"),
+                Te.s("  • 6格内:", ChatFormatting.RED, "受到800魔法伤害，Boss回复400生命值"),
+                Te.s("  • 6格外:", ChatFormatting.GREEN, "回复100生命值"),
+                Te.s("3.召唤:", style, "战斗开始时召唤4名", "「普莱尼信徒」", ChatFormatting.GRAY, "协助作战"),
+                Te.s("4.元素:", style, "拥有", "2级生命元素", ChatFormatting.GREEN, "加成")
+        );
     }
 
     @Override

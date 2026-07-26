@@ -374,20 +374,22 @@ public class BasicAttributeDescription {
         }
 
         if (Utils.manaPenetration.containsKey(item) || data.contains(StringUtils.RandomAttributes.manaPenetration)) {
-            double ManaPenetration;
-            if (Utils.manaPenetration.containsKey(item)) ManaPenetration = Utils.manaPenetration.get(item);
+            double manaPenetration;
+            if (Utils.manaPenetration.containsKey(item)) manaPenetration = Utils.manaPenetration.get(item);
             else if (item instanceof RandomCurios)
-                ManaPenetration = data.getDouble(StringUtils.RandomAttributes.manaPenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomAttributes.manaPenetration);
-            else ManaPenetration = data.getInt(StringUtils.RandomAttributes.manaPenetration);
+                manaPenetration = data.getDouble(StringUtils.RandomAttributes.manaPenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.RandomAttributes.manaPenetration);
+            else manaPenetration = data.getInt(StringUtils.RandomAttributes.manaPenetration);
 
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+" + String.format("%.0f%%", ManaPenetration * 100)).withStyle(ChatFormatting.WHITE)));
+            if (manaPenetration != 0) {
+                MutableComponent mutableComponent = Component.literal("");
+                mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
+                        append(Component.literal("+" + String.format("%.0f%%", manaPenetration * 100)).withStyle(ChatFormatting.WHITE)));
 
-            handleRandomAttributeRate(itemStack, StringUtils.RandomAttributes.manaPenetration, mutableComponent);
+                handleRandomAttributeRate(itemStack, StringUtils.RandomAttributes.manaPenetration, mutableComponent);
 
-            index++;
-            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration)));
+                index++;
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration)));
+            }
         }
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaPenetration0, Utils.xpLevelManaPenetration0,

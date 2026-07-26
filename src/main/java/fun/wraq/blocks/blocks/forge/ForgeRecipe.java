@@ -10,7 +10,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.wind.WindItems;
+import fun.wraq.series.overworld.c1.NewC1Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -250,25 +250,19 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
         }});
 
-        recipes.put(ModItems.MINE_HELMET.get(), new ArrayList<>() {{
+        recipes.put(NewC1Items.MINE_CHEST.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
             add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
-        recipes.put(ModItems.MINE_CHEST.get(), new ArrayList<>() {{
+        recipes.put(NewC1Items.MINE_LEGGINGS.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
             add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
-        recipes.put(ModItems.MINE_LEGGINGS.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
-            add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 4));
-        }});
-
-        recipes.put(ModItems.MINE_BOOTS.get(), new ArrayList<>() {{
+        recipes.put(NewC1Items.MINE_BOOTS.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MINE_RUNE.get(), 3));
             add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 4));
@@ -448,7 +442,7 @@ public class ForgeRecipe {
         }});
 
         // TODO: 测试配方 - 矿洞头盔
-        recipes.put(ModItems.MINE_HELMET.get(), new ArrayList<>() {{
+        recipes.put(NewC1Items.MINE_HELMET.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MINE_RUNE.get(), 2));
             add(new ItemStack(ModItems.STONE_ELEMENT_PIECE_0.get(), 7));
             add(new ItemStack(Items.LEATHER, 5));

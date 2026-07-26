@@ -26,7 +26,7 @@ import java.util.*;
 public class AfkScreen extends Screen {
 
     private static final ResourceLocation GUI_TEXTURE =
-            new ResourceLocation(Utils.MOD_ID, "textures/gui/forge.png");
+            new ResourceLocation(Utils.MOD_ID, "textures/gui/forge_old.png");
     private static final Minecraft mc = Minecraft.getInstance();
     private static final Font font = mc.font;
 

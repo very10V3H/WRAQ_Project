@@ -21,6 +21,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.profession.smith.SmithHammer;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.c1.NewC1Items;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -67,6 +68,9 @@ public class WraqForge extends Item {
             materialList = forgeItem.forgeRecipe();
         } else {
             materialList = ForgeRecipe.recipes.get(forgedItem);
+        }
+        if (materialList.isEmpty()) {
+            return;
         }
         Inventory inventory = player.getInventory();
         boolean containMaterial = true;
@@ -259,8 +263,8 @@ public class WraqForge extends Item {
         if (lakeEquips.contains(item)) {
             Guide.trigV2(player, Guide.StageV2.LAKE_EQUIP);
         }
-        Set<Item> mineEquips = Set.of(ModItems.MINE_HELMET.get(), ModItems.MINE_CHEST.get(),
-                ModItems.MINE_LEGGINGS.get(), ModItems.MINE_BOOTS.get(),
+        Set<Item> mineEquips = Set.of(NewC1Items.MINE_HELMET.get(), NewC1Items.MINE_CHEST.get(),
+                NewC1Items.MINE_LEGGINGS.get(), NewC1Items.MINE_BOOTS.get(),
                 ModItems.MINE_SWORD_0.get(), ModItems.MINE_BOW_0.get());
         if (mineEquips.contains(item)) {
             Guide.trigV2(player, Guide.StageV2.MINE_EQUIP);
@@ -276,6 +280,9 @@ public class WraqForge extends Item {
                 ModItems.SKY_BOW.get(), ModItems.SKY_SWORD.get());
         if (enhanceEquips.contains(item)) {
             Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
+        }
+        if (item.equals(NewC1Items.MINE_HELMET.get())) {
+            Guide.trigV2(player, Guide.StageV2.FORGE_MINE_HELMET);
         }
         Guide.trigV2(player, Guide.StageV2.FIRST_FORGE);
         if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {

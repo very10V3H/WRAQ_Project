@@ -70,7 +70,7 @@ public class ColdSystem {
             return 3;
         } else if (isIn(player, cold_2_zone)) {
             return 2;
-        } else if ((player.level().getBiome(player.getOnPos()).get().getBaseTemperature() <= 0.5)) {
+        } else if ((player.level().getBiome(player.getOnPos()).get().getBaseTemperature() <= 0.1)) {
             return 1;
         }
         return 0;

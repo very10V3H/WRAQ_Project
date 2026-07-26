@@ -10,7 +10,6 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.forge.ForgeRandomEquip;
 import fun.wraq.common.impl.forge.ForgeRandomEquipUtils;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -70,6 +69,12 @@ public class ForgeScreen extends WraqScreen {
         } else {
             products.addAll(ForgeEquipUtils.getPlayerInZoneItemList(player));
         }
+        // 若锻造配方为空，则不显示
+        products.removeIf(itemStack -> {
+            Item item = itemStack.getItem();
+            return item instanceof ForgeItem forgeItem
+                    ? forgeItem.forgeRecipe().isEmpty() : ForgeRecipe.recipes.getOrDefault(item, List.of()).isEmpty();
+        });
         this.createMenu();
     }
 
@@ -80,8 +85,7 @@ public class ForgeScreen extends WraqScreen {
             if (page > 0) page--;
         }).pos(X - 39 + 2, Y - 20 + 97).size(20, 20).build());
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-            int size = ForgeEquipUtils.getPlayerInZoneItemList(mc.player).size();
-            if (page < (size - 1) / 3) page++;
+            if (page < (products.size() - 1) / 3) page++;
         }).pos(X + 20 + 2, Y - 20 + 97).size(20, 20).build());
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
             this.minecraft.setScreen((Screen) null);
@@ -96,6 +100,12 @@ public class ForgeScreen extends WraqScreen {
                     ModNetworking.sendToServer(new ForgeC2SPacket(products.get(page * 3 + finalI)));
                 }
             }).pos(X + xOffset - 24, Y + yOffset + 50).size(64, 16).build());
+            if (page * 3 + finalI < products.size()
+                    && playerStacks.contains(products.get(page * 3 + finalI))) {
+                this.addRenderableWidget(Button.builder(Component.translatable("重铸"), (p_280814_) -> {
+                    ModNetworking.sendToServer(new ForgeC2SPacket(products.get(page * 3 + finalI)));
+                }).pos(X + xOffset - 24, Y + yOffset + 68).size(64, 16).build());
+            }
         }
     }
 
@@ -147,53 +157,51 @@ public class ForgeScreen extends WraqScreen {
                         guiGraphics.renderTooltip(font, itemStack, x, y);
                     }
                 }
+                // 显示物品名称
+                guiGraphics.drawCenteredString(fontRenderer, itemStack.getDisplayName(),
+                        this.width / 2 + xOffset + 8, this.height / 2 + yOffset - 20, 0);
+                // 材料清单
+                guiGraphics.drawCenteredString(fontRenderer, Te.s("「材料清单」", ChatFormatting.AQUA),
+                        this.width / 2 + xOffset + 8, this.height / 2 + yOffset + 30, 0);
+                if (x > this.width / 2 + xOffset - 16 && x < this.width / 2 + xOffset + 32
+                        && y > this.height / 2 + yOffset + 30 - 8 && y < this.height / 2 + 16 + yOffset + 30) {
+                    List<ItemStack> materialList;
+                    if (item instanceof ForgeItem forgeItem) {
+                        materialList = forgeItem.forgeRecipe();
+                    } else {
+                        materialList = ForgeRecipe.recipes.get(item);
+                    }
+                    List<Component> components = new ArrayList<>() {{
+                        add(Te.s("「材料清单」", ChatFormatting.AQUA));
+                        materialList.forEach(material -> {
+                            int playerInventoryHasNum
+                                    = InventoryOperation.itemStackCount(mc.player, material.getItem());
+                            if (playerInventoryHasNum >= material.getCount()) {
+                                add(Te.s(material, " (", material.getCount(), ChatFormatting.AQUA, "/",
+                                        material.getCount(), CustomStyle.styleOfMoon, ")",
+                                        " √", ChatFormatting.GREEN));
+                            } else {
+                                add(Te.s(material, " (", playerInventoryHasNum, ChatFormatting.AQUA, "/",
+                                        material.getCount(), CustomStyle.styleOfMoon, ")",
+                                        " -", ChatFormatting.WHITE));
+                            }
+                        });
+                        if (materialList.size() == 1
+                                && materialList.get(0).is(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())) {
+                            add(Te.s("这件物品可由村民兑换/灌注获取.", ChatFormatting.AQUA));
+                        }
+                    }};
+                    guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
+                }
+                // 重铸按钮悬浮提示（仅玩家已有的装备）
                 if (!playerStacks.isEmpty() && playerStacks.contains(itemStack)) {
-                    guiGraphics.drawCenteredString(fontRenderer, itemStack.getDisplayName(),
-                            this.width / 2 + xOffset + 8, this.height / 2 + yOffset - 20, 0);
-                    guiGraphics.drawCenteredString(fontRenderer, Te.s("「可重铸」", ChatFormatting.RED),
-                            this.width / 2 + xOffset + 8, this.height / 2 + yOffset + 30, 0);
-                    if (x > this.width / 2 + xOffset - 16 && x < this.width / 2 + xOffset + 32
-                            && y > this.height / 2 + yOffset + 30 - 8 && y < this.height / 2 + 16 + yOffset + 30) {
+                    int btnX = this.width / 2 + xOffset - 24;
+                    int btnY = this.height / 2 + yOffset + 68;
+                    if (x > btnX && x < btnX + 64 && y > btnY && y < btnY + 16) {
                         List<Component> components = new ArrayList<>();
                         components.add(Te.s("需要消耗一个",
                                 ForgeEquipUtils.getEquipPieceList()
                                         .get(ForgeEquipUtils.getEquipForgeQuality(itemStack))));
-                        guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-                    }
-                } else {
-                    ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
-                    guiGraphics.drawCenteredString(fontRenderer, itemStack.getDisplayName(),
-                            this.width / 2 + xOffset + 8, this.height / 2 + yOffset - 20, 0);
-                    guiGraphics.drawCenteredString(fontRenderer, Te.s("「材料清单」", ChatFormatting.AQUA),
-                            this.width / 2 + xOffset + 8, this.height / 2 + yOffset + 30, 0);
-                    if (x > this.width / 2 + xOffset - 16 && x < this.width / 2 + xOffset + 32
-                            && y > this.height / 2 + yOffset + 30 - 8 && y < this.height / 2 + 16 + yOffset + 30) {
-                        List<ItemStack> materialList;
-                        if (item instanceof ForgeItem forgeItem) {
-                            materialList = forgeItem.forgeRecipe();
-                        } else {
-                            materialList = ForgeRecipe.recipes.get(item);
-                        }
-                        List<Component> components = new ArrayList<>() {{
-                            add(Te.s("「材料清单」", ChatFormatting.AQUA));
-                            materialList.forEach(material -> {
-                                int playerInventoryHasNum
-                                        = InventoryOperation.itemStackCount(mc.player, material.getItem());
-                                if (playerInventoryHasNum >= material.getCount()) {
-                                    add(Te.s(material, " (", material.getCount(), ChatFormatting.AQUA, "/",
-                                            material.getCount(), CustomStyle.styleOfMoon, ")",
-                                            " √", ChatFormatting.GREEN));
-                                } else {
-                                    add(Te.s(material, " (", playerInventoryHasNum, ChatFormatting.AQUA, "/",
-                                            material.getCount(), CustomStyle.styleOfMoon, ")",
-                                            " -", ChatFormatting.WHITE));
-                                }
-                            });
-                            if (materialList.size() == 1
-                                    && materialList.get(0).is(ModItems.COLLEGE_SENIOR_EQUIP_TICKET.get())) {
-                                add(Te.s("这件物品可由村民兑换/灌注获取.", ChatFormatting.AQUA));
-                            }
-                        }};
                         guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
                     }
                 }

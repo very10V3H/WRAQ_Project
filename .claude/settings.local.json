@@ -14,7 +14,9 @@
       "Bash(unzip -p \"/c/Users/Administrator/.gradle/caches/modules-2/files-2.1/top.theillusivec4.curios/curios-forge/5.9.0+1.20.1/ed9caabc7bcc0803bdd34cd1f50dbde706a4eb93/curios-forge-5.9.0+1.20.1-api.jar\")",
       "Bash(unzip -p curios-forge-5.9.0+1.20.1.jar top/theillusivec4/curios/api/CuriosApi.class)",
       "Bash(unzip -l \"/c/Users/Administrator/.gradle/caches/forge_gradle/maven_downloader/top/theillusivec4/curios/curios-forge/5.9.0+1.20.1/curios-forge-5.9.0+1.20.1-sources.jar\")",
-      "Bash(unzip *)"
+      "Bash(unzip *)",
+      "Read(//c/Windows/System32/WindowsPowerShell/v1.0/**)",
+      "Read(//c/Windows/SysWOW64/WindowsPowerShell/v1.0/**)"
     ]
   }
 }

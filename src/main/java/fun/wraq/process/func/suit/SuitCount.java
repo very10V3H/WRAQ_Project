@@ -5,6 +5,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
+import fun.wraq.series.overworld.c1.NewC1Items;
 import fun.wraq.series.overworld.chapter1.forest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.mana.ManaNote;
 import fun.wraq.series.overworld.chapter1.mine.MineCrest;
@@ -154,10 +155,10 @@ public class SuitCount {
 
     public static int getMineSuitCount(Player player) {
         int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MINE_HELMET.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.MINE_CHEST.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MINE_LEGGINGS.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.MINE_BOOTS.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.HEAD).is(NewC1Items.MINE_HELMET.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.CHEST).is(NewC1Items.MINE_CHEST.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.LEGS).is(NewC1Items.MINE_LEGGINGS.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.FEET).is(NewC1Items.MINE_BOOTS.get())) count++;
         if (WraqCurios.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof MineCrest)) {
             count ++;

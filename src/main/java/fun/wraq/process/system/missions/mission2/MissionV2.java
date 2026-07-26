@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenS2CPacket;
 import fun.wraq.process.system.missions.netWorking.MissionV2DataS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -58,7 +59,33 @@ public enum MissionV2 {
             MissionV2Helper.getDailyMissionRewardAction(),
             MissionV2Helper.getDailyRewardDescription(),
             MissionV2Helper.getDailyChallengeMissionTitle(),
-            MissionV2Helper.getDailyChallengeMissionDetail());
+            MissionV2Helper.getDailyChallengeMissionDetail()),
+
+    EXPEDITION_O_LAVA(Te.s("远征O - 熔岩 - 熔岩废墟", CustomStyle.styleOfRed),
+            Te.s("东侧熔岩裂谷对潮汐城产生了威胁，寻找熔岩学者了解情况，收集根源力量，锻造火山装备以应对危机。"),
+            Te.s("寻访学者 → 收集根源 → 锻造装备"),
+            Te.s("需完成全部引导任务"), true,
+            ExpeditionMissionHelper.getAllowAcceptCondition(),
+            null,
+            ExpeditionMissionHelper.getSubmitCondition(),
+            ExpeditionMissionHelper.getSubmitAction(),
+            ExpeditionMissionHelper.getRewardDescription(),
+            ExpeditionMissionHelper.getTitleOperation(),
+            ExpeditionMissionHelper.getTipsOperation(),
+            ExpeditionMissionHelper.getDetailOperation(),
+            true),
+
+    EXPEDITION_I_LUOYAN(Te.s("远征I - 炼狱 - 熔岩裂谷", CustomStyle.styleOfPower),
+            Te.s("深入熔岩裂谷，面对更强大的挑战。"),
+            Te.s("等待开放…"),
+            Te.s("需完成远征O"), true,
+            ExpeditionMissionHelper.getLuoyanAllowAcceptCondition(),
+            null,
+            null,
+            null,
+            List.of(),
+            null,
+            null);
 
     public interface PlayerCondition {
         boolean can(Player player) throws CommandSyntaxException;
@@ -77,37 +104,59 @@ public enum MissionV2 {
     public final Component tips;
     public final Component frontCondition;
     public final boolean canAutoSubmit;
+    public final boolean multiStep;
     public final PlayerCondition allowAcceptCondition;
     public final PlayerAction acceptAction;
     public final PlayerCondition submitCondition;
     public final PlayerAction submitAction;
     public final List<Component> rewardDescription;
     public final ClientComponentOperation titleOperation;
+    public final ClientComponentOperation tipsOperation;
     public final ClientComponentOperation detailOperation;
 
     MissionV2(Component title, Component description, Component tips, Component frontCondition, boolean canAutoSubmit,
               PlayerCondition allowAcceptCondition, PlayerAction acceptAction,
               PlayerCondition submitCondition, PlayerAction submitAction, List<Component> rewardDescription,
-              ClientComponentOperation titleOperation, ClientComponentOperation detailOperation) {
+              ClientComponentOperation titleOperation, ClientComponentOperation tipsOperation,
+              ClientComponentOperation detailOperation, boolean multiStep) {
         this.title = title;
         this.description = description;
         this.tips = tips;
         this.frontCondition = frontCondition;
         this.canAutoSubmit = canAutoSubmit;
+        this.multiStep = multiStep;
         this.allowAcceptCondition = allowAcceptCondition;
         this.acceptAction = acceptAction;
         this.submitCondition = submitCondition;
         this.submitAction = submitAction;
         this.rewardDescription = rewardDescription;
         this.titleOperation = titleOperation;
+        this.tipsOperation = tipsOperation;
         this.detailOperation = detailOperation;
+    }
+
+    MissionV2(Component title, Component description, Component tips, Component frontCondition, boolean canAutoSubmit,
+              PlayerCondition allowAcceptCondition, PlayerAction acceptAction,
+              PlayerCondition submitCondition, PlayerAction submitAction, List<Component> rewardDescription,
+              ClientComponentOperation titleOperation, ClientComponentOperation tipsOperation,
+              ClientComponentOperation detailOperation) {
+        this(title, description, tips, frontCondition, canAutoSubmit, allowAcceptCondition, acceptAction,
+                submitCondition, submitAction, rewardDescription, titleOperation, tipsOperation, detailOperation, false);
+    }
+
+    MissionV2(Component title, Component description, Component tips, Component frontCondition, boolean canAutoSubmit,
+              PlayerCondition allowAcceptCondition, PlayerAction acceptAction,
+              PlayerCondition submitCondition, PlayerAction submitAction, List<Component> rewardDescription,
+              ClientComponentOperation titleOperation, ClientComponentOperation detailOperation) {
+        this(title, description, tips, frontCondition, canAutoSubmit, allowAcceptCondition, acceptAction,
+                submitCondition, submitAction, rewardDescription, titleOperation, null, detailOperation);
     }
 
     MissionV2(Component title, Component description, Component tips, Component frontCondition, boolean canAutoSubmit,
               PlayerCondition allowAcceptCondition, PlayerAction acceptAction,
               PlayerCondition submitCondition, PlayerAction submitAction, List<Component> rewardDescription) {
         this(title, description, tips, frontCondition, canAutoSubmit, allowAcceptCondition, acceptAction,
-                submitCondition, submitAction, rewardDescription, null, null);
+                submitCondition, submitAction, rewardDescription, null, null, null);
     }
 
     public static CompoundTag clientMissionData;
@@ -143,6 +192,10 @@ public enum MissionV2 {
                     missionV2.acceptAction.action(player);
                 }
                 MissionV2Helper.getMissionV2StatusData(player).putString(missionV2.name(), Status.IN_PROGRESS);
+                // 接受远征任务时，完成对应引导
+                if (missionV2 == EXPEDITION_O_LAVA) {
+                    Guide.trigV2(player, Guide.StageV2.ACCEPT_EXPEDITION_O);
+                }
                 sendMSG(player, Te.s("已接受 ", missionV2.title));
                 MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
                 openScreenInClient(player, 2);
@@ -184,10 +237,24 @@ public enum MissionV2 {
                 throw new RuntimeException(e);
             }
         }
-        MissionV2Helper.getMissionV2StatusData(player).putString(missionV2.name(), Status.FINISHED);
-        sendMSG(player, Te.s(missionV2.title, " 已完成!"));
-        MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
-        openScreenInClient(player, 3);
+        if (missionV2.multiStep) {
+            // 多步骤任务：submitAction 已自行管理状态，此处只发送反馈
+            String currentStatus = MissionV2Helper.getMissionV2StatusData(player).getString(missionV2.name());
+            if (currentStatus.equals(Status.FINISHED)) {
+                sendMSG(player, Te.s(missionV2.title, " 全部完成!"));
+                MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+                openScreenInClient(player, 3);
+            } else {
+                sendMSG(player, Te.s(missionV2.title, " 步骤完成! 请查看下一步需求"));
+                MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
+                openScreenInClient(player, 2);
+            }
+        } else {
+            MissionV2Helper.getMissionV2StatusData(player).putString(missionV2.name(), Status.FINISHED);
+            sendMSG(player, Te.s(missionV2.title, " 已完成!"));
+            MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+            openScreenInClient(player, 3);
+        }
     }
 
     public static void autoSubmit(Player player) {
@@ -230,6 +297,18 @@ public enum MissionV2 {
                     "个", "进行中", CustomStyle.styleOfField, "的", "任务。"));
             sendMSG(player, Te.s("使用", ModItems.ID_CARD, "打开", "任务列表", CustomStyle.styleOfFlexible,
                     "以查看详情。"));
+        }
+        // 引导到接受远征阶段或最终阶段时，推送远征任务
+        if (player.tickCount % 100 == 50) {
+            String guideStage = Guide.getPlayerCurrentStageV2(player);
+            if ((guideStage.equals(Guide.StageV2.FINAL)
+                    || guideStage.equals(Guide.StageV2.ACCEPT_EXPEDITION_O))
+                    && EXPEDITION_O_LAVA.getPlayerStatus(player).isEmpty()) {
+                EXPEDITION_O_LAVA.setPlayerStatus(player, Status.NOT_ACCEPTED);
+                sendMSG(player, Te.s("远征任务已开放! 请查看任务列表接取: ",
+                        EXPEDITION_O_LAVA.title));
+                MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+            }
         }
     }
 

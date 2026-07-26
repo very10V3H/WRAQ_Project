@@ -32,9 +32,9 @@ public class LifeSceptre extends WraqSceptre implements OnHitEffectEquip, InCuri
     public LifeSceptre(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.manaDamage.put(this, new double[]{12, 25, 40, 45, 60}[tier]);
+        Utils.manaDamage.put(this, new double[]{12, 25, 40, 55, 60}[tier]);
         Utils.manaRecover.put(this, 5d);
-        Utils.manaPenetration0.put(this, new double[]{0, 3, 5, 3, 3}[tier]);
+        Utils.manaPenetration0.put(this, new double[]{0, 3, 5, 7, 3}[tier]);
         Utils.coolDownDecrease.put(this, new double[]{0.05, 0.1, 0.12, 0.16, 0.2}[tier]);
         Element.lifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
     }

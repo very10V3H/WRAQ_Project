@@ -43,15 +43,26 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
                 maxDistance *= (1 + ManaCurios5.getExSkillRangeRate(player));
                 double range = 3;
                 range *= (1 + ManaCurios5.getExSkillRangeRate(player));
-                Vec3 pickLocation = player.pick(maxDistance, 0, false).getLocation();
                 Vec3 eyePosition = player.getEyePosition();
+                Vec3 lookVec = player.getViewVector(1.0f);
+                // 沿视线计算有效距离——只被完整固体方块阻挡，草/树叶/花等非固体方块不阻挡
+                double effectiveDistance = maxDistance;
+                for (double i = 0.5; i <= maxDistance; i += 0.5) {
+                    Vec3 checkPos = eyePosition.add(lookVec.scale(i));
+                    if (player.level().getBlockState(net.minecraft.core.BlockPos.containing(checkPos)).isSolid()) {
+                        effectiveDistance = i;
+                        break;
+                    }
+                }
+                Vec3 pickLocation = eyePosition.add(lookVec.scale(effectiveDistance));
                 ParticleProvider.createLineSpaceDustParticle(player.level(),
-                        (int) (pickLocation.distanceTo(eyePosition) * maxDistance), eyePosition, pickLocation,
+                        (int) (effectiveDistance * 2), eyePosition, pickLocation,
                         range, Element.getManaSkillParticleStyle(player));
                 Set<Mob> mobs = Compute.getPlayerRayMobList(player, 1, range, maxDistance);
                 mobs.forEach(mob -> {
                     Damage.causeRateApDamageWithElement(player, mob,
-                            damage * (1 + ManaCurios5.getExBaseDamageRate(player, mob)), true);
+                            damage * (1 + ManaCurios5.getExBaseDamageRate(player, mob))
+                                    * (mobs.size() == 1 ? 2 : 1), true);
                     ManaNewSkillPassive0.addCount(player, mob, 2);
                 });
                 Element.giveResonanceElement(player);
@@ -65,6 +76,8 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
         components.add(Te.s("对前方矩形范围的敌人造成",
                 getRateDescription(2.5, 0.25, level), CustomStyle.styleOfMana, "伤害"));
         components.add(Te.s("并额外施加2层", " 渗", CustomStyle.styleOfMana));
+        components.add(Te.s("若范围内仅有一名敌人，则造成",
+                getRateDescription(5, 0.5, level), CustomStyle.styleOfMana, "伤害"));
         return components;
     }
 

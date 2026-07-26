@@ -13,6 +13,8 @@ import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.crystal.CrystalItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.overworld.c1.NewC1Items;
+import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.wind.WindItems;
 import net.brdle.collectorsreap.common.item.CRItems;
@@ -52,6 +54,7 @@ public class TradeListNew {
     public static void init() {
         stage1();
         stage2();
+        stage3();
         curio1();
 /*        cookingCrop();
         cookingFruit();
@@ -125,7 +128,29 @@ public class TradeListNew {
                         Pair.of(Is.n(LIFE_SCEPTRE_2),
                                 List.of(Is.n(FOREST_RUNE), Is.n(LIFE_SCEPTRE_1))),
                         Pair.of(Is.n(NewRuneItems.FOREST_NEW_RUNE),
-                                List.of(Is.n(FOREST_RUNE, 2)))
+                                List.of(Is.n(FOREST_RUNE, 2))),
+                        Pair.of(Is.n(LIFE_SCEPTRE_3),
+                                List.of(Is.n(LIFE_SCEPTRE_2), Is.n(PLAIN_BOSS_SOUL, 2))),
+                        Pair.of(Is.n(FOREST_BOW_2),
+                                List.of(Is.n(FOREST_BOW_1), Is.n(PLAIN_BOSS_SOUL, 2))),
+                        Pair.of(Is.n(FOREST_SWORD_2),
+                                List.of(Is.n(FOREST_SWORD_1), Is.n(PLAIN_BOSS_SOUL, 2))),
+                        Pair.of(Is.n(FORGING_STONE_0),
+                                List.of(Is.n(COPPER_COIN, 150)))
+                ));
+    }
+
+    public static void stage3() {
+        MyVillagerData.setMyVillagerDataWraq3("阶段3商人", "阶段3商人", CustomStyle.styleOfStone,
+                List.of(
+                        Pair.of(Is.n(MINE_SHIELD),
+                                List.of(Is.n(NewC1Items.GRAY_SLIME_BALL, 30), Is.n(COPPER_COIN, 800))),
+                        Pair.of(Is.n(NewAreaItems.STONE_SPIDER_KNIFE_0),
+                                List.of(Is.n(NewC1Items.GRAY_SLIME_BALL, 30), Is.n(COPPER_COIN, 800))),
+                        Pair.of(Is.n(MINE_MANA_NOTE),
+                                List.of(Is.n(NewC1Items.GRAY_SLIME_BALL, 30), Is.n(COPPER_COIN, 800))),
+                        Pair.of(Is.n(COPPER_HAMMER),
+                                List.of(Is.n(COPPER_COIN, 100)))
                 ));
     }
 

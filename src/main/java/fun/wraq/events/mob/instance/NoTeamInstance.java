@@ -262,6 +262,8 @@ public abstract class NoTeamInstance {
                         append(Component.literal("秒").withStyle(ChatFormatting.WHITE)));
             }
             summonArmorStand(level, new Vec3(0, 0, 0), Te.s(prefix(), ":", name));
+        } else if (inChallenge) {
+            Compute.removeNearArmorStand(level, armorStandPos, range * 2);
         } else {
             List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos, range * 2, range * 2, range * 2));
             armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));

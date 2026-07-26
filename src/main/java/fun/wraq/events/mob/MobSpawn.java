@@ -74,7 +74,8 @@ public class MobSpawn {
                     setOverWorldList(event.level);
                 }
                 overWolrdList.forEach(mobSpawnController -> {
-                    if (tick % Tick.s(36) == (overWolrdList.indexOf(mobSpawnController) % Tick.s(36))) {
+                    int interval = mobSpawnController.getSpawnInterval();
+                    if (tick % interval == (overWolrdList.indexOf(mobSpawnController) % interval)) {
                         mobSpawnController.spawnFlag = true;
                     }
                     mobSpawnController.handleTick();
@@ -97,7 +98,8 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.NETHER)) {
                 if (netherList.isEmpty()) setNetherList(event.level);
                 netherList.forEach(mobSpawnController -> {
-                    if (tick % Tick.s(36) == ((netherList.indexOf(mobSpawnController) + 50) % Tick.s(36))) {
+                    int interval = mobSpawnController.getSpawnInterval();
+                    if (tick % interval == ((netherList.indexOf(mobSpawnController) + 50) % interval)) {
                         mobSpawnController.spawnFlag = true;
                     }
                     mobSpawnController.handleTick();
@@ -107,7 +109,8 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.END)) {
                 if (endList.isEmpty()) setEndList(event.level);
                 endList.forEach(mobSpawnController -> {
-                    if (tick % Tick.s(36) == ((endList.indexOf(mobSpawnController) + 25) % Tick.s(36))) {
+                    int interval = mobSpawnController.getSpawnInterval();
+                    if (tick % interval == ((endList.indexOf(mobSpawnController) + 25) % interval)) {
                         mobSpawnController.spawnFlag = true;
                     }
                     mobSpawnController.handleTick();
@@ -487,6 +490,12 @@ public class MobSpawn {
             Guide.incrementMobKill(player, "forestZombie");
             if (Guide.getMobKillCount(player, "forestZombie") >= 20) {
                 Guide.trigV2(player, Guide.StageV2.KILL_20_FOREST_ZOMBIE);
+            }
+        }
+        if (mobOriginName.equals(GraySlimeSpawnController.mobName)) {
+            Guide.incrementMobKill(player, "graySlime");
+            if (Guide.getMobKillCount(player, "graySlime") >= 20) {
+                Guide.trigV2(player, Guide.StageV2.KILL_20_GRAY_SLIME);
             }
         }
 

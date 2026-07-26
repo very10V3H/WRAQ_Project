@@ -260,6 +260,8 @@ public class WaypointTeleportHandler {
                     Guide.trigV2(serverPlayer, Guide.StageV2.UNLOCK_TIDE_NORTHEAST);
                 } else if ("项潮林".equals(name)) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.UNLOCK_XIANGCHAOLIN);
+                } else if ("苍岩隘口".equals(name)) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.UNLOCK_CANGYAN_PASS);
                 }
 
                 event.setCanceled(true);

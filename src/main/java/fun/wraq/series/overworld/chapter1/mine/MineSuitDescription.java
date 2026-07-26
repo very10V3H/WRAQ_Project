@@ -2,9 +2,9 @@ package fun.wraq.series.overworld.chapter1.mine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.c1.NewC1Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -30,10 +30,10 @@ public class MineSuitDescription {
         Player player = Minecraft.getInstance().player;
         Style MainStyle = CustomStyle.styleOfMine;
         Item[] items = {
-                ModItems.MINE_HELMET.get(),
-                ModItems.MINE_CHEST.get(),
-                ModItems.MINE_LEGGINGS.get(),
-                ModItems.MINE_BOOTS.get()
+                NewC1Items.MINE_HELMET.get(),
+                NewC1Items.MINE_CHEST.get(),
+                NewC1Items.MINE_LEGGINGS.get(),
+                NewC1Items.MINE_BOOTS.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,

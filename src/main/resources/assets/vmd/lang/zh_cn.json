@@ -434,10 +434,10 @@
   "item.vmd.mine_leggings_fd": "矿工裤锻造图",
   "item.vmd.wheat_armor_chest": "稻草甲",
   "item.vmd.sakura_demon_sword": "妖刀-樱",
-  "item.vmd.minearmorhelmet": "矿洞头盔",
-  "item.vmd.minearmorchest": "矿洞胸甲",
-  "item.vmd.minearmorleggings": "矿洞护腿",
-  "item.vmd.minearmorboots": "矿洞靴子",
+  "item.vmd.mine_helmet": "铁铁铁铁铁头",
+  "item.vmd.mine_chest": "矿洞胸甲",
+  "item.vmd.mine_leggings": "矿洞护腿",
+  "item.vmd.mine_boots": "矿洞靴子",
   "item.vmd.snowarmorhelmet": "冰川头盔",
   "item.vmd.snowarmorchest": "冰川胸甲",
   "item.vmd.snowarmorleggings": "冰川护腿",
@@ -3067,5 +3067,6 @@
   "entity.vmd.boss2": "突见忍",
   "entity.vmd.gray_slime": "苍峡软玉",
 
-  "item.vmd.gray_slime_ball": "苍岩玉膏"
+  "item.vmd.gray_slime_ball": "苍岩玉膏",
+  "item.vmd.armor_piece": "盔甲碎片"
 }

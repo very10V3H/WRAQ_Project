@@ -138,12 +138,12 @@ public class WorldChallengeDrowned extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return player.experienceLevel >= 40;
+        return player.experienceLevel >= 35;
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Te.s("需要达到", Utils.getLevelDescription(40), "才能获取奖励");
+        return Te.s("需要达到", Utils.getLevelDescription(35), "才能获取奖励");
     }
 
     @Override
@@ -189,13 +189,13 @@ public class WorldChallengeDrowned extends NoTeamInstance {
 
     @Override
     protected boolean allowSummon(Player player) {
-        return Tower.getPlayerStatus(player, STATUS_INDEX) < 4 && player.experienceLevel >= 40;
+        return Tower.getPlayerStatus(player, STATUS_INDEX) < 4 && player.experienceLevel >= 35;
     }
 
     @Override
     protected Component disallowReason(Player player) {
-        if (player.experienceLevel < 40) {
-            return Te.s("需要达到", Utils.getLevelDescription(40), "才能进行挑战");
+        if (player.experienceLevel < 35) {
+            return Te.s("需要达到", Utils.getLevelDescription(35), "才能进行挑战");
         }
         return Te.s("今天已经4★通关了！");
     }

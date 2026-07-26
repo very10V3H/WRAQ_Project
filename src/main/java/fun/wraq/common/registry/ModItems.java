@@ -543,15 +543,6 @@ public class ModItems {
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.MineItalic), 3,
                     40, 0, 2, 200, 3, 0, 0.25));
 
-    public static final RegistryObject<Item> MINE_HELMET = ITEMS.register("minearmorhelmet",
-            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.HELMET));
-    public static final RegistryObject<Item> MINE_CHEST = ITEMS.register("minearmorchest",
-            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<Item> MINE_LEGGINGS = ITEMS.register("minearmorleggings",
-            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<Item> MINE_BOOTS = ITEMS.register("minearmorboots",
-            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.BOOTS));
-
     public static final RegistryObject<Item> VOLCANO_SWORD_0 = ITEMS.register("volcanosword0",
             () -> new VolcanoSword(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 0));
     public static final RegistryObject<Item> VOLCANO_SWORD_1 = ITEMS.register("volcanosword1",

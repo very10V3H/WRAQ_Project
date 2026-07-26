@@ -12,7 +12,9 @@ import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -84,14 +86,28 @@ public class EntityQueryUtil {
 
     public static Set<Mob> getPlayerRayMobList(Player player, double detectStep, double detectRange, double maxDistance) {
         Level level = player.level();
-        Vec3 targetPos = player.pick(25, 0, false).getLocation();
-        Vec3 startPos = player.pick(0.5, 0, false).getLocation();
-        Vec3 posVec = targetPos.subtract(startPos).normalize();
+        Vec3 eyePos = player.getEyePosition(1.0f);
+        Vec3 lookVec = player.getViewVector(1.0f);
+
+        // 沿视线步进，计算有效距离——只被完整固体方块阻挡
+        // 草、树叶、花、水等非固体方块不阻挡射线
+        double effectiveDistance = maxDistance;
+        for (double i = 0.5; i <= maxDistance; i += 0.5) {
+            Vec3 checkPos = eyePos.add(lookVec.scale(i));
+            BlockPos blockPos = BlockPos.containing(checkPos);
+            if (level.getBlockState(blockPos).isSolid()) {
+                effectiveDistance = i;
+                break;
+            }
+        }
+
         Set<Mob> mobs = new HashSet<>();
-        for (double i = detectStep; i <= maxDistance; i += detectStep) {
-            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(posVec.scale(i)),
-                    detectRange, detectRange, detectRange)).stream().filter(EntityQueryUtil::isWraqMob).toList();
-            mobs.addAll(mobList1);
+        for (double i = detectStep; i <= effectiveDistance; i += detectStep) {
+            Vec3 checkPos = eyePos.add(lookVec.scale(i));
+            List<Mob> mobList = level.getEntitiesOfClass(Mob.class,
+                    AABB.ofSize(checkPos, detectRange, detectRange, detectRange))
+                    .stream().filter(EntityQueryUtil::isWraqMob).toList();
+            mobs.addAll(mobList);
         }
         return mobs;
     }

@@ -127,6 +127,7 @@ public class VMD {
         PickaxeItems.ITEMS.register(modEvenBus);
         OreItems.ITEMS.register(modEvenBus);
         EndlessInstanceItems.ITEMS.register(modEvenBus);
+        NewC1Items.ITEMS.register(modEvenBus);
         ModItems.ITEMS.register(modEvenBus);
         SpurItems.ITEMS.register(modEvenBus);
         C7Items.ITEMS.register(modEvenBus);
@@ -161,7 +162,6 @@ public class VMD {
         SpecialEventItems.ITEMS.register(modEvenBus);
         WindItems.ITEMS.register(modEvenBus);
         SecretItems.ITEMS.register(modEvenBus);
-        NewC1Items.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);

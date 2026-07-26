@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.instance.instances.c1.GrayGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
 import fun.wraq.events.mob.instance.instances.element.*;
@@ -108,6 +109,7 @@ public class NoTeamInstanceModule {
         add(FrostInstance.getInstance());
         add(WindBossInstance.getInstance());
         add(WorldChallengeDrowned.getInstance());
+        add(GrayGuardianInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{

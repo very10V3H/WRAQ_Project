@@ -26,7 +26,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class LotteryScreen extends Screen {
-    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/forge.png");
+    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/forge_old.png");
     private final boolean showPauseMenu;
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;

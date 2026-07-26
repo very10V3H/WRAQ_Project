@@ -44,7 +44,7 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         if (!(this instanceof Souvenirs)) {
             Utils.curiosList.add(this);
         }
-        if (this instanceof ForgeItem forgeItem) {
+        if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
             ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
         if (this instanceof RuneItem) {
@@ -57,7 +57,7 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         if (!(this instanceof Souvenirs)) {
             Utils.curiosList.add(this);
         }
-        if (this instanceof ForgeItem forgeItem) {
+        if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
             ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
     }

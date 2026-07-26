@@ -13,6 +13,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -488,6 +489,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
+            if (stone.getItem() instanceof ForgingStone0 && player != null) {
+                Guide.trigV2(player, Guide.StageV2.FIRST_FORGE_STONE);
+            }
             if (enhancePaper.getItem() instanceof ForgeEnhancePaper) {
                 if (slot3Stack.getItem() instanceof ForgeEnhancePaper) {
                     blockEntity.itemStackHandler.extractItem(3, 1, false);

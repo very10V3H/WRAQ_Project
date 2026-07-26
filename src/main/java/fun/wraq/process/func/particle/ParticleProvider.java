@@ -344,13 +344,8 @@ public class ParticleProvider {
                 r * cos(angle) * aVec.z + r * sin(angle) * bVec.z);
     }
 
-    public record ClientLastVerticalCircleParticle(Vec3 pos, double r, int num,
-                                                   ParticleOptions particleOptions, int expiredTick) {}
-
-    public static List<ClientLastVerticalCircleParticle> clientLastVerticalCircleParticles = new ArrayList<>();
-
     public static void createLastVerticalCircleParticles(Entity entity, Vec3 pos, double r, int num,
-                                                         ParticleOptions particleOptions, int lastTick) {
+                                                         int color, int lastTick) {
         if (stop()) {
             return;
         }
@@ -360,7 +355,7 @@ public class ParticleProvider {
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(
                             new LastVerticalCircleParticleS2CPacket(pos.toVector3f(), r, num,
-                                    Utils.getParticleToParticleStringMap().get(particleOptions), lastTick),
+                                    color, lastTick),
                             serverPlayer);
                 }
             }
@@ -368,21 +363,7 @@ public class ParticleProvider {
     }
 
     public static void handleClientLevelTick(Level level) {
-        if (stop()) {
-            return;
-        }
-        clientLastVerticalCircleParticles.removeIf(particle -> particle.expiredTick < ClientUtils.serverTick);
-        clientLastVerticalCircleParticles.forEach(particle -> {
-            int num = particle.num;
-            Vec3 pos = particle.pos;
-            double r = particle.r;
-            for (int i = 0; i < particle.num; i++) {
-                double angle = (2 * Math.PI / num) * (i);
-                Vec3 point = new Vec3(pos.x + r * cos(angle), pos.y, pos.z + r * sin(angle));
-                Minecraft.getInstance().level.addParticle(particle.particleOptions, point.x, point.y, point.z,
-                        0, 0, 0);
-            }
-        });
+        // 已迁移至 ClientCircleRenderer 进行几何渲染
     }
 
     public static void EntityEffectVerticleCircleParticle(Entity entity, double pickDistance, double r, int num,

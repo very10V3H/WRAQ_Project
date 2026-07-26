@@ -2,6 +2,7 @@ package fun.wraq.events.mob;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.MobAttrCsvLoader;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.system.element.Element;
@@ -43,6 +44,14 @@ public abstract class MobSpawnController {
     public List<Boundary> multiBoundaryList = new ArrayList<>();
     public int preventRefreshDistance = 8;
     public boolean spawnFlag = false;
+
+    /**
+     * @return 怪物刷新间隔（单位：tick）。默认 36 秒（720 ticks），子类可覆写。
+     */
+    public int getSpawnInterval() {
+        return Tick.s(36);
+    }
+
     public Vec3 averagePos;
     public Set<Vec3> spawnedPos = new HashSet<>();
     public Map<Vec3, RateAttr> posToAttrAndDropMap = new HashMap<>();

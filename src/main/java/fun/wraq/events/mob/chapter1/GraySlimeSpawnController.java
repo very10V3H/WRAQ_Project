@@ -3,8 +3,11 @@ package fun.wraq.events.mob.chapter1;
 
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.entities.entities.GraySlime.GraySlime;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -13,7 +16,10 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 苍峡软玉 GraySlime 的固定坐标刷怪控制器。
@@ -69,32 +75,36 @@ public class GraySlimeSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(600, 150, 150, 0.2, 1.5, 0, 0, 0, 5000, 0.15);
+        return new MobAttributes(100, 15, 15, 0.2, 1, 0, 0, 0, 800, 0.2);
     }
 
     @Override
     public Mob mobItemAndAttributeSet() {
-        return new fun.wraq.entities.entities.GraySlime.GraySlime(
-                fun.wraq.common.registry.ModEntityType.GRAY_SLIME.get(), this.level);
+        return new GraySlime(ModEntityType.GRAY_SLIME.get(), this.level);
     }
 
     @Override
     public Element.Unit getElement() {
-        return new Element.Unit(Element.water, 1);
+        return new Element.Unit(Element.stone, 1);
     }
 
     @Override
     public List<ItemAndRate> getDropList(int xpLevel) {
         List<ItemAndRate> drops = new ArrayList<>();
-        drops.add(new ItemAndRate(NewC1Items.GRAY_SLIME_BALL.get(), 0.3));
-        drops.add(new ItemAndRate(ModItems.COPPER_COIN.get(), 1));
+        drops.add(new ItemAndRate(NewC1Items.GRAY_SLIME_BALL.get(), 0.1));
+        drops.add(new ItemAndRate(ModItems.COPPER_COIN.get(), 2));
         drops.add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01));
-        drops.add(ItemAndRate.ofExp(2));
+        drops.add(ItemAndRate.ofExp(4));
         return drops;
     }
 
     @Override
     public String getKillCountDataKey() {
         return "GraySlime";
+    }
+
+    @Override
+    public int getSpawnInterval() {
+        return Tick.s(60);
     }
 }

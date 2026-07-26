@@ -175,19 +175,36 @@ public class MissionScreen extends Screen {
                 guiGraphics.drawString(fontRenderer, Te.s("「", ChatFormatting.AQUA, title,
                                 "」", ChatFormatting.AQUA),
                         X - 132, Y - 80 + i * 32, 0);
+                // 描述文本：超过6字截断，悬停显示全文
+                String descStr = mission.description.getString();
+                if (descStr.length() > 6) {
+                    Component truncatedDesc = Component.literal("「").withStyle(ChatFormatting.AQUA)
+                            .append(Component.literal(descStr.substring(0, 6) + "…").withStyle(ChatFormatting.AQUA))
+                            .append(Component.literal("」").withStyle(ChatFormatting.AQUA));
+                    guiGraphics.drawString(fontRenderer, truncatedDesc, X - 20, Y - 80 + i * 32, 0);
+                } else {
+                    guiGraphics.drawString(fontRenderer, Component.literal("「").withStyle(ChatFormatting.AQUA)
+                                    .append(mission.description)
+                                    .append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
+                            X - 20, Y - 80 + i * 32, 0);
+                }
+                Component tipsComponent = mission.tips;
+                if (mission.tipsOperation != null && status.equals(MissionV2.Status.IN_PROGRESS)) {
+                    try {
+                        tipsComponent = mission.tipsOperation.operation(mission, MissionV2.clientMissionData);
+                    } catch (CommandSyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
                 guiGraphics.drawString(fontRenderer, Component.literal("「").withStyle(ChatFormatting.AQUA).
-                                append(mission.description).
-                                append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
-                        X - 20, Y - 80 + i * 32, 0);
-                guiGraphics.drawString(fontRenderer, Component.literal("「").withStyle(ChatFormatting.AQUA).
-                                append(mission.tips).
+                                append(tipsComponent).
                                 append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
                         X - 132, Y - 64 + i * 32, 0);
                 if (status.isEmpty() || status.equals(MissionV2.Status.NOT_ACCEPTED)) {
                     guiGraphics.drawString(fontRenderer, Component.literal("「").withStyle(ChatFormatting.AQUA).
                                     append(mission.frontCondition).
                                     append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
-                            X + 40, Y - 80 + 32 * i, 0);
+                            X + 44, Y - 80 + 32 * i, 0);
                 }
                 if (status.equals(MissionV2.Status.FINISHED)) {
                     guiGraphics.drawString(fontRenderer, Component.literal("「").withStyle(ChatFormatting.AQUA).
@@ -203,7 +220,7 @@ public class MissionScreen extends Screen {
                         guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
                     }
                 }
-                if (x > X - 160 && x < X - 132 + 128 && y > Y - 86 + i * 32 && y < Y - 86 + i * 32 + 32) {
+                if (x > X - 160 && x < X - 132 + 112 && y > Y - 86 + i * 32 && y < Y - 86 + i * 32 + 32) {
                     if (mission.detailOperation != null && status.equals(MissionV2.Status.IN_PROGRESS)) {
                         try {
                             guiGraphics.renderTooltip(fontRenderer,
@@ -212,6 +229,16 @@ public class MissionScreen extends Screen {
                             throw new RuntimeException(e);
                         }
                     }
+                }
+                // 描述过长时，悬停显示全文
+                if (descStr.length() > 6
+                        && x > X - 20 && x < X + 80
+                        && y > Y - 86 + i * 32 && y < Y - 86 + i * 32 + 32) {
+                    guiGraphics.renderTooltip(fontRenderer,
+                            Component.literal("「").withStyle(ChatFormatting.AQUA)
+                                    .append(mission.description)
+                                    .append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
+                            x, y);
                 }
             }
         }

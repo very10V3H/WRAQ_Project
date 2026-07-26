@@ -220,6 +220,12 @@ public class IdCardGui extends Screen {
             ModNetworking.sendToServer(new WeeklyStoreScreenC2SPacket());
         }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18 * 3).size(48, 16).build());
 
+/*
+        this.addRenderableWidget(Button.builder(Te.s("股市", CustomStyle.styleOfEnd), (p_280814_) -> {
+            this.minecraft.setScreen(new StockScreen());
+        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18 * 4).size(48, 16).build());
+*/
+
         this.addRenderableWidget(Button.builder(Component.literal("图鉴").withStyle(CustomStyle.styleOfSunIsland), (p_280814_) -> {
             this.minecraft.setScreen(new Illustrate(true, 0));
             ModNetworking.sendToServer(new GuideFinishC2SPacket(Guide.StageV2.ILLUSTRATE));
@@ -251,9 +257,10 @@ public class IdCardGui extends Screen {
                 if (button.getMessage().getString().contains("vp商店")
                         || button.getMessage().getString().contains("声望商店")
                         || button.getMessage().getString().contains("全球市场")
-                        || button.getMessage().getString().contains("研发采购")) {
+                        || button.getMessage().getString().contains("研发采购")
+                        || button.getMessage().getString().contains("股市")) {
                     if (x > this.width / 2 - 18 && x < this.width / 2 - 18 + 48 && y > this.height / 2 + 113 - 40
-                            && y < this.height / 2 + 113 - 40 + 18 * 3 + 16) {
+                            && y < this.height / 2 + 113 - 40 + 18 * 4 + 16) {
                         renderable.render(graphics, x, y, v);
                     } else {
                         guiGraphics.drawString(fontRenderer, Component.literal("「市场/商店」")

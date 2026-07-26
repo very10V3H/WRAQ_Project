@@ -40,7 +40,7 @@ public abstract class WraqMainHandEquip extends SwordItem {
         if (this instanceof WraqMainHandOrPassiveEquip) {
             Utils.passiveEquipTag.put(this, 1d);
         }
-        if (this instanceof ForgeItem forgeItem) {
+        if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
             ForgeRecipe.recipes.put(this, forgeItem.forgeRecipe());
         }
         CsvAttributeLoader.trackWeapon(this);

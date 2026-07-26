@@ -14,7 +14,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
 import fun.wraq.process.system.skill.skillv2.SkillV2AllowInterruptNormalAttack;
-import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.cold.sc5.dragon.weapon.SuperColdDragonWeaponCommon;
 import fun.wraq.series.overworld.sun.TabooPaper;
@@ -69,7 +68,7 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                 }, 10, Tick.s(3 + (enhanced ? 1 : 0)));
                 ParticleProvider.createLastVerticalCircleParticles(player,
                         targetPos.add(0, 0.5, 0), radius, 200,
-                        ModParticles.EVOKER.get(), Tick.s(3 + (enhanced ? 1 : 0)));
+                        Element.getManaSkillParticleStyle(player).getColor().getValue(), Tick.s(3 + (enhanced ? 1 : 0)));
                 ParticleProvider.createLineDustParticleFromRightHand(player, targetPos,
                         Element.getManaSkillParticleStyle(player));
             }

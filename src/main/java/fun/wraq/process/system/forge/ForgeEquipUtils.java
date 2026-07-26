@@ -9,12 +9,14 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
+import fun.wraq.series.overworld.c1.NewC1Items;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
 import fun.wraq.series.overworld.divine.DivineIslandItems;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.wind.WindItems;
+import fun.wraq.common.impl.display.ForgeItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,52 +24,50 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class ForgeEquipUtils {
 
-    public record Zone(int boundaryX1, int boundaryZ1, int boundaryX2, int boundaryZ2) {
-    }
-
-    public static Map<Zone, List<ItemStack>> zoneForgeItemListMap = new HashMap<>();
+    public static Map<ForgeItem.Zone, List<ItemStack>> zoneForgeItemListMap = new HashMap<>();
     public static Map<Item, List<Component>> itemForgePlaceMap = new HashMap<>();
 
-    public static final Zone PLAIN_VILLAGE = new Zone(828, 261, 650, 120);
+    public static final ForgeItem.Zone PLAIN_VILLAGE = new ForgeItem.Zone(828, 261, 650, 120);
     public static final Component PLAIN_VILLAGE_NAME = Te.s("平原村", CustomStyle.styleOfPlain);
-    public static final Zone FOREST_VILLAGE = new Zone(1159, 103, 1010, -2);
+    public static final ForgeItem.Zone FOREST_VILLAGE = new ForgeItem.Zone(1159, 103, 1010, -2);
     public static final Component FOREST_VILLAGE_NAME = Te.s("雨林村", CustomStyle.styleOfForest);
-    public static final Zone LAKE_VILLAGE = new Zone(942, -375, 842, -458);
+    public static final ForgeItem.Zone LAKE_VILLAGE = new ForgeItem.Zone(942, -375, 842, -458);
     public static final Component LAKE_VILLAGE_NAME = Te.s("海岸村", CustomStyle.styleOfLake);
-    public static final Zone VOLCANO_VILLAGE = new Zone(2631, -476, 2512, -600);
+    public static final ForgeItem.Zone VOLCANO_VILLAGE = new ForgeItem.Zone(2631, -476, 2512, -600);
     public static final Component VOLCANO_VILLAGE_NAME = Te.s("火山村", CustomStyle.styleOfVolcano);
-    public static final Zone SNOW_VILLAGE = new Zone(1395, -1509, 1251, -1702);
+    public static final ForgeItem.Zone SNOW_VILLAGE = new ForgeItem.Zone(1395, -1509, 1251, -1702);
     public static final Component SNOW_VILLAGE_NAME = Te.s("北洋村", CustomStyle.styleOfSnow);
-    public static final Zone BIRCH_VILLAGE = new Zone(2021, 1767, 1814, 1592);
+    public static final ForgeItem.Zone BIRCH_VILLAGE = new ForgeItem.Zone(2021, 1767, 1814, 1592);
     public static final Component BIRCH_VILLAGE_NAME = Te.s("沙岸村", CustomStyle.styleOfSunIsland);
-    public static final Zone SAKURA_VILLAGE = new Zone(2445, 1799, 2353, 1719);
+    public static final ForgeItem.Zone SAKURA_VILLAGE = new ForgeItem.Zone(2445, 1799, 2353, 1719);
     public static final Component SAKURA_VILLAGE_NAME = Te.s("绯樱村", CustomStyle.styleOfSakura);
-    public static final Zone SKY_CITY = new Zone(1013, 64, 900, -42);
+    public static final ForgeItem.Zone SKY_CITY = new ForgeItem.Zone(1013, 64, 900, -42);
     public static final Component SKY_CITY_NAME = Te.s("天空城", CustomStyle.styleOfSky);
-    public static final Zone XUNNAN_VILLAGE = new Zone(1268, -1024, 1066, -1132);
+    public static final ForgeItem.Zone XUNNAN_VILLAGE = new ForgeItem.Zone(1268, -1024, 1066, -1132);
     public static final Component XUNNAN_VILLAGE_NAME = Te.s("薰楠村", CustomStyle.styleOfJacaranda);
-    public static final Zone XUNXI_VILLAGE = new Zone(1093, -1241, 970, -1358);
+    public static final ForgeItem.Zone XUNXI_VILLAGE = new ForgeItem.Zone(1093, -1241, 970, -1358);
     public static final Component XUNXI_VILLAGE_NAME = Te.s("薰曦村", CustomStyle.styleOfJacaranda);
-    public static final Zone MOONTAIN_STRONG_HOLD = new Zone(1937, -898, 1889, -962);
+    public static final ForgeItem.Zone MOONTAIN_STRONG_HOLD = new ForgeItem.Zone(1937, -898, 1889, -962);
     public static final Component MOONTAIN_STRONG_HOLD_NAME = Te.s("望山据点", CustomStyle.styleOfMoontain);
-    public static final Zone DIVINE_ISLAND = new Zone(2715, 931, 1973, 209);
+    public static final ForgeItem.Zone DIVINE_ISLAND = new ForgeItem.Zone(2715, 931, 1973, 209);
     public static final Component DIVINE_ISLAND_NAME = Te.s("圣光岛", CustomStyle.DIVINE_STYLE);
-    public static final Zone NORTH_VILLAGE = new Zone(1789, 1922, 1659, 1803);
+    public static final ForgeItem.Zone NORTH_VILLAGE = new ForgeItem.Zone(1789, 1922, 1659, 1803);
     public static final Component NORTH_VILLAGE_NAME = Te.s("北望村", CustomStyle.BUNKER_STYLE);
-    public static final Zone POLAR_COLD_VILLAGE = new Zone(2800, -3823, 2681, -3909);
+    public static final ForgeItem.Zone POLAR_COLD_VILLAGE = new ForgeItem.Zone(2800, -3823, 2681, -3909);
     public static final Component POLAR_COLD_VILLAGE_NAME = Te.s("极冬村", CustomStyle.styleOfIce);
-    public static final Zone SUN_ISLAND = new Zone(1900, 476, 1723, 229);
+    public static final ForgeItem.Zone SUN_ISLAND = new ForgeItem.Zone(1900, 476, 1723, 229);
     public static final Component SUN_ISLAND_NAME = Te.s("旭升岛", CustomStyle.styleOfSunIsland);
-    public static final Zone WIND_LAND = new Zone(1953, -1614, 1864, -1722);
+    public static final ForgeItem.Zone WIND_LAND = new ForgeItem.Zone(1953, -1614, 1864, -1722);
     public static final Component WIND_LAND_NAME = Te.s("风之高地驻场工程师", CustomStyle.styleOfWind);
 
-    public static final Map<Zone, Component> zoneNameMap = new HashMap<>() {{
+    public static final Map<ForgeItem.Zone, Component> zoneNameMap = new HashMap<>() {{
         put(PLAIN_VILLAGE, PLAIN_VILLAGE_NAME);
         put(FOREST_VILLAGE, FOREST_VILLAGE_NAME);
         put(LAKE_VILLAGE, LAKE_VILLAGE_NAME);
@@ -117,10 +117,10 @@ public class ForgeEquipUtils {
                 ModItems.LAKE_BOOTS.get(),
                 ModItems.MINE_SWORD_0.get(),
                 ModItems.MINE_BOW_0.get(),
-                ModItems.MINE_HELMET.get(),
-                ModItems.MINE_CHEST.get(),
-                ModItems.MINE_LEGGINGS.get(),
-                ModItems.MINE_BOOTS.get(),
+                NewC1Items.MINE_HELMET.get(),
+                NewC1Items.MINE_CHEST.get(),
+                NewC1Items.MINE_LEGGINGS.get(),
+                NewC1Items.MINE_BOOTS.get(),
                 ModItems.VOLCANO_SWORD_0.get(),
                 ModItems.VOLCANO_BOW_0.get(),
                 ModItems.VOLCANO_HELMET.get(),
@@ -396,19 +396,53 @@ public class ForgeEquipUtils {
                 itemForgePlaceMap.get(item).add(zoneName);
             });
         });
+
+        // 扫描所有已注册的 ForgeItem 实现，自动注册通过 forgeZones() 声明锻造区域的物品
+        ForgeRegistries.ITEMS.getEntries().stream()
+                .filter(entry -> entry.getKey().location().getNamespace().equals(Utils.MOD_ID))
+                .map(Map.Entry::getValue)
+                .filter(item -> item instanceof ForgeItem forgeItem
+                        && !forgeItem.forgeZones().isEmpty())
+                .forEach(item -> {
+                    ForgeItem forgeItem = (ForgeItem) item;
+                    ItemStack stack = item.getDefaultInstance();
+                    forgeItem.forgeZones().forEach(zone -> {
+                        if (zoneForgeItemListMap.containsKey(zone)) {
+                            List<ItemStack> zoneList = zoneForgeItemListMap.get(zone);
+                            // 避免重复添加
+                            boolean alreadyInList = zoneList.stream()
+                                    .anyMatch(s -> s.getItem() == item);
+                            if (!alreadyInList) {
+                                zoneList.add(stack.copy());
+                            }
+                        } else {
+                            // 若区域还未注册，自动创建
+                            zoneForgeItemListMap.put(zone, new ArrayList<>(List.of(stack.copy())));
+                        }
+                        // 更新 itemForgePlaceMap（避免重复）
+                        Component zoneName = zoneNameMap.get(zone);
+                        if (zoneName != null) {
+                            List<Component> placeList = itemForgePlaceMap
+                                    .computeIfAbsent(item, k -> new ArrayList<>());
+                            if (!placeList.contains(zoneName)) {
+                                placeList.add(zoneName);
+                            }
+                        }
+                    });
+                });
     }
 
     public static List<ItemStack> getPlayerInZoneItemList(Player player) {
         List<ItemStack> itemList = new ArrayList<>();
         zoneForgeItemListMap.forEach((zone, list) -> {
-            if (player.getX() < zone.boundaryX1 && player.getX() > zone.boundaryX2
-                    && player.getZ() < zone.boundaryZ1 && player.getZ() > zone.boundaryZ2) {
+            if (player.getX() < zone.boundaryX1() && player.getX() > zone.boundaryX2()
+                    && player.getZ() < zone.boundaryZ1() && player.getZ() > zone.boundaryZ2()) {
                 itemList.addAll(list);
             }
         });
         // TODO: 测试用——任何区域都可锻造矿洞头盔
         if (itemList.isEmpty()) {
-            itemList.add(new ItemStack(ModItems.MINE_HELMET.get()));
+            itemList.add(new ItemStack(NewC1Items.MINE_HELMET.get()));
         }
         return itemList;
     }
