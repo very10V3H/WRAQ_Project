@@ -104,6 +104,7 @@ import fun.wraq.process.system.vp.networking.VpValueS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.ClientWayPointS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
+import fun.wraq.process.system.wayPoints.networking.TempWayPointToFileS2CPacket;
 import fun.wraq.render.gui.ScreenInfoS2CPacket;
 import fun.wraq.render.gui.trade.single.SingleItemChangeC2SPacket;
 import fun.wraq.render.gui.trade.single.SingleItemChangeFullDataS2CPacket;
@@ -1018,6 +1019,12 @@ public class ModNetworking {
                 .encoder(SpecificWayPointRemoveS2CPacket::toBytes)
                 .consumerMainThread(SpecificWayPointRemoveS2CPacket::handle)
                 .add();
+        netV2.messageBuilder(TempWayPointToFileS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(TempWayPointToFileS2CPacket::new)
+                .encoder(TempWayPointToFileS2CPacket::toBytes)
+                .consumerMainThread(TempWayPointToFileS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(TempWayPointToFileS2CPacket.class);
         net.messageBuilder(GuideFinishC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(GuideFinishC2SPacket::new)
                 .encoder(GuideFinishC2SPacket::toBytes)

@@ -849,5 +849,12 @@ public class CommandHandler {
                                 .executes(StockCommand.instance)
                 )
         );
+        event.getDispatcher().register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("tempWayPointToFile")
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                                .executes(TempWayPointToFileCommand.instance)
+                )
+        );
     }
 }

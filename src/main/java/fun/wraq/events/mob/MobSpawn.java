@@ -127,6 +127,7 @@ public class MobSpawn {
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(GraySlimeSpawnController.getInstance(overWorld));
         AreaForestMobSpawnController.getInstance(overWorld);
+        overWolrdList.add(LavaRuinsFireLightSpawnController.getInstance(overWorld));
 /*        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(LakeDrownSpawnController.getInstance(overWorld));
