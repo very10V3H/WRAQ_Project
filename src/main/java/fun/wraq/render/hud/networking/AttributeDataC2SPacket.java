@@ -33,7 +33,8 @@ public class AttributeDataC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             Entity entity = serverPlayer.level().getEntity(id);
-            if (entity instanceof Player player) {
+            // 仅其他玩家可以显示左上角玩家属性
+            if (entity instanceof Player player && !player.equals(serverPlayer)) {
                 List<Double> attributes = new ArrayList<>() {{
                     double[] doubles = {
                             PlayerAttributes.attackDamage(player),

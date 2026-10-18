@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.equip.impl.AxeWeapon;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -25,10 +26,10 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForestSword4 extends WraqSword implements ActiveItem {
+public class ForestSword4 extends WraqSword implements ActiveItem, AxeWeapon {
     public ForestSword4(Properties p_40524_) {
         super(p_40524_);
-        Utils.attackDamage.put(this, 50d);
+        Utils.attackDamage.put(this, 70d);
         Utils.defencePenetration0.put(this, 18d);
         Utils.healthSteal.put(this, 0.05);
         Utils.critRate.put(this, 0.3);

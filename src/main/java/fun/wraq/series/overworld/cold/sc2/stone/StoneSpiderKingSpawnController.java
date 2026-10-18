@@ -58,7 +58,7 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(24000, 1100, 1100, 0.4, 3, 0.6, 750, 25, 20 * Math.pow(10, 8), 0.45);
+        return new MobAttributes(24000, 1100, 1100, 0.4, 3, 0.6, 750, 25, 20 * Math.pow(10, 8), 0.45, 0, 0.02);
     }
 
     @Override
@@ -95,7 +95,6 @@ public class StoneSpiderKingSpawnController extends JungleMobSpawnController {
                 ParticleProvider.createLineEffectParticle(mob.level(), mob, player, CustomStyle.styleOfStone);
             });
         }
-        Compute.mobHealthRecover(mob, 0.02);
         super.handleMobTick(mob);
     }
 

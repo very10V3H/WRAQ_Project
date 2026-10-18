@@ -13,12 +13,13 @@ import fun.wraq.networking.misc.attack.BowAttackRequestC2SPacket;
 import fun.wraq.networking.misc.attack.ManaAttackRequestC2SPacket;
 import fun.wraq.networking.unSorted.SoulSceptreC2SPacket;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -50,22 +51,23 @@ public class ClientAttackEvent {
         resetHoldState();
     }
 
+    /**
+     * 客户端玩家进入游戏（登录完成）时重置按住攻击状态。
+     * 修复：PlayerEvent.PlayerLoggedInEvent 只在服务端触发，客户端拿到的是服务端玩家实体，
+     * 与本地玩家不是同一个对象，因此原先的登录重置永远不会执行。
+     * 这里改用只在客户端触发的 ClientPlayerNetworkEvent。
+     */
     @SubscribeEvent
-    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity().equals(Minecraft.getInstance().player)) {
-            resetHoldState();
-        }
+    public static void onClientPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
+        resetHoldState();
     }
 
     @SubscribeEvent
-    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        if (event.getEntity().equals(Minecraft.getInstance().player)) {
-            resetHoldState();
-        }
+    public static void onClientPlayerRespawn(ClientPlayerNetworkEvent.Clone event) {
+        resetHoldState();
     }
 
     private static void resetHoldState() {
-        isLeftClickDown = false;
         lastHoldAttackTick = 0;
     }
 
@@ -103,9 +105,6 @@ public class ClientAttackEvent {
     }
 
     // === 按住左键连续攻击 ===
-    /** 鼠标左键是否处于按下状态 */
-    private static boolean isLeftClickDown = false;
-
     /** 上次通过按住逻辑发送攻击的 client tick */
     private static int lastHoldAttackTick = 0;
 
@@ -113,35 +112,30 @@ public class ClientAttackEvent {
     private static final int HOLD_ATTACK_INTERVAL = 4;
 
     /**
-     * 监听鼠标按键，追踪左键的按下/释放状态。
-     * 仅用于连续攻击的开关，不替代现有的左键事件。
-     */
-    @SubscribeEvent
-    public static void onMouseButton(InputEvent.MouseButton event) {
-        if (event.getButton() == 0) { // 0 = 左键
-            if (event.getAction() == 1) { // PRESS
-                isLeftClickDown = true;
-            } else if (event.getAction() == 0) { // RELEASE
-                isLeftClickDown = false;
-            }
-        }
-    }
-
-    /**
-     * 每个 client tick 调用一次，检查左键是否按住并在冷却结束后发包。
-     * 从客户端的 PlayerTickEvent / ClientTickEvent 中调用。
+     * 每个 client tick 调用一次，检查左键是否按住并在间隔结束后发包。
+     * 从客户端的 PlayerTickEvent 中调用。
+     *
+     * 修复：不再自行监听 InputEvent.MouseButton 记录左键状态。
+     * 自己维护的布尔值会因窗口失焦 / 释放事件丢失而一直保持为 true，
+     * 客户端进程未重启时重新登录进入游戏就会自动连续释放普通攻击与主动效果。
+     * 改为读取原版 keyAttack 的按键状态：原版在打开界面、窗口失焦时会 releaseAll()，
+     * 不会出现状态残留，语义也与原版“按住左键自动攻击”一致。
      */
     public static void tick() {
-        if (!isLeftClickDown) return;
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.screen != null) return;
+        LocalPlayer player = mc.player;
+        if (player == null || mc.level == null || mc.screen != null) return;
+        if (!mc.options.keyAttack.isDown()) return;
 
-        int currentTick = mc.player.tickCount;
-        if (currentTick - lastHoldAttackTick < HOLD_ATTACK_INTERVAL || currentTick <= lastHoldAttackTick) return;
+        int currentTick = player.tickCount;
+        // 玩家实体被重建（重新进入游戏 / 死亡重生）时 tickCount 会重新从小值开始，
+        // 此时必须重置记录，否则会长时间无法按住攻击。
+        if (currentTick < lastHoldAttackTick) lastHoldAttackTick = 0;
+        if (currentTick - lastHoldAttackTick < HOLD_ATTACK_INTERVAL) return;
         lastHoldAttackTick = currentTick;
 
-        leftClick(mc.player);
-        activeBowAndSceptre(mc.player);
+        leftClick(player);
+        activeBowAndSceptre(player);
     }
 
     // 客户端侧左键发包

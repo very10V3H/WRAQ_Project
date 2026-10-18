@@ -9,7 +9,6 @@ import fun.wraq.entities.entities.SoraSword.SoraRedSwordAirRender;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
 import fun.wraq.entities.entities.GraySlime.GraySlimeRenderer;
 import fun.wraq.entities.render.*;
-import fun.wraq.process.func.guide.GuideHud;
 import fun.wraq.process.func.guide.waypoint.WaypointHud;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentHud;
 import fun.wraq.process.system.skill.skillv2.SkillV2Hud;
@@ -17,21 +16,16 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import fun.wraq.render.hud.main.*;
 import fun.wraq.render.hud.ShieldHud;
 import fun.wraq.render.hud.ManaHud;
+import fun.wraq.render.entity.VmdNpcRenderer;
 import fun.wraq.render.particles.*;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.gui.overlay.NamedGuiOverlay;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientModEventSubscriber {
@@ -56,6 +50,8 @@ public class ClientModEventSubscriber {
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.BLAZE_SWORD.get(), BlazeSwordRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.CIVIL.get(), CivilRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.GRAY_SLIME.get(), GraySlimeRenderer::new);
+        // AI-Generated, 2026-10-17 玩家模型 NPC（替代 CustomNPCs）
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.VMD_NPC.get(), VmdNpcRenderer::new);
 
 
         ClientUtils.SwordSkillsResource.init();
@@ -165,18 +161,18 @@ public class ClientModEventSubscriber {
 
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-        MinecraftForge.EVENT_BUS.addListener(ClientModEventSubscriber::Disabled);
         event.registerBelowAll("mana", ManaHud.HUD_MANA);
         event.registerBelowAll("shield", ShieldHud.HUD_SHIELD);
 
         // 玩家主操作界面HUD
         event.registerAboveAll("buff_hud", BuffHud.HUD_ATTRIBUTE);
         event.registerAboveAll("player_self_attributes_hud", PlayerSelfAttributesHud.SELF_ATTRIBUTES_HUD);
+        event.registerAboveAll("player_health_hud", PlayerHealthHud.PLAYER_HEALTH_HUD);
         event.registerAboveAll("mob_attributes_hud", MobAttributesHud.MOB_ATTRIBUTES_HUD);
         event.registerAboveAll("player_other_attributes_hud", PlayerOtherAttributesHud.OTHER_PLAYER_HUD);
         event.registerAboveAll("item_exp_get_hud", ItemAndExpGetHud.ITEM_EXP_GET_HUD);
 
-        event.registerAboveAll("guide_hud", GuideHud.GUIDE_HUD);
+        event.registerAboveAll("main_quest_hud", MainQuestHud.MAIN_QUEST_HUD);
         event.registerAboveAll("waypoint_hud", WaypointHud.WAYPOINT_HUD);
         event.registerAboveAll("mob_kill_entrustment_hud", MobKillEntrustmentHud.ENTRUSTMENT_HUD);
         event.registerAboveAll("new_team_instance_hud", NewTeamInstanceHud.NEW_TEAM_INSTANCE_HUD);
@@ -185,13 +181,8 @@ public class ClientModEventSubscriber {
         event.registerAboveAll("skill_v2_hud", SkillV2Hud.SKILL_V2_HUD);
     }
 
-    private static final List<ResourceLocation> overlays = List.of(VanillaGuiOverlay.ARMOR_LEVEL.id(),
-            VanillaGuiOverlay.MOUNT_HEALTH.id());
-
-    public static void Disabled(RenderGuiOverlayEvent event) {
-        NamedGuiOverlay overlay = event.getOverlay();
-        if (overlays.contains(overlay.id())) event.setCanceled(true);
-    }
+    // 移除 AsteorBar 后，原版护甲条/坐骑血量条恢复显示：
+    // 之前取消这两个 overlay 是为了避免与 AsteorBar 自绘的护甲/坐骑条重复。
 
     @SubscribeEvent
     public static void tooltipComps(RegisterClientTooltipComponentFactoriesEvent e) {

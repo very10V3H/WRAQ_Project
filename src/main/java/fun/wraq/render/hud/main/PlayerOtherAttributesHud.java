@@ -24,7 +24,10 @@ public class PlayerOtherAttributesHud {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         // playerAttributes
-        if (ClientUtils.mobAttribute == null && ClientUtils.playerAttribute != null && !ClientUtils.playerAttributeList.isEmpty()) {
+        // 仅当左上角当前没有显示VMD怪物属性时，才显示准星所对其他玩家的属性
+        boolean mobAttributeShowing = ClientUtils.mobAttribute != null
+                && ClientUtils.mobAttribute.getId() == ClientUtils.mobId;
+        if (!mobAttributeShowing && ClientUtils.playerAttribute != null && !ClientUtils.playerAttributeList.isEmpty()) {
             int xOffset = 0;
             int yOffset = 10;
             int standardX = 0;

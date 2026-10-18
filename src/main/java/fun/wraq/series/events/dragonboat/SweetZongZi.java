@@ -19,12 +19,24 @@ import java.util.List;
 
 public class SweetZongZi extends WraqItem {
 
+    /**
+     * 进食时长:0.8s(16 tick),与原版 fast 食物(干海带)一致。
+     * 原版普通食物默认 32 tick(1.6s)。
+     */
+    public static final int EAT_DURATION_TICK = 16;
+
     public SweetZongZi(Properties properties) {
         super(properties.food(new FoodProperties.Builder()
                 .alwaysEat()
                 .nutrition(10)
                 .meat()
+                .fast()
                 .build()));
+    }
+
+    @Override
+    public int getUseDuration(ItemStack itemStack) {
+        return EAT_DURATION_TICK;
     }
 
     @Override

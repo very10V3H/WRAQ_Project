@@ -33,6 +33,12 @@ import java.util.Map;
 /** AI-Generated, 2026-07-18 */
 public class Guide {
 
+    /**
+     * 主线系统接管新手流程后，旧引导整体停用。
+     * 代码暂时保留（各处的 trigV2 调用会直接返回），待主线全部阶段完成后统一删除。
+     */
+    public static final boolean ENABLED = false;
+
     public final List<Component> description;
     public final MyWayPoint myWayPoint;
     public final RewardPlayer rewardPlayer;
@@ -474,6 +480,9 @@ public class Guide {
     // ==================== 核心触发方法 ====================
 
     public static void trigV2(Player player, String stageTag) {
+        if (!ENABLED) {
+            return;
+        }
         if (getPlayerCurrentStageV2(player).equals(stageTag)) {
             if (!getStageToIndexMap().containsKey(stageTag)) {
                 Compute.sendErrorTips(player, Te.s("引导任务出错了！速速联系铁头"));
@@ -516,6 +525,9 @@ public class Guide {
     // ==================== 客户端同步 ====================
 
     public static void sendStageToClientV2(Player player) {
+        if (!ENABLED) {
+            return;
+        }
         if (!player.getPersistentData().contains(keyV2)) {
             setPlayerCurrentStageV2(player, StageV2.UNLOCK_TIDE_CENTER);
         }
@@ -534,6 +546,9 @@ public class Guide {
     }
 
     public static void handlePlayerTick(Player player) {
+        if (!ENABLED) {
+            return;
+        }
         if (player.tickCount % 200 == 101) {
             // 等级检测
             if (player.experienceLevel >= 15) {

@@ -11,11 +11,15 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.ComsumableItems;
 import fun.wraq.series.crystal.CrystalItem;
 import fun.wraq.series.crystal.CrystalItems;
+import fun.wraq.series.crystal.OriginStone;
+import fun.wraq.series.events.midautumn.MidAutumnStoreRecipe;
+import fun.wraq.series.events.summer2025.Summer2025StoreRecipe;
 import fun.wraq.series.newrunes.NewRuneItems;
-import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.c1.NewC1Items;
-import fun.wraq.series.overworld.newarea.NewAreaItems;
+import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.cold.SuperColdItems;
+import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonTpUtil;
+import fun.wraq.series.overworld.newarea.NewAreaItems;
 import fun.wraq.series.overworld.wind.WindItems;
 import net.brdle.collectorsreap.common.item.CRItems;
 import net.minecraft.ChatFormatting;
@@ -52,11 +56,13 @@ public class TradeListNew {
     }
 
     public static void init() {
-        stage1();
+        // 3.0 dremal
+/*        stage1();
         stage2();
         stage3();
-        curio1();
-/*        cookingCrop();
+        curio1();*/
+
+       cookingCrop();
         cookingFruit();
         cookingMushroom();
         cookingMilkAndEgg();
@@ -79,7 +85,7 @@ public class TradeListNew {
         Summer2025StoreRecipe.setVillagerTradeRecipe();
         windEquip();
         MidAutumnStoreRecipe.setVillagerData();
-        castleSoulEquip();*/
+        castleSoulEquip();
     }
 
     public static void stage1() {

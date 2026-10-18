@@ -7,6 +7,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.mcreator.borninchaosv.entity.BarrelZombieEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
@@ -56,6 +57,7 @@ public class EasternTower extends DailyEndlessInstance {
 
     @Override
     protected void reward(Player player) {
+        MainQuestHelper.recordDaily(player, "东洋塔");
         List.of(new ItemStack(ModItems.GOLD_COIN.get(), getKillCount() / 10),
                 new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(), Math.min(16, getKillCount() / 20)))
                 .forEach(itemStack -> InventoryOperation.giveItemStack(player, itemStack));

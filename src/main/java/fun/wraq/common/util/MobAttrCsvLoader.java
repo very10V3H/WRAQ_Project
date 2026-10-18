@@ -36,7 +36,9 @@ public class MobAttrCsvLoader {
             double healthSteal,
             double maxHealth,
             double movementSpeed,
-            String playerScaling
+            String playerScaling,
+            double healthRecover,
+            double percentHealthRecover
     ) {}
 
     public static void load() {
@@ -77,7 +79,11 @@ public class MobAttrCsvLoader {
                             parts[12].isBlank() ? 0 : Double.parseDouble(parts[12].trim()),
                             parts[13].isBlank() ? 0 : Double.parseDouble(parts[13].trim()),
                             parts[14].isBlank() ? 0 : Double.parseDouble(parts[14].trim()),
-                            parts.length > 15 ? parts[15].trim() : ""
+                            parts.length > 15 ? parts[15].trim() : "",
+                            parts.length > 16 && !parts[16].isBlank() ? Double.parseDouble(parts[16].trim())
+                                    : MobAttributes.DEFAULT_HEALTH_RECOVER,
+                            parts.length > 17 && !parts[17].isBlank() ? Double.parseDouble(parts[17].trim())
+                                    : MobAttributes.DEFAULT_PERCENT_HEALTH_RECOVER
                     );
                     entries.put(entry.mobName, entry);
                     classToMobName.put(entry.className, entry.mobName);
@@ -144,7 +150,8 @@ public class MobAttrCsvLoader {
                 entry.attackDamage, entry.defence, entry.manaDefence,
                 entry.critRate, entry.critDamage, entry.defencePenetration,
                 entry.defencePenetration0, entry.healthSteal,
-                hp, entry.movementSpeed
+                hp, entry.movementSpeed,
+                entry.healthRecover, entry.percentHealthRecover
         );
     }
 
@@ -159,7 +166,8 @@ public class MobAttrCsvLoader {
                 entry.attackDamage, entry.defence, entry.manaDefence,
                 entry.critRate, entry.critDamage, entry.defencePenetration,
                 entry.defencePenetration0, entry.healthSteal,
-                entry.maxHealth, entry.movementSpeed
+                entry.maxHealth, entry.movementSpeed,
+                entry.healthRecover, entry.percentHealthRecover
         );
     }
 

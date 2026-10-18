@@ -7,6 +7,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.missions.mission2.MissionV2;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.netWorking.MissionAcceptC2SPacket;
 import fun.wraq.process.system.missions.netWorking.MissionSubmitC2SPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -36,35 +37,91 @@ public class MissionScreen extends Screen {
     private static final Font fontRenderer = mc.font;
     private final int page;
     private final int type; // 0 - 全部任务 1 - 未接受 2 - 进行中 3 - 已完成
+    private final int category; // 0 - 全部分类 1 - 每日任务 2 - 主线任务 3 - 支线任务
     private List<MissionV2> missionList;
 
     public MissionScreen(int type, int page) {
+        this(type, page, 0, false);
+    }
+
+    public MissionScreen(int type, int page, int category) {
+        this(type, page, category, false);
+    }
+
+    public MissionScreen(int type, int page, int category, boolean autoLocateMainQuest) {
         super(Component.translatable("menu.teamscreen"));
         this.type = type;
+        this.category = category;
         this.showPauseMenu = true;
-        CompoundTag statusData = MissionV2.clientMissionData.getCompound(MissionV2Helper.MISSION_V2_STATUS_KEY);
-        switch (type) {
-            case 0 -> missionList = Arrays.stream(MissionV2.values()).toList();
-            case 1 -> {
-                missionList = Arrays.stream(MissionV2.values())
-                        .filter(missionV2 -> {
-                            return statusData.getString(missionV2.name()).equals(MissionV2.Status.NOT_ACCEPTED);
-                        }).toList();
-            }
-            case 2 -> {
-                missionList = Arrays.stream(MissionV2.values())
-                        .filter(missionV2 -> {
-                            return statusData.getString(missionV2.name()).equals(MissionV2.Status.IN_PROGRESS);
-                        }).toList();
-            }
-            case 3 -> {
-                missionList = Arrays.stream(MissionV2.values())
-                        .filter(missionV2 -> {
-                            return statusData.getString(missionV2.name()).equals(MissionV2.Status.FINISHED);
-                        }).toList();
+        this.missionList = getFilteredMissions(type, category);
+        this.page = autoLocateMainQuest ? locateMainQuestPage(this.missionList, page) : page;
+    }
+
+    /**
+     * AI-Generated, 2026-10-18
+     * 首次打开任务列表时，自动跳到当前主线阶段所在页（29 个阶段后避免玩家自己翻页）。
+     * 翻页按钮复用旧构造器，不会再次触发自动定位。
+     */
+    private static int locateMainQuestPage(List<MissionV2> list, int page) {
+        if (page != 0) {
+            return page;
+        }
+        fun.wraq.process.system.missions.mainline.MainQuestStage.Stage current =
+                MainQuestHelper.clientCurrent();
+        if (current == null) {
+            return page;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).name().equals(current.mission())) {
+                return i / 5;
             }
         }
-        this.page = page;
+        return page;
+    }
+
+    private static CompoundTag getStatusData() {
+        return MissionV2.clientMissionData.getCompound(MissionV2Helper.MISSION_V2_STATUS_KEY);
+    }
+
+    /**
+     * AI-Generated, 2026-10-18
+     * 将界面使用的分类序号（1~3）转换为任务分类，0 或非法值返回 null 表示不筛选.
+     */
+    private static MissionV2.Category getCategory(int category) {
+        MissionV2.Category[] categories = MissionV2.Category.values();
+        if (category <= 0 || category > categories.length) return null;
+        return categories[category - 1];
+    }
+
+    private static boolean matchCategory(MissionV2 mission, int category) {
+        MissionV2.Category target = getCategory(category);
+        return target == null || mission.getCategory() == target;
+    }
+
+    private static boolean matchStatus(MissionV2 mission, int type, CompoundTag statusData) {
+        if (type == 0) return true;
+        String status = statusData.getString(mission.name());
+        return switch (type) {
+            case 1 -> status.equals(MissionV2.Status.NOT_ACCEPTED);
+            case 2 -> status.equals(MissionV2.Status.IN_PROGRESS);
+            case 3 -> status.equals(MissionV2.Status.FINISHED);
+            default -> true;
+        };
+    }
+
+    /**
+     * AI-Generated, 2026-10-18
+     * 同时按状态（type）与分类（category）筛选任务.
+     */
+    private static List<MissionV2> getFilteredMissions(int type, int category) {
+        CompoundTag statusData = getStatusData();
+        return Arrays.stream(MissionV2.values())
+                .filter(missionV2 -> matchCategory(missionV2, category))
+                .filter(missionV2 -> matchStatus(missionV2, type, statusData))
+                // 主线未解锁（状态为空）时不进入任务列表
+                .filter(missionV2 -> !MainQuestHelper.isMainMission(missionV2)
+                        || !statusData.getString(missionV2.name()).isEmpty())
+                .toList();
     }
 
     protected void init() {
@@ -74,37 +131,45 @@ public class MissionScreen extends Screen {
     }
 
     private void createMenu() {
-        CompoundTag statusData = MissionV2.clientMissionData.getCompound(MissionV2Helper.MISSION_V2_STATUS_KEY);
-        int notAcceptedCount = (int) Arrays.stream(MissionV2.values())
-                .filter(missionV2 -> statusData.getString(missionV2.name()).equals(MissionV2.Status.NOT_ACCEPTED))
-                .count();
-        int inProgressCount = (int) Arrays.stream(MissionV2.values())
-                .filter(missionV2 -> statusData.getString(missionV2.name()).equals(MissionV2.Status.IN_PROGRESS))
-                .count();
-        int finishedCount = (int) Arrays.stream(MissionV2.values())
-                .filter(missionV2 -> statusData.getString(missionV2.name()).equals(MissionV2.Status.FINISHED))
-                .count();
+        CompoundTag statusData = getStatusData();
+        int allCount = getFilteredMissions(0, category).size();
+        int notAcceptedCount = getFilteredMissions(1, category).size();
+        int inProgressCount = getFilteredMissions(2, category).size();
+        int finishedCount = getFilteredMissions(3, category).size();
         int X = this.width / 2;
         int Y = this.height / 2;
         if (this.minecraft == null) return;
-        this.addRenderableWidget(Button.builder(Te.s("全部任务(" + MissionV2.values().length + ")"), (p_280814_) -> {
-            this.minecraft.setScreen(new MissionScreen(0, 0));
+        this.addRenderableWidget(Button.builder(Te.s("全部任务(" + allCount + ")"), (p_280814_) -> {
+            this.minecraft.setScreen(new MissionScreen(0, 0, category, true));
         }).pos(X + 150, Y - 98).size(48, 20).build());
         this.addRenderableWidget(Button.builder(Te.s("可接受(" + notAcceptedCount + ")"), (p_280814_) -> {
-            this.minecraft.setScreen(new MissionScreen(1, 0));
+            this.minecraft.setScreen(new MissionScreen(1, 0, category, true));
         }).pos(X + 150, Y - 74).size(48, 20).build());
         this.addRenderableWidget(Button.builder(Te.s("进行中(" + inProgressCount + ")"), (p_280814_) -> {
-            this.minecraft.setScreen(new MissionScreen(2, 0));
+            this.minecraft.setScreen(new MissionScreen(2, 0, category, true));
         }).pos(X + 150, Y - 50).size(48, 20).build());
         this.addRenderableWidget(Button.builder(Te.s("已完成(" + finishedCount + ")"), (p_280814_) -> {
-            this.minecraft.setScreen(new MissionScreen(3, 0));
+            this.minecraft.setScreen(new MissionScreen(3, 0, category, true));
         }).pos(X + 150, Y - 26).size(48, 20).build());
+        // 左侧任务分类筛选按钮：点击当前分类可取消筛选
+        MissionV2.Category[] categories = MissionV2.Category.values();
+        for (int i = 0; i < categories.length; i++) {
+            int targetCategory = i + 1;
+            MissionV2.Category categoryType = categories[i];
+            int categoryCount = getFilteredMissions(type, targetCategory).size();
+            Component label = Te.s(categoryType.displayName + "(" + categoryCount + ")");
+            if (this.category == targetCategory) label = label.copy().withStyle(ChatFormatting.GOLD);
+            this.addRenderableWidget(Button.builder(label, (p_280814_) -> {
+                int newCategory = this.category == targetCategory ? 0 : targetCategory;
+                this.minecraft.setScreen(new MissionScreen(this.type, 0, newCategory, true));
+            }).pos(X - 206, Y - 74 + 24 * i).size(56, 20).build());
+        }
         this.addRenderableWidget(Button.builder(Te.s("←"), (p_280814_) -> {
-            if (page > 0) this.minecraft.setScreen(new MissionScreen(type, page - 1));
+            if (page > 0) this.minecraft.setScreen(new MissionScreen(type, page - 1, category));
         }).pos(this.width / 2 - 39 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
         this.addRenderableWidget(Button.builder(Te.s("→"), (p_280814_) -> {
             if (page < Math.ceil((double) missionList.size() / 5) - 1)
-                this.minecraft.setScreen(new MissionScreen(type, page + 1));
+                this.minecraft.setScreen(new MissionScreen(type, page + 1, category));
         }).pos(this.width / 2 + 20 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
         this.addRenderableWidget(Button.builder(Te.s("x"), (p_280814_) -> {
             this.minecraft.setScreen((Screen) null);
@@ -113,6 +178,10 @@ public class MissionScreen extends Screen {
         for (int i = 0; i < 5; i++) {
             if (page * 5 + i < missionList.size()) {
                 MissionV2 mission = missionList.get(page * 5 + i);
+                // 主线只能通过 NPC 对话接取/交付，任务列表不提供按钮
+                if (MainQuestHelper.isMainMission(mission)) {
+                    continue;
+                }
                 if (statusData.getString(mission.name()).equals(MissionV2.Status.NOT_ACCEPTED)) {
                     this.addRenderableWidget(Button.builder(Component.translatable("接受")
                             .withStyle(ChatFormatting.GREEN), (p_280814_) -> {
@@ -151,10 +220,17 @@ public class MissionScreen extends Screen {
             case 2 -> screenTitle = "进行中的任务";
             default -> screenTitle = "已完成的任务";
         }
+        MissionV2.Category selectedCategory = getCategory(category);
+        if (selectedCategory != null) screenTitle = selectedCategory.displayName + " · " + screenTitle;
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("「" + screenTitle + "」")
                 .withStyle(CustomStyle.styleOfFlexible), X + 5, Y - 96, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1))
-                .withStyle(ChatFormatting.WHITE), X + 5, Y - 22 + 105, 0);
+        if (!missionList.isEmpty()) {
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1))
+                    .withStyle(ChatFormatting.WHITE), X + 5, Y - 22 + 105, 0);
+        } else {
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal("暂无符合条件的任务")
+                    .withStyle(ChatFormatting.GRAY), X + 5, Y - 40, 0);
+        }
         guiGraphics.drawString(fontRenderer, Component.literal("光标移动至任务名可查看需求")
                 .withStyle(ChatFormatting.WHITE), X - 144, Y - 108, 0);
         guiGraphics.drawString(fontRenderer, Component.literal("光标移动至提交按钮查看奖励")
@@ -205,6 +281,12 @@ public class MissionScreen extends Screen {
                                     append(mission.frontCondition).
                                     append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
                             X + 44, Y - 80 + 32 * i, 0);
+                }
+                if (MainQuestHelper.isMainMission(mission)
+                        && (status.equals(MissionV2.Status.NOT_ACCEPTED)
+                        || status.equals(MissionV2.Status.IN_PROGRESS))) {
+                    guiGraphics.drawCenteredString(fontRenderer, Te.s("对话", ChatFormatting.GRAY),
+                            X + 124, Y - 70 + 32 * i, 0);
                 }
                 if (status.equals(MissionV2.Status.FINISHED)) {
                     guiGraphics.drawString(fontRenderer, Component.literal("「").withStyle(ChatFormatting.AQUA).

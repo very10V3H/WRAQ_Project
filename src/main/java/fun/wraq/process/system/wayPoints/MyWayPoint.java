@@ -96,7 +96,7 @@ public class MyWayPoint {
     }
 
     public static List<ZonePoint> overWorldZonePointList = new ArrayList<>() {{
-/*        add(new ZonePoint(new Vec3(756, 84, 207),
+        add(new ZonePoint(new Vec3(756, 84, 207),
                 Te.s("平原村", CustomStyle.styleOfPlain),
                 Te.s("田园诗意，物阜民丰", CustomStyle.styleOfPlain)));
         add(new ZonePoint(new Vec3(956, 232, 17),
@@ -189,7 +189,7 @@ public class MyWayPoint {
         add(new ZonePoint(new Vec3(2006, 130, -1785),
                 Te.s("菌菇聚落", CustomStyle.MUSHROOM_STYLE),
                 Te.s("", CustomStyle.MUSHROOM_STYLE)));
-        add(new ZonePoint(new Vec3(1364, 79, 44),
+/*        add(new ZonePoint(new Vec3(1364, 79, 44),
                 Te.s("年兽出没地", CustomStyle.styleOfSpring),
                 Te.s("", CustomStyle.styleOfSpring)));*/
     }};

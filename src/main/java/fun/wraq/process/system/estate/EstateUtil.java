@@ -105,7 +105,8 @@ public class EstateUtil {
                         Te.s(Name.get(player), ChatFormatting.BLACK),
                         Te.s("长期有效", ChatFormatting.BLACK));
                 EstatePlayerData.sendDataToClient(player);
-                sendMSG(player, Te.s("每日首次打开资产门可获取收益；资产的每日收益在购买的第二天方能获取."));
+                sendMSG(player, Te.s("夜间首次打开房产门可获得", "增益效果", CustomStyle.styleOfGold,
+                        "；日间首次打开不动产门可获得", "增益效果", CustomStyle.styleOfGold, "."));
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
             } else {
                 sendMSG(player, Te.s("潜行右键来购买该资产."));

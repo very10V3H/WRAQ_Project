@@ -28,6 +28,13 @@ public class StringUtils {
     public static String SkillPoint_Used = "SkillPoint_Used";
     public static String AbilityPoint_Used = "AbilityPoint_Used";
 
+    /**
+     * AI-Generated, 2026-10-18
+     * 精通系统（精密/主宰/巫术/坚决/启迪）：能力点与专精点合并后的统一点数池。
+     */
+    public static String MasteryPoint_Total = "MasteryPoint_Total";
+    public static String MasteryPoint_Used = "MasteryPoint_Used";
+
     public static class Ability {
         public static String Power = "Ability_Power";
         public static String Intelligent = "Ability_Intelligent";
@@ -827,6 +834,8 @@ public class StringUtils {
     public static String ResonanceType = "ResonanceType";
 
     public static String Exist = "Exist";
+
+    public static String TransLevel = "TransLevel";
 
     public static class FlagInTag {
         public static String key = "flagInTag";

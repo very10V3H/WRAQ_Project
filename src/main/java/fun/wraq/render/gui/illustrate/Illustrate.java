@@ -1,22 +1,17 @@
 package fun.wraq.render.gui.illustrate;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import fun.wraq.common.Compute;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.illustrate.mobinfo.MobInfoGui;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,14 +20,48 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * AI-Generated, 2025-10-18
+ * <p>
+ * 物品图鉴：两列五排展示物品（系列物品聚合为一条并显示系列名）。
+ * 每条目提供「系列」与「来源」按钮：
+ * 「系列」子窗口浏览同系列其他物品；「来源」子窗口从代码中检索并展示制作材料、灌注配方与获取途径。
+ * 子窗口内的物品保留原有 tooltip 特性，且点击任意位置即可收起子窗口。
+ */
 @OnlyIn(Dist.CLIENT)
 public class Illustrate extends Screen {
-    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/illustrate.png");
-    private final boolean showPauseMenu;
+    public static final String DISPLAY_FLAG = "illustrate_display_flag";
     public static final Minecraft mc = Minecraft.getInstance();
-    private static final Font fontRenderer = mc.font;
+    private static final Font FONT = mc.font;
+
+    private static final int PANEL_WIDTH = 424;
+    private static final int PANEL_HEIGHT = 226;
+    private static final int PANEL_TOP = 26;
+    private static final int CARD_WIDTH = 196;
+    private static final int CARD_HEIGHT = 32;
+    private static final int CARD_GAP_X = 8;
+    private static final int CARD_GAP_Y = 4;
+    private static final int SERIES_BUTTON_X = 106;
+    private static final int SERIES_BUTTON_WIDTH = 30;
+    private static final int SOURCE_BUTTON_X = 158;
+    private static final int SOURCE_BUTTON_WIDTH = 32;
+    private static final int CARD_BUTTON_Y = 18;
+    private static final int CARD_BUTTON_HEIGHT = 12;
+    private static final int SUB_COLUMNS = 8;
+    private static final int SUB_SPACING = 30;
+    private static final int SUB_ROWS_MAX = 6;
+
+    private final boolean showPauseMenu;
     private int page = 0;
     private int type = 0;
+    private int cachedType = -1;
+    private List<IllustrateData.Entry> entries = List.of();
+    private SubPanel subPanel;
+    private int sourceScroll = 0;
+
+    private record SubPanel(Component title, List<ItemStack> stacks,
+                            List<ItemSourceInfo.Line> lines) {
+    }
 
     public Illustrate(boolean p_96308_, int type) {
         super(p_96308_ ? Component.translatable("menu.illustrate") : Component.translatable("menu.illustrate0"));
@@ -47,135 +76,496 @@ public class Illustrate extends Screen {
     }
 
     private void createMenu() {
-        int X = this.width / 2;
-        int Y = this.height / 2;
+        int x = this.width / 2;
+        int y = this.height / 2;
+        int leftX = x - PANEL_WIDTH / 2 - 36;
+        int rightX = x + PANEL_WIDTH / 2 + 8;
+        int topY = y - PANEL_HEIGHT / 2;
         this.addRenderableWidget(Button.builder(Component.translatable("←"), (p_280814_) -> {
             if (page > 0) {
                 page--;
             }
-        }).pos(X - 39 + 5, Y - 20 + 97).size(20, 20).build());
+        }).pos(x - 44, topY + PANEL_HEIGHT - 21).size(16, 16).build());
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-            if (page < ((getItems().size() - 1) / 45)) {
+            if (page < maxPage()) {
                 page++;
             }
-        }).pos(X + 20 + 5, Y - 20 + 97).size(20, 20).build());
+        }).pos(x + 28, topY + PANEL_HEIGHT - 21).size(16, 16).build());
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
             this.minecraft.setScreen((Screen) null);
             this.minecraft.mouseHandler.grabMouse();
-        }).pos(X + 136, Y - 98).size(12, 12).build());
+        }).pos(x + PANEL_WIDTH / 2 - 16, topY + 3).size(12, 12).build());
         this.addRenderableWidget(Button.builder(Component.literal("怪物及其掉落"), (p_280814_) -> {
             this.minecraft.setScreen(new MobInfoGui());
-        }).pos(X + 150 - 88, Y - 98 - 20).size(28 * 3, 16).build());
+        }).pos(rightX - 84, topY - 22).size(84, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("武器"), (p_280814_) -> {
             this.type = 0;
             this.page = 0;
-        }).pos(X + 150, Y - 98).size(28, 16).build());
+        }).pos(rightX, topY + 13).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("防具"), (p_280814_) -> {
             this.type = 1;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("饰品"), (p_280814_) -> {
             this.type = 2;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 2).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 2).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("符石"), (p_280814_) -> {
             this.type = 7;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 3).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 3).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("宝石"), (p_280814_) -> {
             this.type = 6;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 4).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 4).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("制式"), (p_280814_) -> {
             this.type = 3;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 5).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 5).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("酿造"), (p_280814_) -> {
             this.type = 4;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 6).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 6).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("材料"), (p_280814_) -> {
             this.type = 5;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 7).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 7).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Component.literal("镐子"), (p_280814_) -> {
             this.type = 17;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 8).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 8).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("近战", CustomStyle.styleOfPower), (p_280814_) -> {
             this.type = 8;
             this.page = 0;
-        }).pos(X - 178, Y - 98).size(28, 16).build());
+        }).pos(leftX, topY + 13).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("弓", CustomStyle.styleOfFlexible), (p_280814_) -> {
             this.type = 9;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("法杖", CustomStyle.styleOfMana), (p_280814_) -> {
             this.type = 10;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 2).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 2).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("法术", CustomStyle.styleOfMana), (p_280814_) -> {
             this.type = 16;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 3).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 3).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("副手", CustomStyle.styleOfGold), (p_280814_) -> {
             this.type = 11;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 4).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 4).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("头盔", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 12;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 5).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 5).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("胸甲", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 13;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 6).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 6).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("护腿", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 14;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 7).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 7).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("靴子", CustomStyle.styleOfStone), (p_280814_) -> {
             this.type = 15;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 8).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 8).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("纪念", CustomStyle.styleOfGold), (p_280814_) -> {
             this.type = 18;
             this.page = 0;
-        }).pos(X - 178, Y - 98 + 20 * 9).size(28, 16).build());
+        }).pos(leftX, topY + 13 + 20 * 9).size(28, 16).build());
         this.addRenderableWidget(Button.builder(Te.s("新品", CustomStyle.styleOfRed), (p_280814_) -> {
             this.type = 19;
             this.page = 0;
-        }).pos(X + 150, Y - 98 + 20 * 9).size(28, 16).build());
+        }).pos(rightX, topY + 13 + 20 * 9).size(28, 16).build());
     }
 
     public void tick() {
         super.tick();
     }
 
-    public void render(GuiGraphics p_96310_, int x, int y, float v) {
-        GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
-        this.renderBackground(guiGraphics);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-        int textureWidth = 300;
-        int textureHeight = 200;
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        // 子窗口打开时不再绘制主图鉴页面（模态），从根源上避免主界面文字/按钮压住子窗口
+        if (subPanel != null) {
+            guiGraphics.flush();
+            this.renderSubPanel(guiGraphics, mouseX, mouseY);
+            return;
+        }
 
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
-                0, 0, 300, 200, textureWidth, textureHeight);
-        int xOffset = -28;
-        List<Item> list = getItems();
-        sameModule(list, guiGraphics, x, y, xOffset);
-        guiGraphics.drawCenteredString(fontRenderer, Te.s("" + (page + 1)),
-                this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
-        guiGraphics.drawCenteredString(fontRenderer,
-                Te.s("共" + ((list.size() - 1) / 45 + 1) + "页 " + (list.size()) + "件物品"),
-                this.width / 2 + 80, this.height / 2 + 83, 0);
-        super.render(p_96310_, x, y, v);
+        this.renderBackground(guiGraphics);
+        int centerX = this.width / 2;
+        int centerY = this.height / 2;
+        int panelX = centerX - PANEL_WIDTH / 2;
+        int panelY = centerY - PANEL_HEIGHT / 2;
+        this.renderPanelBackground(guiGraphics, panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT);
+
+        List<IllustrateData.Entry> entryList = currentEntries();
+        guiGraphics.drawCenteredString(FONT,
+                Component.literal(categoryName()).withStyle(ChatFormatting.WHITE),
+                centerX, panelY + 8, 0xFFFFFF);
+
+        ItemStack hoveredStack = null;
+        if (entryList.isEmpty()) {
+            guiGraphics.drawCenteredString(FONT, Component.literal("暂无物品").withStyle(ChatFormatting.GRAY),
+                    centerX, centerY, 0xFFFFFF);
+        } else {
+            for (int index = 0; index < IllustrateData.PER_PAGE; index++) {
+                int entryIndex = page * IllustrateData.PER_PAGE + index;
+                if (entryIndex >= entryList.size()) {
+                    break;
+                }
+                int column = index % IllustrateData.COLUMNS;
+                int row = index / IllustrateData.COLUMNS;
+                ItemStack stack = this.renderEntry(guiGraphics, entryList.get(entryIndex),
+                        entryX(panelX, column), entryY(panelY, row), mouseX, mouseY);
+                if (stack != null) {
+                    hoveredStack = stack;
+                }
+            }
+        }
+
+        guiGraphics.drawCenteredString(FONT,
+                Component.literal((page + 1) + " / " + (maxPage() + 1)).withStyle(ChatFormatting.WHITE),
+                centerX, panelY + PANEL_HEIGHT - 16, 0xFFFFFF);
+        guiGraphics.drawString(FONT,
+                Component.literal("共" + entryList.size() + "项").withStyle(ChatFormatting.GRAY),
+                panelX + 12, panelY + PANEL_HEIGHT - 14, 0xFFFFFF);
+
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+
+        if (hoveredStack != null) {
+            // 先提交已有批次，保证 tooltip 绘制在最上层
+            guiGraphics.flush();
+            guiGraphics.renderTooltip(FONT, hoveredStack, mouseX, mouseY);
+        }
+    }
+
+    private void renderPanelBackground(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+        guiGraphics.fill(x, y, x + width, y + height, 0xE6101A24);
+        guiGraphics.fill(x, y, x + width, y + 1, 0xFF4FC3F7);
+        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFF4FC3F7);
+        guiGraphics.fill(x, y, x + 1, y + height, 0xFF4FC3F7);
+        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFF4FC3F7);
+    }
+
+    private ItemStack renderEntry(GuiGraphics guiGraphics, IllustrateData.Entry entry,
+                                  int x, int y, int mouseX, int mouseY) {
+        boolean hover = isHover(mouseX, mouseY, x, y, CARD_WIDTH, CARD_HEIGHT);
+        boolean seriesHover = entry.series()
+                && isHover(mouseX, mouseY, x + SERIES_BUTTON_X, y + CARD_BUTTON_Y,
+                SERIES_BUTTON_WIDTH, CARD_BUTTON_HEIGHT);
+        boolean sourceHover = entry.hasSource()
+                && isHover(mouseX, mouseY, x + SOURCE_BUTTON_X, y + CARD_BUTTON_Y,
+                SOURCE_BUTTON_WIDTH, CARD_BUTTON_HEIGHT);
+        guiGraphics.fill(x, y, x + CARD_WIDTH, y + CARD_HEIGHT, hover ? 0xC0203A56 : 0x80162434);
+        guiGraphics.fill(x, y, x + CARD_WIDTH, y + 1, 0xFF2C5A7A);
+        guiGraphics.renderItem(entry.icon(), x + 5, y + 8);
+
+        String displayName = entry.displayName();
+        String shownName = FONT.plainSubstrByWidth(displayName, CARD_WIDTH - 30);
+        if (shownName.length() < displayName.length()) {
+            shownName = shownName + "…";
+        }
+        guiGraphics.drawString(FONT, shownName, x + 25, y + 4, 0xFFFFFF);
+
+        if (entry.series()) {
+            renderSmallButton(guiGraphics, "系列", x + SERIES_BUTTON_X, y + CARD_BUTTON_Y,
+                    SERIES_BUTTON_WIDTH, CARD_BUTTON_HEIGHT, seriesHover);
+        }
+        if (entry.hasSource()) {
+            renderSmallButton(guiGraphics, "来源", x + SOURCE_BUTTON_X, y + CARD_BUTTON_Y,
+                    SOURCE_BUTTON_WIDTH, CARD_BUTTON_HEIGHT, sourceHover);
+        }
+        return hover && !seriesHover && !sourceHover ? entry.icon() : null;
+    }
+
+    private void renderSmallButton(GuiGraphics guiGraphics, String label, int x, int y,
+                                   int width, int height, boolean hover) {
+        guiGraphics.fill(x, y, x + width, y + height, hover ? 0xFF2E6FA6 : 0xFF1E3A5F);
+        guiGraphics.fill(x, y, x + width, y + 1, 0xFF4FC3F7);
+        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFF4FC3F7);
+        guiGraphics.fill(x, y, x + 1, y + height, 0xFF4FC3F7);
+        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFF4FC3F7);
+        guiGraphics.drawCenteredString(FONT, Component.literal(label), x + width / 2,
+                y + 2, hover ? 0xFFFFFF : 0xD8E9F5);
+    }
+
+    private void renderSubPanel(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        // 先把主界面（文字 / 按钮 / 物品）的所有批次提交到屏幕，
+        // 再绘制子窗口背景，否则主界面的文字层会压住子窗口背景。
+        guiGraphics.flush();
+
+        if (subPanel.lines() != null) {
+            this.renderSourcePanel(guiGraphics, mouseX, mouseY);
+            return;
+        }
+
+        List<ItemStack> stacks = subPanel.stacks();
+        int rows = Math.min(SUB_ROWS_MAX, Math.max(1, (stacks.size() + SUB_COLUMNS - 1) / SUB_COLUMNS));
+        int visible = Math.min(stacks.size(), rows * SUB_COLUMNS);
+        int width = SUB_COLUMNS * SUB_SPACING + 20;
+        int height = 26 + rows * 26 + 16;
+        int centerX = this.width / 2;
+        int centerY = this.height / 2;
+        int x = centerX - width / 2;
+        int y = centerY - height / 2;
+
+        // 子窗口为模态：压暗整个屏幕后再绘制窗口
+        guiGraphics.fill(0, 0, this.width, this.height, 0x80000000);
+        guiGraphics.fill(x, y, x + width, y + height, 0xFF0E1620);
+        guiGraphics.fill(x, y, x + width, y + 1, 0xFFD4AF37);
+        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFFD4AF37);
+        guiGraphics.fill(x, y, x + 1, y + height, 0xFFD4AF37);
+        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFFD4AF37);
+        // 背景批次提交后再绘制文字与物品
+        guiGraphics.flush();
+
+        guiGraphics.drawCenteredString(FONT, subPanel.title(), centerX, y + 8, 0xFFD4AF37);
+        guiGraphics.drawCenteredString(FONT,
+                Component.literal("点击任意位置关闭").withStyle(ChatFormatting.GRAY),
+                centerX, y + height - 13, 0xFFFFFF);
+
+        ItemStack hoveredStack = null;
+        for (int index = 0; index < visible; index++) {
+            int column = index % SUB_COLUMNS;
+            int row = index / SUB_COLUMNS;
+            int itemX = x + 10 + column * SUB_SPACING;
+            int itemY = y + 24 + row * 26;
+            ItemStack stack = stacks.get(index);
+            guiGraphics.renderItem(stack, itemX, itemY);
+            if (isHover(mouseX, mouseY, itemX, itemY, 16, 16)) {
+                hoveredStack = stack;
+            }
+        }
+        if (hoveredStack != null) {
+            guiGraphics.flush();
+            guiGraphics.renderTooltip(FONT, hoveredStack, mouseX, mouseY);
+        }
+    }
+
+    private record SourceRow(ItemStack icon, Component text, List<FormattedCharSequence> wrapped) {
+    }
+
+    private record SourceLayout(List<SourceRow> rows, int contentHeight, int x, int y,
+                                int width, int height, int viewportTop, int viewportBottom) {
+        int viewportHeight() {
+            return viewportBottom - viewportTop;
+        }
+
+        int maxScroll() {
+            return Math.max(0, contentHeight - viewportHeight());
+        }
+    }
+
+    private List<SourceRow> layoutSourceRows(List<ItemSourceInfo.Line> lines, int width) {
+        List<SourceRow> rows = new ArrayList<>();
+        for (ItemSourceInfo.Line line : lines) {
+            if (line.icon() != null) {
+                String full = line.text().getString();
+                String shown = FONT.plainSubstrByWidth(full, width - 30);
+                Component text = line.text();
+                if (shown.length() < full.length()) {
+                    text = Component.literal(shown + "…").withStyle(text.getStyle());
+                }
+                rows.add(new SourceRow(line.icon(), text, null));
+            } else {
+                rows.add(new SourceRow(null, line.text(), FONT.split(line.text(), width)));
+            }
+        }
+        return rows;
+    }
+
+    private SourceLayout sourceLayout() {
+        int width = 340;
+        List<SourceRow> rows = layoutSourceRows(subPanel.lines(), width - 20);
+        int contentHeight = 0;
+        for (SourceRow row : rows) {
+            contentHeight += row.icon() != null ? 20 : row.wrapped().size() * 11;
+        }
+        int maxHeight = Math.min(320, Math.max(120, this.height - 40));
+        int height = Math.min(26 + contentHeight + 18, maxHeight);
+        int x = this.width / 2 - width / 2;
+        int y = this.height / 2 - height / 2;
+        return new SourceLayout(rows, contentHeight, x, y, width, height, y + 24, y + height - 16);
+    }
+
+    private void renderSourcePanel(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        SourceLayout layout = sourceLayout();
+        sourceScroll = net.minecraft.util.Mth.clamp(sourceScroll, 0, layout.maxScroll());
+        int x = layout.x();
+        int y = layout.y();
+        int width = layout.width();
+        int height = layout.height();
+        int centerX = this.width / 2;
+
+        // 子窗口为模态：压暗整个屏幕后再绘制窗口
+        guiGraphics.fill(0, 0, this.width, this.height, 0x80000000);
+        guiGraphics.fill(x, y, x + width, y + height, 0xFF0E1620);
+        guiGraphics.fill(x, y, x + width, y + 1, 0xFFD4AF37);
+        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFFD4AF37);
+        guiGraphics.fill(x, y, x + 1, y + height, 0xFFD4AF37);
+        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFFD4AF37);
+        guiGraphics.flush();
+
+        guiGraphics.drawCenteredString(FONT, subPanel.title(), centerX, y + 8, 0xFFD4AF37);
+        String hint = layout.maxScroll() > 0 ? "滚轮浏览 · 点击任意位置关闭" : "点击任意位置关闭";
+        guiGraphics.drawCenteredString(FONT,
+                Component.literal(hint).withStyle(ChatFormatting.GRAY), centerX, y + height - 12, 0xFFFFFF);
+
+        guiGraphics.enableScissor(x + 1, layout.viewportTop(), x + width - 1, layout.viewportBottom());
+        int textY = layout.viewportTop() - sourceScroll;
+        ItemStack hovered = null;
+        for (SourceRow row : layout.rows()) {
+            if (row.icon() != null) {
+                boolean visible = textY + 20 > layout.viewportTop() && textY < layout.viewportBottom();
+                if (visible) {
+                    guiGraphics.renderItem(row.icon(), x + 8, textY + 1);
+                    guiGraphics.drawString(FONT, row.text(), x + 28, textY + 5, 0xFFFFFF);
+                    if (isHover(mouseX, mouseY, x + 8, textY + 1, 16, 16)
+                            && isHover(mouseX, mouseY, x, layout.viewportTop(), width,
+                            layout.viewportHeight())) {
+                        hovered = row.icon();
+                    }
+                }
+                textY += 20;
+            } else {
+                boolean visible = textY + row.wrapped().size() * 11 > layout.viewportTop()
+                        && textY < layout.viewportBottom();
+                for (FormattedCharSequence sequence : row.wrapped()) {
+                    if (visible) {
+                        guiGraphics.drawString(FONT, sequence, x + 10, textY, 0xFFFFFF);
+                    }
+                    textY += 11;
+                }
+            }
+        }
+        guiGraphics.disableScissor();
+
+        if (layout.maxScroll() > 0) {
+            int trackTop = layout.viewportTop();
+            int trackHeight = layout.viewportHeight();
+            int thumbHeight = Math.max(16, trackHeight * trackHeight / Math.max(1, layout.contentHeight()));
+            int thumbTop = trackTop + (trackHeight - thumbHeight) * sourceScroll / layout.maxScroll();
+            guiGraphics.fill(x + width - 5, trackTop, x + width - 3, trackTop + trackHeight, 0x60000000);
+            guiGraphics.fill(x + width - 5, thumbTop, x + width - 3, thumbTop + thumbHeight, 0xFFD4AF37);
+        }
+        if (hovered != null) {
+            guiGraphics.flush();
+            guiGraphics.renderTooltip(FONT, hovered, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (subPanel != null) {
+            subPanel = null;
+            return true;
+        }
+        if (button == 0) {
+            List<IllustrateData.Entry> entryList = currentEntries();
+            int panelX = this.width / 2 - PANEL_WIDTH / 2;
+            int panelY = this.height / 2 - PANEL_HEIGHT / 2;
+            for (int index = 0; index < IllustrateData.PER_PAGE; index++) {
+                int entryIndex = page * IllustrateData.PER_PAGE + index;
+                if (entryIndex >= entryList.size()) {
+                    break;
+                }
+                IllustrateData.Entry entry = entryList.get(entryIndex);
+                int x = entryX(panelX, index % IllustrateData.COLUMNS);
+                int y = entryY(panelY, index / IllustrateData.COLUMNS);
+                if (entry.series() && isHover(mouseX, mouseY, x + SERIES_BUTTON_X, y + CARD_BUTTON_Y,
+                        SERIES_BUTTON_WIDTH, CARD_BUTTON_HEIGHT)) {
+                    openSubPanel(Component.literal("系列 · " + entry.displayName()
+                            + "（" + entry.seriesItems().size() + "）"), entry.seriesItems());
+                    return true;
+                }
+                if (entry.hasSource() && isHover(mouseX, mouseY, x + SOURCE_BUTTON_X, y + CARD_BUTTON_Y,
+                        SOURCE_BUTTON_WIDTH, CARD_BUTTON_HEIGHT)) {
+                    openSourcePanel(entry);
+                    return true;
+                }
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private void openSubPanel(Component title, List<ItemStack> stacks) {
+        this.subPanel = new SubPanel(title, stacks, null);
+    }
+
+    /** 打开「来源」窗口：从代码中检索制作配方、灌注配方与获取途径。 */
+    private void openSourcePanel(IllustrateData.Entry entry) {
+        this.sourceScroll = 0;
+        this.subPanel = new SubPanel(Component.literal("来源 · " + entry.displayName()),
+                List.of(), ItemSourceInfo.build(entry.members()));
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        if (subPanel != null && subPanel.lines() != null) {
+            SourceLayout layout = sourceLayout();
+            if (layout.maxScroll() > 0) {
+                sourceScroll = net.minecraft.util.Mth.clamp(
+                        sourceScroll - (int) Math.round(delta * 14), 0, layout.maxScroll());
+            }
+            return true;
+        }
+        return super.mouseScrolled(mouseX, mouseY, delta);
+    }
+
+    private static boolean isHover(double mouseX, double mouseY, int x, int y, int width, int height) {
+        return mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
+    }
+
+    private static int entryX(int panelX, int column) {
+        return panelX + 12 + column * (CARD_WIDTH + CARD_GAP_X);
+    }
+
+    private static int entryY(int panelY, int row) {
+        return panelY + PANEL_TOP + row * (CARD_HEIGHT + CARD_GAP_Y);
+    }
+
+    private List<IllustrateData.Entry> currentEntries() {
+        if (cachedType != type) {
+            cachedType = type;
+            entries = IllustrateData.buildEntries(getItems());
+            page = Math.min(page, maxPage());
+        }
+        return entries;
+    }
+
+    private int maxPage() {
+        return Math.max(0, (entries.size() - 1) / IllustrateData.PER_PAGE);
+    }
+
+    private String categoryName() {
+        return switch (type) {
+            case 0 -> "武器";
+            case 1 -> "防具";
+            case 2 -> "饰品";
+            case 3 -> "制式";
+            case 4 -> "酿造";
+            case 5 -> "材料";
+            case 6 -> "宝石";
+            case 7 -> "符石";
+            case 8 -> "近战";
+            case 9 -> "弓";
+            case 10 -> "法杖";
+            case 11 -> "副手";
+            case 12 -> "头盔";
+            case 13 -> "胸甲";
+            case 14 -> "护腿";
+            case 15 -> "靴子";
+            case 16 -> "法术";
+            case 17 -> "镐子";
+            case 18 -> "纪念";
+            case 19 -> "新品";
+            default -> "图鉴";
+        };
     }
 
     private List<Item> getItems() {
-        List<Item> list = new ArrayList<>();
+        List<Item> list;
         switch (type) {
             case 0 -> list = Utils.weaponList;
             case 1 -> list = Utils.armorList;
@@ -197,6 +587,7 @@ public class Illustrate extends Screen {
             case 17 -> list = Display.pickAxeList;
             case 18 -> list = Display.getSouvenirsList();
             case 19 -> list = Display.getNewItemList();
+            default -> list = List.of();
         }
         return list;
     }
@@ -204,34 +595,5 @@ public class Illustrate extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
-    }
-
-    public static final String DISPLAY_FLAG = "illustrate_display_flag";
-    public void sameModule(List<Item> list, GuiGraphics guiGraphics, int x, int y, int xOffset) {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (page * 45 + i * 9 + j < list.size()) {
-                    ItemStack itemStack = list.get(page * 45 + i * 9 + j).getDefaultInstance();
-                    Item item = itemStack.getItem();
-                    itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-                    if (!Screen.hasControlDown()
-                            && (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)
-                            || Utils.offHandTag.containsKey(item) || item instanceof WraqCurios)) {
-                        itemStack.getOrCreateTagElement(Utils.MOD_ID).putBoolean(DISPLAY_FLAG, true);
-                        if (!Utils.offHandTag.containsKey(item) && !(item instanceof WraqCurios)) {
-                            ForgeEquipUtils.setForgeQualityOnEquip(itemStack,
-                                    ClientUtils.clientPlayerTick / 20 % 13);
-                        }
-                        Compute.forgingHoverName(itemStack);
-                    }
-                    guiGraphics.renderItem(itemStack,
-                            this.width / 2 - 100 + j * 30 + xOffset, this.height / 2 - 73 + 32 * i);
-                    if (x > this.width / 2 - 100 + j * 30 + xOffset && x < this.width / 2 - 100 + 16 + j * 30 + xOffset
-                            && y > this.height / 2 - 73 + 32 * i && y < this.height / 2 - 73 + 32 * i + 16) {
-                        guiGraphics.renderTooltip(font, itemStack, x, y);
-                    }
-                }
-            }
-        }
     }
 }

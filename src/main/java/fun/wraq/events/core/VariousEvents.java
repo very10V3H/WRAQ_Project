@@ -17,6 +17,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.system.prefix.PrefixInfo;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.Security;
@@ -135,6 +136,9 @@ public class VariousEvents {
     @SubscribeEvent
     public static void Clone(PlayerEvent.Clone event) {
         if (!event.getEntity().level().isClientSide) {
+            // AI-Generated, 2026-10-18: 死亡重生会重建玩家实体，
+            // 清除未完成的动画延迟操作，避免重生后补触发普通攻击/主动效果。
+            DelayOperationWithAnimation.remove(event.getEntity());
             Player player = event.getOriginal();
             ServerPlayer serverPlayer = (ServerPlayer) player;
             if (event.isWasDeath()) {

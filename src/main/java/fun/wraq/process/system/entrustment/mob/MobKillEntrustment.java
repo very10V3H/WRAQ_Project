@@ -19,6 +19,7 @@ import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.bank.Bank;
 import fun.wraq.process.system.data.PersistentDataUtil;
+import fun.wraq.process.system.dialog.DialogManager;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.reputation.ReputationSystem;
 import fun.wraq.process.system.tower.Tower;
@@ -35,6 +36,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -351,11 +353,19 @@ public class MobKillEntrustment {
     }
 
     public static void playerTryToAccept(Player player) {
-        String name = player.getName().getString();
         if (Compute.getNearEntity(player, Villager.class, 8).isEmpty()) {
             sendMSG(player, Te.s("似乎需要找到贝尔才能接取", "委托任务", CustomStyle.styleOfWorld));
             return;
         }
+        playerTryToAcceptFromNpc(player);
+    }
+
+    /**
+     * AI-Generated, 2026-10-17
+     * 由对话系统进入时的接取入口：NPC 邻近校验已由 DialogManager 的会话完成（绑定实体 + 8 格距离）。
+     */
+    public static void playerTryToAcceptFromNpc(Player player) {
+        String name = player.getName().getString();
         if (player.experienceLevel < 75) {
             sendMSG(player, Te.s("委托任务", CustomStyle.styleOfWorld, "需要达到",
                     Utils.getLevelDescription(75), "才能接取"));
@@ -415,11 +425,19 @@ public class MobKillEntrustment {
     }
 
     public static void playerTryToCancel(Player player) {
-        String name = player.getName().getString();
         if (Compute.getNearEntity(player, Villager.class, 8).isEmpty()) {
             sendMSG(player, Te.s("似乎需要找到贝尔才能取消", "委托任务", CustomStyle.styleOfWorld));
             return;
         }
+        playerTryToCancelFromNpc(player);
+    }
+
+    /**
+     * AI-Generated, 2026-10-17
+     * 由对话系统进入时的取消入口：NPC 邻近校验已由 DialogManager 的会话完成。
+     */
+    public static void playerTryToCancelFromNpc(Player player) {
+        String name = player.getName().getString();
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             playerCurrentEntrustmentMap.remove(name);
             playerKillProcessMap.remove(name);
@@ -555,7 +573,8 @@ public class MobKillEntrustment {
                 onFinished(player, costTick);
                 playerCurrentEntrustmentMap.remove(name);
                 playerKillProcessMap.remove(name);
-                sendPacketToClient(player);
+                // 完成委托后保留 1min 显示
+                sendPacketToClient(player, true);
                 MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
                 SpecialEventCommon.onFinishEntrustment(player);
@@ -582,6 +601,13 @@ public class MobKillEntrustment {
     }
 
     public static void sendPacketToClient(Player player) {
+        sendPacketToClient(player, false);
+    }
+
+    /**
+     * @param showOneMinute 上线同步与完成委托时传 true，客户端会额外保留 1min 显示
+     */
+    public static void sendPacketToClient(Player player, boolean showOneMinute) {
         String name = player.getName().getString();
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             MobKillEntrustment entrustment = playerCurrentEntrustmentMap.get(name);
@@ -590,19 +616,28 @@ public class MobKillEntrustment {
                             getExpiredLeftMin(player), getPlayerReputation(player),
                             getDailyFinishedTimes(player), getWeeklyFinishedTimes(player),
                             getTotalFinishedTimes(player), getAverageFinishedTick(player),
-                    playerNextAllowAcceptTickMap.getOrDefault(name, 0)), (ServerPlayer) player);
+                    playerNextAllowAcceptTickMap.getOrDefault(name, 0), showOneMinute), (ServerPlayer) player);
         } else {
             ModNetworking.sendToClient(new MobKillEntrustmentInfoS2CPacket(Te.s(""), 0, 0, 0,
                             getExpiredLeftMin(player), getPlayerReputation(player),
                             getDailyFinishedTimes(player), getWeeklyFinishedTimes(player),
                             getTotalFinishedTimes(player), getAverageFinishedTick(player),
-                    playerNextAllowAcceptTickMap.getOrDefault(name, 0)), (ServerPlayer) player);
+                    playerNextAllowAcceptTickMap.getOrDefault(name, 0), showOneMinute), (ServerPlayer) player);
         }
     }
 
     public static final String VILLAGER_NAME = "联合研院秘书 - 贝尔";
 
-    public static void onPlayerInteractWithVillager(Player player) {
+    /**
+     * AI-Generated, 2026-10-17
+     * 改为打开对话界面（DialogManager + DialogScreen），不再向聊天栏发送可点击的命令文本。
+     */
+    public static void onPlayerInteractWithVillager(Player player, Entity npc) {
+        DialogManager.open(player, npc, VILLAGER_NAME);
+    }
+
+    /** 旧实现：聊天窗 + /vmd entrustment 命令，保留作为回滚路径。 */
+    public static void openLegacyChatDialogue(Player player) {
         String name = player.getName().getString();
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             MobKillEntrustment entrustment = playerCurrentEntrustmentMap.get(name);

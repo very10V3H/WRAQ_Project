@@ -60,7 +60,7 @@ public class MapleHunterSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(18000, 950, 950, 0.4, 3, 0.6, 700, 25, 15000 * Math.pow(10, 4), 0.45);
+        return new MobAttributes(18000, 950, 950, 0.4, 3, 0.6, 700, 25, 15000 * Math.pow(10, 4), 0.45, 0, 0.02);
     }
 
     @Override
@@ -102,7 +102,6 @@ public class MapleHunterSpawnController extends MobSpawnController {
         if (mob.tickCount % 20 == (mobList.indexOf(mob) % 20)) {
             commonAttack(mob);
         }
-        Compute.mobHealthRecover(mob, 0.02);
     }
 
     @Override

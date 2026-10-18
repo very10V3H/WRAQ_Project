@@ -6,7 +6,9 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.system.missions.mainline.MainQuestData;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
+import fun.wraq.process.system.missions.mainline.MainQuestStage;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenS2CPacket;
 import fun.wraq.process.system.missions.netWorking.MissionV2DataS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -61,31 +63,36 @@ public enum MissionV2 {
             MissionV2Helper.getDailyChallengeMissionTitle(),
             MissionV2Helper.getDailyChallengeMissionDetail()),
 
-    EXPEDITION_O_LAVA(Te.s("远征O - 熔岩 - 熔岩废墟", CustomStyle.styleOfRed),
-            Te.s("东侧熔岩裂谷对潮汐城产生了威胁，寻找熔岩学者了解情况，收集根源力量，锻造火山装备以应对危机。"),
-            Te.s("寻访学者 → 收集根源 → 锻造装备"),
-            Te.s("需完成全部引导任务"), true,
-            ExpeditionMissionHelper.getAllowAcceptCondition(),
-            null,
-            ExpeditionMissionHelper.getSubmitCondition(),
-            ExpeditionMissionHelper.getSubmitAction(),
-            ExpeditionMissionHelper.getRewardDescription(),
-            ExpeditionMissionHelper.getTitleOperation(),
-            ExpeditionMissionHelper.getTipsOperation(),
-            ExpeditionMissionHelper.getDetailOperation(),
-            true),
-
-    EXPEDITION_I_LUOYAN(Te.s("远征I - 炼狱 - 熔岩裂谷", CustomStyle.styleOfPower),
-            Te.s("深入熔岩裂谷，面对更强大的挑战。"),
-            Te.s("等待开放…"),
-            Te.s("需完成远征O"), true,
-            ExpeditionMissionHelper.getLuoyanAllowAcceptCondition(),
-            null,
-            null,
-            null,
-            List.of(),
-            null,
-            null);
+    // ---- 主线：数据在 MainQuestData，枚举只做薄壳 ----
+    MAIN_01_DEPART_XUSHENG(MainQuestData.STAGES.get(0)),
+    MAIN_02_ARRIVE_SKY(MainQuestData.STAGES.get(1)),
+    MAIN_03_MAYOR_BRIEFING(MainQuestData.STAGES.get(2)),
+    MAIN_04_PLAIN_CHIEF(MainQuestData.STAGES.get(3)),
+    MAIN_05_PLAIN_PURGE(MainQuestData.STAGES.get(4)),
+    MAIN_06_FOREST_CHIEF(MainQuestData.STAGES.get(5)),
+    MAIN_07_PLAINI(MainQuestData.STAGES.get(6)),
+    MAIN_08_ALCHEMIST_SUPPORT(MainQuestData.STAGES.get(7)),
+    MAIN_09_COAST_CHIEF(MainQuestData.STAGES.get(8)),
+    MAIN_10_XUNXI_VISIT(MainQuestData.STAGES.get(9)),
+    MAIN_11_NETHER_I(MainQuestData.STAGES.get(10)),
+    MAIN_12_BEIFU_CHIEF(MainQuestData.STAGES.get(11)),
+    MAIN_13_WIND_HIGHLAND(MainQuestData.STAGES.get(12)),
+    MAIN_14_DARK_CASTLE(MainQuestData.STAGES.get(13)),
+    MAIN_15_VOLCANO(MainQuestData.STAGES.get(14)),
+    MAIN_16_EAST_TOWER(MainQuestData.STAGES.get(15)),
+    MAIN_17_FUNCTION_ISLAND(MainQuestData.STAGES.get(16)),
+    MAIN_18_LEIGUANG(MainQuestData.STAGES.get(17)),
+    MAIN_19_SAKURA_ISLAND(MainQuestData.STAGES.get(18)),
+    MAIN_20_MOON_PALACE(MainQuestData.STAGES.get(19)),
+    MAIN_21_WANGSHAN(MainQuestData.STAGES.get(20)),
+    MAIN_22_EAGLE_FACTORY(MainQuestData.STAGES.get(21)),
+    MAIN_23_MUSHROOM(MainQuestData.STAGES.get(22)),
+    MAIN_24_END(MainQuestData.STAGES.get(23)),
+    MAIN_25_MANA_TOWER(MainQuestData.STAGES.get(24)),
+    MAIN_26_ANCIENT_CITY(MainQuestData.STAGES.get(25)),
+    MAIN_27_LAVA_BUNKER(MainQuestData.STAGES.get(26)),
+    MAIN_28_HOLY_ISLAND(MainQuestData.STAGES.get(27)),
+    MAIN_29_POLAR(MainQuestData.STAGES.get(28));
 
     public interface PlayerCondition {
         boolean can(Player player) throws CommandSyntaxException;
@@ -159,6 +166,15 @@ public enum MissionV2 {
                 submitCondition, submitAction, rewardDescription, null, null, null);
     }
 
+    /** 主线阶段：字段全部来自 MainQuestData.Stage，枚举只作为任务列表的载体。 */
+    MissionV2(MainQuestStage.Stage stage) {
+        this(stage.title(), stage.description(), stage.tips(), stage.frontCondition(), false,
+                MainQuestHelper.allow(stage), null,
+                MainQuestHelper.condition(stage), MainQuestHelper.submit(stage),
+                MainQuestHelper.rewardDescription(stage),
+                null, MainQuestHelper.tipsOperation(stage), MainQuestHelper.detailOperation(stage), true);
+    }
+
     public static CompoundTag clientMissionData;
 
     public void setPlayerStatus(Player player, String status) {
@@ -169,6 +185,36 @@ public enum MissionV2 {
         return MissionV2Helper.getMissionV2StatusData(player).getString(name());
     }
 
+    /**
+     * AI-Generated, 2026-10-18
+     * 任务分类，用于任务列表左侧的分类筛选按钮.
+     */
+    public enum Category {
+        DAILY("每日任务"),
+        MAIN("主线任务"),
+        SIDE("支线任务");
+
+        public final String displayName;
+
+        Category(String displayName) {
+            this.displayName = displayName;
+        }
+    }
+
+    /**
+     * AI-Generated, 2026-10-18
+     * 获取任务的分类. 新增任务时需在此处补充分类映射（不设 default，以便新增任务时强制分类）.
+     */
+    public Category getCategory() {
+        if (name().startsWith("MAIN_")) {
+            return Category.MAIN;
+        }
+        return switch (this) {
+            case DAILY_EXPLORE, DAILY_KILL, DAILY_COLLECTION, DAILY_CHALLENGE -> Category.DAILY;
+            default -> Category.SIDE;
+        };
+    }
+
     public static class Status {
         public static final String NOT_ACCEPTED = "notAccepted";
         public static final String IN_PROGRESS = "inProgress";
@@ -177,6 +223,10 @@ public enum MissionV2 {
 
     public static void onPlayerTryToAccept(Player player, int ordinal) {
         MissionV2 missionV2 = MissionV2.values()[ordinal];
+        if (missionV2.name().startsWith("MAIN_")) {
+            sendMSG(player, Te.s("主线任务需要与 NPC 对话推进."));
+            return;
+        }
         String status = MissionV2Helper.getMissionV2StatusData(player).getString(missionV2.name());
         if (status.equals(Status.FINISHED)) {
             sendMSG(player, Te.s("该任务已完成，无需再次接受."));
@@ -192,10 +242,6 @@ public enum MissionV2 {
                     missionV2.acceptAction.action(player);
                 }
                 MissionV2Helper.getMissionV2StatusData(player).putString(missionV2.name(), Status.IN_PROGRESS);
-                // 接受远征任务时，完成对应引导
-                if (missionV2 == EXPEDITION_O_LAVA) {
-                    Guide.trigV2(player, Guide.StageV2.ACCEPT_EXPEDITION_O);
-                }
                 sendMSG(player, Te.s("已接受 ", missionV2.title));
                 MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
                 openScreenInClient(player, 2);
@@ -209,6 +255,10 @@ public enum MissionV2 {
 
     public static void onPlayerTryToSubmit(Player player, int ordinal) {
         MissionV2 missionV2 = MissionV2.values()[ordinal];
+        if (missionV2.name().startsWith("MAIN_")) {
+            sendMSG(player, Te.s("主线任务需要与 NPC 对话交付."));
+            return;
+        }
         String status = MissionV2Helper.getMissionV2StatusData(player).getString(missionV2.name());
         if (status.equals(Status.NOT_ACCEPTED)) {
             sendMSG(player, Te.s("任务还未接受，暂时不能提交."));
@@ -297,18 +347,6 @@ public enum MissionV2 {
                     "个", "进行中", CustomStyle.styleOfField, "的", "任务。"));
             sendMSG(player, Te.s("使用", ModItems.ID_CARD, "打开", "任务列表", CustomStyle.styleOfFlexible,
                     "以查看详情。"));
-        }
-        // 引导到接受远征阶段或最终阶段时，推送远征任务
-        if (player.tickCount % 100 == 50) {
-            String guideStage = Guide.getPlayerCurrentStageV2(player);
-            if ((guideStage.equals(Guide.StageV2.FINAL)
-                    || guideStage.equals(Guide.StageV2.ACCEPT_EXPEDITION_O))
-                    && EXPEDITION_O_LAVA.getPlayerStatus(player).isEmpty()) {
-                EXPEDITION_O_LAVA.setPlayerStatus(player, Status.NOT_ACCEPTED);
-                sendMSG(player, Te.s("远征任务已开放! 请查看任务列表接取: ",
-                        EXPEDITION_O_LAVA.title));
-                MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
-            }
         }
     }
 

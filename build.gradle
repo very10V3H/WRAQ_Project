@@ -37,6 +37,12 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
+            // JVM heap for the dev client. Pick ~1/3 of your physical RAM, leave room for the OS/IDEA.
+            // These args are baked into .idea/runConfigurations/runClient.xml, so re-run
+            // `gradlew genIntellijRuns` (or IDEA: Gradle -> Tasks -> forgegradle runs -> genIntellijRuns)
+            // after changing them, otherwise IDEA keeps launching with the old VM options.
+            jvmArgs '-Xms1G', '-Xmx6G'
+
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
             // "SCAN": For mods scan.
@@ -66,6 +72,8 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+
+            jvmArgs '-Xms1G', '-Xmx4G'
 
             property 'forge.logging.markers', 'REGISTRIES'
 
@@ -240,7 +248,9 @@ dependencies {
     implementation fg.deobf("curse.maven:mobtimizations-974401:5135998")
     implementation fg.deobf("curse.maven:coroutil-237749:5096038")
     implementation fg.deobf("curse.maven:coffee-delight-835597:6166737")
-    implementation fg.deobf("curse.maven:customnpcs-unofficial-1052708:7694841")
+    // 已移除 customnpcs-unofficial-1052708（10.4MB / 1242 class，且 CC BY-NC 禁商用）。
+    // VMD 只用它的「玩家模型 + 皮肤 + 禁止移动 + 注视玩家」，现在由自研实体 vmd:npc 承担，
+    // 交互路由改为 NpcIds / NpcIdResolver / NpcInteractionRegistry，见 docs/npc_customnpcs_migration_plan.md。
     // client :
     implementation fg.deobf("curse.maven:iceberg-520110:4953572")
     implementation fg.deobf("curse.maven:prism-lib-638111:4650325")
@@ -253,7 +263,7 @@ dependencies {
     implementation fg.deobf("curse.maven:modern-ui-352491:5229575")
     implementation fg.deobf("curse.maven:modernfix-790626:5288164")
     implementation fg.deobf("curse.maven:bendy-lib-623373:4550371")
-    implementation fg.deobf("curse.maven:asteorbar-959237:6335990")
+    // AsteorBar 已移除：生物头顶血条由 VMD 自绘（EntityHealthBarRenderer），数字支持 1.2w / 3e 缩写。
 }
 
 dependencies {

@@ -21,5 +21,8 @@ build
 eclipse
 run
 
+# codegraph index (149 MB, machine-local)
+.codegraph
+
 # Files from Forge MDK
 forge*changelog.txt

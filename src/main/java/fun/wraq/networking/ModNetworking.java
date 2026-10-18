@@ -41,7 +41,9 @@ import fun.wraq.networking.misc.SkillPackets.Charging.*;
 import fun.wraq.networking.misc.SmartPhonePackets.*;
 import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import fun.wraq.networking.misc.MasteryPackets.*;
 import fun.wraq.networking.misc.TeamPackets.*;
+import fun.wraq.networking.misc.dialog.*;
 import fun.wraq.networking.misc.ToolTipPackets.DailyMissionS2CPacket;
 import fun.wraq.networking.misc.USE.*;
 import fun.wraq.networking.misc.attack.AttackRequestC2SPacket;
@@ -73,6 +75,8 @@ import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.backpack.networking.BackpackUpgradeC2SPacket;
 import fun.wraq.process.system.backpack.networking.OpenBackpackC2SPacket;
 import fun.wraq.process.system.backpack.networking.BackpackPageC2SPacket;
+import fun.wraq.process.system.backpack.audit.networking.AuditBackpackContentsS2CPacket;
+import fun.wraq.process.system.backpack.audit.networking.AuditBackpackReadyC2SPacket;
 import fun.wraq.process.system.cooking.network.CookingDataS2CPacket;
 import fun.wraq.process.system.element.networking.*;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
@@ -1470,6 +1474,8 @@ public class ModNetworking {
                 .encoder(WorldTextS2CPacket::toBytes)
                 .consumerMainThread(WorldTextS2CPacket::handle)
                 .add();
+        // 以上旧的注册数量已达上限，请使用下面新的V2注册方式。
+
         netV2.messageBuilder(OpenBackpackC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(OpenBackpackC2SPacket::new)
                 .encoder(OpenBackpackC2SPacket::toBytes)
@@ -1546,6 +1552,57 @@ public class ModNetworking {
                 .consumerMainThread(StockKLineSyncS2CPacket::handle)
                 .add();
         V2_PACKAGE_CLASS.add(StockKLineSyncS2CPacket.class);
+        // AI-Generated, 2026-10-17 对话系统：走 V2 通道（v1 已满且中间插入会位移既有包序号）
+        netV2.messageBuilder(DialogOpenS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(DialogOpenS2CPacket::new)
+                .encoder(DialogOpenS2CPacket::toBytes)
+                .consumerMainThread(DialogOpenS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(DialogOpenS2CPacket.class);
+        netV2.messageBuilder(DialogSelectC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(DialogSelectC2SPacket::new)
+                .encoder(DialogSelectC2SPacket::toBytes)
+                .consumerMainThread(DialogSelectC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(DialogSelectC2SPacket.class);
+        netV2.messageBuilder(DialogCloseS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(DialogCloseS2CPacket::new)
+                .encoder(DialogCloseS2CPacket::toBytes)
+                .consumerMainThread(DialogCloseS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(DialogCloseS2CPacket.class);
+        // AI-Generated, 2026-10-18 背包审计：内容同步 → 客户端回执 → 服务端打开精妙背包界面
+        netV2.messageBuilder(AuditBackpackContentsS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(AuditBackpackContentsS2CPacket::new)
+                .encoder(AuditBackpackContentsS2CPacket::toBytes)
+                .consumerMainThread(AuditBackpackContentsS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(AuditBackpackContentsS2CPacket.class);
+        netV2.messageBuilder(AuditBackpackReadyC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(AuditBackpackReadyC2SPacket::new)
+                .encoder(AuditBackpackReadyC2SPacket::toBytes)
+                .consumerMainThread(AuditBackpackReadyC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(AuditBackpackReadyC2SPacket.class);
+        // AI-Generated, 2026-10-18 精通系统：请求 / 保存 / 同步
+        netV2.messageBuilder(MasteryRequestC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MasteryRequestC2SPacket::new)
+                .encoder(MasteryRequestC2SPacket::toBytes)
+                .consumerMainThread(MasteryRequestC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(MasteryRequestC2SPacket.class);
+        netV2.messageBuilder(MasterySaveC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MasterySaveC2SPacket::new)
+                .encoder(MasterySaveC2SPacket::toBytes)
+                .consumerMainThread(MasterySaveC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(MasterySaveC2SPacket.class);
+        netV2.messageBuilder(MasteryDataS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MasteryDataS2CPacket::new)
+                .encoder(MasteryDataS2CPacket::toBytes)
+                .consumerMainThread(MasteryDataS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(MasteryDataS2CPacket.class);
     }
 
     @SuppressWarnings("unchecked")

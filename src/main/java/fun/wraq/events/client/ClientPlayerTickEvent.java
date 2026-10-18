@@ -31,6 +31,7 @@ import fun.wraq.process.system.element.networking.ElementPieceC2SPacket;
 import fun.wraq.process.system.element.piece.ElementPieceGui;
 import fun.wraq.process.system.element.piece.ElementPieceRecipe;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentHud;
 import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.afk.AfkScreen;
@@ -38,6 +39,7 @@ import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
+import fun.wraq.render.gui.dialog.DialogScreen;
 import fun.wraq.render.gui.market.MarketScreen;
 import fun.wraq.render.gui.skills.IdCardGui;
 import fun.wraq.render.gui.team.PlayerRequestScreen;
@@ -95,6 +97,7 @@ public class ClientPlayerTickEvent {
             Main0.clientTick(player);
             Compute.setDownDeltaInLowGravityEnvironment(player);
             ItemAndExpGetHud.clientTick();
+            MobKillEntrustmentHud.clientTick();
             if (SpecialEffectOnPlayer.clientSilentTick > 0) --SpecialEffectOnPlayer.clientSilentTick;
             if (SpecialEffectOnPlayer.clientBlindTick > 0) --SpecialEffectOnPlayer.clientBlindTick;
             ParticleProvider.spaceEffectParticleHandleClientTick();
@@ -148,12 +151,22 @@ public class ClientPlayerTickEvent {
                 && event.player.equals(Minecraft.getInstance().player)) {
             ClientAttackEvent.tick();
             if (ClientUtils.missionScreenFlag != -1) {
-                Minecraft.getInstance().setScreen(new MissionScreen(ClientUtils.missionScreenFlag, 0));
+                Minecraft.getInstance().setScreen(new MissionScreen(ClientUtils.missionScreenFlag, 0, 0, true));
                 ClientUtils.missionScreenFlag = -1;
             }
             if (ClientUtils.afkScreenOpenFlag) {
                 Minecraft.getInstance().setScreen(new AfkScreen());
                 ClientUtils.afkScreenOpenFlag = false;
+            }
+            if (ClientUtils.openDialogFlag && ClientUtils.pendingDialog != null) {
+                Minecraft.getInstance().setScreen(new DialogScreen(ClientUtils.pendingDialog));
+                ClientUtils.openDialogFlag = false;
+            }
+            if (ClientUtils.closeDialogFlag) {
+                ClientUtils.closeDialogFlag = false;
+                if (Minecraft.getInstance().screen instanceof DialogScreen) {
+                    Minecraft.getInstance().setScreen(null);
+                }
             }
             if (event.player.tickCount % 100 == 0) {
                 Inventory inventory = event.player.getInventory();

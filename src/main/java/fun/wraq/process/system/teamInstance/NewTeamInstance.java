@@ -10,6 +10,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
@@ -270,6 +271,8 @@ public abstract class NewTeamInstance {
                                 append(Component.literal(" 通关了").withStyle(ChatFormatting.WHITE)).
                                 append(description));*/
                 players.forEach(player -> {
+                    // 主线通关目标：通关本身计数，奖励条件另行判断
+                    MainQuestHelper.recordInstance(player, description.getString());
                     if (Reason.getPlayerReasonValue(player) < reasonCost) {
                         Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                                 Te.s("获取奖励所需的", "理智", CustomStyle.styleOfFlexible, "不足。需要",

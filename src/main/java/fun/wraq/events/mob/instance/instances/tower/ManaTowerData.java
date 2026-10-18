@@ -9,6 +9,7 @@ import fun.wraq.events.mob.instance.instances.tower.network.ManaTowerS2CPacket;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
@@ -213,6 +214,7 @@ public class ManaTowerData {
     }
 
     public static void onFinishedReward(Player player, int usedTick) {
+        MainQuestHelper.recordDaily(player, "炼魔塔");
         int everRecord = getPlayerManaTowerDailyRecord(player);
         int everTier = getRecordTier(everRecord);
         int tier = getRecordTier(usedTick);

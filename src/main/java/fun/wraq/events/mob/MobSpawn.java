@@ -12,14 +12,25 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
-import fun.wraq.events.mob.chapter1.AreaForestMobSpawnController;
-import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
-import fun.wraq.events.mob.chapter1.GraySlimeSpawnController;
-import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
+import fun.wraq.events.mob.chapter1.*;
 import fun.wraq.events.mob.chapter2.*;
+import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
+import fun.wraq.events.mob.chapter3_nether.NetherSkeletonSpawnController;
+import fun.wraq.events.mob.chapter3_nether.PiglinSpawnController;
 import fun.wraq.events.mob.chapter3_nether.WitherSkeletonSpawnController;
+import fun.wraq.events.mob.chapter4_end.EnderManSpawnController;
+import fun.wraq.events.mob.chapter4_end.EndermiteSpawnController;
+import fun.wraq.events.mob.chapter4_end.ShulkerSpawnController;
+import fun.wraq.events.mob.chapter5.origin.*;
+import fun.wraq.events.mob.chapter6_castle.BeaconSpawnController;
+import fun.wraq.events.mob.chapter6_castle.BlazeSpawnController;
+import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
+import fun.wraq.events.mob.chapter7.*;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.moontain.*;
+import fun.wraq.events.mob.ore.Ore2SpawnController;
+import fun.wraq.events.mob.ore.Ore3SpawnController;
 import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
@@ -27,6 +38,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.EquipPiece;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
@@ -40,7 +52,20 @@ import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
 import fun.wraq.series.overworld.chapter1.plain.PlainCrest;
+import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderSpawnController;
+import fun.wraq.series.overworld.cold.sc2.stray.SuperColdStraySpawnController;
 import fun.wraq.series.overworld.cold.sc3.aurora.AuroraSheepSpawnController;
+import fun.wraq.series.overworld.cold.sc3.fir.FirElfSpawnController;
+import fun.wraq.series.overworld.cold.sc3.maple.MapleHunterSpawnController;
+import fun.wraq.series.overworld.cold.sc4.SuperColdIronGolemSpawnController;
+import fun.wraq.series.overworld.cold.sc4.SuperColdSnowGolemSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.DivineGolemSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.DivineSentrySpawnController;
+import fun.wraq.series.overworld.divine.mob.common.GhastlyCreeperSpawnController;
+import fun.wraq.series.overworld.divine.mob.common.GhastlyHuskSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerAttackMobSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBlazeSpawnController;
+import fun.wraq.series.overworld.sakura.bunker.mob.BunkerBowMobSpawnController;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import fun.wraq.series.overworld.wind.mob.WindSkeletonSpawnController;
 import net.minecraft.nbt.CompoundTag;
@@ -123,12 +148,13 @@ public class MobSpawn {
     public static List<MobSpawnController> overWolrdList = new ArrayList<>();
 
     public static void setOverWorldList(Level overWorld) {
-        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
+/*        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(GraySlimeSpawnController.getInstance(overWorld));
         AreaForestMobSpawnController.getInstance(overWorld);
-        overWolrdList.add(LavaRuinsFireLightSpawnController.getInstance(overWorld));
-/*        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
+        overWolrdList.add(LavaRuinsFireLightSpawnController.getInstance(overWorld));*/
+
+        overWolrdList.add(PlainZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(ForestZombieSpawnController.getInstance(overWorld));
         overWolrdList.add(LakeDrownSpawnController.getInstance(overWorld));
         overWolrdList.add(MineSkeletonSpawnController.getInstance(overWorld));
@@ -187,7 +213,7 @@ public class MobSpawn {
         overWolrdList.add(FirElfSpawnController.getInstance(overWorld));
         overWolrdList.add(MapleHunterSpawnController.getInstance(overWorld));
         overWolrdList.add(SuperColdIronGolemSpawnController.getInstance(overWorld));
-        overWolrdList.add(SuperColdSnowGolemSpawnController.getInstance(overWorld));*/
+        overWolrdList.add(SuperColdSnowGolemSpawnController.getInstance(overWorld));
         overWolrdList.forEach(mobSpawnController -> {
             if (mobSpawnController.level != overWorld) {
                 mobSpawnController.level = overWorld;
@@ -198,10 +224,10 @@ public class MobSpawn {
     public static List<MobSpawnController> netherList = new ArrayList<>();
 
     public static void setNetherList(Level nether) {
-/*        netherList.add(WitherSkeletonSpawnController.getInstance(nether));
+        netherList.add(WitherSkeletonSpawnController.getInstance(nether));
         netherList.add(NetherSkeletonSpawnController.getInstance(nether));
         netherList.add(MagmaSpawnController.getInstance(nether));
-        netherList.add(PiglinSpawnController.getInstance(nether));*/
+        netherList.add(PiglinSpawnController.getInstance(nether));
         netherList.forEach(mobSpawnController -> {
             if (mobSpawnController.level != nether) {
                 mobSpawnController.level = nether;
@@ -212,9 +238,9 @@ public class MobSpawn {
     public static List<MobSpawnController> endList = new ArrayList<>();
 
     public static void setEndList(Level end) {
-/*        endList.add(EnderManSpawnController.getInstance(end));
+        endList.add(EnderManSpawnController.getInstance(end));
         endList.add(EndermiteSpawnController.getInstance(end));
-        endList.add(ShulkerSpawnController.getInstance(end));*/
+        endList.add(ShulkerSpawnController.getInstance(end));
         endList.forEach(mobSpawnController -> {
             if (mobSpawnController.level != end) {
                 mobSpawnController.level = end;
@@ -323,6 +349,10 @@ public class MobSpawn {
         public static Map<String, Double> defencePenetration0 = new HashMap<>();
         public static Map<String, Double> healthSteal = new HashMap<>();
         public static Map<String, Double> movementSpeed = new HashMap<>();
+        /** 怪物每秒固定生命回复量. */
+        public static Map<String, Double> healthRecover = new HashMap<>();
+        /** 怪物每秒百分比生命回复量（基于最大生命值）. */
+        public static Map<String, Double> percentHealthRecover = new HashMap<>();
 
         public static Map<String, Map<Integer, Double>> mobXpDropRateMap = new HashMap<>();
 
@@ -330,6 +360,16 @@ public class MobSpawn {
 
         public static double getMobBaseAttribute(Mob mob, Map<String, Double> map) {
             return map.getOrDefault(mob.getName().getString(), 0d);
+        }
+
+        /**
+         * 判断该怪物是否是由本模组注册过基础属性的怪物。
+         * 只有通过 {@link #setMobBaseAttributes} 设置过属性的怪物才会应用生命回复等机制。
+         */
+        public static boolean isRegisteredMob(Mob mob) {
+            String mobName = mob.getName().getString();
+            String originName = MobSpawn.getMobOriginName(mob);
+            return defence.containsKey(mobName) || defence.containsKey(originName);
         }
 
         public static void setMobBaseAttributes(Mob mob, MobAttributes attributes) {
@@ -346,6 +386,9 @@ public class MobSpawn {
             MobBaseAttributes.defencePenetration.put(mobName, attributes.defencePenetration * rate);
             MobBaseAttributes.defencePenetration0.put(mobName, attributes.defencePenetration0 * rate);
             MobBaseAttributes.healthSteal.put(mobName, attributes.healthSteal * rate);
+            MobBaseAttributes.healthRecover.put(mobName, attributes.healthRecover * rate);
+            // 百分比生命回复基于最大生命值计算，最大生命值已随等级倍率缩放，不再重复缩放
+            MobBaseAttributes.percentHealthRecover.put(mobName, attributes.percentHealthRecover);
             mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(attributes.maxHealth * rate);
             mob.setHealth(mob.getMaxHealth());
             MobBaseAttributes.movementSpeed.put(mobName, attributes.movementSpeed * rate);
@@ -368,6 +411,8 @@ public class MobSpawn {
                 MobBaseAttributes.defencePenetration.put(mobName, defencePenetration);
                 MobBaseAttributes.defencePenetration0.put(mobName, defencePenetration0);
                 MobBaseAttributes.healthSteal.put(mobName, healthSteal);
+                MobBaseAttributes.healthRecover.put(mobName, MobAttributes.DEFAULT_HEALTH_RECOVER);
+                MobBaseAttributes.percentHealthRecover.put(mobName, MobAttributes.DEFAULT_PERCENT_HEALTH_RECOVER);
                 mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
                 mob.setHealth(mob.getMaxHealth());
                 MobBaseAttributes.movementSpeed.put(mobName, movementSpeed);
@@ -384,6 +429,11 @@ public class MobSpawn {
                     MobBaseAttributes.defencePenetration.put(mobName, attributeMap.get("defencePenetration"));
                     MobBaseAttributes.defencePenetration0.put(mobName, attributeMap.get("defencePenetration0"));
                     MobBaseAttributes.healthSteal.put(mobName, attributeMap.get("healthSteal"));
+                    MobBaseAttributes.healthRecover.put(mobName,
+                            attributeMap.getOrDefault("healthRecover", MobAttributes.DEFAULT_HEALTH_RECOVER));
+                    MobBaseAttributes.percentHealthRecover.put(mobName,
+                            attributeMap.getOrDefault("percentHealthRecover",
+                                    MobAttributes.DEFAULT_PERCENT_HEALTH_RECOVER));
                     mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(attributeMap.get("health"));
                     mob.setHealth(mob.getMaxHealth());
                     MobBaseAttributes.movementSpeed.put(mobName, attributeMap.get("movementSpeed"));
@@ -451,6 +501,8 @@ public class MobSpawn {
         int xpLevel = getMobXpLevel(mob);
         String mobOriginName = MobSpawn.getMobOriginName(mob);
         String mobName = mob.getName().getString();
+        // 主线击杀目标：放在掉落表早退之前，保证无掉落怪也能计数
+        MainQuestHelper.recordKill(player, mobOriginName);
         if (RandomUtils.nextInt(0, 10000) < 100) {
             ItemAndRate.send(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }

@@ -55,7 +55,7 @@ public class FirElfSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(18000, 950, 950, 0.4, 3, 0.6, 700, 25, 12500 * Math.pow(10, 4), 0.45);
+        return new MobAttributes(18000, 950, 950, 0.4, 3, 0.6, 700, 25, 12500 * Math.pow(10, 4), 0.45, 0, 0.02);
     }
 
     @Override
@@ -78,7 +78,6 @@ public class FirElfSpawnController extends MobSpawnController {
         if (mob.isDeadOrDying()) {
             return;
         }
-        Compute.mobHealthRecover(mob, 0.02);
         if (mob.tickCount % 20 == 0) {
             Player player = Compute.getNearestPlayer(mob, 24);
             if (player != null) {

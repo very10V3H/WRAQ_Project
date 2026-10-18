@@ -41,6 +41,8 @@ public class ElementIndicatorOverlay {
 
         Mob mob = ClientUtils.mobAttribute;
         if (mob == null || !mob.isAlive()) return;
+        // 仅当前准星目标已被服务端确认为VMD怪物时渲染
+        if (mob.getId() != ClientUtils.mobId) return;
 
         ResourceLocation icon = Element.getResource(elementType);
         if (icon == null) return;

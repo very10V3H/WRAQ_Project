@@ -171,6 +171,13 @@ public class MobInfoGui extends Screen {
                                 String.format("%.0f%%", attributes.healthSteal * 100)));
                         description.add(Te.s(" · 最大生命值 ", CustomStyle.styleOfLife,
                                 String.format("%.0f", attributes.maxHealth)));
+                        description.add(Te.s(" · 生命回复 ", CustomStyle.styleOfLife,
+                                String.format("%.1f%%", attributes.percentHealthRecover * 100),
+                                "/s 最大生命值"));
+                        if (attributes.healthRecover > 0) {
+                            description.add(Te.s(" · 生命回复 ", CustomStyle.styleOfLife,
+                                    String.format("%.1f", attributes.healthRecover), "/s"));
+                        }
                         description.add(Te.s(" · 额外移速 ", CustomStyle.styleOfFlexible,
                                 String.format("%.0f%%", (1 + attributes.movementSpeed * 100))));
                         description.add(Te.s(" - 若想更精确比对穿透数值，可以将主武器放在物品栏第一位"));

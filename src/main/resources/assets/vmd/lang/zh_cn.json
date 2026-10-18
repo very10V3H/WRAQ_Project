@@ -16,7 +16,6 @@
   "item.vmd.signinreward": "签到奖励包",
   "item.vmd.explorenote": "地质学家的笔记",
   "item.vmd.note_0": "地质学家的笔记书页-0",
-  "item.vmd.fornew": "来自very_H的一封信",
   "item.vmd.knife": "瑞士军刀",
   "item.vmd.green_runes_0": "平原符石-复苏之风",
   "item.vmd.rune_piece": "符石碎片",
@@ -139,6 +138,7 @@
   "item.vmd.speiron": "匠人铁锭",
   "item.vmd.skybow": "天空之隼",
   "item.vmd.sky_sword": "天空之锋",
+  "item.vmd.sky_sceptre": "天空之杖",
   "item.vmd.skysoul": "天空碎片",
   "item.vmd.skyrune": "天空宝石",
   "item.vmd.sky_gem": "天空之心",
@@ -2875,8 +2875,8 @@
   "key.vmd.ues_6": "快捷使用物品栏9物品",
   "key.vmd.rolling": "翻滚",
   "key.vmd.navigate_set": "启用准星标定",
-  "key.vmd.mission": "打开任务列表",
-  "key.vmd.guide": "打开/关闭指引",
+  "key.vmd.mission_list": "打开任务列表",
+  "key.vmd.guide": "打开/关闭附加界面",
   "key.vmd.element_roulette": "打开元素轮盘",
   "key.vmd.team_gui_open": "打开队伍界面",
 
@@ -3066,6 +3066,7 @@
   "entity.vmd.sakuramob": "樱灵",
   "entity.vmd.boss2": "突见忍",
   "entity.vmd.gray_slime": "苍峡软玉",
+  "entity.vmd.npc": "NPC",
 
   "item.vmd.gray_slime_ball": "苍岩玉膏",
   "item.vmd.armor_piece": "盔甲碎片"

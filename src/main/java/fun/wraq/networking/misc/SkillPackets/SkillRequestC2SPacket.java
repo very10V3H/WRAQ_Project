@@ -2,6 +2,7 @@ package fun.wraq.networking.misc.SkillPackets;
 
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.mastery.MasteryData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -77,6 +78,9 @@ public class SkillRequestC2SPacket {
 
             ModNetworking.sendToClient(new SkillSaveS2CPacket(data.getString(StringUtils.SkillData.Sword),
                     data.getString(StringUtils.SkillData.Bow), data.getString(StringUtils.SkillData.Mana)), player);
+
+            // AI-Generated, 2026-10-18 精通系统：打开身份卡时一并同步
+            MasteryData.sync(player);
         });
         return true;
     }

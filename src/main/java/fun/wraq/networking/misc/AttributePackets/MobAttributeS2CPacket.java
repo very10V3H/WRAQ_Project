@@ -66,6 +66,13 @@ public class MobAttributeS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
+            // id < 0 表示服务端要求清除（准星目标不是VMD怪物或实体已消失）
+            if (id < 0) {
+                ClientUtils.mobId = -1;
+                ClientUtils.mobElementType = "empty";
+                ClientUtils.mobElementValue = 0;
+                return;
+            }
             ClientUtils.mobId = id;
             ClientUtils.mobAttack = mobAttack;
             ClientUtils.mobDefence = mobDefence;

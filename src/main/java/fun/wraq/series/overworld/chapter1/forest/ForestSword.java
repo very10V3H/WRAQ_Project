@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.equip.impl.AxeWeapon;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -25,14 +26,14 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForestSword extends WraqSword implements ActiveItem {
+public class ForestSword extends WraqSword implements ActiveItem, AxeWeapon {
 
     private final int tier;
 
     public ForestSword(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.attackDamage.put(this, new double[]{25, 45, 60, 70}[tier]);
+        Utils.attackDamage.put(this, new double[]{35, 63, 84, 98}[tier]);
         Utils.defencePenetration0.put(this, new double[]{3, 5, 7, 2}[tier]);
         Utils.healthSteal.put(this, new double[]{0.02, 0.02, 0.02, 0.02}[tier]);
         Utils.critRate.put(this, new double[]{0.1, 0.2, 0.3, 0.3}[tier]);

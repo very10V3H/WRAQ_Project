@@ -59,6 +59,8 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentManaDefenceModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobHealAmplifierModifier = new HashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobCauseDamageRateModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobHealthRecoverModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentHealthRecoverModifier = new HashMap<>();
 
     public static List<StableAttributesModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {

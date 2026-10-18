@@ -17,19 +17,28 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationComman
 import fun.wraq.process.system.estate.*;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
 import fun.wraq.process.system.stock.StockCommand;
+import fun.wraq.process.system.translevel.TransLevelDimension;
 import fun.wraq.series.crystal.CrystalOperationCommand;
 import fun.wraq.series.overworld.cold.sc5.dragon.IceDragonOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.GameProfileArgument;
+import net.minecraft.commands.arguments.UuidArgument;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.p3pp3rf1y.sophisticatedbackpacks.backpack.BackpackAccessLogger;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber
 public class CommandHandler {
     @SubscribeEvent
     public static void onServerStarting(RegisterCommandsEvent event) {
+        // AI-Generated, 2026-10-17 /vmd npc ... 管理命令（替代 CustomNPCs 的 NPC 编辑器）
+        fun.wraq.process.system.npc.NpcCommand.register(event.getDispatcher());
+        fun.wraq.process.system.missions.mainline.MainQuestCommand.register(event.getDispatcher());
         event.getDispatcher().register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("info")
@@ -854,6 +863,46 @@ public class CommandHandler {
                         Commands.literal("tempWayPointToFile")
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                                 .executes(TempWayPointToFileCommand.instance)
+                )
+        );
+        event.getDispatcher().register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("transLevel").then(
+                                Commands.argument("label", StringArgumentType.word())
+                                        .suggests((context1, builder) ->
+                                                SharedSuggestionProvider.suggest(TransLevelDimension.labels().keySet(), builder))
+                                        .executes(TransLevelCommand.instance)
+                        )
+                )
+        );
+        // AI-Generated, 2026-10-18 /vmd auditBackpack <uuid>：按内容 UUID 打开精妙背包原版界面
+        event.getDispatcher().register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("auditBackpack").then(
+                                Commands.argument("uuid", UuidArgument.uuid())
+                                        .suggests((context1, builder) -> SharedSuggestionProvider.suggest(
+                                                BackpackAccessLogger.getBackpackUuids().stream()
+                                                        .map(UUID::toString).toList(), builder))
+                                        .executes(AuditBackpackCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        // AI-Generated, 2026-10-18 /vmd backpackUuids <player>：列出玩家实际持有的精妙背包 UUID
+        event.getDispatcher().register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("backpackUuids").then(
+                                Commands.argument("player", GameProfileArgument.gameProfile())
+                                        .executes(BackpackUuidCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        // AI-Generated, 2026-10-18 /vmd setBackpackUuid <uuid>：修复内容 UUID 丢失/被改写的精妙背包
+        event.getDispatcher().register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("setBackpackUuid").then(
+                                Commands.argument("uuid", UuidArgument.uuid())
+                                        .executes(SetBackpackUuidCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
     }

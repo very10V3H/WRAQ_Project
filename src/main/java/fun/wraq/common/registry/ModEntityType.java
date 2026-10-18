@@ -8,6 +8,7 @@ import fun.wraq.entities.entities.MainBoss.MainBoss;
 import fun.wraq.entities.entities.SakuraMob.SakuraMob;
 import fun.wraq.entities.entities.Scarecrow.Scarecrow;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAir;
+import fun.wraq.entities.entities.npc.VmdNpc;
 import fun.wraq.projectiles.firework.Firework;
 import fun.wraq.projectiles.mana.*;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
@@ -133,4 +134,16 @@ public class ModEntityType {
                             .sized(2.04F, 2.04F)
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(Utils.MOD_ID, "gray_slime").toString()));
+
+    /**
+     * AI-Generated, 2026-10-17
+     * 玩家模型 NPC（替代 CustomNPCs）。MobCategory 用 MISC：不参与刷怪上限，
+     * 但仍按 clientTrackingRange 同步给附近玩家。
+     */
+    public static final RegistryObject<EntityType<VmdNpc>> VMD_NPC =
+            ENTITY_TYPES.register("npc",
+                    () -> EntityType.Builder.<VmdNpc>of(VmdNpc::new, MobCategory.MISC)
+                            .sized(0.6F, 1.8F)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(Utils.MOD_ID, "npc").toString()));
 }

@@ -54,7 +54,7 @@ public class TradeList {
         }
         TradeListNew.init();
         /* 2.0 */
-/*        plainLeather();
+        plainLeather();
         plainForgeHammer();
         forestTool();
         forestForgeHammer();
@@ -90,8 +90,6 @@ public class TradeList {
         mopUpPaper();
 
         TradeListNew.init();
-
-        *//* 1.0 *//*
 
         Snow();
         Evoker();
@@ -129,7 +127,7 @@ public class TradeList {
         Food();
         RoseGoldStore();
         BackPack();
-        Pearl();*/
+        Pearl();
     }
 
     public static void Snow() {

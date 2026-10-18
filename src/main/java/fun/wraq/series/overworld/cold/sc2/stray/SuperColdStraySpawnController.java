@@ -64,7 +64,7 @@ public class SuperColdStraySpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(56000, 850, 850, 0.4, 3, 0.6, 650, 25, 10000 * Math.pow(10, 4), 0.45);
+        return new MobAttributes(56000, 850, 850, 0.4, 3, 0.6, 650, 25, 10000 * Math.pow(10, 4), 0.45, 0, 0.02);
     }
 
     @Override
@@ -96,7 +96,6 @@ public class SuperColdStraySpawnController extends MobSpawnController {
         if (mob.tickCount % 100 == 99 && RandomUtils.nextDouble(0, 1) < 0.1) {
             skill(mob);
         }
-        Compute.mobHealthRecover(mob, 0.02);
     }
 
     @Override

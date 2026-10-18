@@ -49,7 +49,9 @@ public class WaypointHud {
             Vec3 worldPos = new Vec3(wp.x, wp.y + 0.5, wp.z);
             Vector3f screenPos = ClientSetup.worldToScreenSpace(worldPos, partialTick);
 
-            if (screenPos.z() <= 0) continue;
+            // worldToScreenSpace 在相机前方返回 z < 0（视图空间约定）。
+            // 旧代码写成 z <= 0 跳过，结果只绘制身后的目标、且 xy 镜像，表现为「位置与真实相反」。
+            if (screenPos.z() >= 0) continue;
 
             int sx = (int) screenPos.x();
             int sy = (int) screenPos.y();

@@ -1,28 +1,25 @@
 package fun.wraq.events.core;
 
 import fun.wraq.blocks.blocks.brew.BrewingNote;
-import fun.wraq.blocks.blocks.forge.ForgeRecipe;
-import fun.wraq.blocks.blocks.inject.InjectRecipe;
 import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.blocks.entity.HBrewingEntity;
-import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.EnhancedForgedItem;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.items.misc.PocketItem;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.system.cooking.CookingValue;
 import fun.wraq.process.system.expired.ExpiredInfo;
 import fun.wraq.process.system.expired.ExpiredSystem;
 import fun.wraq.process.system.forge.ForgeHammer;
+import fun.wraq.render.gui.illustrate.Display;
+import fun.wraq.render.gui.illustrate.Illustrate;
+import fun.wraq.render.gui.illustrate.MaterialSourceData;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import net.minecraft.ChatFormatting;
@@ -73,68 +70,6 @@ public class ToolTipEvent {
             event.getToolTip().add(
                     Component.literal(" - 你需要有一定的归一化元素强度，方可获得元素附加").
                             withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        }
-        if (InjectRecipe.injectingRecipeMap.isEmpty()) InjectRecipe.setInjectingRecipeMap();
-        if ((InjectRecipe.injectingRecipeMap.containsKey(stack.getItem())
-                || InjectRecipe.productSourceItemMap.containsKey(stack.getItem())
-                || InjectRecipe.injectingWaysMap.containsKey(stack.getItem()))
-                && !Screen.hasAltDown()
-                && !Screen.hasControlDown()) {
-            if (!Screen.hasShiftDown()) {
-                event.getToolTip().add(Component.literal("[在灌注配方中，按下Shift查看配方]")
-                        .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfInject));
-            }
-            else {
-                event.getToolTip().add(Te.s(""));
-                List<InjectingRecipe> recipeList = new ArrayList<>();
-                // 是SourceItem
-                if (InjectRecipe.injectingRecipeMap.containsKey(item)) {
-                    recipeList.add(InjectRecipe.injectingRecipeMap.get(item));
-                }
-                // 是Material
-                if (InjectRecipe.injectingWaysMap.containsKey(item)) {
-                    recipeList.addAll(InjectRecipe.injectingWaysMap.get(item));
-                }
-                // 是product
-                if (InjectRecipe.productSourceItemMap.containsKey(item)) {
-                    recipeList.add(InjectRecipe.injectingRecipeMap.get(InjectRecipe.productSourceItemMap.get(item)));
-                }
-                int stage = 0;
-                if (recipeList.size() > 4) {
-                    stage = (ClientUtils.serverTick / Tick.s(3))
-                            % (recipeList.size() / 4 + (recipeList.size() % 4 != 0 ? 1 : 0));
-                    tooltip.add(Te.s("第" + (stage + 1) + "页，"
-                            + "共" + (recipeList.size() / 4 + (recipeList.size() % 4 != 0 ? 1 : 0))
-                            + "页，共" + recipeList.size() + "个配方"));
-                }
-                tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
-                        "->", ChatFormatting.GOLD));
-                for (int i = stage * 4; i < Math.min(recipeList.size(), stage * 4 + 4); i++) {
-                    InjectingRecipe injectingRecipe = recipeList.get(i);
-                    Item sourceItem = InjectRecipe.productSourceItemMap.get(injectingRecipe.product);
-                    if (sourceItem.equals(item)) {
-                        tooltip.add(Te.s((i + 1) + ".", CustomStyle.styleOfInject,
-                                "作为", "被灌注物", CustomStyle.styleOfInject));
-                    } else if (InjectRecipe.injectingWaysMap.containsKey(item)) {
-                        tooltip.add(Te.s((i + 1) + ".", CustomStyle.styleOfInject,
-                                "作为", "灌注耗材", ChatFormatting.GREEN));
-                    } else if (InjectRecipe.productSourceItemMap.containsKey(item)) {
-                        tooltip.add(Te.s((i + 1) + ".", CustomStyle.styleOfInject,
-                                "作为", "灌注产物", ChatFormatting.AQUA));
-                    }
-                    tooltip.add(Te.s(" 使用 ", ChatFormatting.GREEN, injectingRecipe.material,
-                            " * " + injectingRecipe.getMaterialCount(), ChatFormatting.AQUA));
-                    tooltip.add(Te.s(" 灌注 ", CustomStyle.styleOfInject, sourceItem, " * "
-                            + injectingRecipe.getSourceItemCount(), ChatFormatting.AQUA));
-                    if (sourceItem instanceof WraqArmor || sourceItem instanceof WraqMainHandEquip) {
-                        tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
-                    }
-                    tooltip.add(Te.s(" 得到 ", ChatFormatting.AQUA, injectingRecipe.product));
-                    if (i != recipeList.size() - 1 && recipeList.size() <= 4) {
-                        tooltip.add(Te.s(""));
-                    }
-                }
-            }
         }
         if (item instanceof EnhancedForgedItem enhancedForgedItem) {
             if (enhancedForgedItem.getEnhanceTier() == 0 && !ExpiredInfo.getHasExpiredInfoItems().contains(item)) {
@@ -246,7 +181,20 @@ public class ToolTipEvent {
                         append(Component.literal("」").withStyle(ChatFormatting.AQUA)));
             }
         }
-        ForgeRecipe.toolTip(event);
+        // AI-Generated, 2025-10-18 图鉴中查看材料时，追加该材料的获取途径（固定资产：material_sources.json）
+        if (stack.getTagElement(Utils.MOD_ID) != null
+                && stack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG)
+                && Display.materialList.contains(item)) {
+            List<String> sources = MaterialSourceData.get(item);
+            if (!sources.isEmpty()) {
+                tooltip.add(Te.s(""));
+                tooltip.add(Te.s("->", ChatFormatting.GOLD, "获取途径", CustomStyle.styleOfWorld,
+                        "->", ChatFormatting.GOLD));
+                for (String source : sources) {
+                    tooltip.add(Te.s(" · ", ChatFormatting.GRAY, source, ChatFormatting.WHITE));
+                }
+            }
+        }
         boolean hasUsage = false;
         List<Component> usage = new ArrayList<>();
         if (item instanceof ForgeHammer) {

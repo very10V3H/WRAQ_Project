@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.system.lottery.NewLotteries;
+import fun.wraq.process.system.wayPoints.WaypointZoomHider;
 import fun.wraq.render.gui.WraqScreen;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraftforge.api.distmarker.Dist;
@@ -21,6 +22,8 @@ public class ClientTickEvent {
     @SubscribeEvent
     public static void ClientTick(TickEvent.ClientTickEvent event) throws ParseException {
         if (event.phase == TickEvent.Phase.START) {
+            // 世界地图是暂停界面（单人），PlayerTick 不会执行，所以路径点缩放隐藏挂在这里
+            WaypointZoomHider.clientTick();
             DelayOperationWithAnimation.clientTick(event);
             if (ClientUtils.serverTime != null) {
                 NewLotteries.setCurrentLotteryLoots(Compute

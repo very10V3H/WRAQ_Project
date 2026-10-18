@@ -13,6 +13,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.xp.MyExpSystem;
@@ -160,6 +161,8 @@ public abstract class NoTeamInstance {
     public void rewardPlayers() {
         players.forEach(player -> {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
+                // 主线通关目标：无论是否满足奖励条件，通关本身都计数
+                MainQuestHelper.recordInstance(player, name.getString());
                 if (!player.isCreative() && !allowReward(player) && allowRewardCondition() != null) {
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             allowRewardCondition());

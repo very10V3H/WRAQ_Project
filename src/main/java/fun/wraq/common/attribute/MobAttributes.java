@@ -19,6 +19,11 @@ import java.util.Map;
 
 public class  MobAttributes {
 
+    /** 怪物默认每秒固定生命回复量. */
+    public static final double DEFAULT_HEALTH_RECOVER = 0;
+    /** 怪物默认每秒百分比生命回复量（1%最大生命值）. */
+    public static final double DEFAULT_PERCENT_HEALTH_RECOVER = 0.01;
+
     public final double attackDamage;
     public final double defence;
     public final double manaDefence;
@@ -29,10 +34,22 @@ public class  MobAttributes {
     public final double healthSteal;
     public final double maxHealth;
     public final double movementSpeed;
+    /** 每秒固定生命回复量. */
+    public final double healthRecover;
+    /** 每秒以最大生命值百分比计算的生命回复量. */
+    public final double percentHealthRecover;
 
     public MobAttributes(double attackDamage, double defence, double manaDefence, double critRate, double critDamage,
                          double defencePenetration, double defencePenetration0, double healthSteal,
                          double maxHealth, double movementSpeed) {
+        this(attackDamage, defence, manaDefence, critRate, critDamage, defencePenetration, defencePenetration0,
+                healthSteal, maxHealth, movementSpeed, DEFAULT_HEALTH_RECOVER, DEFAULT_PERCENT_HEALTH_RECOVER);
+    }
+
+    public MobAttributes(double attackDamage, double defence, double manaDefence, double critRate, double critDamage,
+                         double defencePenetration, double defencePenetration0, double healthSteal,
+                         double maxHealth, double movementSpeed,
+                         double healthRecover, double percentHealthRecover) {
         this.attackDamage = attackDamage;
         this.defence = defence;
         this.manaDefence = manaDefence;
@@ -43,6 +60,8 @@ public class  MobAttributes {
         this.healthSteal = healthSteal;
         this.maxHealth = maxHealth;
         this.movementSpeed = movementSpeed;
+        this.healthRecover = healthRecover;
+        this.percentHealthRecover = percentHealthRecover;
     }
 
     public static double defence(Mob mob) {
@@ -135,6 +154,30 @@ public class  MobAttributes {
         double baseValue = MobSpawn.MobBaseAttributes.critDamage.getOrDefault(mob.getName().getString(),
                 MobSpawn.MobBaseAttributes.critDamage.getOrDefault(MobSpawn.getMobOriginName(mob), 0d));
         double exValue = 0;
+        return baseValue + exValue;
+    }
+
+    /**
+     * 怪物每秒固定生命回复量（含动态修正）.
+     */
+    public static double healthRecover(Mob mob) {
+        double baseValue = MobSpawn.MobBaseAttributes.healthRecover.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.healthRecover.getOrDefault(MobSpawn.getMobOriginName(mob),
+                        DEFAULT_HEALTH_RECOVER));
+        double exValue = StableAttributesModifier.getModifierValue(mob,
+                StableAttributesModifier.mobHealthRecoverModifier);
+        return baseValue + exValue;
+    }
+
+    /**
+     * 怪物每秒百分比生命回复量（含动态修正），实际回复量为最大生命值 * 该值.
+     */
+    public static double percentHealthRecover(Mob mob) {
+        double baseValue = MobSpawn.MobBaseAttributes.percentHealthRecover.getOrDefault(mob.getName().getString(),
+                MobSpawn.MobBaseAttributes.percentHealthRecover.getOrDefault(MobSpawn.getMobOriginName(mob),
+                        DEFAULT_PERCENT_HEALTH_RECOVER));
+        double exValue = StableAttributesModifier.getModifierValue(mob,
+                StableAttributesModifier.mobPercentHealthRecoverModifier);
         return baseValue + exValue;
     }
 

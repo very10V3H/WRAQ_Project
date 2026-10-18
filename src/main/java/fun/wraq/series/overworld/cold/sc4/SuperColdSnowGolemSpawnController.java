@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.cold.sc4;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -53,7 +52,7 @@ public class SuperColdSnowGolemSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(20000, 1000, 1000, 0.4, 3, 0.6, 800, 25, 17500 * Math.pow(10, 4), 0.45);
+        return new MobAttributes(20000, 1000, 1000, 0.4, 3, 0.6, 800, 25, 17500 * Math.pow(10, 4), 0.45, 0, 0.02);
     }
 
     @Override
@@ -68,14 +67,6 @@ public class SuperColdSnowGolemSpawnController extends MobSpawnController {
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(mob), list);
         return mob;
-    }
-
-    @Override
-    public void eachMobTick(Mob mob) {
-        if (mob.isDeadOrDying()) {
-            return;
-        }
-        Compute.mobHealthRecover(mob, 0.02);
     }
 
     @Override

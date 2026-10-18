@@ -25,7 +25,6 @@ import fun.wraq.items.lotteries.ExpItem;
 import fun.wraq.items.lotteries.FantasyCurio;
 import fun.wraq.items.lotteries.UnCommonLotteries;
 import fun.wraq.items.m.BackSpawn;
-import fun.wraq.items.m.ForNew;
 import fun.wraq.items.m.Main0;
 import fun.wraq.items.misc.PocketItem;
 import fun.wraq.items.mission.Daily;
@@ -165,6 +164,7 @@ import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmor;
 import fun.wraq.series.overworld.chapter2.sky.BossItems.SkyBoss;
 import fun.wraq.series.overworld.chapter2.sky.Crest.SkyCrest;
 import fun.wraq.series.overworld.chapter2.sky.SkyBow;
+import fun.wraq.series.overworld.chapter2.sky.SkySceptre;
 import fun.wraq.series.overworld.chapter2.sky.SkySword;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorBoots;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorChest;
@@ -256,8 +256,6 @@ public class ModItems {
                     super.appendHoverText(stack, level, components, flag);
                 }
             });
-    public static final RegistryObject<Item> FOR_NEW = ITEMS.register("fornew",
-            () -> new ForNew(new Item.Properties()));
     public static final RegistryObject<Item> ORIGIN_KNIFE_PLAIN = ITEMS.register("origin_knife_plain",
             () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Plain),
                     CustomStyle.styleOfPlain, ComponentUtils.getSuffixOfChapterI(), 0));
@@ -636,6 +634,8 @@ public class ModItems {
             () -> new SkyBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.SkyItalic)));
     public static final RegistryObject<Item> SKY_SWORD = ITEMS.register("sky_sword",
             () -> new SkySword(new Item.Properties().rarity(CustomStyle.SkyItalic)));
+    public static final RegistryObject<Item> SKY_SCEPTRE = ITEMS.register("sky_sceptre",
+            () -> new SkySceptre(new Item.Properties().rarity(CustomStyle.SkyItalic)));
     public static final RegistryObject<Item> SKY_SOUL = ITEMS.register("skysoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Sky)));
     public static final RegistryObject<Item> SKY_RUNE = ITEMS.register("skyrune",

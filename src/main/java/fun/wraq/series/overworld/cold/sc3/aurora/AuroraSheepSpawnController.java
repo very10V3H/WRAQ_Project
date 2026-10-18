@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.cold.sc3.aurora;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -58,7 +57,7 @@ public class AuroraSheepSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(0, 900, 900, 0, 0, 0, 0, 0, 20000 * Math.pow(10, 4), 0.45);
+        return new MobAttributes(0, 900, 900, 0, 0, 0, 0, 0, 20000 * Math.pow(10, 4), 0.45, 0, 0.04);
     }
 
     public static List<DyeColor> getColors() {
@@ -112,7 +111,6 @@ public class AuroraSheepSpawnController extends MobSpawnController {
             return;
         }
         mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 3));
-        Compute.mobHealthRecover(mob, 0.04);
     }
 
     @Override

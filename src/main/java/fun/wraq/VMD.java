@@ -23,6 +23,7 @@ import fun.wraq.entities.entities.GraySlime.GraySlime;
 import fun.wraq.entities.entities.MainBoss.MainBoss;
 import fun.wraq.entities.entities.SakuraMob.SakuraMob;
 import fun.wraq.entities.entities.Scarecrow.Scarecrow;
+import fun.wraq.entities.entities.npc.VmdNpc;
 import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -31,6 +32,8 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.backpack.BackpackFileManager;
 import fun.wraq.process.system.backpack.BackpackMenuTypes;
 import fun.wraq.process.system.backpack.BackpackScreen;
+import fun.wraq.process.system.backpack.audit.AuditBackpackProvider;
+import fun.wraq.process.system.backpack.audit.BackpackLockManager;
 import fun.wraq.process.system.cooking.CookingItems;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
@@ -38,6 +41,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.instance.MopUpPaperItems;
 import fun.wraq.process.system.market.MarketInfo;
+import fun.wraq.process.system.npc.NpcRegistry;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.point.PointItems;
@@ -100,6 +104,7 @@ import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -190,6 +195,20 @@ public class VMD {
         BackpackFileManager.init(event.getServer());
     }
 
+    /**
+     * AI-Generated, 2026-10-17
+     * 世界加载完成（ServerStartedEvent）后按 {@code config/vmd_npcs.json} 幂等对齐 NPC：
+     * 该位置没有实体就补建；是原版村民就地转换；已经是 VMD NPC 就按配置刷新。
+     * <p>
+     * 放 ServerStartedEvent 而不是 ServerStartingEvent：此时各维度已就绪、区块可按需加载，
+     * 才能正确判定「该位置到底有没有 NPC」。
+     */
+    @SubscribeEvent
+    public static void serverStartedEvent(ServerStartedEvent event) {
+        String result = NpcRegistry.applyOnServerStart(event.getServer());
+        LogUtils.getLogger().info("[VMD-NPC] {}", result);
+    }
+
     @SubscribeEvent
     public static void serverStopEvent(ServerStoppingEvent event) {
         LogUtils.getLogger().info("VMD stopping event start.");
@@ -210,11 +229,15 @@ public class VMD {
         SkillV2.playerSkillV2AllowReleaseTickMap.clear();
         SecretChest.onServerStop();
         BackpackFileManager.shutdown();
+        BackpackLockManager.clear();
+        AuditBackpackProvider.clearPending();
         LogUtils.getLogger().info("VMD stopping event done.");
     }
 
     private void commonStart(FMLCommonSetupEvent event) {
         ModNetworking.register();
+        // AI-Generated, 2026-10-18 注册「按 UUID 打开精妙背包」用的虚拟玩家物品栏来源（双端都需要）
+        AuditBackpackProvider.init();
         replaceAttributeValue((RangedAttribute) Attributes.MAX_HEALTH, Double.MAX_VALUE);
         replaceAttributeValue((RangedAttribute) Attributes.ARMOR, Double.MAX_VALUE);
         replaceAttributeValue((RangedAttribute) Attributes.ARMOR_TOUGHNESS, Double.MAX_VALUE);
@@ -260,6 +283,7 @@ public class VMD {
         event.put(ModEntityType.Boss2.get(), Boss2.setAttributes());
         event.put(ModEntityType.CIVIL.get(), Civil.setAttributes());
         event.put(ModEntityType.GRAY_SLIME.get(), GraySlime.setAttributes());
+        event.put(ModEntityType.VMD_NPC.get(), VmdNpc.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -494,7 +518,6 @@ public class VMD {
 
         if (event.getTabKey().equals(ModCreativeModeTab.MISC_TAB.getKey())) {
             event.accept(ModItems.MAIN_0.get().getDefaultInstance());
-            event.accept(ModItems.FOR_NEW.get().getDefaultInstance());
             event.accept(ModItems.BACK_SPAWN_TICKET.get().getDefaultInstance());
             event.accept(ModItems.SKY_CITY_TICKET.get().getDefaultInstance());
             event.accept(ModItems.ID_CARD.get().getDefaultInstance());

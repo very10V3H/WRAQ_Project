@@ -1,6 +1,7 @@
 package fun.wraq.networking.misc.attack;
 
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.impl.AxeWeapon;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.core.AttackEvent;
@@ -33,17 +34,28 @@ public class AttackRequestC2SPacket {
             ServerPlayer player = context.getSender();
             if (player == null) return;
             String name = player.getName().getString();
-            double rate;
+            boolean firstAttack = countExpiredTickMap.getOrDefault(name, 0) < Tick.get();
+            boolean isAxe = player.getMainHandItem().getItem() instanceof AxeWeapon;
+            double rate = firstAttack ? 0.8 : 1.2;
             String animation;
-            if (countExpiredTickMap.getOrDefault(name, 0) < Tick.get()) {
-                rate = 0.8;
-                animation = DelayOperationWithAnimation.Animation.swordAttack1;
+            int trigTickDelta;
+            int endTickDelta;
+            if (isAxe) {
+                // 斧类武器使用独立的劈砍动画，前后摇更长，攻击节奏更慢
+                animation = firstAttack
+                        ? DelayOperationWithAnimation.Animation.axeAttack1
+                        : DelayOperationWithAnimation.Animation.axeAttack2;
+                trigTickDelta = 10;
+                endTickDelta = 14;
             } else {
-                rate = 1.2;
-                animation = DelayOperationWithAnimation.Animation.swordAttack2;
+                animation = firstAttack
+                        ? DelayOperationWithAnimation.Animation.swordAttack1
+                        : DelayOperationWithAnimation.Animation.swordAttack2;
+                trigTickDelta = 8;
+                endTickDelta = 10;
             }
             boolean success = DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                    animation, 8, 10, player, 1, 0
+                    animation, trigTickDelta, endTickDelta, player, 1, 0
             ) {
                 @Override
                 public void trig() {

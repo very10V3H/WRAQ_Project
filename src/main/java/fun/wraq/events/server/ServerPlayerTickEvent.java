@@ -48,6 +48,8 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSce
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
+import fun.wraq.process.system.mastery.MasteryData;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mission2.MissionV2;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
@@ -62,6 +64,7 @@ import fun.wraq.process.system.spur.events.FishEvent;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.spur.events.WoodSpur;
 import fun.wraq.process.system.tower.TowerMob;
+import fun.wraq.process.system.translevel.TransLevelDimension;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.process.system.xp.MyExpSystem;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
@@ -173,6 +176,7 @@ public class ServerPlayerTickEvent {
             WraqMixture.handleServerPlayerTick(player);
             ManaNewSkillFinal0.handleServerPlayerTickEvent(serverPlayer);
             MissionV2.handlePlayerTick(player);
+            MainQuestHelper.handlePlayerTick(player);
             SpringMobEvent.handleServerPlayerTick(player);
             MobSpawn.handlePlayerTick(player);
             SwordNewSkillBase3_0.handleServerPlayerTick(player);
@@ -189,6 +193,12 @@ public class ServerPlayerTickEvent {
             Guide.handlePlayerTick(player);
             LoginInEvent.handlePlayerTick(player);
             Reason.handlePlayerTick(player);
+
+            // 记录玩家在跨维度传送目标维度中的上次位置（供 /vmd transLevel 使用）
+            if (player.tickCount % 20 == 0) {
+                TransLevelDimension.recordPosition(player, player.level().dimension(),
+                        player.position(), player.getYRot(), player.getXRot());
+            }
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
@@ -378,25 +388,13 @@ public class ServerPlayerTickEvent {
                         data.putDouble("Xp", xpValue - needXpForLevelUp);
                         player.experienceProgress = (float) rate;
 
-                        if ((oldLevel + 1) % 2 == 0) {
-                            if (!data.contains(StringUtils.AbilityPoint_Total)) {
-                                data.putInt(StringUtils.AbilityPoint_Total, (oldLevel + 1) / 2);
-                            } else {
-                                data.putInt(StringUtils.AbilityPoint_Total, data.getInt(StringUtils.AbilityPoint_Total) + 1);
-                            }
-                            Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
-                                    Component.literal("你获得了一点能力点，当前剩余的能力点为: " +
-                                            (data.getInt(StringUtils.AbilityPoint_Total) - data.getInt(StringUtils.AbilityPoint_Used))).withStyle(ChatFormatting.WHITE));
-
-                            if (!data.contains(StringUtils.SkillPoint_Total)) {
-                                data.putInt(StringUtils.SkillPoint_Total, (oldLevel + 1) / 2);
-                            } else {
-                                data.putInt(StringUtils.SkillPoint_Total, data.getInt(StringUtils.SkillPoint_Total) + 1);
-                            }
-                            Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
-                                    Component.literal("你获得了一点专精点，当前剩余的专精点为: " +
-                                            (data.getInt(StringUtils.SkillPoint_Total) - data.getInt(StringUtils.SkillPoint_Used))).withStyle(ChatFormatting.WHITE));
-                        }
+                        // AI-Generated, 2026-10-18 精通系统：每级 +1 点，合并后的点数池 = 等级
+                        MasteryData.onLevelUp(player, oldLevel, oldLevel + 1);
+                        MasteryData.sync(serverPlayer);
+                        Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                                Component.literal("你获得了一点精通点，当前剩余的精通点为: " +
+                                        (data.getInt(StringUtils.MasteryPoint_Total)
+                                                - data.getInt(StringUtils.MasteryPoint_Used))).withStyle(ChatFormatting.WHITE));
                         if (player.experienceLevel % 5 == 0) {
                             ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
                             Compute.formatBroad(player.level(), Te.m("经验", ChatFormatting.LIGHT_PURPLE),

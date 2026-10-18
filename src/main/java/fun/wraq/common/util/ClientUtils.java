@@ -40,6 +40,11 @@ public class ClientUtils {
     public static int Sounds = -1;
     public static int[] DailyMission = new int[20];
 
+    /** AI-Generated, 2026-10-17 待打开的对话页与开关：DialogOpenS2CPacket 写入，ClientPlayerTickEvent 消费。 */
+    public static ClientDialogData pendingDialog = null;
+    public static boolean openDialogFlag = false;
+    public static boolean closeDialogFlag = false;
+
     public static double AttackDamageC = 0;
     public static double BreakDefenceC = 0;
     public static double CritRateC = 0;

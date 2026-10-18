@@ -23,6 +23,8 @@ public abstract class DelayOperationWithAnimation {
         public static String manaNewSkillBase2_0 = "mana_new_skill_base2_0";
         public static String swordAttack1 = "sword_attack_1";
         public static String swordAttack2 = "sword_attack_2";
+        public static String axeAttack1 = "axe_attack_1";
+        public static String axeAttack2 = "axe_attack_2";
         public static String bowAttack = "bow_attack";
         public static String manaAttack = "mana_attack";
         public static String skill = "skill";
@@ -79,6 +81,7 @@ public abstract class DelayOperationWithAnimation {
     public static Map<String, DelayOperationWithAnimation> playerCurrentOperationMap = new HashMap<>();
 
     public static Set<String> normalAttackAnimationIds = Set.of(Animation.swordAttack1, Animation.swordAttack2,
+            Animation.axeAttack1, Animation.axeAttack2,
             Animation.bowAttack, Animation.manaAttack);
 
     // 技能释放前打断普攻
@@ -105,6 +108,13 @@ public abstract class DelayOperationWithAnimation {
 
     public static List<DelayOperationWithAnimation> animationList = new ArrayList<>();
 
+    /**
+     * AI-Generated, 2026-10-18
+     * 判定延迟操作已失效的容差（tick）：超过结束时间该时长仍未触发，视为跨登录/跨实体残留操作。
+     */
+    private static final int STALE_OPERATION_TOLERANCE_TICK = 100;
+
+
     public static void serverTick(TickEvent.ServerTickEvent event) {
         MinecraftServer server = event.getServer();
         // 发送动画
@@ -113,15 +123,25 @@ public abstract class DelayOperationWithAnimation {
     }
 
     public static void playerTick(Player player) {
-        if (playerCurrentOperationMap.containsKey(Name.get(player))) {
-            DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.get(Name.get(player));
-            if (delayOperationWithAnimation.trigTick <= Tick.get() && delayOperationWithAnimation.trigFlag) {
-                delayOperationWithAnimation.trig();
-                delayOperationWithAnimation.trigFlag = false;
-            }
-            if (delayOperationWithAnimation.endTick <= Tick.get() && !delayOperationWithAnimation.trigFlag) {
-                playerCurrentOperationMap.remove(Name.get(player));
-            }
+        String name = Name.get(player);
+        DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.get(name);
+        if (delayOperationWithAnimation == null) return;
+        // AI-Generated, 2026-10-18:
+        // 玩家实体重建（重新登录 / 死亡重生）后，队列中的旧操作不应该再被补触发。
+        // 若已经远远超过动画结束时间仍未触发，说明玩家在动画期间根本没有参与tick（离线/换实体），
+        // 直接丢弃，否则会在刚进入游戏时自动释放弓箭/法杖的普通攻击或主动效果。
+        // 保留一定的容差，避免极限攻速下窗口被压缩到0而产生误判。
+        if (delayOperationWithAnimation.trigFlag
+                && Tick.get() > delayOperationWithAnimation.endTick + STALE_OPERATION_TOLERANCE_TICK) {
+            playerCurrentOperationMap.remove(name);
+            return;
+        }
+        if (delayOperationWithAnimation.trigTick <= Tick.get() && delayOperationWithAnimation.trigFlag) {
+            delayOperationWithAnimation.trig();
+            delayOperationWithAnimation.trigFlag = false;
+        }
+        if (delayOperationWithAnimation.endTick <= Tick.get() && !delayOperationWithAnimation.trigFlag) {
+            playerCurrentOperationMap.remove(name);
         }
     }
 

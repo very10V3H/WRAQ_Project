@@ -58,7 +58,7 @@ public class SuperColdIronGolemSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(30000, 1100, 1100, 0.4, 3, 0.6, 800, 25, 20000 * Math.pow(10, 4), 0.45);
+        return new MobAttributes(30000, 1100, 1100, 0.4, 3, 0.6, 800, 25, 20000 * Math.pow(10, 4), 0.45, 0, 0.02);
     }
 
     @Override
@@ -87,7 +87,6 @@ public class SuperColdIronGolemSpawnController extends MobSpawnController {
         if (mob.tickCount % 40 == (mobList.indexOf(mob) % 40)) {
             commonAttack(mob);
         }
-        Compute.mobHealthRecover(mob, 0.02);
     }
 
     @Override

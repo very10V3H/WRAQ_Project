@@ -19,10 +19,12 @@ public class MobKillEntrustmentInfoS2CPacket {
     private final int totalFinishedTime;
     private final int averageTick;
     private final int nextAllowAcceptTick;
+    /** 上线同步 / 完成委托时为 true：客户端额外保留 1min 显示。 */
+    private final boolean showOneMinute;
     public MobKillEntrustmentInfoS2CPacket(Component mobName, int targetCount, int currentCount, int startServerTick, 
                                            int reputationExpiredMin, int reputation,
                                            int dailyFinishedTime, int weeklyFinishedTime, int totalFinishedTime,
-                                           int averageTick, int nextAllowAcceptTick) {
+                                           int averageTick, int nextAllowAcceptTick, boolean showOneMinute) {
         this.mobName = mobName;
         this.targetCount = targetCount;
         this.currentCount = currentCount;
@@ -34,6 +36,7 @@ public class MobKillEntrustmentInfoS2CPacket {
         this.totalFinishedTime = totalFinishedTime;
         this.averageTick = averageTick;
         this.nextAllowAcceptTick = nextAllowAcceptTick;
+        this.showOneMinute = showOneMinute;
     }
 
     public MobKillEntrustmentInfoS2CPacket(FriendlyByteBuf buf) {
@@ -48,6 +51,7 @@ public class MobKillEntrustmentInfoS2CPacket {
         this.totalFinishedTime = buf.readInt();
         this.averageTick = buf.readInt();
         this.nextAllowAcceptTick = buf.readInt();
+        this.showOneMinute = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -62,6 +66,7 @@ public class MobKillEntrustmentInfoS2CPacket {
         buf.writeInt(totalFinishedTime);
         buf.writeInt(averageTick);
         buf.writeInt(nextAllowAcceptTick);
+        buf.writeBoolean(showOneMinute);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -78,6 +83,9 @@ public class MobKillEntrustmentInfoS2CPacket {
             MobKillEntrustmentHud.totalFinishedTimes = totalFinishedTime;
             MobKillEntrustmentHud.averageTick = averageTick;
             MobKillEntrustmentHud.nextAllowAcceptTick = nextAllowAcceptTick;
+            if (showOneMinute) {
+                MobKillEntrustmentHud.showForOneMinute();
+            }
         });
         return true;
     }

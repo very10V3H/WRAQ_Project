@@ -30,6 +30,7 @@ import fun.wraq.networking.reputationMission.ReputationMissionAllowRequestTimeS2
 import fun.wraq.networking.reputationMission.ReputationMissionContentS2CPacket;
 import fun.wraq.networking.reputationMission.ReputationMissionStartTimeS2CPacket;
 import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.waypoint.WaypointServerManager;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -43,9 +44,11 @@ import fun.wraq.process.system.bank.BondDividends;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.cooking.CookingPlayerData;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.mastery.MasteryData;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.estate.EstatePlayerData;
 import fun.wraq.process.system.lottery.NewLotteries;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.parkour.Parkour;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
@@ -97,6 +100,9 @@ public class LoginInEvent {
         Player player = event.getEntity();
         if (!player.level().isClientSide) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
+            // AI-Generated, 2026-10-18: 清理上一局离线时残留的动画延迟操作，
+            // 避免重新进入游戏时被补触发（自动释放普通攻击/主动效果）。
+            DelayOperationWithAnimation.remove(player);
             if (!Security.checkModBladeList(serverPlayer)) {
                 return;
             }
@@ -182,6 +188,9 @@ public class LoginInEvent {
                 data.putInt(StringUtils.SkillPoint_Total, player.experienceLevel / 2);
             if (!data.contains(StringUtils.AbilityPoint_Total))
                 data.putInt(StringUtils.AbilityPoint_Total, player.experienceLevel / 2);
+            // AI-Generated, 2026-10-18 精通系统：初始化合并后的精通点数（总点数 = 等级，旧加点自动迁移）
+            MasteryData.ensureInitialized(player);
+            MasteryData.sync(serverPlayer);
             if (!data.contains("ID_Card")) {
                 player.addItem(ModItems.ID_CARD.get().getDefaultInstance());
                 data.putBoolean("ID_Card", false);
@@ -252,8 +261,12 @@ public class LoginInEvent {
             SingleItemChangePurchaseLimit.sendAllRecipeTimes(player);
             RankData.onPlayerLogin(player);
             Reason.sendReasonValuePacketToClient(player);
-            MobKillEntrustment.sendPacketToClient(player);
+            // 上线时委托 HUD 显示 1min
+            MobKillEntrustment.sendPacketToClient(player, true);
             Guide.sendGuideCloseStatusToClient(player);
+            MainQuestHelper.ensureInitialized(player);
+            MainQuestHelper.ensureChain(player);
+            MainQuestHelper.syncWaypoint(player);
             WaypointServerManager.syncToClient(player);
             SkillV2.syncSkillV2Data(player);
             SkillV2.sendInfoToClient(player);
@@ -400,6 +413,9 @@ public class LoginInEvent {
         Player player = event.getEntity();
         if (!player.level().isClientSide) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
+            // AI-Generated, 2026-10-18: 离线时清除未完成的动画延迟操作，
+            // 避免下次登录时按旧tick补触发。
+            DelayOperationWithAnimation.remove(player);
             BlockEvent.removePlayerLimit(player);
             // 方块内容返还
             BlockEvent.PlayerLogOut(player); // 挖掘 放置方块重置

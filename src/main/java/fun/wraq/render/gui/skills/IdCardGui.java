@@ -5,6 +5,9 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.system.mastery.MasteryAllocation;
+import fun.wraq.process.system.mastery.MasteryClientData;
+import fun.wraq.process.system.mastery.MasteryTree;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SkillPackets.AbilityDataC2SPacket;
@@ -23,7 +26,6 @@ import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.tower.TowerScreen;
 import fun.wraq.process.system.vp.VpStoreScreen;
 import fun.wraq.render.gui.illustrate.Illustrate;
-import fun.wraq.render.gui.mission.OldMissionScreen;
 import fun.wraq.render.gui.mission.ReputationStore;
 import fun.wraq.render.gui.testAndHelper.OpenSkillTreeGui;
 import fun.wraq.render.gui.trade.weekly.WeeklyStoreScreenC2SPacket;
@@ -67,137 +69,21 @@ public class IdCardGui extends Screen {
 
     private void showSkillGui() {
 
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Power > ClientUtils.AbilityCache.Power) {
-                ClientUtils.AbilityChangeCache.Power--;
-            }
-        }).pos(this.width / 2 + 75, this.height / 2 - 17 - 68).size(12, 12).build());
+        // AI-Generated, 2026-10-18 打开身份卡时刷新精通/技能数据
+        ModNetworking.sendToServer(new SkillRequestC2SPacket());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Intelligent > ClientUtils.AbilityCache.Intelligent) {
-                ClientUtils.AbilityChangeCache.Intelligent--;
-            }
-        }).pos(this.width / 2 + 75, this.height / 2 - 2 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Flexibility > ClientUtils.AbilityCache.Flexibility) {
-                ClientUtils.AbilityChangeCache.Flexibility--;
-            }
-        }).pos(this.width / 2 + 75, this.height / 2 + 13 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Lucky > ClientUtils.AbilityCache.Lucky) {
-                ClientUtils.AbilityChangeCache.Lucky--;
-            }
-        }).pos(this.width / 2 + 75, this.height / 2 + 28 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Vitality > ClientUtils.AbilityCache.Vitality) {
-                ClientUtils.AbilityChangeCache.Vitality--;
-            }
-        }).pos(this.width / 2 + 75, this.height / 2 + 43 - 68).size(12, 12).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.AbilityChangeCache.SumPoint() < ClientUtils.PlayerAbilityPoint_Total) {
-                ClientUtils.AbilityChangeCache.Power++;
-            }
-        }).pos(this.width / 2 + 125, this.height / 2 - 17 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.AbilityChangeCache.SumPoint() < ClientUtils.PlayerAbilityPoint_Total) {
-                ClientUtils.AbilityChangeCache.Intelligent++;
-            }
-        }).pos(this.width / 2 + 125, this.height / 2 - 2 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.AbilityChangeCache.SumPoint() < ClientUtils.PlayerAbilityPoint_Total) {
-                ClientUtils.AbilityChangeCache.Flexibility++;
-            }
-        }).pos(this.width / 2 + 125, this.height / 2 + 13 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.AbilityChangeCache.SumPoint() < ClientUtils.PlayerAbilityPoint_Total) {
-                ClientUtils.AbilityChangeCache.Lucky++;
-            }
-        }).pos(this.width / 2 + 125, this.height / 2 + 28 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.AbilityChangeCache.SumPoint() < ClientUtils.PlayerAbilityPoint_Total) {
-                ClientUtils.AbilityChangeCache.Vitality++;
-            }
-        }).pos(this.width / 2 + 125, this.height / 2 + 43 - 68).size(12, 12).build());
-
-
-        this.addRenderableWidget(Button.builder(Component.translatable("×"), (p_280814_) -> {
-            ModNetworking.sendToServer(new SkillRequestC2SPacket());
-        }).pos(this.width / 2 + 110, this.height / 2 + 72 - 68).size(12, 12).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("○"), (p_280814_) -> {
-            ModNetworking.sendToServer(new AbilityDataC2SPacket(ClientUtils.AbilityChangeCache.Power, ClientUtils.AbilityChangeCache.Intelligent,
-                    ClientUtils.AbilityChangeCache.Flexibility, ClientUtils.AbilityChangeCache.Lucky, ClientUtils.AbilityChangeCache.Vitality));
-            ModNetworking.sendToServer(new SkillRequestC2SPacket());
-        }).pos(this.width / 2 + 125, this.height / 2 + 72 - 68).size(12, 12).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("×"), (p_280814_) -> {
-            ModNetworking.sendToServer(new SkillRequestC2SPacket());
-        }).pos(this.width / 2 + 110, this.height / 2 + 94 - 68).size(12, 12).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("○"), (p_280814_) -> {
-            ModNetworking.sendToServer(new SkillDataC2SPacket(ClientUtils.SkillChangeCache.Sword, ClientUtils.SkillChangeCache.Bow,
-                    ClientUtils.SkillChangeCache.Mana));
-            ModNetworking.sendToServer(new SkillRequestC2SPacket());
-        }).pos(this.width / 2 + 125, this.height / 2 + 94 - 68).size(12, 12).build());
-
-
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Sword > ClientUtils.SkillCache.Sword) {
-                ClientUtils.SkillChangeCache.Sword--;
-            }
-        }).pos(this.width / 2 - 130, this.height / 2 + 98 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.SkillChangeCache.SumPoint() < ClientUtils.PlayerSkillPoint_Total) {
-                ClientUtils.SkillChangeCache.Sword++;
-            }
-        }).pos(this.width / 2 - 95, this.height / 2 + 98 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Bow > ClientUtils.SkillCache.Bow) {
-                ClientUtils.SkillChangeCache.Bow--;
-            }
-        }).pos(this.width / 2 - 68, this.height / 2 + 98 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.SkillChangeCache.SumPoint() < ClientUtils.PlayerSkillPoint_Total) {
-                ClientUtils.SkillChangeCache.Bow++;
-            }
-        }).pos(this.width / 2 - 33, this.height / 2 + 98 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("-"), (p_280814_) -> {
-            if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Mana > ClientUtils.SkillCache.Mana) {
-                ClientUtils.SkillChangeCache.Mana--;
-            }
-        }).pos(this.width / 2 - 6, this.height / 2 + 98 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.translatable("+"), (p_280814_) -> {
-            if (ClientUtils.SkillChangeCache.SumPoint() < ClientUtils.PlayerSkillPoint_Total) {
-                ClientUtils.SkillChangeCache.Mana++;
-            }
-        }).pos(this.width / 2 + 29, this.height / 2 + 98 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.literal("精通树").withStyle(CustomStyle.styleOfPower), (p_280814_) -> {
-            ClientUtils.SwordSkillPoint.SwordSkillPointCacheInit();
-            ClientUtils.BowSkillPoint.BowSkillPointCacheInit();
-            ClientUtils.ManaSkillPoint.ManaSkillPointCacheInit();
-            DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> OpenSkillTreeGui::new);
-        }).pos(this.width / 2 - 122, this.height / 2 + 113 - 68).size(30, 12).build());
-        this.addRenderableWidget(Button.builder(Component.literal("精通树").withStyle(CustomStyle.styleOfFlexible), (p_280814_) -> {
-            ClientUtils.SwordSkillPoint.SwordSkillPointCacheInit();
-            ClientUtils.BowSkillPoint.BowSkillPointCacheInit();
-            ClientUtils.ManaSkillPoint.ManaSkillPointCacheInit();
-            DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> OpenSkillTreeGui::new);
-        }).pos(this.width / 2 - 60, this.height / 2 + 113 - 68).size(30, 12).build());
-        this.addRenderableWidget(Button.builder(Component.literal("精通树").withStyle(CustomStyle.styleOfIntelligent), (p_280814_) -> {
-            ClientUtils.SwordSkillPoint.SwordSkillPointCacheInit();
-            ClientUtils.BowSkillPoint.BowSkillPointCacheInit();
-            ClientUtils.ManaSkillPoint.ManaSkillPointCacheInit();
-            DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> OpenSkillTreeGui::new);
-        }).pos(this.width / 2 + 2, this.height / 2 + 113 - 68).size(30, 12).build());
+        // AI-Generated, 2026-10-18 精通系统：独立的五列精通界面
+        this.addRenderableWidget(Button.builder(Component.literal("精通").withStyle(CustomStyle.styleOfWorld), (p_280814_) -> {
+            this.minecraft.setScreen(new MasteryScreen(this));
+        }).pos(this.width / 2 - 63, this.height / 2 + 113 - 68).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("领取补给").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
             ModNetworking.sendToServer(new DailySupplyC2SPacket());
         }).pos(this.width / 2 + 90, this.height / 2 + 113 - 68).size(48, 16).build());
 
         assert minecraft != null;
-        this.addRenderableWidget(Button.builder(Component.literal("每日/悬赏").withStyle(CustomStyle.styleOfKaze), (p_280814_) -> {
-            this.minecraft.setScreen(new OldMissionScreen());
+        this.addRenderableWidget(Button.builder(Te.s("研发采购", CustomStyle.styleOfWorld), (p_280814_) -> {
+            ModNetworking.sendToServer(new WeeklyStoreScreenC2SPacket());
         }).pos(this.width / 2 + 90, this.height / 2 + 113 - 40).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("任务列表").withStyle(CustomStyle.styleOfKaze), (p_280814_) -> {
@@ -215,10 +101,6 @@ public class IdCardGui extends Screen {
         this.addRenderableWidget(Button.builder(Component.literal("vp商店").withStyle(ChatFormatting.AQUA), (p_280814_) -> {
             this.minecraft.setScreen(new VpStoreScreen());
         }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18 * 2).size(48, 16).build());
-
-        this.addRenderableWidget(Button.builder(Te.s("研发采购", CustomStyle.styleOfWorld), (p_280814_) -> {
-            ModNetworking.sendToServer(new WeeklyStoreScreenC2SPacket());
-        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18 * 3).size(48, 16).build());
 
 /*
         this.addRenderableWidget(Button.builder(Te.s("股市", CustomStyle.styleOfEnd), (p_280814_) -> {
@@ -257,10 +139,9 @@ public class IdCardGui extends Screen {
                 if (button.getMessage().getString().contains("vp商店")
                         || button.getMessage().getString().contains("声望商店")
                         || button.getMessage().getString().contains("全球市场")
-                        || button.getMessage().getString().contains("研发采购")
                         || button.getMessage().getString().contains("股市")) {
                     if (x > this.width / 2 - 18 && x < this.width / 2 - 18 + 48 && y > this.height / 2 + 113 - 40
-                            && y < this.height / 2 + 113 - 40 + 18 * 4 + 16) {
+                            && y < this.height / 2 + 113 - 40 + 18 * 3 + 16) {
                         renderable.render(graphics, x, y, v);
                     } else {
                         guiGraphics.drawString(fontRenderer, Component.literal("「市场/商店」")
@@ -395,347 +276,71 @@ public class IdCardGui extends Screen {
         guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", Minecraft.getInstance().player.getMaxHealth())),
                 this.width / 2 + 37, this.height / 2 - 20, 5635925);*/
 
-        /* - */
+        /* - 精通（与能力合并）：五条路径的总点数 - */
         int PowerOffsetX = 100;
         int PowerOffsetY = -84;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("力量").withStyle(CustomStyle.styleOfPower), this.width / 2 + 100, this.height / 2 - 16 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.AbilityChangeCache.Power)).withStyle(CustomStyle.styleOfPower), this.width / 2 + 116, this.height / 2 - 16 - 68, 0);
-
         int IntelligentOffsetX = 100;
         int IntelligentOffsetY = -69;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("智力").withStyle(CustomStyle.styleOfIntelligent), this.width / 2 + 100, this.height / 2 - 1 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.AbilityChangeCache.Intelligent)).withStyle(CustomStyle.styleOfIntelligent), this.width / 2 + 116, this.height / 2 - 1 - 68, 0);
-
         int FlexibleOffsetX = 100;
         int FlexibleOffsetY = -54;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("精巧").withStyle(CustomStyle.styleOfFlexible), this.width / 2 + 100, this.height / 2 + 14 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.AbilityChangeCache.Flexibility)).withStyle(CustomStyle.styleOfFlexible), this.width / 2 + 116, this.height / 2 + 14 - 68, 0);
-
         int LuckyOffsetX = 100;
         int LuckyOffsetY = -39;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("启迪").withStyle(CustomStyle.styleOfLucky), this.width / 2 + 100, this.height / 2 + 29 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.AbilityChangeCache.Lucky)).withStyle(CustomStyle.styleOfLucky), this.width / 2 + 116, this.height / 2 + 29 - 68, 0);
-
         int VitalityOffsetX = 100;
         int VitalityOffsetY = -24;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("活力").withStyle(CustomStyle.styleOfVitality), this.width / 2 + 100, this.height / 2 + 44 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.AbilityChangeCache.Vitality)).withStyle(CustomStyle.styleOfVitality), this.width / 2 + 116, this.height / 2 + 44 - 68, 0);
 
-        int SwordOffsetX = -100;
-        int SwordOffsetY = 9;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("剑术精通").withStyle(CustomStyle.styleOfPower), this.width / 2 - 111, this.height / 2 + 77 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.SkillChangeCache.Sword)).withStyle(CustomStyle.styleOfPower), this.width / 2 - 107, this.height / 2 + 100 - 68, 0);
-
-        int BowOffsetX = -38;
-        int BowOffsetY = 9;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("弓术精通").withStyle(CustomStyle.styleOfFlexible), this.width / 2 - 49, this.height / 2 + 77 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.SkillChangeCache.Bow)).withStyle(CustomStyle.styleOfFlexible), this.width / 2 - 45, this.height / 2 + 100 - 68, 0);
-
-        int ManaOffsetX = 24;
-        int ManaOffsetY = 9;
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法术精通").withStyle(CustomStyle.styleOfIntelligent), this.width / 2 + 13, this.height / 2 + 77 - 68, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.SkillChangeCache.Mana)).withStyle(CustomStyle.styleOfIntelligent), this.width / 2 + 17, this.height / 2 + 100 - 68, 0);
-
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.PlayerAbilityPoint_Total - ClientUtils.AbilityChangeCache.SumPoint())).withStyle(ChatFormatting.AQUA), this.width / 2 + 88, this.height / 2 + 6, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", ClientUtils.PlayerSkillPoint_Total - ClientUtils.SkillChangeCache.SumPoint())).withStyle(ChatFormatting.AQUA), this.width / 2 + 88, this.height / 2 + 28, 0);
-
-        if (x > this.width / 2 + PowerOffsetX - 10 && x < this.width / 2 + PowerOffsetX + 8 && y > this.height / 2 + PowerOffsetY - 1 && y < this.height / 2 + PowerOffsetY + 10) {
-            Style style = CustomStyle.styleOfPower;
-            String Ability = "力量";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("力量是探索的基础，提升力量将使你的攻击变得更加强力！").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(Ability).withStyle(style)).
-                    append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double tier = ClientUtils.AbilityChangeCache.Power;
-            ComponentUtils.emojiDescriptionExAttackDamage(components, tier * 2);
-            ComponentUtils.emojiDescriptionDamageDirectDecrease(components, tier * 5);
-            ComponentUtils.emojiDescriptionToughness(components, tier * 0.4);
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal(Ability).withStyle(style).
-                    append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal("每一点能力获得:"));
-            ComponentUtils.emojiDescriptionExAttackDamage(components, 2);
-            ComponentUtils.emojiDescriptionDamageDirectDecrease(components, 5);
-            ComponentUtils.emojiDescriptionToughness(components, 0.4);
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Te.s("", ComponentUtils.AttributeDescription.damageDirectDecrease(""),
-                    "将会直接", "减少", CustomStyle.styleOfStone, "你受到的", "最终伤害", ChatFormatting.RED));
-            components.add(Te.s("", ComponentUtils.AttributeDescription.toughness(""), "将降低",
-                    "负面效果", ChatFormatting.RED, "的持续时间", "，至多可减少", "50%", CustomStyle.styleOfEnd));
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (x > this.width / 2 + IntelligentOffsetX - 10 && x < this.width / 2 + IntelligentOffsetX + 8 && y > this.height / 2 + IntelligentOffsetY - 1 && y < this.height / 2 + IntelligentOffsetY + 10) {
-            Style style = CustomStyle.styleOfIntelligent;
-            String Ability = "智力";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("创造与扭曲，智胜区区凡人。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(Ability).withStyle(style)).
-                    append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExManaDamage = ClientUtils.AbilityChangeCache.Intelligent;
-            double ExMaxMana = ClientUtils.AbilityChangeCache.Intelligent;
-            ComponentUtils.emojiDescriptionManaAttackDamage(components, ExManaDamage * 2);
-            ComponentUtils.emojiDescriptionMaxMana(components, ExMaxMana * 10);
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal(Ability).withStyle(style).
-                    append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal("每一点能力获得:"));
-            ComponentUtils.emojiDescriptionManaAttackDamage(components, 2);
-            ComponentUtils.emojiDescriptionMaxMana(components, 10);
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (x > this.width / 2 + FlexibleOffsetX - 10 && x < this.width / 2 + FlexibleOffsetX + 8 && y > this.height / 2 + FlexibleOffsetY - 1 && y < this.height / 2 + FlexibleOffsetY + 10) {
-            Style style = CustomStyle.styleOfFlexible;
-            String Ability = "精巧";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("精密与灵活。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(Ability).withStyle(style)).
-                    append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-
-            double ExSwiftness = ClientUtils.AbilityChangeCache.Flexibility;
-            double ExMoveSpeed = ClientUtils.AbilityChangeCache.Flexibility;
-
-            ComponentUtils.emojiDescriptionSwiftness(components, ExSwiftness * 0.1);
-            ComponentUtils.emojiDescriptionCommonMovementSpeed(components, ExMoveSpeed * 0.001);
-
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal(Ability).withStyle(style).
-                    append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal("每一点能力获得:"));
-
-            ComponentUtils.emojiDescriptionSwiftness(components, 0.1);
-            ComponentUtils.emojiDescriptionCommonMovementSpeed(components, 0.001);
-
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("").append(ComponentUtils.AttributeDescription.swiftness("")).
-                    append(Component.literal("将会提升你的翻滚距离与体力值回复速度，").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY)));
-            components.add(Component.literal(" 并为你提供箭矢攻击增幅，同时提升你的闪避几率。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (x > this.width / 2 + LuckyOffsetX - 10 && x < this.width / 2 + LuckyOffsetX + 8 && y > this.height / 2 + LuckyOffsetY - 1 && y < this.height / 2 + LuckyOffsetY + 10) {
-            Style style = CustomStyle.styleOfLucky;
-            String Ability = "启迪";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("诡术秘法").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(Ability).withStyle(style)).
-                    append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExCritRate = ClientUtils.AbilityChangeCache.Lucky;
-            double ExExpUp = ClientUtils.AbilityChangeCache.Lucky;
-            double exCooldown = ClientUtils.AbilityChangeCache.Lucky;
-
-            ComponentUtils.emojiDescriptionCritRate(components, ExCritRate * 0.001);
-            ComponentUtils.emojiDescriptionExpUp(components, ExExpUp * 0.01);
-            ComponentUtils.emojiDescriptionCoolDown(components, exCooldown * 0.01);
-
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal(Ability).withStyle(style).
-                    append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal("每一点能力获得:"));
-
-            ComponentUtils.emojiDescriptionCritRate(components, 0.001);
-            ComponentUtils.emojiDescriptionExpUp(components, 0.01);
-            ComponentUtils.emojiDescriptionCoolDown(components, 0.01);
-
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (x > this.width / 2 + VitalityOffsetX - 10 && x < this.width / 2 + VitalityOffsetX + 8 && y > this.height / 2 + VitalityOffsetY - 1 && y < this.height / 2 + VitalityOffsetY + 10) {
-            Style style = CustomStyle.styleOfVitality;
-            String Ability = "活力";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("提供生机与回复。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(Ability).withStyle(style)).
-                    append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExHealReply = ClientUtils.AbilityChangeCache.Vitality;
-            double ExMaxHeal = ClientUtils.AbilityChangeCache.Vitality;
-            double ExHealAmplitude = ClientUtils.AbilityChangeCache.Vitality;
-
-            ComponentUtils.emojiDescriptionHealthRecover(components, ExHealReply);
-            ComponentUtils.emojiDescriptionMaxHealth(components, ExMaxHeal * 40);
-            ComponentUtils.emojiDescriptionHealAmplification(components, ExHealAmplitude * 0.01);
-
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal(Ability).withStyle(style).
-                    append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal("每一点能力获得:"));
-
-            ComponentUtils.emojiDescriptionHealthRecover(components, 1);
-            ComponentUtils.emojiDescriptionMaxHealth(components, 40);
-            ComponentUtils.emojiDescriptionHealAmplification(components, 0.01);
-
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (x > this.width / 2 + SwordOffsetX - 30 && x < this.width / 2 + SwordOffsetX + 7 && y > this.height / 2 + SwordOffsetY - 2 && y < this.height / 2 + SwordOffsetY + 9) {
-            Style style = CustomStyle.styleOfPower;
-            String Skill = "剑术";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("精通 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("◉" + Skill).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("对剑术的精通将会提升你的近战能力，使你的近战攻击更加精确、有力。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            components.add(Component.literal("高于45的精通点数每点将会转化为0.33%物理伤害加成。").withStyle(ChatFormatting.GRAY));
-            components.add(Component.literal("-当前物理伤害加成：").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(String.format("%.2f%%", Math.max(0, (ClientUtils.SkillChangeCache.Sword - 45) * 0.33))).withStyle(CustomStyle.styleOfPower)));
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (x > this.width / 2 + BowOffsetX - 30 && x < this.width / 2 + BowOffsetX + 7 && y > this.height / 2 + BowOffsetY - 2 && y < this.height / 2 + BowOffsetY + 9) {
-            Style style = CustomStyle.styleOfHealth;
-            String Skill = "弓术";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("精通 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("◉" + Skill).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("对弓术的精通将会使你人弓合一。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            components.add(Component.literal("高于45的精通点数每点将会转化为0.33%物理伤害加成。").withStyle(ChatFormatting.GRAY));
-            components.add(Component.literal("-当前物理伤害加成：").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(String.format("%.2f%%", Math.max(0, (ClientUtils.SkillChangeCache.Bow - 45) * 0.33))).withStyle(CustomStyle.styleOfFlexible)));
-
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (x > this.width / 2 + ManaOffsetX - 30 && x < this.width / 2 + ManaOffsetX + 7 && y > this.height / 2 + ManaOffsetY - 2 && y < this.height / 2 + ManaOffsetY + 9) {
-            Style style = CustomStyle.styleOfMana;
-            String Skill = "法术";
-            List<Component> components = new ArrayList<>();
-            components.add(Component.literal("精通 ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("◉" + Skill).withStyle(ChatFormatting.BOLD).withStyle(style)));
-            components.add(Component.literal("对法术的精通将使你的法术得到各个维度的强化。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            components.add(Component.literal("高于45的精通点数每点将会转化为0.5%魔法伤害加成。").withStyle(ChatFormatting.GRAY));
-            components.add(Component.literal("-当前魔法伤害加成：").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(String.format("%.2f%%", Math.max(0, (ClientUtils.SkillChangeCache.Mana - 45) * 0.5))).withStyle(CustomStyle.styleOfMana)));
-
-            guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-        }
-
-        if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Power > ClientUtils.AbilityCache.Power) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + PowerOffsetX - 19, this.height / 2 + PowerOffsetY + 1, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + PowerOffsetX - 19, this.height / 2 + PowerOffsetY + 1, 0);
-
-        }
-
-        if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Intelligent > ClientUtils.AbilityCache.Intelligent) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + IntelligentOffsetX - 19, this.height / 2 + IntelligentOffsetY + 1, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + IntelligentOffsetX - 19, this.height / 2 + IntelligentOffsetY + 1, 0);
-
-        }
-
-        if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Flexibility > ClientUtils.AbilityCache.Flexibility) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + FlexibleOffsetX - 19, this.height / 2 + FlexibleOffsetY + 1, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + FlexibleOffsetX - 19, this.height / 2 + FlexibleOffsetY + 1, 0);
-
-        }
-
-        if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Lucky > ClientUtils.AbilityCache.Lucky) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + LuckyOffsetX - 19, this.height / 2 + LuckyOffsetY + 1, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + LuckyOffsetX - 19, this.height / 2 + LuckyOffsetY + 1, 0);
-
-        }
-
-        if (ClientUtils.PlayerAbilityPoint_Total - ClientUtils.PlayerAbilityPoint_Used > 0 && ClientUtils.AbilityChangeCache.Vitality > ClientUtils.AbilityCache.Vitality) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + VitalityOffsetX - 19, this.height / 2 + VitalityOffsetY + 1, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + VitalityOffsetX - 19, this.height / 2 + VitalityOffsetY + 1, 0);
-
-        }
-
-        int[] OffsetX = {
-                PowerOffsetX, IntelligentOffsetX, FlexibleOffsetX, LuckyOffsetX, VitalityOffsetX
+        MasteryTree[] summaryTrees = {
+                MasteryTree.PRECISION, MasteryTree.DOMINATION, MasteryTree.SORCERY,
+                MasteryTree.RESOLVE, MasteryTree.INSPIRATION
         };
-        int[] OffsetY = {
+        int[] summaryOffsetY = {
                 PowerOffsetY, IntelligentOffsetY, FlexibleOffsetY, LuckyOffsetY, VitalityOffsetY
         };
+        for (int i = 0; i < summaryTrees.length; i++) {
+            MasteryTree tree = summaryTrees[i];
+            int total = MasteryAllocation.treeTotal(MasteryClientData.allocation[tree.ordinal()]);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(tree.getDisplayName())
+                            .withStyle(Style.EMPTY.withColor(tree.getColor())),
+                    this.width / 2 + 100, this.height / 2 + summaryOffsetY[i], 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", total))
+                            .withStyle(Style.EMPTY.withColor(tree.getColor())),
+                    this.width / 2 + 116, this.height / 2 + summaryOffsetY[i], 0);
+        }
 
-        for (int i = 0; i < 5; i++) {
-            if (ClientUtils.AbilityChangeCache.SumPoint() < ClientUtils.PlayerAbilityPoint_Total) {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GOLD),
-                        this.width / 2 + OffsetX[i] + 31, this.height / 2 + OffsetY[i] + 1, 0);
-            } else {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GRAY),
-                        this.width / 2 + OffsetX[i] + 31, this.height / 2 + OffsetY[i] + 1, 0);
+
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("可用精通点 " + MasteryClientData.available())
+                .withStyle(CustomStyle.styleOfWorld), this.width / 2 + 100, this.height / 2 + 6, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("专精与能力已合并")
+                .withStyle(ChatFormatting.GRAY), this.width / 2 - 72, this.height / 2 + 16, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("点击「精通」分配五条路径")
+                .withStyle(ChatFormatting.GRAY), this.width / 2 - 72, this.height / 2 + 28, 0);
+
+        for (int i = 0; i < summaryTrees.length; i++) {
+            MasteryTree tree = summaryTrees[i];
+            int offsetY = summaryOffsetY[i];
+            if (x > this.width / 2 + 90 && x < this.width / 2 + 140
+                    && y > this.height / 2 + offsetY - 1 && y < this.height / 2 + offsetY + 10) {
+                Style style = Style.EMPTY.withColor(tree.getColor());
+                int tier = MasteryAllocation.treeTotal(MasteryClientData.allocation[tree.ordinal()]);
+                List<Component> components = new ArrayList<>();
+                components.add(Component.literal("精通 ").withStyle(ChatFormatting.AQUA)
+                        .append(Component.literal("▶" + tree.getDisplayName()).withStyle(ChatFormatting.BOLD).withStyle(style)));
+                components.add(Component.literal(tree.getDescription()).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+                ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+                components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE)
+                        .append(Component.literal(tree.getDisplayName()).withStyle(style))
+                        .append(Component.literal("精通加成（" + tier + " 点）:").withStyle(ChatFormatting.WHITE)));
+                appendMasteryAbilityDescription(components, tree, tier);
+                ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+                components.add(Component.literal("每一点" + tree.getDisplayName() + "精通获得:").withStyle(ChatFormatting.WHITE));
+                appendMasteryAbilityDescription(components, tree, 1);
+                ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+                components.add(Component.literal("精通点数在「精通」界面中分配，该路径的总点数即为对应能力。")
+                        .withStyle(ChatFormatting.GRAY));
+                guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
             }
         }
 
-        if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Sword > ClientUtils.SkillCache.Sword) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + SwordOffsetX - 24, this.height / 2 + SwordOffsetY + 23, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + SwordOffsetX - 24, this.height / 2 + SwordOffsetY + 23, 0);
-        }
 
-        if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Bow > ClientUtils.SkillCache.Bow) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + BowOffsetX - 24, this.height / 2 + BowOffsetY + 23, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + BowOffsetX - 24, this.height / 2 + BowOffsetY + 23, 0);
-        }
-
-        if (ClientUtils.PlayerSkillPoint_Total - ClientUtils.PlayerSkillPoint_Used > 0 && ClientUtils.SkillChangeCache.Mana > ClientUtils.SkillCache.Mana) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GOLD),
-                    this.width / 2 + ManaOffsetX - 24, this.height / 2 + ManaOffsetY + 23, 0);
-        } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal("-").withStyle(ChatFormatting.GRAY),
-                    this.width / 2 + ManaOffsetX - 24, this.height / 2 + ManaOffsetY + 23, 0);
-        }
-
-        int[] SkillOffsetX = {
-                SwordOffsetX, BowOffsetX, ManaOffsetX
-        };
-
-        int[] SkillOffsetY = {
-                SwordOffsetY, BowOffsetY, ManaOffsetY
-        };
-
-        for (int i = 0; i < 3; i++) {
-            if (ClientUtils.SkillChangeCache.SumPoint() < ClientUtils.PlayerSkillPoint_Total) {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GOLD),
-                        this.width / 2 + SkillOffsetX[i] + 11, this.height / 2 + SkillOffsetY[i] + 23, 0);
-            } else {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("+").withStyle(ChatFormatting.GRAY),
-                        this.width / 2 + SkillOffsetX[i] + 11, this.height / 2 + SkillOffsetY[i] + 23, 0);
-
-            }
-        }
 
         for (int i = 0; i < SevenShadePiece.clientActivePieces.size(); i++) {
             ItemStack itemStack = SevenShadePiece.clientActivePieces.get(i).getDefaultInstance();
@@ -769,6 +374,38 @@ public class IdCardGui extends Screen {
             rankDescription.addAll(RankData.getRankRightDescription(nextTierRank));
             guiGraphics.renderComponentTooltip(font, rankDescription,
                     this.width / 2 - 320, this.height / 2 - 80);
+        }
+    }
+
+    /**
+     * AI-Generated, 2026-10-18
+     * 精通路径总点数 -> 旧「能力」五维属性的换算展示。
+     */
+    private static void appendMasteryAbilityDescription(List<Component> components, MasteryTree tree, double tier) {
+        switch (tree) {
+            case DOMINATION -> {
+                ComponentUtils.emojiDescriptionExAttackDamage(components, tier * 2);
+                ComponentUtils.emojiDescriptionDamageDirectDecrease(components, tier * 5);
+                ComponentUtils.emojiDescriptionToughness(components, tier * 0.4);
+            }
+            case SORCERY -> {
+                ComponentUtils.emojiDescriptionManaAttackDamage(components, tier * 2);
+                ComponentUtils.emojiDescriptionMaxMana(components, tier * 10);
+            }
+            case PRECISION -> {
+                ComponentUtils.emojiDescriptionSwiftness(components, tier * 0.1);
+                ComponentUtils.emojiDescriptionCommonMovementSpeed(components, tier * 0.001);
+            }
+            case INSPIRATION -> {
+                ComponentUtils.emojiDescriptionCritRate(components, tier * 0.001);
+                ComponentUtils.emojiDescriptionExpUp(components, tier * 0.01);
+                ComponentUtils.emojiDescriptionCoolDown(components, tier * 0.01);
+            }
+            case RESOLVE -> {
+                ComponentUtils.emojiDescriptionHealthRecover(components, tier);
+                ComponentUtils.emojiDescriptionMaxHealth(components, tier * 40);
+                ComponentUtils.emojiDescriptionHealAmplification(components, tier * 0.01);
+            }
         }
     }
 
