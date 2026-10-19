@@ -45,9 +45,6 @@ public class KeyBoradInput {
     public static final KeyMapping TEAM = new KeyMapping("key.vmd.team_gui_open", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_I, KEY_CATEGORY);
 
-    public static final KeyMapping GUIDE = new KeyMapping("key.vmd.guide", KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_TAB, KEY_CATEGORY);
-
     public static final KeyMapping ElementRoulette = new KeyMapping("key.vmd.element_roulette", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, KEY_CATEGORY);
 

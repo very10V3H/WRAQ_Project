@@ -1,7 +1,6 @@
 package fun.wraq.events.client;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.KeyBoradInput;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -12,9 +11,9 @@ import fun.wraq.networking.misc.USE.UseC2SPacket;
 import fun.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
-import fun.wraq.process.system.element.render.ElementRoulette;
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.element.piece.ElementPieceGui;
+import fun.wraq.process.system.element.render.ElementRoulette;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
@@ -45,8 +44,6 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Calendar;
 
 public class KeyInput {
     @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT)
@@ -139,20 +136,6 @@ public class KeyInput {
                 }
             }
 
-            if (KeyBoradInput.GUIDE.consumeClick()) {
-                if (Calendar.getInstance().getTimeInMillis() - ClientUtils.tabSwitchLastTime > 250) {
-                    Guide.clientDisplay = !Guide.clientDisplay;
-                    if (Guide.clientDisplay) {
-                        Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                                Te.s("已开启", ChatFormatting.GREEN, "附加界面"));
-                    } else {
-                        Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                                Te.s("已关闭", ChatFormatting.RED, "附加界面"));
-                    }
-                }
-                ClientUtils.tabSwitchLastTime = Calendar.getInstance().getTimeInMillis();
-            }
-
             if (KeyBoradInput.ElementRoulette.consumeClick()) {
                 ModNetworking.sendToServer(new CurrentSeasonC2SPacket());
                 Minecraft.getInstance().setScreen(new ElementRoulette());
@@ -208,7 +191,6 @@ public class KeyInput {
             event.register(KeyBoradInput.Rolling);
             event.register(KeyBoradInput.Mission);
             event.register(KeyBoradInput.NavigateSet);
-            event.register(KeyBoradInput.GUIDE);
             event.register(KeyBoradInput.ElementRoulette);
             event.register(KeyBoradInput.TEAM);
             event.register(KeyBoradInput.BACKPACK);
