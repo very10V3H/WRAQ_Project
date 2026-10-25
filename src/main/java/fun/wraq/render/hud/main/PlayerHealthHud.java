@@ -4,6 +4,7 @@
 package fun.wraq.render.hud.main;
 
 import fun.wraq.common.util.NumberUtils;
+import fun.wraq.render.hud.ClientShieldData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -31,7 +32,8 @@ import net.minecraftforge.fml.common.Mod;
  *     <li> 40% ~ 75%：旭升岛黄 {@code #FFDC4A} → Wind 绿；</li>
  *     <li> ≥ 75%：Wind 绿 {@code #A1E475}；</li>
  *     <li>数字使用 {@link NumberUtils#abbreviate(double)} 缩写，如 {@code 2.5w/2.5w}；</li>
- *     <li>金色部分表示伤害吸收（吸收量），最多填满剩余部分；</li>
+ *     <li>白色段为护盾（VMD 护盾 + 原版吸收伤害），紧接生命值右侧，比例为 护盾/最大生命值；
+ *         当 生命值+护盾 超过最大生命值时，以 生命值+护盾 为分母整体压缩，保证不超出血条长度；</li>
  *     <li>同时取消原版 {@code PLAYER_HEALTH} overlay，避免心形血条铺满屏幕。</li>
  * </ul>
  */
@@ -47,7 +49,8 @@ public class PlayerHealthHud {
 
     private static final int BORDER_COLOR = 0xFF000000;
     private static final int EMPTY_COLOR = 0xFF202020;
-    private static final int ABSORPTION_COLOR = 0xFFFFC400;
+    /** 护盾段颜色（白色，紧接生命值右侧） */
+    private static final int SHIELD_COLOR = 0xFFFFFFFF;
     private static final int TEXT_COLOR = 0xFFFFFFFF;
 
     /** 下界红 */
@@ -74,7 +77,17 @@ public class PlayerHealthHud {
         float maxHealth = Math.max(1.0F, player.getMaxHealth());
         float health = Mth.clamp(player.getHealth(), 0.0F, maxHealth);
         float ratio = health / maxHealth;
-        int filled = Math.round(BAR_WIDTH * ratio);
+
+        // 护盾 = VMD 护盾 + 原版吸收伤害。
+        // 生命值 + 护盾超过最大生命值时，改用「生命值 + 护盾」作分母，
+        // 保证健康段 + 白色护盾段不会超出血条长度（参考英雄联盟的血条压缩）。
+        float shield = Math.max(0.0F, player.getAbsorptionAmount())
+                + Math.max(0.0F, ClientShieldData.getValue());
+        float denominator = Math.max(maxHealth, health + shield);
+        int healthWidth = denominator <= 0.0F ? 0
+                : Math.min(BAR_WIDTH, Math.round(BAR_WIDTH * (health / denominator)));
+        int shieldWidth = denominator <= 0.0F ? 0
+                : Math.min(BAR_WIDTH - healthWidth, Math.round(BAR_WIDTH * (shield / denominator)));
 
         // 外边框 + 空槽（圆角，外框与内部同半径、错开 1px，保证描边均匀 1px）
         roundedRect(guiGraphics, x - 1, y - 1, x + BAR_WIDTH + 1, y + BAR_HEIGHT + 1,
@@ -82,25 +95,19 @@ public class PlayerHealthHud {
         roundedRect(guiGraphics, x, y, x + BAR_WIDTH, y + BAR_HEIGHT,
                 CORNER_RADIUS, EMPTY_COLOR, true, true);
 
-        // 当前血量（左端圆角；满血时右端也圆角，未满时右端直边）
-        if (filled > 0) {
-            boolean fullBar = filled >= BAR_WIDTH;
-            int fillColor = healthColor(ratio);
-            roundedRect(guiGraphics, x, y, x + Math.min(BAR_WIDTH, filled), y + BAR_HEIGHT,
-                    CORNER_RADIUS, fillColor, true, fullBar);
+        // 当前血量（左端圆角；后面接护盾时右端直边，满血无护盾时右端圆角）
+        if (healthWidth > 0) {
+            boolean fullBar = shieldWidth <= 0 && healthWidth >= BAR_WIDTH;
+            roundedRect(guiGraphics, x, y, x + healthWidth, y + BAR_HEIGHT,
+                    CORNER_RADIUS, healthColor(ratio), true, fullBar);
         }
 
-        // 伤害吸收
-        float absorption = Math.max(0.0F, player.getAbsorptionAmount());
-        if (absorption > 0.0F) {
-            int absorptionWidth = Math.min(BAR_WIDTH - filled,
-                    Math.round(BAR_WIDTH * (absorption / maxHealth)));
-            if (absorptionWidth > 0) {
-                int left = x + filled;
-                boolean reachesEnd = left + absorptionWidth >= x + BAR_WIDTH;
-                roundedRect(guiGraphics, left, y, left + absorptionWidth, y + BAR_HEIGHT,
-                        CORNER_RADIUS, ABSORPTION_COLOR, false, reachesEnd);
-            }
+        // 白色护盾段（紧接生命值右侧）
+        if (shieldWidth > 0) {
+            int left = x + healthWidth;
+            boolean reachesEnd = healthWidth + shieldWidth >= BAR_WIDTH;
+            roundedRect(guiGraphics, left, y, left + shieldWidth, y + BAR_HEIGHT,
+                    reachesEnd ? CORNER_RADIUS : 0, SHIELD_COLOR, false, reachesEnd);
         }
 
         // 数值（按 TEXT_SCALE 缩放，居中于血条）

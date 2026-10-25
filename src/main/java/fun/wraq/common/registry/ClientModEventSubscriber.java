@@ -14,7 +14,6 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentHud;
 import fun.wraq.process.system.skill.skillv2.SkillV2Hud;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import fun.wraq.render.hud.main.*;
-import fun.wraq.render.hud.ShieldHud;
 import fun.wraq.render.hud.ManaHud;
 import fun.wraq.render.entity.VmdNpcRenderer;
 import fun.wraq.render.particles.*;
@@ -161,13 +160,14 @@ public class ClientModEventSubscriber {
 
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+        // 护盾不再单独显示图标，改为血条上的白色护盾段（见 PlayerHealthHud / EntityHealthBarRenderer）
         event.registerBelowAll("mana", ManaHud.HUD_MANA);
-        event.registerBelowAll("shield", ShieldHud.HUD_SHIELD);
 
         // 玩家主操作界面HUD
         event.registerAboveAll("buff_hud", BuffHud.HUD_ATTRIBUTE);
         event.registerAboveAll("player_self_attributes_hud", PlayerSelfAttributesHud.SELF_ATTRIBUTES_HUD);
         event.registerAboveAll("player_health_hud", PlayerHealthHud.PLAYER_HEALTH_HUD);
+        event.registerAboveAll("exp_bar_hud", ExpBarHud.XP_BAR_HUD);
         event.registerAboveAll("mob_attributes_hud", MobAttributesHud.MOB_ATTRIBUTES_HUD);
         event.registerAboveAll("player_other_attributes_hud", PlayerOtherAttributesHud.OTHER_PLAYER_HUD);
         event.registerAboveAll("item_exp_get_hud", ItemAndExpGetHud.ITEM_EXP_GET_HUD);

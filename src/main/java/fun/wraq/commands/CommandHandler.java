@@ -39,6 +39,8 @@ public class CommandHandler {
         // AI-Generated, 2026-10-17 /vmd npc ... 管理命令（替代 CustomNPCs 的 NPC 编辑器）
         fun.wraq.process.system.npc.NpcCommand.register(event.getDispatcher());
         fun.wraq.process.system.missions.mainline.MainQuestCommand.register(event.getDispatcher());
+        // AI-Generated, 2026-10-25 /vmd mobshield <value> [seconds] 怪物护盾测试命令
+        fun.wraq.process.system.mobshield.MobShieldCommand.register(event.getDispatcher());
         event.getDispatcher().register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("info")

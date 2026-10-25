@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import fun.wraq.common.util.NumberUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.entities.npc.VmdNpc;
+import fun.wraq.render.hud.ClientShieldData;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -52,7 +53,9 @@ import java.util.List;
  * <ul>
  *     <li>圆角血条（三角面片近似圆角）；</li>
  *     <li>底槽上下边缘各有 10% / 25% / 50% / 75% 的细黑刻度线（每段约占高度的 15%）；</li>
- *     <li>血条按血量比例填充，颜色随比例由亮红渐变到暗红，金色部分为伤害吸收；</li>
+ *     <li>血条按血量比例填充，颜色随比例由亮红渐变到暗红；</li>
+ *     <li>白色段为护盾（VMD 护盾 + 原版吸收伤害），紧接生命值右侧，比例为 护盾/最大生命值；
+ *         当 生命值+护盾 超过最大生命值时，以 生命值+护盾 为分母整体压缩，保证不超出血条长度；</li>
  *     <li>数字使用 {@link NumberUtils#abbreviate(double)} 缩写，例如
  *         {@code 30000001024/30000001024} 会显示为 {@code 300e/300e}。</li>
  * </ul>
@@ -98,7 +101,8 @@ public class EntityHealthBarRenderer {
     private static final int EMPTY_COLOR = 0xFF202020;
     private static final int FILL_COLOR_FULL = 0xFFE84848;
     private static final int FILL_COLOR_LOW = 0xFF7A1414;
-    private static final int ABSORPTION_COLOR = 0xFFFFC400;
+    /** 护盾段颜色（白色，紧接生命值右侧） */
+    private static final int SHIELD_COLOR = 0xFFFFFFFF;
     private static final int TEXT_COLOR = 0xFFFFFFFF;
     /** 刻度线颜色（细黑线，压在填充和底槽上） */
     private static final int TICK_COLOR = 0xFF101010;
@@ -178,11 +182,13 @@ public class EntityHealthBarRenderer {
     /**
      * 玩家，或 VMD 生成的怪物（自定义名以 {@code Lv.} 开头 / 实体类型属于 vmd 命名空间）。
      */
+    @SuppressWarnings("deprecation")
     private static boolean shouldShowFor(LivingEntity living) {
         if (living instanceof Player) return true;
         Component customName = living.getCustomName();
         if (customName != null && customName.getString().startsWith("Lv.")) return true;
-        ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(living.getType());
+        ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getResourceKey(living.getType())
+                .map(net.minecraft.resources.ResourceKey::location).orElse(null);
         return id != null && id.getNamespace().equals(Utils.MOD_ID);
     }
 
@@ -202,13 +208,16 @@ public class EntityHealthBarRenderer {
     private static void appendBarQuads(BufferBuilder builder, Matrix4f mat, LivingEntity living) {
         float maxHealth = Math.max(0.0F, living.getMaxHealth());
         float health = Mth.clamp(living.getHealth(), 0.0F, maxHealth);
-        float ratio = maxHealth <= 0.0F ? 0.0F : health / maxHealth;
+        float healthRatio = maxHealth <= 0.0F ? 0.0F : health / maxHealth;
         float fullWidth = HALF_WIDTH * 2.0F;
-        float filledWidth = fullWidth * ratio;
 
-        float absorption = Math.max(0.0F, living.getAbsorptionAmount());
-        float absorptionWidth = maxHealth <= 0.0F ? 0.0F
-                : Math.min(fullWidth - filledWidth, fullWidth * (absorption / maxHealth));
+        // 护盾 = 其他玩家的 VMD 护盾 + 原版吸收伤害。
+        // 生命值 + 护盾超过最大生命值时，改用「生命值 + 护盾」作分母，
+        // 保证健康段 + 白色护盾段不会超出血条长度（参考英雄联盟的血条压缩）。
+        float shield = shieldAmount(living);
+        float denominator = Math.max(maxHealth, health + shield);
+        float healthWidth = denominator <= 0.0F ? 0.0F : fullWidth * (health / denominator);
+        float shieldWidth = denominator <= 0.0F ? 0.0F : fullWidth * (shield / denominator);
 
         // 外边框（圆角）
         roundedRect(builder, mat, -HALF_WIDTH - 1, -HALF_HEIGHT - 1,
@@ -218,20 +227,21 @@ public class EntityHealthBarRenderer {
         roundedRect(builder, mat, -HALF_WIDTH, -HALF_HEIGHT, HALF_WIDTH, HALF_HEIGHT,
                 CORNER_RADIUS, EMPTY_COLOR, true, true);
 
-        // 血量填充（左端圆角；满血时右端也圆角，未满时右端为直边）
-        if (filledWidth > 0.01F) {
-            boolean fullBar = filledWidth >= fullWidth - 0.01F;
-            float radius = Math.min(CORNER_RADIUS, filledWidth * 0.5F);
+        // 血量填充（左端圆角；后面接护盾时右端为直边，满血无护盾时右端圆角）
+        if (healthWidth > 0.01F) {
+            boolean fullBar = shieldWidth <= 0.01F && healthWidth >= fullWidth - 0.01F;
+            float radius = Math.min(CORNER_RADIUS, healthWidth * 0.5F);
             roundedRect(builder, mat, -HALF_WIDTH, -HALF_HEIGHT,
-                    -HALF_WIDTH + filledWidth, HALF_HEIGHT, radius,
-                    lerpColor(FILL_COLOR_LOW, FILL_COLOR_FULL, ratio), true, fullBar);
+                    -HALF_WIDTH + healthWidth, HALF_HEIGHT, radius,
+                    lerpColor(FILL_COLOR_LOW, FILL_COLOR_FULL, healthRatio), true, fullBar);
         }
 
-        // 伤害吸收（直边，最多填满剩余部分）
-        if (absorptionWidth > 0.01F) {
-            float left = -HALF_WIDTH + filledWidth;
-            roundedRect(builder, mat, left, -HALF_HEIGHT, left + absorptionWidth, HALF_HEIGHT,
-                    0.0F, ABSORPTION_COLOR, false, false);
+        // 白色护盾段（紧接生命值右侧）
+        if (shieldWidth > 0.01F) {
+            float left = -HALF_WIDTH + healthWidth;
+            boolean reachesEnd = healthWidth + shieldWidth >= fullWidth - 0.01F;
+            roundedRect(builder, mat, left, -HALF_HEIGHT, left + shieldWidth, HALF_HEIGHT,
+                    reachesEnd ? CORNER_RADIUS : 0.0F, SHIELD_COLOR, false, reachesEnd);
         }
 
         // 10% / 25% / 50% / 75% 刻度：上下各一小段细黑线，各占血条高度约 15%，中间留空
@@ -243,6 +253,15 @@ public class EntityHealthBarRenderer {
             rect(builder, mat, x - TICK_WIDTH * 0.5F, HALF_HEIGHT - tickHeight,
                     x + TICK_WIDTH * 0.5F, HALF_HEIGHT, TICK_COLOR);
         }
+    }
+
+    /**
+     * 实体当前的护盾值：原版吸收伤害 + 客户端同步的 VMD 护盾（玩家与怪物通用）。
+     */
+    private static float shieldAmount(LivingEntity living) {
+        float shield = Math.max(0.0F, living.getAbsorptionAmount());
+        shield += (float) ClientShieldData.getEntityShield(living.getId());
+        return shield;
     }
 
     /**

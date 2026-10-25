@@ -22,6 +22,7 @@ import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.HudUtil;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.struct.MobShield;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios1;
 import fun.wraq.customized.uniform.mana.normal.ManaCurios4;
 import fun.wraq.entities.entities.Civil.Civil;
@@ -44,6 +45,7 @@ import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
+import fun.wraq.process.system.mastery.MasteryCombat;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
@@ -304,7 +306,7 @@ public class Damage {
         totalDamage *= (1 + DamageInfluence.getAdjustManaDamageRate(player, mob));
         Compute.summonValue(player, mob, totalDamage, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
-            damageActionBarPacketSend(player, totalDamage, 0, true, false);
+            HudUtil.damageActionBarPacketSend(player, totalDamage, 0, true, false);
         }
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
@@ -363,15 +365,16 @@ public class Damage {
         Compute.summonValue(player, mob, totalDamage, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) {
             if (elementDamage != 0 && !elementType.isEmpty() && elementValue != 0) {
-                damageActionBarPacketSend(player, totalDamage, 0, true, false, elementType, elementDamage);
+                HudUtil.damageActionBarPacketSend(player, totalDamage, 0, true, false, elementType, elementDamage);
             }
             else {
-                damageActionBarPacketSend(player, totalDamage, 0, true, false);
+                HudUtil.damageActionBarPacketSend(player, totalDamage, 0, true, false);
             }
         }
         beforeCauseDamage(player, mob, totalDamage);
         causeDirectDamageToMob(player, mob, totalDamage);
         Compute.healByHealthSteal(player, mob, totalDamage * PlayerAttributes.manaHealthSteal(player) * 0.33);
+        Compute.playerHeal(player, totalDamage * MasteryCombat.fullConquerorOmnivamp(player));
         Compute.manaDamageExEffect(player, mob, totalDamage);
         ManaCurios1.getManaDamageExTrueDamage(player, mob, totalDamage);
         if (isPower) {
@@ -520,6 +523,10 @@ public class Damage {
         if (player.isDeadOrDying()) {
             return;
         }
+        // 精通：不死图腾
+        if (MasteryCombat.tryUndying(player, damage)) {
+            return;
+        }
         if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)
                 || MobSpawn.getMobOriginName(mob).equals(SuperColdIronGolemSpawnController.mobName)) {
             damage = Math.min(300000, damage);
@@ -545,12 +552,22 @@ public class Damage {
     }
 
     public static void causeAttackDamageToPlayer(Mob mob, Player player, double Damage) {
+        // 踏前斩冲刺期间免疫沿途敌人的近战/攻击伤害
+        if (fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0
+                .isDashingNear(player, mob)) {
+            return;
+        }
         double Defence = PlayerAttributes.defence(player);
         Damage *= defenceDamageDecreaseRate(Defence, MobAttributes.defencePenetration(mob), MobAttributes.defencePenetration0(mob));
         MonsterAttackEvent.mobAttack(mob, player, Damage);
     }
 
     public static void causeAttackDamageToPlayer(Mob mob, Player player, double Damage, double defencePenetration, double defencePenetration0) {
+        // 踏前斩冲刺期间免疫沿途敌人的近战/攻击伤害
+        if (fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0
+                .isDashingNear(player, mob)) {
+            return;
+        }
         double Defence = PlayerAttributes.defence(player);
         Damage *= defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
         MonsterAttackEvent.mobAttack(mob, player, Damage);
@@ -581,10 +598,12 @@ public class Damage {
             damage = NewTeamInstanceHandler.judgeDamage(player, mob, damage);
             damage *= NoTeamInstanceModule.onMobWithstandDamageRate(player, mob);
             damage = Summer2025.getMobWithstandModifiedDamage(player, mob, damage);
+            // 精通：启迪先手（每只怪物一次）
+            damage *= MasteryCombat.firstStrikeMultiplier(player, mob);
 
             double finalDamage = damage;
             if (finalDamage == 0) {
-                damageActionBarPacketSend(player, 0, 0, false, false);
+                HudUtil.damageActionBarPacketSend(player, 0, 0, false, false);
             }
             finalDamage *= getAfterScornAdjustRate(player, mob);
             finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
@@ -592,6 +611,9 @@ public class Damage {
             finalDamage *= JungleMobSpawn.modifyMobWithstandDamage(mob, player);
             finalDamage *= DivineUtils.getManifestMobDamageModifyRate(player, mob);
             finalDamage = MidAutumnRabbitEvent.getAdjustedDamage(mob, finalDamage);
+
+            // AI-Generated, 2026-10-25 怪物护盾优先吸收伤害（扣完护盾才扣血，全吸收则不会触发击杀/掉落）
+            finalDamage = MobShield.absorbDamage(mob, finalDamage);
 
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (!(mob instanceof Civil)) {
@@ -602,6 +624,7 @@ public class Damage {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                     CompoundTag data = player.getPersistentData();
                     MobSpawn.drop(mob, player);
+                    MasteryCombat.onKill(player);
                     HurtEventModule.SwordSkill2(data, player); // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
                     HurtEventModule.BowSkill2(data, player); // 狩猎渴望（击杀一个单位时，提升2%攻击力，持续10s）
                     NetherNewRune.onKill(player, mob);
@@ -763,7 +786,8 @@ public class Damage {
 
     public static boolean playerIsInBattle(Player player) {
         return StarBottle.playerLastBattleTick.containsKey(player)
-                && StarBottle.playerLastBattleTick.get(player) + 100 > Tick.get();
+                && StarBottle.playerLastBattleTick.get(player)
+                + MasteryCombat.outOfCombatWindowTicks(player) > Tick.get();
     }
 
     public static boolean playerIsInBattle(Player player, int tick) {
