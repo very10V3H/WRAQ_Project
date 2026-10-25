@@ -18,6 +18,7 @@ import java.util.function.Supplier;
  * Server-to-Client packet: triggers writing all "Waypoint"-named waypoints
  * from Xaero's minimap to a desktop text file.
  */
+@SuppressWarnings("deprecation")
 public class TempWayPointToFileS2CPacket {
 
     public TempWayPointToFileS2CPacket() {

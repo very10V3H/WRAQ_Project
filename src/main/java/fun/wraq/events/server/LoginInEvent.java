@@ -33,21 +33,20 @@ import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.waypoint.WaypointServerManager;
-import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.rank.RankData;
-import fun.wraq.process.system.backpack.BackpackFileManager;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
+import fun.wraq.process.system.backpack.BackpackFileManager;
 import fun.wraq.process.system.bank.BondDividends;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.cooking.CookingPlayerData;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.mastery.MasteryData;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.estate.EstatePlayerData;
 import fun.wraq.process.system.lottery.NewLotteries;
+import fun.wraq.process.system.mastery.MasteryData;
 import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.parkour.Parkour;
@@ -191,10 +190,6 @@ public class LoginInEvent {
             // AI-Generated, 2026-10-18 精通系统：初始化合并后的精通点数（总点数 = 等级，旧加点自动迁移）
             MasteryData.ensureInitialized(player);
             MasteryData.sync(serverPlayer);
-            if (!data.contains("ID_Card")) {
-                player.addItem(ModItems.ID_CARD.get().getDefaultInstance());
-                data.putBoolean("ID_Card", false);
-            }
             Compute.EntropyPacketSend(player);
             if (!data.contains(StringUtils.LastDailyMissionFinishedTime)) {
                 Calendar calendar = Calendar.getInstance();
@@ -229,7 +224,10 @@ public class LoginInEvent {
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).
                                 append(Component.literal("的到来！").withStyle(ChatFormatting.GOLD)));
-                MyRespawnRule.respawnPlayer(player);
+                // 首次出生：固定到轻轨站台，并直接进入站台贝贝的主线对话
+                MainQuestHelper.ensureInitialized(player);
+                MyRespawnRule.firstRespawn(serverPlayer);
+                MyRespawnRule.openFirstMainQuestDialog(serverPlayer);
             }
             data.putBoolean("FirstReward", true);
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);

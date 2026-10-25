@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.util.struct.ClientDialogData;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.dialog.DialogSelectC2SPacket;
+import fun.wraq.process.system.dialog.DialogTextColors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -13,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,7 @@ public class DialogScreen extends Screen {
     private static final int PORTRAIT_TARGET_PX = 72;
 
     private final ClientDialogData data;
+    private List<Component> lines = List.of();
     private final List<int[]> optionRects = new ArrayList<>();
     private final List<Integer> lineHeights = new ArrayList<>();
 
@@ -67,6 +70,7 @@ public class DialogScreen extends Screen {
     protected void init() {
         this.optionRects.clear();
         this.lineHeights.clear();
+        this.lines = data.lines().stream().map(DialogTextColors::colorize).toList();
 
         this.portrait = resolvePortrait();
         this.portraitScale = portrait == null ? 0
@@ -77,7 +81,7 @@ public class DialogScreen extends Screen {
         this.contentWidth = PANEL_WIDTH - offset - PADDING;
 
         int linesHeight = 4;
-        for (Component line : data.lines()) {
+        for (Component line : lines) {
             int wrapped = Math.max(1, this.font.split(line, contentWidth).size());
             int height = wrapped * this.font.lineHeight;
             this.lineHeights.add(height);
@@ -139,8 +143,8 @@ public class DialogScreen extends Screen {
         graphics.drawCenteredString(this.font, data.speaker(), contentX + contentWidth / 2, panelY + 9, 0xFFFFFF);
 
         int y = bodyY;
-        for (int i = 0; i < data.lines().size(); i++) {
-            graphics.drawWordWrap(this.font, data.lines().get(i), contentX, y, contentWidth, LINE_COLOR);
+        for (int i = 0; i < lines.size(); i++) {
+            graphics.drawWordWrap(this.font, lines.get(i), contentX, y, contentWidth, LINE_COLOR);
             y += this.lineHeights.get(i);
         }
 
@@ -209,6 +213,36 @@ public class DialogScreen extends Screen {
             portrait.setCustomName(originalName);
             portrait.setCustomNameVisible(nameVisible);
         }
+    }
+
+    @Override
+    public void onClose() {
+        sendCloseAction();
+        super.onClose();
+    }
+
+    /**
+     * 按 E 关闭对话。E 是原版背包键，这里只影响对话界面；
+     * X 按钮和 Escape 也会走 {@link #onClose()}，顺带清理服务端会话。
+     */
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_E
+                || Minecraft.getInstance().options.keyInventory.matches(keyCode, scanCode)) {
+            this.onClose();
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    /** 页面有 close 动作时通知服务端结束会话，避免 SESSIONS 残留。 */
+    private void sendCloseAction() {
+        if (Minecraft.getInstance().getConnection() == null
+                || !data.optionActionIds().contains("close")) {
+            return;
+        }
+        ModNetworking.sendToServer(new DialogSelectC2SPacket(
+                data.npcId(), data.sessionId(), "close"));
     }
 
     @Override

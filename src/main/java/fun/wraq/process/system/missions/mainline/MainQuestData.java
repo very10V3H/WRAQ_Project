@@ -38,12 +38,12 @@ public final class MainQuestData {
 
     public static final Stage MAIN_01 = new Stage(
             "main_01_depart_xusheng", "MAIN_01_DEPART_XUSHENG",
-            NpcIds.MAIN_BEIBEI_STATION, NpcIds.MAIN_BEIBEI, Kind.OBJECTIVE,
+            NpcIds.MAIN_BEIBEI_STATION, NpcIds.MAIN_BEIBEI, Kind.AUTO,
             Te.s("出发：旭升岛轻轨", CustomStyle.styleOfSky),
-            Te.s("前往天空城"),
+            Te.s("使用世界地图传送"),
             Te.s("旭升岛轻轨站 · 贝贝"),
             Te.s("主线起点"),
-            List.of(new Objective.Reach("天空城", new Vec3(956, 232, 17), 100)),
+            List.of(new Objective.MapTeleport("天空城")),
             List.of(),
             wp("主线 · 站台贝贝", 1799, 72, 253),
             wp("主线 · 前往天空城", 1005, 226, -3),
@@ -51,20 +51,19 @@ public final class MainQuestData {
                     List.of(
                             Te.s("【剧情占位】你在旭升岛轻轨站的候车椅上醒来，远处是驶向天空城的轨道。"),
                             Te.s("我是联合研院的秘书贝贝，负责接引新到的考察员。"),
-                            Te.s("下一班前往天空城的轻轨列车很快就会到站。"),
-                            Te.s("也可以按住 M 打开世界地图，右键「天空城」的路径点直接传送。"),
-                            Te.s("到了天空城，来传送中枢找我。")),
+                            Te.s("按 M 打开世界地图，右键「天空城」的路径点，选择 Teleport 传送过去。"),
+                            Te.s("传送完成后，去天空城的传送中枢找我。")),
                     List.of(
                             Te.s("看来你平安到了。欢迎来到天空城。"),
                             Te.s("这里就是联合研院的前哨，也是我们这次考察的起点。")),
-                    "「我明白了」", "「交付」",
-                    "目标：前往天空城（轻轨列车 / 世界地图传送），到了之后来传送中枢找我。",
+                    "「出发」", "「交付」",
+                    "目标：按 M 打开世界地图 → 右键「天空城」路径点 → 选择 Teleport。",
                     "天空城就交给你慢慢熟悉了。"));
 
     public static final Stage MAIN_02 = new Stage(
             "main_02_arrive_sky", "MAIN_02_ARRIVE_SKY",
             NpcIds.MAIN_BEIBEI, null, Kind.TALK,
-            Te.s("初到天空城", CustomStyle.styleOfSky),
+            Te.s("在天空城寻找贝贝", CustomStyle.styleOfSky),
             Te.s("领取基础物资"),
             Te.s("天空城 · 贝贝"),
             Te.s("需完成 出发：旭升岛轻轨"),
@@ -73,7 +72,8 @@ public final class MainQuestData {
                     new Reward(() -> new ItemStack(ModItems.SKY_SWORD.get())),
                     new Reward(() -> new ItemStack(ModItems.SKY_BOW.get())),
                     new Reward(() -> new ItemStack(ModItems.SKY_SCEPTRE.get())),
-                    new Reward(() -> new ItemStack(ModItems.SKY_CHEST.get())),
+                    new Reward(() -> new ItemStack(ModItems.GRAVITY_BYPASS_DEVICE.get())),
+                    new Reward(() -> new ItemStack(ModItems.BACK_SPAWN_TICKET.get())),
                     new Reward(() -> new ItemStack(Items.GOLDEN_CARROT, 32)),
                     new Reward(() -> new ItemStack(Items.BAKED_POTATO, 32)),
                     new Reward(() -> new ItemStack(Items.ELYTRA))),
@@ -84,9 +84,9 @@ public final class MainQuestData {
                             Te.s("【剧情占位】维瑞阿契带着天空城，在诸大陆之间做没有尽头的巡游。"),
                             Te.s("【剧情占位】作为曾经的一员，你再次收到联合研院的委托，展开一场没有期限的考察。"),
                             Te.s("考察员唯一的任务：探索各地，协助居民处理本源灾害。"),
-                            Te.s("这些是给你的基础物资：天空之锋、天空之隼、天空之杖、天空之心，还有一些食物和鞘翅。"),
-                            Te.s("操作先记一下：B 打开背包，M 打开世界地图，Z 翻滚；N 打开技能界面，选好技能组后按 Q 释放。"),
-                            Te.s("右键身份卡可以领取每日补给。都收好之后，去和城主索尔谈谈。")),
+                            Te.s("这些是给你的基础物资：天空之锋、天空之隼、天空之杖，还有一些食物和鞘翅。"),
+                            Te.s("可以先熟悉一下基础操作 Z 翻滚；N 打开技能界面"),
+                            Te.s("打开物品栏可以领取每日补给。都收好之后，去和城主索尔谈谈。")),
                     List.of(),
                     "「收下物资」", "「交付」",
                     null,
@@ -102,6 +102,8 @@ public final class MainQuestData {
             List.of(new Objective.Talk(NpcIds.MAIN_SOL)),
             List.of(
                     new Reward(() -> new ItemStack(ModItems.COPPER_COIN.get(), 100)),
+                    new Reward(() -> new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.NETHERITE_BACKPACK.get(), 1)),
+                    new Reward(() -> new ItemStack(ModItems.U_DISK.get(), 1)),
                     new Reward(() -> new ItemStack(Items.GOLDEN_CARROT, 16))),
             wp("主线 · 天空城城主", 956, 232, 19),
             wp("主线 · 天空城城主", 956, 232, 19),
@@ -138,13 +140,83 @@ public final class MainQuestData {
                             Te.s("【剧情占位】平原村最近不太平，怪物一天比一天多。"),
                             Te.s("你是联合研院派来的考察员吧？先教你两手。"),
                             Te.s("左键普攻；Z 翻滚可以躲开攻击；N 打开技能界面，选好技能组后按 Q 释放技能。"),
-                            Te.s("B 打开背包，M 打开世界地图，右键身份卡可以领取每日补给。"),
+                            Te.s("按 E 打开物品栏，按 M 打开世界地图，右键身份卡可以领取每日补给。"),
                             Te.s("村外有农田，村里有肉类、蛋奶、作物制品、水果制品的烹饪商人，出发前可以补给。"),
-                            Te.s("准备好了就去村外，先拿平原僵尸练手。")),
+                            Te.s("先去练一次翻滚，再按 N 选好技能组，然后去村外拿平原僵尸练手。")),
                     List.of(),
                     "「我记住了」", "「交付」",
                     null,
                     "村外就交给年轻人了。"));
+
+    // ---- 基础操作练习：先翻滚，再选技能组，两个独立任务 ----
+
+    public static final Stage MAIN_04A = new Stage(
+            "main_04a_roll", "MAIN_04A_ROLL",
+            NpcIds.MAIN_PP, null, Kind.AUTO,
+            Te.s("翻滚练习", CustomStyle.styleOfPlain),
+            Te.s("使用一次翻滚"),
+            Te.s("平原村 · PP"),
+            Te.s("需完成 平原村的请求"),
+            List.of(new Objective.Roll(1)),
+            List.of(new Reward(() -> new ItemStack(ModItems.COPPER_COIN.get(), 50))),
+            wp("主线 · 平原村", 754, 84, 207),
+            wp("主线 · 平原村", 754, 84, 207),
+            new Dialogue(
+                    List.of(
+                            Te.s("先练练走位。按 Z 翻滚，可以快速位移；体力充足时还能躲开怪物的攻击。"),
+                            Te.s("随便找块空地滚一次就会自动记录，不用回来交付。")),
+                    List.of(
+                            Te.s("翻滚的手感找到了吧？"),
+                            Te.s("接下来按 N 打开技能界面，挑一个技能组。")),
+                    "「试试」", "「交付」",
+                    "目标：按 Z 使用一次翻滚（完成会自动记录）。",
+                    "翻滚要多练，之后打怪时能救命。"));
+
+    public static final Stage MAIN_04B = new Stage(
+            "main_04b_skill_group", "MAIN_04B_SKILL_GROUP",
+            NpcIds.MAIN_PP, null, Kind.AUTO,
+            Te.s("选择技能组", CustomStyle.styleOfPlain),
+            Te.s("选择一种技能组"),
+            Te.s("平原村 · PP"),
+            Te.s("需完成 翻滚练习"),
+            List.of(new Objective.SelectSkillGroup(1)),
+            List.of(new Reward(() -> new ItemStack(ModItems.COPPER_COIN.get(), 50))),
+            wp("主线 · 平原村", 754, 84, 207),
+            wp("主线 · 平原村", 754, 84, 207),
+            new Dialogue(
+                    List.of(
+                            Te.s("按 N 打开技能界面，在战士、弓箭手、法师三个技能组里选一个。"),
+                            Te.s("选好之后按 Q 就能释放对应技能，选好就会自动记录。")),
+                    List.of(
+                            Te.s("技能组选好了，接下来该动真格的了。"),
+                            Te.s("村外有不少平原僵尸，先拿它们练手。")),
+                    "「我看看」", "「交付」",
+                    "目标：按 N 打开技能界面，选择一个技能组（完成会自动记录）。",
+                    "技能组选定后，战斗会顺手很多。"));
+
+    /** 技能组选择后的精通教学：自动开始，保存一次有点数变化的精通配置即完成。 */
+    public static final Stage MAIN_04C = new Stage(
+            "main_04c_mastery", "MAIN_04C_MASTERY",
+            NpcIds.MAIN_PP, null, Kind.AUTO,
+            Te.s("精通配置", CustomStyle.styleOfWorld),
+            Te.s("配置 1 点精通"),
+            Te.s("物品栏 · 精通"),
+            Te.s("需完成 选择技能组"),
+            List.of(new Objective.Mastery(1)),
+            List.of(new Reward(() -> new ItemStack(ModItems.COPPER_COIN.get(), 50))),
+            wp("主线 · 平原村", 754, 84, 207),
+            wp("主线 · 平原村", 754, 84, 207),
+            new Dialogue(
+                    List.of(
+                            Te.s("技能组选好了。刚才那一级给了你 1 点精通点。"),
+                            Te.s("按 E 打开物品栏，点击右侧「身份卡」面板里的「精通」。"),
+                            Te.s("在精通页面里分配 1 点，然后点击保存；保存后会自动完成。")),
+                    List.of(
+                            Te.s("精通配置好了。"),
+                            Te.s("接下来去村外清理平原僵尸吧。")),
+                    "「明白了」", "「交付」",
+                    "按 E 打开物品栏 → 身份卡 → 精通，分配 1 点并保存。",
+                    "精通点之后每升一级都会增加。"));
 
     public static final Stage MAIN_05 = new Stage(
             "main_05_plain_purge", "MAIN_05_PLAIN_PURGE",
@@ -152,14 +224,17 @@ public final class MainQuestData {
             Te.s("平原清剿", CustomStyle.styleOfPlain),
             Te.s("清剿平原僵尸"),
             Te.s("平原村 · PP"),
-            Te.s("需完成 平原村的请求"),
+            Te.s("需完成 选择技能组"),
             List.of(
                     new Objective.Kill("平原僵尸", 10),
                     new Objective.Kill("森林僵尸", 20),
-                    new Objective.Level(15)),
+                    new Objective.Level(5)),
             List.of(
                     new Reward(() -> new ItemStack(ModItems.PLAIN_SOUL.get(), 10)),
                     new Reward(() -> new ItemStack(ModItems.COPPER_COIN.get(), 300)),
+                    new Reward(() -> new ItemStack(ModItems.PLAIN_BOOTS.get(), 1)),
+                    new Reward(() -> new ItemStack(ModItems.FOREST_CHEST.get(), 1)),
+                    new Reward(() -> new ItemStack(ModItems.FOREST_LEGGINGS.get(), 1)),
                     new Reward(() -> new ItemStack(ModItems.WORLD_SOUL_5.get(), 10))),
             wp("主线 · 平原村", 754, 84, 207),
             wp("主线 · 平原村", 754, 84, 207),
@@ -167,7 +242,7 @@ public final class MainQuestData {
                     List.of(
                             Te.s("先清理村外 10 只平原僵尸；它们掉落的平原灵魂可以换购武器。"),
                             Te.s("村里的武器商人那里能买到平原短匕、平原长弓或生机权杖，顺手把 U盾也买了。"),
-                            Te.s("练到 15 级之后，去西边的森林清理 20 只森林僵尸，它们的灵魂能换森林武器。"),
+                            Te.s("练到 5 级之后，去西边的森林清理 20 只森林僵尸，它们的灵魂能换森林武器。"),
                             Te.s("装备强化在锻造台进行，装备跟上了会轻松很多。")),
                     List.of(
                             Te.s("干得不错，平原暂时安稳了。"),
@@ -217,7 +292,7 @@ public final class MainQuestData {
                     new Reward(() -> new ItemStack(ModItems.PLAIN_SOUL.get(), 2)),
                     new Reward(() -> new ItemStack(ModItems.FORGING_STONE_0.get(), 10))),
             wp("主线 · 雨林村", 1102, 80, 43),
-            wp("主线 · 普莱尼", 4135.5, 67, 3164.5),
+            wp("主线 · 普莱尼", 1167, 112, 28),
             new Dialogue(
                     List.of(
                             Te.s("普莱尼在雨林东侧一带（位置待调整），它会召唤「普莱尼信徒」协助作战。"),
@@ -858,7 +933,8 @@ public final class MainQuestData {
                     "极冬的风雪，掩盖了很多东西。"));
 
     public static final List<Stage> STAGES = List.of(
-            MAIN_01, MAIN_02, MAIN_03, MAIN_04, MAIN_05, MAIN_06, MAIN_07, MAIN_08, MAIN_09, MAIN_10,
+            MAIN_01, MAIN_02, MAIN_03, MAIN_04, MAIN_04A, MAIN_04B, MAIN_04C,
+            MAIN_05, MAIN_06, MAIN_07, MAIN_08, MAIN_09, MAIN_10,
             MAIN_11, MAIN_12, MAIN_13, MAIN_14, MAIN_15, MAIN_16, MAIN_17, MAIN_18, MAIN_19, MAIN_20,
             MAIN_21, MAIN_22, MAIN_23, MAIN_24, MAIN_25, MAIN_26, MAIN_27, MAIN_28, MAIN_29);
 

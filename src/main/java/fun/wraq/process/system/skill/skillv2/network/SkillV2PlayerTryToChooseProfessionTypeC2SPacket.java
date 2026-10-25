@@ -2,6 +2,7 @@ package fun.wraq.process.system.skill.skillv2.network;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.FriendlyByteBuf;
@@ -41,6 +42,7 @@ public class SkillV2PlayerTryToChooseProfessionTypeC2SPacket {
             SkillV2.sendMSG(player, Te.s("你选择了 ", SkillV2.getProfessionName(professionType),
                     " - 技能组", CustomStyle.styleOfWorld));
             SkillV2.sendInfoToClient(player);
+            MainQuestHelper.recordSelectSkillGroup(player);
         });
         return true;
     }

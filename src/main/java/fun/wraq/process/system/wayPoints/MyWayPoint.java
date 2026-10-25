@@ -1,8 +1,8 @@
 package fun.wraq.process.system.wayPoints;
 
+import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
@@ -16,15 +16,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.TickEvent;
+import org.slf4j.Logger;
 import xaero.common.XaeroMinimapSession;
 import xaero.common.minimap.waypoints.Waypoint;
+import xaero.common.minimap.waypoints.WaypointSet;
+import xaero.common.minimap.waypoints.WaypointWorld;
 import xaero.common.minimap.waypoints.WaypointsManager;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.*;
 
+@SuppressWarnings({"deprecation", "unchecked"})
 public class MyWayPoint {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     public final Vec3 pos;
     public final String name;
     public final int color;
@@ -295,24 +301,74 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(480, 64, -617), "熔岩能量聚合物刷怪点", colorMap.get(red), CustomStyle.styleOfMagma, 0));*/
     }};
 
+    private static WeakReference<Object> syncedSet = new WeakReference<>(null);
+
+    /**
+     * 客户端：玩家进入世界（或切换维度）后，把 MyWayPoint 中定义的全部路径点按当前版本
+     * 重新写入 Xaero 的路径点集合——先按名字移除旧点，再按最新定义添加，然后保存并让
+     * 世界地图重新转换快照。这样玩家加入时拿到的坐标/颜色/类型一定是最新的，地图上也
+     * 立刻可见（不需要重开地图）。
+     * <p>
+     * 由 ClientTickEvent 每个客户端 tick 调用：Xaero 的会话/路径点世界还没就绪时直接
+     * 返回，下一 tick 自动重试；同一个世界/维度的集合只同步一次。
+     */
     @OnlyIn(Dist.CLIENT)
-    public static void clientTick(TickEvent.PlayerTickEvent event) {
+    public static void trySyncWaypoints() {
+        XaeroMinimapSession session = XaeroMinimapSession.getCurrentSession();
+        if (session == null) return;
+        WaypointsManager waypointsManager = session.getWaypointsManager();
+        if (waypointsManager == null) return;
+        WaypointWorld waypointWorld = waypointsManager.getCurrentWorld();
+        if (waypointWorld == null) return;
+        WaypointSet waypointSet = waypointWorld.getCurrentSet();
+        if (waypointSet == null || waypointSet == syncedSet.get()) return;
         Player player = Minecraft.getInstance().player;
-        if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START) && event.player.equals(player)) {
-            int tickCount = event.player.tickCount;
-            if (tickCount >= Tick.s(10)) {
-                List<MyWayPoint> points = new ArrayList<>();
-                if (player.level().dimension().equals(Level.OVERWORLD)) {
-                    points = overworldPointList;
-                }
-                if (player.level().dimension().equals(Level.NETHER)) {
-                    points = netherPointList;
-                }
-                if (tickCount - Tick.s(10) < points.size()) {
-                    addWaypoint(points.get(tickCount - Tick.s(10)));
-                }
-            }
+        if (player == null || player.level() == null) return;
+        // 登录/切维度瞬间 Xaero 的“当前路径点世界”可能还是上一个维度的，等它切过来再同步
+        if (waypointWorld.getDimId() != null
+                && !waypointWorld.getDimId().equals(player.level().dimension())) return;
+
+        List<MyWayPoint> points = getDimensionWayPoints(player);
+        if (points == null) {
+            // 该维度没有本 mod 的路径点定义：标记已处理，避免每 tick 重复检查
+            syncedSet = new WeakReference<>(waypointSet);
+            return;
         }
+
+        List<Waypoint> list = waypointSet.getList();
+        Set<String> modNames = new HashSet<>();
+        collectMyWayPointNames(modNames);
+        list.removeIf(waypoint -> modNames.contains(waypoint.getName()));
+        for (MyWayPoint point : points) {
+            list.add(point.toWayPoint());
+        }
+        try {
+            session.getModMain().getSettings().saveWaypoints(waypointsManager.getCurrentWorld());
+        } catch (IOException ignored) {
+        }
+        WorldMapWaypoints.requestRefresh();
+        syncedSet = new WeakReference<>(waypointSet);
+        LOGGER.info("[VMD-路径点] 已把 {} 个路径点同步到当前维度/世界地图", points.size());
+    }
+
+    /** 当前维度应该显示的路径点：主世界 = 村落 + 潮汐城，下界 = netherPointList，其它维度不同步 */
+    private static List<MyWayPoint> getDimensionWayPoints(Player player) {
+        if (player.level().dimension().equals(Level.OVERWORLD)) {
+            List<MyWayPoint> points = new ArrayList<>(VillageWayPoint.getAllVillageWayPoints());
+            points.addAll(overworldPointList);
+            return points;
+        }
+        if (player.level().dimension().equals(Level.NETHER)) {
+            return netherPointList;
+        }
+        return null;
+    }
+
+    /** 本 mod 静态定义的路径点名字（用于同步时先清掉旧点，保证坐标是最新的） */
+    private static void collectMyWayPointNames(Set<String> names) {
+        overworldPointList.forEach(point -> names.add(point.name));
+        netherPointList.forEach(point -> names.add(point.name));
+        VillageWayPoint.getAllVillageWayPoints().forEach(point -> names.add(point.name));
     }
 
     public static void setClientWaypoints(List<MyWayPoint> pointList) {
@@ -335,6 +391,7 @@ public class MyWayPoint {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        refreshWorldMap();
     }
 
     public static void sendAddPacketToClient(Player player, MyWayPoint myWayPoint) {
@@ -357,6 +414,7 @@ public class MyWayPoint {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        refreshWorldMap();
     }
 
     public static void sendRemovePacketToClient(Player player, String name) {
@@ -373,5 +431,12 @@ public class MyWayPoint {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        refreshWorldMap();
+    }
+
+    /** 让世界地图重新转换路径点快照，否则增删点后不重开地图看不到变化 */
+    @OnlyIn(Dist.CLIENT)
+    private static void refreshWorldMap() {
+        WorldMapWaypoints.requestRefresh();
     }
 }

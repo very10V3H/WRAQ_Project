@@ -105,62 +105,62 @@ public class Guide {
         public static final String ACCEPT_EXPEDITION_O = "acceptExpeditionO";
 
         // ===== 旧版常量保留（仅用于避免编译错误，无实际作用） =====
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String BACKPACK = "backpack";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String ILLUSTRATE = "illustrate";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String CHOOSE_SKILL_V2 = "chooseSkillV2";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String FIRST_KILL = "firstKill";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String FIRST_FORGE = "firstForge";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String FIRST_INJECT = "firstInject";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String ELEMENT_ROULETTE = "elementRoulette";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String FOREST_EQUIP = "forestEquip";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String LAKE_EQUIP = "lakeEquip";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String MINE_EQUIP = "mineEquip";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String VOLCANO_EQUIP = "volcanoEquip";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String MANA_DAILY_INSTANCE = "manaDailyInstance";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String DAILY_MISSION_STAR = "dailyMissionStar";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String DAILY_MISSION_COLLECT = "dailyMissionCollect";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String PLAIN_BOSS = "plainBoss";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String PASSIVE_4_LEVEL = "passive4Level";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String ENTRUSTMENT = "entrustment";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String ENHANCE_EQUIP = "enhanceEquip";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String TO_NETHER = "toNether";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String NETHER_BOSS = "netherBoss";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String PURPLE_IRON_BOSS = "purpleIronBoss";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String CORRIDOR = "corridor";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String ICE_KNIGHT = "iceKnight";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String WEEKLY_STORE = "weeklyStore";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String SAKURA_BOSS = "sakuraBoss";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String DEVIL_BOSS = "devilBoss";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String MOON_BOSS = "moonBoss";
-        /** @deprecated 旧版引导，仅保留兼容性 */
-        @Deprecated public static final String FINAL = "final";
+        /** 旧版引导兼容常量 */
+        public static final String BACKPACK = "backpack";
+        /** 旧版引导兼容常量 */
+        public static final String ILLUSTRATE = "illustrate";
+        /** 旧版引导兼容常量 */
+        public static final String CHOOSE_SKILL_V2 = "chooseSkillV2";
+        /** 旧版引导兼容常量 */
+        public static final String FIRST_KILL = "firstKill";
+        /** 旧版引导兼容常量 */
+        public static final String FIRST_FORGE = "firstForge";
+        /** 旧版引导兼容常量 */
+        public static final String FIRST_INJECT = "firstInject";
+        /** 旧版引导兼容常量 */
+        public static final String ELEMENT_ROULETTE = "elementRoulette";
+        /** 旧版引导兼容常量 */
+        public static final String FOREST_EQUIP = "forestEquip";
+        /** 旧版引导兼容常量 */
+        public static final String LAKE_EQUIP = "lakeEquip";
+        /** 旧版引导兼容常量 */
+        public static final String MINE_EQUIP = "mineEquip";
+        /** 旧版引导兼容常量 */
+        public static final String VOLCANO_EQUIP = "volcanoEquip";
+        /** 旧版引导兼容常量 */
+        public static final String MANA_DAILY_INSTANCE = "manaDailyInstance";
+        /** 旧版引导兼容常量 */
+        public static final String DAILY_MISSION_STAR = "dailyMissionStar";
+        /** 旧版引导兼容常量 */
+        public static final String DAILY_MISSION_COLLECT = "dailyMissionCollect";
+        /** 旧版引导兼容常量 */
+        public static final String PLAIN_BOSS = "plainBoss";
+        /** 旧版引导兼容常量 */
+        public static final String PASSIVE_4_LEVEL = "passive4Level";
+        /** 旧版引导兼容常量 */
+        public static final String ENTRUSTMENT = "entrustment";
+        /** 旧版引导兼容常量 */
+        public static final String ENHANCE_EQUIP = "enhanceEquip";
+        /** 旧版引导兼容常量 */
+        public static final String TO_NETHER = "toNether";
+        /** 旧版引导兼容常量 */
+        public static final String NETHER_BOSS = "netherBoss";
+        /** 旧版引导兼容常量 */
+        public static final String PURPLE_IRON_BOSS = "purpleIronBoss";
+        /** 旧版引导兼容常量 */
+        public static final String CORRIDOR = "corridor";
+        /** 旧版引导兼容常量 */
+        public static final String ICE_KNIGHT = "iceKnight";
+        /** 旧版引导兼容常量 */
+        public static final String WEEKLY_STORE = "weeklyStore";
+        /** 旧版引导兼容常量 */
+        public static final String SAKURA_BOSS = "sakuraBoss";
+        /** 旧版引导兼容常量 */
+        public static final String DEVIL_BOSS = "devilBoss";
+        /** 旧版引导兼容常量 */
+        public static final String MOON_BOSS = "moonBoss";
+        /** 旧版引导兼容常量 */
+        public static final String FINAL = "final";
     }
 
     private static final List<Guide> guides = new ArrayList<>();
@@ -196,11 +196,11 @@ public class Guide {
                         new ItemStack(Items.BAKED_POTATO, 50));
             }), StageV2.OPEN_BACKPACK));
 
-            // 3. 按下B打开背包
+            // 3. 按 E 打开物品栏
             guides.add(new Guide(List.of(
-                    Component.literal("引导 - 打开个人背包").withStyle(ChatFormatting.GOLD),
-                    Te.s("按下", "B", ChatFormatting.AQUA, "键打开个人背包"),
-                    Te.s("你可以在背包中存放物品")
+                    Component.literal("引导 - 打开物品栏").withStyle(ChatFormatting.GOLD),
+                    Te.s("按下", "E", ChatFormatting.AQUA, "键打开物品栏"),
+                    Te.s("你可以在物品栏与身份卡面板中管理物品")
             ), null, (player -> {
                 ItemStack elytra = new ItemStack(Items.ELYTRA);
                 elytra.enchant(Enchantments.UNBREAKING, 10);

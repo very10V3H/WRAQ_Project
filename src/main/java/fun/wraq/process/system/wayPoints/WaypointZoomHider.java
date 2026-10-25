@@ -45,6 +45,7 @@ import java.util.Set;
  * 转换时会跳过 disabled 的点），所以每次状态变化后都要让世界地图重新转换一次。
  */
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("deprecation")
 public class WaypointZoomHider {
 
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -54,7 +55,7 @@ public class WaypointZoomHider {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    private static final double DEFAULT_HIDE_ZOOM = 0.25D;
+    private static final double DEFAULT_HIDE_ZOOM = 0.7D;
     private static final List<String> DEFAULT_KEEP_NAMES = List.of(
             "潮汐城中央广场", "潮汐城东北门", "项潮林", "苍岩隘口", "熔岩废墟",
             "平原村", "天空城", "雨林村", "海岸村", "火山村",
@@ -77,10 +78,6 @@ public class WaypointZoomHider {
     private static Method worldMapScaleMethod;
     private static Field worldMapDestScaleField;
     private static boolean scaleUnavailableLogged;
-
-    private static Class<?> supportModsClass;
-    private static Field supportModsField;
-    private static Method requestRefreshMethod;
 
     public static void clientTick() {
         try {
@@ -196,7 +193,7 @@ public class WaypointZoomHider {
         }
         if (changed) {
             writeCrashCache();
-            requestWorldMapWaypointsRefresh();
+            WorldMapWaypoints.requestRefresh();
             int kept = set.getList().size() - originalDisabled.size();
             LOGGER.info("[VMD-路径点] 世界地图缩远：隐藏 {} 个路径点（保留 {} 个）",
                     originalDisabled.size(), kept);
@@ -216,7 +213,7 @@ public class WaypointZoomHider {
         hiding = false;
         if (changed && !saveWaypoints(manager)) return;
         deleteCrashCache();
-        requestWorldMapWaypointsRefresh();
+        WorldMapWaypoints.requestRefresh();
         if (restored > 0) {
             LOGGER.info("[VMD-路径点] 世界地图缩远：恢复 {} 个路径点", restored);
         }
@@ -228,26 +225,6 @@ public class WaypointZoomHider {
             if (!keyword.isEmpty() && name.contains(keyword)) return true;
         }
         return false;
-    }
-
-    /**
-     * 让 Xaero 世界地图重新把公共路径点转换成它自己的渲染对象（转换时才会读取 disabled）。
-     * 反射调用，避免把 Xaero 世界地图变成硬依赖。
-     */
-    private static void requestWorldMapWaypointsRefresh() {
-        try {
-            if (supportModsClass == null) {
-                supportModsClass = Class.forName("xaero.map.mods.SupportMods");
-                supportModsField = supportModsClass.getField("xaeroMinimap");
-            }
-            Object supportMods = supportModsField.get(null);
-            if (supportMods == null) return;
-            if (requestRefreshMethod == null) {
-                requestRefreshMethod = supportMods.getClass().getMethod("requestWaypointsRefresh");
-            }
-            requestRefreshMethod.invoke(supportMods);
-        } catch (Throwable ignored) {
-        }
     }
 
     /** 世界地图若开启了“显示已禁用路径点”，disabled 的点仍会被转换并绘制，这时隐藏不会生效 */

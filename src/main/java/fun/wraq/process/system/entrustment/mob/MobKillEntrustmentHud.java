@@ -63,7 +63,7 @@ public class MobKillEntrustmentHud {
         if (!shouldShow()) {
             return;
         }
-        int y = MainQuestHud.shouldShow() ? 6 + MainQuestHud.HUD_HEIGHT + 4 : 6;
+        int y = MainQuestHud.shouldShow() ? 6 + MainQuestHud.height() + 4 : 6;
         List<Component> lines = buildLines();
         int textWidth = 0;
         for (Component line : lines) {

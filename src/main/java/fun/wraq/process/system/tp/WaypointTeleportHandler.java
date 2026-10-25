@@ -10,7 +10,9 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.tp.networking.WaypointTeleportS2CPacket;
+import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import net.minecraft.ChatFormatting;
@@ -43,14 +45,26 @@ public class WaypointTeleportHandler {
     /** 传送锚点信息 */
     public record WaypointInfo(Vec3 pos, Style style) {}
 
-    /** 允许传送的目的地列表 (名称 → 信息) */
-    public static final Map<String, WaypointInfo> ALLOWED_WAYPOINTS = new LinkedHashMap<>() {{
-        put("潮汐城中央广场", new WaypointInfo(new Vec3(3925, 82, 3499), CustomStyle.styleOfSea));
-        put("潮汐城东北门", new WaypointInfo(new Vec3(3977, 76, 3416), CustomStyle.styleOfSea));
-        put("项潮林", new WaypointInfo(new Vec3(4021, 119, 3158), CustomStyle.styleOfForest));
-        put("苍岩隘口", new WaypointInfo(new Vec3(3725, 69, 2976), CustomStyle.styleOfStone));
-        put("熔岩废墟", new WaypointInfo(new Vec3(3759, 81, 3902), CustomStyle.styleOfVolcano));
-    }};
+    /**
+     * 允许传送的目的地列表（名称 → 信息）：直接由 {@link MyWayPoint} 归档的路径点生成。
+     * <p>
+     * 这样一来，世界地图上能看到的本 mod 路径点（村落 + 潮汐城一带）都能右键传送，
+     * 以后在 {@code MyWayPoint} 里增删路径点也不需要再改这里。
+     * 目前只收录主世界的列表 —— 传送统一落在主世界。
+     */
+    public static final Map<String, WaypointInfo> ALLOWED_WAYPOINTS = new LinkedHashMap<>();
+
+    static {
+        addAllowedWaypoints(MyWayPoint.overworldPointList);
+        addAllowedWaypoints(MyWayPoint.VillageWayPoint.getAllVillageWayPoints());
+    }
+
+    private static void addAllowedWaypoints(List<MyWayPoint> points) {
+        for (MyWayPoint point : points) {
+            ALLOWED_WAYPOINTS.put(point.name, new WaypointInfo(point.pos,
+                    point.style != null ? point.style : Style.EMPTY.withColor(0xFFD700)));
+        }
+    }
 
     /** 获取指定锚点的颜色值（用于网络包序列化） */
     public static int getWaypointColor(String name) {
@@ -104,6 +118,8 @@ public class WaypointTeleportHandler {
                     Vec3 target = pending.pos();
                     player.teleportTo(player.server.getLevel(Level.OVERWORLD),
                             target.x, target.y, target.z, player.getYRot(), player.getXRot());
+                    // 冷却结束后补传：同样计入主线「使用世界地图传送」
+                    MainQuestHelper.recordMapTeleport(player, pending.name());
                     Compute.sendFormatMSG(player,
                             Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
                             Te.s("冷却结束，已自动传送至 - ", pending.name(), CustomStyle.styleOfWorld));
@@ -136,10 +152,14 @@ public class WaypointTeleportHandler {
     }
 
     /**
-     * 判断玩家是否已解锁指定锚点
+     * 判断玩家是否可以使用指定锚点传送。
+     * <p>
+     * 目前 {@link #ALLOWED_WAYPOINTS} 里的路径点都允许直接传送（不需要到现场右键解锁）；
+     * 仍会读取玩家的解锁记录，方便以后给个别锚点重新加回解锁限制。
      */
     public static boolean isWaypointUnlocked(Player player, String waypointName) {
-        return getWaypointData(player).getBoolean(waypointName);
+        return ALLOWED_WAYPOINTS.containsKey(waypointName)
+                || getWaypointData(player).getBoolean(waypointName);
     }
 
     /**
@@ -340,7 +360,11 @@ public class WaypointTeleportHandler {
 
         // OP 玩家 → 放行 (完整 /tp 权限)
         /*if (player.hasPermissions(2)) return;*/
-        if (player.isCreative()) return;
+        if (player.isCreative()) {
+            // 创造模式直接放行，但世界地图右键传送（/tp @s 锚点坐标）仍要记录主线进度，方便测试
+            recordCreativeTeleport(event, player);
+            return;
+        }
 
         // 非 OP 玩家 → 拒绝执行，改为 VMD 的受控传送流
         event.setCanceled(true);
@@ -361,13 +385,7 @@ public class WaypointTeleportHandler {
         Vec3 target = new Vec3(x, y, z);
 
         // 找到匹配的锚点名称
-        String matchedName = null;
-        for (Map.Entry<String, WaypointInfo> entry : ALLOWED_WAYPOINTS.entrySet()) {
-            if (entry.getValue().pos().distanceTo(target) < MATCH_TOLERANCE) {
-                matchedName = entry.getKey();
-                break;
-            }
-        }
+        String matchedName = matchWaypointName(target);
 
         if (matchedName == null) {
             Compute.sendFormatMSG(player,
@@ -402,6 +420,8 @@ public class WaypointTeleportHandler {
 
         // 执行传送
         player.teleportTo(player.server.getLevel(Level.OVERWORLD), x, y, z, player.getYRot(), player.getXRot());
+        // 主线：使用世界地图传送（独立任务）
+        MainQuestHelper.recordMapTeleport(player, matchedName);
 
         // 引导系统：使用地图传送至潮汐城中央广场
         if ("潮汐城中央广场".equals(matchedName)) {
@@ -436,13 +456,7 @@ public class WaypointTeleportHandler {
 
             Vec3 target = new Vec3(x, y, z);
 
-            String matchedName = null;
-            for (Map.Entry<String, WaypointInfo> entry : ALLOWED_WAYPOINTS.entrySet()) {
-                if (entry.getValue().pos().distanceTo(target) < MATCH_TOLERANCE) {
-                    matchedName = entry.getKey();
-                    break;
-                }
-            }
+            String matchedName = matchWaypointName(target);
 
             if (matchedName == null) {
                 Compute.sendFormatMSG(player,
@@ -460,10 +474,38 @@ public class WaypointTeleportHandler {
             }
 
             player.teleportTo(player.server.getLevel(Level.OVERWORLD), x, y, z, player.getYRot(), player.getXRot());
+            MainQuestHelper.recordMapTeleport(player, matchedName);
             Compute.sendFormatMSG(player,
                     Component.literal("传送").withStyle(CustomStyle.styleOfEnd),
                     Component.literal("已传送至目标路径点").withStyle(ChatFormatting.GREEN));
             return 1;
+        }
+    }
+
+    /** 按坐标匹配锚点名；不在白名单内返回 null。 */
+    private static String matchWaypointName(Vec3 target) {
+        for (Map.Entry<String, WaypointInfo> entry : ALLOWED_WAYPOINTS.entrySet()) {
+            if (entry.getValue().pos().distanceTo(target) < MATCH_TOLERANCE) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 创造模式玩家不会被拦截（走原版 /tp），但如果是世界地图右键路径点产生的
+     * {@code /tp @s x y z}，仍然记录一次主线「使用世界地图传送」进度。
+     */
+    private static void recordCreativeTeleport(CommandEvent event, ServerPlayer player) {
+        String fullInput = event.getParseResults().getReader().getString();
+        Matcher matcher = TP_SELF_COORDS_PATTERN.matcher(fullInput.trim());
+        if (!matcher.matches()) return;
+        Vec3 target = new Vec3(Double.parseDouble(matcher.group(1)),
+                Double.parseDouble(matcher.group(2)),
+                Double.parseDouble(matcher.group(3)));
+        String matchedName = matchWaypointName(target);
+        if (matchedName != null) {
+            MainQuestHelper.recordMapTeleport(player, matchedName);
         }
     }
 }

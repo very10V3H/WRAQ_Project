@@ -3,9 +3,11 @@ package fun.wraq.process.system.missions.mainline;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.common.util.StringUtils;
 import fun.wraq.process.func.guide.waypoint.WaypointData;
 import fun.wraq.process.func.guide.waypoint.WaypointServerManager;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.mastery.MasteryData;
 import fun.wraq.process.system.missions.mainline.MainQuestStage.Kind;
 import fun.wraq.process.system.missions.mainline.MainQuestStage.Objective;
 import fun.wraq.process.system.missions.mainline.MainQuestStage.QuestWaypoint;
@@ -18,6 +20,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -141,26 +144,71 @@ public final class MainQuestHelper {
         if (player.tickCount % 20 == 0) {
             ensureInitialized(player);
             ensureChain(player);
+            autoComplete(player);
         }
     }
 
     /**
-     * 版本更新追加阶段后的链路修复：
-     * 若某阶段已完成、下一阶段还没有任何状态（老存档停在上一章末尾），自动解锁下一阶段。
+     * 自动完成阶段（{@link Kind#AUTO}）：世界目标达成后直接完成，无需回来交付。
+     * 例如「按 M 右键天空城路径点传送」——传送成功后玩家已经在天空城，没必要再跑回站台交付。
+     */
+    private static void autoComplete(Player player) {
+        Stage stage = current(player);
+        if (stage == null || stage.kind() != Kind.AUTO) {
+            return;
+        }
+        if (!status(player, stage).equals(MissionV2.Status.IN_PROGRESS)
+                || !ready(player, stage)) {
+            return;
+        }
+        complete(player, stage, true);
+    }
+
+    /**
+     * 版本更新后的链路修复：
+     * <ul>
+     *     <li>玩家处在最新进度末尾、下一阶段还没有状态（老存档停在上一章末尾）→ 解锁下一阶段；</li>
+     *     <li>新阶段被插入在老存档进度之前（玩家后面已经有更后面的阶段状态）→ 直接标记完成，
+     *         不能让老玩家被拽回去重做新加的引导任务。</li>
+     * </ul>
      */
     public static void ensureChain(Player player) {
+        int lastKnown = -1;
+        for (int i = 0; i < MainQuestData.STAGES.size(); i++) {
+            if (!status(player, MainQuestData.STAGES.get(i)).isEmpty()) {
+                lastKnown = i;
+            }
+        }
+        boolean changed = false;
         for (int i = 0; i + 1 < MainQuestData.STAGES.size(); i++) {
             Stage previous = MainQuestData.STAGES.get(i);
             Stage next = MainQuestData.STAGES.get(i + 1);
-            if (status(player, previous).equals(MissionV2.Status.FINISHED)
-                    && status(player, next).isEmpty()) {
-                setStatus(player, next, MissionV2.Status.NOT_ACCEPTED);
-                syncWaypoint(player);
-                MissionV2.sendDataToClient(player);
-                Compute.sendFormatMSG(player, Te.s("主线", CustomStyle.styleOfFlexible),
-                        Te.s("新主线已解锁: ", next.title()));
-                return;
+            if (!status(player, previous).equals(MissionV2.Status.FINISHED)
+                    || !status(player, next).isEmpty()) {
+                continue;
             }
+            if (i + 1 < lastKnown) {
+                // 插入在老存档进度之前的新阶段：视为已完成，避免把玩家拽回去重做
+                setStatus(player, next, MissionV2.Status.FINISHED);
+                changed = true;
+                continue;
+            }
+            // 老存档恰好停在 04B 末尾时，补发精通教学所需的 1 级与 1 点精通。
+            if ("main_04c_mastery".equals(next.id())) {
+                grantTutorialLevel(player);
+                setStatus(player, next, MissionV2.Status.IN_PROGRESS);
+            } else {
+                setStatus(player, next, MissionV2.Status.NOT_ACCEPTED);
+            }
+            syncWaypoint(player);
+            MissionV2.sendDataToClient(player);
+            Compute.sendFormatMSG(player, Te.s("主线", CustomStyle.styleOfFlexible),
+                    Te.s("新主线已解锁: ", next.title()));
+            return;
+        }
+        if (changed) {
+            syncWaypoint(player);
+            MissionV2.sendDataToClient(player);
         }
     }
 
@@ -187,6 +235,26 @@ public final class MainQuestHelper {
         return complete(player, stage, false);
     }
 
+    /**
+     * 技能组选择完成后赠送 1 级：同步等级 NBT、精通点与客户端数据。
+     * 每级 +1 精通点，正好供紧随其后的「配置 1 点精通」教学任务使用。
+     */
+    private static void grantTutorialLevel(Player player) {
+        CompoundTag data = player.getPersistentData();
+        int oldLevel = data.contains(StringUtils.ExpLevel)
+                ? data.getInt(StringUtils.ExpLevel) : player.experienceLevel;
+        int newLevel = oldLevel + 1;
+        data.putInt(StringUtils.ExpLevel, newLevel);
+        MasteryData.onLevelUp(player, oldLevel, newLevel);
+        if (player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.setExperienceLevels(newLevel);
+            serverPlayer.setExperiencePoints(0);
+            MasteryData.sync(serverPlayer);
+        }
+        Compute.sendFormatMSG(player, Te.s("精通", CustomStyle.styleOfWorld),
+                Te.s("你升到了 ", newLevel, " 级，获得 1 点精通点"));
+    }
+
     private static boolean complete(Player player, Stage stage, boolean force) {
         if (stage == null) {
             return false;
@@ -200,6 +268,9 @@ public final class MainQuestHelper {
             return false;
         }
         setStatus(player, stage, MissionV2.Status.FINISHED);
+        if ("main_04b_skill_group".equals(stage.id())) {
+            grantTutorialLevel(player);
+        }
         stage.rewards().forEach(reward -> {
             ItemStack stack = reward.stack().get();
             if (!stack.isEmpty()) {
@@ -208,7 +279,12 @@ public final class MainQuestHelper {
         });
         Stage next = MainQuestData.next(stage);
         if (next != null) {
-            setStatus(player, next, MissionV2.Status.NOT_ACCEPTED);
+            // 精通教学紧接技能组选择：自动开始，不要求玩家再跑回 PP 对话。
+            if ("main_04c_mastery".equals(next.id())) {
+                setStatus(player, next, MissionV2.Status.IN_PROGRESS);
+            } else {
+                setStatus(player, next, MissionV2.Status.NOT_ACCEPTED);
+            }
             applyWaypoint(player, next.giverWaypoint());
             Compute.sendFormatMSG(player, Te.s("主线", CustomStyle.styleOfFlexible),
                     Te.s("新主线已解锁: ", next.title()));
@@ -252,6 +328,18 @@ public final class MainQuestHelper {
         if (objective instanceof Objective.Daily daily) {
             return progress.getInt(daily.counterKey()) >= 1;
         }
+        if (objective instanceof Objective.Roll roll) {
+            return progress.getInt(roll.counterKey()) >= roll.count();
+        }
+        if (objective instanceof Objective.SelectSkillGroup group) {
+            return progress.getInt(group.counterKey()) >= group.count();
+        }
+        if (objective instanceof Objective.MapTeleport teleport) {
+            return progress.getInt(teleport.counterKey()) >= 1;
+        }
+        if (objective instanceof Objective.Mastery mastery) {
+            return progress.getInt(mastery.counterKey()) >= mastery.count();
+        }
         return true;
     }
 
@@ -266,7 +354,11 @@ public final class MainQuestHelper {
         }
         for (Objective objective : stage.objectives()) {
             if (objective instanceof Objective.Kill kill && kill.mob().equals(mobName)) {
-                increment(player, stage, kill.counterKey());
+                CompoundTag progress = progress(player, stage);
+                int current = progress.getInt(kill.counterKey());
+                if (current < kill.count()) {
+                    progress.putInt(kill.counterKey(), current + 1);
+                }
                 return;
             }
         }
@@ -293,6 +385,65 @@ public final class MainQuestHelper {
         for (Objective objective : stage.objectives()) {
             if (objective instanceof Objective.Daily daily && daily.name().equals(dailyName)) {
                 increment(player, stage, daily.counterKey());
+                return;
+            }
+        }
+    }
+
+    /** 成功使用一次翻滚（Z）：供「翻滚练习」类阶段计数。 */
+    public static void recordRoll(Player player) {
+        recordCounter(player, "roll");
+    }
+
+    /** 选择一个技能组（N 打开技能界面后选择职业）：供「选择技能组」类阶段计数。 */
+    public static void recordSelectSkillGroup(Player player) {
+        recordCounter(player, "skill_group");
+    }
+
+    /** 在精通页面保存一次“有点数变化”的配置：供精通教学阶段计数。 */
+    public static void recordMasteryConfigured(Player player) {
+        Stage stage = current(player);
+        if (stage == null) {
+            return;
+        }
+        for (Objective objective : stage.objectives()) {
+            if (objective instanceof Objective.Mastery mastery) {
+                increment(player, stage, mastery.counterKey());
+                autoComplete(player);
+                return;
+            }
+        }
+    }
+
+    /** 通过世界地图右键路径点传送成功：供「使用世界地图传送」类阶段计数。 */
+    public static void recordMapTeleport(Player player, String waypointName) {
+        Stage stage = current(player);
+        if (stage == null) {
+            return;
+        }
+        for (Objective objective : stage.objectives()) {
+            if (objective instanceof Objective.MapTeleport teleport
+                    && teleport.target().equals(waypointName)) {
+                increment(player, stage, teleport.counterKey());
+                // 非创造模式：传送已经完成，立即结束 MAP 阶段并解锁「在天空城寻找贝贝」。
+                // 创造模式的记录发生在 /tp 执行前，留给周期 autoComplete 在传送后处理。
+                if (!player.isCreative()) {
+                    autoComplete(player);
+                }
+                return;
+            }
+        }
+    }
+
+    /** 只给当前阶段中 counterKey 匹配的目标计数（与世界目标共用同一套「只计数、不推进」规则）。 */
+    private static void recordCounter(Player player, String counterKey) {
+        Stage stage = current(player);
+        if (stage == null) {
+            return;
+        }
+        for (Objective objective : stage.objectives()) {
+            if (counterKey.equals(objective.counterKey())) {
+                increment(player, stage, counterKey);
                 return;
             }
         }
@@ -419,6 +570,45 @@ public final class MainQuestHelper {
             return Te.s("与 ", name == null ? stage.npc() : name, " 对话", CustomStyle.styleOfSky);
         }
         return objectiveSummary(stage, clientProgress(stage), 1);
+    }
+
+    /**
+     * 客户端 HUD：当前阶段的全部目标，逐条返回。
+     * 未接取时只有一条「与 NPC 对话」。
+     */
+    public static List<Component> clientObjectiveLines() {
+        Stage stage = clientCurrent();
+        if (stage == null) {
+            return List.of();
+        }
+        if (clientStatus(stage).equals(MissionV2.Status.NOT_ACCEPTED)) {
+            String name = NpcIds.displayNameOf(stage.npc());
+            return List.of(Te.s("与 ", name == null ? stage.npc() : name, " 对话", CustomStyle.styleOfSky));
+        }
+        CompoundTag progress = clientProgress(stage);
+        List<Component> lines = new ArrayList<>();
+        for (Objective objective : stage.objectives()) {
+            lines.add(objective.text(progress));
+        }
+        return lines;
+    }
+
+    /**
+     * 客户端战斗 HUD 保持显示用：当前进行中的主线阶段里，要求击杀数量 &gt; 1 的目标怪物名。
+     * 数量为 1 的击杀目标不参与（避免与普通战斗 HUD 冲突）。
+     */
+    public static List<String> clientMultiKillTargets() {
+        Stage stage = clientCurrent();
+        if (stage == null || !clientStatus(stage).equals(MissionV2.Status.IN_PROGRESS)) {
+            return List.of();
+        }
+        List<String> targets = new ArrayList<>();
+        for (Objective objective : stage.objectives()) {
+            if (objective instanceof Objective.Kill kill && kill.count() > 1) {
+                targets.add(kill.mob());
+            }
+        }
+        return targets;
     }
 
     /** 把阶段目标拼成一行（击杀类带进度）。 */
