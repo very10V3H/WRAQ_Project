@@ -264,6 +264,15 @@ dependencies {
     implementation fg.deobf("curse.maven:modernfix-790626:5288164")
     implementation fg.deobf("curse.maven:bendy-lib-623373:4550371")
     // AsteorBar 已移除：生物头顶血条由 VMD 自绘（EntityHealthBarRenderer），数字支持 1.2w / 3e 缩写。
+    // First-person Model 已从 dev 依赖移除：2.6+ 把 TRansition / TRender 作为 jarJar 内嵌
+    // （META-INF/jars/*.jar），而 fg.deobf 只重映射外层 jar，内嵌 jar 仍是 SRG 名，
+    // dev 环境（official 映射）下会 NoSuchMethodError: Minecraft.m_91087_ / DetectedVersion.m_195834_，
+    // 导致 firstperson + transition 两个 mod 在 CONSTRUCT 阶段构造失败、客户端直接崩。
+    // VMD 代码没有引用它，需要第一人称模型时请装进真实客户端实例；
+    // 若非要塞进 dev 测试，用自包含（无 jarJar 内嵌）的 2.4.9：
+    // implementation fg.deobf("curse.maven:first-person-model-333287:6356575")
+    // implementation fg.deobf("curse.maven:first-person-model-333287:8990468")
+    implementation fg.deobf("curse.maven:first-person-model-333287:6356575")
 }
 
 dependencies {
@@ -314,4 +323,5 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
 }

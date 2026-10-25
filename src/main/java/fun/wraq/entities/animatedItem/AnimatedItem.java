@@ -13,6 +13,7 @@ import software.bernie.geckolib.util.RenderUtils;
 
 import java.util.function.Consumer;
 
+@SuppressWarnings({"deprecation", "unchecked"})
 public class AnimatedItem extends Item implements GeoItem {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 

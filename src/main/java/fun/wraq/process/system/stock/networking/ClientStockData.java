@@ -10,6 +10,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("unchecked")
 public class ClientStockData {
     public static boolean marketPaused = false;
     public static final Map<StockIndex, PriceEntry> priceCache = new EnumMap<>(StockIndex.class);

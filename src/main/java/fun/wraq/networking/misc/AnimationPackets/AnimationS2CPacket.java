@@ -18,6 +18,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings({"deprecation", "unchecked"})
 public class AnimationS2CPacket {
     private final int playerId;
     private final String animationId;

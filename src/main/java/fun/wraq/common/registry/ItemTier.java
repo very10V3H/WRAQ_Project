@@ -4,6 +4,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public enum ItemTier implements Tier {
     VMaterial(0, 100, 1.0f, 0.0f, 15),
     MaterialForPickaxe0(10, 100, 2.0f, 0.0f, 15),

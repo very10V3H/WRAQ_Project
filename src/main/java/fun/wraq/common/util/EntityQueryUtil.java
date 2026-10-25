@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@SuppressWarnings({"deprecation", "unchecked"})
 public class EntityQueryUtil {
 
     private static final Set<EntityType<?>> bornInChaosMobTypeSet = new HashSet<>();

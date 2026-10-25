@@ -16,6 +16,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.function.Consumer;
 
+@SuppressWarnings({"deprecation", "unchecked"})
 public class HolyArmor extends MobArmor implements GeoItem {
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);

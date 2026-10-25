@@ -324,8 +324,7 @@ public class VMD {
             };
             for (Item item : items) event.accept(item);
 
-            for (Object o : ElementItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
+            for (RegistryObject<Item> item : ElementItems.ITEMS.getEntries()) {
                 event.accept(item.get().getDefaultInstance());
             }
         }
