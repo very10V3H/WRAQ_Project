@@ -93,7 +93,9 @@ public class WraqForge extends Item {
             int tier = 0;
             if (hammer instanceof ForgeHammer forgeHammer1) {
                 tier = ForgeEquipUtils.getOneTimeForgeTier(forgeHammer1.getTier());
-                Compute.playerItemUseWithRecord(player);
+                if (!ForgeEquipUtils.ignoresForgeQuality(forgedItem)) {
+                    Compute.playerItemUseWithRecord(player);
+                }
             } else {
                 SmithHammer smithHammer = (SmithHammer) hammer;
                 tier = ForgeEquipUtils.getOneTimeForgeTier(smithHammer.getTier());
@@ -133,7 +135,9 @@ public class WraqForge extends Item {
                 int tier = 0;
                 if (hammer instanceof ForgeHammer forgeHammer1) {
                     tier = ForgeEquipUtils.getOneTimeForgeTier(forgeHammer1.getTier());
-                    Compute.playerItemUseWithRecord(player);
+                    if (!ForgeEquipUtils.ignoresForgeQuality(forgedItem)) {
+                        Compute.playerItemUseWithRecord(player);
+                    }
                 } else {
                     SmithHammer smithHammer = (SmithHammer) hammer;
                     tier = ForgeEquipUtils.getOneTimeForgeTier(smithHammer.getTier());
@@ -251,8 +255,8 @@ public class WraqForge extends Item {
         }
 
         // 引导触发
-        Set<Item> forestEquips = Set.of(ModItems.FOREST_HELMET.get(), ModItems.FOREST_CHEST.get(),
-                ModItems.FOREST_LEGGINGS.get(), ModItems.FOREST_BOOTS.get(),
+        Set<Item> forestEquips = Set.of(ModItems.FOREST_CHEST.get(),
+                ModItems.FOREST_LEGGINGS.get(),
                 ModItems.FOREST_SWORD_0.get(), ModItems.FOREST_BOW_0.get());
         if (forestEquips.contains(item)) {
             Guide.trigV2(player, Guide.StageV2.FOREST_EQUIP);
@@ -269,8 +273,7 @@ public class WraqForge extends Item {
         if (mineEquips.contains(item)) {
             Guide.trigV2(player, Guide.StageV2.MINE_EQUIP);
         }
-        Set<Item> volcanoEquips = Set.of(ModItems.VOLCANO_HELMET.get(), ModItems.VOLCANO_CHEST.get(),
-                ModItems.VOLCANO_LEGGINGS.get(), ModItems.VOLCANO_BOOTS.get(),
+        Set<Item> volcanoEquips = Set.of(ModItems.VOLCANO_HELMET.get(),
                 ModItems.VOLCANO_SWORD_0.get(), ModItems.VOLCANO_BOW_0.get());
         if (volcanoEquips.contains(item)) {
             Guide.trigV2(player, Guide.StageV2.VOLCANO_EQUIP);

@@ -5,7 +5,7 @@
     },
     "facing=south": {
       "model": "vmd:block/forging_block",
-      "y": 90
+      "y": 180
     },
     "facing=west": {
       "model": "vmd:block/forging_block",
@@ -13,7 +13,7 @@
     },
     "facing=east": {
       "model": "vmd:block/forging_block",
-      "y": 180
+      "y": 90
     }
   }
 }

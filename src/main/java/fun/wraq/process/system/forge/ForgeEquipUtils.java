@@ -17,6 +17,7 @@ import fun.wraq.series.overworld.extraordinary.ExtraordinaryItems;
 import fun.wraq.series.overworld.sakura.bunker.BunkerItems;
 import fun.wraq.series.overworld.wind.WindItems;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.impl.forge.IgnoreForgeQuality;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -88,9 +89,6 @@ public class ForgeEquipUtils {
 
     public static void setZoneForgeItemListMap() {
         List<Item> plain = List.of(
-                ModItems.PLAIN_HELMET.get(),
-                ModItems.PLAIN_CHEST.get(),
-                ModItems.PLAIN_LEGGINGS.get(),
                 ModItems.PLAIN_BOOTS.get(),
                 ModItems.PLAIN_SWORD_0.get(),
                 ModItems.PLAIN_BOW_0.get(),
@@ -104,10 +102,8 @@ public class ForgeEquipUtils {
         List<Item> forest = List.of(
                 ModItems.FOREST_SWORD_0.get(),
                 ModItems.FOREST_BOW_0.get(),
-                ModItems.FOREST_HELMET.get(),
                 ModItems.FOREST_CHEST.get(),
                 ModItems.FOREST_LEGGINGS.get(),
-                ModItems.FOREST_BOOTS.get(),
                 ModItems.LAKE_SWORD_0.get(),
                 ModItems.LAKE_BOW_0.get(),
                 ModItems.LAKE_SCEPTRE_0.get(),
@@ -123,10 +119,7 @@ public class ForgeEquipUtils {
                 NewC1Items.MINE_BOOTS.get(),
                 ModItems.VOLCANO_SWORD_0.get(),
                 ModItems.VOLCANO_BOW_0.get(),
-                ModItems.VOLCANO_HELMET.get(),
-                ModItems.VOLCANO_CHEST.get(),
-                ModItems.VOLCANO_LEGGINGS.get(),
-                ModItems.VOLCANO_BOOTS.get()
+                ModItems.VOLCANO_HELMET.get()
         );
         zoneForgeItemListMap.put(FOREST_VILLAGE, new ArrayList<>() {{
             forest.forEach(item -> add(item.getDefaultInstance()));
@@ -148,9 +141,6 @@ public class ForgeEquipUtils {
                 ModItems.VOLCANO_SWORD_0.get(),
                 ModItems.VOLCANO_BOW_0.get(),
                 ModItems.VOLCANO_HELMET.get(),
-                ModItems.VOLCANO_CHEST.get(),
-                ModItems.VOLCANO_LEGGINGS.get(),
-                ModItems.VOLCANO_BOOTS.get(),
                 C7Items.BONE_IMP_KNIFE.get()
         );
         zoneForgeItemListMap.put(VOLCANO_VILLAGE, new ArrayList<>() {{
@@ -497,7 +487,18 @@ public class ForgeEquipUtils {
     }
 
     public static double getTierValueEffect(ItemStack equip) {
+        if (ignoresForgeQuality(equip)) {
+            return 1;
+        }
         return getTierValueEffect(getEquipForgeQuality(equip));
+    }
+
+    public static boolean ignoresForgeQuality(Item item) {
+        return item instanceof IgnoreForgeQuality;
+    }
+
+    public static boolean ignoresForgeQuality(ItemStack equip) {
+        return equip != null && ignoresForgeQuality(equip.getItem());
     }
 
     public static Component getDescription(int tier) {

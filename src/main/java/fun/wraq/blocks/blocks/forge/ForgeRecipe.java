@@ -32,24 +32,6 @@ public class ForgeRecipe {
     public static Map<Item, List<ItemStack>> recipes = new HashMap<>();
 
     public static void forgeDrawRecipeInit() {
-        recipes.put(ModItems.PLAIN_HELMET.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
-            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
-            add(new ItemStack(Items.LEATHER, 5));
-        }});
-
-        recipes.put(ModItems.PLAIN_CHEST.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
-            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
-            add(new ItemStack(Items.LEATHER, 8));
-        }});
-
-        recipes.put(ModItems.PLAIN_LEGGINGS.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
-            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
-            add(new ItemStack(Items.LEATHER, 7));
-        }});
-
         recipes.put(ModItems.PLAIN_BOOTS.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.PLAIN_RUNE.get(), 2));
             add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
@@ -71,12 +53,6 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 7));
         }});
 
-        recipes.put(ModItems.FOREST_HELMET.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
-            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
-            add(new ItemStack(Items.LEATHER, 10));
-        }});
-
         recipes.put(ModItems.FOREST_CHEST.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
             add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
@@ -87,12 +63,6 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
             add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 14));
-        }});
-
-        recipes.put(ModItems.FOREST_BOOTS.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
-            add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
-            add(new ItemStack(Items.LEATHER, 8));
         }});
 
         recipes.put(ModItems.FOREST_SWORD_0.get(), new ArrayList<>() {{
@@ -148,24 +118,6 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
             add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
             add(new ItemStack(Items.LEATHER, 10));
-        }});
-
-        recipes.put(ModItems.VOLCANO_CHEST.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
-            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
-            add(new ItemStack(Items.LEATHER, 16));
-        }});
-
-        recipes.put(ModItems.VOLCANO_LEGGINGS.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
-            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
-            add(new ItemStack(Items.LEATHER, 14));
-        }});
-
-        recipes.put(ModItems.VOLCANO_BOOTS.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 3));
-            add(new ItemStack(ModItems.FIRE_ELEMENT_PIECE_0.get(), 14));
-            add(new ItemStack(Items.LEATHER, 8));
         }});
 
         recipes.put(ModItems.VOLCANO_SWORD_0.get(), new ArrayList<>() {{

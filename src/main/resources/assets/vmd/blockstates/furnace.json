@@ -5,7 +5,7 @@
     },
     "facing=south": {
       "model": "vmd:block/furnace",
-      "y": 90
+      "y": 180
     },
     "facing=west": {
       "model": "vmd:block/furnace",
@@ -13,7 +13,7 @@
     },
     "facing=east": {
       "model": "vmd:block/furnace",
-      "y": 180
+      "y": 90
     }
   }
 }
