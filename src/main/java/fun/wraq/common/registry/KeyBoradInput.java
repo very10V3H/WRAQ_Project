@@ -15,6 +15,9 @@ public class KeyBoradInput {
     public static final KeyMapping SKILL_SCREEN = new KeyMapping("key.vmd.skill_screen", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, KEY_CATEGORY);
 
+    public static final KeyMapping MASTERY_SCREEN = new KeyMapping("key.vmd.mastery_screen", KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, KEY_CATEGORY);
+
     public static final KeyMapping NEW_SKILL_1 = new KeyMapping("key.vmd.new_skill_1", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Q, KEY_CATEGORY);
 
@@ -50,9 +53,6 @@ public class KeyBoradInput {
 
     public static final KeyMapping SPACE = new KeyMapping("key.vmd.space", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_SPACE, KEY_CATEGORY);
-
-    public static final KeyMapping BACKPACK = new KeyMapping("key.vmd.backpack", KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_B, KEY_CATEGORY);
 
 }
 

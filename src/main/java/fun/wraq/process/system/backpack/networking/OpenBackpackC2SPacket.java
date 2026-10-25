@@ -18,7 +18,8 @@ import java.util.function.Supplier;
 
 /**
  * AI-Generated, 2026-07-12
- * 客户端按下 B 键后发送到此包 → 服务端打开背包 GUI（第 0 页）。
+ * 客户端请求打开背包 GUI（第 0 页）。
+ * 个人背包快捷键已移除；仍保留此包供其它入口/命令使用。
  */
 public class OpenBackpackC2SPacket {
 

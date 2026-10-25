@@ -29,6 +29,7 @@ import fun.wraq.render.gui.market.SmartPhone;
 import fun.wraq.render.gui.mission.OldMissionScreen;
 import fun.wraq.render.gui.mission.ReputationStore;
 import fun.wraq.render.gui.skills.IdCardGui;
+import fun.wraq.render.gui.skills.MasteryScreen;
 import fun.wraq.render.gui.skills.SkillTreeGui;
 import fun.wraq.render.gui.team.*;
 import fun.wraq.render.gui.trade.single.SingleItemChangeScreen;
@@ -40,6 +41,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,6 +50,24 @@ import net.minecraftforge.fml.common.Mod;
 public class KeyInput {
     @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
+
+        /**
+         * AI-Generated, 2026-10-25
+         * 登录完成时清掉进入世界前遗留的按键点击队列。
+         * 否则玩家在加载界面/上一次会话中按过 N，进入世界后的第一次按键事件
+         * 会通过 consumeClick 打开 SkillV2Screen（表现为刚进游戏时闪出技能界面）。
+         */
+        @SubscribeEvent
+        public static void onClientLoggingIn(ClientPlayerNetworkEvent.LoggingIn event) {
+            while (KeyBoradInput.SKILL_SCREEN.consumeClick()) {
+                // discard stale queued click
+            }
+            while (KeyBoradInput.MASTERY_SCREEN.consumeClick()) {
+                // discard stale queued click
+            }
+            SkillV2.screenRefreshFlag = false;
+        }
+
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             Minecraft mc = Minecraft.getInstance();
@@ -57,7 +77,15 @@ public class KeyInput {
                 mc.popGuiLayer();
             }
             if (KeyBoradInput.SKILL_SCREEN.consumeClick()) {
-                Minecraft.getInstance().setScreen(new SkillV2Screen(SkillV2.clientProfessionType));
+                // 刚进世界的前 1s 内忽略遗留点击/误触，避免技能界面自动弹出。
+                if (player.tickCount > 20 && mc.screen == null) {
+                    Minecraft.getInstance().setScreen(new SkillV2Screen(SkillV2.clientProfessionType));
+                }
+            }
+            if (KeyBoradInput.MASTERY_SCREEN.consumeClick()) {
+                if (player.tickCount > 20 && mc.screen == null) {
+                    MasteryScreen.tryOpen(null);
+                }
             }
             if (KeyBoradInput.NEW_SKILL_1.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
@@ -153,10 +181,6 @@ public class KeyInput {
             if (KeyBoradInput.TEAM.consumeClick()) {
                 ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());
             }
-
-            if (KeyBoradInput.BACKPACK.consumeClick()) {
-                ModNetworking.sendToServer(new fun.wraq.process.system.backpack.networking.OpenBackpackC2SPacket());
-            }
         }
     }
 
@@ -182,6 +206,7 @@ public class KeyInput {
         @SubscribeEvent
         public static void KeyBinding(RegisterKeyMappingsEvent event) {
             event.register(KeyBoradInput.SKILL_SCREEN);
+            event.register(KeyBoradInput.MASTERY_SCREEN);
             event.register(KeyBoradInput.NEW_SKILL_1);
             event.register(KeyBoradInput.NEW_SKILL_2);
             event.register(KeyBoradInput.NEW_SKILL_3);
@@ -193,7 +218,6 @@ public class KeyInput {
             event.register(KeyBoradInput.NavigateSet);
             event.register(KeyBoradInput.ElementRoulette);
             event.register(KeyBoradInput.TEAM);
-            event.register(KeyBoradInput.BACKPACK);
         }
     }
 }

@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.KeyBoradInput;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.ClientPlayerTeam;
@@ -38,7 +39,6 @@ import fun.wraq.process.system.afk.AfkScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
-import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.gui.dialog.DialogScreen;
 import fun.wraq.render.gui.market.MarketScreen;
 import fun.wraq.render.gui.skills.IdCardGui;
@@ -91,7 +91,12 @@ public class ClientPlayerTickEvent {
     public static void ClientTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         if (!player.equals(Minecraft.getInstance().player)) return;
-        MyWayPoint.clientTick(event);
+        // AI-Generated, 2026-10-25：登录后的前 1s 清掉 N 键遗留点击，避免 SkillV2Screen 自动弹出。
+        if (event.side.isClient() && event.phase == TickEvent.Phase.START && player.tickCount <= 20) {
+            while (KeyBoradInput.SKILL_SCREEN.consumeClick()) {
+                // discard stale queued click
+            }
+        }
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) {
             windLand(player);
             Main0.clientTick(player);
@@ -354,8 +359,9 @@ public class ClientPlayerTickEvent {
             ClientUtils.clientLevel = mc.player.level();
 
             if (event.player.tickCount % 100 == 0) {
-                List<Player> playerList = (List<Player>) event.player.level().players();
-                playerList.forEach(Player::refreshDisplayName);
+                for (Player other : event.player.level().players()) {
+                    other.refreshDisplayName();
+                }
             }
 
             if (ClientUtils.oldMissionList.size() > 0 && ClientUtils.NavigateIndex != -1) {
