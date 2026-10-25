@@ -965,11 +965,6 @@ public class TradeList {
     public static void PlainForestRune() {
         ItemStack[] itemStacks = {
                 ModItems.PLAIN_MANA.get().getDefaultInstance(),
-                ModItems.PLAIN_MANA.get().getDefaultInstance(),
-                ModItems.PLAIN_MANA.get().getDefaultInstance(),
-                ModItems.PLAIN_MANA.get().getDefaultInstance(),
-                ModItems.FOREST_MANA.get().getDefaultInstance(),
-                ModItems.FOREST_MANA.get().getDefaultInstance(),
                 ModItems.FOREST_MANA.get().getDefaultInstance(),
                 ModItems.FOREST_MANA.get().getDefaultInstance(),
                 GemItems.LIFE_MANA_GEM.get().getDefaultInstance(),
@@ -982,37 +977,17 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.PLAIN_HELMET.get(), 1));
+                    add(new ItemStack(ModItems.PLAIN_BOOTS.get(), 1));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.PLAIN_CHEST.get(), 1));
+                    add(new ItemStack(ModItems.FOREST_CHEST.get(), 1));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.PLAIN_LEGGINGS.get(), 1));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.PLAIN_BOOTS.get(), 1));
-                }});
-                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.FOREST_HELMET.get(), 1));
-                }});
-                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.FOREST_CHEST.get(), 1));
-                }});
-                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
                     add(new ItemStack(ModItems.FOREST_LEGGINGS.get(), 1));
                 }});
-                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.FOREST_BOOTS.get(), 1));
-                }});
-                case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 10));
                     add(new ItemStack(GemItems.PLAIN_GEM.get(), 1));
                     add(new ItemStack(GemItems.FOREST_GEM.get(), 1));
@@ -1027,9 +1002,6 @@ public class TradeList {
                 ModItems.LAKE_MANA.get().getDefaultInstance(),
                 ModItems.LAKE_MANA.get().getDefaultInstance(),
                 ModItems.LAKE_MANA.get().getDefaultInstance(),
-                ModItems.VOLCANO_MANA.get().getDefaultInstance(),
-                ModItems.VOLCANO_MANA.get().getDefaultInstance(),
-                ModItems.VOLCANO_MANA.get().getDefaultInstance(),
                 ModItems.VOLCANO_MANA.get().getDefaultInstance(),
                 GemItems.OBSI_MANA_GEM.get().getDefaultInstance(),
         };
@@ -1060,18 +1032,6 @@ public class TradeList {
                     add(new ItemStack(ModItems.VOLCANO_HELMET.get(), 1));
                 }});
                 case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.VOLCANO_CHEST.get(), 1));
-                }});
-                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.VOLCANO_LEGGINGS.get(), 1));
-                }});
-                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 5));
-                    add(new ItemStack(ModItems.VOLCANO_BOOTS.get(), 1));
-                }});
-                case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MANA_BALANCE_EMPTY.get(), 10));
                     add(new ItemStack(GemItems.LAKE_GEM.get(), 1));
                     add(new ItemStack(GemItems.VOLCANO_GEM.get(), 1));
@@ -1429,7 +1389,7 @@ public class TradeList {
                     add(new ItemStack(ModItems.SLIME_BALL.get(), 64));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FOREST_BOOTS.get(), 1));
+                    add(new ItemStack(ModItems.FOREST_CHEST.get(), 1));
                     add(new ItemStack(ModItems.BIG_SLIME_BALL.get(), 12));
                 }});
             }
@@ -1629,6 +1589,7 @@ public class TradeList {
                 new ItemStack(ModItems.RUBY_NECKLACE.get(), 1),
                 new ItemStack(ModItems.SAPPHIRE_NECKLACE.get(), 1),
                 new ItemStack(ModItems.FANCY_SAPPHIRE_NECKLACE.get(), 1),
+                new ItemStack(ModItems.GRAVITY_BYPASS_DEVICE.get(), 1),
         };
 
         List<ItemStack> contentList = new ArrayList<>();
@@ -1666,6 +1627,10 @@ public class TradeList {
                     add(new ItemStack(ModItems.SAPPHIRE_NECKLACE_3.get(), 1));
                     add(new ItemStack(ModItems.VOLCANO_RUNE.get(), 64));
                     add(new ItemStack(ModItems.RUBY_NECKLACE_3.get(), 1));
+                }});
+                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.SKY_RUNE.get(), 4));
+                    add(new ItemStack(ModItems.GEM_PIECE.get(), 64));
                 }});
             }
         }

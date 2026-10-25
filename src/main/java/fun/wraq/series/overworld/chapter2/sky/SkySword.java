@@ -3,13 +3,13 @@ package fun.wraq.series.overworld.chapter2.sky;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.forge.IgnoreForgeQuality;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.buff.BuffSystem;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -20,15 +20,12 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SkySword extends WraqSword implements OnHitEffectEquip {
+public class SkySword extends WraqSword implements OnHitEffectEquip, IgnoreForgeQuality {
 
     public SkySword(Properties properties) {
         super(properties);
-        Utils.attackDamage.put(this, 120d);
-        Utils.defencePenetration0.put(this, 6d);
-        Utils.critRate.put(this, 0.25);
-        Element.windElementValue.put(this, 0.8);
-        Utils.levelRequire.put(this, 72);
+        Utils.attackDamage.put(this, 30d);
+        Utils.critRate.put(this, 0.1);
     }
 
     @Override

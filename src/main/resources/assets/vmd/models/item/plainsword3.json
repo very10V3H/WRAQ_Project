@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "vmd:item/plainsword3"
-  }
+  "parent": "vmd:item/plain_dagger"
 }

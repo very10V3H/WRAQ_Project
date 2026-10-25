@@ -163,6 +163,7 @@ import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
 import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmor;
 import fun.wraq.series.overworld.chapter2.sky.BossItems.SkyBoss;
 import fun.wraq.series.overworld.chapter2.sky.Crest.SkyCrest;
+import fun.wraq.series.overworld.chapter2.sky.GravityBypassDevice;
 import fun.wraq.series.overworld.chapter2.sky.SkyBow;
 import fun.wraq.series.overworld.chapter2.sky.SkySceptre;
 import fun.wraq.series.overworld.chapter2.sky.SkySword;
@@ -342,12 +343,6 @@ public class ModItems {
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.PlainItalic),
                     0, 20, 0.1, 1, 100, 8, 0.05, 0.1));
 
-    public static final RegistryObject<Item> PLAIN_HELMET = ITEMS.register("plainarmorhelmet",
-            () -> new PlainArmor(ModArmorMaterials.PlainMaterialHelmet, ArmorItem.Type.HELMET));
-    public static final RegistryObject<Item> PLAIN_CHEST = ITEMS.register("plainarmorchest",
-            () -> new PlainArmor(ModArmorMaterials.PlainMaterialChest, ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<Item> PLAIN_LEGGINGS = ITEMS.register("plainarmorleggings",
-            () -> new PlainArmor(ModArmorMaterials.PlainMaterialLeggings, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> PLAIN_BOOTS = ITEMS.register("plainarmorboots",
             () -> new PlainArmor(ModArmorMaterials.PlainMaterialBoots, ArmorItem.Type.BOOTS));
 
@@ -387,14 +382,10 @@ public class ModItems {
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.ForestItalic), 1,
                     40, 0.12, 1, 125, 10, 0.1, 0.15));
 
-    public static final RegistryObject<Item> FOREST_HELMET = ITEMS.register("forestarmorhelmet",
-            () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> FOREST_CHEST = ITEMS.register("forestarmorchest",
             () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> FOREST_LEGGINGS = ITEMS.register("forestarmorleggings",
             () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<Item> FOREST_BOOTS = ITEMS.register("forestarmorboots",
-            () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> COMPLETE_GEM = ITEMS.register("complete_gem",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, false, List.of(
@@ -574,12 +565,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> VOLCANO_HELMET = ITEMS.register("volcanoarmorhelmet",
             () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialHelmet, ArmorItem.Type.HELMET));
-    public static final RegistryObject<Item> VOLCANO_CHEST = ITEMS.register("volcanoarmorchest",
-            () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialChest, ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<Item> VOLCANO_LEGGINGS = ITEMS.register("volcanoarmorleggings",
-            () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialLeggings, ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<Item> VOLCANO_BOOTS = ITEMS.register("volcanoarmorboots",
-            () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialBoots, ArmorItem.Type.BOOTS));
+
 
     public static final RegistryObject<Item> ClearTree = ITEMS.register("clear_tree",
             () -> new ClearTree(new Item.Properties()));
@@ -640,6 +626,8 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Sky)));
     public static final RegistryObject<Item> SKY_RUNE = ITEMS.register("skyrune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.SkyBold)));
+    public static final RegistryObject<Item> GRAVITY_BYPASS_DEVICE = ITEMS.register("gravity_bypass_device",
+            () -> new GravityBypassDevice(new Item.Properties().rarity(CustomStyle.SkyItalic)));
     public static final RegistryObject<Item> EVOKER_SOUL = ITEMS.register("evokersoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Evoker)));
     public static final RegistryObject<Item> MANA_BUCKET = ITEMS.register("manabucket",

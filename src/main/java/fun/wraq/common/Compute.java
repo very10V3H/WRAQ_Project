@@ -33,6 +33,7 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.series.events.ForgePaper;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
+import fun.wraq.series.overworld.chapter2.sky.GravityBypassDevice;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.overworld.cold.sc5.dragon.SuperColdCarrot;
 import net.minecraft.ChatFormatting;
@@ -458,14 +459,6 @@ public class Compute {
         HealUtil.healByHealthSteal(player, mob, damage);
     }
 
-    public static int SuitItemVision(Player player, Item item, EquipmentSlot equipmentSlot, List<Component> components, Style MainStyle) {
-        return TooltipUtil.SuitItemVision(player, item, equipmentSlot, components, MainStyle);
-    }
-
-    public static int SuitItemVision(Player player, Item item, EquipmentSlot equipmentSlot, List<Component> components, ChatFormatting MainStyle) {
-        return TooltipUtil.SuitItemVision(player, item, equipmentSlot, components, MainStyle);
-    }
-
     public static void playerItemUseWithRecord(Player player) {
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         LogUtils.getLogger().info("{} {} {}", player.getName().getString(),
@@ -666,16 +659,6 @@ public class Compute {
 
     public static Set<Mob> getPlayerRayMobList(Player player, double detectStep, double detectRange, double maxDistance) {
         return EntityQueryUtil.getPlayerRayMobList(player, detectStep, detectRange, maxDistance);
-    }
-
-    public static double PlayerDodgeRate(Player player) {
-        double swift = Math.min(PlayerAttributes.extraSwiftness(player), 90);
-        double rate = 0;
-        if (swift <= 10) rate = swift * 0.02;
-        else if (swift <= 20) rate = 0.2 + (swift - 10) * 0.015;
-        else if (swift <= 30) rate = 0.35 + (swift - 20) * 0.01;
-        else rate = 0.45 + (swift - 30) * 0.005;
-        return rate * 0.5;
     }
 
     public static Mob detectPlayerPickMob(Player player) {
@@ -976,6 +959,14 @@ public class Compute {
     }};
 
     public static boolean inLowGravityEnvironment(Player player) {
+        // 重力旁路装置：开启时屏蔽低重力区域的重力修改
+        return inLowGravityZone(player) && !GravityBypassDevice.isActive(player);
+    }
+
+    /**
+     * 纯坐标判定：玩家是否处于低重力区域，不受重力旁路装置影响。
+     */
+    public static boolean inLowGravityZone(Player player) {
         return lowGravityZone.stream().anyMatch(pair -> {
             return player.getX() > pair.getFirst().x && player.getY() > pair.getFirst().y && player.getZ() > pair.getFirst().z
                     && player.getX() < pair.getSecond().x && player.getY() < pair.getSecond().y && player.getZ() < pair.getSecond().z;
