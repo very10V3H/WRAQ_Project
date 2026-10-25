@@ -83,11 +83,13 @@ public final class ItemSourceInfo {
             }
             for (Map.Entry<String, List<Item>> entry : blockGroups.entrySet()) {
                 List<Item> same = entry.getValue();
-                String name = same.get(0).getDefaultInstance().getHoverName().getString();
+                Item first = same.get(0);
+                MutableComponent header = headerOf(
+                        first.getDefaultInstance().getHoverName().getString(), first);
                 if (same.size() > 1) {
-                    name = name + " 等" + same.size() + "件";
+                    header.append(Component.literal(" 等" + same.size() + "件").withStyle(ChatFormatting.GOLD));
                 }
-                result.add(new Line(Component.literal("【" + name + "】").withStyle(ChatFormatting.GOLD), null));
+                result.add(new Line(header, null));
                 result.addAll(blocks.get(entry.getKey()));
             }
             return result;
@@ -95,8 +97,10 @@ public final class ItemSourceInfo {
 
         Map<String, List<Line>> merged = new LinkedHashMap<>();
         Map<String, Integer> mergedCounts = new LinkedHashMap<>();
+        Map<String, Item> mergedBases = new LinkedHashMap<>();
         for (Map.Entry<String, List<Item>> entry : blockGroups.entrySet()) {
             String groupName = groupNameOf(entry.getValue().get(0));
+            mergedBases.putIfAbsent(groupName, entry.getValue().get(0));
             List<Line> target = merged.computeIfAbsent(groupName, k -> new ArrayList<>());
             for (Line line : blocks.get(entry.getKey())) {
                 boolean duplicate = false;
@@ -118,11 +122,23 @@ public final class ItemSourceInfo {
         }
         for (Map.Entry<String, List<Line>> entry : merged.entrySet()) {
             int count = mergedCounts.getOrDefault(entry.getKey(), 1);
-            String header = count > 1 ? entry.getKey() + " 等" + count + "件" : entry.getKey();
-            result.add(new Line(Component.literal("【" + header + "】").withStyle(ChatFormatting.GOLD), null));
+            MutableComponent header = headerOf(entry.getKey(), mergedBases.get(entry.getKey()));
+            if (count > 1) {
+                header.append(Component.literal(" 等" + count + "件").withStyle(ChatFormatting.GOLD));
+            }
+            result.add(new Line(header, null));
             result.addAll(entry.getValue());
         }
         return result;
+    }
+
+    /** 分节标题：保留物品名称自身的颜色/字体。 */
+    private static MutableComponent headerOf(String text, Item base) {
+        MutableComponent header = Component.literal("【").withStyle(ChatFormatting.GOLD);
+        Component styled = base == null ? Component.literal(text) : IllustrateData.styledName(text, base);
+        header.append(styled);
+        header.append(Component.literal("】").withStyle(ChatFormatting.GOLD));
+        return header;
     }
 
     private static boolean containsRecipeLine(List<Line> block) {
@@ -198,17 +214,18 @@ public final class ItemSourceInfo {
 
         if (lines.isEmpty()) {
             lines.add(new Line(Component.literal("代码中暂未检索到明确的获取/制作来源")
-                    .withStyle(ChatFormatting.GRAY), null));
+                    .withStyle(ChatFormatting.DARK_GRAY), null));
         }
         return lines;
     }
 
     private static Line placeLine(List<Component> places) {
-        MutableComponent line = Component.literal("锻造地点：").withStyle(ChatFormatting.WHITE);
+        MutableComponent line = Component.literal("锻造地点：").withStyle(ChatFormatting.DARK_GRAY);
         for (int index = 0; index < places.size(); index++) {
-            line.append(places.get(index));
+            line.append(Component.literal(places.get(index).getString())
+                    .withStyle(ChatFormatting.DARK_GRAY));
             if (index != places.size() - 1) {
-                line.append(Component.literal("、").withStyle(ChatFormatting.WHITE));
+                line.append(Component.literal("、").withStyle(ChatFormatting.DARK_GRAY));
             }
         }
         return new Line(line, null);
@@ -219,14 +236,15 @@ public final class ItemSourceInfo {
     }
 
     private static Line materialLine(String prefix, ItemStack material, int count) {
-        MutableComponent line = Component.literal(prefix).withStyle(ChatFormatting.WHITE);
-        line.append(material.getHoverName().copy().withStyle(ChatFormatting.WHITE));
-        line.append(Component.literal(" ×" + count).withStyle(ChatFormatting.AQUA));
+        MutableComponent line = Component.literal(prefix).withStyle(ChatFormatting.DARK_GRAY);
+        line.append(Component.literal(material.getHoverName().getString())
+                .withStyle(ChatFormatting.DARK_GRAY));
+        line.append(Component.literal(" ×" + count).withStyle(ChatFormatting.DARK_AQUA));
         return new Line(line, IllustrateData.prepareStack(material.getItem()));
     }
 
     private static Component text(String value) {
-        return Component.literal(value).withStyle(ChatFormatting.WHITE);
+        return Component.literal(value).withStyle(ChatFormatting.DARK_GRAY);
     }
 
     private static Map<Item, InjectingRecipe> injectProductMap;

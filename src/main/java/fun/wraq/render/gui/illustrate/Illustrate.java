@@ -4,7 +4,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.gui.illustrate.mobinfo.MobInfoGui;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -50,6 +49,22 @@ public class Illustrate extends Screen {
     private static final int SUB_COLUMNS = 8;
     private static final int SUB_SPACING = 30;
     private static final int SUB_ROWS_MAX = 6;
+
+    private static final int PANEL_BG_TOP = 0xE8F6FAFD;
+    private static final int PANEL_BG_BOTTOM = 0xF7FFFFFF;
+    private static final int PANEL_BORDER = 0xFF2E9BD6;
+    private static final int TEXT = 0xFF1E2D44;
+    private static final int DIM = 0xFF5A6B80;
+    private static final int CARD = 0xE8FFFFFF;
+    private static final int CARD_HOVER = 0xF4FFFFFF;
+    private static final int CARD_BORDER = 0xFFB9D4E8;
+    private static final int SLOT_FILL = 0xFF8C8C8C;
+    private static final int SLOT_BORDER = 0xFF5A5A5A;
+    private static final int SLOT_HIGHLIGHT = 0xFFAAAAAA;
+    private static final int BUTTON_BG = 0xFFEAF4FB;
+    private static final int BUTTON_BORDER = 0xFF7FB6D9;
+    private static final int BUTTON_TEXT = 0xFF1E5A82;
+    private static final int BUTTON_HOVER = 0xFF2E9BD6;
 
     private final boolean showPauseMenu;
     private int page = 0;
@@ -192,7 +207,6 @@ public class Illustrate extends Screen {
             return;
         }
 
-        this.renderBackground(guiGraphics);
         int centerX = this.width / 2;
         int centerY = this.height / 2;
         int panelX = centerX - PANEL_WIDTH / 2;
@@ -200,14 +214,13 @@ public class Illustrate extends Screen {
         this.renderPanelBackground(guiGraphics, panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT);
 
         List<IllustrateData.Entry> entryList = currentEntries();
-        guiGraphics.drawCenteredString(FONT,
-                Component.literal(categoryName()).withStyle(ChatFormatting.WHITE),
-                centerX, panelY + 8, 0xFFFFFF);
+        drawCenteredNoShadow(guiGraphics, Component.literal(categoryName()),
+                centerX, panelY + 8, TEXT);
 
         ItemStack hoveredStack = null;
         if (entryList.isEmpty()) {
-            guiGraphics.drawCenteredString(FONT, Component.literal("暂无物品").withStyle(ChatFormatting.GRAY),
-                    centerX, centerY, 0xFFFFFF);
+            drawCenteredNoShadow(guiGraphics, Component.literal("暂无物品"),
+                    centerX, centerY, DIM);
         } else {
             for (int index = 0; index < IllustrateData.PER_PAGE; index++) {
                 int entryIndex = page * IllustrateData.PER_PAGE + index;
@@ -224,12 +237,12 @@ public class Illustrate extends Screen {
             }
         }
 
-        guiGraphics.drawCenteredString(FONT,
-                Component.literal((page + 1) + " / " + (maxPage() + 1)).withStyle(ChatFormatting.WHITE),
-                centerX, panelY + PANEL_HEIGHT - 16, 0xFFFFFF);
+        drawCenteredNoShadow(guiGraphics,
+                Component.literal((page + 1) + " / " + (maxPage() + 1)),
+                centerX, panelY + PANEL_HEIGHT - 16, DIM);
         guiGraphics.drawString(FONT,
-                Component.literal("共" + entryList.size() + "项").withStyle(ChatFormatting.GRAY),
-                panelX + 12, panelY + PANEL_HEIGHT - 14, 0xFFFFFF);
+                Component.literal("共" + entryList.size() + "项"),
+                panelX + 12, panelY + PANEL_HEIGHT - 14, DIM, false);
 
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
@@ -241,11 +254,8 @@ public class Illustrate extends Screen {
     }
 
     private void renderPanelBackground(GuiGraphics guiGraphics, int x, int y, int width, int height) {
-        guiGraphics.fill(x, y, x + width, y + height, 0xE6101A24);
-        guiGraphics.fill(x, y, x + width, y + 1, 0xFF4FC3F7);
-        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFF4FC3F7);
-        guiGraphics.fill(x, y, x + 1, y + height, 0xFF4FC3F7);
-        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFF4FC3F7);
+        guiGraphics.fillGradient(x, y, x + width, y + height, PANEL_BG_TOP, PANEL_BG_BOTTOM);
+        border(guiGraphics, x, y, x + width, y + height, PANEL_BORDER);
     }
 
     private ItemStack renderEntry(GuiGraphics guiGraphics, IllustrateData.Entry entry,
@@ -257,16 +267,21 @@ public class Illustrate extends Screen {
         boolean sourceHover = entry.hasSource()
                 && isHover(mouseX, mouseY, x + SOURCE_BUTTON_X, y + CARD_BUTTON_Y,
                 SOURCE_BUTTON_WIDTH, CARD_BUTTON_HEIGHT);
-        guiGraphics.fill(x, y, x + CARD_WIDTH, y + CARD_HEIGHT, hover ? 0xC0203A56 : 0x80162434);
-        guiGraphics.fill(x, y, x + CARD_WIDTH, y + 1, 0xFF2C5A7A);
-        guiGraphics.renderItem(entry.icon(), x + 5, y + 8);
+        guiGraphics.fill(x, y, x + CARD_WIDTH, y + CARD_HEIGHT, hover ? CARD_HOVER : CARD);
+        border(guiGraphics, x, y, x + CARD_WIDTH, y + CARD_HEIGHT, CARD_BORDER);
+        renderItemSlot(guiGraphics, x + 4, y + 6);
+        guiGraphics.renderItem(entry.icon(), x + 6, y + 8);
 
-        String displayName = entry.displayName();
-        String shownName = FONT.plainSubstrByWidth(displayName, CARD_WIDTH - 30);
-        if (shownName.length() < displayName.length()) {
-            shownName = shownName + "…";
+        Component displayName = entry.displayName();
+        int maxNameWidth = CARD_WIDTH - 32;
+        if (FONT.width(displayName) <= maxNameWidth) {
+            guiGraphics.drawString(FONT, displayName, x + 28, y + 4, TEXT, false);
+        } else {
+            List<FormattedCharSequence> nameLines = FONT.split(displayName, maxNameWidth);
+            FormattedCharSequence firstLine = nameLines.get(0);
+            guiGraphics.drawString(FONT, firstLine, x + 28, y + 4, TEXT, false);
+            guiGraphics.drawString(FONT, "…", x + 28 + FONT.width(firstLine), y + 4, TEXT, false);
         }
-        guiGraphics.drawString(FONT, shownName, x + 25, y + 4, 0xFFFFFF);
 
         if (entry.series()) {
             renderSmallButton(guiGraphics, "系列", x + SERIES_BUTTON_X, y + CARD_BUTTON_Y,
@@ -281,13 +296,25 @@ public class Illustrate extends Screen {
 
     private void renderSmallButton(GuiGraphics guiGraphics, String label, int x, int y,
                                    int width, int height, boolean hover) {
-        guiGraphics.fill(x, y, x + width, y + height, hover ? 0xFF2E6FA6 : 0xFF1E3A5F);
-        guiGraphics.fill(x, y, x + width, y + 1, 0xFF4FC3F7);
-        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFF4FC3F7);
-        guiGraphics.fill(x, y, x + 1, y + height, 0xFF4FC3F7);
-        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFF4FC3F7);
-        guiGraphics.drawCenteredString(FONT, Component.literal(label), x + width / 2,
-                y + 2, hover ? 0xFFFFFF : 0xD8E9F5);
+        guiGraphics.fill(x, y, x + width, y + height, hover ? BUTTON_HOVER : BUTTON_BG);
+        border(guiGraphics, x, y, x + width, y + height, BUTTON_BORDER);
+        drawCenteredNoShadow(guiGraphics, label, x + width / 2,
+                y + 2, hover ? 0xFFFFFFFF : BUTTON_TEXT);
+    }
+
+    private static void renderItemSlot(GuiGraphics guiGraphics, int x, int y) {
+        // 参考旧图鉴的灰色物品槽：浅色面板上给物品图标提供稳定的底
+        guiGraphics.fill(x, y, x + 20, y + 20, SLOT_FILL);
+        border(guiGraphics, x, y, x + 20, y + 20, SLOT_BORDER);
+        guiGraphics.fill(x + 1, y + 1, x + 19, y + 2, SLOT_HIGHLIGHT);
+    }
+
+    private static void border(GuiGraphics guiGraphics,
+                               int x1, int y1, int x2, int y2, int color) {
+        guiGraphics.fill(x1, y1, x2, y1 + 1, color);
+        guiGraphics.fill(x1, y2 - 1, x2, y2, color);
+        guiGraphics.fill(x1, y1, x1 + 1, y2, color);
+        guiGraphics.fill(x2 - 1, y1, x2, y2, color);
     }
 
     private void renderSubPanel(GuiGraphics guiGraphics, int mouseX, int mouseY) {
@@ -310,20 +337,15 @@ public class Illustrate extends Screen {
         int x = centerX - width / 2;
         int y = centerY - height / 2;
 
-        // 子窗口为模态：压暗整个屏幕后再绘制窗口
-        guiGraphics.fill(0, 0, this.width, this.height, 0x80000000);
-        guiGraphics.fill(x, y, x + width, y + height, 0xFF0E1620);
-        guiGraphics.fill(x, y, x + width, y + 1, 0xFFD4AF37);
-        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFFD4AF37);
-        guiGraphics.fill(x, y, x + 1, y + height, 0xFFD4AF37);
-        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFFD4AF37);
+        // 子窗口只绘制自己的浅色面板，不额外填充/压暗边框外背景
+        guiGraphics.fillGradient(x, y, x + width, y + height, PANEL_BG_TOP, PANEL_BG_BOTTOM);
+        border(guiGraphics, x, y, x + width, y + height, PANEL_BORDER);
         // 背景批次提交后再绘制文字与物品
         guiGraphics.flush();
 
-        guiGraphics.drawCenteredString(FONT, subPanel.title(), centerX, y + 8, 0xFFD4AF37);
-        guiGraphics.drawCenteredString(FONT,
-                Component.literal("点击任意位置关闭").withStyle(ChatFormatting.GRAY),
-                centerX, y + height - 13, 0xFFFFFF);
+        drawCenteredNoShadow(guiGraphics, subPanel.title(), centerX, y + 8, PANEL_BORDER);
+        drawCenteredNoShadow(guiGraphics, Component.literal("点击任意位置关闭"),
+                centerX, y + height - 13, DIM);
 
         ItemStack hoveredStack = null;
         for (int index = 0; index < visible; index++) {
@@ -332,6 +354,7 @@ public class Illustrate extends Screen {
             int itemX = x + 10 + column * SUB_SPACING;
             int itemY = y + 24 + row * 26;
             ItemStack stack = stacks.get(index);
+            renderItemSlot(guiGraphics, itemX - 2, itemY - 2);
             guiGraphics.renderItem(stack, itemX, itemY);
             if (isHover(mouseX, mouseY, itemX, itemY, 16, 16)) {
                 hoveredStack = stack;
@@ -398,19 +421,14 @@ public class Illustrate extends Screen {
         int height = layout.height();
         int centerX = this.width / 2;
 
-        // 子窗口为模态：压暗整个屏幕后再绘制窗口
-        guiGraphics.fill(0, 0, this.width, this.height, 0x80000000);
-        guiGraphics.fill(x, y, x + width, y + height, 0xFF0E1620);
-        guiGraphics.fill(x, y, x + width, y + 1, 0xFFD4AF37);
-        guiGraphics.fill(x, y + height - 1, x + width, y + height, 0xFFD4AF37);
-        guiGraphics.fill(x, y, x + 1, y + height, 0xFFD4AF37);
-        guiGraphics.fill(x + width - 1, y, x + width, y + height, 0xFFD4AF37);
+        // 子窗口只绘制自己的浅色面板，不额外填充/压暗边框外背景
+        guiGraphics.fillGradient(x, y, x + width, y + height, PANEL_BG_TOP, PANEL_BG_BOTTOM);
+        border(guiGraphics, x, y, x + width, y + height, PANEL_BORDER);
         guiGraphics.flush();
 
-        guiGraphics.drawCenteredString(FONT, subPanel.title(), centerX, y + 8, 0xFFD4AF37);
+        drawCenteredNoShadow(guiGraphics, subPanel.title(), centerX, y + 8, PANEL_BORDER);
         String hint = layout.maxScroll() > 0 ? "滚轮浏览 · 点击任意位置关闭" : "点击任意位置关闭";
-        guiGraphics.drawCenteredString(FONT,
-                Component.literal(hint).withStyle(ChatFormatting.GRAY), centerX, y + height - 12, 0xFFFFFF);
+        drawCenteredNoShadow(guiGraphics, Component.literal(hint), centerX, y + height - 12, DIM);
 
         guiGraphics.enableScissor(x + 1, layout.viewportTop(), x + width - 1, layout.viewportBottom());
         int textY = layout.viewportTop() - sourceScroll;
@@ -419,8 +437,9 @@ public class Illustrate extends Screen {
             if (row.icon() != null) {
                 boolean visible = textY + 20 > layout.viewportTop() && textY < layout.viewportBottom();
                 if (visible) {
+                    renderItemSlot(guiGraphics, x + 6, textY - 1);
                     guiGraphics.renderItem(row.icon(), x + 8, textY + 1);
-                    guiGraphics.drawString(FONT, row.text(), x + 28, textY + 5, 0xFFFFFF);
+                    guiGraphics.drawString(FONT, row.text(), x + 28, textY + 5, TEXT, false);
                     if (isHover(mouseX, mouseY, x + 8, textY + 1, 16, 16)
                             && isHover(mouseX, mouseY, x, layout.viewportTop(), width,
                             layout.viewportHeight())) {
@@ -433,7 +452,7 @@ public class Illustrate extends Screen {
                         && textY < layout.viewportBottom();
                 for (FormattedCharSequence sequence : row.wrapped()) {
                     if (visible) {
-                        guiGraphics.drawString(FONT, sequence, x + 10, textY, 0xFFFFFF);
+                        guiGraphics.drawString(FONT, sequence, x + 10, textY, TEXT, false);
                     }
                     textY += 11;
                 }
@@ -446,8 +465,8 @@ public class Illustrate extends Screen {
             int trackHeight = layout.viewportHeight();
             int thumbHeight = Math.max(16, trackHeight * trackHeight / Math.max(1, layout.contentHeight()));
             int thumbTop = trackTop + (trackHeight - thumbHeight) * sourceScroll / layout.maxScroll();
-            guiGraphics.fill(x + width - 5, trackTop, x + width - 3, trackTop + trackHeight, 0x60000000);
-            guiGraphics.fill(x + width - 5, thumbTop, x + width - 3, thumbTop + thumbHeight, 0xFFD4AF37);
+            guiGraphics.fill(x + width - 5, trackTop, x + width - 3, trackTop + trackHeight, 0x33000000);
+            guiGraphics.fill(x + width - 5, thumbTop, x + width - 3, thumbTop + thumbHeight, PANEL_BORDER);
         }
         if (hovered != null) {
             guiGraphics.flush();
@@ -475,8 +494,9 @@ public class Illustrate extends Screen {
                 int y = entryY(panelY, index / IllustrateData.COLUMNS);
                 if (entry.series() && isHover(mouseX, mouseY, x + SERIES_BUTTON_X, y + CARD_BUTTON_Y,
                         SERIES_BUTTON_WIDTH, CARD_BUTTON_HEIGHT)) {
-                    openSubPanel(Component.literal("系列 · " + entry.displayName()
-                            + "（" + entry.seriesItems().size() + "）"), entry.seriesItems());
+                    openSubPanel(Component.literal("系列 · ").append(entry.displayName())
+                            .append(Component.literal("（" + entry.seriesItems().size() + "）")),
+                            entry.seriesItems());
                     return true;
                 }
                 if (entry.hasSource() && isHover(mouseX, mouseY, x + SOURCE_BUTTON_X, y + CARD_BUTTON_Y,
@@ -496,7 +516,7 @@ public class Illustrate extends Screen {
     /** 打开「来源」窗口：从代码中检索制作配方、灌注配方与获取途径。 */
     private void openSourcePanel(IllustrateData.Entry entry) {
         this.sourceScroll = 0;
-        this.subPanel = new SubPanel(Component.literal("来源 · " + entry.displayName()),
+        this.subPanel = new SubPanel(Component.literal("来源 · ").append(entry.displayName()),
                 List.of(), ItemSourceInfo.build(entry.members()));
     }
 
@@ -511,6 +531,16 @@ public class Illustrate extends Screen {
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, delta);
+    }
+
+    private static void drawCenteredNoShadow(GuiGraphics guiGraphics, String text,
+                                             int centerX, int y, int color) {
+        guiGraphics.drawString(FONT, text, centerX - FONT.width(text) / 2, y, color, false);
+    }
+
+    private static void drawCenteredNoShadow(GuiGraphics guiGraphics, Component text,
+                                             int centerX, int y, int color) {
+        guiGraphics.drawString(FONT, text, centerX - FONT.width(text) / 2, y, color, false);
     }
 
     private static boolean isHover(double mouseX, double mouseY, int x, int y, int width, int height) {

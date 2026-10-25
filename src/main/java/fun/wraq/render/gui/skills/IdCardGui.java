@@ -6,7 +6,9 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.system.mastery.MasteryAllocation;
+import fun.wraq.process.system.mastery.MasteryBonusCache;
 import fun.wraq.process.system.mastery.MasteryClientData;
+import fun.wraq.process.system.mastery.MasteryStats;
 import fun.wraq.process.system.mastery.MasteryTree;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -74,7 +76,7 @@ public class IdCardGui extends Screen {
 
         // AI-Generated, 2026-10-18 精通系统：独立的五列精通界面
         this.addRenderableWidget(Button.builder(Component.literal("精通").withStyle(CustomStyle.styleOfWorld), (p_280814_) -> {
-            this.minecraft.setScreen(new MasteryScreen(this));
+            MasteryScreen.tryOpen(this);
         }).pos(this.width / 2 - 63, this.height / 2 + 113 - 68).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("领取补给").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
@@ -299,10 +301,10 @@ public class IdCardGui extends Screen {
             MasteryTree tree = summaryTrees[i];
             int total = MasteryAllocation.treeTotal(MasteryClientData.allocation[tree.ordinal()]);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(tree.getDisplayName())
-                            .withStyle(Style.EMPTY.withColor(tree.getColor())),
+                            .withStyle(Style.EMPTY.withColor(tree.getNameColor())),
                     this.width / 2 + 100, this.height / 2 + summaryOffsetY[i], 0);
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%d", total))
-                            .withStyle(Style.EMPTY.withColor(tree.getColor())),
+                            .withStyle(Style.EMPTY.withColor(tree.getNameColor())),
                     this.width / 2 + 116, this.height / 2 + summaryOffsetY[i], 0);
         }
 
@@ -319,7 +321,7 @@ public class IdCardGui extends Screen {
             int offsetY = summaryOffsetY[i];
             if (x > this.width / 2 + 90 && x < this.width / 2 + 140
                     && y > this.height / 2 + offsetY - 1 && y < this.height / 2 + offsetY + 10) {
-                Style style = Style.EMPTY.withColor(tree.getColor());
+                Style style = Style.EMPTY.withColor(tree.getNameColor());
                 int tier = MasteryAllocation.treeTotal(MasteryClientData.allocation[tree.ordinal()]);
                 List<Component> components = new ArrayList<>();
                 components.add(Component.literal("精通 ").withStyle(ChatFormatting.AQUA)
@@ -382,8 +384,7 @@ public class IdCardGui extends Screen {
      * 精通路径总点数 -> 旧「能力」五维属性的换算展示。
      */
     private static void appendMasteryAbilityDescription(List<Component> components, MasteryTree tree, double tier) {
-        switch (tree) {
-            case DOMINATION -> {
+        switch (tree) {            case DOMINATION -> {
                 ComponentUtils.emojiDescriptionExAttackDamage(components, tier * 2);
                 ComponentUtils.emojiDescriptionDamageDirectDecrease(components, tier * 5);
                 ComponentUtils.emojiDescriptionToughness(components, tier * 0.4);
@@ -393,8 +394,47 @@ public class IdCardGui extends Screen {
                 ComponentUtils.emojiDescriptionMaxMana(components, tier * 10);
             }
             case PRECISION -> {
-                ComponentUtils.emojiDescriptionSwiftness(components, tier * 0.1);
-                ComponentUtils.emojiDescriptionCommonMovementSpeed(components, tier * 0.001);
+                if (mc.player != null) {
+                    MasteryStats stats = MasteryBonusCache.stats(mc.player);
+                    if (stats.attackSpeed() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.getAttackSpeed(
+                                "+" + pct(stats.attackSpeed())));
+                    }
+                    if (stats.tenacity() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.toughness(
+                                "+" + pct(stats.tenacity())));
+                    }
+                    if (stats.moveSpeed() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.movementSpeed(
+                                "+" + pct(stats.moveSpeed())));
+                    }
+                    if (stats.haste() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.coolDown(
+                                "+" + pct(stats.haste())));
+                    }
+                    if (stats.omnivamp() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.skillHealthSteal(
+                                "+" + pct(stats.omnivamp())));
+                    }
+                    if (stats.armorPen() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.defencePenetration(
+                                "+" + pct(stats.armorPen())));
+                    }
+                    if (stats.magicPen() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.manaPenetration(
+                                "+" + pct(stats.magicPen())));
+                    }
+                    if (stats.damageDealt() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.commonDamage(
+                                "+" + pct(stats.damageDealt())));
+                    }
+                    if (stats.damageTaken() > 0) {
+                        components.add(ComponentUtils.AttributeDescription.damageTaken(
+                                "+" + pct(stats.damageTaken())));
+                    }
+                    components.add(Component.literal("详细效果请在精通界面查看")
+                            .withStyle(ChatFormatting.DARK_GRAY));
+                }
             }
             case INSPIRATION -> {
                 ComponentUtils.emojiDescriptionCritRate(components, tier * 0.001);
@@ -407,6 +447,10 @@ public class IdCardGui extends Screen {
                 ComponentUtils.emojiDescriptionHealAmplification(components, tier * 0.01);
             }
         }
+    }
+
+    private static String pct(double value) {
+        return String.format("%.2f%%", value * 100);
     }
 
     @Override

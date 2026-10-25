@@ -7,8 +7,11 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -60,7 +63,7 @@ public final class IllustrateData {
             "币", "羊毛", "锭", "焦炭", "套装", "碎片", "券", "饰品", "材料");
 
     /** 图鉴中的一条目：可以是单个物品，也可以是同一系列的多个等阶 / 同一套装的多个部位。 */
-    public record Entry(List<Item> members, String displayName, ItemStack icon,
+    public record Entry(List<Item> members, Component displayName, ItemStack icon,
                         boolean series, List<ItemStack> seriesItems, boolean hasSource) {
     }
 
@@ -103,34 +106,63 @@ public final class IllustrateData {
             List<Item> members = groupEntry.getValue();
             boolean series = members.size() > 1;
             boolean armorSet = series && Boolean.TRUE.equals(armorSetFlags.get(groupEntry.getKey()));
-            String displayName;
+
+            // 防具套装默认使用胸甲作为图标与名称样式来源
+            Item styleBase = members.get(0);
+            int iconIndex = 0;
             if (armorSet) {
-                displayName = armorSetName(members, groupEntry.getKey());
-            } else if (groupEntry.getKey().startsWith("family:")) {
-                displayName = groupEntry.getKey().substring("family:".length());
-            } else if (series) {
-                displayName = seriesName(members);
-            } else {
-                displayName = members.get(0).getDefaultInstance().getHoverName().getString();
-            }
-            List<ItemStack> seriesItems = new ArrayList<>(members.size());
-            for (Item item : members) {
-                seriesItems.add(prepareStack(item));
-            }
-            ItemStack icon = seriesItems.get(0);
-            if (armorSet) {
-                // 防具套装默认使用胸甲作为图标
                 for (int index = 0; index < members.size(); index++) {
                     if (isChestPiece(pathOf(members.get(index)))) {
-                        icon = seriesItems.get(index);
+                        iconIndex = index;
+                        styleBase = members.get(index);
                         break;
                     }
                 }
             }
-            entries.add(new Entry(List.copyOf(members), displayName, icon, series, seriesItems,
-                    ItemSourceInfo.hasSource(members)));
+
+            Component displayName;
+            if (armorSet) {
+                displayName = styledName(armorSetName(members, groupEntry.getKey()), styleBase);
+            } else if (groupEntry.getKey().startsWith("family:")) {
+                displayName = styledName(
+                        groupEntry.getKey().substring("family:".length()), styleBase);
+            } else if (series) {
+                displayName = styledName(seriesName(members), styleBase);
+            } else {
+                displayName = displayNameOf(styleBase);
+            }
+
+            List<ItemStack> seriesItems = new ArrayList<>(members.size());
+            for (Item item : members) {
+                seriesItems.add(prepareStack(item));
+            }
+            entries.add(new Entry(List.copyOf(members), displayName, seriesItems.get(iconIndex),
+                    series, seriesItems, ItemSourceInfo.hasSource(members)));
         }
         return entries;
+    }
+
+    /** 物品的展示名称：保留物品自身名称的样式，并补上稀有度带来的颜色/字体。 */
+    public static Component displayNameOf(Item item) {
+        ItemStack stack = item.getDefaultInstance();
+        MutableComponent component = Component.empty().append(stack.getHoverName());
+        component.withStyle(stack.getRarity().getStyleModifier());
+        if (stack.hasCustomHoverName()) {
+            component.withStyle(ChatFormatting.ITALIC);
+        }
+        return component;
+    }
+
+    /** 系列名称：使用代表物品的名称样式（稀有度颜色、字体等），避免图鉴里全部显示成白色。 */
+    public static Component styledName(String text, Item base) {
+        ItemStack stack = base.getDefaultInstance();
+        MutableComponent component = Component.literal(text);
+        component.withStyle(stack.getRarity().getStyleModifier());
+        component.withStyle(stack.getHoverName().getStyle());
+        if (stack.hasCustomHoverName()) {
+            component.withStyle(ChatFormatting.ITALIC);
+        }
+        return component;
     }
 
     private static Map<Item, GroupKey> computeGroupKeys(List<Item> items) {
