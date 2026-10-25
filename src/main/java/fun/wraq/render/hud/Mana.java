@@ -1,12 +1,10 @@
 package fun.wraq.render.hud;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ManaSyncS2CPacket;
 import fun.wraq.process.func.power.PowerLogic;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.sakura.EarthMana.EarthBook;
@@ -56,11 +54,6 @@ public class Mana {
             manaCostRate += EarthBook.getManaCostRate(player);
             value *= manaCostRate;
             PowerLogic.playerLastTimeReleasePowerManaCost.put(player, value);
-            if (SuitCount.getEarthManaSuitCount(player) > 0) {
-                if (ManaSkillTree.getManaSkillTier(player, 13) == 0) {
-                    Compute.playerHeal(player, value * SuitCount.getEarthManaSuitCount(player));
-                }
-            }
             OnCostManaEquip.costMana(player, value);
             data.putDouble("MANA", Math.max(currentValue + value, 0));
         }

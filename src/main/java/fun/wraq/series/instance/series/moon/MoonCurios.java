@@ -3,7 +3,6 @@ package fun.wraq.series.instance.series.moon;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
@@ -12,7 +11,6 @@ import fun.wraq.common.util.struct.Shield;
 import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -30,7 +28,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
+public class MoonCurios extends Item implements ICurioItem {
 
     public MoonCurios(Properties p_41383_) {
         super(p_41383_);
@@ -66,27 +64,6 @@ public class MoonCurios extends Item implements ICurioItem, OnShootArrowCurios {
 
     public static boolean isOn(Player player) {
         return WraqCurios.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MOON_CURIOS.get());
-    }
-
-    public static double getExCommonDamageEnhance(Player player) {
-        return isOn(player) ? 5 : 0;
-    }
-
-    public static double getElementValueEnhance(Player player) {
-        return isOn(player) ? 1 : 0;
-    }
-
-    public static double getDefencePenetration(Player player) {
-        return isOn(player) ? 0.2 : 0;
-    }
-
-    public static double getCritDamage(Player player) {
-        return isOn(player) ? 0.5 : 0;
-    }
-
-    @Override
-    public void onShoot(Player player) {
-        WraqQuiver.batchAddExShoot(player, 1, 1);
     }
 
     public static WeakHashMap<Player, Integer> passiveCoolDownMap = new WeakHashMap<>();

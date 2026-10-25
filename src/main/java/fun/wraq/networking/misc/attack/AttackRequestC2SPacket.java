@@ -8,7 +8,6 @@ import fun.wraq.core.AttackEvent;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillFinal0;
-import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -59,7 +58,6 @@ public class AttackRequestC2SPacket {
             ) {
                 @Override
                 public void trig() {
-                    CastleAttackArmor.NormalAttack(player);
                     Damage.onPlayerReleaseNormalAttack(player);
                     AttackEvent.module(player, rate);
                     MySound.soundToNearPlayer(player,

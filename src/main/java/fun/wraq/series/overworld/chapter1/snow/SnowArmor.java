@@ -7,10 +7,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SnowArmor extends WraqArmor {
 
@@ -38,13 +34,6 @@ public class SnowArmor extends WraqArmor {
     @Override
     public Style getMainStyle() {
         return CustomStyle.styleOfSnow;
-    }
-
-    @Override
-    public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        SnowSuitDescription.ArmorCommonDescription(components);
-        return components;
     }
 
     @Override

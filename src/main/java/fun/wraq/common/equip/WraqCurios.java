@@ -108,7 +108,9 @@ public abstract class WraqCurios extends Item implements ICurioItem {
 
     public abstract Component getTypeDescription();
 
-    public abstract List<Component> additionHoverText(ItemStack stack);
+    public List<Component> additionHoverText(ItemStack stack) {
+        return List.of();
+    }
 
     public abstract Style hoverMainStyle();
 

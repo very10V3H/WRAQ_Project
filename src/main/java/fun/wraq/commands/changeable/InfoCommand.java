@@ -3,7 +3,6 @@ package fun.wraq.commands.changeable;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.system.element.ElementValue;
@@ -35,7 +34,7 @@ public class InfoCommand implements Command<CommandSourceStack> {
         player.sendSystemMessage(Component.literal("·法力回复:").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", 5 + PlayerAttributes.manaRecover(player))).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·移动速度:").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", PlayerAttributes.movementSpeedWithoutBattle(player) * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
         player.sendSystemMessage(Component.literal("·额外迅捷:").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", PlayerAttributes.extraSwiftness(player))).withStyle(ChatFormatting.WHITE)));
-        player.sendSystemMessage(Component.literal("·闪避几率:").withStyle(CustomStyle.styleOfFlexible).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f%%", Compute.PlayerDodgeRate(player) * 100)).withStyle(ChatFormatting.WHITE)));
+        player.sendSystemMessage(Component.literal("·闪避几率:").withStyle(CustomStyle.styleOfFlexible).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f%%", PlayerAttributes.dodgeRate(player) * 100)).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·最大生命值:").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", PlayerAttributes.maxHealth(player))).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·生命回复:").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", PlayerAttributes.healthRecover(player))).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·治疗强度:").withStyle(CustomStyle.styleOfHealth).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.0f", PlayerAttributes.getHealingAmplification(player) * 100)).withStyle(ChatFormatting.WHITE)).append(Component.literal("%").withStyle(ChatFormatting.WHITE)));

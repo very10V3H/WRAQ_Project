@@ -36,9 +36,6 @@ public class Info1Command implements Command<CommandSourceStack> {
         player.sendSystemMessage(Component.literal("·近战攻击增幅: ").withStyle(CustomStyle.styleOfVolcano).
                 append(Component.literal(String.format("%.2f%%", DamageInfluence.getPlayerNormalSwordAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
-        player.sendSystemMessage(Component.literal("·箭矢攻击增幅: ").withStyle(CustomStyle.styleOfFlexible).
-                append(Component.literal(String.format("%.2f%%", DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
-
         player.sendSystemMessage(Component.literal("·法球攻击增幅: ").withStyle(CustomStyle.styleOfMana).
                 append(Component.literal(String.format("%.2f%%", DamageInfluence.getPlayerNormalManaAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 

@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings({"deprecation", "unchecked"})
 public class WheatChest extends ArmorItem implements GeoItem {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 

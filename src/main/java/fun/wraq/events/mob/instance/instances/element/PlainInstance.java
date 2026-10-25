@@ -45,7 +45,7 @@ public class PlainInstance extends NoTeamInstance {
 
     public static PlainInstance getInstance() {
         if (instance == null) {
-            instance = new PlainInstance(new Vec3(4135.5, 67, 3164.5), 30, 60, new Vec3(4135.5, 67, 3164.5),
+            instance = new PlainInstance(new Vec3(1167, 112, 28), 30, 60, new Vec3(1167, 112, 28),
                     Te.s("普莱尼", ChatFormatting.GREEN));
         }
         return instance;
@@ -62,8 +62,12 @@ public class PlainInstance extends NoTeamInstance {
         if (mob == null || !mob.isAlive()) return;
         Level level = mob.level();
         List<Player> players = getNearPlayers(level);
+        // 技能玩家选定：排除与Boss垂直高差超过8格的玩家
+        List<Player> skillPlayers = players.stream()
+                .filter(player -> Math.abs(player.getY() - mob.getY()) <= 8)
+                .toList();
         if (mob.tickCount % 100 == 0) {
-            players.forEach(player -> {
+            skillPlayers.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
                     player.heal(150);
                 } else {
@@ -77,7 +81,7 @@ public class PlainInstance extends NoTeamInstance {
                     1.5, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
         }
         if (mob.tickCount % 100 == 50) {
-            players.forEach(player -> {
+            skillPlayers.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
                     Damage.causeManaDamageToPlayer(mob, player, 800);
                     mob.heal(400);

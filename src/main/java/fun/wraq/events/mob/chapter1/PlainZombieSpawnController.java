@@ -26,23 +26,22 @@ public class PlainZombieSpawnController extends MobSpawnController {
 
     public static PlainZombieSpawnController getInstance(Level world) {
         if (instance == null) {
+            // 保留 RateAttr 机制，仅把刷新点换回 d3bfb71d 之前的坐标。
             Map<Vec3, RateAttr> posToRateAttrMap = new HashMap<>();
-            posToRateAttrMap.put(new Vec3(4009, 67, 3381), new RateAttr(0));
-            posToRateAttrMap.put(new Vec3(4017, 66, 3373), new RateAttr(1));
-            posToRateAttrMap.put(new Vec3(4024, 68, 3383), new RateAttr(2, 1.1, 1.1));
-            posToRateAttrMap.put(new Vec3(4032, 67, 3374), new RateAttr(3, 1.15, 1.15));
-            posToRateAttrMap.put(new Vec3(4031, 69, 3390), new RateAttr(4, 1.2, 1.2));
-            posToRateAttrMap.put(new Vec3(4050, 66, 3374), new RateAttr(5, 1.2, 1.2));
-            posToRateAttrMap.put(new Vec3(4050, 68, 3384), new RateAttr(5, 1.2, 1.2));
-            posToRateAttrMap.put(new Vec3(4051, 72, 3396), new RateAttr(6, 1.25, 1.25));
-            posToRateAttrMap.put(new Vec3(4059, 72, 3399), new RateAttr(6, 1.25, 1.25));
-            posToRateAttrMap.put(new Vec3(4059, 68, 3385), new RateAttr(7, 1.25, 1.25));
-            posToRateAttrMap.put(new Vec3(4059, 66, 3376), new RateAttr(8, 1.3, 1.3));
-            posToRateAttrMap.put(new Vec3(4072, 66, 3382), new RateAttr(9, 1.35, 1.35));
-            posToRateAttrMap.put(new Vec3(4072, 69, 3393), new RateAttr(9, 1.35, 1.35));
+            posToRateAttrMap.put(new Vec3(812, 81, 172), new RateAttr(0));
+            posToRateAttrMap.put(new Vec3(822, 82, 185), new RateAttr(1));
+            posToRateAttrMap.put(new Vec3(934, 82, 177), new RateAttr(2, 1.1, 1.1));
+            posToRateAttrMap.put(new Vec3(831, 82, 198), new RateAttr(3, 1.15, 1.15));
+            posToRateAttrMap.put(new Vec3(854, 83, 171), new RateAttr(4, 1.2, 1.2));
+            posToRateAttrMap.put(new Vec3(851, 82, 185), new RateAttr(5, 1.2, 1.2));
+            posToRateAttrMap.put(new Vec3(866, 81, 151), new RateAttr(6, 1.25, 1.25));
+            posToRateAttrMap.put(new Vec3(879, 80, 161), new RateAttr(7, 1.25, 1.25));
+            posToRateAttrMap.put(new Vec3(888, 80, 176), new RateAttr(8, 1.3, 1.3));
+            posToRateAttrMap.put(new Vec3(870, 81, 195), new RateAttr(9, 1.35, 1.35));
 
+            // 旧刷新区域：X 上界从 902 扩到 950，覆盖 x=934 的刷新点。
             instance = new PlainZombieSpawnController(posToRateAttrMap, world,
-                    List.of(new Boundary(new Vec3(4100, 90, 3427), new Vec3(3980, 50, 3345))));
+                    List.of(new Boundary(new Vec3(950, 120, 210), new Vec3(795, 50, 129))));
         }
         return instance;
     }
@@ -80,10 +79,6 @@ public class PlainZombieSpawnController extends MobSpawnController {
         drops.add(ItemAndRate.ofExp(1));
         if (xpLevel >= 10) {
             drops.add(ItemAndRate.ofExp(1));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_0.get(), 0.02));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_1.get(), 0.005));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_2.get(), 0.001));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_3.get(), 0.0002));
             drops.add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.1));
             drops.add(new ItemAndRate(NewRuneItems.PLAIN_NEW_RUNE.get(), 0.001));
         }

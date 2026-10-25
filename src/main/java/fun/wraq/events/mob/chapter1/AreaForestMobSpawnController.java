@@ -115,11 +115,6 @@ public class AreaForestMobSpawnController extends AreaMobSpawnController {
             drops.add(new ItemAndRate(ModItems.FOREST_SOUL.get(), 0.1));
             drops.add(new ItemAndRate(ModItems.COPPER_COIN.get(), 1.5));
             drops.add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01));
-
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_0.get(), 0.02));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_1.get(), 0.005));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_2.get(), 0.001));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_3.get(), 0.0002));
             drops.add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.1));
             drops.add(new ItemAndRate(NewRuneItems.FOREST_NEW_RUNE.get(), 0.001));
         }

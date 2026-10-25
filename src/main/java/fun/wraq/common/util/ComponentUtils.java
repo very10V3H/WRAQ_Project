@@ -116,6 +116,79 @@ public class ComponentUtils {
             return Component.literal(Utils.Emoji.CritRate + " " + content + "暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
+        /** 普通伤害（精通等通用伤害加成） */
+        public static Component commonDamage(String content) {
+            return Component.literal(Utils.Emoji.Sword + " " + content + "普通伤害")
+                    .withStyle(CustomStyle.styleOfPower);
+        }
+
+        /** 受到伤害提升（如双刃剑的负面部分） */
+        public static Component damageTaken(String content) {
+            return Component.literal(Utils.Emoji.Defence + " " + content + "受到伤害")
+                    .withStyle(ChatFormatting.RED);
+        }
+
+        /** 击杀回复等非面板直接属性 */
+        public static Component killHeal(String content) {
+            return Component.literal(Utils.Emoji.Health + " " + content)
+                    .withStyle(CustomStyle.styleOfHealth);
+        }
+
+        public static Component finalDamage(String content) {
+            return Component.literal(Utils.Emoji.Sword + " " + content + "最终伤害")
+                    .withStyle(CustomStyle.styleOfPower);
+        }
+
+        public static Component skillDamage(String content) {
+            return Component.literal(Utils.Emoji.Mana + " " + content + "技能伤害")
+                    .withStyle(CustomStyle.styleOfMana);
+        }
+
+        public static Component shieldPower(String content) {
+            return Component.literal(Utils.Emoji.Defence + " " + content + "护盾强度")
+                    .withStyle(ChatFormatting.AQUA);
+        }
+
+        public static Component dodgeRate(String content) {
+            return Component.literal(Utils.Emoji.Lucky + " " + content + "闪避几率")
+                    .withStyle(CustomStyle.styleOfFlexible);
+        }
+
+        public static Component experienceBonus(String content) {
+            return Component.literal(Utils.Emoji.ExpUp + " " + content + "经验加成")
+                    .withStyle(ChatFormatting.GREEN);
+        }
+
+        public static Component extraProduce(String content) {
+            return Component.literal(Utils.Emoji.Lucky + " " + content + "额外产出")
+                    .withStyle(ChatFormatting.GREEN);
+        }
+
+        public static Component miningSpeed(String content) {
+            return Component.literal(Utils.Emoji.Sword + " " + content + "挖掘速度")
+                    .withStyle(ChatFormatting.GOLD);
+        }
+
+        public static Component equipmentPower(String content) {
+            return Component.literal(Utils.Emoji.Suit + " " + content + "装备效果")
+                    .withStyle(ChatFormatting.AQUA);
+        }
+
+        public static Component slowResist(String content) {
+            return Component.literal(Utils.Emoji.Swiftness + " " + content + "减速免疫")
+                    .withStyle(CustomStyle.styleOfFlexible);
+        }
+
+        public static Component firstStrike(String content) {
+            return Component.literal(Utils.Emoji.Sword + " " + content + "先手伤害")
+                    .withStyle(CustomStyle.styleOfPower);
+        }
+
+        public static Component thorns(String content) {
+            return Component.literal(Utils.Emoji.Defence + " " + content + "反伤")
+                    .withStyle(ChatFormatting.RED);
+        }
+
         public static Component attackDamage(String content) {
             return Component.literal(Utils.Emoji.Sword + " " + content + "攻击力").withStyle(ChatFormatting.YELLOW);
         }
@@ -175,32 +248,6 @@ public class ComponentUtils {
         public static Component getElementStrength(String content) {
             return Te.s(Utils.Emoji.ELEMENT + " " + content + "元素强度", CustomStyle.styleOfWorld);
         }
-    }
-
-    public static void suitDescription(List<Component> components) {
-        components.add(Component.literal(Utils.Emoji.Suit + " " + "套装效果").withStyle(ChatFormatting.AQUA));
-    }
-
-    public static void suitDoubleDescription(List<Component> components) {
-        components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.YELLOW));
-    }
-
-    public static void suitDoubleDescription(List<Component> components, int Count) {
-        if (Count >= 2)
-            components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.YELLOW));
-        else
-            components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.GRAY));
-    }
-
-    public static void suitQuadraDescription(List<Component> components) {
-        components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.LIGHT_PURPLE));
-    }
-
-    public static void suitQuadraDescription(List<Component> components, int Count) {
-        if (Count >= 4)
-            components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.LIGHT_PURPLE));
-        else
-            components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.GRAY));
     }
 
     public static void suffixOfChapterI(List<Component> components) {
@@ -393,64 +440,6 @@ public class ComponentUtils {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("主动 ").withStyle(ChatFormatting.AQUA)).
                 append(name));
-    }
-
-    public static void suitEffectRateDescription(List<Component> components, int Count) {
-        switch (Count) {
-            case 1 -> {
-                components.add(Component.literal("基于套装数量的数值:(").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("1_20%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(",2_50%,3_70%,4_100%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            case 2 -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("2_50%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(",3_70%,4_100%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            case 3 -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,2_50%,").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("3_70%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(",4_100%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            case 4 -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,2_50%,3_70%,").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("4_100%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(")").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            default -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,2_50%,3_70%,4_100%").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal(")").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-        }
-    }
-
-    public static void skySuitEffectRateDescription(List<Component> components, int Count) {
-        switch (Count) {
-            case 1 -> {
-                components.add(Component.literal("基于套装数量的数值:(").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("1_20%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(",2_50%,3_140%,4_200%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            case 2 -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("2_50%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(",3_140%,4_200%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            case 3 -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,2_50%,").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("3_140%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(",4_200%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            case 4 -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,2_50%,3_140%,").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal("4_200%").withStyle(CustomStyle.styleOfSky)).
-                        append(Component.literal(")").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-            default -> {
-                components.add(Component.literal("基于套装数量的数值:(1_20%,2_50%,3_140%,4_200%").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
-                        append(Component.literal(")").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
-            }
-        }
     }
 
     public static void suffixOfElement(List<Component> components) {

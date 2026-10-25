@@ -19,7 +19,6 @@ import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.overworld.chapter1.mine.MineSword;
@@ -32,7 +31,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -393,15 +391,6 @@ public class AttackEventModule {
         }
     }
 
-    public static void SnowArmorEffect(Player player, Mob monster) {
-        if (SuitCount.getSnowSuitCount(player) >= 4) {
-            monster.setDeltaMovement(0, 0, 0);
-            Compute.addSlowDownEffect(monster, 5, 1);
-            player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
-                    ModNetworking.sendToClient(new SlowDownParticleS2CPacket(monster.getId(), 5), serverPlayer));
-        }
-    }
-
     public static double NetherBow(Player player, Mob monster) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.NETHER_BOW.get()))
             return Math.min(1, monster.distanceTo(player) / 100);
@@ -412,13 +401,6 @@ public class AttackEventModule {
         if (Utils.shieldTag.containsKey(player.getItemInHand(InteractionHand.OFF_HAND).getItem()))
             return 0.75 * (1 - (100 / (100 + PlayerAttributes.defence(player))));
         else return 0;
-    }
-
-    public static double IceArmorDamageEnhance(Player player, Mob mob) {
-        if (SuitCount.getIceSuitCount(player) > 0 && mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-            return SuitCount.getIceSuitCount(player) * 0.15;
-        }
-        return 0;
     }
 
     public static double SoulSwordActive(Player player) {

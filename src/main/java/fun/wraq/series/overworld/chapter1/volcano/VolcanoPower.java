@@ -8,7 +8,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -81,7 +80,7 @@ public class VolcanoPower extends WraqPower {
         List.of(ModItems.VOLCANO_POWER.get(), ModItems.VOLCANO_POWER_1.get(),
                 ModItems.VOLCANO_POWER_2.get(), ModItems.VOLCANO_POWER_3.get()).
                 forEach(item -> {
-                    playerItemCoolDown(player, item, VolcanoPower.CoolDownTime[tier] - SuitCount.getObsiManaESuitCount(player) * 0.75);
+                    playerItemCoolDown(player, item, VolcanoPower.CoolDownTime[tier]);
                 });
         Level dimension = player.level();
         double effect = VolcanoPower.effect[tier];

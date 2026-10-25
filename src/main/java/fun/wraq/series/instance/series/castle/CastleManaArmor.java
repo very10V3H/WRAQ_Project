@@ -2,18 +2,13 @@ package fun.wraq.series.instance.series.castle;
 
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.onshoot.OnShootManaArrowEquip;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
-public class CastleManaArmor extends WraqArmor implements ForgeItem, OnShootManaArrowEquip {
+public class CastleManaArmor extends WraqArmor implements ForgeItem {
     private static final Style style = CustomStyle.styleOfCastle;
 
     public static Map<Integer, Double> attributeIndexValueMap = new HashMap<>() {{
@@ -66,30 +61,8 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem, OnShootMana
     }
 
     @Override
-    public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Te.s("暗影打击", style));
-        components.add(Te.s(" 普通法球攻击", CustomStyle.styleOfMana,
-                "将附带1枚", "25%基础伤害", CustomStyle.styleOfPower, "的",
-                "额外法球", CustomStyle.styleOfMana));
-        Compute.DescriptionPassive(components, Component.literal("灵魂痛击").withStyle(style));
-        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
-                append(Component.literal("附带").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.exTrueDamage("50%")));
-        components.add(Component.literal(" -多件暗影城堡防具能线性提升伤害值百分比/伤害值").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        return components;
-    }
-
-    @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfCastle();
-    }
-
-    public static double ExIgnoreDefenceDamage(Player player) {
-        int ArmorCount = SuitCount.getCastleManaSuitCount(player);
-        if (ArmorCount == 0) return 0;
-        return PlayerAttributes.manaDamage(player) * 0.5 * ArmorCount;
     }
 
     public static String attributeType = "attributeType"; // 锁定类型
@@ -192,10 +165,5 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem, OnShootMana
             add(new ItemStack(ModItems.CASTLE_PIECE.get(), 128));
             add(new ItemStack(ModItems.TREE_RUNE.get(), 24));
         }};
-    }
-
-    @Override
-    public void onShoot(Player player) {
-        WraqMixture.addExShoot(player, SuitCount.getCastleManaSuitCount(player) * 0.25);
     }
 }

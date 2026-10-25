@@ -47,7 +47,10 @@ public class AttributeSet {
             double finalMovementSpeed = (0.1 + 0.1 * (float) speedUp);
             boolean canDefendSlowdown = player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ColdIronArmor;
             if (!canDefendSlowdown) {
-                finalMovementSpeed *= SpecialEffectOnPlayer.slowdownEffectValue(player);
+                double slowValue = SpecialEffectOnPlayer.slowdownEffectValue(player);
+                double slowResist = fun.wraq.process.system.mastery.MasteryCombat.slowResist(player);
+                // 精通：减速免疫只削弱减速幅度，不直接取消
+                finalMovementSpeed *= 1 - (1 - slowValue) * (1 - slowResist);
             } else {
                 player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
             }
@@ -72,6 +75,9 @@ public class AttributeSet {
             double exSwimSpeed = 0;
             exSwimSpeed += LakeNewRune.exSwimSpeed(player);
             exSwimSpeed += 2;
+            // 精通：水下亲和额外游泳速度
+            exSwimSpeed += fun.wraq.process.system.mastery.MasteryBonusCache.stats(player)
+                    .value(fun.wraq.process.system.mastery.MasteryStat.WATER_MOVE);
             player.getAttribute(ForgeMod.SWIM_SPEED.get()).setBaseValue(1 + exSwimSpeed);
 
             // 最大生命值、攻击距离修改。

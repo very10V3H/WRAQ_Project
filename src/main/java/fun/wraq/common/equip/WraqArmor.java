@@ -13,8 +13,6 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
@@ -23,8 +21,6 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -60,7 +56,9 @@ public abstract class WraqArmor extends ArmorItem {
 
     public abstract Style getMainStyle();
 
-    public abstract List<Component> getAdditionalComponents(ItemStack stack);
+    public List<Component> getAdditionalComponents(ItemStack stack) {
+        return List.of();
+    }
 
     public abstract Component getSuffix();
 
@@ -112,15 +110,6 @@ public abstract class WraqArmor extends ArmorItem {
 
     public List<Component> getExtraDescription() {
         return List.of();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static int getSuitCount(Class<? extends WraqArmor> clazz) {
-        Minecraft mc = Minecraft.getInstance();
-        LocalPlayer player = mc.player;
-        if (player == null) return 0;
-        return (int) InventoryOperation.getArmors(player)
-                .stream().filter(itemStack -> itemStack.getItem().getClass().equals(clazz)).count();
     }
 
     public void tick(Player player) {

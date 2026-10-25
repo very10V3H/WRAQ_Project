@@ -12,7 +12,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.particles.ModParticles;
@@ -85,7 +84,7 @@ public class ForestPower extends WraqPower {
         List.of(ModItems.ForestPower.get(), ModItems.ForestPower1.get(),
                 ModItems.ForestPower2.get(), ModItems.ForestPower3.get())
                 .forEach(item -> {
-                    playerItemCoolDown(player, item, ForestPower.CoolDownTime[tier] - SuitCount.getLifeManaESuitCount(player));
+                    playerItemCoolDown(player, item, ForestPower.CoolDownTime[tier]);
         });
         Level dimension = player.level();
         double effect = ForestPower.effect[tier];

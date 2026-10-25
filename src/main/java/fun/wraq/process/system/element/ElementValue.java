@@ -50,7 +50,6 @@ public class ElementValue {
         value += InCuriosOrEquipSlotAttributesModify.getAttributes(player, elementValueMap);
         value += DivineWeaponCommon.getEnhanceElementValue(player, type);
         value *= (1 + PlayerAttributes.getElementStrength(player));
-        value *= (1 + MoonCurios.getElementValueEnhance(player));
         return value;
     }
 

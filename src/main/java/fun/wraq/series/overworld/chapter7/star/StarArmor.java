@@ -1,26 +1,13 @@
 package fun.wraq.series.overworld.chapter7.star;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.equip.BowAttribute;
-import fun.wraq.common.equip.SceptreAttribute;
-import fun.wraq.common.equip.SwordAttribute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ModArmorMaterials;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class StarArmor extends WraqArmor {
 
@@ -46,20 +33,6 @@ public class StarArmor extends WraqArmor {
     }
 
     @Override
-    public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("披星戴月").withStyle(getMainStyle()));
-        components.add(Component.literal(" - 其一 手持近战武器时:").withStyle(CustomStyle.styleOfPower));
-        components.add(Component.literal(" 对距离5格以内的目标造成的伤害将获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.getCommonDamageEnhance("25%")));
-        components.add(Component.literal(" - 其二 手持远程武器时:").withStyle(CustomStyle.styleOfFlexible));
-        components.add(Component.literal(" 对距离5格以外的目标造成的伤害将获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.getCommonDamageEnhance("25%")));
-        components.add(Component.literal(" -多件梦月防具能够线性提升被动的伤害提升效果").withStyle(ChatFormatting.GRAY));
-        return components;
-    }
-
-    @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfChapterStar();
     }
@@ -67,17 +40,5 @@ public class StarArmor extends WraqArmor {
     @Override
     public boolean isFoil(ItemStack p_41453_) {
         return true;
-    }
-
-    public static double DamageEnhance(Player player, Mob mob) {
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.STAR_LEGGINGS.get())
-                || player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.STAR_HELMET.get())) {
-            if (SwordAttribute.isHandling(player) && mob.distanceTo(player) <= 5)
-                return SuitCount.getStarSuitCount(player) * 0.25;
-            if ((BowAttribute.isHandling(player) || SceptreAttribute.isHandling(player))
-                    && mob.distanceTo(player) >= 5)
-                return SuitCount.getStarSuitCount(player) * 0.25;
-        }
-        return 0;
     }
 }

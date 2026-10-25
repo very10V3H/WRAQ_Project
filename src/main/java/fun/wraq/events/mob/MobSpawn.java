@@ -51,7 +51,6 @@ import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import fun.wraq.series.events.labourDay.LabourDayOldCoin;
 import fun.wraq.series.events.qingMing.QingTuan;
-import fun.wraq.series.overworld.chapter1.plain.PlainCrest;
 import fun.wraq.series.overworld.cold.sc2.stone.StoneSpiderSpawnController;
 import fun.wraq.series.overworld.cold.sc2.stray.SuperColdStraySpawnController;
 import fun.wraq.series.overworld.cold.sc3.aurora.AuroraSheepSpawnController;
@@ -571,7 +570,6 @@ public class MobSpawn {
             ItemAndRate itemAndRate = new ItemAndRate(ModItems.WORLD_SOUL_1.get(), 1);
             itemAndRate.send(player, 1);
         }
-        PlainCrest.onKillMob(player, mob);
     }
 
     public static Map<String, Integer> totalKillCountCache = new HashMap<>();

@@ -12,7 +12,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
@@ -96,7 +95,7 @@ public class LakePower extends WraqPower {
         List.of(ModItems.LAKE_POWER.get(), ModItems.LAKE_POWER_1.get(),
                         ModItems.LAKE_POWER_2.get(), ModItems.LAKE_POWER_3.get())
                 .forEach(item -> {
-                    playerItemCoolDown(player, item, LakePower.CoolDownTime[tier] - SuitCount.getObsiManaESuitCount(player) * 0.75);
+                    playerItemCoolDown(player, item, LakePower.CoolDownTime[tier]);
                 });
         int tick = Tick.get();
         Level dimension = player.level();

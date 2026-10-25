@@ -1,7 +1,10 @@
 package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.equip.*;
+import fun.wraq.common.equip.BowAttribute;
+import fun.wraq.common.equip.SceptreAttribute;
+import fun.wraq.common.equip.SwordAttribute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceEquip;
@@ -16,7 +19,6 @@ import fun.wraq.customized.uniform.bow.enhanced.WraqBowEnhancedUniformCurios;
 import fun.wraq.customized.uniform.bow.normal.WraqBowUniformCurios;
 import fun.wraq.customized.uniform.mana.enhanced.WraqManaEnhancedUniformCurios;
 import fun.wraq.customized.uniform.mana.normal.WraqManaUniformCurios;
-import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MushroomInstance;
@@ -29,6 +31,8 @@ import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.system.cold.ColdSystem;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.estate.EstateUtil;
+import fun.wraq.process.system.mastery.MasteryBonusCache;
+import fun.wraq.process.system.mastery.MasteryCombat;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase2_1;
@@ -44,15 +48,12 @@ import fun.wraq.series.gems.passive.impl.GemCommonDamageEnhanceRateModifier;
 import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
 import fun.wraq.series.holy.ice.curio.IceHolyRune;
 import fun.wraq.series.holy.ice.curio.IceHolySword;
-import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
-import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.purple.EnhancePurpleIronArmor;
 import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
 import fun.wraq.series.newrunes.chapter1.MineNewRune;
 import fun.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter6.MoonNewRune;
-import fun.wraq.series.overworld.chapter7.star.StarArmor;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.overworld.cold.sc4.ColdIronArmor;
 import fun.wraq.series.overworld.divine.DivineUtils;
@@ -67,20 +68,20 @@ public class DamageInfluence {
     public static double getPlayerCommonDamageUpOrDown(Player player, Mob monster) {
         double rate = 0;
         rate += levelSuppress(player, monster); // 等级压制
-        rate += AttackEventModule.IceArmorDamageEnhance(player, monster); // 雪上覆霜
-        rate += MoonArmor.getCommonDamageEnhanceRate(player, monster); // 尘月膝
         /*eachTierValue += CastleCurios.DamageEnhance(player, monster); // 随机饰品被动*/
-        rate += StarArmor.DamageEnhance(player, monster); // 梦月
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
         rate += OnHitDamageInfluenceCurios.damageInfluence(player, monster);
         rate += OnHitDamageInfluenceEquip.damageInfluence(player, monster);
         rate += ManaAttackModule.getManaSkill3DamageEnhance(player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
         rate += getPlayerCommonDamageUpOrDown(player);
+        // 精通：依赖目标生命比例的条件伤害
+        rate += MasteryCombat.commonDamageTarget(player, monster);
         rate += EstateUtil.getExCommonDamageRate(player);
         rate += GemCommonDamageEnhanceRateModifier.getCommonDamageEnhanceRate(player, monster);
         return rate;
     }
 
+    // 普通伤害提升
     public static double getPlayerCommonDamageUpOrDown(Player player) {
         double rate = 0;
         rate += AttackEventModule.SwordSkill5DamageEnhance(player); // 双刃剑
@@ -96,10 +97,13 @@ public class DamageInfluence {
                 .getModifierValue(player, StableTierAttributeModifier.playerCommonDamageEnhance);
         rate += EnhancePurpleIronArmor.getCommonDamageEnhanceRate(player);
         rate += DivineUtils.getPlayerExCommonDamageEnhanceRate(player);
-        rate += MoonCurios.getExCommonDamageEnhance(player);
         rate += WraqCurios.CuriosAttribute
                 .attributeValue(player, Utils.commonDamageEnhance, StringUtils.RandomAttributes.commonDamageEnhance);
         rate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.commonDamageEnhance);
+        // 精通：双刃剑等静态普通伤害加成
+        rate += MasteryBonusCache.stats(player).damageDealt();
+        // 精通：狂热/征服者/坚毅不倒
+        rate += MasteryCombat.commonDamageSelf(player);
         return rate;
     }
 
@@ -107,6 +111,8 @@ public class DamageInfluence {
         double rate = 0;
         rate -= MobEffectAndDamageMethods.PlayerDamageDecreaseRate(player, mob);
         rate += getPlayerFinalDamageEnhance(player);
+        // 精通：主宰的条件最终伤害
+        rate += MasteryCombat.finalDamageRate(player, mob);
         rate += StableTierAttributeModifier
                 .getModifierValue(mob, StableTierAttributeModifier.monsterWithstandDamageEnhance);
         rate += DivineKnife.getEnhanceMobWithstandDamage(mob);
@@ -154,12 +160,6 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double getPlayerNormalBowAttackDamageEnhance(Player player) {
-        double rate = 0;
-        rate += 2.25 * (1 - (16 / (16 + PlayerAttributes.extraSwiftness(player)))); // 迅捷加成
-        return rate;
-    }
-
     public static double getPlayerNormalManaAttackDamageEnhance(Player player) {
         double rate = 0;
         rate += MixtureAttack.getManaDamageEnhance(player);
@@ -191,6 +191,12 @@ public class DamageInfluence {
         rate += WraqCurios.CuriosAttribute
                 .attributeValue(player, Utils.finalDamageEnhance, StringUtils.RandomAttributes.finalDamageEnhance);
         rate += DevilPowerCurio.finalDamageEnhanceRate(player);
+        // 精通：主宰的最终伤害面板加成
+        rate += MasteryBonusCache.stats(player).value(
+                fun.wraq.process.system.mastery.MasteryStat.FINAL_DAMAGE);
+        // 精通：启迪装备被动效果提升（近似作用于最终伤害）
+        rate += MasteryBonusCache.stats(player).value(
+                fun.wraq.process.system.mastery.MasteryStat.EQUIP_PASSIVE);
         return rate;
     }
 
@@ -217,6 +223,12 @@ public class DamageInfluence {
     public static double modifyPlayerWithstandDamageRate(Player player, Mob mob, double damage) {
         double rate = 1;
         CompoundTag data = player.getPersistentData();
+        // 精通：双刃剑的受到伤害提升
+        rate *= (1 + MasteryBonusCache.stats(player).damageTaken());
+        // 精通：主宰最终伤害承受 + 坚决伤害减免
+        rate *= (1 + MasteryCombat.damageTaken(player));
+        rate *= (1 - MasteryBonusCache.stats(player).value(
+                fun.wraq.process.system.mastery.MasteryStat.DAMAGE_REDUCTION));
         rate *= (1 + MineNewRune.withstandDamageInfluence(player));
         rate *= (1 + Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25));
         rate *= (1 + StableAttributesModifier
@@ -236,7 +248,6 @@ public class DamageInfluence {
             rate *= (1 - DamageInfluence.levelSuppress(player, mob)); // 等级压制
         }
 
-        rate *= (1 + MonsterAttackEvent.SnowArmorEffectDamageDecrease(mob));
         rate *= (1 + ModifyPlayerWithstandDamageInfluenceCurios.modifyPlayerWithstandDamageRate(player, mob));
         rate *= (1 + WardenInstance.modifyPlayerWithstandDamageRate(player, mob));
         rate *= (1 + GemWithstandDamageRateModifier.modifyPlayerWithstandDamageRate(player, mob, damage));

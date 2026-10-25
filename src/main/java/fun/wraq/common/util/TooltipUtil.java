@@ -3,10 +3,6 @@ package fun.wraq.common.util;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 
 import java.util.List;
 
@@ -33,24 +29,6 @@ public class TooltipUtil {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("主动 ").withStyle(ChatFormatting.AQUA)).
                 append(name));
-    }
-
-    public static int SuitItemVision(Player player, Item item, EquipmentSlot equipmentSlot, List<Component> components, Style MainStyle) {
-        if (player.getItemBySlot(equipmentSlot).is(item)) {
-            components.add(Component.literal(item.getDefaultInstance().getDisplayName().getString()).withStyle(MainStyle));
-            return 1;
-        } else
-            components.add(Component.literal(item.getDefaultInstance().getDisplayName().getString()).withStyle(ChatFormatting.GRAY));
-        return 0;
-    }
-
-    public static int SuitItemVision(Player player, Item item, EquipmentSlot equipmentSlot, List<Component> components, ChatFormatting MainStyle) {
-        if (player.getItemBySlot(equipmentSlot).is(item)) {
-            components.add(Component.literal(item.getDefaultInstance().getDisplayName().getString()).withStyle(MainStyle));
-            return 1;
-        } else
-            components.add(Component.literal(item.getDefaultInstance().getDisplayName().getString()).withStyle(ChatFormatting.GRAY));
-        return 0;
     }
 
     public static void ManaCoreDescription(List<Component> components) {

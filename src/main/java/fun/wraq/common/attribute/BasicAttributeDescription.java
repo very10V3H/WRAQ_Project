@@ -8,6 +8,7 @@ import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.forge.ForgeRandomEquip;
+import fun.wraq.common.impl.forge.IgnoreForgeQuality;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -908,6 +909,9 @@ public class BasicAttributeDescription {
     public static void BasicAttributeCommonDescription(List<Component> components, ItemStack itemStack) {
         int forgeQuality = ForgeEquipUtils.getEquipForgeQuality(itemStack);
         if (itemStack.getItem() instanceof SilverDragonBloodWeapon) {
+            return;
+        }
+        if (itemStack.getItem() instanceof IgnoreForgeQuality) {
             return;
         }
         if (forgeQuality != -1 && !(itemStack.getItem() instanceof WraqOffHandItem)) {

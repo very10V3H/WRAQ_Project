@@ -1,16 +1,12 @@
 package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.AttackEvent;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -64,56 +60,8 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("暗影打击").withStyle(style));
-        components.add(Component.literal(" 进行").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)).
-                append(Component.literal("后，0.2s后你会进行一次").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("暗影打击").withStyle(style)));
-        components.add(Component.literal(" 暗影打击").withStyle(style).
-                append(Component.literal("被视为拥有15%基础伤害值的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)));
-        Compute.DescriptionPassive(components, Component.literal("灵魂痛击").withStyle(style));
-        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)).
-                append(Component.literal("附带").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.exTrueDamage("50%")));
-        components.add(Component.literal(" -多件暗影城堡防具能线性提升伤害值百分比/伤害值").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        return components;
-    }
-
-    @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfCastle();
-    }
-
-    public static WeakHashMap<Player, Integer> playerDoubleAttackTick = new WeakHashMap<>();
-
-    public static void Tick(Player player) {
-        int ArmorCount = SuitCount.getCastleAttackSuitCount(player);
-        if (ArmorCount == 0) return;
-        int TickCount = Tick.get();
-        if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) == TickCount) {
-            ExAttack(player, ArmorCount * 0.15);
-        }
-    }
-
-    public static void NormalAttack(Player player) {
-        int ArmorCount = SuitCount.getCastleAttackSuitCount(player);
-        if (ArmorCount == 0) return;
-        int TickCount = Tick.get();
-        playerDoubleAttackTick.put(player, TickCount + 4);
-    }
-
-    public static void ExAttack(Player player, double rate) {
-        AttackEvent.module(player, rate);
-    }
-
-    public static double ExIgnoreDefenceDamage(Player player) {
-        int ArmorCount = SuitCount.getCastleAttackSuitCount(player);
-        if (ArmorCount == 0) return 0;
-        return PlayerAttributes.attackDamage(player) * 0.5 * ArmorCount;
     }
 
     public static String attributeType = "attributeType"; // 锁定类型

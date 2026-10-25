@@ -26,21 +26,19 @@ public class ForestZombieSpawnController extends MobSpawnController {
 
     public static ForestZombieSpawnController getInstance(Level world) {
         if (instance == null) {
+            // 保留 RateAttr 机制，仅把刷新点换回 d3bfb71d 之前的坐标。
             Map<Vec3, RateAttr> posToRateAttrMap = new HashMap<>();
-            posToRateAttrMap.put(new Vec3(4002, 66, 3278), new RateAttr(10));
-            posToRateAttrMap.put(new Vec3(3991, 69, 3268), new RateAttr(11, 1.05, 1.05));
-            posToRateAttrMap.put(new Vec3(4007, 66, 3265), new RateAttr(11, 1.05, 1.05));
-            posToRateAttrMap.put(new Vec3(4019, 68, 3261), new RateAttr(12, 1.1, 1.1));
-            posToRateAttrMap.put(new Vec3(4035, 65, 3258), new RateAttr(13, 1.15, 1.15));
-            posToRateAttrMap.put(new Vec3(4050, 65, 3251), new RateAttr(14, 1.2, 1.2));
-            posToRateAttrMap.put(new Vec3(4059, 65, 3239), new RateAttr(15, 1.25, 1.25));
-            posToRateAttrMap.put(new Vec3(4072, 64, 3235), new RateAttr(16, 1.3, 1.3));
-            posToRateAttrMap.put(new Vec3(4042, 66, 3225), new RateAttr(17, 1.4, 1.3));
-            posToRateAttrMap.put(new Vec3(4061, 65, 3222), new RateAttr(18, 1.45, 1.3));
-            posToRateAttrMap.put(new Vec3(4046, 67, 3206), new RateAttr(19, 1.5, 1.4));
+            posToRateAttrMap.put(new Vec3(858, 80, 243), new RateAttr(10));
+            posToRateAttrMap.put(new Vec3(882, 78, 240), new RateAttr(11, 1.05, 1.05));
+            posToRateAttrMap.put(new Vec3(888, 80, 226), new RateAttr(12, 1.1, 1.1));
+            posToRateAttrMap.put(new Vec3(908, 81, 202), new RateAttr(13, 1.15, 1.15));
+            posToRateAttrMap.put(new Vec3(913, 80, 183), new RateAttr(14, 1.2, 1.2));
+            posToRateAttrMap.put(new Vec3(946, 79, 165), new RateAttr(15, 1.25, 1.25));
+            posToRateAttrMap.put(new Vec3(948, 80, 140), new RateAttr(16, 1.3, 1.3));
+            posToRateAttrMap.put(new Vec3(932, 79, 171), new RateAttr(17, 1.35, 1.35));
 
             instance = new ForestZombieSpawnController(posToRateAttrMap, world,
-                    List.of(new Boundary(new Vec3(4115, 80, 3310), new Vec3(3960, 50, 3175))));
+                    List.of(new Boundary(new Vec3(975, 120, 260), new Vec3(824, 50, 81))));
         }
         return instance;
     }
@@ -78,10 +76,6 @@ public class ForestZombieSpawnController extends MobSpawnController {
         drops.add(ItemAndRate.ofExp(2));
         if (xpLevel >= 20) {
             drops.add(ItemAndRate.ofExp(2));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_0.get(), 0.02));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_1.get(), 0.005));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_2.get(), 0.001));
-            drops.add(new ItemAndRate(ModItems.PLAIN_CREST_3.get(), 0.0002));
             drops.add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.1));
             drops.add(new ItemAndRate(NewRuneItems.FOREST_NEW_RUNE.get(), 0.001));
         }

@@ -132,7 +132,6 @@ public class StringUtils {
     }
 
     public static String SakuraDemonSword = "SakuraDemonSword";
-    public static String SnowArmorEffect = "SnowArmorEffect";
     public static String MineMonsterEffect = "MineMonsterEffect";
 
     public static class ParticleTypes {

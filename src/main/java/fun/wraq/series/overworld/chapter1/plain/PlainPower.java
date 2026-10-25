@@ -10,7 +10,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.power.WraqPower;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
@@ -85,7 +84,7 @@ public class PlainPower extends WraqPower {
         List.of(ModItems.PlainPower.get(), ModItems.PlainPower1.get(),
                 ModItems.PlainPower2.get(), ModItems.PlainPower3.get())
                 .forEach(item -> {
-                    playerItemCoolDown(player, this, PlainPower.CoolDownTime[tier] - SuitCount.getLifeManaESuitCount(player));
+                    playerItemCoolDown(player, this, PlainPower.CoolDownTime[tier]);
                 });
         Level dimension = player.level();
         double effect = PlainPower.effect[tier];

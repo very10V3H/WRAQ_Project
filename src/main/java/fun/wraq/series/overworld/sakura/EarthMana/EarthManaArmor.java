@@ -1,14 +1,12 @@
 package fun.wraq.series.overworld.sakura.EarthMana;
 
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
@@ -44,24 +42,6 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
     @Override
     public Style getMainStyle() {
         return CustomStyle.styleOfBloodMana;
-    }
-
-    @Override
-    public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Component.literal("旧世斩魔遗怒").withStyle(style));
-        components.add(Component.literal(" 将你消耗的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaValue("100%")).
-                append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.healValue("")));
-        components.add(Te.s(" 与法术专精 - 传世禁咒不兼容", ChatFormatting.ITALIC, ChatFormatting.GRAY));
-        ComponentUtils.descriptionPassive(components, Component.literal("新世唤魔复生").withStyle(style));
-        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
-                append(Component.literal("将根据目标的当前生命值附带至多").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.exManaDamage("25%")));
-        components.add(Component.literal(" -多件地蕴魔力防具可以线性增长被动效能。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        return components;
     }
 
     @Override

@@ -1,18 +1,13 @@
 package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -23,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
-public class CastleSwiftArmor extends WraqArmor implements ForgeItem, OnShootArrowEquip {
+public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
     private static final Style style = CustomStyle.styleOfCastle;
 
     public static Map<Integer, Double> attributeIndexValueMap = new HashMap<>() {{
@@ -65,31 +60,8 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem, OnShootArr
     }
 
     @Override
-    public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionPassive(components, Te.s("暗影打击", style));
-        components.add(Te.s(" 普通箭矢攻击", CustomStyle.styleOfFlexible,
-                "将附带1支", "25%基础伤害", CustomStyle.styleOfPower, "的",
-                "额外箭矢", CustomStyle.styleOfFlexible));
-        Compute.DescriptionPassive(components, Component.literal("灵魂痛击").withStyle(style));
-        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("普通箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
-                append(Component.literal("附带").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.exTrueDamage("50%")));
-        components.add(Te.s(" -多件暗黑城堡防具能线性提升伤害值百分比/伤害值",
-                ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        return components;
-    }
-
-    @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfCastle();
-    }
-
-    public static double ExIgnoreDefenceDamage(Player player) {
-        int ArmorCount = SuitCount.getCastleSwiftSuitCount(player);
-        if (ArmorCount == 0) return 0;
-        return PlayerAttributes.attackDamage(player) * 0.5 * ArmorCount;
     }
 
     public static String attributeType = "attributeType"; // 锁定类型
@@ -192,10 +164,5 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem, OnShootArr
             add(new ItemStack(ModItems.CASTLE_PIECE.get(), 128));
             add(new ItemStack(ModItems.BEACON_RUNE.get(), 24));
         }};
-    }
-
-    @Override
-    public void onShoot(Player player) {
-        WraqQuiver.addExShoot(player, SuitCount.getCastleSwiftSuitCount(player) * 0.25);
     }
 }

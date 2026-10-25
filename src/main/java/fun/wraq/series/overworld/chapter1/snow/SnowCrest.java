@@ -6,8 +6,6 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
@@ -30,17 +28,6 @@ public class SnowCrest extends WraqCurios implements RepeatableCurios {
     @Override
     public Component getTypeDescription() {
         return ComponentUtils.getAttackTypeDescriptionOfCurios();
-    }
-
-    @Override
-    public List<Component> additionHoverText(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        if (Screen.hasShiftDown()) SnowSuitDescription.SuitDescription(components);
-        else {
-            ComponentUtils.suitDescription(components);
-            components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
-        }
-        return components;
     }
 
     @Override

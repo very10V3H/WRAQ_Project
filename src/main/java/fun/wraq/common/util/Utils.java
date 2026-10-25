@@ -14,7 +14,6 @@ import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.files.MarketItemInfo;
 import fun.wraq.files.MarketProfitInfo;
 import fun.wraq.networking.unSorted.BlockLimit;
-import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
@@ -281,14 +280,6 @@ public class Utils {
         BrewSoulMap.put(ModItems.EVOKER_SOUL.get(), ModItems.EVOKER_SOLIDIFIED_SOUL.get());
         BrewSoulMap.put(ModItems.RUBY.get(), ModItems.NETHER_SOLIDIFIED_SOUL.get());
         BrewSoulMap.put(ModItems.SKY_SOUL.get(), ModItems.SKY_SOLIDIFIED_SOUL.get());
-        MobEffectMap.put(ModEffects.PLAINARMOR.get(), true);
-        MobEffectMap.put(ModEffects.FORESTARMOR.get(), true);
-        MobEffectMap.put(ModEffects.VOLCANOARMOR.get(), true);
-        MobEffectMap.put(ModEffects.LAKEARMOR.get(), true);
-        MobEffectMap.put(ModEffects.LIFEMANA.get(), true);
-        MobEffectMap.put(ModEffects.OBSIMANA.get(), true);
-        MobEffectMap.put(ModEffects.SKYARMOR.get(), true);
-        MobEffectMap.put(ModEffects.LIGHTNINGARMOR.get(), true);
 
         CoolDownItem.add(ModItems.PLAIN_SWORD_0.get());
         CoolDownItem.add(ModItems.PLAIN_SWORD_1.get());
@@ -750,7 +741,4 @@ public class Utils {
             new Vec3(1, 0, 0), new Vec3(-1, 0, 0),
             new Vec3(0, 0, 1), new Vec3(0, 0, -1)
     );
-
-    // 潮汐之城重生点
-    public static final Vec3 RESPAWN_POS = new Vec3(3925, 82, 3491);
 }

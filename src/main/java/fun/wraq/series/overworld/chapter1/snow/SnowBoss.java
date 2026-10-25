@@ -47,7 +47,6 @@ public class SnowBoss {
                     append(Component.literal("缓速").withStyle(style)).
                     append(Component.literal("效果。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("护甲削减与缓速效果持续2s,并且效果不可叠加。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-            SnowSuitDescription.SuitDescription(components);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("Dimension-Snow").withStyle(style).withStyle(ChatFormatting.ITALIC));
             ComponentUtils.suffixOfChapterI(components);

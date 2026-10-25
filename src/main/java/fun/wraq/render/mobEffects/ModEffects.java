@@ -15,27 +15,15 @@ public class ModEffects {
             = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Utils.MOD_ID);
     public static final RegistryObject<MobEffect> FORESTSWORD = MOB_EFFECTS.register("forestsword",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, 16733525));
-    public static final RegistryObject<MobEffect> FORESTARMOR = MOB_EFFECTS.register("forestarmor",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, 0));
     public static final RegistryObject<MobEffect> PLAINBOW = MOB_EFFECTS.register("plainbow",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, 0));
-    public static final RegistryObject<MobEffect> PLAINARMOR = MOB_EFFECTS.register("plainarmor",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, 5635925));
     public static final RegistryObject<MobEffect> LAKESWORD = MOB_EFFECTS.register("lakesword",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, 5592575));
-    public static final RegistryObject<MobEffect> LAKEARMOR = MOB_EFFECTS.register("lakearmor",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, 0));
     public static final RegistryObject<MobEffect> VOLCANOSWORD = MOB_EFFECTS.register("volcanosword",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, 16777045));
-    public static final RegistryObject<MobEffect> VOLCANOARMOR = MOB_EFFECTS.register("volcanoarmor",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, 0));
     public static final RegistryObject<MobEffect> VOLCANOBOW = MOB_EFFECTS.register("volcanobow",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, 16777045));
 
-    public static final RegistryObject<MobEffect> LIFEMANA = MOB_EFFECTS.register("lifemana",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, 16733695));
-    public static final RegistryObject<MobEffect> OBSIMANA = MOB_EFFECTS.register("obsimana",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, 16733695));
     public static final RegistryObject<MobEffect> SEASWORD = MOB_EFFECTS.register("seasword",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, 0));
     public static final RegistryObject<MobEffect> BLACKFORESTSWORD = MOB_EFFECTS.register("blackforestsword",
@@ -66,10 +54,6 @@ public class ModEffects {
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, CustomStyle.styleOfMana.getColor().getValue()));
     public static final RegistryObject<MobEffect> SPEEDUP = MOB_EFFECTS.register("speedup",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, CustomStyle.styleOfFlexible.getColor().getValue()));
-    public static final RegistryObject<MobEffect> SKYARMOR = MOB_EFFECTS.register("skyarmor",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, CustomStyle.styleOfSky.getColor().getValue()));
-    public static final RegistryObject<MobEffect> LIGHTNINGARMOR = MOB_EFFECTS.register("lightningarmor",
-            () -> new MyEffect(MobEffectCategory.BENEFICIAL, 11184810));
     public static final RegistryObject<MobEffect> HEALTHRECOVER = MOB_EFFECTS.register("healreply",
             () -> new MyEffect(MobEffectCategory.BENEFICIAL, CustomStyle.styleOfLife.getColor().getValue()));
     public static final RegistryObject<MobEffect> WARM = MOB_EFFECTS.register("warm",
