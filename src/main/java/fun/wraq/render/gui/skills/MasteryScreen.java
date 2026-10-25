@@ -3,15 +3,22 @@ package fun.wraq.render.gui.skills;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.networking.misc.MasteryPackets.MasteryPresetRenameC2SPacket;
+import fun.wraq.networking.misc.MasteryPackets.MasteryPresetSwitchC2SPacket;
 import fun.wraq.networking.misc.MasteryPackets.MasteryRequestC2SPacket;
 import fun.wraq.networking.misc.MasteryPackets.MasterySaveC2SPacket;
 import fun.wraq.process.system.mastery.MasteryAllocation;
 import fun.wraq.process.system.mastery.MasteryClientData;
+import fun.wraq.process.system.mastery.MasteryData;
+import fun.wraq.process.system.mastery.MasteryEffectId;
+import fun.wraq.process.system.mastery.MasteryKeystones;
 import fun.wraq.process.system.mastery.MasteryTree;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -45,18 +52,24 @@ public class MasteryScreen extends Screen {
     private static final int ATLAS_WIDTH = 1024;
     private static final int ATLAS_HEIGHT = 512;
     private static final int CELL_FILL = 0;          // (0,0)
-    private static final int CELL_GLOW_WHITE = 1;    // (1,0)
-    private static final int CELL_RING_WHITE = 2;    // (2,0)
+    private static final int CELL_GLOW_HOVER = 1;    // (1,0)
+    private static final int CELL_RING_HOVER = 2;    // (2,0)
     private static final int CELL_RING_LOCKED = 3;   // (3,0)
     private static final int CELL_RING_UNLOCKED = 4; // (4,0)
     // 每棵树：glow = (tree,1)、ring = (tree,2)、diamond = (tree,3)
 
-    private static final int TEXT = 0xFFC9D4E6;
-    private static final int DIM = 0xFF7C879C;
-    private static final int FAINT = 0xFF4A5468;
-    private static final int GOLD = 0xFFE6C46A;
-    private static final int PANEL_BORDER = 0xFF4FC3F7;
-    private static final int COLUMN_BORDER = 0x40222E44;
+    private static final int TEXT = 0xFF1E2D44;
+    private static final int DIM = 0xFF5A6B80;
+    private static final int FAINT = 0xFF8A99AB;
+    private static final int GOLD = 0xFFB7791F;
+    private static final int PANEL_BORDER = 0xFF2E9BD6;
+    private static final int COLUMN_BORDER = 0x664A90C4;
+    private static final int PANEL_TOP = 0xD8F6FAFD;
+    private static final int PANEL_BOTTOM = 0xE8FFFFFF;
+    private static final int CARD_FILL = 0xAAFFFFFF;
+    private static final int BUTTON_FILL = 0xFFF2F7FC;
+    private static final int BUTTON_HOVER = 0xFFFFFFFF;
+    private static final int BUTTON_BORDER = 0xFF9FB6CC;
 
     private final Screen parent;
 
@@ -89,6 +102,12 @@ public class MasteryScreen extends Screen {
     private int keystoneTree = -1;
     private int[][] keystoneBackup;
 
+    private int selectedPresetPage = 0;
+    private boolean pendingPresetSwitch;
+    private boolean renameOpen;
+    private int renamePage = -1;
+    private EditBox presetNameBox;
+
     private String notice;
     private long noticeUntil;
 
@@ -101,14 +120,46 @@ public class MasteryScreen extends Screen {
         this(null);
     }
 
+    /**
+     * 统一的精通界面打开入口：战斗中禁止打开，并给出即时提示。
+     *
+     * <p>热键、身份卡按钮和身份卡功能入口都必须走这里，避免出现绕过限制的路径。</p>
+     */
+    public static boolean tryOpen(Screen parent) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (ClientUtils.isInBattle) {
+            if (minecraft.player != null) {
+                minecraft.player.displayClientMessage(
+                        Component.literal("战斗中无法打开精通界面").withStyle(ChatFormatting.RED), true);
+            }
+            return false;
+        }
+        minecraft.setScreen(new MasteryScreen(parent));
+        return true;
+    }
+
     @Override
     protected void init() {
+        this.clearWidgets();
         ModNetworking.sendToServer(new MasteryRequestC2SPacket());
         updateLayout();
         draft = MasteryAllocation.copy(MasteryClientData.allocation);
         baseline = MasteryAllocation.copy(MasteryClientData.allocation);
         clearPendingRefund();
         seenRevision = MasteryClientData.revision;
+        selectedPresetPage = MasteryClientData.activePresetPage;
+        pendingPresetSwitch = false;
+        renameOpen = false;
+        renamePage = -1;
+
+        presetNameBox = new EditBox(this.font, 0, 0, 160, 18,
+                Component.literal("精通页名称"));
+        presetNameBox.setMaxLength(16);
+        presetNameBox.setBordered(false);
+        presetNameBox.setTextColor(TEXT);
+        presetNameBox.setVisible(false);
+        this.addRenderableWidget(presetNameBox);
+        updatePresetNameBoxPosition();
     }
 
     @Override
@@ -122,10 +173,12 @@ public class MasteryScreen extends Screen {
             return;
         }
         seenRevision = MasteryClientData.revision;
-        if (!isDirty()) {
+        if (!isDirty() || pendingPresetSwitch) {
             draft = MasteryAllocation.copy(MasteryClientData.allocation);
             baseline = MasteryAllocation.copy(MasteryClientData.allocation);
             clearPendingRefund();
+            selectedPresetPage = MasteryClientData.activePresetPage;
+            pendingPresetSwitch = false;
         }
     }
 
@@ -133,6 +186,7 @@ public class MasteryScreen extends Screen {
     public void resize(Minecraft minecraft, int width, int height) {
         super.resize(minecraft, width, height);
         updateLayout();
+        updatePresetNameBoxPosition();
     }
 
     /**
@@ -172,6 +226,9 @@ public class MasteryScreen extends Screen {
         // 窄窗口时按列宽再收一档，避免三节点横向重叠
         nodeRadius = Math.min(nodeRadius, Math.max(5, (columnW - 12) / 6));
         keystoneRadius = Math.min(keystoneRadius, nodeRadius + 4);
+        if (presetNameBox != null) {
+            updatePresetNameBoxPosition();
+        }
     }
 
     private int closeX() {
@@ -182,27 +239,145 @@ public class MasteryScreen extends Screen {
         return panelY + (compact ? 8 : 10);
     }
 
+    private int presetTabWidth() {
+        return compact ? 18 : 22;
+    }
+
+    private int presetTabHeight() {
+        return compact ? 16 : 18;
+    }
+
+    private int presetTabGap() {
+        return 3;
+    }
+
+    private int presetBarTotalWidth() {
+        return MasteryData.PRESET_COUNT * presetTabWidth()
+                + (MasteryData.PRESET_COUNT - 1) * presetTabGap();
+    }
+
+    private int presetBarX() {
+        int pillW = compact ? 150 : 190;
+        int pillX = panelX + panelW - panelPad - pillW - (compact ? 24 : 28);
+        int titleEnd = panelX + panelPad + (compact ? 42 : 124);
+        int centered = panelX + panelW / 2 - presetBarTotalWidth() / 2;
+        int max = pillX - presetBarTotalWidth() - 8;
+        return Math.max(titleEnd + 8, Math.min(centered, max));
+    }
+
+    private int presetBarY() {
+        return panelY + (compact ? 8 : 10);
+    }
+
+    private int presetTabAt(double mouseX, double mouseY) {
+        int w = presetTabWidth();
+        int h = presetTabHeight();
+        int gap = presetTabGap();
+        int x = presetBarX();
+        int y = presetBarY();
+        for (int page = 0; page < MasteryData.PRESET_COUNT; page++) {
+            if (inRect(mouseX, mouseY, x + page * (w + gap), y, w, h)) {
+                return page;
+            }
+        }
+        return -1;
+    }
+
+    private int renameCardW() {
+        return Math.min(300, this.width - 30);
+    }
+
+    private int renameCardH() {
+        return compact ? 116 : 126;
+    }
+
+    private int renameCardX() {
+        return (this.width - renameCardW()) / 2;
+    }
+
+    private int renameCardY() {
+        return (this.height - renameCardH()) / 2;
+    }
+
+    private int renameNameBoxX() {
+        return renameCardX() + 18;
+    }
+
+    private int renameNameBoxY() {
+        return renameCardY() + (compact ? 44 : 48);
+    }
+
+    private int renameNameBoxW() {
+        return renameCardW() - 36;
+    }
+
+    private void updatePresetNameBoxPosition() {
+        if (presetNameBox == null) {
+            return;
+        }
+        presetNameBox.setX(renameNameBoxX());
+        presetNameBox.setY(renameNameBoxY());
+        presetNameBox.setWidth(renameNameBoxW());
+        presetNameBox.setHeight(18);
+    }
+
+    private int[] renameCancelButton() {
+        int w = compact ? 56 : 64;
+        int h = compact ? 20 : 22;
+        int total = w * 2 + 8;
+        int x = renameCardX() + (renameCardW() - total) / 2;
+        int y = renameCardY() + renameCardH() - (compact ? 26 : 30);
+        return new int[]{x, y, w, h};
+    }
+
+    private int[] renameConfirmButton() {
+        int w = compact ? 56 : 64;
+        int h = compact ? 20 : 22;
+        int total = w * 2 + 8;
+        int x = renameCardX() + (renameCardW() - total) / 2 + w + 8;
+        int y = renameCardY() + renameCardH() - (compact ? 26 : 30);
+        return new int[]{x, y, w, h};
+    }
+
     // ------------------------------------------------------------------
     // rendering
     // ------------------------------------------------------------------
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.fillGradient(0, 0, this.width, this.height, 0xFF05080F, 0xFF0A101B);
+        graphics.fillGradient(0, 0, this.width, this.height, 0xAA7E9BB8, 0xCCB8CBDD);
         drawPanel(graphics, mouseX, mouseY);
 
+        boolean modal = warningOpen || keystoneOpen || renameOpen;
+        List<Component> pageNameTooltip = drawPageName(graphics,
+                modal ? Integer.MIN_VALUE : mouseX,
+                modal ? Integer.MIN_VALUE : mouseY);
+        List<Component> pageTooltip = drawPageBar(graphics,
+                modal ? Integer.MIN_VALUE : mouseX,
+                modal ? Integer.MIN_VALUE : mouseY);
         List<Component> tooltip = drawColumns(graphics,
-                warningOpen || keystoneOpen ? Integer.MIN_VALUE : mouseX,
-                warningOpen || keystoneOpen ? Integer.MIN_VALUE : mouseY);
+                modal ? Integer.MIN_VALUE : mouseX,
+                modal ? Integer.MIN_VALUE : mouseY);
+        if (pageTooltip != null) {
+            tooltip = pageTooltip;
+        } else if (pageNameTooltip != null) {
+            tooltip = pageNameTooltip;
+        }
 
         drawFooter(graphics);
         drawFooterButtons(graphics, mouseX, mouseY);
 
         if (keystoneOpen) {
-            drawKeystoneModal(graphics, mouseX, mouseY);
+            List<Component> keystoneOptionTooltip = drawKeystoneModal(graphics, mouseX, mouseY);
+            if (keystoneOptionTooltip != null) {
+                tooltip = keystoneOptionTooltip;
+            }
         }
         if (warningOpen) {
             drawWarning(graphics, mouseX, mouseY);
+        }
+        if (renameOpen) {
+            drawRenameModal(graphics, mouseX, mouseY);
         }
         drawNotice(graphics);
 
@@ -217,14 +392,13 @@ public class MasteryScreen extends Screen {
     }
 
     private void drawPanel(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.fill(panelX - 3, panelY - 3, panelX + panelW + 3, panelY + panelH + 3, 0x50000000);
-        graphics.fillGradient(panelX, panelY, panelX + panelW, panelY + panelH, 0xFF0C1320, 0xFF070B12);
+        graphics.fill(panelX - 3, panelY - 3, panelX + panelW + 3, panelY + panelH + 3, 0x30000000);
+        graphics.fillGradient(panelX, panelY, panelX + panelW, panelY + panelH, PANEL_TOP, PANEL_BOTTOM);
         border(graphics, panelX, panelY, panelX + panelW, panelY + panelH, PANEL_BORDER);
 
         scaledString(graphics, "精通", panelX + panelPad, panelY + (compact ? 8 : 10),
                 compact ? 1.3f : 1.7f, GOLD, false);
         if (!compact) {
-            scaledString(graphics, "MASTERY", panelX + panelPad + 58, panelY + 16, 0.9f, 0xFF5C6880, false);
             scaledString(graphics, "选择路径 · 自由分配 · 随时重新配置", panelX + panelPad,
                     panelY + 31, 0.72f, DIM, false);
         }
@@ -233,8 +407,8 @@ public class MasteryScreen extends Screen {
         int pillH = compact ? 24 : 30;
         int pillX = panelX + panelW - panelPad - pillW - (compact ? 24 : 28);
         int pillY = panelY + (compact ? 8 : 10);
-        graphics.fill(pillX, pillY, pillX + pillW, pillY + pillH, 0xD0141C2C);
-        border(graphics, pillX, pillY, pillX + pillW, pillY + pillH, 0xFF3A4864);
+        graphics.fill(pillX, pillY, pillX + pillW, pillY + pillH, 0xCCFFFFFF);
+        border(graphics, pillX, pillY, pillX + pillW, pillY + pillH, BUTTON_BORDER);
         if (compact) {
             scaledString(graphics, "可用精通点", pillX + 10, pillY + 4, 0.55f, DIM, false);
             scaledString(graphics, String.valueOf(draftAvailable()), pillX + 10,
@@ -256,11 +430,88 @@ public class MasteryScreen extends Screen {
         int closeY = closeY();
         boolean closeHovered = inRect(mouseX, mouseY, closeX, closeY, 18, 18);
         graphics.fill(closeX, closeY, closeX + 18, closeY + 18,
-                closeHovered ? 0xFF3A1A1A : 0x80141B28);
+                closeHovered ? 0xFFFFEAEA : 0xCCFFFFFF);
         border(graphics, closeX, closeY, closeX + 18, closeY + 18,
-                closeHovered ? 0xFFE25A55 : 0xFF3A4864);
+                closeHovered ? 0xFFE25A55 : BUTTON_BORDER);
         drawCentered(graphics, "×", closeX + 9, closeY + 5,
-                closeHovered ? 0xFFFFDDDD : DIM);
+                closeHovered ? 0xFFB03A3A : TEXT);
+    }
+
+    private List<Component> drawPageName(GuiGraphics graphics, int mouseX, int mouseY) {
+        int x = pageNameX();
+        int y = pageNameY();
+        String shown = pageNameDisplay();
+        int width = this.font.width(shown);
+        boolean hovered = inRect(mouseX, mouseY, x, y - 1, width, 11);
+        if (hovered) {
+            graphics.fill(x - 2, y - 1, x + width + 2, y + 10, 0x222E9BD6);
+        }
+        graphics.drawString(this.font, shown, x, y,
+                hovered ? 0xFF1F6F9C : PANEL_BORDER, false);
+        if (hovered) {
+            graphics.fill(x, y + 10, x + width, y + 11, GOLD);
+            List<Component> lines = new ArrayList<>();
+            lines.add(Component.literal("精通页：" + MasteryClientData.presetName(selectedPresetPage))
+                    .withStyle(ChatFormatting.GOLD));
+            lines.add(Component.literal("点击重命名").withStyle(ChatFormatting.GRAY));
+            return lines;
+        }
+        return null;
+    }
+
+    private int pageNameX() {
+        return panelX + panelPad + (compact ? 38 : 42);
+    }
+
+    private int pageNameY() {
+        return panelY + (compact ? 9 : 17);
+    }
+
+    private String pageNameDisplay() {
+        String full = "· " + MasteryClientData.presetName(selectedPresetPage);
+        int maxWidth = Math.max(20, presetBarX() - pageNameX() - 12);
+        String shown = this.font.plainSubstrByWidth(full, maxWidth);
+        if (shown.length() < full.length()) {
+            shown = shown + "…";
+        }
+        return shown;
+    }
+
+    private boolean pageNameAt(double mouseX, double mouseY) {
+        return inRect(mouseX, mouseY, pageNameX(), pageNameY() - 1,
+                this.font.width(pageNameDisplay()), 11);
+    }
+
+    private List<Component> drawPageBar(GuiGraphics graphics, int mouseX, int mouseY) {
+        int w = presetTabWidth();
+        int h = presetTabHeight();
+        int gap = presetTabGap();
+        int x = presetBarX();
+        int y = presetBarY();
+        for (int page = 0; page < MasteryData.PRESET_COUNT; page++) {
+            int tabX = x + page * (w + gap);
+            boolean selected = page == selectedPresetPage;
+            boolean hovered = inRect(mouseX, mouseY, tabX, y, w, h);
+            graphics.fill(tabX, y, tabX + w, y + h,
+                    selected ? 0xFF2E9BD6 : (hovered ? BUTTON_HOVER : 0xCCFFFFFF));
+            border(graphics, tabX, y, tabX + w, y + h,
+                    selected ? 0xFF1F6F9C : (hovered ? PANEL_BORDER : BUTTON_BORDER));
+            drawCentered(graphics, String.valueOf(page + 1), tabX + w / 2,
+                    y + (compact ? 4 : 5), selected ? 0xFFFFFFFF : TEXT);
+            if (hovered) {
+                List<Component> lines = new ArrayList<>();
+                lines.add(Component.literal("精通页 " + (page + 1) + "："
+                                + MasteryClientData.presetName(page))
+                        .withStyle(ChatFormatting.GOLD));
+                if (selected) {
+                    lines.add(Component.literal("当前页").withStyle(ChatFormatting.GREEN));
+                }
+                lines.add(Component.literal("左键切换 · 右键重命名")
+                        .withStyle(ChatFormatting.GRAY));
+                return lines;
+            }
+        }
+        return null;
     }
 
     private List<Component> drawColumns(GuiGraphics graphics, int mouseX, int mouseY) {
@@ -275,7 +526,7 @@ public class MasteryScreen extends Screen {
             int centerX = colX + columnW / 2;
             int emblemY = panelY + (compact ? 50 : 64);
 
-            graphics.fill(colX, cardTop, colX + columnW, cardBottom, 0x70101724);
+            graphics.fill(colX, cardTop, colX + columnW, cardBottom, CARD_FILL);
             border(graphics, colX, cardTop, colX + columnW, cardBottom, COLUMN_BORDER);
             graphics.fill(colX, cardTop, colX + columnW, cardTop + 3, tree.getColor());
 
@@ -286,15 +537,15 @@ public class MasteryScreen extends Screen {
             blitCell(graphics, treeIndex, 1, centerX, emblemY, emblemRadius * 2 + 6);
             blitCell(graphics, CELL_FILL, 0, centerX, emblemY, emblemRadius * 2);
             blitCell(graphics, treeIndex, 2, centerX, emblemY, emblemRadius * 2);
-            drawCentered(graphics, tree.getSigil(), centerX, emblemY - 4, tree.getColor());
+            drawCentered(graphics, tree.getSigil(), centerX, emblemY - 4, tree.getDeepColor());
             if (compact) {
                 drawCenteredScaled(graphics, tree.getDisplayName(), centerX, emblemY + 15, 0.8f,
-                        tree.getColor());
+                        tree.getNameColor());
                 drawCenteredScaled(graphics,
                         MasteryAllocation.treeTotal(points) + " / " + MasteryAllocation.TREE_CAP,
                         centerX, emblemY + 27, 0.58f, DIM);
             } else {
-                drawCentered(graphics, tree.getDisplayName(), centerX, emblemY + 22, tree.getColor());
+                drawCentered(graphics, tree.getDisplayName(), centerX, emblemY + 22, tree.getNameColor());
                 drawCenteredScaled(graphics,
                         MasteryAllocation.treeTotal(points) + " / " + MasteryAllocation.TREE_CAP,
                         centerX, emblemY + 34, 0.7f, DIM);
@@ -307,7 +558,7 @@ public class MasteryScreen extends Screen {
                 int lineBottom = nodeRowY(row + 1) - radiusOf(row + 1) - (compact ? 3 : 4);
                 if (lineBottom > lineTop) {
                     graphics.fill(centerX - 1, lineTop, centerX + 1, lineBottom,
-                            full ? withAlpha(tree.getColor(), 0x99) : 0xFF1B2333);
+                            full ? withAlpha(tree.getColor(), 0x99) : 0xFFB9C9D9);
                 }
             }
 
@@ -343,8 +594,8 @@ public class MasteryScreen extends Screen {
                 int sum = MasteryAllocation.rowTotal(points, row);
                 int cap = MasteryAllocation.rowCap(row);
                 boolean invalid = !unlocked && sum > 0;
-                int labelColor = invalid ? 0xFFE25A55
-                        : (sum == cap ? tree.getColor() : (sum > 0 ? 0xFFB9C4D8 : FAINT));
+                int labelColor = invalid ? 0xFFC0392B
+                        : (sum == cap ? tree.getDeepColor() : (sum > 0 ? 0xFF4A5B70 : FAINT));
                 drawCenteredScaled(graphics, sum + " / " + cap, centerX,
                         nodeY + radius + (compact ? 3 : 5), labelScale, labelColor);
             }
@@ -360,7 +611,7 @@ public class MasteryScreen extends Screen {
             blitCell(graphics, tree.ordinal(), 1, centerX, centerY, radius * 2 + 4);
         }
         if (hovered) {
-            blitCell(graphics, CELL_GLOW_WHITE, 0, centerX, centerY, radius * 2 + 6);
+            blitCell(graphics, CELL_GLOW_HOVER, 0, centerX, centerY, radius * 2 + 6);
         }
         blitCell(graphics, CELL_FILL, 0, centerX, centerY, ringSize);
         if (filled) {
@@ -370,11 +621,11 @@ public class MasteryScreen extends Screen {
                     centerX, centerY, ringSize);
         }
         if (hovered) {
-            blitCell(graphics, CELL_RING_WHITE, 0, centerX, centerY, radius * 2 + 4);
+            blitCell(graphics, CELL_RING_HOVER, 0, centerX, centerY, radius * 2 + 4);
         }
         if (filled) {
             drawCenteredScaled(graphics, String.valueOf(allocated), centerX, centerY - 3,
-                    nodeTextScale, 0xFFF2F6FF);
+                    nodeTextScale, TEXT);
         } else if (unlocked) {
             blitCell(graphics, tree.ordinal(), 1, centerX, centerY, 8);
         } else {
@@ -390,28 +641,28 @@ public class MasteryScreen extends Screen {
 
     private void drawFooterButtons(GuiGraphics graphics, int mouseX, int mouseY) {
         boolean dirty = isDirty();
-        drawButton(graphics, resetButton(), "重置", 0xFF3A4864, false, mouseX, mouseY);
-        drawButton(graphics, saveButton(), "保存", dirty ? GOLD : 0xFF3A4864, dirty, mouseX, mouseY);
+        drawButton(graphics, resetButton(), "重置", BUTTON_BORDER, false, mouseX, mouseY);
+        drawButton(graphics, saveButton(), "保存", dirty ? GOLD : BUTTON_BORDER, dirty, mouseX, mouseY);
     }
 
-    private void drawKeystoneModal(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.fill(0, 0, this.width, this.height, 0xAA000000);
+    private List<Component> drawKeystoneModal(GuiGraphics graphics, int mouseX, int mouseY) {
+        graphics.fill(0, 0, this.width, this.height, 0x66000000);
         MasteryTree tree = MasteryTree.byIndex(keystoneTree);
         int x = keystoneCardX();
         int y = keystoneCardY();
         int w = keystoneCardW();
         int h = keystoneCardH();
-        graphics.fillGradient(x, y, x + w, y + h, 0xFF101827, 0xFF0A0F18);
-        border(graphics, x, y, x + w, y + h, 0xFF3A4864);
+        graphics.fillGradient(x, y, x + w, y + h, 0xF7FAFDFF, 0xFFFFFFFF);
+        border(graphics, x, y, x + w, y + h, BUTTON_BORDER);
         graphics.fill(x, y, x + w, y + 3, tree.getColor());
 
         scaledString(graphics, "选择基石", x + (compact ? 14 : 18), y + (compact ? 9 : 12),
-                compact ? 1.0f : 1.15f, tree.getColor(), false);
+                compact ? 1.0f : 1.15f, tree.getDeepColor(), false);
         int[] points = draft[keystoneTree];
         int total = MasteryAllocation.rowTotal(points, ROW_COUNT - 1);
         scaledStringRight(graphics, "本排 " + total + " / " + MasteryAllocation.rowCap(ROW_COUNT - 1),
                 x + w - (compact ? 14 : 18), y + (compact ? 10 : 14), compact ? 0.68f : 0.76f,
-                total == MasteryAllocation.rowCap(ROW_COUNT - 1) ? tree.getColor() : TEXT);
+                total == MasteryAllocation.rowCap(ROW_COUNT - 1) ? tree.getDeepColor() : TEXT);
         scaledStringRight(graphics, "可用精通点 " + draftAvailable(),
                 x + w - (compact ? 14 : 18), y + (compact ? 23 : 28), compact ? 0.58f : 0.64f, DIM);
         scaledString(graphics, "左键选择基石 · 右键清空 · 滚轮切换",
@@ -420,6 +671,7 @@ public class MasteryScreen extends Screen {
                 x + (compact ? 14 : 18), y + (compact ? 43 : 52), compact ? 0.52f : 0.58f, FAINT, false);
 
         int count = keystoneOptionCount();
+        List<Component> hoveredTooltip = null;
         for (int i = 0; i < count; i++) {
             int ox = keystoneOptionCenterX(i);
             int oy = keystoneOptionCenterY(i);
@@ -427,54 +679,110 @@ public class MasteryScreen extends Screen {
             boolean hovered = inCircle(mouseX, mouseY, ox, oy, keystoneOptionRadius() + 4);
             drawNode(graphics, ox, oy, keystoneOptionRadius(), allocated, tree, true, hovered);
             if (allocated > 0) {
-                blitCell(graphics, CELL_RING_WHITE, 0, ox, oy, keystoneOptionRadius() * 2 + 4);
+                blitCell(graphics, CELL_RING_HOVER, 0, ox, oy, keystoneOptionRadius() * 2 + 4);
             }
-            drawCenteredScaled(graphics, MasteryAllocation.nodeName(ROW_COUNT - 1, i), ox,
+            drawCenteredScaled(graphics, MasteryKeystones.name(tree, i), ox,
                     oy + keystoneOptionRadius() + (compact ? 4 : 6), compact ? 0.6f : 0.68f,
-                    allocated > 0 ? 0xFFFFFFFF : DIM);
+                    tree.getNameColor());
+            if (hovered) {
+                hoveredTooltip = keystoneOptionTooltip(tree, i, allocated);
+            }
         }
 
         int[] clear = keystoneClearButton();
-        drawButton(graphics, clear, "清空", 0xFF3A4864, false, mouseX, mouseY);
+        drawButton(graphics, clear, "清空", BUTTON_BORDER, false, mouseX, mouseY);
         int[] cancel = keystoneCancelButton();
-        drawButton(graphics, cancel, "取消", 0xFF3A4864, false, mouseX, mouseY);
+        drawButton(graphics, cancel, "取消", BUTTON_BORDER, false, mouseX, mouseY);
         int[] confirm = keystoneConfirmButton();
-        drawButton(graphics, confirm, "确定", tree.getColor(), true, mouseX, mouseY);
+        drawButton(graphics, confirm, "确定", tree.getDeepColor(), true, mouseX, mouseY);
+        return hoveredTooltip;
+    }
+
+    private List<Component> keystoneOptionTooltip(MasteryTree tree, int index, int allocated) {
+        MasteryEffectId effect = MasteryKeystones.effect(tree, index);
+        List<Component> lines = new ArrayList<>();
+        if (effect == null) {
+            return lines;
+        }
+        lines.add(Component.literal("基石 · " + effect.displayName())
+                .withStyle(Style.EMPTY.withColor(tree.getNameColor()))
+                .withStyle(ChatFormatting.BOLD));
+        lines.add(Component.literal(allocated > 0 ? "已选择" : "未选择")
+                .withStyle(allocated > 0 ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+        lines.add(Component.empty());
+        int shownLevel = allocated > 0
+                ? allocated : MasteryAllocation.rowCap(ROW_COUNT - 1);
+        lines.addAll(effect.description(shownLevel));
+        if (allocated <= 0) {
+            lines.add(Component.literal("（按 " + shownLevel + " 点显示）")
+                    .withStyle(ChatFormatting.DARK_GRAY));
+        }
+        lines.add(Component.empty());
+        lines.add(Component.literal("左键选择 · 右键清空 · 滚轮切换")
+                .withStyle(ChatFormatting.GRAY));
+        return lines;
+    }
+
+    private void drawRenameModal(GuiGraphics graphics, int mouseX, int mouseY) {
+        graphics.fill(0, 0, this.width, this.height, 0x66000000);
+        int x = renameCardX();
+        int y = renameCardY();
+        int w = renameCardW();
+        int h = renameCardH();
+        graphics.fillGradient(x, y, x + w, y + h, 0xF7FAFDFF, 0xFFFFFFFF);
+        border(graphics, x, y, x + w, y + h, BUTTON_BORDER);
+        graphics.fill(x, y, x + w, y + 3, PANEL_BORDER);
+
+        drawCentered(graphics, "重命名精通页 " + (renamePage + 1),
+                x + w / 2, y + (compact ? 11 : 14), TEXT);
+        scaledString(graphics, "名称", x + 18, y + (compact ? 30 : 34),
+                compact ? 0.7f : 0.8f, DIM, false);
+        graphics.fill(renameNameBoxX() - 1, renameNameBoxY() - 1,
+                renameNameBoxX() + renameNameBoxW() + 1, renameNameBoxY() + 19, 0xFFFFFFFF);
+        border(graphics, renameNameBoxX() - 1, renameNameBoxY() - 1,
+                renameNameBoxX() + renameNameBoxW() + 1, renameNameBoxY() + 19, BUTTON_BORDER);
+        scaledString(graphics, "最多 16 个字符", x + 18, y + (compact ? 64 : 70),
+                compact ? 0.55f : 0.62f, FAINT, false);
+
+        int[] cancel = renameCancelButton();
+        drawButton(graphics, cancel, "取消", BUTTON_BORDER, false, mouseX, mouseY);
+        int[] confirm = renameConfirmButton();
+        drawButton(graphics, confirm, "确定", PANEL_BORDER, true, mouseX, mouseY);
     }
 
     private void drawWarning(GuiGraphics graphics, int mouseX, int mouseY) {
-        graphics.fill(0, 0, this.width, this.height, 0xAA000000);
+        graphics.fill(0, 0, this.width, this.height, 0x66000000);
         int w = warningW();
         int h = warningH();
         int x = warningX();
         int y = warningY();
-        graphics.fillGradient(x, y, x + w, y + h, 0xFF1A1420, 0xFF0C0A10);
-        border(graphics, x, y, x + w, y + h, 0xFF8A3A3A);
-        graphics.fill(x, y, x + w, y + 3, 0xFFE25A55);
+        graphics.fillGradient(x, y, x + w, y + h, 0xF8FFF7F7, 0xFFFFFFFF);
+        border(graphics, x, y, x + w, y + h, 0xFFC0392B);
+        graphics.fill(x, y, x + w, y + 3, 0xFFC0392B);
 
-        drawCentered(graphics, "保存确认", x + w / 2, y + (compact ? 12 : 16), 0xFFFFD9D9);
+        drawCentered(graphics, "保存确认", x + w / 2, y + (compact ? 12 : 16), 0xFF8A1F1F);
         drawCenteredScaled(graphics, "当前调整会使后续排不满足前置条件。",
                 x + w / 2, y + (compact ? 32 : 42), compact ? 0.72f : 0.82f, TEXT);
         drawCenteredScaled(graphics, "保存时将清空 " + warningCleared + " 点精通。",
-                x + w / 2, y + (compact ? 48 : 57), compact ? 0.72f : 0.82f, 0xFFE25A55);
+                x + w / 2, y + (compact ? 48 : 57), compact ? 0.72f : 0.82f, 0xFFC0392B);
         drawCenteredScaled(graphics, "是否继续保存？",
                 x + w / 2, y + (compact ? 64 : 74), compact ? 0.72f : 0.82f, DIM);
 
         int[] cancelButton = warningCancelButton();
-        drawButton(graphics, cancelButton, "取消", 0xFF3A4864, false, mouseX, mouseY);
+        drawButton(graphics, cancelButton, "取消", BUTTON_BORDER, false, mouseX, mouseY);
         int[] continueButton = warningContinueButton();
-        drawButton(graphics, continueButton, "保存", 0xFFE25A55, true, mouseX, mouseY);
+        drawButton(graphics, continueButton, "保存", 0xFFC0392B, true, mouseX, mouseY);
     }
 
     private void drawButton(GuiGraphics graphics, int[] rect, String label, int accent,
                             boolean primary, int mouseX, int mouseY) {
         boolean hovered = inRect(mouseX, mouseY, rect[0], rect[1], rect[2], rect[3]);
         graphics.fill(rect[0], rect[1], rect[0] + rect[2], rect[1] + rect[3],
-                hovered ? 0xFF20293A : (primary ? 0xFF151D2B : 0xFF10161F));
+                hovered ? BUTTON_HOVER : (primary ? 0xFFE3F0FA : BUTTON_FILL));
         border(graphics, rect[0], rect[1], rect[0] + rect[2], rect[1] + rect[3],
-                hovered ? accent : (primary ? withAlpha(accent, 0x88) : 0xFF2C3850));
+                hovered ? accent : (primary ? withAlpha(accent, 0xCC) : BUTTON_BORDER));
         drawCentered(graphics, label, rect[0] + rect[2] / 2, rect[1] + rect[3] / 2 - 4,
-                hovered ? 0xFFFFFFFF : (primary ? TEXT : DIM));
+                hovered ? 0xFF102033 : (primary ? TEXT : DIM));
     }
 
     private void drawNotice(GuiGraphics graphics) {
@@ -488,8 +796,8 @@ public class MasteryScreen extends Screen {
         int w = this.font.width(notice) + 24;
         int x = this.width / 2 - w / 2;
         int y = panelY + (compact ? 34 : 56);
-        graphics.fill(x, y, x + w, y + 18, 0xE01A2030);
-        border(graphics, x, y, x + w, y + 18, 0xFF7A5A20);
+        graphics.fill(x, y, x + w, y + 18, 0xEEFFF9E8);
+        border(graphics, x, y, x + w, y + 18, 0xFFB7791F);
         drawCentered(graphics, notice, x + w / 2, y + 5, GOLD);
     }
 
@@ -501,7 +809,7 @@ public class MasteryScreen extends Screen {
         MasteryTree tree = MasteryTree.byIndex(treeIndex);
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal(tree.getDisplayName())
-                .withStyle(Style.EMPTY.withColor(tree.getColor()))
+                .withStyle(Style.EMPTY.withColor(tree.getNameColor()))
                 .append(Component.literal("   精通路径").withStyle(ChatFormatting.DARK_GRAY)));
         lines.add(Component.literal(tree.getDescription())
                 .withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
@@ -524,11 +832,25 @@ public class MasteryScreen extends Screen {
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal(tree.getDisplayName() + " · " + MasteryAllocation.rowName(row)
                         + " · " + MasteryAllocation.nodeName(row, node))
-                .withStyle(Style.EMPTY.withColor(tree.getColor())));
+                .withStyle(Style.EMPTY.withColor(tree.getNameColor())));
         lines.add(Component.literal("已投入 " + allocated + " 点").withStyle(ChatFormatting.WHITE));
+        lines.add(Component.empty());
+        MasteryEffectId effect = MasteryEffectId.at(tree, row, node);
+        if (effect != null) {
+            lines.add(Component.literal("【" + effect.displayName() + "】")
+                    .withStyle(Style.EMPTY.withColor(tree.getNameColor()))
+                    .withStyle(ChatFormatting.BOLD));
+            lines.addAll(effect.description(allocated));
+        } else {
+            lines.add(Component.literal("效果：按路径总点数换算（详见身份卡）")
+                    .withStyle(ChatFormatting.GRAY));
+        }
+        lines.add(Component.empty());
+        lines.add(Component.literal("----------------").withStyle(ChatFormatting.DARK_GRAY));
         lines.add(Component.empty());
         lines.add(Component.literal("本排进度 " + sum + " / " + cap)
                 .withStyle(sum == cap ? ChatFormatting.GREEN : ChatFormatting.GRAY));
+        lines.add(Component.empty());
         if (!unlocked) {
             lines.add(Component.literal("尚未解锁：需先点满"
                             + MasteryAllocation.rowName(row - 1) + "（"
@@ -544,12 +866,11 @@ public class MasteryScreen extends Screen {
                     .withStyle(ChatFormatting.DARK_GRAY));
             lines.add(Component.literal("最后一排：优先消耗剩余精通点").withStyle(ChatFormatting.DARK_GRAY));
         }
-        lines.add(Component.literal("效果：按路径总点数换算（详见身份卡）").withStyle(ChatFormatting.DARK_GRAY));
         return lines;
     }
 
-    private int selectedKeystoneIndex(int[] points) {
-        int count = MasteryAllocation.rowNodeCount(ROW_COUNT - 1);
+    private int selectedKeystoneIndex(int[] points, MasteryTree tree) {
+        int count = MasteryKeystones.count(tree);
         for (int i = 0; i < count; i++) {
             if (points[MasteryAllocation.index(ROW_COUNT - 1, i)] > 0) {
                 return i;
@@ -562,15 +883,24 @@ public class MasteryScreen extends Screen {
         MasteryTree tree = MasteryTree.byIndex(treeIndex);
         int[] points = draft[treeIndex];
         int total = MasteryAllocation.rowTotal(points, ROW_COUNT - 1);
-        int selected = selectedKeystoneIndex(points);
+        int selected = selectedKeystoneIndex(points, tree);
         boolean unlocked = MasteryAllocation.rowUnlocked(points, ROW_COUNT - 1);
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal("基石 · " + tree.getDisplayName())
-                .withStyle(Style.EMPTY.withColor(tree.getColor())));
+                .withStyle(Style.EMPTY.withColor(tree.getNameColor())));
         lines.add(Component.literal(total > 0
-                        ? "当前：" + MasteryAllocation.nodeName(ROW_COUNT - 1, selected)
+                        ? "当前：" + MasteryKeystones.name(tree, selected)
                         : "尚未选择基石")
-                .withStyle(ChatFormatting.WHITE));
+                .withStyle(total > 0
+                        ? Style.EMPTY.withColor(tree.getNameColor())
+                        : Style.EMPTY.withColor(ChatFormatting.WHITE)));
+        MasteryEffectId keystone = MasteryKeystones.effect(tree, selected);
+        if (total > 0 && keystone != null) {
+            lines.addAll(keystone.description(total));
+        }
+        lines.add(Component.empty());
+        lines.add(Component.literal("----------------").withStyle(ChatFormatting.DARK_GRAY));
+        lines.add(Component.empty());
         lines.add(Component.literal("本排进度 " + total + " / "
                         + MasteryAllocation.rowCap(ROW_COUNT - 1))
                 .withStyle(total == MasteryAllocation.rowCap(ROW_COUNT - 1)
@@ -583,7 +913,6 @@ public class MasteryScreen extends Screen {
                     .withStyle(ChatFormatting.RED));
         }
         lines.add(Component.literal("左键打开基石选择界面").withStyle(ChatFormatting.GOLD));
-        lines.add(Component.literal("后续可扩展到多个基石选项").withStyle(ChatFormatting.DARK_GRAY));
         return lines;
     }
 
@@ -630,6 +959,34 @@ public class MasteryScreen extends Screen {
             return true;
         }
 
+        if (renameOpen) {
+            if (inRect(mouseX, mouseY, renameConfirmButton())) {
+                closeRename(true);
+                return true;
+            }
+            if (inRect(mouseX, mouseY, renameCancelButton())) {
+                closeRename(false);
+                return true;
+            }
+            presetNameBox.mouseClicked(mouseX, mouseY, button);
+            return true;
+        }
+
+        if (pageNameAt(mouseX, mouseY)) {
+            openRename(selectedPresetPage);
+            return true;
+        }
+
+        int presetPage = presetTabAt(mouseX, mouseY);
+        if (presetPage >= 0) {
+            if (button == 0) {
+                switchPreset(presetPage);
+            } else if (button == 1) {
+                openRename(presetPage);
+            }
+            return true;
+        }
+
         if (inRect(mouseX, mouseY, closeX(), closeY(), 18, 18)) {
             this.onClose();
             return true;
@@ -664,7 +1021,7 @@ public class MasteryScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-        if (warningOpen) {
+        if (warningOpen || renameOpen) {
             return true;
         }
         if (keystoneOpen) {
@@ -674,6 +1031,9 @@ public class MasteryScreen extends Screen {
                 int next = (option + (delta > 0 ? 1 : -1) + count) % count;
                 selectKeystone(next);
             }
+            return true;
+        }
+        if (presetTabAt(mouseX, mouseY) >= 0) {
             return true;
         }
         int[] hit = nodeAt(mouseX, mouseY);
@@ -695,6 +1055,21 @@ public class MasteryScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (renameOpen) {
+            if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
+                closeRename(false);
+                return true;
+            }
+            if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
+                closeRename(true);
+                return true;
+            }
+            return presetNameBox.keyPressed(keyCode, scanCode, modifiers);
+        }
+        if (keyCode == GLFW.GLFW_KEY_E) {
+            this.onClose();
+            return true;
+        }
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
             if (warningOpen) {
                 warningOpen = false;
@@ -706,6 +1081,14 @@ public class MasteryScreen extends Screen {
             }
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public boolean charTyped(char codePoint, int modifiers) {
+        if (renameOpen) {
+            return presetNameBox.charTyped(codePoint, modifiers);
+        }
+        return super.charTyped(codePoint, modifiers);
     }
 
     @Override
@@ -914,10 +1297,59 @@ public class MasteryScreen extends Screen {
     }
 
     private void commitDraft() {
-        ModNetworking.sendToServer(new MasterySaveC2SPacket(draft));
+        ModNetworking.sendToServer(new MasterySaveC2SPacket(draft, selectedPresetPage));
         baseline = MasteryAllocation.copy(draft);
         clearPendingRefund();
-        showNotice("已保存");
+        showNotice("已保存到精通页 " + (selectedPresetPage + 1));
+    }
+
+    private void switchPreset(int page) {
+        if (!MasteryClientData.synced) {
+            showNotice("正在同步精通数据，请稍候");
+            return;
+        }
+        int target = Math.max(0, Math.min(MasteryData.PRESET_COUNT - 1, page));
+        if (target == selectedPresetPage && !isDirty()) {
+            showNotice("当前已是精通页 " + (target + 1));
+            return;
+        }
+        boolean hadChanges = isDirty();
+        selectedPresetPage = target;
+        pendingPresetSwitch = true;
+        ModNetworking.sendToServer(new MasteryPresetSwitchC2SPacket(target));
+        if (hadChanges) {
+            showNotice("未保存调整已丢弃");
+        }
+    }
+
+    private void openRename(int page) {
+        if (presetNameBox == null) {
+            return;
+        }
+        renamePage = Math.max(0, Math.min(MasteryData.PRESET_COUNT - 1, page));
+        renameOpen = true;
+        presetNameBox.setValue(MasteryClientData.presetName(renamePage));
+        updatePresetNameBoxPosition();
+        presetNameBox.setVisible(true);
+        presetNameBox.setFocused(true);
+        presetNameBox.setCanLoseFocus(false);
+        presetNameBox.setCursorPosition(presetNameBox.getValue().length());
+        presetNameBox.setHighlightPos(presetNameBox.getValue().length());
+    }
+
+    private void closeRename(boolean apply) {
+        if (apply && renamePage >= 0) {
+            String name = presetNameBox.getValue();
+            ModNetworking.sendToServer(new MasteryPresetRenameC2SPacket(renamePage, name));
+            showNotice("已重命名精通页 " + (renamePage + 1));
+        }
+        renameOpen = false;
+        renamePage = -1;
+        if (presetNameBox != null) {
+            presetNameBox.setVisible(false);
+            presetNameBox.setFocused(false);
+            presetNameBox.setCanLoseFocus(true);
+        }
     }
 
     private void showNotice(String text) {
@@ -967,7 +1399,8 @@ public class MasteryScreen extends Screen {
                 if (row == ROW_COUNT - 1) {
                     int centerX = columnX(treeIndex) + columnW / 2;
                     if (inCircle(mouseX, mouseY, centerX, nodeRowY(row), keystoneRadius + 4)) {
-                        return new int[]{treeIndex, row, selectedKeystoneIndex(draft[treeIndex])};
+                        return new int[]{treeIndex, row, selectedKeystoneIndex(draft[treeIndex],
+                                MasteryTree.byIndex(treeIndex))};
                     }
                     continue;
                 }
@@ -998,7 +1431,10 @@ public class MasteryScreen extends Screen {
     }
 
     private int keystoneOptionCount() {
-        return MasteryAllocation.rowNodeCount(ROW_COUNT - 1);
+        if (keystoneTree < 0) {
+            return 1;
+        }
+        return MasteryKeystones.count(MasteryTree.byIndex(keystoneTree));
     }
 
     private int keystoneCols() {

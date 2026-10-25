@@ -15,10 +15,18 @@ import net.minecraft.world.entity.player.Player;
  * 按设计，总精通点数 = 玩家等级（1 级 = 1 点，升级 +1）；旧池只作为历史来源，
  * 不再分别计数。</p>
  *
- * <p>所有配置均以每棵树一个 int[18] 存于玩家 PersistentData，服务端保存前统一走
+ * <p>所有配置均以每棵树一个 int[36] 存于玩家 PersistentData，服务端保存前统一走
  * {@link MasteryAllocation#sanitize} 校验，客户端无法写入非法配置。</p>
+ *
+ * <p>另保存 5 个精通页：每页一个 180 长度的扁平 int 数组、一个名称和一个当前激活页。</p>
  */
 public final class MasteryData {
+
+    public static final int PRESET_COUNT = 5;
+    private static final String PRESET_NAME_PREFIX = "MasteryPresetName_";
+    private static final String PRESET_DATA_PREFIX = "MasteryPresetData_";
+    private static final String PRESET_ACTIVE = "MasteryPreset_Active";
+    private static final int PRESET_NAME_LIMIT = 16;
 
     private MasteryData() {
     }
@@ -87,6 +95,8 @@ public final class MasteryData {
         int[][] clean = MasteryAllocation.sanitize(read(data), total);
         write(data, clean);
         applyLegacyAbilityMapping(player, clean);
+        ensurePresets(player, clean);
+        MasteryBonusCache.invalidate(player);
     }
 
     /**
@@ -153,22 +163,149 @@ public final class MasteryData {
         if (gained > 0) {
             data.putInt(StringUtils.MasteryPoint_Total,
                     data.getInt(StringUtils.MasteryPoint_Total) + gained);
+            MasteryBonusCache.invalidate(player);
         }
     }
 
-    /** 保存客户端配置（服务端权威校验），并回传最终结果 */
-    public static void save(ServerPlayer player, int[][] requested) {
+    /** 保存客户端配置（服务端权威校验），并写入当前精通页 */
+    public static void save(ServerPlayer player, int[][] requested, int page) {
         int total = getTotal(player);
         int[][] clean = MasteryAllocation.sanitize(requested, total);
-        write(player.getPersistentData(), clean);
+        CompoundTag data = player.getPersistentData();
+        write(data, clean);
         applyLegacyAbilityMapping(player, clean);
-        ModNetworking.sendToClient(new MasteryDataS2CPacket(total, clean), player);
+        int activePage = clampPreset(page);
+        data.putInt(PRESET_ACTIVE, activePage);
+        writePreset(data, activePage, clean);
+        MasteryBonusCache.invalidate(player);
+        sendData(player, total, clean);
+    }
+
+    public static void save(ServerPlayer player, int[][] requested) {
+        save(player, requested, getActivePreset(player));
+    }
+
+    /** 一键切换到指定精通页 */
+    public static void switchPreset(ServerPlayer player, int page) {
+        int activePage = clampPreset(page);
+        int total = getTotal(player);
+        CompoundTag data = player.getPersistentData();
+        if (!data.contains(presetDataKey(activePage))) {
+            // 首次切换到该页：以当前已保存配置为起点，避免直接清空
+            writePreset(data, activePage, getSanitized(player));
+        }
+        int[][] clean = MasteryAllocation.sanitize(readPreset(data, activePage), total);
+        write(data, clean);
+        applyLegacyAbilityMapping(player, clean);
+        data.putInt(PRESET_ACTIVE, activePage);
+        MasteryBonusCache.invalidate(player);
+        sendData(player, total, clean);
+    }
+
+    /** 重命名精通页 */
+    public static void renamePreset(ServerPlayer player, int page, String name) {
+        int activePage = clampPreset(page);
+        CompoundTag data = player.getPersistentData();
+        data.putString(presetNameKey(activePage), sanitizePresetName(name, activePage));
+        sendData(player, getTotal(player), getSanitized(player));
+    }
+
+    public static String[] getPresetNames(Player player) {
+        CompoundTag data = player.getPersistentData();
+        String[] names = new String[PRESET_COUNT];
+        for (int page = 0; page < PRESET_COUNT; page++) {
+            String name = data.getString(presetNameKey(page));
+            names[page] = name == null || name.isBlank()
+                    ? defaultPresetName(page) : name;
+        }
+        return names;
+    }
+
+    public static int getActivePreset(Player player) {
+        return clampPreset(player.getPersistentData().getInt(PRESET_ACTIVE));
+    }
+
+    private static void ensurePresets(Player player, int[][] current) {
+        CompoundTag data = player.getPersistentData();
+        if (!data.contains(PRESET_ACTIVE)) {
+            data.putInt(PRESET_ACTIVE, 0);
+        }
+        for (int page = 0; page < PRESET_COUNT; page++) {
+            if (!data.contains(presetNameKey(page))) {
+                data.putString(presetNameKey(page), defaultPresetName(page));
+            }
+            if (!data.contains(presetDataKey(page))) {
+                // 只初始化第 1 页；其余页在第一次切换时复制当前配置，避免切到“空页”直接清空
+                if (page == 0) {
+                    writePreset(data, page, current);
+                }
+            }
+        }
+    }
+
+    private static void sendData(ServerPlayer player, int total, int[][] allocation) {
+        ModNetworking.sendToClient(new MasteryDataS2CPacket(
+                total, allocation, getPresetNames(player), getActivePreset(player)), player);
+    }
+
+    private static String presetNameKey(int page) {
+        return PRESET_NAME_PREFIX + page;
+    }
+
+    private static String presetDataKey(int page) {
+        return PRESET_DATA_PREFIX + page;
+    }
+
+    private static int clampPreset(int page) {
+        return Math.max(0, Math.min(PRESET_COUNT - 1, page));
+    }
+
+    public static String defaultPresetName(int page) {
+        return "配置 " + (clampPreset(page) + 1);
+    }
+
+    private static String sanitizePresetName(String name, int page) {
+        if (name == null) {
+            return defaultPresetName(page);
+        }
+        String clean = name.replace("§", "").trim();
+        if (clean.isEmpty()) {
+            return defaultPresetName(page);
+        }
+        return clean.length() > PRESET_NAME_LIMIT
+                ? clean.substring(0, PRESET_NAME_LIMIT) : clean;
+    }
+
+    private static void writePreset(CompoundTag data, int page, int[][] allocation) {
+        int[][] copy = MasteryAllocation.copy(allocation);
+        int[] flat = new int[MasteryAllocation.TREE_COUNT * MasteryAllocation.NODES_PER_TREE];
+        for (int tree = 0; tree < MasteryAllocation.TREE_COUNT; tree++) {
+            System.arraycopy(copy[tree], 0, flat,
+                    tree * MasteryAllocation.NODES_PER_TREE, MasteryAllocation.NODES_PER_TREE);
+        }
+        data.putIntArray(presetDataKey(page), flat);
+    }
+
+    private static int[][] readPreset(CompoundTag data, int page) {
+        int[][] allocation = MasteryAllocation.empty();
+        int[] flat = data.getIntArray(presetDataKey(page));
+        if (flat.length == 0) {
+            return allocation;
+        }
+        for (int tree = 0; tree < MasteryAllocation.TREE_COUNT; tree++) {
+            int base = tree * MasteryAllocation.NODES_PER_TREE;
+            for (int node = 0; node < MasteryAllocation.NODES_PER_TREE; node++) {
+                if (base + node < flat.length) {
+                    allocation[tree][node] = flat[base + node];
+                }
+            }
+        }
+        return allocation;
     }
 
     /** 同步完整数据到客户端 */
     public static void sync(ServerPlayer player) {
         ensureInitialized(player);
-        ModNetworking.sendToClient(
-                new MasteryDataS2CPacket(getTotal(player), getSanitized(player)), player);
+        sendData(player, getTotal(player), getSanitized(player));
     }
 }

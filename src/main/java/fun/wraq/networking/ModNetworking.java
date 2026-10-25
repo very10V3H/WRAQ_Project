@@ -1597,12 +1597,31 @@ public class ModNetworking {
                 .consumerMainThread(MasterySaveC2SPacket::handle)
                 .add();
         V2_PACKAGE_CLASS.add(MasterySaveC2SPacket.class);
+        netV2.messageBuilder(MasteryPresetSwitchC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MasteryPresetSwitchC2SPacket::new)
+                .encoder(MasteryPresetSwitchC2SPacket::toBytes)
+                .consumerMainThread(MasteryPresetSwitchC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(MasteryPresetSwitchC2SPacket.class);
+        netV2.messageBuilder(MasteryPresetRenameC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MasteryPresetRenameC2SPacket::new)
+                .encoder(MasteryPresetRenameC2SPacket::toBytes)
+                .consumerMainThread(MasteryPresetRenameC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(MasteryPresetRenameC2SPacket.class);
         netV2.messageBuilder(MasteryDataS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(MasteryDataS2CPacket::new)
                 .encoder(MasteryDataS2CPacket::toBytes)
                 .consumerMainThread(MasteryDataS2CPacket::handle)
                 .add();
         V2_PACKAGE_CLASS.add(MasteryDataS2CPacket.class);
+        // AI-Generated, 2026-10-18 玩家护盾同步：其他玩家头顶血条的白色护盾段（发给追踪该玩家的客户端）
+        netV2.messageBuilder(PlayerShieldSyncS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PlayerShieldSyncS2CPacket::new)
+                .encoder(PlayerShieldSyncS2CPacket::toBytes)
+                .consumerMainThread(PlayerShieldSyncS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(PlayerShieldSyncS2CPacket.class);
     }
 
     @SuppressWarnings("unchecked")

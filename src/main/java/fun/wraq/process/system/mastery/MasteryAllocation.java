@@ -28,8 +28,8 @@ public final class MasteryAllocation {
     /** 第 1 - 6 排的点数上限 */
     public static final int[] ROW_CAP = {10, 5, 10, 5, 10, 5};
 
-    /** 第 1 - 6 排可分配的节点数（第 6 排为基石，后续可把 1 改成更大的值） */
-    public static final int[] ROW_NODES = {3, 2, 3, 2, 3, 1};
+    /** 第 1 - 6 排可分配的节点数（第 6 排为基石，按路径在 MasteryKeystones 中定义） */
+    public static final int[] ROW_NODES = {3, 2, 3, 2, 3, 3};
 
     private MasteryAllocation() {
     }
@@ -132,7 +132,10 @@ public final class MasteryAllocation {
             for (int i = 0; i < NODES_PER_TREE; i++) {
                 int row = i / MAX_NODES_PER_ROW;
                 int node = i % MAX_NODES_PER_ROW;
-                if (node >= ROW_NODES[row]) {
+                int allowed = row == ROW_COUNT - 1
+                        ? MasteryKeystones.count(MasteryTree.byIndex(tree))
+                        : ROW_NODES[row];
+                if (node >= allowed) {
                     points[i] = 0;
                 } else {
                     points[i] = Math.max(0, Math.min(ROW_CAP[row], points[i]));

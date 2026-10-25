@@ -1,0 +1,71 @@
+/** AI-Generated, 2026-10-25 */
+package fun.wraq.process.system.mastery;
+
+/**
+ * 精通静态属性键。
+ *
+ * <p>使用枚举而不是不断膨胀的 record 字段：后续新增节点时只需在这里加一个键，
+ * 属性读取端通过 {@link MasteryStats#value(MasteryStat)} 取值，避免改动大量构造函数。</p>
+ */
+public enum MasteryStat {
+
+    ATTACK_SPEED,
+    TENACITY,
+    MOVE_SPEED,
+    HASTE,
+    OMNIVAMP,
+    ARMOR_PEN,
+    MAGIC_PEN,
+    FLAT_ARMOR_PEN,
+    FLAT_MAGIC_PEN,
+    DAMAGE_DEALT,
+    DAMAGE_TAKEN,
+    CRIT_RATE,
+    CRIT_DAMAGE,
+    FINAL_DAMAGE,
+    FINAL_DAMAGE_TAKEN,
+    PERCENT_ATTACK,
+    PERCENT_MANA,
+    MAX_MANA,
+    MANA_REGEN,
+    MANA_COST_INCREASE,
+    ARMOR,
+    MAGIC_RESIST,
+    HEALTH,
+    HEALTH_REGEN,
+    PERCENT_HEALTH,
+    PERCENT_DEFENSES,
+    PERCENT_HEALTH_REGEN,
+    DAMAGE_REDUCTION,
+    SHIELD_POWER,
+    DODGE,
+    HEAL_POWER,
+    XP_BONUS,
+    OUT_OF_COMBAT_MOVE,
+    EXTRA_PRODUCE,
+    CONSUMABLE_REFUND,
+    MINING_SPEED,
+    ELEMENT_STRENGTH,
+    OUT_OF_COMBAT_REDUCTION,
+    KILL_GOLD_CHANCE,
+    EQUIP_PASSIVE,
+    EQUIP_HASTE,
+    EQUIP_STATS,
+    TRAVELER_MOVE,
+    FIRST_STRIKE,
+    SLOW_RESIST,
+    SKILL_DAMAGE_1,
+    SKILL_DAMAGE_2,
+    SKILL_DAMAGE_3,
+    SKILL_COOLDOWN_1,
+    SKILL_COOLDOWN_2,
+    SKILL_COOLDOWN_3,
+    SKILL_DAMAGE,
+    WATER_DAMAGE,
+    WATER_MOVE,
+    THORNS,
+    PERIODIC_SHIELD,
+    MISSING_HEALTH_DAMAGE,
+    MISSING_HEALTH_REGEN,
+    UNDYING_COOLDOWN_REDUCTION
+}

@@ -6,11 +6,11 @@ package fun.wraq.process.system.mastery;
  * 颜色用于界面描边与节点高亮，不使用任何贴图，图标以圆圈 + 首字代替。
  */
 public enum MasteryTree {
-    PRECISION("精密", "强化攻击和持久能力", 0xFFD9A94E, 0xFF8A6A22),
-    DOMINATION("主宰", "爆发伤害并前往目标", 0xFFE25A55, 0xFF8A2A28),
-    SORCERY("巫术", "强化技能和资源控制", 0xFFA97BFF, 0xFF5A3A9A),
-    RESOLVE("坚决", "耐久和控制", 0xFF5FC95C, 0xFF2E7A2C),
-    INSPIRATION("启迪", "创造性的工具并弯曲规则", 0xFF5BC9E8, 0xFF2A7A92);
+    PRECISION("精密", "强化攻击和持久能力", 0xFFD8BE82, 0xFF8A7350),
+    DOMINATION("主宰", "爆发伤害并前往目标", 0xFFD99691, 0xFF8A5A56),
+    SORCERY("巫术", "强化技能和资源控制", 0xFFBCA6E3, 0xFF6E5E8C),
+    RESOLVE("坚决", "耐久和控制", 0xFF9BCB96, 0xFF517A4E),
+    INSPIRATION("启迪", "创造性的工具并弯曲规则", 0xFF99C9D6, 0xFF4E7A86);
 
     private final String displayName;
     private final String description;
@@ -38,6 +38,22 @@ public enum MasteryTree {
 
     public int getDeepColor() {
         return deepColor;
+    }
+
+    /**
+     * 精通名称/标题使用的颜色。
+     *
+     * <p>圆形填充刻意使用了低饱和版本，但名称仍保留各路径的高辨识度颜色；
+     * 主宰使用 Harbinger 红。</p>
+     */
+    public int getNameColor() {
+        return switch (this) {
+            case PRECISION -> 0xFFD9A94E;
+            case DOMINATION -> 0xFFFF4E00; // Harbinger red
+            case SORCERY -> 0xFFA97BFF;
+            case RESOLVE -> 0xFF5FC95C;
+            case INSPIRATION -> 0xFF5BC9E8;
+        };
     }
 
     /** 界面圆圈内使用的单字标记 */

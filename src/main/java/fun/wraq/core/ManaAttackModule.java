@@ -26,14 +26,13 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.passive.mixture.Mixture;
-import fun.wraq.series.instance.series.castle.CastleManaArmor;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoArmor;
 import fun.wraq.series.overworld.extraordinary.equip.KanupusSword;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -86,12 +85,10 @@ public class ManaAttackModule {
 
         exDamage += ManaSkill12(data, player, damage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
         exDamage += BlackForestCore(player, mob); // 收割魔核
-        exDamage += EarthManaArmor(player, mob); // 地蕴魔法被动
 
         trueDamage += Compute.getManaSkillLevel(data, 0) * damage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
         trueDamage += SeaCore(player, mob); // 救赎魔核
         trueDamage += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
-        trueDamage += CastleManaArmor.ExIgnoreDefenceDamage(player);
 
         double damageEnhance = 0; // 乘区0
         damageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
@@ -101,6 +98,9 @@ public class ManaAttackModule {
 
         double NormalAttackDamageEnhance = 0;
         NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalManaAttackDamageEnhance(player); // 普通法球攻击伤害提升
+        if (mainShoot) {
+            VolcanoArmor.onAttack(player);
+        }
         Random random = new Random();
         boolean isCrit = random.nextDouble(1) < PlayerAttributes.critRate(player);
         data.putBoolean(StringUtils.DamageTypes.Crit, isCrit);
@@ -158,8 +158,8 @@ public class ManaAttackModule {
             Compute.summonValue(player, mob, damage + trueDamage, CustomStyle.styleOfMana, 1);
 
         if (elementDamage != 0 && !elementType.isEmpty())
-            Damage.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit, elementType, elementDamage);
-        else Damage.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit);
+            fun.wraq.common.util.HudUtil.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit, elementType, elementDamage);
+        else fun.wraq.common.util.HudUtil.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit);
 
         // effect
         ManaSkill3Attack(data, player, mob); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
@@ -333,10 +333,4 @@ public class ManaAttackModule {
         }
     }
 
-    public static double EarthManaArmor(Player player, Mob mob) {
-        if (SuitCount.getEarthManaSuitCount(player) > 0) {
-            return PlayerAttributes.manaDamage(player) * mob.getHealth() * 0.25 * SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth();
-        }
-        return 0;
-    }
 }

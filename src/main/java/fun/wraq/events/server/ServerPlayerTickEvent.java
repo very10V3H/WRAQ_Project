@@ -37,7 +37,6 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.security.Security;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.border.WorldBorder;
 import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.cold.ColdSystem;
@@ -77,11 +76,9 @@ import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import fun.wraq.series.instance.quiver.WraqQuiver;
-import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
-import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmor;
 import fun.wraq.series.overworld.divine.DivineUtils;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenBook;
@@ -138,7 +135,6 @@ public class ServerPlayerTickEvent {
             int TickCount = Tick.get();
             Customize.CustomizeTickEvent(player);
             /*Parkour.Tick(player);*/ // 跑酷
-            CastleAttackArmor.Tick(player);
             DpsCommand.Tick(player);
             Element.handlePlayerTick(player);
             LifeElementSword.Tick(player);
@@ -193,6 +189,7 @@ public class ServerPlayerTickEvent {
             Guide.handlePlayerTick(player);
             LoginInEvent.handlePlayerTick(player);
             Reason.handlePlayerTick(player);
+            fun.wraq.process.system.mastery.MasteryCombat.handlePlayerTick(player);
 
             // 记录玩家在跨维度传送目标维度中的上次位置（供 /vmd transLevel 使用）
             if (player.tickCount % 20 == 0) {
@@ -271,27 +268,6 @@ public class ServerPlayerTickEvent {
                 posAndLastTime.TickCount -= 10;
                 if (posAndLastTime.TickCount < 0) Utils.EndRune2Pos.remove(player);
             }
-            if (TickCount % 60 == 5 && SuitCount.getIceSuitCount(player) > 0 && player.isAlive()) {
-                Level level = player.level();
-                List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
-                mobList.forEach(mob -> {
-                    if (mob.distanceTo(player) <= 6) {
-                        Compute.addSlowDownEffect(mob, 40, 2);
-                        player.getServer().getPlayerList().getPlayers().forEach(TmpServerPlayer -> {
-                            ModNetworking.sendToClient(new SlowDownParticleS2CPacket(mob.getId(), 40), TmpServerPlayer);
-                        });
-                        if (level.getBlockState(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ())).is(Blocks.AIR)) {
-                            level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
-                            level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
-                        }
-                        Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, SuitCount.getIceSuitCount(player) * 0.5);
-                        Damage.causeRateApDamageToMonster(player, mob, SuitCount.getIceSuitCount(player) * 0.15, false);
-                        Compute.addSlowDownEffect(mob, 40, 2);
-                    }
-                });
-                ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 80, ParticleTypes.SNOWFLAKE);
-            }
-
             if (TickCount % 20 == 3) {
                 Inventory inventory = player.getInventory();
                 for (int i = 0; i < inventory.getContainerSize(); i++) {
@@ -320,11 +296,6 @@ public class ServerPlayerTickEvent {
                 Utils.dayOnlineCount.put(player.getName().getString(), Utils.dayOnlineCount.getOrDefault(player.getName().getString(), 0) + 1);
             }
 
-            if (player.tickCount % 200 == 0 && SuitCount.getPurpleIronSuitCount(player) > 0) {
-                int Rate = SuitCount.getPurpleIronSuitCount(player);
-                Shield.providePlayerShield(player, 100, player.getMaxHealth() * 0.1 * Rate);
-                BuffSystem.sendEffectLastTime(player, ModItems.PURPLE_IRON_INGOT.get().getDefaultInstance(), 100);
-            }
             CompoundTag data = player.getPersistentData();
             int TmpNum = player.tickCount;
             if (TmpNum % 20 == 0 && Utils.PlayerAFKMap.containsKey(serverPlayer)) {
@@ -455,9 +426,6 @@ public class ServerPlayerTickEvent {
             }
             if (flag && shieldQueue != null) shieldQueue.clear();
             Shield.computePlayerShield(player);
-            if (SuitCount.getSkySuitCount(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
-                Shield.providePlayerShield(player, 200, PlayerAttributes.attackDamage(player) * 0.1 * SkyArmor.SkySuitEffectRate(player));
-            }
             if (TmpNum % 20 == 0) {
                 if (data.getInt(StringUtils.MineMonsterEffect) >= TickCount) {
                     if ((player.getMaxHealth() * 0.02f + 10) > player.getHealth()) {

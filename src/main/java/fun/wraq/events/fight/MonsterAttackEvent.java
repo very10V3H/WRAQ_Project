@@ -16,11 +16,8 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.chapter2.SkySkeletonSpawnController;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
-import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.buff.BuffSystem;
 import fun.wraq.process.system.teamInstance.instances.spring.SpringSnakeInstance;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -61,9 +58,9 @@ public class MonsterAttackEvent {
             damage = 0;
         }
 
-        // 闪避几率
+        // 闪避几率（来源后续由精通系统提供）
         Random random = new Random();
-        if (random.nextDouble() < Compute.PlayerDodgeRate(player)) {
+        if (random.nextDouble() < PlayerAttributes.dodgeRate(player)) {
             damage = 0;
             ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_JUMP_SMALL), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.4f, 0.4f, 0);
             ((ServerPlayer) player).connection.send(clientboundSoundPacket);
@@ -110,6 +107,8 @@ public class MonsterAttackEvent {
             } else {
                 if (finalDamage > 0 && player.isAlive()) {
                     Damage.causeDirectDamageToPlayer(mob, player, finalDamage);
+                    // 精通：受到伤害后触发反伤/战斗状态
+                    fun.wraq.process.system.mastery.MasteryCombat.onPlayerHurt(player, mob, finalDamage);
                     player.hurtTime = 10;
                     mob.heal((float) (finalDamage * MobAttributes.healthSteal(mob)));
                     OnWithStandDamageCurios.withStandDamage(player, mob, finalDamage);
@@ -117,7 +116,6 @@ public class MonsterAttackEvent {
                 ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
             }
 
-            SnowArmorEffect(player, mob);
             mineShield(player);
             DevilAttackArmor.DevilAttackArmorPassive(player, mob); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
@@ -134,6 +132,11 @@ public class MonsterAttackEvent {
     }
 
     public static void causeCommonAttackToPlayer(Mob mob, Player player, double rate) {
+        // 精通/剑术：踏前斩冲刺期间免疫沿途敌人的近战伤害
+        if (fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0
+                .isDashingNear(player, mob)) {
+            return;
+        }
         player.setLastHurtByMob(mob);
         double defencePenetration = MobAttributes.defencePenetration(mob);
         double defencePenetration0 = MobAttributes.defencePenetration0(mob);
@@ -179,31 +182,6 @@ public class MonsterAttackEvent {
         Random random = new Random();
         if (random.nextDouble(1) < CritRate) return 1 + Math.max(0, CritDamage * (1 - CritDamageDecrease));
         return 1;
-    }
-
-    public static void SnowArmorEffect(Player player, Mob monster) {
-        if (SuitCount.getSnowSuitCount(player) >= 4) {
-            int TickCount = Tick.get();
-            monster.setDeltaMovement(0, 0, 0);
-            Compute.addSlowDownEffect(monster, 5, 1);
-            player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
-                    ModNetworking.sendToClient(new SlowDownParticleS2CPacket(monster.getId(), 100), serverPlayer));
-
-            CompoundTag data = monster.getPersistentData();
-            data.putInt(StringUtils.SnowArmorEffect, TickCount + 60);
-
-            player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
-                    ModNetworking.sendToClient(new DamageDecreaseParticleS2CPacket(monster.getId(), 60), serverPlayer));
-        }
-    }
-
-    public static double SnowArmorEffectDamageDecrease(Mob monster) {
-        double damageRate = 0;
-        CompoundTag data = monster.getPersistentData();
-        if (data.getInt(StringUtils.SnowArmorEffect) > Tick.get()) {
-            damageRate -= 0.25;
-        }
-        return damageRate;
     }
 
     public static void mineShield(Player player) {

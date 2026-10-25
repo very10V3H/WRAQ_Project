@@ -18,6 +18,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.mastery.MasteryCombat;
 import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.bow.*;
 import fun.wraq.process.system.skill.skillv2.mana.*;
@@ -102,6 +103,8 @@ public abstract class SkillV2 {
         enhanceRate += ManaSkillTree.getManaSkill13ExSkillRate(player, professionType);
         enhanceRate += IceHolySceptre.getExSkillDamageRate(player);
         enhanceRate += ModifySkillDamageRateCurios.getModifiedSkillDamageRate(player);
+        // 精通：巫术技能伤害/暴击转化/冥火/盈能/暗影突袭
+        enhanceRate += MasteryCombat.skillDamage(player, skillType);
         return enhanceRate;
     }
 
@@ -527,6 +530,13 @@ public abstract class SkillV2 {
         if (professionType == 2) {
             manaCostValue = ManaNewSkill.modifyManaCost(player, manaCostValue);
         }
+        // 精通：奥术涌动免蓝、魔力燃烧增耗
+        boolean freeSkill = MasteryCombat.beginSkillRelease(player, skillType);
+        if (freeSkill) {
+            manaCostValue = 0;
+        } else {
+            manaCostValue = MasteryCombat.modifySkillManaCost(player, skillType, (int) manaCostValue);
+        }
         if (this instanceof SkillV2AllowInterruptNormalAttack) {
             DelayOperationWithAnimation.beforeReleaseSkill(player);
         }
@@ -541,10 +551,15 @@ public abstract class SkillV2 {
                     = (int) ((cooldownAfterModify - getCooldownDecrease(player))
                     * (1 - PlayerAttributes.coolDownDecrease(player)));
             afterDecreaseCooldownTick = Math.max(0, afterDecreaseCooldownTick);
+            // 精通：巫术基础技能冷却降低
+            afterDecreaseCooldownTick = MasteryCombat.modifySkillCooldown(
+                    player, skillType, afterDecreaseCooldownTick);
             skillV2AllowReleaseTickMap.put(this, Tick.get() + afterDecreaseCooldownTick);
             ModNetworking.sendToClient(new SkillV2CooldownS2CPacket(skillType, afterDecreaseCooldownTick,
                     afterDecreaseCooldownTick), player);
             releaseOperation(player);
+            // 精通：技能释放后的叠层/冷却/蓝耗/终极判定
+            MasteryCombat.onSkillRelease(player, skillType, afterDecreaseCooldownTick, manaCostValue);
             // 引导系统：检测剑术技能释放
             if (this.professionType == 0) {
                 Guide.trigV2(player, Guide.StageV2.CHOOSE_SWORD_SKILL);

@@ -9,6 +9,9 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.customized.uniform.attack.normal.AttackCurios5;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
+import fun.wraq.process.system.mastery.MasteryBonusCache;
+import fun.wraq.process.system.mastery.MasteryCombat;
+import fun.wraq.process.system.mastery.MasteryStat;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.holy.ice.FrostInstance;
 import net.minecraft.world.entity.Mob;
@@ -23,7 +26,9 @@ public class HealUtil {
 
     public static void playerHeal(Player player, double num) {
         if (num <= 0) return;
-        double healNum = num * (PlayerAttributes.getHealingAmplification(player));
+        double healNum = num * (PlayerAttributes.getHealingAmplification(player))
+                * (1 + MasteryBonusCache.stats(player).value(MasteryStat.HEAL_POWER)
+                + MasteryBonusCache.stats(player).value(MasteryStat.EQUIP_PASSIVE));
         if (healNum < 0) {
             return;
         }
@@ -55,7 +60,9 @@ public class HealUtil {
         if (MobSpawn.getMobOriginName(mob).equals(FrostInstance.mobName)) {
             rate = Math.max(0, rate - 0.2);
         }
-        double healNum = damage * rate * 0.1;
+        // 精通：征服者满层的 0.1% 全能吸血按伤害直接结算，不经过旧生命偷取的 0.1 系数
+        double healNum = damage * rate * 0.1
+                + damage * MasteryCombat.fullConquerorOmnivamp(player);
         if (healNum > player.getMaxHealth() * 0.02) {
             healNum = Math.min(healNum, player.getMaxHealth() * 0.02);
             if (nextAllowSendMSGTickMap.getOrDefault(Name.get(player), 0) < Tick.get()) {

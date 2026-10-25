@@ -3,6 +3,7 @@ package fun.wraq.networking.misc.MasteryPackets;
 
 import fun.wraq.process.system.mastery.MasteryAllocation;
 import fun.wraq.process.system.mastery.MasteryClientData;
+import fun.wraq.process.system.mastery.MasteryData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -15,10 +16,15 @@ public class MasteryDataS2CPacket {
 
     private final int total;
     private final int[][] allocation;
+    private final String[] presetNames;
+    private final int activePreset;
 
-    public MasteryDataS2CPacket(int total, int[][] allocation) {
+    public MasteryDataS2CPacket(int total, int[][] allocation,
+                                String[] presetNames, int activePreset) {
         this.total = total;
         this.allocation = MasteryAllocation.copy(allocation);
+        this.presetNames = presetNames == null ? new String[0] : presetNames.clone();
+        this.activePreset = activePreset;
     }
 
     public MasteryDataS2CPacket(FriendlyByteBuf buf) {
@@ -29,6 +35,11 @@ public class MasteryDataS2CPacket {
                 this.allocation[tree][node] = buf.readInt();
             }
         }
+        this.presetNames = new String[MasteryData.PRESET_COUNT];
+        for (int page = 0; page < MasteryData.PRESET_COUNT; page++) {
+            this.presetNames[page] = buf.readUtf(32);
+        }
+        this.activePreset = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -38,11 +49,17 @@ public class MasteryDataS2CPacket {
                 buf.writeInt(this.allocation[tree][node]);
             }
         }
+        for (int page = 0; page < MasteryData.PRESET_COUNT; page++) {
+            buf.writeUtf(presetNames.length > page && presetNames[page] != null
+                    ? presetNames[page] : "配置 " + (page + 1), 32);
+        }
+        buf.writeInt(activePreset);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
-        context.enqueueWork(() -> MasteryClientData.update(total, allocation));
+        context.enqueueWork(() -> MasteryClientData.update(
+                total, allocation, presetNames, activePreset));
         return true;
     }
 }

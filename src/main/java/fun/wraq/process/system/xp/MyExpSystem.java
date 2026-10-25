@@ -2,6 +2,8 @@ package fun.wraq.process.system.xp;
 
 import fun.wraq.common.Compute;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.mastery.MasteryBonusCache;
+import fun.wraq.process.system.mastery.MasteryStat;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -20,7 +22,8 @@ public class MyExpSystem {
 
     public static void giveExpToPlayer(Player player, double num, double expUp, boolean sendMSG, Component sourceType, int expLevel) {
         if (player.experienceLevel >= levelUpperLimit || expLevel - player.experienceLevel > 8) return;
-        double expValue = num * (1 + expUp);
+        double expValue = num * (1 + expUp)
+                * (1 + MasteryBonusCache.stats(player).value(MasteryStat.XP_BONUS));
 
         CompoundTag data = player.getPersistentData();
         player.getPersistentData().putDouble("Xp", data.getDouble("Xp") + expValue);
@@ -48,7 +51,8 @@ public class MyExpSystem {
         double expLevelXp = getCurrentXpLevelUpNeedXpPoint(expLevel);
         double xpBeforeUp = (expLevelXp * num);
         double xpUp = (expLevelXp * num) * expUp;
-        double xp = xpBeforeUp + xpUp;
+        double xp = (xpBeforeUp + xpUp)
+                * (1 + MasteryBonusCache.stats(player).value(MasteryStat.XP_BONUS));
         if (data.contains("Xp")) {
             data.putDouble("Xp", data.getDouble("Xp") + xp);
         } else {
@@ -67,6 +71,7 @@ public class MyExpSystem {
 
     public static void giveExpToPlayer(Player player, double num) {
         if (player.experienceLevel >= levelUpperLimit) return;
+        num *= 1 + MasteryBonusCache.stats(player).value(MasteryStat.XP_BONUS);
         CompoundTag data = player.getPersistentData();
         double LevelUpNeedXp = getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
         double XpUp = 0;

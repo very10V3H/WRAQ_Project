@@ -28,14 +28,15 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.mastery.MasteryCombat;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.passive.whetstone.Whetstone;
 import fun.wraq.series.comsumable.passive.whetstone.WhetstoneAttack;
 import fun.wraq.series.instance.blade.WraqBlade;
-import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
 import fun.wraq.series.nether.equip.attack.sword.ManaSword;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoArmor;
 import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
 import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
@@ -122,9 +123,13 @@ public class AttackEvent {
             if (itemStack.getItem() instanceof KanupusSword) {
                 rate *= 0.5;
             }
+            VolcanoArmor.onAttack(player);
             boolean crit = AttackEvent.crit(player, nearestMob.get(), false);
+            // 精通：普攻叠层 + 强攻（只作用于最近的主目标）
+            double masteryAttackRate = MasteryCombat.onNormalAttack(player, nearestMob.get());
             AttackEvent.attackToMonster(nearestMob.get(), player, rate *
-                    (mobList.size() == 1 ? 1 + SwordNewSkillPassive0.exTargetsDamageRate(player) * 2 : 1),
+                    (mobList.size() == 1 ? 1 + SwordNewSkillPassive0.exTargetsDamageRate(player) * 2 : 1)
+                    * masteryAttackRate,
                     true, crit);
             if (player.getMainHandItem().getItem() instanceof KanupusSword) {
                 MyArrow.causeDamage(player, nearestMob.get(), 0.5, true);
@@ -199,7 +204,6 @@ public class AttackEvent {
         // 变量定义与部分效果附加
 
         AttackEventModule.MineSwordAndSnowSwordSlowDownForce(equip, mob);
-        AttackEventModule.SnowArmorEffect(player, mob); //冰川增幅
 
         exDamage += HuskSword.getHuskSwordExDamage(player, mob); // 灵魂收割者主动
         exDamage += AttackEventModule.SwordSkill12(data, player, baseDamage); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
@@ -209,7 +213,6 @@ public class AttackEvent {
         trueDamage += AttackEventModule.SwordSkill0(data, baseDamage); //剑术热诚（获得1%额外真实伤害）
         trueDamage += AttackEventModule.SwordSkill13(data, player, baseDamage); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
         trueDamage += AttackEventModule.SwordSkill14(data, player, baseDamage, mob); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
-        trueDamage += CastleAttackArmor.ExIgnoreDefenceDamage(player);
         damageEnhance += AttackEventModule.SwordSkill3(data, player, mob); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
         damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
@@ -292,6 +295,8 @@ public class AttackEvent {
         // Final damage cause
         Damage.beforeCauseDamage(player, mob, damage + trueDamage);
         Damage.causeDirectDamageToMob(player, mob, damage + trueDamage);
+        // 精通：主宰 10 次/每 3 次普攻的范围伤害
+        MasteryCombat.onNormalAttackAoE(player, mob, damage + trueDamage);
         // Health steal
         Compute.healByHealthSteal(player, mob, damage);
         // Display
@@ -303,8 +308,8 @@ public class AttackEvent {
         }
         if (mainAttack) {
             if (elementDamage != 0 && !elementType.isEmpty())
-                Damage.damageActionBarPacketSend(player, damage, trueDamage, false, crit, elementType, elementDamage);
-            else Damage.damageActionBarPacketSend(player, damage, trueDamage, false, crit);
+                fun.wraq.common.util.HudUtil.damageActionBarPacketSend(player, damage, trueDamage, false, crit, elementType, elementDamage);
+            else fun.wraq.common.util.HudUtil.damageActionBarPacketSend(player, damage, trueDamage, false, crit);
             SameTypeModule.onNormalAttackHitMob(player, mob, 0, damage + trueDamage);
             OnHitEffectEquip.hit(player, mob);
             OnHitEffectCurios.hit(player, mob);

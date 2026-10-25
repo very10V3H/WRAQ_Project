@@ -298,6 +298,17 @@ public class BlockEvent {
     @SubscribeEvent
     public static void Dig(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         if (!event.getPlayer().isCreative() && !event.getState().is(Blocks.FIRE)) event.setCanceled(true);
+        // 精通：启迪额外产出（每次破坏方块按概率额外掉一份方块物品）
+        Player digger = event.getPlayer();
+        double extraProduce = fun.wraq.process.system.mastery.MasteryBonusCache.stats(digger)
+                .value(fun.wraq.process.system.mastery.MasteryStat.EXTRA_PRODUCE);
+        if (!digger.isCreative() && extraProduce > 0
+                && new java.util.Random().nextDouble() < extraProduce) {
+            ItemStack extra = new ItemStack(event.getState().getBlock().asItem());
+            if (!extra.isEmpty()) {
+                fun.wraq.process.func.item.InventoryOperation.giveItemStack(digger, extra);
+            }
+        }
         RandomEventsHandler.onBreakBlock(event.getPlayer(), event.getPos());
         MineSpur.mineEvent(event);
         WoodSpur.woodEvent(event);

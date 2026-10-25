@@ -3,6 +3,7 @@ package fun.wraq.networking.misc.MasteryPackets;
 
 import fun.wraq.process.system.mastery.MasteryAllocation;
 import fun.wraq.process.system.mastery.MasteryData;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -15,9 +16,15 @@ import java.util.function.Supplier;
 public class MasterySaveC2SPacket {
 
     private final int[][] allocation;
+    private final int page;
+
+    public MasterySaveC2SPacket(int[][] allocation, int page) {
+        this.allocation = MasteryAllocation.copy(allocation);
+        this.page = page;
+    }
 
     public MasterySaveC2SPacket(int[][] allocation) {
-        this.allocation = MasteryAllocation.copy(allocation);
+        this(allocation, 0);
     }
 
     public MasterySaveC2SPacket(FriendlyByteBuf buf) {
@@ -27,6 +34,7 @@ public class MasterySaveC2SPacket {
                 this.allocation[tree][node] = buf.readInt();
             }
         }
+        this.page = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -35,6 +43,7 @@ public class MasterySaveC2SPacket {
                 buf.writeInt(this.allocation[tree][node]);
             }
         }
+        buf.writeInt(this.page);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -44,7 +53,13 @@ public class MasterySaveC2SPacket {
             if (player == null) {
                 return;
             }
-            MasteryData.save(player, allocation);
+            int before = MasteryAllocation.used(MasteryData.getSanitized(player));
+            MasteryData.save(player, allocation, page);
+            int after = MasteryAllocation.used(MasteryData.getSanitized(player));
+            // 只有本次保存真的增加了精通点，才计入「配置 1 点精通」教学。
+            if (after > before) {
+                MainQuestHelper.recordMasteryConfigured(player);
+            }
         });
         return true;
     }

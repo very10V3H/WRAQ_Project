@@ -18,6 +18,7 @@ import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.mastery.MasteryCombat;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.BowSkillTree;
@@ -28,8 +29,8 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.comsumable.passive.quiver.Quiver;
 import fun.wraq.series.comsumable.passive.quiver.QuiverAttack;
 import fun.wraq.series.instance.series.castle.CastleBow;
-import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoArmor;
 import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
 import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
@@ -161,6 +162,9 @@ public class MyArrow extends AbstractArrow {
         boolean shootByPlayer = myArrow.whetherShootByPlayer;
         double defencePenetration = PlayerAttributes.defencePenetration(player);
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
+        if (shootByPlayer && myArrow.mainShoot) {
+            VolcanoArmor.onAttack(player);
+        }
         double critRate = PlayerAttributes.critRate(player);
         double critDamage = PlayerAttributes.critDamage(player);
         if (SpecialEffectOnPlayer.inBlind(player)) {
@@ -176,6 +180,10 @@ public class MyArrow extends AbstractArrow {
             rate += BowCurios0.getArrowBaseDamageEnhanceRate(player);
             rate += BowCurios5.getExArrowDamageRate(player, mob);
             rate += QuiverAttack.getExAttackRate(player);
+            if (myArrow.mainShoot) {
+                // 精通：普攻叠层 + 强攻（弓的普通射击）
+                rate *= MasteryCombat.onNormalAttack(player, mob);
+            }
         }
 
         rate += StableTierAttributeModifier
@@ -188,7 +196,6 @@ public class MyArrow extends AbstractArrow {
         double damageEnhance = 0;
 
         AttackEventModule.BowSkill6Attack(data, player, true); // 连续命中目标的箭矢，将会提供至多30%攻击力加成
-        AttackEventModule.SnowArmorEffect(player, mob); //冰川增幅
 
         exDamage += AttackEventModule.BowSkill12(data, player, baseDamage); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
         exDamage += HuskSword.getHuskSwordExDamage(player, mob); // 灵魂收割者主动
@@ -196,15 +203,11 @@ public class MyArrow extends AbstractArrow {
 
         trueDamage += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
         trueDamage += SeaSword.getSeaSwordExDamage(player, mob); //灵魂救赎者主动
-        trueDamage += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
 
         damageEnhance += BowSkillTree.getSkillIndex3DamageEnhanceRate(player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
         damageEnhance += AttackEventModule.NetherBow(player, mob); // 夸塔兹长弓
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, mob);
         damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, mob);
-
-        double normalAttackDamageEnhance = 0;
-        normalAttackDamageEnhance += DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player);
 
         if (myArrow.certainlyCritical || BoneImpKnife.passive(player, mob)) {
             critRate = 1;
@@ -232,7 +235,7 @@ public class MyArrow extends AbstractArrow {
         //
         exDamage *= (1 + damageEnhance);
         trueDamage *= (1 + damageEnhance);
-        damage *= (1 + damageEnhance) * (1 + normalAttackDamageEnhance);
+        damage *= (1 + damageEnhance);
         damage += exDamage;
         //
         damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, mob));
@@ -265,13 +268,15 @@ public class MyArrow extends AbstractArrow {
         trueDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         Damage.beforeCauseDamage(player, mob, damage + trueDamage);
         Damage.causeDirectDamageToMob(player, entity, damage + trueDamage);
+        // 精通：主宰 10 次/每 3 次普攻的范围伤害
+        MasteryCombat.onNormalAttackAoE(player, mob, damage + trueDamage);
         if (critFlag)
             Compute.summonValue(player, mob, damage + trueDamage, CustomStyle.styleOfPower, 0);
         else
             Compute.summonValue(player, mob, damage + trueDamage, Style.EMPTY.applyFormat(ChatFormatting.YELLOW), 0);
         if (elementDamage != 0 && !elementType.isEmpty())
-            Damage.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
-        else Damage.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
+            fun.wraq.common.util.HudUtil.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
+        else fun.wraq.common.util.HudUtil.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
         // Health steal
         Compute.healByHealthSteal(player, mob, damage);
         BowSkillTree.skillIndex3Hit(player, mob); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2% * c，在10次攻击后达到最大值）
@@ -296,7 +301,6 @@ public class MyArrow extends AbstractArrow {
             OnHitEffectPassiveEquip.hit(player, mob);
         }
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
-            player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + normalAttackDamageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,mob) : "
                     + DamageInfluence.getPlayerFinalDamageEnhance(player, mob)));

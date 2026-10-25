@@ -31,6 +31,21 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2All
     public static Map<String, Integer> skillEndTickMap = new HashMap<>();
     public static Map<String, Set<Mob>> lineAttackMobSetMap = new HashMap<>();
 
+    /** 踏前斩冲刺是否仍在持续。 */
+    public static boolean isDashing(Player player) {
+        return skillEndTickMap.getOrDefault(Name.get(player), 0) > Tick.get();
+    }
+
+    /**
+     * 冲刺期间是否免疫该敌人的近战伤害。
+     *
+     * <p>标准近战会先经过 LivingAttackEvent，再进入 MonsterAttackEvent；
+     * 这里额外做 3 格距离判定，避免把远处敌人的伤害也误判为“沿途”。</p>
+     */
+    public static boolean isDashingNear(Player player, Mob mob) {
+        return isDashing(player) && player.distanceToSqr(mob) <= 9.0;
+    }
+
     public static void handleServerPlayerTick(Player player) {
         if (skillEndTickMap.getOrDefault(Name.get(player), 0) == Tick.get()) {
             lineAttackMobSetMap.get(Name.get(player)).clear();
@@ -57,6 +72,16 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill implements SkillV2All
     protected void releaseOperation(Player player) {
         MySound.soundToNearPlayer(player, ModSounds.Rolling.get());
         Compute.sendForwardMotionPacketToPlayer(player, 1 + PlayerAttributes.movementSpeedCurrent(player));
+        // 精通：主宰灵动（位移后固定穿透 + 位移技能冷却降低）
+        fun.wraq.process.system.mastery.MasteryCombat.onDash(player);
+        int dashLevel = fun.wraq.process.system.mastery.MasteryBonusCache.get(player)
+                .points(fun.wraq.process.system.mastery.MasteryEffectId.D_DASH.tree(),
+                        fun.wraq.process.system.mastery.MasteryEffectId.D_DASH.row(),
+                        fun.wraq.process.system.mastery.MasteryEffectId.D_DASH.node());
+        if (dashLevel > 0) {
+            SkillV2.decreaseSkillCooldownTick(player, this,
+                    (int) (cooldownTick * (0.10 + 0.02 * dashLevel)));
+        }
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         skillEndTickMap.put(Name.get(player), Tick.get() + 8);
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(

@@ -79,6 +79,22 @@ import java.util.*;
 public class VariousEvents {
 
     @SubscribeEvent
+    public static void onUseItemFinish(net.minecraftforge.event.entity.living.LivingEntityUseItemEvent.Finish event) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || player.level().isClientSide) {
+            return;
+        }
+        ItemStack used = event.getItem();
+        if (!(used.getItem() instanceof net.minecraft.world.item.PotionItem)) {
+            return;
+        }
+        double chance = fun.wraq.process.system.mastery.MasteryBonusCache.stats(player)
+                .value(fun.wraq.process.system.mastery.MasteryStat.CONSUMABLE_REFUND);
+        if (chance > 0 && new java.util.Random().nextDouble() < chance) {
+            InventoryOperation.giveItemStack(player, new ItemStack(used.getItem()));
+        }
+    }
+
+    @SubscribeEvent
     public static void itemEntity(EntityItemPickupEvent event) {
         Player player = event.getEntity();
         ItemEntity itemEntity = event.getItem();
