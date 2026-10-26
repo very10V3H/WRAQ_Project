@@ -76,9 +76,6 @@ public class ForestSword extends WraqSword implements ActiveItem, AxeWeapon {
         ParticleProvider.VerticleCircleParticle(serverPlayer, 0.25 * 2, 1.5, 32, ParticleTypes.COMPOSTER);
         ParticleProvider.VerticleCircleParticle(serverPlayer, 0.0 * 2, 1.75, 36, ParticleTypes.COMPOSTER);
         player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_0.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_1.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.FOREST_SWORD_4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
         MySound.soundToNearPlayer(player, ModSounds.Attack.get());
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,

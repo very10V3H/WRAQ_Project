@@ -65,9 +65,6 @@ public class PlainSword extends WraqSword implements ActiveItem {
         ParticleProvider.createRandomMoveParticle(serverPlayer, 0.75 * 2, 1, 8, ParticleTypes.COMPOSTER);
         Compute.playerHeal(player, player.getMaxHealth() * effectRate[tier]);
         player.getCooldowns().addCooldown(ModItems.PLAIN_SWORD_0.get(), (int) (400 - 400.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.PLAIN_SWORD_1.get(), (int) (400 - 400.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.PLAIN_SWORD_2.get(), (int) (400 - 400.0 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.PLAIN_SWORD_3.get(), (int) (400 - 400.0 * PlayerAttributes.coolDownDecrease(player)));
         MySound.soundToNearPlayer(player, ModSounds.Healing.get());
     }
 

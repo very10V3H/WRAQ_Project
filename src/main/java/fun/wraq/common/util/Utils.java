@@ -282,19 +282,10 @@ public class Utils {
         BrewSoulMap.put(ModItems.SKY_SOUL.get(), ModItems.SKY_SOLIDIFIED_SOUL.get());
 
         CoolDownItem.add(ModItems.PLAIN_SWORD_0.get());
-        CoolDownItem.add(ModItems.PLAIN_SWORD_1.get());
-        CoolDownItem.add(ModItems.PLAIN_SWORD_2.get());
-        CoolDownItem.add(ModItems.PLAIN_SWORD_3.get());
         CoolDownItem.add(ModItems.FOREST_SWORD_0.get());
-        CoolDownItem.add(ModItems.FOREST_SWORD_1.get());
-        CoolDownItem.add(ModItems.FOREST_SWORD_2.get());
-        CoolDownItem.add(ModItems.FOREST_SWORD_3.get());
         CoolDownItem.add(ModItems.FOREST_SWORD_4.get());
-        CoolDownItem.add(ModItems.LAKE_SWORD_3.get());
+        CoolDownItem.add(ModItems.LAKE_SWORD_0.get());
         CoolDownItem.add(ModItems.VOLCANO_SWORD_0.get());
-        CoolDownItem.add(ModItems.VOLCANO_SWORD_1.get());
-        CoolDownItem.add(ModItems.VOLCANO_SWORD_2.get());
-        CoolDownItem.add(ModItems.VOLCANO_SWORD_3.get());
         CoolDownItem.add(ModItems.VOLCANO_SWORD_4.get());
         CoolDownItem.add(ModItems.SNOW_SWORD_3.get());
         CoolDownItem.add(ModItems.SNOW_SWORD_4.get());

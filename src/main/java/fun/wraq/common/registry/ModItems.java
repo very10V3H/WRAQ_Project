@@ -303,30 +303,12 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PlainBold), true, true));
     public static final RegistryObject<Item> PLAIN_SWORD_0 = ITEMS.register("plainsword0",
             () -> new PlainSword(new Item.Properties().rarity(CustomStyle.PlainItalic), 0));
-    public static final RegistryObject<Item> PLAIN_SWORD_1 = ITEMS.register("plainsword1",
-            () -> new PlainSword(new Item.Properties().rarity(CustomStyle.PlainItalic), 1));
-    public static final RegistryObject<Item> PLAIN_SWORD_2 = ITEMS.register("plainsword2",
-            () -> new PlainSword(new Item.Properties().rarity(CustomStyle.PlainItalic), 2));
-    public static final RegistryObject<Item> PLAIN_SWORD_3 = ITEMS.register("plainsword3",
-            () -> new PlainSword(new Item.Properties().rarity(CustomStyle.PlainItalic), 3));
 
     public static final RegistryObject<Item> PLAIN_BOW_0 = ITEMS.register("plainbow0",
             () -> new PlainBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.PlainItalic), 0));
-    public static final RegistryObject<Item> PLAIN_BOW_1 = ITEMS.register("plainbow1",
-            () -> new PlainBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.PlainItalic), 1));
-    public static final RegistryObject<Item> PLAIN_BOW_2 = ITEMS.register("plainbow2",
-            () -> new PlainBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.PlainItalic), 2));
-    public static final RegistryObject<Item> PLAIN_BOW_3 = ITEMS.register("plainbow3",
-            () -> new PlainBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.PlainItalic), 3));
 
     public static final RegistryObject<Item> LIFE_SCEPTRE_0 = ITEMS.register("plainsceptre0",
             () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 0));
-    public static final RegistryObject<Item> LIFE_SCEPTRE_1 = ITEMS.register("plainsceptre1",
-            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 1));
-    public static final RegistryObject<Item> LIFE_SCEPTRE_2 = ITEMS.register("plainsceptre2",
-            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 2));
-    public static final RegistryObject<Item> LIFE_SCEPTRE_3 = ITEMS.register("plainsceptre3",
-            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 3));
     public static final RegistryObject<Item> LIFE_SCEPTRE_X = ITEMS.register("plainsceptre4",
             () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic), 4));
 
@@ -353,21 +335,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> FOREST_SWORD_0 = ITEMS.register("forestsword0",
             () -> new ForestSword(new Item.Properties().rarity(CustomStyle.ForestItalic), 0));
-    public static final RegistryObject<Item> FOREST_SWORD_1 = ITEMS.register("forestsword1",
-            () -> new ForestSword(new Item.Properties().rarity(CustomStyle.ForestItalic), 1));
-    public static final RegistryObject<Item> FOREST_SWORD_2 = ITEMS.register("forestsword2",
-            () -> new ForestSword(new Item.Properties().rarity(CustomStyle.ForestItalic), 2));
-    public static final RegistryObject<Item> FOREST_SWORD_3 = ITEMS.register("forestsword3",
-            () -> new ForestSword(new Item.Properties().rarity(CustomStyle.ForestItalic), 3));
 
     public static final RegistryObject<Item> FOREST_BOW_0 = ITEMS.register("forestbow0",
             () -> new ForestBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.ForestItalic), 0));
-    public static final RegistryObject<Item> FOREST_BOW_1 = ITEMS.register("forestbow1",
-            () -> new ForestBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.ForestItalic), 1));
-    public static final RegistryObject<Item> FOREST_BOW_2 = ITEMS.register("forestbow2",
-            () -> new ForestBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.ForestItalic), 2));
-    public static final RegistryObject<Item> FOREST_BOW_3 = ITEMS.register("forestbow3",
-            () -> new ForestBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.ForestItalic), 3));
 
     public static final RegistryObject<Item> ForestPower = ITEMS.register("forest_power",
             () -> new ForestPower(new Item.Properties().rarity(CustomStyle.ForestItalic), 0));
@@ -452,30 +422,12 @@ public class ModItems {
 
     public static final RegistryObject<Item> LAKE_SWORD_0 = ITEMS.register("lakesword0",
             () -> new LakeSword(new Item.Properties().rarity(CustomStyle.LakeItalic), 0));
-    public static final RegistryObject<Item> LAKE_SWORD_1 = ITEMS.register("lakesword1",
-            () -> new LakeSword(new Item.Properties().rarity(CustomStyle.LakeItalic), 1));
-    public static final RegistryObject<Item> LAKE_SWORD_2 = ITEMS.register("lakesword2",
-            () -> new LakeSword(new Item.Properties().rarity(CustomStyle.LakeItalic), 2));
-    public static final RegistryObject<Item> LAKE_SWORD_3 = ITEMS.register("lakesword3",
-            () -> new LakeSword(new Item.Properties().rarity(CustomStyle.LakeItalic), 3));
 
     public static final RegistryObject<Item> LAKE_BOW_0 = ITEMS.register("lake_bow0",
             () -> new LakeBow(new Item.Properties().rarity(CustomStyle.WaterItalic), 0));
-    public static final RegistryObject<Item> LAKE_BOW_1 = ITEMS.register("lake_bow1",
-            () -> new LakeBow(new Item.Properties().rarity(CustomStyle.WaterItalic), 1));
-    public static final RegistryObject<Item> LAKE_BOW_2 = ITEMS.register("lake_bow2",
-            () -> new LakeBow(new Item.Properties().rarity(CustomStyle.WaterItalic), 2));
-    public static final RegistryObject<Item> LAKE_BOW_3 = ITEMS.register("lake_bow3",
-            () -> new LakeBow(new Item.Properties().rarity(CustomStyle.WaterItalic), 3));
 
     public static final RegistryObject<Item> LAKE_SCEPTRE_0 = ITEMS.register("lake_sceptre0",
             () -> new LakeSceptre(new Item.Properties().rarity(CustomStyle.WaterItalic), 0));
-    public static final RegistryObject<Item> LAKE_SCEPTRE_1 = ITEMS.register("lake_sceptre1",
-            () -> new LakeSceptre(new Item.Properties().rarity(CustomStyle.WaterItalic), 1));
-    public static final RegistryObject<Item> LAKE_SCEPTRE_2 = ITEMS.register("lake_sceptre2",
-            () -> new LakeSceptre(new Item.Properties().rarity(CustomStyle.WaterItalic), 2));
-    public static final RegistryObject<Item> LAKE_SCEPTRE_3 = ITEMS.register("lake_sceptre3",
-            () -> new LakeSceptre(new Item.Properties().rarity(CustomStyle.WaterItalic), 3));
 
     public static final RegistryObject<Item> LAKE_POWER = ITEMS.register("lake_power",
             () -> new LakePower(new Item.Properties().rarity(CustomStyle.WaterItalic), 0));
@@ -534,21 +486,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> VOLCANO_SWORD_0 = ITEMS.register("volcanosword0",
             () -> new VolcanoSword(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 0));
-    public static final RegistryObject<Item> VOLCANO_SWORD_1 = ITEMS.register("volcanosword1",
-            () -> new VolcanoSword(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 1));
-    public static final RegistryObject<Item> VOLCANO_SWORD_2 = ITEMS.register("volcanosword2",
-            () -> new VolcanoSword(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 2));
-    public static final RegistryObject<Item> VOLCANO_SWORD_3 = ITEMS.register("volcanosword3",
-            () -> new VolcanoSword(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 3));
 
     public static final RegistryObject<Item> VOLCANO_BOW_0 = ITEMS.register("volcanobow0",
             () -> new VolcanoBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.VolcanoItalic), 0));
-    public static final RegistryObject<Item> VOLCANO_BOW_1 = ITEMS.register("volcanobow1",
-            () -> new VolcanoBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.VolcanoItalic), 1));
-    public static final RegistryObject<Item> VOLCANO_BOW_2 = ITEMS.register("volcanobow2",
-            () -> new VolcanoBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.VolcanoItalic), 2));
-    public static final RegistryObject<Item> VOLCANO_BOW_3 = ITEMS.register("volcanobow3",
-            () -> new VolcanoBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.VolcanoItalic), 3));
 
     public static final RegistryObject<Item> VOLCANO_POWER = ITEMS.register("volcano_power",
             () -> new VolcanoPower(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 0));

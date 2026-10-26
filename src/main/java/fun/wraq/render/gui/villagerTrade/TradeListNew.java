@@ -102,12 +102,6 @@ public class TradeListNew {
 
                         Pair.of(Is.n(PLAIN_RUNE),
                                 List.of(Is.n(COPPER_COIN, 200), Is.n(PLAIN_SOUL, 30))),
-                        Pair.of(Is.n(PLAIN_SWORD_1),
-                                List.of(Is.n(PLAIN_SWORD_0), Is.n(PLAIN_RUNE))),
-                        Pair.of(Is.n(PLAIN_BOW_1),
-                                List.of(Is.n(PLAIN_BOW_0), Is.n(PLAIN_RUNE))),
-                        Pair.of(Is.n(LIFE_SCEPTRE_1),
-                                List.of(Is.n(LIFE_SCEPTRE_0), Is.n(PLAIN_RUNE))),
                         Pair.of(Is.n(NewRuneItems.PLAIN_NEW_RUNE),
                                 List.of(Is.n(PLAIN_RUNE, 2))),
                         Pair.of(Is.n(U_DISK),
@@ -127,20 +121,8 @@ public class TradeListNew {
 
                         Pair.of(Is.n(FOREST_RUNE),
                                 List.of(Is.n(COPPER_COIN, 300), Is.n(FOREST_SOUL, 30))),
-                        Pair.of(Is.n(FOREST_SWORD_1),
-                                List.of(Is.n(FOREST_RUNE), Is.n(FOREST_SWORD_0))),
-                        Pair.of(Is.n(FOREST_BOW_1),
-                                List.of(Is.n(FOREST_RUNE), Is.n(FOREST_BOW_0))),
-                        Pair.of(Is.n(LIFE_SCEPTRE_2),
-                                List.of(Is.n(FOREST_RUNE), Is.n(LIFE_SCEPTRE_1))),
                         Pair.of(Is.n(NewRuneItems.FOREST_NEW_RUNE),
                                 List.of(Is.n(FOREST_RUNE, 2))),
-                        Pair.of(Is.n(LIFE_SCEPTRE_3),
-                                List.of(Is.n(LIFE_SCEPTRE_2), Is.n(PLAIN_BOSS_SOUL, 2))),
-                        Pair.of(Is.n(FOREST_BOW_2),
-                                List.of(Is.n(FOREST_BOW_1), Is.n(PLAIN_BOSS_SOUL, 2))),
-                        Pair.of(Is.n(FOREST_SWORD_2),
-                                List.of(Is.n(FOREST_SWORD_1), Is.n(PLAIN_BOSS_SOUL, 2))),
                         Pair.of(Is.n(FORGING_STONE_0),
                                 List.of(Is.n(COPPER_COIN, 150)))
                 ));

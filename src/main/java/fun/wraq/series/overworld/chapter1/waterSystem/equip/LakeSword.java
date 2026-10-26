@@ -73,8 +73,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
     @Override
     public void active(Player player) {
         ModNetworking.sendToClient(new UtilsLakeSwordS2CPacket(true), (ServerPlayer) player);
-        List.of(ModItems.LAKE_SWORD_0.get(), ModItems.LAKE_SWORD_1.get(),
-                        ModItems.LAKE_SWORD_2.get(), ModItems.LAKE_SWORD_3.get())
+        List.of(ModItems.LAKE_SWORD_0.get())
                 .forEach(item -> {
                     if (player.isFallFlying()) {
                         player.getCooldowns().addCooldown(item, Tick.s(12));

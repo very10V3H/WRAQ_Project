@@ -100,7 +100,7 @@ public class ForestRecallEvent {
                             Utils.ForestRecallZombie = new Zombie(EntityType.ZOMBIE, level1);
                             MobSpawn.setMobCustomName(Utils.ForestRecallZombie, ModItems.ARMOR_FOREST_RECALL.get(), Component.literal("模糊记忆中的森林僵尸").withStyle(style));
                             Utils.ForestRecallZombie.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_FOREST_RECALL.get().getDefaultInstance());
-                            Utils.ForestRecallZombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.FOREST_SWORD_3.get().getDefaultInstance());
+                            Utils.ForestRecallZombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.FOREST_SWORD_4.get().getDefaultInstance());
                             Utils.ForestRecallZombie.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.ForestRecallZombie.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.ForestRecallZombie.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);

@@ -27,105 +27,6 @@ public class InjectRecipe {
     public static Map<Item, List<InjectingRecipe>> injectingWaysMap = new HashMap<>();
 
     public static void setInjectingRecipeMap() {
-        injectingRecipeMap.put(ModItems.PLAIN_SWORD_0.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 1,
-                        ModItems.PLAIN_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.PLAIN_SWORD_1.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 2,
-                        ModItems.PLAIN_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.PLAIN_SWORD_2.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 3,
-                        ModItems.PLAIN_SWORD_3.get()));
-
-        injectingRecipeMap.put(ModItems.PLAIN_BOW_0.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 1,
-                        ModItems.PLAIN_BOW_1.get()));
-        injectingRecipeMap.put(ModItems.PLAIN_BOW_1.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 2,
-                        ModItems.PLAIN_BOW_2.get()));
-        injectingRecipeMap.put(ModItems.PLAIN_BOW_2.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 3,
-                        ModItems.PLAIN_BOW_3.get()));
-
-        injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_0.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 1,
-                        ModItems.LIFE_SCEPTRE_1.get()));
-        injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_1.get(),
-                new InjectingRecipe(ModItems.PLAIN_RUNE.get(), 2,
-                        ModItems.LIFE_SCEPTRE_2.get()));
-        injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_2.get(),
-                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 3,
-                        ModItems.LIFE_SCEPTRE_3.get()));
-
-        injectingRecipeMap.put(ModItems.FOREST_SWORD_0.get(),
-                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 1,
-                        ModItems.FOREST_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.FOREST_SWORD_1.get(),
-                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 2,
-                        ModItems.FOREST_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.FOREST_SWORD_2.get(),
-                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 3,
-                        ModItems.FOREST_SWORD_3.get()));
-
-        injectingRecipeMap.put(ModItems.FOREST_BOW_0.get(),
-                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 1,
-                        ModItems.FOREST_BOW_1.get()));
-        injectingRecipeMap.put(ModItems.FOREST_BOW_1.get(),
-                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 2,
-                        ModItems.FOREST_BOW_2.get()));
-        injectingRecipeMap.put(ModItems.FOREST_BOW_2.get(),
-                new InjectingRecipe(ModItems.FOREST_RUNE.get(), 3,
-                        ModItems.FOREST_BOW_3.get()));
-
-        injectingRecipeMap.put(ModItems.LAKE_SWORD_0.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 1,
-                        ModItems.LAKE_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.LAKE_SWORD_1.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 2,
-                        ModItems.LAKE_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.LAKE_SWORD_2.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 3,
-                        ModItems.LAKE_SWORD_3.get()));
-
-        injectingRecipeMap.put(ModItems.LAKE_BOW_0.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 1,
-                        ModItems.LAKE_BOW_1.get()));
-        injectingRecipeMap.put(ModItems.LAKE_BOW_1.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 2,
-                        ModItems.LAKE_BOW_2.get()));
-        injectingRecipeMap.put(ModItems.LAKE_BOW_2.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 3,
-                        ModItems.LAKE_BOW_3.get()));
-
-        injectingRecipeMap.put(ModItems.LAKE_SCEPTRE_0.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 1,
-                        ModItems.LAKE_SCEPTRE_1.get()));
-        injectingRecipeMap.put(ModItems.LAKE_SCEPTRE_1.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 2,
-                        ModItems.LAKE_SCEPTRE_2.get()));
-        injectingRecipeMap.put(ModItems.LAKE_SCEPTRE_2.get(),
-                new InjectingRecipe(ModItems.LAKE_RUNE.get(), 3,
-                        ModItems.LAKE_SCEPTRE_3.get()));
-
-        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_0.get(),
-                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 1,
-                        ModItems.VOLCANO_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_1.get(),
-                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 2,
-                        ModItems.VOLCANO_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_2.get(),
-                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 3,
-                        ModItems.VOLCANO_SWORD_3.get()));
-
-        injectingRecipeMap.put(ModItems.VOLCANO_BOW_0.get(),
-                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 1,
-                        ModItems.VOLCANO_BOW_1.get()));
-        injectingRecipeMap.put(ModItems.VOLCANO_BOW_1.get(),
-                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 2,
-                        ModItems.VOLCANO_BOW_2.get()));
-        injectingRecipeMap.put(ModItems.VOLCANO_BOW_2.get(),
-                new InjectingRecipe(ModItems.VOLCANO_RUNE.get(), 3,
-                        ModItems.VOLCANO_BOW_3.get()));
 
         injectingRecipeMap.put(ModItems.MINE_SWORD_0.get(),
                 new InjectingRecipe(ModItems.MINE_RUNE.get(), 1,
@@ -288,11 +189,11 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.INTENSIFIED_SNOW_SOUL.get(), 1,
                         ModItems.SNOW_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.FOREST_SWORD_3.get(),
+        injectingRecipeMap.put(ModItems.FOREST_SWORD_0.get(),
                 new InjectingRecipe(ModItems.INTENSIFIED_FOREST_RECALL_SOUL.get(), 1,
                         ModItems.FOREST_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_3.get(),
+        injectingRecipeMap.put(ModItems.VOLCANO_SWORD_0.get(),
                 new InjectingRecipe(ModItems.INTENSIFIED_VOLCANO_SOUL.get(), 1,
                         ModItems.VOLCANO_SWORD_4.get()));
 
@@ -300,7 +201,7 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.SNOW_RUNE.get(), 1,
                         ModItems.SNOW_SWORD_0.get()));
 
-        injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_3.get(),
+        injectingRecipeMap.put(ModItems.LIFE_SCEPTRE_0.get(),
                 new InjectingRecipe(ModItems.FOREST_RUNE.get(), 2,
                         ModItems.LIFE_SCEPTRE_X.get()));
 
@@ -352,7 +253,7 @@ public class InjectRecipe {
                 new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 1,
                         ModItems.ICE_COMPLETE_GEM.get()));
 
-        injectingRecipeMap.put(ModItems.VOLCANO_BOW_3.get(),
+        injectingRecipeMap.put(ModItems.VOLCANO_BOW_0.get(),
                 new InjectingRecipe(ModItems.QUARTZ_RUNE.get(), 1,
                         ModItems.NETHER_BOW.get()));
 

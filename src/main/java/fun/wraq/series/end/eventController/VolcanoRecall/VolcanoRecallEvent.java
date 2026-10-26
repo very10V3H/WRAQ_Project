@@ -102,7 +102,7 @@ public class VolcanoRecallEvent {
                             Utils.VolcanoRecallBlaze = new Blaze(EntityType.BLAZE, level1);
                             MobSpawn.setMobCustomName(Utils.VolcanoRecallBlaze, ModItems.ARMOR_VOLCANO_RECALL.get(), Component.literal("模糊记忆中的火山熔岩").withStyle(style));
                             Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.HEAD, ModItems.ARMOR_VOLCANO_RECALL.get().getDefaultInstance());
-                            Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.FOREST_SWORD_3.get().getDefaultInstance());
+                            Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.VOLCANO_SWORD_4.get().getDefaultInstance());
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(200.0D);
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5D);

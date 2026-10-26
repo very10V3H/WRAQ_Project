@@ -871,17 +871,6 @@
     "在「阶段2商人」处获取",
     "在锻造台锻造获得"
   ],
-  "vmd:forestbow1": [
-    "在「阶段2商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:forestbow2": [
-    "在「阶段2商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:forestbow3": [
-    "通过灌注台灌注获得"
-  ],
   "vmd:forestgems": [
     "在「天空城珠宝商人、宝石商人」处获取"
   ],
@@ -901,17 +890,6 @@
   "vmd:forestsword0": [
     "在「阶段2商人」处获取",
     "在锻造台锻造获得"
-  ],
-  "vmd:forestsword1": [
-    "在「阶段2商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:forestsword2": [
-    "在「阶段2商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:forestsword3": [
-    "通过灌注台灌注获得"
   ],
   "vmd:forestsword4": [
     "通过灌注台灌注获得"
@@ -1255,15 +1233,6 @@
   "vmd:lake_bow0": [
     "在锻造台锻造获得"
   ],
-  "vmd:lake_bow1": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:lake_bow2": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:lake_bow3": [
-    "通过灌注台灌注获得"
-  ],
   "vmd:lake_crest_1": [
     "在「纹章制作师」处获取"
   ],
@@ -1285,15 +1254,6 @@
   "vmd:lake_sceptre0": [
     "在锻造台锻造获得"
   ],
-  "vmd:lake_sceptre1": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:lake_sceptre2": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:lake_sceptre3": [
-    "通过灌注台灌注获得"
-  ],
   "vmd:lakearmorboots": [
     "在锻造台锻造获得"
   ],
@@ -1314,15 +1274,6 @@
   ],
   "vmd:lakesword0": [
     "在锻造台锻造获得"
-  ],
-  "vmd:lakesword1": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:lakesword2": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:lakesword3": [
-    "通过灌注台灌注获得"
   ],
   "vmd:lavender_bracelet": [
     "挑战「紫水晶巨蟹」获得"
@@ -2046,16 +1997,6 @@
     "在「阶段1商人」处获取",
     "在锻造台锻造获得"
   ],
-  "vmd:plainbow1": [
-    "在「阶段1商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:plainbow2": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:plainbow3": [
-    "通过灌注台灌注获得"
-  ],
   "vmd:plaingems": [
     "在「天空城珠宝商人、宝石商人」处获取"
   ],
@@ -2066,34 +2007,12 @@
     "在「阶段1商人」处获取",
     "在锻造台锻造获得"
   ],
-  "vmd:plainsceptre1": [
-    "在「阶段1商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:plainsceptre2": [
-    "在「阶段2商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:plainsceptre3": [
-    "在「阶段2商人」处获取",
-    "通过灌注台灌注获得"
-  ],
   "vmd:plainsceptre4": [
     "通过灌注台灌注获得"
   ],
   "vmd:plainsword0": [
     "在「阶段1商人」处获取",
     "在锻造台锻造获得"
-  ],
-  "vmd:plainsword1": [
-    "在「阶段1商人」处获取",
-    "通过灌注台灌注获得"
-  ],
-  "vmd:plainsword2": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:plainsword3": [
-    "通过灌注台灌注获得"
   ],
   "vmd:prefix_mid_autumn_2025_0": [
     "在「中秋活动商店」兑换"
@@ -2843,15 +2762,6 @@
   "vmd:volcanobow0": [
     "在锻造台锻造获得"
   ],
-  "vmd:volcanobow1": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:volcanobow2": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:volcanobow3": [
-    "通过灌注台灌注获得"
-  ],
   "vmd:volcanogems": [
     "在「天空城珠宝商人、宝石商人」处获取"
   ],
@@ -2869,15 +2779,6 @@
   ],
   "vmd:volcanosword0": [
     "在锻造台锻造获得"
-  ],
-  "vmd:volcanosword1": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:volcanosword2": [
-    "通过灌注台灌注获得"
-  ],
-  "vmd:volcanosword3": [
-    "通过灌注台灌注获得"
   ],
   "vmd:volcanosword4": [
     "通过灌注台灌注获得"

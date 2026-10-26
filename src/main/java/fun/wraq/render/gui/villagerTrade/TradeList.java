@@ -860,7 +860,7 @@ public class TradeList {
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.NETHER_BOW.get(), 1));
                     add(new ItemStack(ModItems.QUARTZ_RUNE.get(), 1));
-                    add(new ItemStack(ModItems.VOLCANO_BOW_3.get(), 1));
+                    add(new ItemStack(ModItems.VOLCANO_BOW_0.get(), 1));
                 }});
             }
         }
@@ -1517,7 +1517,7 @@ public class TradeList {
         ));
         tradeRecipeMap.put(blazeSword, List.of(
                 new ItemStack(ModItems.BLAZE_RUNE.get(), 8),
-                new ItemStack(ModItems.VOLCANO_SWORD_3.get(), 1)
+                new ItemStack(ModItems.VOLCANO_SWORD_4.get(), 1)
         ));
         tradeRecipeMap.put(beaconBow, List.of(
                 new ItemStack(ModItems.BEACON_RUNE.get(), 8),
