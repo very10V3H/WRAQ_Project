@@ -158,7 +158,6 @@ public class ServerPlayerTickEvent {
             WraqArmor.serverTick(player);
             EndCrystal.tick(player);
             HoursExHarvestPotion.tick(player);
-            RestZone.tick(serverPlayer);
             GemTickHandler.handleTick(player);
             HarbingerMainHand.tick(player);
             MyWayPoint.zoneTick(player);
