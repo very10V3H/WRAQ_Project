@@ -276,10 +276,6 @@ public class ForgeScreen extends WraqScreen {
             ItemStack icon = materials.get(i).copy();
             icon.setCount(1);
             guiGraphics.renderItem(icon, childX, childY);
-            String countText = String.valueOf(materials.get(i).getCount());
-            guiGraphics.drawString(fontRenderer, countText,
-                    childX + 16 - fontRenderer.width(countText), childY + 9,
-                    0xFFFFFFFF, true);
             if (mouseX >= childX && mouseX < childX + 16
                     && mouseY >= childY && mouseY < childY + 16) {
                 hoveredIndex = i;
@@ -296,6 +292,15 @@ public class ForgeScreen extends WraqScreen {
             ellipsisHovered = mouseX >= ellipsisX - 2 && mouseX < ellipsisX + ellipsisWidth + 2
                     && mouseY >= childY && mouseY < childY + 16;
         }
+
+        // 使用原版物品装饰层绘制数量，装饰层自带 z 偏移，不会被物品图标盖住
+        guiGraphics.flush();
+        for (int i = 0; i < visible; i++) {
+            int childX = startX + i * 18;
+            guiGraphics.renderItemDecorations(fontRenderer, materials.get(i), childX, childY,
+                    String.valueOf(materials.get(i).getCount()));
+        }
+        guiGraphics.flush();
 
         if (hoveredIndex >= 0) {
             return materialTooltip(materials.get(hoveredIndex));
