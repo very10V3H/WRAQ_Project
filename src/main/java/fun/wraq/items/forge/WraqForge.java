@@ -19,6 +19,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
+import fun.wraq.process.system.missions.side.ForgeMasterQuest;
 import fun.wraq.process.system.profession.smith.SmithHammer;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.c1.NewC1Items;
@@ -112,6 +113,7 @@ public class WraqForge extends Item {
                             "重新锻造为 ", ForgeEquipUtils.getDescription(tier), " ", sameStack));
             Compute.clearPlayerScreen(player);
             MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
+            ForgeMasterQuest.onForge(player, forgedItem);
             return;
         }
         if (player.isCreative()) {
@@ -169,6 +171,7 @@ public class WraqForge extends Item {
             judgeFrontAndGuideV2(player, productItemStack);
             LogUtils.getLogger().info("锻造 {} 锻造了 {}", Name.get(player), productItemStack);
             InventoryOperation.giveItemStack(player, productItemStack);
+            ForgeMasterQuest.onForge(player, forgedItem);
         } else {
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("背包里似乎没有足够的物品用于锻造。"));

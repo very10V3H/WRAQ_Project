@@ -11,6 +11,7 @@ import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mainline.MainQuestStage;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenS2CPacket;
 import fun.wraq.process.system.missions.netWorking.MissionV2DataS2CPacket;
+import fun.wraq.process.system.missions.side.ForgeMasterQuest;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -95,7 +96,30 @@ public enum MissionV2 {
     MAIN_26_ANCIENT_CITY(MainQuestData.MAIN_26),
     MAIN_27_LAVA_BUNKER(MainQuestData.MAIN_27),
     MAIN_28_HOLY_ISLAND(MainQuestData.MAIN_28),
-    MAIN_29_POLAR(MainQuestData.MAIN_29);
+    MAIN_29_POLAR(MainQuestData.MAIN_29),
+
+    // ---- 支线：锻造师 ----
+    SIDE_FORGE_I(Te.s("锻造师I", CustomStyle.styleOfPlain),
+            Te.s("锻造任意平原武器"),
+            Te.s("锻造师"),
+            Te.s("需完成 平原清剿"),
+            true,
+            ForgeMasterQuest::canAccept,
+            null,
+            ForgeMasterQuest::hasForgedPlainWeapon,
+            ForgeMasterQuest::claimReward,
+            ForgeMasterQuest.rewardDescription()),
+
+    SIDE_FORGE_II(Te.s("锻造师II", CustomStyle.styleOfPlain),
+            Te.s("将任意装备强化至2级"),
+            Te.s("锻造师"),
+            Te.s("需完成 锻造师I"),
+            true,
+            ForgeMasterQuest::canAcceptII,
+            null,
+            ForgeMasterQuest::hasEnhancedToLevel2,
+            ForgeMasterQuest::claimRewardII,
+            ForgeMasterQuest.rewardDescriptionII());
 
     public interface PlayerCondition {
         boolean can(Player player) throws CommandSyntaxException;
@@ -340,6 +364,7 @@ public enum MissionV2 {
 
     public static void handlePlayerTick(Player player) {
         if (player.tickCount % 20 == 0) {
+            ForgeMasterQuest.refreshUnlock(player);
             autoSubmit(player);
             sendDataToClient(player);
         }

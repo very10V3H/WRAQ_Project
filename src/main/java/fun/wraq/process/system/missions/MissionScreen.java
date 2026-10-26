@@ -121,6 +121,9 @@ public class MissionScreen extends Screen {
                 // 主线未解锁（状态为空）时不进入任务列表
                 .filter(missionV2 -> !MainQuestHelper.isMainMission(missionV2)
                         || !statusData.getString(missionV2.name()).isEmpty())
+                // 锻造师等支线只有解锁（状态不再是空）后才进入任务列表
+                .filter(missionV2 -> !missionV2.getCategory().equals(MissionV2.Category.SIDE)
+                        || !statusData.getString(missionV2.name()).isEmpty())
                 .toList();
     }
 
@@ -247,6 +250,12 @@ public class MissionScreen extends Screen {
                     } catch (CommandSyntaxException e) {
                         throw new RuntimeException(e);
                     }
+                }
+                // 主线统一 aqua，支线统一绿色，方便在任务列表中区分。
+                if (mission.getCategory() == MissionV2.Category.MAIN) {
+                    title = title.copy().withStyle(ChatFormatting.AQUA);
+                } else if (mission.getCategory() == MissionV2.Category.SIDE) {
+                    title = title.copy().withStyle(ChatFormatting.GREEN);
                 }
                 guiGraphics.drawString(fontRenderer, Te.s("「", ChatFormatting.AQUA, title,
                                 "」", ChatFormatting.AQUA),
