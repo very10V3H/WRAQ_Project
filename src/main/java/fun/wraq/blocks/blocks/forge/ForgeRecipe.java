@@ -68,11 +68,13 @@ public class ForgeRecipe {
         recipes.put(ModItems.FOREST_SWORD_0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
             add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
+            add(new ItemStack(ModItems.PLAIN_SWORD_0.get()));
         }});
 
         recipes.put(ModItems.FOREST_BOW_0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.FOREST_RUNE.get(), 3));
             add(new ItemStack(ModItems.LIFE_ELEMENT_PIECE_0.get(), 14));
+            add(new ItemStack(ModItems.PLAIN_BOW_0.get()));
         }});
 
         recipes.put(ModItems.LAKE_HELMET.get(), new ArrayList<>() {{

@@ -119,7 +119,18 @@ public enum MissionV2 {
             null,
             ForgeMasterQuest::hasEnhancedToLevel2,
             ForgeMasterQuest::claimRewardII,
-            ForgeMasterQuest.rewardDescriptionII());
+            ForgeMasterQuest.rewardDescriptionII()),
+
+    SIDE_FORGE_III(Te.s("锻造师III", CustomStyle.styleOfPlain),
+            Te.s("锻造森林粉碎者、森林长弓或生机权杖-X"),
+            Te.s("锻造师"),
+            Te.s("需完成 锻造师II"),
+            true,
+            ForgeMasterQuest::canAcceptIII,
+            null,
+            ForgeMasterQuest::hasForgedIII,
+            ForgeMasterQuest::claimRewardIII,
+            ForgeMasterQuest.rewardDescriptionIII());
 
     public interface PlayerCondition {
         boolean can(Player player) throws CommandSyntaxException;
@@ -380,6 +391,10 @@ public enum MissionV2 {
 
     public static void sendMSG(Player player, Component content) {
         Compute.sendFormatMSG(player, Te.s("任务", CustomStyle.styleOfFlexible), content);
+    }
+
+    public static void sendMsgForUnlock(Player player, MissionV2 mission) {
+        sendMSG(player, Component.literal("新支线已解锁: ").append(mission.title));
     }
 
     public static void sendDataToClient(Player player) {

@@ -6,6 +6,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.system.missions.side.ForgeMasterQuest;
 import fun.wraq.render.gui.blocks.InjectBlockMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -207,6 +208,9 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             blockEntity.itemStackHandler.extractItem(0, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getMaterialCount(), false);
             blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getSourceItemCount(), false);
             blockEntity.itemStackHandler.setStackInSlot(2, productItemStack);
+            if (player != null) {
+                ForgeMasterQuest.onInjected(player, productItemStack.getItem());
+            }
 
             MySound.soundToNearPlayer(player, SoundEvents.BREWING_STAND_BREW);
         }
