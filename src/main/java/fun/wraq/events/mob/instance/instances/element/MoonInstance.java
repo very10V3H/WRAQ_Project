@@ -4,16 +4,15 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.MobSkillUtil;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
@@ -72,10 +71,10 @@ public class MoonInstance extends NoTeamInstance {
         }
         List<Player> players = getNearPlayers(attackMob.level());
         if (tickCount % 280 == 0) {
-            Skill1(attackMob, manaMob, players);
+            skill1(attackMob, manaMob, players);
         }
         if (tickCount % 280 == 140) {
-            Skill2(attackMob, manaMob, players);
+            skill2(attackMob, manaMob, players);
         }
         Skill3(attackMob, manaMob, players);
         // AI
@@ -164,11 +163,7 @@ public class MoonInstance extends NoTeamInstance {
                 new ItemAndRate(NewRuneItems.MOON_NEW_RUNE.get(), 0.03));
     }
 
-    public static void Skill1(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
-/*        playerList.forEach(player -> {
-            Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("潮汐之源", CustomStyle.styleOfMoon),
-                    Te.m(""), 0, 20, 10);
-        });*/
+    public static void skill1(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
         if (AttackMob.isAlive()) {
             Compute.repelPlayer(AttackMob, AttackMob.position(), 6, 3, 3);
             ParticleProvider.DisperseParticle(AttackMob.position(), (ServerLevel) AttackMob.level(), 1, 1, 120, ModParticles.LONG_LIGHTNINGISLAND.get(), 1);
@@ -176,16 +171,17 @@ public class MoonInstance extends NoTeamInstance {
         }
         if (ManaMob.isAlive()) {
             for (int i = 0; i < 16; i++) {
-                ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), ManaMob, ManaMob.level(), 1);
-                manaArrow.shootFromRotation(ManaMob, ManaMob.getXRot(), ManaMob.getYRot() + 360 * i / 16.0f, 1, 1.5f, 1);
-                ManaMob.level().addFreshEntity(manaArrow);
+                MobSkillUtil.shootManaProjectile(ManaMob,
+                        ManaMob.getYRot() + 360 * i / 16.0f, ManaMob.getXRot(),
+                        1.5f, MobAttributes.attackDamage(ManaMob),
+                        Style.EMPTY.withColor(0xFFAA88FF), 0, 0);
             }
             ParticleProvider.DisperseParticle(ManaMob.position(), (ServerLevel) ManaMob.level(), 1, 1, 120, ModParticles.LONG_LIGHTNINGISLAND.get(), 1);
             ParticleProvider.DisperseParticle(ManaMob.position(), (ServerLevel) ManaMob.level(), 1.5, 1, 120, ModParticles.LONG_LIGHTNINGISLAND.get(), 1);
         }
     }
 
-    public static void Skill2(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
+    public static void skill2(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
 /*        playerList.forEach(player -> {
             Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("阴晴圆缺", CustomStyle.styleOfMoon),
                     Te.m(""), 0, 20, 10);

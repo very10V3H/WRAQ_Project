@@ -28,6 +28,10 @@ public class ManaArrow extends AbstractArrow {
 
     public double manaPenetration;
     public double manaPenetration0;
+    /** 怪物法球使用的基础伤害；&lt; 0 时回退到 rate * 怪物攻击力。 */
+    public double mobBaseDamage = -1;
+    public double mobManaPenetration;
+    public double mobManaPenetration0;
     public Player player;
     private boolean AdjustOneTimes = false;
     private Vec3 InWaterVec3;
@@ -86,6 +90,15 @@ public class ManaArrow extends AbstractArrow {
         setStyle(0xFFAA88FF);
     }
 
+    /**
+     * 设置怪物法球的固定基础伤害与法术穿透。只在 {@link #mob} 非空时生效。
+     */
+    public void setMobDamage(double baseDamage, double manaPenetration, double manaPenetration0) {
+        this.mobBaseDamage = Math.max(0, baseDamage);
+        this.mobManaPenetration = manaPenetration;
+        this.mobManaPenetration0 = manaPenetration0;
+    }
+
     @Override
     public ItemStack getPickupItem() {
         return MinecartItem.byId(0).getDefaultInstance();
@@ -102,7 +115,12 @@ public class ManaArrow extends AbstractArrow {
         if (this.mob != null && !level().isClientSide) {
             Entity entity = result.getEntity();
             if (entity instanceof Player player1) {
-                Damage.manaDamageToPlayer_RateApDamage(mob, player1, rate);
+                if (mobBaseDamage >= 0) {
+                    Damage.causeManaDamageToPlayer(mob, player1, mobBaseDamage,
+                            mobManaPenetration, mobManaPenetration0);
+                } else {
+                    Damage.manaDamageToPlayer_RateApDamage(mob, player1, rate);
+                }
             }
         }
         this.discard();
@@ -135,7 +153,7 @@ public class ManaArrow extends AbstractArrow {
                 }
             }
         }
-        if ((this.tickCount >= 100) && player != null) {
+        if ((this.tickCount >= 100) && (player != null || mob != null)) {
             this.remove(RemovalReason.KILLED);
         }
         if (this.getDeltaMovement().length() <= 0.05) {

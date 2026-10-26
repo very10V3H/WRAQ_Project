@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.MobSkillUtil;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
@@ -41,11 +42,13 @@ public class PlainInstance extends NoTeamInstance {
 
     private static PlainInstance instance;
 
-    public static String mobName = "普莱尼";
+    public static final String mobName = "普莱尼";
+
+    public static final Vec3 POS = new Vec3(612, 70, 440);
 
     public static PlainInstance getInstance() {
         if (instance == null) {
-            instance = new PlainInstance(new Vec3(1167, 112, 28), 30, 60, new Vec3(1167, 112, 28),
+            instance = new PlainInstance(POS, 30, 60, POS,
                     Te.s("普莱尼", ChatFormatting.GREEN));
         }
         return instance;
@@ -66,6 +69,17 @@ public class PlainInstance extends NoTeamInstance {
         List<Player> skillPlayers = players.stream()
                 .filter(player -> Math.abs(player.getY() - mob.getY()) <= 8)
                 .toList();
+        // 每 2.5s 向一名玩家发射带前摇的慢速生机绿法球。
+        if (mob.tickCount % 50 == 0 && !skillPlayers.isEmpty()) {
+            Player target = null;
+            if (mob.getTarget() instanceof Player targeted && skillPlayers.contains(targeted)) {
+                target = targeted;
+            } else {
+                target = skillPlayers.get(mob.getRandom().nextInt(skillPlayers.size()));
+            }
+            MobSkillUtil.shootManaProjectile(mob, target, true, 1.0f, 300,
+                    CustomStyle.styleOfLife, 0, 0);
+        }
         if (mob.tickCount % 100 == 0) {
             skillPlayers.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
@@ -118,7 +132,8 @@ public class PlainInstance extends NoTeamInstance {
                 Te.s("  • 6格内:", ChatFormatting.RED, "受到800魔法伤害，Boss回复400生命值"),
                 Te.s("  • 6格外:", ChatFormatting.GREEN, "回复100生命值"),
                 Te.s("3.召唤:", style, "战斗开始时召唤4名", "「普莱尼信徒」", ChatFormatting.GRAY, "协助作战"),
-                Te.s("4.元素:", style, "拥有", "2级生命元素", ChatFormatting.GREEN, "加成")
+                Te.s("4.元素:", style, "拥有", "2级生命元素", ChatFormatting.GREEN, "加成"),
+                Te.s("5.生命法球:", style, "每2.5s向一名玩家发射慢速法球，前摇0.5s，造成300魔法伤害。")
         );
     }
 

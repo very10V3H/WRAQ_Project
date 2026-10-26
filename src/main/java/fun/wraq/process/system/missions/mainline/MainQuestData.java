@@ -2,12 +2,8 @@ package fun.wraq.process.system.missions.mainline;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.process.system.missions.mainline.MainQuestStage.Dialogue;
-import fun.wraq.process.system.missions.mainline.MainQuestStage.Kind;
-import fun.wraq.process.system.missions.mainline.MainQuestStage.Objective;
-import fun.wraq.process.system.missions.mainline.MainQuestStage.QuestWaypoint;
-import fun.wraq.process.system.missions.mainline.MainQuestStage.Reward;
-import fun.wraq.process.system.missions.mainline.MainQuestStage.Stage;
+import fun.wraq.events.mob.instance.instances.element.PlainInstance;
+import fun.wraq.process.system.missions.mainline.MainQuestStage.*;
 import fun.wraq.process.system.npc.NpcIds;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.item.ItemStack;
@@ -292,10 +288,11 @@ public final class MainQuestData {
                     new Reward(() -> new ItemStack(ModItems.PLAIN_SOUL.get(), 2)),
                     new Reward(() -> new ItemStack(ModItems.FORGING_STONE_0.get(), 10))),
             wp("主线 · 雨林村", 1102, 80, 43),
-            wp("主线 · 普莱尼", 1167, 112, 28),
+            new QuestWaypoint("主线 · 普莱尼", PlainInstance.POS),
             new Dialogue(
                     List.of(
-                            Te.s("普莱尼在雨林东侧一带（位置待调整），它会召唤「普莱尼信徒」协助作战。"),
+                            Te.s("普莱尼在平原村南边，它会召唤「普莱尼信徒」协助作战。"),
+                            Te.s("它会发射法球，请注意走位。"),
                             Te.s("它的生命绽放与生命凋零会在 6 格内外切换，注意站位。"),
                             Te.s("击败它之后回来找我。")),
                     List.of(
