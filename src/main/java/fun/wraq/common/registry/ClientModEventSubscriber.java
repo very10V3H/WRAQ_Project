@@ -8,6 +8,7 @@ import fun.wraq.entities.entities.SakuraMob.SakuraMobRender;
 import fun.wraq.entities.entities.SoraSword.SoraRedSwordAirRender;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
 import fun.wraq.entities.entities.GraySlime.GraySlimeRenderer;
+import fun.wraq.entities.entities.SaplingSprite.SaplingSpriteRenderer;
 import fun.wraq.entities.render.*;
 import fun.wraq.process.func.guide.waypoint.WaypointHud;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentHud;
@@ -32,6 +33,8 @@ public class ClientModEventSubscriber {
     public static void OnClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SakuraMob.get(), SakuraMobRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.Scarecrow.get(), ScarecrowRender::new);
+        // AI-Generated, 2026-10-27 树苗精灵：渲染原版树苗方块模型
+        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SAPLING_SPRITE.get(), SaplingSpriteRenderer::new);
         // 所有 ManaArrow EntityType 使用统一的程序化球体渲染器
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_PLAIN.get(), ManaArrowSphereRenderer::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW.get(), ManaArrowSphereRenderer::new);

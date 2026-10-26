@@ -6,6 +6,7 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.entities.entities.GraySlime.GraySlime;
 import fun.wraq.entities.entities.MainBoss.MainBoss;
 import fun.wraq.entities.entities.SakuraMob.SakuraMob;
+import fun.wraq.entities.entities.SaplingSprite.SaplingSprite;
 import fun.wraq.entities.entities.Scarecrow.Scarecrow;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAir;
 import fun.wraq.entities.entities.npc.VmdNpc;
@@ -37,6 +38,17 @@ public class ModEntityType {
                     () -> EntityType.Builder.of(Scarecrow::new, MobCategory.CREATURE)
                             .sized(1, 2)
                             .build(new ResourceLocation(Utils.MOD_ID, "scarecrow").toString()));
+
+    /**
+     * AI-Generated, 2026-10-27
+     * 树苗精灵：直接用原版树苗方块模型渲染的被动生物。
+     */
+    public static final RegistryObject<EntityType<SaplingSprite>> SAPLING_SPRITE =
+            ENTITY_TYPES.register("sapling_sprite",
+                    () -> EntityType.Builder.of(SaplingSprite::new, MobCategory.CREATURE)
+                            .sized(0.8f, 0.9f)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(Utils.MOD_ID, "sapling_sprite").toString()));
 
     public static final RegistryObject<EntityType<ManaArrow>> NEW_ARROW_PLAIN =
             ENTITY_TYPES.register("new_arrow_plain",

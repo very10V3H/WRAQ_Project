@@ -22,6 +22,7 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.entities.entities.GraySlime.GraySlime;
 import fun.wraq.entities.entities.MainBoss.MainBoss;
 import fun.wraq.entities.entities.SakuraMob.SakuraMob;
+import fun.wraq.entities.entities.SaplingSprite.SaplingSprite;
 import fun.wraq.entities.entities.Scarecrow.Scarecrow;
 import fun.wraq.entities.entities.npc.VmdNpc;
 import fun.wraq.events.core.BlockEvent;
@@ -283,6 +284,7 @@ public class VMD {
         event.put(ModEntityType.Boss2.get(), Boss2.setAttributes());
         event.put(ModEntityType.CIVIL.get(), Civil.setAttributes());
         event.put(ModEntityType.GRAY_SLIME.get(), GraySlime.setAttributes());
+        event.put(ModEntityType.SAPLING_SPRITE.get(), SaplingSprite.setAttributes());
         event.put(ModEntityType.VMD_NPC.get(), VmdNpc.createAttributes().build());
     }
 
