@@ -3,6 +3,8 @@ package fun.wraq.process.func.guide.waypoint;
 
 import com.lootbeams.ClientSetup;
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.util.ClientUtils;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -34,6 +36,8 @@ public class WaypointHud {
 
         List<WaypointData> visible = allWaypoints.stream()
                 .filter(wp -> wp.dimension.equals(currentDim))
+                // 战斗中隐藏主线目标指引，避免覆盖战斗视野
+                .filter(wp -> !(ClientUtils.isInBattle && MainQuestHelper.isMainQuestWaypoint(wp.name)))
                 .sorted(Comparator.comparingDouble(wp -> wp.distanceTo(playerPos.x, playerPos.y, playerPos.z)))
                 .toList();
         if (visible.isEmpty()) return;

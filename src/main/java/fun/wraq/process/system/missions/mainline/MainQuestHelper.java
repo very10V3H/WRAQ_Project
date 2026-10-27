@@ -47,6 +47,11 @@ public final class MainQuestHelper {
     private static final String INIT_KEY = "initialized";
     private static final String MAIN_WAYPOINT_NAME = "主线目标";
 
+    /** 判断路径点是否为当前主线目标指引。 */
+    public static boolean isMainQuestWaypoint(String waypointName) {
+        return MAIN_WAYPOINT_NAME.equals(waypointName);
+    }
+
     private MainQuestHelper() {
     }
 
@@ -357,7 +362,13 @@ public final class MainQuestHelper {
                 CompoundTag progress = progress(player, stage);
                 int current = progress.getInt(kill.counterKey());
                 if (current < kill.count()) {
-                    progress.putInt(kill.counterKey(), current + 1);
+                    int updated = current + 1;
+                    progress.putInt(kill.counterKey(), updated);
+                    if (updated >= kill.count()) {
+                        Compute.sendFormatMSG(player, Te.s("主线", CustomStyle.styleOfFlexible),
+                                Te.s("击杀目标完成: ", kill.mob(), " ", kill.count(), "/", kill.count()));
+                        MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
+                    }
                 }
                 return;
             }
@@ -556,7 +567,7 @@ public final class MainQuestHelper {
         if (stage == null) {
             return null;
         }
-        return Te.s("「主线」", CustomStyle.styleOfFlexible, " ", stage.title());
+        return Te.s("「主线」", CustomStyle.styleOfSky, " ", stage.title());
     }
 
     /** HUD 目标行：未接取时提示找 NPC，进行中显示世界目标。 */

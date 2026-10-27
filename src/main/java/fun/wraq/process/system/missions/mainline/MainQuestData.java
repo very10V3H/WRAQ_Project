@@ -284,16 +284,14 @@ public final class MainQuestData {
             Te.s("需完成 雨林村的委托"),
             List.of(new Objective.Instance("普莱尼", "普莱尼", 1)),
             List.of(
-                    new Reward(() -> new ItemStack(ModItems.PLAIN_HEALTH_RING_0.get())),
-                    new Reward(() -> new ItemStack(ModItems.PLAIN_SOUL.get(), 2)),
-                    new Reward(() -> new ItemStack(ModItems.FORGING_STONE_0.get(), 10))),
+                    new Reward(() -> new ItemStack(ModItems.PLAIN_BOSS_SOUL.get(), 4)),
+                    new Reward(() -> new ItemStack(ModItems.FORGING_STONE_1.get(), 3))),
             wp("主线 · 雨林村", 1102, 80, 43),
             new QuestWaypoint("主线 · 普莱尼", PlainInstance.POS),
             new Dialogue(
                     List.of(
                             Te.s("普莱尼在平原村南边，它会召唤「普莱尼信徒」协助作战。"),
                             Te.s("它会发射法球，请注意走位。"),
-                            Te.s("它的生命绽放与生命凋零会在 6 格内外切换，注意站位。"),
                             Te.s("击败它之后回来找我。")),
                     List.of(
                             Te.s("普莱尼被击败了，雨林村终于能喘口气。"),

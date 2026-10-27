@@ -12,7 +12,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.entity.Mob;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.ArrayList;
@@ -25,8 +24,7 @@ import java.util.List;
  * 数据来自 {@code MissionV2.clientMissionData}（服务端每 20 tick 同步一次）；
  * 快捷键文案取自 {@link KeyBoradInput#Mission}，改键后自动跟随。
  * <p>
- * 主线标题使用 aqua，支线标题与目标使用绿色；战斗时默认隐藏；
- * 若当前阶段存在「击杀数 &gt; 1」的目标，且玩家正在与该目标战斗，则保持显示。
+ * 主线标题使用 aqua，支线标题与目标使用绿色；战斗时隐藏任务指引。
  */
 public final class MainQuestHud {
 
@@ -35,10 +33,6 @@ public final class MainQuestHud {
     private static final int Y = 6;
     private static final int PADDING = 7;
     private static final int LINE_HEIGHT = 13;
-    /** 多目标阶段允许保持显示的最大搜索半径。 */
-    private static final double TARGET_SEARCH_RADIUS = 32;
-    private static int lastBattleCheckTick = Integer.MIN_VALUE;
-    private static boolean lastBattleCheckResult;
 
     private MainQuestHud() {
     }
@@ -100,7 +94,7 @@ public final class MainQuestHud {
         return PADDING + LINE_HEIGHT * (mainLines + sideLines + 1);
     }
 
-    /** 战斗时默认隐藏；正在与「击杀数 &gt; 1」的主线目标战斗时例外。 */
+    /** 战斗中隐藏任务指引。 */
     public static boolean shouldShow() {
         if (mc.player == null || mc.screen != null || mc.options.hideGui) {
             return false;
@@ -108,7 +102,7 @@ public final class MainQuestHud {
         if (MainQuestHelper.clientTitle() == null && clientSideQuests().isEmpty()) {
             return false;
         }
-        return !ClientUtils.isInBattle || isFightingMultiKillTarget();
+        return !ClientUtils.isInBattle;
     }
 
     /**
@@ -136,7 +130,7 @@ public final class MainQuestHud {
     }
 
     private static Component sideTitle(MissionV2 mission) {
-        return Component.literal("支线 · ").withStyle(ChatFormatting.GREEN)
+        return Component.literal("「支线」").withStyle(ChatFormatting.GREEN)
                 .append(mission.title.copy().withStyle(ChatFormatting.GREEN));
     }
 
@@ -155,52 +149,5 @@ public final class MainQuestHud {
             return "";
         }
         return data.getCompound(MissionV2Helper.MISSION_V2_STATUS_KEY).getString(mission.name());
-    }
-
-    /**
-     * 客户端侧的战斗判定：除 {@link ClientUtils#isInBattle} 外，还要求附近/最近攻击的
-     * 怪物名与当前阶段「击杀数量 &gt; 1」的目标匹配，避免打其它怪时也强制显示。
-     */
-    private static boolean isFightingMultiKillTarget() {
-        if (mc.player == null) {
-            return false;
-        }
-        // 每 tick 最多扫描一次 32 格范围，避免 60fps 下反复分配实体列表
-        int tick = mc.player.tickCount;
-        if (tick == lastBattleCheckTick) {
-            return lastBattleCheckResult;
-        }
-        lastBattleCheckTick = tick;
-        lastBattleCheckResult = checkFightingMultiKillTarget();
-        return lastBattleCheckResult;
-    }
-
-    private static boolean checkFightingMultiKillTarget() {
-        List<String> targets = MainQuestHelper.clientMultiKillTargets();
-        if (targets.isEmpty() || mc.player == null) {
-            return false;
-        }
-        if (mc.player.getLastHurtMob() instanceof Mob lastHurtMob
-                && targets.contains(originName(lastHurtMob))) {
-            return true;
-        }
-        if (mc.player.getLastHurtByMob() instanceof Mob lastHurtByMob
-                && targets.contains(originName(lastHurtByMob))) {
-            return true;
-        }
-        for (Mob mob : mc.player.level().getEntitiesOfClass(Mob.class,
-                mc.player.getBoundingBox().inflate(TARGET_SEARCH_RADIUS))) {
-            if (mob.isAlive() && targets.contains(originName(mob))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /** 与 {@code MobSpawn.getMobOriginName} 相同：去掉名字前的 "Lv.xx " 前缀。 */
-    private static String originName(Mob mob) {
-        String name = mob.getName().getString();
-        int space = name.indexOf(' ');
-        return space >= 0 ? name.substring(space + 1) : name;
     }
 }
