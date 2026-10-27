@@ -44,8 +44,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import glitchcore.event.EventManager;
 import sereneseasons.api.season.SeasonChangedEvent;
-import sereneseasons.handler.season.SeasonHandler;
+import sereneseasons.season.SeasonHandler;
 import sereneseasons.season.SeasonSavedData;
 import sereneseasons.season.SeasonTime;
 
@@ -59,8 +60,12 @@ public class LevelEvents {
     private static int seasonChangeTick = 0;
     private static String lastSubSeasonName = "";
 
-    @SubscribeEvent
-    public static void season(SeasonChangedEvent event) {
+    /** 注册 GlitchCore 季节事件监听（新版 Serene Seasons 不再使用 Forge 事件总线）。 */
+    public static void register() {
+        EventManager.addListener((SeasonChangedEvent.Standard event) -> season(event));
+    }
+
+    public static void season(SeasonChangedEvent.Standard event) {
         Level level = event.getLevel();
         if (!level.isClientSide) {
             SeasonSavedData seasonData = SeasonHandler.getSeasonSavedData(level);

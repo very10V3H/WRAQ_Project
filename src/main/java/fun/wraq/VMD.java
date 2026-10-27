@@ -226,6 +226,10 @@ public class VMD {
         MushroomParasitismGem.clearItemEntity();
         BlockAndResetTime.onServerStop();
         NoTeamInstanceModule.reset();
+        // 运行时怪物属性覆盖不持久化：关服/重开存档时清空
+        fun.wraq.events.mob.attribute.BossAttributeOverrides.clear();
+        fun.wraq.events.mob.attribute.MobSpawnControllerAttributeOverrides.clear();
+        fun.wraq.commands.stable.ops.ItemAttributeCommand.clearOverrides();
         NewTeamInstanceHandler.getInstances().forEach(NewTeamInstance::clear);
         SkillV2.playerSkillV2AllowReleaseTickMap.clear();
         SecretChest.onServerStop();
@@ -245,6 +249,7 @@ public class VMD {
         Utils.Init();
         CsvAttributeLoader.processAll();
         MobAttrCsvLoader.load();
+        fun.wraq.events.server.LevelEvents.register();
         ForgeRecipe.forgeDrawRecipeInit();
         ForgeEquipUtils.setZoneForgeItemListMap();
     }
