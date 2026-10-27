@@ -68,15 +68,12 @@ public class Ore2SpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         ZombieVillager zombieVillager = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfIce;
         MobSpawn.setMobCustomName(zombieVillager, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombieVillager), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieVillager, getMobAttributes());
         zombieVillager.getAttribute(ForgeMod.SWIM_SPEED.get()).setBaseValue(3);
         // 设置物品
         zombieVillager.setItemSlot(EquipmentSlot.HEAD, Items.DIAMOND_HELMET.getDefaultInstance());

@@ -57,16 +57,13 @@ public class PiglinSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Piglin piglin = new Piglin(EntityType.PIGLIN, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfGold;
         MobSpawn.setMobCustomName(piglin, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(piglin), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(piglin, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.GOLDEN_CHESTPLATE),
                 new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_BOOTS)};

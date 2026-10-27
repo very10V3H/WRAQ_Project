@@ -58,16 +58,13 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWither;
         MobSpawn.setMobCustomName(witherSkeleton, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(witherSkeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, getMobAttributes());
         // 设置物品
         witherSkeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.STONE_SWORD.getDefaultInstance());
         // 设置掉落

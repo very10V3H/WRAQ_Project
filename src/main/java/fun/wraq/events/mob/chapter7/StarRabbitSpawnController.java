@@ -57,15 +57,12 @@ public class StarRabbitSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Rabbit mob = new Rabbit(EntityType.RABBIT, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         MobSpawn.setMobCustomName(mob, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes());
         mob.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.013);
 
         // 设置掉落

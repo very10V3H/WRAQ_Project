@@ -59,15 +59,12 @@ public class LakeDrownSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Drowned drowned = new Drowned(EntityType.DROWNED, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfWater;
         MobSpawn.setMobCustomName(drowned, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(drowned), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(drowned, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(drowned, style);
         drowned.setItemInHand(InteractionHand.MAIN_HAND, Items.TRIDENT.getDefaultInstance());

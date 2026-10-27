@@ -55,15 +55,12 @@ public class GuardianSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Guardian guardian = new Guardian(EntityType.GUARDIAN, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSea;
-        // 设置属性
         MobSpawn.setMobCustomName(guardian, Te.s(mobName, style), xpLevel);
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(guardian), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(guardian, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(guardian), list);

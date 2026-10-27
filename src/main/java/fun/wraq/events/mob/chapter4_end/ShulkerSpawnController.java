@@ -52,16 +52,13 @@ public class ShulkerSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Shulker shulker = new Shulker(EntityType.SHULKER, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfEnd;
         MobSpawn.setMobCustomName(shulker, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(shulker), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(shulker, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

@@ -64,15 +64,13 @@ public class MoontainChickenSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Chicken chicken = new Chicken(EntityType.CHICKEN, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMoontain;
         MobSpawn.setMobCustomName(chicken, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(chicken, xpLevel, getMobAttributes());
         // 设置物品
         chicken.setItemSlot(EquipmentSlot.HEAD, Items.EMERALD_BLOCK.getDefaultInstance());
         // 设置掉落

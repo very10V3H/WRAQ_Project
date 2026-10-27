@@ -60,16 +60,13 @@ public class SpiderSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Spider spider = new Spider(EntityType.SPIDER, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfSpider;
         MobSpawn.setMobCustomName(spider, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(spider), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(spider, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(spider, style);
         // 设置掉落

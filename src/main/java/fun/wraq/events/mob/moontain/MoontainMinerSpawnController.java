@@ -67,7 +67,7 @@ public class MoontainMinerSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         ZombieVillager zombieVillager = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
@@ -75,8 +75,6 @@ public class MoontainMinerSpawnController extends MobSpawnController {
         Style style = CustomStyle.styleOfMoontain;
         MobSpawn.setMobCustomName(zombieVillager, Te.s(mobName, style), xpLevel);
         zombieVillager.setVillagerData(new VillagerData(VillagerType.SNOW, VillagerProfession.ARMORER, 0));
-        // 设置属性
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieVillager, xpLevel, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),
                 new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};

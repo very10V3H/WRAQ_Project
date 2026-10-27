@@ -51,16 +51,13 @@ public class PillagerSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Pillager pillager = new Pillager(EntityType.PILLAGER, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfShip;
         MobSpawn.setMobCustomName(pillager, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(pillager), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(pillager, getMobAttributes());
         // 设置物品
         pillager.setItemInHand(InteractionHand.MAIN_HAND, Items.CROSSBOW.getDefaultInstance());
         // 设置掉落

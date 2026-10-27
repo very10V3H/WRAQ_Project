@@ -55,7 +55,7 @@ public class MagmaSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         MagmaCube magmaCube = new MagmaCube(EntityType.MAGMA_CUBE, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
@@ -63,9 +63,6 @@ public class MagmaSpawnController extends MobSpawnController {
         Style style = CustomStyle.styleOfMagma;
         MobSpawn.setMobCustomName(magmaCube, Te.s(mobName, style), xpLevel);
         magmaCube.setSize(2, true);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(magmaCube), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(magmaCube, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

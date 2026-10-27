@@ -56,13 +56,8 @@ public class SuperColdSnowGolemSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         SnowGolem mob = new SnowGolem(EntityType.SNOW_GOLEM, this.level);
-        Random random = new Random();
-        int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(mob), list);

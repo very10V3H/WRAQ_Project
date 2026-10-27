@@ -68,14 +68,9 @@ public class SuperColdStraySpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Stray stray = new Stray(EntityType.STRAY, this.level);
-        Random random = new Random();
-        int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSnow;
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(stray, style);
         stray.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.DIAMOND_CHESTPLATE));

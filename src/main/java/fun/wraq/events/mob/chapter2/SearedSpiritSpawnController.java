@@ -53,16 +53,13 @@ public class SearedSpiritSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         SearedSpiritEntity searedSpiritEntity = new SearedSpiritEntity(BornInChaosV1ModEntities.SEARED_SPIRIT.get(), this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfVolcano;
         MobSpawn.setMobCustomName(searedSpiritEntity, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(searedSpiritEntity), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(searedSpiritEntity, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

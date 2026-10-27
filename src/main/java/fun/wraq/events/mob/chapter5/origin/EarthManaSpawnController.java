@@ -57,7 +57,7 @@ public class EarthManaSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
@@ -65,9 +65,6 @@ public class EarthManaSpawnController extends MobSpawnController {
         Style style = CustomStyle.styleOfJacaranda;
         MobSpawn.setMobCustomName(zombie, Component.literal("地蕴蓝灵").withStyle(style), xpLevel);
         zombie.setBaby(true);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(zombie, style);
         // 设置掉落

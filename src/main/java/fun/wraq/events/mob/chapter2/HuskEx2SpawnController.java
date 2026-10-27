@@ -62,16 +62,13 @@ public class HuskEx2SpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Husk husk = new Husk(EntityType.HUSK, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfHusk;
         MobSpawn.setMobCustomName(husk, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(husk), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(husk, getMobAttributes());
         // 设置物品
         husk.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
         // 设置掉落

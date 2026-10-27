@@ -55,16 +55,13 @@ public class SakuraMob2SpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         SakuraMob sakuraMob = new SakuraMob(ModEntityType.SakuraMob.get(), this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfSakura;
         MobSpawn.setMobCustomName(sakuraMob, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraMob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraMob, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

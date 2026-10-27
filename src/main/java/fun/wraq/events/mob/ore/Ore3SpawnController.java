@@ -57,15 +57,12 @@ public class Ore3SpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSakura;
         MobSpawn.setMobCustomName(zombie, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMobAttributes());
         zombie.setBaby(true);
         // 设置物品
         zombie.setItemInHand(InteractionHand.MAIN_HAND, Items.NETHERITE_PICKAXE.getDefaultInstance());

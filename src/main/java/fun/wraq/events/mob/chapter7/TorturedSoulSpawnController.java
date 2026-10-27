@@ -58,16 +58,13 @@ public class TorturedSoulSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         TorturedSoul boneImp = new TorturedSoul(AquamiraeEntities.TORTURED_SOUL.get(), this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWorld;
         MobSpawn.setMobCustomName(boneImp, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

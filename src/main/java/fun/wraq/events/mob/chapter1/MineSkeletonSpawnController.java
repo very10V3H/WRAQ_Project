@@ -59,15 +59,12 @@ public class MineSkeletonSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Skeleton skeleton = new Skeleton(EntityType.SKELETON, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfMine;
         MobSpawn.setMobCustomName(skeleton, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE),
                 new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_BOOTS)};

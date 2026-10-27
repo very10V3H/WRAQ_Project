@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.MobAttrCsvLoader;
 import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.events.mob.attribute.MobSpawnControllerAttributeOverrides;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.series.events.dragonboat.DragonBoatFes;
 import net.minecraft.core.BlockPos;
@@ -12,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -313,7 +315,7 @@ public abstract class MobSpawnController {
         }
         Random r = new Random();
         for (int i = 0; i < summonTimes; i++) {
-            Mob mob = this.mobItemAndAttributeSet();
+            Mob mob = this.setMobItem();
 
             int xpLevel = Math.max(1, averageLevel + 5 - r.nextInt(11));
             // 设置等级
@@ -324,7 +326,10 @@ public abstract class MobSpawnController {
 
             // 设置属性
             double attributeRate = posToAttrAndDropMap.isEmpty() ? 1 : posToAttrAndDropMap.get(pos).attributesRate;
-            MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes(), attributeRate);
+            MobAttributes effectiveAttributes = MobSpawnControllerAttributeOverrides.resolve(
+                    getAttributeId(), getMobAttributes(), attributeRate);
+            MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, effectiveAttributes);
+            mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(attributeRate);
 
             // 设置掉落
             MobSpawn.dropList.put(MobSpawn.getMobOriginName(mob), getDropList());
@@ -378,7 +383,12 @@ public abstract class MobSpawnController {
     }
 
     // 生成怪物
-    public abstract Mob mobItemAndAttributeSet();
+    public abstract Mob setMobItem();
+
+    /** 稳定的属性配置 ID，默认使用控制器类名。 */
+    public String getAttributeId() {
+        return getClass().getSimpleName();
+    }
 
     // 每只怪物的tick
     public void eachMobTick(Mob mob) {

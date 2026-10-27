@@ -60,16 +60,13 @@ public class MushroomLinSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Piglin mob = new Piglin(EntityType.PIGLIN, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.MUSHROOM_STYLE;
         MobSpawn.setMobCustomName(mob, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, CustomStyle.styleOfRed);
         mob.setItemSlot(EquipmentSlot.HEAD, Compute.getSkullByName("MHF_MushroomCow"));

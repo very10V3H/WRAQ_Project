@@ -59,16 +59,13 @@ public class WindSkeletonSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Skeleton skeleton = new Skeleton(EntityType.SKELETON, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWind;
         MobSpawn.setMobCustomName(skeleton, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(skeleton, style);
         skeleton.setItemInHand(InteractionHand.MAIN_HAND, WindItems.WIND_SWORD_0.get().getDefaultInstance());

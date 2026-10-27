@@ -68,7 +68,7 @@ public class LavaRuinsFireLightSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         return new FirelightEntity(BornInChaosV1ModEntities.FIRELIGHT.get(), this.level);
     }
 

@@ -54,7 +54,7 @@ public class ForestZombieSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, this.level);
         // 设置装备
         MobSpawn.setStainArmorOnMob(zombie, CustomStyle.styleOfForest);

@@ -53,7 +53,7 @@ public class SlimeSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Slime slime = new Slime(EntityType.SLIME, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
@@ -61,9 +61,6 @@ public class SlimeSpawnController extends MobSpawnController {
         Style style = CustomStyle.styleOfLife;
         MobSpawn.setMobCustomName(slime, Te.s(mobName, style), xpLevel);
         slime.setSize(2, true);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(slime), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(slime, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

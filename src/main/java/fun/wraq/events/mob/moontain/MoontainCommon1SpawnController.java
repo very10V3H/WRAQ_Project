@@ -63,15 +63,13 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         MrPumpkinEntity mrPumpkin = new MrPumpkinEntity(BornInChaosV1ModEntities.MR_PUMPKIN.get(), this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMoontain;
         MobSpawn.setMobCustomName(mrPumpkin, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mrPumpkin, xpLevel, getMobAttributes());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         // 添加至掉落物列表

@@ -49,16 +49,13 @@ public class SkyVexSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Vex vex = new Vex(EntityType.VEX, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfSky;
         MobSpawn.setMobCustomName(vex, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(vex), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, getMobAttributes());
         // 设置物品
         vex.setItemInHand(InteractionHand.MAIN_HAND, Items.DIAMOND_SWORD.getDefaultInstance());
         // 设置掉落

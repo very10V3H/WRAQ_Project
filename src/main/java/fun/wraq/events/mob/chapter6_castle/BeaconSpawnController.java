@@ -60,15 +60,13 @@ public class BeaconSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Skeleton beacon = new Skeleton(EntityType.SKELETON, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfPower;
         MobSpawn.setMobCustomName(beacon, Te.s(mobName, style), xpLevel);
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(beacon), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(beacon, getMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),
                 new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};

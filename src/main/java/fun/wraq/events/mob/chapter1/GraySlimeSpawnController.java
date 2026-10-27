@@ -79,7 +79,7 @@ public class GraySlimeSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         return new GraySlime(ModEntityType.GRAY_SLIME.get(), this.level);
     }
 

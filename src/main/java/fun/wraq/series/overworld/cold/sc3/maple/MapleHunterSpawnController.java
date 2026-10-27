@@ -64,14 +64,9 @@ public class MapleHunterSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         HauntedArmor mob = new HauntedArmor(ModEntityType.HAUNTED_ARMOR.get(), this.level);
-        Random random = new Random();
-        int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSnow;
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         mob.setItemSlot(EquipmentSlot.HEAD,
                 new ItemStack(com.Polarice3.Goety.common.items.ModItems.CURSED_KNIGHT_HELMET.get()));

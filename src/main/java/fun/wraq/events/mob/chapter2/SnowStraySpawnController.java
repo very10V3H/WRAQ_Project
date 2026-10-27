@@ -57,15 +57,12 @@ public class SnowStraySpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Stray stray = new Stray(EntityType.STRAY, this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSnow;
         MobSpawn.setMobCustomName(stray, Te.s(mobName, style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(stray, style);
         stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.SNOW_SWORD_3.get().getDefaultInstance());

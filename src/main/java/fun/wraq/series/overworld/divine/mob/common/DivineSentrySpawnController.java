@@ -59,12 +59,9 @@ public class DivineSentrySpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         Stray mob = new Stray(EntityType.STRAY, this.level);
         Random random = new Random();
-        int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);
         mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());

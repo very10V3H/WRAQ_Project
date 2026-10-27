@@ -56,16 +56,13 @@ public class LumberJackSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         ZombieLumberjackEntity zombieLumberjackEntity = new ZombieLumberjackEntity(BornInChaosV1ModEntities.ZOMBIE_LUMBERJACK.get(), this.level);
         Random random = new Random();
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         // 设置颜色与名称
         Style style = CustomStyle.styleOfHusk;
         MobSpawn.setMobCustomName(zombieLumberjackEntity, Component.literal("伐木工").withStyle(style), xpLevel);
-        // 设置属性
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombieLumberjackEntity), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieLumberjackEntity, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(zombieLumberjackEntity, style);
         // 设置掉落

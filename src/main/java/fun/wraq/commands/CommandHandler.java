@@ -41,6 +41,11 @@ public class CommandHandler {
         fun.wraq.process.system.missions.mainline.MainQuestCommand.register(event.getDispatcher());
         // AI-Generated, 2026-10-25 /vmd mobshield <value> [seconds] 怪物护盾测试命令
         fun.wraq.process.system.mobshield.MobShieldCommand.register(event.getDispatcher());
+        // AI-Generated, 2026-10-27 /vmd bossattr、/vmd mobattr 运行时怪物属性调整
+        BossAttributeCommand.register(event.getDispatcher());
+        MobAttributeCommand.register(event.getDispatcher());
+        // AI-Generated, 2026-10-27 /vmd itemattr 运行时装备属性表调整
+        ItemAttributeCommand.register(event.getDispatcher());
         event.getDispatcher().register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("info")
