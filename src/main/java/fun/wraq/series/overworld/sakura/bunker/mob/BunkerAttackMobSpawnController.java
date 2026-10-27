@@ -60,12 +60,8 @@ public class BunkerAttackMobSpawnController extends MobSpawnController {
     }
 
     @Override
-    public Mob mobItemAndAttributeSet() {
+    public Mob setMobItem() {
         WitherSkeleton mob = new WitherSkeleton(EntityType.WITHER_SKELETON, this.level);
-        Random random = new Random();
-        int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(mobName, style), xpLevel, getMobAttributes());
         // 设置物品
         MobSpawn.setStainArmorOnMob(mob, style);
         mob.setItemSlot(EquipmentSlot.HEAD, Compute.getSkullByName("MHF_LavaSlime"));
