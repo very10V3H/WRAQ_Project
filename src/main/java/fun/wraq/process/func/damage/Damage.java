@@ -29,6 +29,7 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobDeadModule;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.instance.InstanceDeathHintHandler;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
@@ -86,6 +87,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -782,6 +784,7 @@ public class Damage {
         AncientEchoGem.withstandDamageSumMap.remove(player);
         BunkerArmor.onPlayerDead(player);
         ColdData.addPlayerColdValue(player, -100);
+        InstanceDeathHintHandler.sendHint((ServerPlayer) player, NoTeamInstanceModule.getLastInstance(player));
     }
 
     public static boolean playerIsInBattle(Player player) {

@@ -4,6 +4,7 @@ import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.mob.instance.InstanceMechanicHintS2CPacket;
 import fun.wraq.events.mob.instance.instances.tower.network.ManaTowerS2CPacket;
 import fun.wraq.items.dev.rail.RailwayPillarSetToolModeC2SPacket;
 import fun.wraq.items.m.NearestSpawnPointS2CPacket;
@@ -1622,6 +1623,13 @@ public class ModNetworking {
                 .consumerMainThread(PlayerShieldSyncS2CPacket::handle)
                 .add();
         V2_PACKAGE_CLASS.add(PlayerShieldSyncS2CPacket.class);
+        // AI-Generated, 2026-10-27 副本机制死亡提示：走 V2 通道
+        netV2.messageBuilder(InstanceMechanicHintS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(InstanceMechanicHintS2CPacket::new)
+                .encoder(InstanceMechanicHintS2CPacket::toBytes)
+                .consumerMainThread(InstanceMechanicHintS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(InstanceMechanicHintS2CPacket.class);
     }
 
     @SuppressWarnings("unchecked")

@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 public class NoTeamInstanceModule {
 
@@ -149,6 +150,13 @@ public class NoTeamInstanceModule {
                 }
             }
             if (hasPlayerNearInstance(level, noTeamInstance)) {
+                for (ServerPlayer serverPlayer : level.getServer().getPlayerList().getPlayers()) {
+                    if (serverPlayer.isAlive()
+                            && Compute.getHorizonDistance(serverPlayer.position(), noTeamInstance.pos)
+                            < noTeamInstance.range) {
+                        lastInstanceForPlayer.put(serverPlayer, noTeamInstance);
+                    }
+                }
                 noTeamInstance.detectAndSummonThenHandleTick(level);
                 if (tick % 20 == 0) {
                     noTeamInstance.summonLeftSecondsArmorStand(level);
@@ -161,6 +169,7 @@ public class NoTeamInstanceModule {
     }
 
     public static void reset() {
+        lastInstanceForPlayer.clear();
         noTeamInstancesOverworld.forEach(instance -> {
             instance.reset(0, true);
         });
@@ -185,6 +194,9 @@ public class NoTeamInstanceModule {
     }
 
     public static Map<ResourceKey<Level>, List<NoTeamInstance>> map = new HashMap<>();
+    /** 玩家最近一次进入的副本；即使死亡后 mobList/players 被清空，也能用于死亡提示。 */
+    private static final Map<Player, NoTeamInstance> lastInstanceForPlayer = new WeakHashMap<>();
+
     public static Map<ResourceKey<Level>, List<NoTeamInstance>> getMap() {
         if (map.isEmpty()) {
             map.put(Level.OVERWORLD, noTeamInstancesOverworld);
@@ -248,6 +260,32 @@ public class NoTeamInstanceModule {
                 .findFirst()
                 .orElse(null);
         return instance == null ? 1 : instance.onMobWithStandDamageRate(player, mob);
+    }
+
+    /** 查找某个怪物所属的 NoTeamInstance；用于死亡提示等归属判定。 */
+    public static NoTeamInstance getInstanceByMob(Mob mob) {
+        if (mob == null) {
+            return null;
+        }
+        return getAllInstance().stream()
+                .filter(instance -> instance.mobList.contains(mob))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * 玩家最近一次进入的副本。死亡时如果 mobList 已被 reset 清空，
+     * 仍可据此显示机制提示；距离过远则视为已离开副本。
+     */
+    public static NoTeamInstance getLastInstance(Player player) {
+        NoTeamInstance instance = lastInstanceForPlayer.get(player);
+        if (instance == null) {
+            return null;
+        }
+        if (player.position().distanceTo(instance.pos) > instance.range * 1.5) {
+            return null;
+        }
+        return instance;
     }
 
     public static void onDead(Player player) {
