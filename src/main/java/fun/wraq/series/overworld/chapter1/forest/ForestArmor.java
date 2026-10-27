@@ -26,6 +26,7 @@ public class ForestArmor extends WraqArmor implements IgnoreForgeQuality {
                 Utils.defence.put(this, 2.5d);
             }
             case CHESTPLATE -> {
+                Utils.manaDefence.put(this, 20d);
                 Utils.defence.put(this, 20d);
             }
             case LEGGINGS -> {
