@@ -58,7 +58,7 @@ public class WindBossInstance extends NoTeamInstance {
         StormCaster mob = new StormCaster(ModEntityType.STORM_CASTER.get(), level);
         MobSpawn.setMobCustomName(mob, Te.s(mobName, STYLE), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMainMobAttributes());
+        applyBossAttributes(mob, "main", getMainMobAttributes());
         MobSpawn.setStainArmorOnMob(mob, STYLE);
         mob.moveTo(pos);
         level.addFreshEntity(mob);
@@ -112,5 +112,10 @@ public class WindBossInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "WindBoss";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

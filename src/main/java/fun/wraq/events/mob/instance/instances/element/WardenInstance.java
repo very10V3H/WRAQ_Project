@@ -109,7 +109,7 @@ public class WardenInstance extends NoTeamInstance {
         Warden warden = new Warden(EntityType.WARDEN, level);
         MobSpawn.setMobCustomName(warden, Component.literal("坚守者").withStyle(style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, getMainMobAttributes());
+        applyBossAttributes(warden, "main", getMainMobAttributes());
         warden.setHealth(warden.getMaxHealth());
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 12000L);
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
@@ -448,5 +448,10 @@ public class WardenInstance extends NoTeamInstance {
         components.add(Te.s("7.", style, "每秒对所有玩家造成混合伤害；"));
         components.add(Te.s(" 玩家之间应保持距离，过近的距离将会使该伤害叠加。"));
         return components;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

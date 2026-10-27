@@ -10,6 +10,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.AdjustStackBeforeGive;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.attribute.BossAttributeOverrides;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
@@ -163,6 +164,7 @@ public abstract class NoTeamInstance {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
                 // 主线通关目标：无论是否满足奖励条件，通关本身都计数
                 MainQuestHelper.recordInstance(player, name.getString());
+                grantFirstClearReward(player);
                 if (!player.isCreative() && !allowReward(player) && allowRewardCondition() != null) {
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             allowRewardCondition());
@@ -338,6 +340,26 @@ public abstract class NoTeamInstance {
 
     public abstract List<ItemAndRate> getRewardList();
 
+    /** 玩家首次通关该副本的额外奖励；返回空表示没有额外奖励。 */
+    public abstract List<ItemAndRate> getFirstClearRewards();
+
+    /**
+     * 首次通关额外奖励：每个玩家只发放一次，通过玩家持久化 NBT 记录。
+     */
+    private void grantFirstClearReward(Player player) {
+        List<ItemAndRate> rewards = getFirstClearRewards();
+        if (rewards == null || rewards.isEmpty()) {
+            return;
+        }
+        String key = "FirstClearReward_" + getKillCountDataKey();
+        if (player.getPersistentData().getBoolean(key)) {
+            return;
+        }
+        rewards.forEach(reward -> reward.sendWithMSG(player, 1));
+        player.getPersistentData().putBoolean(key, true);
+        Compute.sendFormatMSG(player, prefix(), Te.s("首次通关额外奖励已发放。"));
+    }
+
     public double onMobWithStandDamageRate(Player player, Mob mob) {
         if (!players.contains(player)) {
             return 0;
@@ -357,6 +379,41 @@ public abstract class NoTeamInstance {
 
     public MobAttributes getMainMobAttributes() {
         return null;
+    }
+
+    /** 稳定的属性配置 ID，默认使用类名；命令以此为主键。 */
+    public String getInstanceId() {
+        return getClass().getSimpleName();
+    }
+
+    /** 该实例可调整的属性档案；默认只有主 Boss。 */
+    public Map<String, Component> getAttributeProfiles() {
+        return getMainMobAttributes() == null ? Map.of() : Map.of("main", name);
+    }
+
+    public String getProfileId(String role) {
+        return getInstanceId() + "." + role;
+    }
+
+    /**
+     * 召唤时应用属性覆盖：只影响本次及之后召唤的怪物，
+     * 不会修改已经存在于 mobList 中的 Boss。
+     */
+    protected final void applyBossAttributes(Mob mob, String role, MobAttributes base) {
+        if (mob == null || base == null) {
+            return;
+        }
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob,
+                BossAttributeOverrides.resolve(getProfileId(role), base));
+    }
+
+    /** 保留原重载的等级写入，同时应用属性覆盖。 */
+    protected final void applyBossAttributes(Mob mob, String role, int xpLevel, MobAttributes base) {
+        if (mob == null || base == null) {
+            return;
+        }
+        MobSpawn.MobBaseAttributes.xpLevel.put(mob.getName().getString(), xpLevel);
+        applyBossAttributes(mob, role, base);
     }
 
     protected boolean allowSummon(Player player) {

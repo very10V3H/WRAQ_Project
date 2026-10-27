@@ -117,7 +117,7 @@ public class IceInstance extends NoTeamInstance {
         Stray stray = new Stray(EntityType.STRAY, level);
         MobSpawn.setMobCustomName(stray, Component.literal(mobName).withStyle(CustomStyle.styleOfIce), 135);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 135);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, getMainMobAttributes());
+        applyBossAttributes(stray, "main", getMainMobAttributes());
         stray.setHealth(stray.getMaxHealth());
         stray.setItemSlot(EquipmentSlot.HEAD, Compute.getSimpleFoiledItemStack(Items.DIAMOND_HELMET));
         stray.setItemSlot(EquipmentSlot.CHEST, Compute.getSimpleFoiledItemStack(Items.DIAMOND_CHESTPLATE));
@@ -289,5 +289,10 @@ public class IceInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "IceKnight";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

@@ -227,4 +227,9 @@ public class ManaTowerInstance extends NoTeamInstance {
                 Element.styleMap.getOrDefault(ManaTowerEachFloorMob.getCurrentFloor3MobElementType(),
                         CustomStyle.styleOfStone));
     }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
+    }
 }

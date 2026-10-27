@@ -79,7 +79,8 @@ public class DivineBalanceInstance extends NoTeamInstance {
     public void summonModule(Level level) {
         Zombie mob = new Zombie(EntityType.ZOMBIE, level);
         mob.setBaby(true);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, style), XP_LEVEL, getMainMobAttributes());
+        MobSpawn.setMobCustomName(mob, Te.s(name, style), XP_LEVEL);
+        applyBossAttributes(mob, "main", XP_LEVEL, getMainMobAttributes());
         mob.setItemSlot(EquipmentSlot.HEAD,
                 Compute.getSimpleFoiledItemStack(DivineIslandItems.DIVINE_HELMET_0.get()));
         mob.setItemSlot(EquipmentSlot.CHEST,
@@ -156,5 +157,10 @@ public class DivineBalanceInstance extends NoTeamInstance {
         components.add(Te.s("1.", style, "随着其", ComponentUtils.AttributeDescription.health(""),
                 "的衰减", "，其在", "凡光域", style, "的", "元素表现", CustomStyle.styleOfWorld, "会变更。"));
         return components;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

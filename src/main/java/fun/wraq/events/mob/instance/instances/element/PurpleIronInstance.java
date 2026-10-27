@@ -64,7 +64,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         Amethyst_Crab_Entity amethystCrabEntity = new Amethyst_Crab_Entity(ModEntities.AMETHYST_CRAB.get(), level);
         MobSpawn.setMobCustomName(amethystCrabEntity, Component.literal("紫水晶巨蟹").withStyle(CustomStyle.styleOfPurpleIron), 120);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(amethystCrabEntity), 120);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, getMainMobAttributes());
+        applyBossAttributes(amethystCrabEntity, "main", getMainMobAttributes());
         amethystCrabEntity.setHealth(amethystCrabEntity.getMaxHealth());
         amethystCrabEntity.moveTo(pos);
         level.addFreshEntity(amethystCrabEntity);
@@ -124,5 +124,10 @@ public class PurpleIronInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "PurpleIronBoss";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

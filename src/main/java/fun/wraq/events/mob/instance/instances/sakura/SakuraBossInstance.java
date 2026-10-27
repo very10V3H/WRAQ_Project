@@ -52,7 +52,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         sakuraBoss.setBaby(true);
         MobSpawn.setMobCustomName(sakuraBoss, Te.s(mobName, CustomStyle.styleOfSakura), 150);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraBoss), 150);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, getMainMobAttributes());
+        applyBossAttributes(sakuraBoss, "main", getMainMobAttributes());
         sakuraBoss.setHealth(sakuraBoss.getMaxHealth());
         sakuraBoss.moveTo(pos);
         level.addFreshEntity(sakuraBoss);
@@ -89,5 +89,10 @@ public class SakuraBossInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "SakuraBoss";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

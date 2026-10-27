@@ -292,6 +292,8 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(4021, 119, 3158), "项潮林", colorMap.get(green), CustomStyle.styleOfWorld, 0));
         add(new MyWayPoint(new Vec3(3725, 69, 2976), "苍岩隘口", colorMap.get(gray), CustomStyle.styleOfStone, 0));
         add(new MyWayPoint(new Vec3(3759, 81, 3902), "熔岩废墟", colorMap.get(red), CustomStyle.styleOfVolcano, 0));
+        // 普莱尼出生点 Z-20，可右键路径点传送
+        add(new MyWayPoint(new Vec3(612, 70, 420), "普莱尼", colorMap.get(green), CustomStyle.styleOfPlain, 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

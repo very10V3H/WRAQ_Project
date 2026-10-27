@@ -178,7 +178,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                 new LordTheHeadlessEntity(BornInChaosV1ModEntities.LORD_THE_HEADLESS.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(mobName, style), 240);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 240);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
+        applyBossAttributes(entity, "main", getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);
         level.addFreshEntity(entity);
@@ -305,5 +305,10 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         components.add(Te.s("2.", style, "每5s对距离最近的玩家施加5s的40%重伤效果，并降低40%造成伤害。"));
         components.add(Te.s("3.", style, "每当生命值为0%，阻止死亡，削减附近玩家双抗，至多5次。"));
         return components;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

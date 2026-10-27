@@ -72,7 +72,7 @@ public class BunkerInstance extends NoTeamInstance {
         Ignited_Berserker_Entity entity = new Ignited_Berserker_Entity(ModEntities.IGNITED_BERSERKER.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(mobName, STYLE), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
+        applyBossAttributes(entity, "main", getMainMobAttributes());
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
@@ -118,5 +118,10 @@ public class BunkerInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "BunkerInstance";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

@@ -80,7 +80,7 @@ public class WorldChallengeDrowned extends NoTeamInstance {
             Drowned drowned = new Drowned(EntityType.DROWNED, level);
             MobSpawn.setMobCustomName(drowned, Te.s("本源溺尸", CustomStyle.styleOfSea), 40);
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(drowned), 40);
-            MobSpawn.MobBaseAttributes.setMobBaseAttributes(drowned, getMainMobAttributes());
+            applyBossAttributes(drowned, "main", getMainMobAttributes());
             drowned.setHealth(drowned.getMaxHealth());
 
             // 头顶龟壳
@@ -208,5 +208,10 @@ public class WorldChallengeDrowned extends NoTeamInstance {
     @Override
     protected boolean allowAutoStart() {
         return false;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

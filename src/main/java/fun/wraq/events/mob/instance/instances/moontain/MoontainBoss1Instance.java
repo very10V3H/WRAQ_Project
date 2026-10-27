@@ -54,7 +54,7 @@ public class MoontainBoss1Instance extends NoTeamInstance {
                 new SirPumpkinheadWithoutHorseEntity(BornInChaosV1ModEntities.SIR_PUMPKINHEAD_WITHOUT_HORSE.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(mobName, style), 200);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 200);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
+        applyBossAttributes(entity, "main", getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);
         level.addFreshEntity(entity);
@@ -88,5 +88,10 @@ public class MoontainBoss1Instance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "MoontainBoss1";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

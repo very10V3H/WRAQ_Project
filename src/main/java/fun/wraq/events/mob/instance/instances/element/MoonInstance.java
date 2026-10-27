@@ -39,6 +39,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 public class MoonInstance extends NoTeamInstance {
@@ -82,6 +83,14 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     @Override
+    public Map<String, Component> getAttributeProfiles() {
+        return Map.of(
+                "attack", Te.s("阿尔忒弥斯 - 明镜", CustomStyle.styleOfMoon),
+                "mana", Te.s("阿尔忒弥斯 - 天镜", CustomStyle.styleOfMoon)
+        );
+    }
+
+    @Override
     public MobAttributes getMainMobAttributes() {
         double maxHealth = 200 * Math.pow(10, 4) * (1 + 0.75 * (Math.max(1, players.size()) - 1));
         return new MobAttributes(2000, 130, 130, 0.4, 3, 0.25, 55, 0, maxHealth, 0.3);
@@ -93,7 +102,7 @@ public class MoonInstance extends NoTeamInstance {
         Style style = CustomStyle.styleOfMoon;
         MobSpawn.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 160);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, getMainMobAttributes());
+        applyBossAttributes(attackMob, "attack", getMainMobAttributes());
         attackMob.setHealth(attackMob.getMaxHealth());
         attackMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_MOON_ATTACK.get().getDefaultInstance());
         attackMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_MOON_CHEST.get().getDefaultInstance());
@@ -114,7 +123,7 @@ public class MoonInstance extends NoTeamInstance {
         Stray manaMob = new Stray(EntityType.STRAY, level);
         MobSpawn.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 160);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, getMainMobAttributes());
+        applyBossAttributes(manaMob, "mana", getMainMobAttributes());
         manaMob.setHealth(manaMob.getMaxHealth());
         manaMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_MOON_MANA.get().getDefaultInstance());
         manaMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_MOON_CHEST.get().getDefaultInstance());
@@ -335,5 +344,10 @@ public class MoonInstance extends NoTeamInstance {
     @Override
     public int getRewardNum() {
         return 2;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

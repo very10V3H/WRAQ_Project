@@ -79,7 +79,8 @@ public class FrostInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         EntityFrostmaw mob = new EntityFrostmaw(EntityHandler.FROSTMAW.get(), level);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, Te.s(name, style), XP_LEVEL, getMainMobAttributes());
+        MobSpawn.setMobCustomName(mob, Te.s(name, style), XP_LEVEL);
+        applyBossAttributes(mob, "main", XP_LEVEL, getMainMobAttributes());
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         mobList.add(mob);
@@ -130,5 +131,10 @@ public class FrostInstance extends NoTeamInstance {
                 Te.s(" 1.", style, name, "拥有", "20%吸血抵抗", ChatFormatting.RED),
                 Te.s(" 2.", style, name, "免疫", CustomStyle.styleOfStone, "16格以外的伤害")
         );
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

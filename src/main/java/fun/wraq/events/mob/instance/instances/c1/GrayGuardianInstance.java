@@ -72,7 +72,7 @@ public class GrayGuardianInstance extends NoTeamInstance {
         HauntedArmor boss = new HauntedArmor(ModEntityType.HAUNTED_ARMOR.get(), level);
         MobSpawn.setMobCustomName(boss, Te.s("苍岩守卫", CustomStyle.styleOfStone), 40);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boss), 40);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boss, getMainMobAttributes());
+        applyBossAttributes(boss, "main", getMainMobAttributes());
         boss.setHealth(boss.getMaxHealth());
         boss.moveTo(3577.5, 80, 2922.5);
         boss.setItemSlot(EquipmentSlot.HEAD,
@@ -177,5 +177,10 @@ public class GrayGuardianInstance extends NoTeamInstance {
     @Override
     public int getRewardNeedItemCount() {
         return 5;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

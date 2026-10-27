@@ -77,7 +77,7 @@ public class DivineBunnyInstance extends NoTeamInstance {
         mob.setVariant(Rabbit.Variant.EVIL);
         MobSpawn.setMobCustomName(mob, Te.s(mobName, style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMainMobAttributes());
+        applyBossAttributes(mob, "main", getMainMobAttributes());
         mob.moveTo(pos);
         level.addFreshEntity(mob);
         mobList.add(mob);
@@ -159,5 +159,10 @@ public class DivineBunnyInstance extends NoTeamInstance {
         components.add(Te.s("2.", style, "每5s随机选定一名玩家，在其位置生成一片持续伤害区域。"));
         components.add(Te.s("3.", style, "当玩家的圣光辐照层数小于100层，对玩家的伤害提升(100 - 层数)%。"));
         return components;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

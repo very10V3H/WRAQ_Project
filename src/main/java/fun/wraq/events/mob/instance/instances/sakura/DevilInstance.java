@@ -84,7 +84,7 @@ public class DevilInstance extends NoTeamInstance {
         zombie.setBaby(true);
         MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, getMainMobAttributes());
+        applyBossAttributes(zombie, "main", getMainMobAttributes());
         zombie.setHealth(zombie.getMaxHealth());
         zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MOB_ARMOR_DEVIL_HELMET.get().getDefaultInstance());
         zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_EARTH_MANA_CHEST.get().getDefaultInstance());
@@ -191,5 +191,10 @@ public class DevilInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "DevilBoss";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

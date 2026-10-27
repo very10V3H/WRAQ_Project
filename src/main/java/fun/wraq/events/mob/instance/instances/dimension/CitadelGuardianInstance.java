@@ -87,7 +87,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
                 new Ender_Guardian_Entity(ModEntities.ENDER_GUARDIAN.get(), level);
         MobSpawn.setMobCustomName(entity, Te.s(mobName, style), this.level);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), this.level);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
+        applyBossAttributes(entity, "main", getMainMobAttributes());
         entity.setHealth(entity.getMaxHealth());
         entity.moveTo(pos);
         level.addFreshEntity(entity);
@@ -256,5 +256,10 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         components.add(Te.s("4.恃强凌弱", style, "被守卫攻击时，若其生命值低于40%，则获得1s的眩晕/重伤。"));
         components.add(Te.s("5.影切割", style, "守卫生命值低于25%时，将直接斩杀附近生命值低于25%的玩家。"));
         return components;
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

@@ -102,7 +102,7 @@ public class MushroomInstance extends NoTeamInstance {
         Piglin mob = new Piglin(EntityType.PIGLIN_BRUTE, level);
         MobSpawn.setMobCustomName(mob, Te.s(mobName, style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), XP_LEVEL);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getMainMobAttributes());
+        applyBossAttributes(mob, "main", getMainMobAttributes());
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
                 new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
@@ -218,5 +218,10 @@ public class MushroomInstance extends NoTeamInstance {
             InventoryOperation.giveItemStackWithMSG(player,
                     new ItemStack(MushroomItems.NETHER_MUSHROOM.get(), killCount / 100));
         }
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }

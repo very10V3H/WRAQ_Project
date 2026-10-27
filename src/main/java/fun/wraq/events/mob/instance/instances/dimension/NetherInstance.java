@@ -57,7 +57,7 @@ public class NetherInstance extends NoTeamInstance {
         entity.setBaby(true);
         MobSpawn.setMobCustomName(entity, Component.literal("燃魂").withStyle(CustomStyle.styleOfPower), 90);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 90);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, getMainMobAttributes());
+        applyBossAttributes(entity, "main", getMainMobAttributes());
         entity.moveTo(pos);
         level.addFreshEntity(entity);
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
@@ -98,5 +98,10 @@ public class NetherInstance extends NoTeamInstance {
     @Override
     public String getKillCountDataKey() {
         return "Revenant";
+    }
+
+    @Override
+    public java.util.List<fun.wraq.common.util.items.ItemAndRate> getFirstClearRewards() {
+        return java.util.List.of();
     }
 }
