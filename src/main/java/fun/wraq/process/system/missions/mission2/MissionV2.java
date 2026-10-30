@@ -76,6 +76,7 @@ public enum MissionV2 {
     MAIN_05_PLAIN_PURGE(MainQuestData.MAIN_05),
     MAIN_06_FOREST_CHIEF(MainQuestData.MAIN_06),
     MAIN_07_PLAINI(MainQuestData.MAIN_07),
+    MAIN_07A_VP_SUPPLY(MainQuestData.MAIN_07A),
     MAIN_08_ALCHEMIST_SUPPORT(MainQuestData.MAIN_08),
     MAIN_08A_PURPLE_CRAB(MainQuestData.MAIN_08A),
     MAIN_08B_ORIGIN_CORRIDOR(MainQuestData.MAIN_08B),

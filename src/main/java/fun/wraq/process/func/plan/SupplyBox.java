@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.tower.Tower;
 import net.minecraft.ChatFormatting;
@@ -63,6 +64,7 @@ public class SupplyBox extends Item {
                 }
             });
             Compute.playerItemUseWithRecord(player);
+            MainQuestHelper.recordSupplyPack(player);
             NewLotteries.addPlayerOpenLotteryTimes(player, this);
         }
         return super.use(level, player, interactionHand);

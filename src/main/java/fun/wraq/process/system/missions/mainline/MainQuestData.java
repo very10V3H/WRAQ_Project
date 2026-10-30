@@ -292,6 +292,7 @@ public final class MainQuestData {
             List.of(new Objective.Instance("普莱尼", "普莱尼", 1)),
             List.of(
                     new Reward(() -> new ItemStack(ModItems.PLAIN_BOSS_SOUL.get(), 4)),
+                    new Reward(() -> new ItemStack(ModItems.WORLD_SOUL_5.get(), 80)),
                     new Reward(() -> new ItemStack(ModItems.FORGING_STONE_1.get(), 3))),
             wp("主线 · 雨林村", 1102, 80, 43),
             new QuestWaypoint("主线 · 普莱尼", PlainInstance.POS),
@@ -307,6 +308,27 @@ public final class MainQuestData {
                     null,
                     "普莱尼不会再回来了吧？"));
 
+    public static final Stage MAIN_07A = new Stage(
+            "main_07a_vp_supply", "MAIN_07A_VP_SUPPLY",
+            NpcIds.MAIN_SOL, null, Kind.AUTO,
+            Te.s("聚星补给", CustomStyle.styleOfGold),
+            Te.s("使用任意补给包"),
+            Te.s("天空城 · 索尔"),
+            Te.s("需完成 击败普莱尼"),
+            List.of(new Objective.SupplyPack(1)),
+            List.of(new Reward(() -> new ItemStack(ModItems.WORLD_SOUL_5.get(), 40))),
+            wp("主线 · 天空城城主", 956, 232, 19),
+            wp("主线 · 天空城城主", 956, 232, 19),
+            new Dialogue(
+                    List.of(
+                            Te.s("打开物品栏，在下方找到「VP商店」。"),
+                            Te.s("使用聚星购买任意补给包，然后使用它。"),
+                            Te.s("使用完成后，我会把 40 聚星补给给你。")),
+                    List.of(),
+                    "「我去准备」", "「完成」",
+                    "打开物品栏 - VP商店，用聚星购买任意补给包并使用。",
+                    "补给包已经用完了？"));
+
     // =================================================================
     // 第四章 · 天空城：炼金术士的请求
     // =================================================================
@@ -317,7 +339,7 @@ public final class MainQuestData {
             Te.s("炼金术士的请求", CustomStyle.styleOfSky),
             Te.s("收集炼金素材"),
             Te.s("天空城 · 索尔"),
-            Te.s("需完成 击败普莱尼"),
+            Te.s("需完成 聚星补给"),
             List.of(
                     new Objective.Kill("焰芒虫", 10),
                     new Objective.Kill("唤魔者", 10)),
@@ -986,7 +1008,7 @@ public final class MainQuestData {
 
     public static final List<Stage> STAGES = List.of(
             MAIN_01, MAIN_02, MAIN_03, MAIN_04, MAIN_04A, MAIN_04B, MAIN_04C,
-            MAIN_05, MAIN_06, MAIN_07, MAIN_08, MAIN_08A, MAIN_08B, MAIN_09, MAIN_10,
+            MAIN_05, MAIN_06, MAIN_07, MAIN_07A, MAIN_08, MAIN_08A, MAIN_08B, MAIN_09, MAIN_10,
             MAIN_11, MAIN_12, MAIN_13, MAIN_14, MAIN_15, MAIN_16, MAIN_17, MAIN_18, MAIN_19, MAIN_20,
             MAIN_21, MAIN_22, MAIN_23, MAIN_24, MAIN_25, MAIN_26, MAIN_27, MAIN_28, MAIN_29);
 

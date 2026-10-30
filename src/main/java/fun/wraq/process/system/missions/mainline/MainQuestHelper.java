@@ -342,6 +342,9 @@ public final class MainQuestHelper {
         if (objective instanceof Objective.Tower tower) {
             return progress.getInt(tower.counterKey()) >= tower.count();
         }
+        if (objective instanceof Objective.SupplyPack pack) {
+            return progress.getInt(pack.counterKey()) >= pack.count();
+        }
         if (objective instanceof Objective.Daily daily) {
             return progress.getInt(daily.counterKey()) >= 1;
         }
@@ -411,6 +414,24 @@ public final class MainQuestHelper {
             if (objective instanceof Objective.Tower tower && tower.index() == towerIndex) {
                 increment(player, stage, tower.counterKey());
                 MissionV2.sendDataToClient(player);
+                return;
+            }
+        }
+    }
+
+    /** 使用任意补给包，完成当前阶段中的补给包目标；自动阶段会立即结算。 */
+    public static void recordSupplyPack(Player player) {
+        Stage stage = current(player);
+        if (stage == null || !status(player, stage).equals(MissionV2.Status.IN_PROGRESS)) {
+            return;
+        }
+        for (Objective objective : stage.objectives()) {
+            if (objective instanceof Objective.SupplyPack) {
+                increment(player, stage, objective.counterKey());
+                MissionV2.sendDataToClient(player);
+                if (stage.kind() == Kind.AUTO) {
+                    autoComplete(player);
+                }
                 return;
             }
         }
