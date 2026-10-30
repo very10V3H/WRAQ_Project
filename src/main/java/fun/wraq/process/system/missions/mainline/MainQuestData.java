@@ -3,11 +3,13 @@ package fun.wraq.process.system.missions.mainline;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.instance.instances.element.PlainInstance;
+import fun.wraq.events.mob.instance.instances.element.PurpleIronInstance;
 import fun.wraq.process.system.missions.mainline.MainQuestStage.*;
 import fun.wraq.process.system.npc.NpcIds;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -70,9 +72,14 @@ public final class MainQuestData {
                     new Reward(() -> new ItemStack(ModItems.SKY_SCEPTRE.get())),
                     new Reward(() -> new ItemStack(ModItems.GRAVITY_BYPASS_DEVICE.get())),
                     new Reward(() -> new ItemStack(ModItems.BACK_SPAWN_TICKET.get())),
+                    new Reward(() -> new ItemStack(ModItems.SKY_LINE.get())),
                     new Reward(() -> new ItemStack(Items.GOLDEN_CARROT, 32)),
                     new Reward(() -> new ItemStack(Items.BAKED_POTATO, 32)),
-                    new Reward(() -> new ItemStack(Items.ELYTRA))),
+                    new Reward(() -> {
+                        ItemStack elytra = new ItemStack(Items.ELYTRA);
+                        elytra.enchant(Enchantments.UNBREAKING, 10);
+                        return elytra;
+                    })),
             wp("主线 · 天空城传送中枢", 1005, 226, -3),
             wp("主线 · 天空城传送中枢", 1005, 226, -3),
             new Dialogue(
@@ -331,6 +338,56 @@ public final class MainQuestData {
                     "炼金术士们最近很忙。"));
 
     // =================================================================
+    // 第四章补充 · 海岸前的试炼
+    // =================================================================
+
+    public static final Stage MAIN_08A = new Stage(
+            "main_08a_purple_crab", "MAIN_08A_PURPLE_CRAB",
+            NpcIds.MAIN_SOL, null, Kind.OBJECTIVE,
+            Te.s("挑战紫晶巨蟹", CustomStyle.styleOfPurpleIron),
+            Te.s("挑战紫晶巨蟹"),
+            Te.s("天空城 · 索尔"),
+            Te.s("需完成 炼金术士的请求"),
+            List.of(new Objective.Instance("紫水晶巨蟹", "紫晶巨蟹", 1)),
+            List.of(new Reward(() -> new ItemStack(ModItems.WORLD_SOUL_5.get(), 20))),
+            wp("主线 · 天空城城主", 956, 232, 19),
+            new QuestWaypoint("主线 · 紫晶巨蟹", PurpleIronInstance.POS),
+            new Dialogue(
+                    List.of(
+                            Te.s("雨林矿洞深处还有一只紫晶巨蟹在盘踞。"),
+                            Te.s("它比普通巨蟹更坚硬，带上足够的补给再去。"),
+                            Te.s("击败它之后回来找我。")),
+                    List.of(
+                            Te.s("紫晶巨蟹已经被击败了。"),
+                            Te.s("接下来去挑战本源回廊-I，证明你的实力。")),
+                    "「我去挑战」", "「交付」",
+                    null,
+                    "紫晶巨蟹的甲壳，连矿镐都要退让三分。"));
+
+    public static final Stage MAIN_08B = new Stage(
+            "main_08b_origin_corridor", "MAIN_08B_ORIGIN_CORRIDOR",
+            NpcIds.MAIN_SOL, null, Kind.OBJECTIVE,
+            Te.s("挑战本源回廊-I", CustomStyle.styleOfWorld),
+            Te.s("挑战本源回廊-I"),
+            Te.s("天空城 · 索尔"),
+            Te.s("需完成 紫晶巨蟹"),
+            List.of(new Objective.Tower(0, "本源回廊-I", 1)),
+            List.of(new Reward(() -> new ItemStack(ModItems.WORLD_SOUL_5.get(), 20))),
+            wp("主线 · 天空城城主", 956, 232, 19),
+            wp("主线 · 本源回廊-I", 956, -62.5, -69.5),
+            new Dialogue(
+                    List.of(
+                            Te.s("本源回廊-I 是天空城附近的试炼。"),
+                            Te.s("进入回廊并完成挑战，哪怕只拿到一星也算通过。"),
+                            Te.s("完成后回来找我。")),
+                    List.of(
+                            Te.s("本源回廊-I 的记录已经更新。"),
+                            Te.s("海岸村的 Ushio 传来消息，海岸一带需要支援。")),
+                    "「我去挑战」", "「交付」",
+                    null,
+                    "本源回廊会记住每一位挑战者。"));
+
+    // =================================================================
     // 第五章 · 海岸
     // =================================================================
 
@@ -340,7 +397,7 @@ public final class MainQuestData {
             Te.s("海岸村的潮声", CustomStyle.styleOfWater),
             Te.s("清理海岸怪物"),
             Te.s("海岸村 · Ushio"),
-            Te.s("需完成 炼金术士的请求"),
+            Te.s("需完成 本源回廊-I"),
             List.of(
                     new Objective.Kill("脆弱的岩灵", 10),
                     new Objective.Kill("神殿守卫", 10)),
@@ -929,7 +986,7 @@ public final class MainQuestData {
 
     public static final List<Stage> STAGES = List.of(
             MAIN_01, MAIN_02, MAIN_03, MAIN_04, MAIN_04A, MAIN_04B, MAIN_04C,
-            MAIN_05, MAIN_06, MAIN_07, MAIN_08, MAIN_09, MAIN_10,
+            MAIN_05, MAIN_06, MAIN_07, MAIN_08, MAIN_08A, MAIN_08B, MAIN_09, MAIN_10,
             MAIN_11, MAIN_12, MAIN_13, MAIN_14, MAIN_15, MAIN_16, MAIN_17, MAIN_18, MAIN_19, MAIN_20,
             MAIN_21, MAIN_22, MAIN_23, MAIN_24, MAIN_25, MAIN_26, MAIN_27, MAIN_28, MAIN_29);
 

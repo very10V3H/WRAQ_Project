@@ -5,6 +5,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.mission2.MissionV2;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.missions.mainline.MainQuestHelper;
@@ -101,12 +102,22 @@ public class MissionScreen extends Screen {
     private static boolean matchStatus(MissionV2 mission, int type, CompoundTag statusData) {
         if (type == 0) return true;
         String status = statusData.getString(mission.name());
+        if (status.isEmpty() && isElementMissionLevelUnlocked(mission)) {
+            status = MissionV2.Status.NOT_ACCEPTED;
+        }
         return switch (type) {
             case 1 -> status.equals(MissionV2.Status.NOT_ACCEPTED);
             case 2 -> status.equals(MissionV2.Status.IN_PROGRESS);
             case 3 -> status.equals(MissionV2.Status.FINISHED);
             default -> true;
         };
+    }
+
+    /** 元素学在 135 级时允许在任务列表显示；状态同步前也不会被筛掉。 */
+    private static boolean isElementMissionLevelUnlocked(MissionV2 mission) {
+        return mission == MissionV2.SIDE_ELEMENT_I
+                && mc.player != null
+                && mc.player.experienceLevel >= Element.ROULETTE_REQUIRED_LEVEL;
     }
 
     /**
@@ -121,9 +132,11 @@ public class MissionScreen extends Screen {
                 // 主线未解锁（状态为空）时不进入任务列表
                 .filter(missionV2 -> !MainQuestHelper.isMainMission(missionV2)
                         || !statusData.getString(missionV2.name()).isEmpty())
-                // 锻造师等支线只有解锁（状态不再是空）后才进入任务列表
+                // 锻造师等支线只有解锁（状态不再是空）后才进入任务列表；
+                // 元素学在 135 级时即使状态同步稍晚也允许显示。
                 .filter(missionV2 -> !missionV2.getCategory().equals(MissionV2.Category.SIDE)
-                        || !statusData.getString(missionV2.name()).isEmpty())
+                        || !statusData.getString(missionV2.name()).isEmpty()
+                        || isElementMissionLevelUnlocked(missionV2))
                 .toList();
     }
 
@@ -185,12 +198,14 @@ public class MissionScreen extends Screen {
                 if (MainQuestHelper.isMainMission(mission)) {
                     continue;
                 }
-                if (statusData.getString(mission.name()).equals(MissionV2.Status.NOT_ACCEPTED)) {
+                String missionStatus = statusData.getString(mission.name());
+                if (missionStatus.equals(MissionV2.Status.NOT_ACCEPTED)
+                        || (missionStatus.isEmpty() && isElementMissionLevelUnlocked(mission))) {
                     this.addRenderableWidget(Button.builder(Component.translatable("接受")
                             .withStyle(ChatFormatting.GREEN), (p_280814_) -> {
                         ModNetworking.sendToServer(new MissionAcceptC2SPacket(mission.ordinal()));
                     }).pos(X + 108, Y - 76 + 32 * i).size(32, 20).build());
-                } else if (statusData.getString(mission.name()).equals(MissionV2.Status.IN_PROGRESS)) {
+                } else if (missionStatus.equals(MissionV2.Status.IN_PROGRESS)) {
                     this.addRenderableWidget(Button.builder(Component.translatable("提交")
                             .withStyle(ChatFormatting.YELLOW), (p_280814_) -> {
                         ModNetworking.sendToServer(new MissionSubmitC2SPacket(mission.ordinal()));
@@ -205,7 +220,7 @@ public class MissionScreen extends Screen {
     }
 
     public void render(@NotNull GuiGraphics graphics, int x, int y, float v) {
-        GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
+        GuiGraphics guiGraphics = graphics;
         this.renderBackground(guiGraphics);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
@@ -303,37 +318,53 @@ public class MissionScreen extends Screen {
                                     append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
                             X + 64, Y - 72 + 32 * i, 0);
                 }
-                if (status.equals(MissionV2.Status.IN_PROGRESS)) {
-                    if (x > X + 68 && x < X + 100 && y > Y - 76 + 32 * i && y < Y - 56 + 32 * i) {
-                        List<Component> components = new ArrayList<>();
-                        components.add(Component.literal("「完成奖励」").withStyle(ChatFormatting.LIGHT_PURPLE));
-                        components.addAll(mission.rewardDescription);
-                        guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
-                    }
-                }
-                if (x > X - 160 && x < X - 132 + 112 && y > Y - 86 + i * 32 && y < Y - 86 + i * 32 + 32) {
-                    if (mission.detailOperation != null && status.equals(MissionV2.Status.IN_PROGRESS)) {
-                        try {
-                            guiGraphics.renderTooltip(fontRenderer,
-                                    mission.detailOperation.operation(mission, MissionV2.clientMissionData), x, y);
-                        } catch (CommandSyntaxException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-                // 描述过长时，悬停显示全文
-                if (descStr.length() > 6
-                        && x > X - 20 && x < X + 80
-                        && y > Y - 86 + i * 32 && y < Y - 86 + i * 32 + 32) {
-                    guiGraphics.renderTooltip(fontRenderer,
-                            Component.literal("「").withStyle(ChatFormatting.AQUA)
-                                    .append(mission.description)
-                                    .append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
-                            x, y);
-                }
             }
         }
-        super.render(graphics, x, y, v);
+        // 先绘制 Screen 的按钮等组件，再绘制 tooltip，避免 tooltip 被 super.render 覆盖。
+        super.render(guiGraphics, x, y, v);
+        renderMissionTooltips(guiGraphics, x, y);
+    }
+
+    /** 任务列表悬停提示必须在 super.render 之后绘制，否则会被按钮/背景覆盖。 */
+    private void renderMissionTooltips(GuiGraphics guiGraphics, int x, int y) {
+        int X = this.width / 2;
+        int Y = this.height / 2;
+        CompoundTag statusData = MissionV2.clientMissionData.getCompound(MissionV2Helper.MISSION_V2_STATUS_KEY);
+        for (int i = 0; i < 5; i++) {
+            if (page * 5 + i >= missionList.size()) {
+                continue;
+            }
+            MissionV2 mission = missionList.get(page * 5 + i);
+            String status = statusData.getString(mission.name());
+            String descStr = mission.description.getString();
+            int rowY = Y - 86 + i * 32;
+            if (status.equals(MissionV2.Status.IN_PROGRESS)
+                    && x > X + 68 && x < X + 100
+                    && y > Y - 76 + 32 * i && y < Y - 56 + 32 * i) {
+                List<Component> components = new ArrayList<>();
+                components.add(Component.literal("「完成奖励」").withStyle(ChatFormatting.LIGHT_PURPLE));
+                components.addAll(mission.rewardDescription);
+                guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
+            }
+            if (x > X - 160 && x < X - 132 + 112 && y > rowY && y < rowY + 32
+                    && mission.detailOperation != null
+                    && status.equals(MissionV2.Status.IN_PROGRESS)) {
+                try {
+                    guiGraphics.renderTooltip(fontRenderer,
+                            mission.detailOperation.operation(mission, MissionV2.clientMissionData), x, y);
+                } catch (CommandSyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (descStr.length() > 6
+                    && x > X - 20 && x < X + 80 && y > rowY && y < rowY + 32) {
+                guiGraphics.renderTooltip(fontRenderer,
+                        Component.literal("「").withStyle(ChatFormatting.AQUA)
+                                .append(mission.description)
+                                .append(Component.literal("」").withStyle(ChatFormatting.AQUA)),
+                        x, y);
+            }
+        }
     }
 
     @Override

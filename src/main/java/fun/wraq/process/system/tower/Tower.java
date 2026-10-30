@@ -13,6 +13,8 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.achievement.AchievementManager;
+import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -51,7 +53,7 @@ public class Tower {
 
     public static final String[] numToRoma = {"I", "II", "III", "IV", "V", "VI"};
     /*, "VII", "VIII", "IX", "X"*/
-    public static final int[] levelRequire = {100, 120, 140, 160, 180, 200};
+    public static final int[] levelRequire = {20, 50, 80, 120, 160, 200};
 
     public static String rewardGetRecordKey = "towerRewardGetRecord";
     public static String rewardGetRecordValue = "0".repeat(80);
@@ -216,6 +218,8 @@ public class Tower {
                 Te.s(this.currentPlayer, " 完成了 ",
                         "本源回廊 - " + Tower.numToRoma[instanceList.indexOf(this)], CustomStyle.styleOfWorld, " 的 ",
                         stage + "★", CustomStyle.styleOfWorld, "挑战."));
+        MainQuestHelper.recordTower(this.currentPlayer, index);
+        AchievementManager.onTowerClear(this.currentPlayer, index);
         Guide.trigV2(currentPlayer, Guide.StageV2.CORRIDOR);
     }
 

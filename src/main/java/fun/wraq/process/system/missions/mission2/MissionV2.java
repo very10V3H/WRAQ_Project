@@ -11,6 +11,7 @@ import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mainline.MainQuestStage;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenS2CPacket;
 import fun.wraq.process.system.missions.netWorking.MissionV2DataS2CPacket;
+import fun.wraq.process.system.missions.side.ElementStudyQuest;
 import fun.wraq.process.system.missions.side.ForgeMasterQuest;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
@@ -76,6 +77,8 @@ public enum MissionV2 {
     MAIN_06_FOREST_CHIEF(MainQuestData.MAIN_06),
     MAIN_07_PLAINI(MainQuestData.MAIN_07),
     MAIN_08_ALCHEMIST_SUPPORT(MainQuestData.MAIN_08),
+    MAIN_08A_PURPLE_CRAB(MainQuestData.MAIN_08A),
+    MAIN_08B_ORIGIN_CORRIDOR(MainQuestData.MAIN_08B),
     MAIN_09_COAST_CHIEF(MainQuestData.MAIN_09),
     MAIN_10_XUNXI_VISIT(MainQuestData.MAIN_10),
     MAIN_11_NETHER_I(MainQuestData.MAIN_11),
@@ -130,7 +133,19 @@ public enum MissionV2 {
             null,
             ForgeMasterQuest::hasForgedIII,
             ForgeMasterQuest::claimRewardIII,
-            ForgeMasterQuest.rewardDescriptionIII());
+            ForgeMasterQuest.rewardDescriptionIII()),
+
+    // ---- 支线：元素学 ----
+    SIDE_ELEMENT_I(Te.s("元素学I", CustomStyle.styleOfWorld),
+            Te.s("按左ALT打开元素轮盘"),
+            Te.s("元素学"),
+            Te.s("等级达到135级"),
+            true,
+            ElementStudyQuest::canAccept,
+            null,
+            ElementStudyQuest::hasOpenedRoulette,
+            ElementStudyQuest::claimReward,
+            ElementStudyQuest.rewardDescription());
 
     public interface PlayerCondition {
         boolean can(Player player) throws CommandSyntaxException;
@@ -376,6 +391,7 @@ public enum MissionV2 {
     public static void handlePlayerTick(Player player) {
         if (player.tickCount % 20 == 0) {
             ForgeMasterQuest.refreshUnlock(player);
+            ElementStudyQuest.refreshUnlock(player);
             autoSubmit(player);
             sendDataToClient(player);
         }

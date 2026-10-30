@@ -11,6 +11,7 @@ import fun.wraq.networking.misc.USE.UseC2SPacket;
 import fun.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.element.piece.ElementPieceGui;
 import fun.wraq.process.system.element.render.ElementRoulette;
@@ -165,9 +166,15 @@ public class KeyInput {
             }
 
             if (KeyBoradInput.ElementRoulette.consumeClick()) {
-                ModNetworking.sendToServer(new CurrentSeasonC2SPacket());
-                Minecraft.getInstance().setScreen(new ElementRoulette());
-                ModNetworking.sendToServer(new GuideFinishC2SPacket(Guide.StageV2.ELEMENT_ROULETTE));
+                if (player.experienceLevel < Element.ROULETTE_REQUIRED_LEVEL) {
+                    player.sendSystemMessage(Component.literal("[元素]").withStyle(ChatFormatting.GRAY)
+                            .append(Component.literal("需要达到 135 级才能打开元素轮盘。")
+                                    .withStyle(ChatFormatting.RED)));
+                } else {
+                    ModNetworking.sendToServer(new CurrentSeasonC2SPacket());
+                    Minecraft.getInstance().setScreen(new ElementRoulette());
+                    ModNetworking.sendToServer(new GuideFinishC2SPacket(Guide.StageV2.ELEMENT_ROULETTE));
+                }
             }
 
             if (KeyBoradInput.SPACE.consumeClick()) {

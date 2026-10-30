@@ -32,10 +32,11 @@ public class PurpleIronInstance extends NoTeamInstance {
     private static PurpleIronInstance instance;
 
     public static String mobName = "紫水晶巨蟹";
+    public static final Vec3 POS = new Vec3(1171, -36, -172);
 
     public static PurpleIronInstance getInstance() {
         if (instance == null) {
-            instance = new PurpleIronInstance(new Vec3(1171, -36, -172), 50, 60, new Vec3(1171, -36, -172),
+            instance = new PurpleIronInstance(POS, 50, 60, POS,
                     Component.literal("紫水晶巨蟹").withStyle(CustomStyle.styleOfPurpleIron));
         }
         return instance;

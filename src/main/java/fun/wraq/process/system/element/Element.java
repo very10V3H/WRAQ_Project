@@ -42,6 +42,9 @@ public class Element {
 
     public static String Prefix = "Element";
 
+    /** 打开元素轮盘所需等级。 */
+    public static final int ROULETTE_REQUIRED_LEVEL = 135;
+
     public static String life = Prefix + "Life";
     public static String water = Prefix + "Water";
     public static String fire = Prefix + "Fire";

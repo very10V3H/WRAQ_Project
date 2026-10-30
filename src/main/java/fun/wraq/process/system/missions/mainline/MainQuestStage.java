@@ -66,7 +66,7 @@ public final class MainQuestStage {
      * 世界目标。{@link #text(CompoundTag)} 同时用于任务提示与 HUD。
      */
     public sealed interface Objective permits Objective.Kill, Objective.Reach, Objective.Level,
-            Objective.CollectItem, Objective.Instance, Objective.Daily, Objective.Talk,
+            Objective.CollectItem, Objective.Instance, Objective.Tower, Objective.Daily, Objective.Talk,
             Objective.Roll, Objective.SelectSkillGroup, Objective.MapTeleport, Objective.Mastery {
 
         /** 进度文本（击杀类会显示 当前/目标）。 */
@@ -120,12 +120,38 @@ public final class MainQuestStage {
         record Instance(String name, String display, int count) implements Objective {
             @Override
             public Component text(CompoundTag stageProgress) {
-                return Te.s("通关 ", display);
+                int current = Math.min(count, stageProgress.getInt(counterKey()));
+                if (current >= count) {
+                    MutableComponent done = Te.s("✓ ", ChatFormatting.GREEN);
+                    done.append(Te.s("通关 ", display, " ", count, "/", count)
+                            .withStyle(ChatFormatting.STRIKETHROUGH, ChatFormatting.GRAY));
+                    return done;
+                }
+                return Te.s("通关 ", display, " ", current, "/", count);
             }
 
             @Override
             public String counterKey() {
                 return "instance|" + name;
+            }
+        }
+
+        record Tower(int index, String display, int count) implements Objective {
+            @Override
+            public Component text(CompoundTag stageProgress) {
+                int current = Math.min(count, stageProgress.getInt(counterKey()));
+                if (current >= count) {
+                    MutableComponent done = Te.s("✓ ", ChatFormatting.GREEN);
+                    done.append(Te.s("挑战 ", display, " ", count, "/", count)
+                            .withStyle(ChatFormatting.STRIKETHROUGH, ChatFormatting.GRAY));
+                    return done;
+                }
+                return Te.s("挑战 ", display, " ", current, "/", count);
+            }
+
+            @Override
+            public String counterKey() {
+                return "tower|" + index;
             }
         }
 

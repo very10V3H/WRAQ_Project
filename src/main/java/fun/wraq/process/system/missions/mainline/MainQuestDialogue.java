@@ -45,6 +45,10 @@ public final class MainQuestDialogue implements DialogTrees.DialogTree {
 
     @Override
     public Component onOpen(Player player, String dialogId) {
+        // 玩家直接走到天空城贝贝处时，补记 MAIN_01 的到达进度。
+        if (NpcIds.MAIN_BEIBEI.equals(dialogId)) {
+            MainQuestHelper.handleSkyCityBeibeiArrival(player);
+        }
         return null;
     }
 

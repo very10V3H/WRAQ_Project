@@ -12,9 +12,11 @@ import fun.wraq.process.system.missions.mainline.MainQuestStage.Kind;
 import fun.wraq.process.system.missions.mainline.MainQuestStage.Objective;
 import fun.wraq.process.system.missions.mainline.MainQuestStage.QuestWaypoint;
 import fun.wraq.process.system.missions.mainline.MainQuestStage.Stage;
+import fun.wraq.process.system.achievement.AchievementManager;
 import fun.wraq.process.system.missions.mission2.MissionV2;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.npc.NpcIds;
+import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -226,6 +228,12 @@ public final class MainQuestHelper {
             return false;
         }
         progressRoot(player).put(stage.id(), new CompoundTag());
+        for (Objective objective : stage.objectives()) {
+            if (objective instanceof Objective.Tower tower
+                    && Tower.getPlayerStatus(player, tower.index()) >= 1) {
+                increment(player, stage, tower.counterKey());
+            }
+        }
         setStatus(player, stage, MissionV2.Status.IN_PROGRESS);
         applyWaypoint(player, stage.targetWaypoint() != null
                 ? stage.targetWaypoint() : stage.giverWaypoint());
@@ -282,6 +290,7 @@ public final class MainQuestHelper {
                 InventoryOperation.giveItemStackWithMSG(player, stack);
             }
         });
+        AchievementManager.onMainQuestComplete(player, stage);
         Stage next = MainQuestData.next(stage);
         if (next != null) {
             // 精通教学紧接技能组选择：自动开始，不要求玩家再跑回 PP 对话。
@@ -329,6 +338,9 @@ public final class MainQuestHelper {
         }
         if (objective instanceof Objective.Instance instance) {
             return progress.getInt(instance.counterKey()) >= instance.count();
+        }
+        if (objective instanceof Objective.Tower tower) {
+            return progress.getInt(tower.counterKey()) >= tower.count();
         }
         if (objective instanceof Objective.Daily daily) {
             return progress.getInt(daily.counterKey()) >= 1;
@@ -383,6 +395,22 @@ public final class MainQuestHelper {
         for (Objective objective : stage.objectives()) {
             if (objective instanceof Objective.Instance instance && instance.name().equals(instanceName)) {
                 increment(player, stage, instance.counterKey());
+                // 主 Boss 击杀后立即同步进度，避免任务 HUD 最多延迟 1 秒。
+                MissionV2.sendDataToClient(player);
+                return;
+            }
+        }
+    }
+
+    public static void recordTower(Player player, int towerIndex) {
+        Stage stage = current(player);
+        if (stage == null) {
+            return;
+        }
+        for (Objective objective : stage.objectives()) {
+            if (objective instanceof Objective.Tower tower && tower.index() == towerIndex) {
+                increment(player, stage, tower.counterKey());
+                MissionV2.sendDataToClient(player);
                 return;
             }
         }
@@ -443,6 +471,25 @@ public final class MainQuestHelper {
                 }
                 return;
             }
+        }
+    }
+
+    /**
+     * 兜底：玩家没有使用地图传送，而是直接到达天空城并找到贝贝时，
+     * 视为已完成「出发：旭升岛轻轨」，避免卡在贝贝处拿不到 MAIN_02 的基础物资。
+     */
+    public static void handleSkyCityBeibeiArrival(Player player) {
+        Stage stage = current(player);
+        if (stage == null
+                || !"main_01_depart_xusheng".equals(stage.id())
+                || !status(player, stage).equals(MissionV2.Status.IN_PROGRESS)) {
+            return;
+        }
+        recordMapTeleport(player, "天空城");
+        Stage after = current(player);
+        if (after != null && after.id().equals(stage.id())) {
+            // 创造模式记录传送后不会自动完成，这里补一次强制完成。
+            complete(player, stage, true);
         }
     }
 
@@ -601,7 +648,32 @@ public final class MainQuestHelper {
         for (Objective objective : stage.objectives()) {
             lines.add(objective.text(progress));
         }
+        // 目标已完成但阶段还未交付时，在目标下方提示交付地点。
+        if (stage.kind() == Kind.OBJECTIVE
+                && clientStatus(stage).equals(MissionV2.Status.IN_PROGRESS)
+                && clientReady(stage)) {
+            Component reportPlace = stage.tips();
+            if (reportPlace != null) {
+                lines.add(Te.s("前往 ", reportPlace, " 交付", CustomStyle.styleOfSky));
+            }
+        }
         return lines;
+    }
+
+    /** 客户端判断当前阶段目标是否全部完成；仅用于 HUD 的交付提示。 */
+    private static boolean clientReady(Stage stage) {
+        net.minecraft.client.player.LocalPlayer player =
+                net.minecraft.client.Minecraft.getInstance().player;
+        if (player == null) {
+            return false;
+        }
+        CompoundTag progress = clientProgress(stage);
+        for (Objective objective : stage.objectives()) {
+            if (!objectiveDone(player, objective, progress)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

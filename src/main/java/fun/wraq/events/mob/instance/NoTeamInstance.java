@@ -10,6 +10,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.AdjustStackBeforeGive;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.system.achievement.AchievementManager;
 import fun.wraq.events.mob.attribute.BossAttributeOverrides;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
@@ -59,6 +60,8 @@ public abstract class NoTeamInstance {
     public Set<Player> players = new CopyOnWriteArraySet<>();
     public int spawnTick = 0;
     public int clearTick = 0;
+    /** 主 Boss 死亡只记录一次主线通关目标，不等待信徒等小怪清空。 */
+    private boolean mainBossRecorded;
     protected long startTime;
 
     public NoTeamInstance(final Vec3 pos, final double range, final int delayTick,
@@ -77,6 +80,24 @@ public abstract class NoTeamInstance {
         return mobList.stream().anyMatch(mob -> mob != null && mob.isAlive());
     }
 
+    /** 主 Boss 死亡即记录主线通关目标，信徒仍存活也不阻止记录。 */
+    private void recordMainBossDefeat() {
+        if (mainBossRecorded || mobList.isEmpty()) {
+            return;
+        }
+        Mob mainBoss = mobList.get(0);
+        if (mainBoss == null || mainBoss.isAlive()) {
+            return;
+        }
+        mainBossRecorded = true;
+        players.forEach(player -> {
+            if (player != null) {
+                MainQuestHelper.recordInstance(player, name.getString());
+                AchievementManager.onInstanceClear(player, name.getString());
+            }
+        });
+    }
+
     public void detectAndSummonThenHandleTick(Level level) {
         int tick = Tick.get();
         boolean allMobIsNull = true;
@@ -90,6 +111,7 @@ public abstract class NoTeamInstance {
                 && !getNearPlayers(level).isEmpty() && ready) {
             mobList.clear();
             bossInfoList.clear();
+            mainBossRecorded = false;
             inChallenge = true;
             spawnTick = Tick.get();
             players.addAll(getNearPlayers(level));
@@ -102,6 +124,7 @@ public abstract class NoTeamInstance {
         }
         if (inChallenge && spawnTick != Tick.get()) {
             players.removeIf(Objects::isNull);
+            recordMainBossDefeat();
             tickModule();
             if (clearTick == Tick.get()) {
                 rewardPlayers();
@@ -162,8 +185,8 @@ public abstract class NoTeamInstance {
     public void rewardPlayers() {
         players.forEach(player -> {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
-                // 主线通关目标：无论是否满足奖励条件，通关本身都计数
-                MainQuestHelper.recordInstance(player, name.getString());
+                // 主线通关目标在 recordMainBossDefeat 中按主 Boss 死亡记录，
+                // 不再等到所有信徒死亡后的 rewardPlayers。
                 grantFirstClearReward(player);
                 if (!player.isCreative() && !allowReward(player) && allowRewardCondition() != null) {
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
@@ -329,6 +352,7 @@ public abstract class NoTeamInstance {
     public void reset(int tick, boolean removeMob) {
         summonTick = tick + delayTick;
         inChallenge = false;
+        mainBossRecorded = false;
         bossInfoList.forEach(ServerBossEvent::removeAllPlayers);
         bossInfoList.clear();
         mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));

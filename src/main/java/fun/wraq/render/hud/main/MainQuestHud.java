@@ -63,6 +63,7 @@ public final class MainQuestHud {
         int hudHeight = height();
         guiGraphics.fill(X, Y, X + textWidth + PADDING * 2, Y + hudHeight, 0x90000000);
         int line = 0;
+        boolean hasSeparator = mainTitle != null && !sideQuests.isEmpty();
         if (mainTitle != null) {
             guiGraphics.drawString(font, mainTitle.copy().withStyle(ChatFormatting.AQUA),
                     X + PADDING, Y + 4, 0xFFFFFFFF);
@@ -72,6 +73,13 @@ public final class MainQuestHud {
                         0xFFE0E0E0);
                 line++;
             }
+        }
+        if (hasSeparator) {
+            // 主线和支线之间用白色横线分隔。
+            int separatorY = Y + 4 + LINE_HEIGHT * line + LINE_HEIGHT / 2;
+            guiGraphics.fill(X + PADDING, separatorY,
+                    X + PADDING + textWidth, separatorY + 1, 0xFFFFFFFF);
+            line++;
         }
         for (MissionV2 mission : sideQuests) {
             guiGraphics.drawString(font, sideTitle(mission), X + PADDING,
@@ -91,7 +99,8 @@ public final class MainQuestHud {
             mainLines = 1 + Math.max(1, MainQuestHelper.clientObjectiveLines().size());
         }
         int sideLines = clientSideQuests().size() * 2;
-        return PADDING + LINE_HEIGHT * (mainLines + sideLines + 1);
+        int separatorLines = MainQuestHelper.clientTitle() != null && !clientSideQuests().isEmpty() ? 1 : 0;
+        return PADDING + LINE_HEIGHT * (mainLines + sideLines + separatorLines + 1);
     }
 
     /** 战斗中隐藏任务指引。 */
