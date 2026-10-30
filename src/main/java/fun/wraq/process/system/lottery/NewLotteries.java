@@ -169,7 +169,7 @@ public class NewLotteries extends Item {
         }
         if (guaranteeTimes.containsKey(item)) {
             components.add(Component.literal(""));
-            components.add(Component.literal(" 第" + guaranteeTimes.get(item) + "次必定抽取极品奖励").withStyle(ChatFormatting.GOLD));
+            components.add(Te.s(" 第" + guaranteeTimes.get(item) + "次必定抽取", ChatFormatting.GOLD, "极品奖励", ChatFormatting.RED));
         }
         if (getUniformLotteryItems().contains(this) && ClientUtils.serverTime != null) {
             int date = 0;
