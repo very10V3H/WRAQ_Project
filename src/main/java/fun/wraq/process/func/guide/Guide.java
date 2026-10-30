@@ -180,7 +180,7 @@ public class Guide {
             ), new MyWayPoint(new Vec3(3925, 82, 3499), "潮汐城中央广场传送锚点",
                     MyWayPoint.colorMap.get(MyWayPoint.gold), 1), (player -> {
                 InventoryOperation.giveItemStackWithMSG(player,
-                        new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()));
+                        new ItemStack(ModItems.PLAIN_SWORD_0.get()));
             }), StageV2.MAP_TELEPORT_TIDE_CENTER));
 
             // 2. 按下M使用世界地图传送
@@ -221,7 +221,7 @@ public class Guide {
                     Te.s("翻滚可以躲避敌人的攻击")
             ), null, (player -> {
                 InventoryOperation.giveItemStackWithMSG(player,
-                        new ItemStack(ModItems.BAMBOO_KANATA.get()));
+                        new ItemStack(ModItems.PLAIN_BOW_0.get()));
             }), StageV2.UNLOCK_TIDE_NORTHEAST));
 
             // 6. 解锁潮汐城东北门传送锚点

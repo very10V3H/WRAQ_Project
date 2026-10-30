@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "vmd:item/snowsword0"
+    "layer0": "vmd:item/snowsword3"
   }
 }

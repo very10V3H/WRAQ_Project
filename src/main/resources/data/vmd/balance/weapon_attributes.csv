@@ -131,10 +131,6 @@ SWORD,BunkerSword,bunker_sword,热能利刃,1,2800,0.35,0.05,,,0.3,,60,0.08,,,,1
 BOW,BunkerBow,bunker_bow,热能长弓,1,2800,0.3,0.05,,,,,60,,,,,,,fire,2.0,225,292,"继承HarbingerBow,覆盖ATK/defPen0/fireValue",
 SCEPTRE,BunkerSceptre,bunker_sceptre,热能法杖,1,,,,5600,30,0.25,,,,,,60,,,fire,2.0,225,279,"继承HarbingerSceptre,覆盖manaDamage/manaPen0/fireValue",
 # ===== KANATA (行军刀,movementSpeedOnly) =====,,,,,,,,,,,,,,,,,,,,,,,
-KANATA,WraqKanata,bamboo_kanata,竹刀,1,,,,,,,,,,,,,,,0.15,,,,0,"行军刀,movementSpeedWithoutBattle:0.15,suffix:ChapterI"
-KANATA,WraqKanata,sky_kanata,天空刀,1,,,,,,,,,,,,,,,0.3,,,,0,"行军刀,movementSpeedWithoutBattle:0.3,suffix:ChapterII"
-KANATA,WraqKanata,nether_kanata,下界刀,1,,,,,,,,,,,,,,,0.45,,,,0,"行军刀,movementSpeedWithoutBattle:0.45,suffix:Nether"
-KANATA,WraqKanata,sakura_kanata,樱刀,1,,,,,,,,,,,,,,,0.6,,,,0,"行军刀,movementSpeedWithoutBattle:0.6,suffix:Sakura"
 # ===== INSTRUMENT (仪器) =====,,,,,,,,,,,,,,,,,,,,,,,,
 INSTRUMENT,SakuraIndustrySceptre,sakura_industry_sceptre,樱工业仪器,1,,,,,,,,,,,,,,,,,,0,"仪器,expUp:1",
 ,,,,,,,,,,,,,,,,,,,,,,,,

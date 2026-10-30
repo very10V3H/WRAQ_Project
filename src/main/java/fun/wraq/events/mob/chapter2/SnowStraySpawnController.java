@@ -65,7 +65,7 @@ public class SnowStraySpawnController extends MobSpawnController {
         MobSpawn.setMobCustomName(stray, Te.s(mobName, style), xpLevel);
         // 设置物品
         MobSpawn.setStainArmorOnMob(stray, style);
-        stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.SNOW_SWORD_3.get().getDefaultInstance());
+        stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.SNOW_SWORD_0.get().getDefaultInstance());
         // 设置掉落
         List<ItemAndRate> list = getDropList();
         MobSpawn.dropList.put(MobSpawn.getMobOriginName(stray), list);

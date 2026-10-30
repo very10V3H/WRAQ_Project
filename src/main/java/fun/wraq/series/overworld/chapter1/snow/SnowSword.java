@@ -60,9 +60,6 @@ public class SnowSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         ModNetworking.sendToClient(new UtilsSnowSwordS2CPacket(true), (ServerPlayer) player);
         player.getCooldowns().addCooldown(ModItems.SNOW_SWORD_0.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
-        player.getCooldowns().addCooldown(ModItems.SNOW_SWORD_1.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
-        player.getCooldowns().addCooldown(ModItems.SNOW_SWORD_2.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
-        player.getCooldowns().addCooldown(ModItems.SNOW_SWORD_3.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
         player.getCooldowns().addCooldown(ModItems.SNOW_SWORD_4.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
     }
 

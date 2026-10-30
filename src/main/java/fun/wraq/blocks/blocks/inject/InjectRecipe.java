@@ -28,26 +28,6 @@ public class InjectRecipe {
 
     public static void setInjectingRecipeMap() {
 
-        injectingRecipeMap.put(ModItems.MINE_SWORD_0.get(),
-                new InjectingRecipe(ModItems.MINE_RUNE.get(), 1,
-                        ModItems.MINE_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.MINE_SWORD_1.get(),
-                new InjectingRecipe(ModItems.MINE_RUNE.get(), 2,
-                        ModItems.MINE_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.MINE_SWORD_2.get(),
-                new InjectingRecipe(ModItems.MINE_RUNE.get(), 3,
-                        ModItems.MINE_SWORD_3.get()));
-
-        injectingRecipeMap.put(ModItems.SNOW_SWORD_0.get(),
-                new InjectingRecipe(ModItems.SNOW_RUNE.get(), 1,
-                        ModItems.SNOW_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.SNOW_SWORD_1.get(),
-                new InjectingRecipe(ModItems.SNOW_RUNE.get(), 2,
-                        ModItems.SNOW_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.SNOW_SWORD_2.get(),
-                new InjectingRecipe(ModItems.SNOW_RUNE.get(), 3,
-                        ModItems.SNOW_SWORD_3.get()));
-
         injectingRecipeMap.put(ModItems.SEA_SWORD_0.get(),
                 new InjectingRecipe(ModItems.SEA_RUNE.get(), 1,
                         ModItems.SEA_SWORD_1.get()));
@@ -67,36 +47,6 @@ public class InjectRecipe {
         injectingRecipeMap.put(ModItems.HUSK_SWORD_2.get(),
                 new InjectingRecipe(ModItems.HUSK_RUNE.get(), 3,
                         ModItems.HUSK_SWORD_3.get()));
-
-        injectingRecipeMap.put(ModItems.WITHER_SWORD_0.get(),
-                new InjectingRecipe(ModItems.WITHER_RUNE.get(), 1,
-                        ModItems.WITHER_SWORD_1.get()));
-        injectingRecipeMap.put(ModItems.WITHER_SWORD_1.get(),
-                new InjectingRecipe(ModItems.WITHER_RUNE.get(), 2,
-                        ModItems.WITHER_SWORD_2.get()));
-        injectingRecipeMap.put(ModItems.WITHER_SWORD_2.get(),
-                new InjectingRecipe(ModItems.WITHER_RUNE.get(), 3,
-                        ModItems.WITHER_SWORD_3.get()));
-
-        injectingRecipeMap.put(ModItems.WITHER_BOW_0.get(),
-                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 1,
-                        ModItems.WITHER_BOW_1.get()));
-        injectingRecipeMap.put(ModItems.WITHER_BOW_1.get(),
-                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 2,
-                        ModItems.WITHER_BOW_2.get()));
-        injectingRecipeMap.put(ModItems.WITHER_BOW_2.get(),
-                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 3,
-                        ModItems.WITHER_BOW_3.get()));
-
-        injectingRecipeMap.put(ModItems.MAGMA_SCEPTRE_0.get(),
-                new InjectingRecipe(ModItems.MAGMA_RUNE.get(), 1,
-                        ModItems.MAGMA_SCEPTRE_1.get()));
-        injectingRecipeMap.put(ModItems.MAGMA_SCEPTRE_1.get(),
-                new InjectingRecipe(ModItems.MAGMA_RUNE.get(), 2,
-                        ModItems.MAGMA_SCEPTRE_2.get()));
-        injectingRecipeMap.put(ModItems.MAGMA_SCEPTRE_2.get(),
-                new InjectingRecipe(ModItems.MAGMA_RUNE.get(), 3,
-                        ModItems.MAGMA_SCEPTRE_3.get()));
 
         injectingRecipeMap.put(ModItems.PIGLIN_HELMET_0.get(),
                 new InjectingRecipe(ModItems.PIGLIN_RUNE.get(), 1,
@@ -185,7 +135,7 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.INTENSIFIED_NETHER_SOUL.get(), 1,
                         ModItems.MANA_SWORD_1.get()));
 
-        injectingRecipeMap.put(ModItems.SNOW_SWORD_3.get(),
+        injectingRecipeMap.put(ModItems.SNOW_SWORD_0.get(),
                 new InjectingRecipe(ModItems.INTENSIFIED_SNOW_SOUL.get(), 1,
                         ModItems.SNOW_SWORD_4.get()));
 
@@ -197,7 +147,7 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.INTENSIFIED_VOLCANO_SOUL.get(), 1,
                         ModItems.VOLCANO_SWORD_4.get()));
 
-        injectingRecipeMap.put(ModItems.MINE_SWORD_3.get(),
+        injectingRecipeMap.put(ModItems.MINE_SWORD_0.get(),
                 new InjectingRecipe(ModItems.SNOW_RUNE.get(), 1,
                         ModItems.SNOW_SWORD_0.get()));
 
@@ -257,16 +207,6 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.QUARTZ_RUNE.get(), 1,
                         ModItems.NETHER_BOW.get()));
 
-        injectingRecipeMap.put(ModItems.MINE_BOW_0.get(),
-                new InjectingRecipe(ModItems.MINE_RUNE.get(), 1,
-                        ModItems.MINE_BOW_1.get()));
-        injectingRecipeMap.put(ModItems.MINE_BOW_1.get(),
-                new InjectingRecipe(ModItems.MINE_RUNE.get(), 2,
-                        ModItems.MINE_BOW_2.get()));
-        injectingRecipeMap.put(ModItems.MINE_BOW_2.get(),
-                new InjectingRecipe(ModItems.MINE_RUNE.get(), 3,
-                        ModItems.MINE_BOW_3.get()));
-
         injectingRecipeMap.put(ModItems.LIFE_MANA_HELMET.get(),
                 new InjectingRecipe(ModItems.NATURAL_CORE.get(), 3,
                         ModItems.LIFE_MANA_HELMET_E.get()));
@@ -299,7 +239,7 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.ORE_RUNE.get(), 3,
                         ModItems.OBSI_MANA_BOOTS_E.get()));
 
-        injectingRecipeMap.put(ModItems.EVOKER_BOOK_3.get(),
+        injectingRecipeMap.put(ModItems.EVOKER_BOOK_0.get(),
                 new InjectingRecipe(ModItems.ICE_HEART.get(), 2,
                         ModItems.ICE_BOOK.get()));
 
@@ -675,18 +615,6 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.LIGHTNING_ELEMENT_PIECE_2.get(), 3,
                         ModItems.LIGHTNING_CRYSTAL_3.get()));
 
-        injectingRecipeMap.put(ModItems.EVOKER_SWORD.get(),
-                new InjectingRecipe(ModItems.EVOKER_RUNE.get(), 4,
-                        ModItems.EVOKER_SWORD_1.get()));
-
-        injectingRecipeMap.put(ModItems.EVOKER_SWORD_1.get(),
-                new InjectingRecipe(ModItems.EVOKER_RUNE.get(), 6,
-                        ModItems.EVOKER_SWORD_2.get()));
-
-        injectingRecipeMap.put(ModItems.EVOKER_SWORD_2.get(),
-                new InjectingRecipe(ModItems.EVOKER_RUNE.get(), 8,
-                        ModItems.EVOKER_SWORD_3.get()));
-
         injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_0.get(),
                 new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_1.get()));
         injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_1.get(),
@@ -739,13 +667,6 @@ public class InjectRecipe {
                 new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_3.get()));
         injectingRecipeMap.put(PickaxeItems.NETHERITE_PICKAXE_3.get(),
                 new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_4.get()));
-
-        injectingRecipeMap.put(ModItems.BAMBOO_KANATA.get(),
-                new InjectingRecipe(ModItems.SKY_RUNE.get(), 4, ModItems.SKY_KANATA.get()));
-        injectingRecipeMap.put(ModItems.SKY_KANATA.get(),
-                new InjectingRecipe(ModItems.NETHER_RUNE.get(), 2, ModItems.NETHER_KANATA.get()));
-        injectingRecipeMap.put(ModItems.NETHER_KANATA.get(),
-                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 1, ModItems.SAKURA_KANATA.get()));
 
         injectingRecipeMap.put(CitadelItems.CITADEL_CURIO_0.get(),
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 1, CitadelItems.CITADEL_CURIO_1.get()));

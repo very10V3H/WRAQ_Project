@@ -69,9 +69,6 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
     public void active(Player player) {
         int tickCount = Tick.get();
         player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_0.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-        player.getCooldowns().addCooldown(ModItems.WITHER_SWORD_3.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
         BuffSystem.sendEffectLastTime(player, ModItems.WITHER_SWORD_0.get().getDefaultInstance(), 240);
         if (player.getHealth() <= player.getMaxHealth() * 0.3f) {
             player.kill();

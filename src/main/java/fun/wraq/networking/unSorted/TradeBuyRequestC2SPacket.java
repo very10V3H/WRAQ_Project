@@ -156,18 +156,6 @@ public class TradeBuyRequestC2SPacket {
                 if (product.is(TradeList.netheriteBackPack)) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.BACKPACK);
                 }
-                if (product.is(ModItems.FOREST_MANA_BOOK.get())) {
-                    Guide.trigV2(serverPlayer, Guide.StageV2.FOREST_EQUIP);
-                }
-                if (product.is(ModItems.LAKE_MANA_BOOK.get())) {
-                    Guide.trigV2(serverPlayer, Guide.StageV2.LAKE_EQUIP);
-                }
-                if (product.is(ModItems.MINE_MANA_NOTE.get())) {
-                    Guide.trigV2(serverPlayer, Guide.StageV2.MINE_EQUIP);
-                }
-                if (product.is(ModItems.VOLCANO_MANA_BOOK.get())) {
-                    Guide.trigV2(serverPlayer, Guide.StageV2.VOLCANO_EQUIP);
-                }
                 if (product.is(ModItems.EVOKER_SWORD.get())) {
                     Guide.trigV2(serverPlayer, Guide.StageV2.ENHANCE_EQUIP);
                 }

@@ -161,7 +161,6 @@ public class WindSword extends WraqSword implements ActiveItem, ForgeItem {
     public List<ItemStack> forgeRecipe() {
         if (tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.SAKURA_KANATA.get()),
                     new ItemStack(WindItems.WIND_CRYSTAL_0.get(), 10),
                     new ItemStack(WindItems.WIND_RUNE.get(), 10)
             );

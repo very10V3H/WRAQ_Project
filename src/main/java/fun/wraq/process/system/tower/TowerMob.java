@@ -122,7 +122,7 @@ public class TowerMob {
             skeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MOB_ARMOR_STONE_ELEMENT_CHEST.get().getDefaultInstance());
             skeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MOB_ARMOR_STONE_ELEMENT_LEGGINGS.get().getDefaultInstance());
             skeleton.setItemSlot(EquipmentSlot.FEET, ModItems.MOB_ARMOR_STONE_ELEMENT_BOOTS.get().getDefaultInstance());
-            skeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MINE_SWORD_3.get().getDefaultInstance());
+            skeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MINE_SWORD_0.get().getDefaultInstance());
 
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), 160);
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 2000, 150, 150,

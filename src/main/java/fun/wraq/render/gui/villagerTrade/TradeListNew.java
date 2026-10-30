@@ -135,8 +135,6 @@ public class TradeListNew {
                                 List.of(Is.n(NewC1Items.GRAY_SLIME_BALL, 30), Is.n(COPPER_COIN, 800))),
                         Pair.of(Is.n(NewAreaItems.STONE_SPIDER_KNIFE_0),
                                 List.of(Is.n(NewC1Items.GRAY_SLIME_BALL, 30), Is.n(COPPER_COIN, 800))),
-                        Pair.of(Is.n(MINE_MANA_NOTE),
-                                List.of(Is.n(NewC1Items.GRAY_SLIME_BALL, 30), Is.n(COPPER_COIN, 800))),
                         Pair.of(Is.n(COPPER_HAMMER),
                                 List.of(Is.n(COPPER_COIN, 100)))
                 ));

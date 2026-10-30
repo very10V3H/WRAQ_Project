@@ -13,9 +13,6 @@ public class ModItemProperties {
         MakeBow(fun.wraq.common.registry.ModItems.NETHER_BOW.get());
         MakeBow(fun.wraq.common.registry.ModItems.SKY_BOSS_BOW.get());
         MakeBow(fun.wraq.common.registry.ModItems.WITHER_BOW_0.get());
-        MakeBow(fun.wraq.common.registry.ModItems.WITHER_BOW_1.get());
-        MakeBow(fun.wraq.common.registry.ModItems.WITHER_BOW_2.get());
-        MakeBow(ModItems.WITHER_BOW_3.get());
     }
 
     private static void MakeBow(Item item) {

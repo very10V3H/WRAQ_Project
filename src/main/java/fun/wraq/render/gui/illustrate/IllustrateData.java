@@ -242,7 +242,7 @@ public final class IllustrateData {
     /**
      * 名称后缀家族：按注册名最后一段（去掉结尾数字）分组，在同一组内寻找
      * “各成员名称共有的后缀”，且每个成员名称去掉该后缀后的部分长度为 2~3（即地域/属性等短前缀）。
-     * <p>例如：bamboo_kanata/sky_kanata… -> 行军刀；life_crystal0/water_crystal0… -> 元素水晶。
+     * <p>例如：life_crystal0/water_crystal0… -> 元素水晶。
      */
     private static Map<Item, String> computeFamilyKeys(List<Item> items) {
         Map<String, List<Item>> tokenGroups = new LinkedHashMap<>();
