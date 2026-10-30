@@ -75,11 +75,12 @@ public class SearedSpiritSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.VOLCANO_SOUL.get(), 1.5));
+            add(new ItemAndRate(ModItems.VOLCANO_SOUL.get(), 0.15));
             add(new ItemAndRate(ModItems.SILVER_COIN.get(), 0.375));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.2));
             add(new ItemAndRate(NewRuneItems.VOLCANO_NEW_RUNE.get(), 0.001));
+            add(ItemAndRate.ofExp(3));
         }};
     }
 

@@ -2105,13 +2105,13 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("火山村工具制作师", "volcanoTool", CustomStyle.styleOfVolcano, VillagerType.DESERT,
                 VillagerProfession.TOOLSMITH, contentList);
         tradeRecipeMap.put(volcanoRune,
-                List.of(new ItemStack(ModItems.VOLCANO_SOUL.get(), 64),
+                List.of(new ItemStack(ModItems.VOLCANO_SOUL.get(), 10),
                         new ItemStack(ModItems.GOLD_COIN.get(), 2),
                         new ItemStack(ModItems.GEM_PIECE.get(), 1)));
         tradeRecipeMap.put(coal,
-                List.of(new ItemStack(ModItems.VOLCANO_SOUL.get(), 8)));
+                List.of(new ItemStack(ModItems.VOLCANO_SOUL.get(), 1)));
         tradeRecipeMap.put(silverCoin,
-                List.of(new ItemStack(ModItems.VOLCANO_SOUL.get(), 64)));
+                List.of(new ItemStack(ModItems.VOLCANO_SOUL.get(), 6)));
     }
 
     public static void snowForgeHammer() {

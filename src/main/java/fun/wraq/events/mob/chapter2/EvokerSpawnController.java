@@ -41,7 +41,7 @@ public class EvokerSpawnController extends MobSpawnController {
                     new Vec3(1473, 69, -318),
                     new Vec3(1433, 69, -309)
             );
-            instance = new EvokerSpawnController(spawnPos, 1649, -137, 1374, -381, world, 1, 56);
+            instance = new EvokerSpawnController(spawnPos, 1649, -137, 1374, -381, world, 1, 25);
         }
         return instance;
     }
@@ -85,6 +85,7 @@ public class EvokerSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.LIFE_ELEMENT_PIECE_0.get(), 0.2));
             add(new ItemAndRate(NewRuneItems.EVOKER_NEW_RUNE.get(), 0.001));
+            add(ItemAndRate.ofExp(3));
         }};
     }
 

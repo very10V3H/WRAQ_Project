@@ -38,7 +38,7 @@ public class FireLightSpawnController extends MobSpawnController {
                     new Vec3(1276, 75, 42),
                     new Vec3(1284, 76, 25)
             );
-            instance = new FireLightSpawnController(spawnPos, 1313, 126, 1243, -8, world, 40);
+            instance = new FireLightSpawnController(spawnPos, 1313, 126, 1243, -8, world, 20);
         }
         return instance;
     }
@@ -51,7 +51,7 @@ public class FireLightSpawnController extends MobSpawnController {
 
     @Override
     public MobAttributes getMobAttributes() {
-        return new MobAttributes(150, 30, 30, 0.3, 2, 0.1, 3, 10, 2250, 0.3);
+        return new MobAttributes(150, 30, 30, 0.3, 2, 0.1, 3, 10, 1500, 0.3);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class FireLightSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.VOLCANO_SOUL.get(), 1.2));
+            add(new ItemAndRate(ModItems.VOLCANO_SOUL.get(), 0.12));
             add(new ItemAndRate(ModItems.COPPER_COIN.get(), 3));
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.FIRE_ELEMENT_PIECE_0.get(), 0.2));

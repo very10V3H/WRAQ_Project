@@ -153,7 +153,7 @@ public class PlainInstance extends NoTeamInstance {
 
     private void spawnBabyZombie(Level level, Vec3 pos) {
         ZombieVillager babyZombie = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, level);
-        MobSpawn.setMobCustomName(babyZombie, Te.s("普莱尼信徒"), 32);
+        MobSpawn.setMobCustomName(babyZombie, Te.s("普莱尼信徒"), 5);
         babyZombie.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LIBRARIAN, 0));
         babyZombie.setBaby(true);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(babyZombie, 100, 40, 40, 0.2,
@@ -180,12 +180,12 @@ public class PlainInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return player.experienceLevel >= 10;
+        return player.experienceLevel >= 5;
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Te.s("需要达到", Utils.getLevelDescription(10), "才能获取奖励");
+        return Te.s("需要达到", Utils.getLevelDescription(5), "才能获取奖励");
     }
 
     public List<ItemAndRate> getRewardList() {
@@ -197,7 +197,9 @@ public class PlainInstance extends NoTeamInstance {
                 new ItemAndRate(ModItems.PLAIN_HEALTH_RING_0.get(), 0.1),
                 new ItemAndRate(ModItems.PLAIN_DEFENCE_RING_0.get(), 0.1),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1));
+                new ItemAndRate(ModItems.GOLD_COIN_BAG.get(), 0.1),
+                ItemAndRate.ofExp(10)
+        );
     }
 
     @Override
