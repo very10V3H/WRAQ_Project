@@ -35,8 +35,8 @@ public class AllCurrencyC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             int copper = collect(player, ModItems.COPPER_COIN.get(), 1);
-            int silver = collect(player, ModItems.SILVER_COIN.get(), 12);
-            int gold = collect(player, ModItems.GOLD_COIN.get(), 144);
+            int silver = collect(player, ModItems.SILVER_COIN.get(), 10);
+            int gold = collect(player, ModItems.GOLD_COIN.get(), 100);
 
             if (sendMSG) {
                 Compute.sendFormatMSG(player, Component.literal("货币").withStyle(ChatFormatting.GOLD),
@@ -46,10 +46,10 @@ public class AllCurrencyC2SPacket {
                         append(Component.literal(" " + copper + "枚" + " (" + copper + ")").withStyle(ChatFormatting.WHITE)));
                 player.sendSystemMessage(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                         append(ModItems.SILVER_COIN.get().getDefaultInstance().getDisplayName()).
-                        append(Component.literal(" " + silver + "枚" + " (" + silver * 12 + ")").withStyle(ChatFormatting.WHITE)));
+                        append(Component.literal(" " + silver + "枚" + " (" + silver * 10 + ")").withStyle(ChatFormatting.WHITE)));
                 player.sendSystemMessage(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                         append(ModItems.GOLD_COIN.get().getDefaultInstance().getDisplayName()).
-                        append(Component.literal(" " + gold + "枚" + " (" + gold * 144 + ")").withStyle(ChatFormatting.WHITE)));
+                        append(Component.literal(" " + gold + "枚" + " (" + gold * 100 + ")").withStyle(ChatFormatting.WHITE)));
             }
 
         });

@@ -43,7 +43,7 @@ public class GoldCoinC2SPacket {
                     int GoldCoinNum = InventoryOperation.itemStackCount(inventory, ModItems.GOLD_COIN.get());
                     if (GoldCoinNum > 0) {
                         InventoryOperation.itemStackRemoveIgnoreVB(inventory, ModItems.GOLD_COIN.get(), GoldCoinNum);
-                        Compute.VBIncomeAndMSGSend(player, GoldCoinNum * 144);
+                        Compute.VBIncomeAndMSGSend(player, GoldCoinNum * 100);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("背包内似乎没有金币用于兑换。").withStyle(ChatFormatting.WHITE));
@@ -52,7 +52,7 @@ public class GoldCoinC2SPacket {
 
                 // 从账户中支取1枚金币
                 case 1 -> {
-                    int vbValue = 144;
+                    int vbValue = 100;
                     int count = 1;
                     if (data.contains("VB") && data.getDouble("VB") >= vbValue * count) {
                         Compute.VBExpenseAndMSGSend(player, vbValue * count);
@@ -67,7 +67,7 @@ public class GoldCoinC2SPacket {
 
                 // 从账户中支取10枚金币
                 case 2 -> {
-                    int vbValue = 144;
+                    int vbValue = 100;
                     int count = 10;
                     if (data.contains("VB") && data.getDouble("VB") >= vbValue * count) {
                         Compute.VBExpenseAndMSGSend(player, vbValue * count);
@@ -80,19 +80,19 @@ public class GoldCoinC2SPacket {
                     }
                 }
 
-                // 使用64枚铜币兑换1枚金币
+                // 使用100枚铜币兑换1枚金币
                 case 3 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.COPPER_COIN.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.COPPER_COIN.get(), 100), new ItemStack(ModItems.GOLD_COIN.get()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
 
-                // 使用8枚银币兑换一枚金币
+                // 使用10枚银币兑换一枚金币
                 case 4 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.SILVER_COIN.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.SILVER_COIN.get(), 10), new ItemStack(ModItems.GOLD_COIN.get()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

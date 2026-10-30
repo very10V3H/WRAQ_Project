@@ -83,12 +83,12 @@ public class TradeScreen extends WraqScreen {
                 int finalI = i;
                 this.addRenderableWidget(Button.builder(Component.translatable("兑换"), (p_280814_) -> {
                     switch (finalI) {
-                        case 0 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(4)); // 1金换8银
-                        case 1 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(4)); // 1金换64铜
-                        case 2 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(4)); // 8银换1金
-                        case 3 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(3)); // 1银换8铜
-                        case 4 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(3)); // 64铜换1金
-                        case 5 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(3)); // 8铜换1银
+                        case 0 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(4)); // 1金换10银
+                        case 1 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(4)); // 1金换100铜
+                        case 2 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(4)); // 10银换1金
+                        case 3 -> ModNetworking.sendToServer(new CopperCoinC2SPacket(3)); // 1银换10铜
+                        case 4 -> ModNetworking.sendToServer(new GoldCoinC2SPacket(3)); // 100铜换1金
+                        case 5 -> ModNetworking.sendToServer(new SilverCoinC2SPacket(3)); // 10铜换1银
                         case 6 -> ModNetworking.sendToServer(new GemPieceC2SPacket()); // 8铜换1银
                     }
                 }).pos(this.width / 2 + 256, this.height / 2 - 78 + 24 * i).size(24, 16).build());
@@ -149,12 +149,12 @@ public class TradeScreen extends WraqScreen {
 
         if (!isWeeklyStore) {
             List<ItemStack> coinList = List.of(
-                    new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.SILVER_COIN.get(), 12),
-                    new ItemStack(ModItems.GOLD_COIN.get()), new ItemStack(ModItems.COPPER_COIN.get(), 144),
-                    new ItemStack(ModItems.SILVER_COIN.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()),
-                    new ItemStack(ModItems.SILVER_COIN.get()), new ItemStack(ModItems.COPPER_COIN.get(), 12),
-                    new ItemStack(ModItems.COPPER_COIN.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()),
-                    new ItemStack(ModItems.COPPER_COIN.get(), 12), new ItemStack(ModItems.SILVER_COIN.get()),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.SILVER_COIN.get(), 10),
+                    new ItemStack(ModItems.GOLD_COIN.get()), new ItemStack(ModItems.COPPER_COIN.get(), 100),
+                    new ItemStack(ModItems.SILVER_COIN.get(), 10), new ItemStack(ModItems.GOLD_COIN.get()),
+                    new ItemStack(ModItems.SILVER_COIN.get()), new ItemStack(ModItems.COPPER_COIN.get(), 10),
+                    new ItemStack(ModItems.COPPER_COIN.get(), 100), new ItemStack(ModItems.GOLD_COIN.get()),
+                    new ItemStack(ModItems.COPPER_COIN.get(), 10), new ItemStack(ModItems.SILVER_COIN.get()),
                     new ItemStack(ModItems.GEM_PIECE.get(), 64), new ItemStack(ModItems.COMPLETE_GEM.get()));
             for (int i = 0; i < coinList.size(); i++) {
                 ItemStack coin = coinList.get(i);

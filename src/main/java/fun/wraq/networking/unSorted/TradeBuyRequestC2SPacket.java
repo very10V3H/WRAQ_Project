@@ -194,16 +194,16 @@ public class TradeBuyRequestC2SPacket {
 
     public static int playerInventoryCurrencyVBCount(Player player) {
         return InventoryOperation.itemStackCount(player, ModItems.COPPER_COIN.get()) +
-                InventoryOperation.itemStackCount(player, ModItems.SILVER_COIN.get()) * 12 +
-                InventoryOperation.itemStackCount(player, ModItems.GOLD_COIN.get()) * 144;
+                InventoryOperation.itemStackCount(player, ModItems.SILVER_COIN.get()) * 10 +
+                InventoryOperation.itemStackCount(player, ModItems.GOLD_COIN.get()) * 100;
     }
 
     public static int requireItemListVBCount(List<ItemStack> requireItemList) {
         int count = 0;
         for (ItemStack itemStack : requireItemList) {
             if (itemStack.is(ModItems.COPPER_COIN.get())) count += itemStack.getCount();
-            if (itemStack.is(ModItems.SILVER_COIN.get())) count += itemStack.getCount() * 12;
-            if (itemStack.is(ModItems.GOLD_COIN.get())) count += itemStack.getCount() * 144;
+            if (itemStack.is(ModItems.SILVER_COIN.get())) count += itemStack.getCount() * 10;
+            if (itemStack.is(ModItems.GOLD_COIN.get())) count += itemStack.getCount() * 100;
         }
         return count;
     }
@@ -218,11 +218,11 @@ public class TradeBuyRequestC2SPacket {
                 itemStack.setCount(0);
             }
             if (itemStack.is(ModItems.SILVER_COIN.get())) {
-                income += itemStack.getCount() * 12;
+                income += itemStack.getCount() * 10;
                 itemStack.setCount(0);
             }
             if (itemStack.is(ModItems.GOLD_COIN.get())) {
-                income += itemStack.getCount() * 144;
+                income += itemStack.getCount() * 100;
                 itemStack.setCount(0);
             }
         }

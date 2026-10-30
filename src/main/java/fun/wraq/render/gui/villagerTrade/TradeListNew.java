@@ -177,14 +177,14 @@ public class TradeListNew {
 
     public static List<ItemStack> getCoinList(int vb) {
         List<ItemStack> stacks = new ArrayList<>();
-        if (vb / 144 > 0) {
-            stacks.add(new ItemStack(ModItems.GOLD_COIN.get(), vb / 144));
+        if (vb / 100 > 0) {
+            stacks.add(new ItemStack(ModItems.GOLD_COIN.get(), vb / 100));
         }
-        if (vb % 144 / 12 > 0) {
-            stacks.add(new ItemStack(ModItems.SILVER_COIN.get(), vb % 144 / 12));
+        if (vb % 100 / 10 > 0) {
+            stacks.add(new ItemStack(ModItems.SILVER_COIN.get(), vb % 100 / 10));
         }
-        if (vb % 12 > 0) {
-            stacks.add(new ItemStack(COPPER_COIN.get(), vb % 12));
+        if (vb % 10 > 0) {
+            stacks.add(new ItemStack(COPPER_COIN.get(), vb % 10));
         }
         return stacks;
     }
@@ -262,7 +262,7 @@ public class TradeListNew {
             int value = CookingValue.getIngredientValue(stack.getItem());
             if (value == 0) {
                 if (stack.is(CRItems.TIGER_PRAWN.get())) {
-                    value = 144;
+                    value = 100;
                 }
             }
             TradeList.tradeRecipeMap.put(stack, getCoinList(value * 16));

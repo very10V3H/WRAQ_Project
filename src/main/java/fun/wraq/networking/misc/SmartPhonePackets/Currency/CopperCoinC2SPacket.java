@@ -65,7 +65,7 @@ public class CopperCoinC2SPacket {
                     }
                 }
 
-                // 从账户获取64枚银币
+                // 从账户获取64枚铜币
                 case 2 -> {
                     int vbValue = 1;
                     int count = 64;
@@ -80,19 +80,19 @@ public class CopperCoinC2SPacket {
                     }
                 }
 
-                // 从背包中使用1枚银币兑换16枚铜币
+                // 从背包中使用1枚银币兑换10枚铜币
                 case 3 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.SILVER_COIN.get(), 1), new ItemStack(ModItems.COPPER_COIN.get(), 12));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.SILVER_COIN.get(), 1), new ItemStack(ModItems.COPPER_COIN.get(), 10));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
 
-                // 从背包中使用1枚金币兑换256枚铜币
+                // 从背包中使用1枚金币兑换100枚铜币
                 case 4 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.COPPER_COIN.get(), 144));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.COPPER_COIN.get(), 100));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

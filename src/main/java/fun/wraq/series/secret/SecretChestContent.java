@@ -60,7 +60,7 @@ public class SecretChestContent {
 
     private static void addCommon() {
         valueMap.put(COMPLETE_GEM.get(), 50000);
-        valueMap.put(GOLD_COIN.get(), 144);
+        valueMap.put(GOLD_COIN.get(), 100);
         valueMap.put(ExtraordinaryItems.DAZZLING_DIAMOND.get(), 880000);
         valueMap.put(SpecialEventItems.DRAGON_DIAMOND.get(), 880000);
         valueMap.put(WORLD_FORGE_STONE.get(), 200000);

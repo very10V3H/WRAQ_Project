@@ -3,7 +3,6 @@ package fun.wraq.common.registry;
 import fun.wraq.blocks.blocks.brew.*;
 import fun.wraq.blocks.blocks.brew.solidifiedSouls.*;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
@@ -146,7 +145,6 @@ import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeSceptre;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeSword;
 import fun.wraq.series.overworld.chapter2.blackForest.BlackForestCore;
 import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
-import fun.wraq.series.overworld.chapter2.sky.SkyLineOffhand;
 import fun.wraq.series.overworld.chapter2.dimension.ToEnd;
 import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Empty;
@@ -164,10 +162,7 @@ import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
 import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmor;
 import fun.wraq.series.overworld.chapter2.sky.BossItems.SkyBoss;
 import fun.wraq.series.overworld.chapter2.sky.Crest.SkyCrest;
-import fun.wraq.series.overworld.chapter2.sky.GravityBypassDevice;
-import fun.wraq.series.overworld.chapter2.sky.SkyBow;
-import fun.wraq.series.overworld.chapter2.sky.SkySceptre;
-import fun.wraq.series.overworld.chapter2.sky.SkySword;
+import fun.wraq.series.overworld.chapter2.sky.*;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorBoots;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorChest;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorHelmet;
@@ -227,7 +222,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
                 @Override
                 public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() * 144 + "vb", CustomStyle.styleOfGold));
+                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() * 100 + "vb", CustomStyle.styleOfGold));
                     super.appendHoverText(stack, level, components, flag);
                 }
             });
@@ -236,7 +231,7 @@ public class ModItems {
                 @Override
                 public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
                     components.add(Te.s("等价于: ", CustomStyle.styleOfWorld,
-                            stack.getCount() * 144 * 69 + "vb", CustomStyle.styleOfGold));
+                            stack.getCount() * 100 * 69 + "vb", CustomStyle.styleOfGold));
                     super.appendHoverText(stack, level, components, flag);
                 }
             });
@@ -244,7 +239,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()) {
                 @Override
                 public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() * 12 + "vb", CustomStyle.styleOfGold));
+                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() * 10 + "vb", CustomStyle.styleOfGold));
                     super.appendHoverText(stack, level, components, flag);
                 }
             });
