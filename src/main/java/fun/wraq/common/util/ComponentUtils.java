@@ -193,6 +193,12 @@ public class ComponentUtils {
             return Component.literal(Utils.Emoji.Sword + " " + content + "攻击力").withStyle(ChatFormatting.YELLOW);
         }
 
+        /** 适应之力：物理形态使用 styleOfPower，法术形态使用 styleOfMana。 */
+        public static Component adaptivePower(String content, boolean spell) {
+            return Component.literal((spell ? Utils.Emoji.Mana : Utils.Emoji.Sword) + " " + content + "适应之力")
+                    .withStyle(spell ? CustomStyle.styleOfMana : CustomStyle.styleOfPower);
+        }
+
         public static Component manaPenetration(String content) {
             return Component.literal(Utils.Emoji.Defence + " " + content + "法术穿透").withStyle(ChatFormatting.BLUE);
         }

@@ -16,7 +16,7 @@ public class PlainDefenceRing extends WraqCurios implements Decomposable {
 
     public PlainDefenceRing(Properties p_41383_, int level) {
         super(p_41383_);
-        Utils.defence.put(this, new double[]{2, 3, 4, 5}[level]);
+        Utils.defence.put(this, new double[]{5, 7, 10, 15}[level]);
     }
 
     @Override

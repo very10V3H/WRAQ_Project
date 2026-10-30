@@ -43,6 +43,8 @@ import java.util.*;
 public class Utils {
     public static final String MOD_ID = "vmd";
     public static Map<Item, Double> attackDamage = new HashMap<>();
+    /** 适应之力：持剑/弓时提供物理攻击，持法杖时提供法术攻击。 */
+    public static Map<Item, Double> adaptivePower = new HashMap<>();
     public static Map<Item, Double> xpLevelAttackDamage = new HashMap<>();
     public static Map<Item, Double> percentAttackDamageEnhance = new HashMap<>();
     public static Map<Item, Double> critRate = new HashMap<>();
@@ -287,7 +289,7 @@ public class Utils {
         CoolDownItem.add(ModItems.LAKE_SWORD_0.get());
         CoolDownItem.add(ModItems.VOLCANO_SWORD_0.get());
         CoolDownItem.add(ModItems.VOLCANO_SWORD_4.get());
-        CoolDownItem.add(ModItems.SNOW_SWORD_3.get());
+        CoolDownItem.add(ModItems.SNOW_SWORD_0.get());
         CoolDownItem.add(ModItems.SNOW_SWORD_4.get());
         CoolDownItem.add(ModItems.MANA_SWORD.get());
         CoolDownItem.add(ModItems.MANA_SWORD_1.get());

@@ -52,6 +52,7 @@ import fun.wraq.series.comsumable.passive.quiver.QuiverPenetration;
 import fun.wraq.series.comsumable.passive.quiver.QuiverPenetration0;
 import fun.wraq.series.comsumable.passive.whetstone.WhetstonePenetration;
 import fun.wraq.series.comsumable.passive.whetstone.WhetstonePenetration0;
+import fun.wraq.series.overworld.chapter2.sky.SkyLineOffhand;
 import fun.wraq.series.events.SpecialEventCommon;
 import fun.wraq.series.events._7shade.SevenShadePiece;
 import fun.wraq.series.events.dragonboat.DragonDiamond;
@@ -144,6 +145,9 @@ public class PlayerAttributes {
     public static double getBaseAttackDamage(Player player) {
         double baseAttackDamage = player.experienceLevel;
         baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.attackDamage, true);
+        if (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)) {
+            baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.adaptivePower, true);
+        }
         baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.attackDamage);
         baseAttackDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelAttackDamage, true);
         return baseAttackDamage;
@@ -169,6 +173,9 @@ public class PlayerAttributes {
         }
 
         baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.attackDamage, true);
+        if (SwordAttribute.isHandling(player) || BowAttribute.isHandling(player)) {
+            baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.adaptivePower, true);
+        }
         baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.attackDamage);
 
         // 计算线性等级强度属性数值
@@ -284,6 +291,7 @@ public class PlayerAttributes {
                 StringUtils.RandomAttributes.percentAttackDamage);
         exRate += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.percentAttackDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
+        exRate += SkyLineOffhand.getDynamicBonus(player, Utils.percentAttackDamageEnhance);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.attackDamage);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentAttackDamageModifier);
         exRate += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerAttackDamageEnhance);
@@ -657,6 +665,7 @@ public class PlayerAttributes {
         exDefence += SevenShadePiece.getEnhanceValue(player, Utils.defence);
         // 精通：固定护甲
         exDefence += MasteryBonusCache.stats(player).value(MasteryStat.ARMOR);
+        exDefence += SkyLineOffhand.getDynamicBonus(player, Utils.defence);
 
         // 请在上方添加
         double totalDefence = baseDefence + exDefence;
@@ -789,6 +798,7 @@ public class PlayerAttributes {
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         releaseSpeed += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.coolDownDecrease);
         releaseSpeed += computeAllEquipSlotBaseAttributeValue(player, Utils.coolDownDecrease, false);
+        releaseSpeed += SkyLineOffhand.getDynamicBonus(player, Utils.coolDownDecrease);
 
         releaseSpeed += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.coolDown);
 
@@ -971,6 +981,8 @@ public class PlayerAttributes {
         // 最大生命值百分比生命回复
         healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, false)
                 * player.getMaxHealth();
+        healthRecover += SkyLineOffhand.getDynamicBonus(player, Utils.percentHealthRecover)
+                * player.getMaxHealth();
         healthRecover += StableAttributesModifier.getModifierValue(player,
                 StableAttributesModifier.playerPercentHealthRecoverModifier) * player.getMaxHealth();
         healthRecover += WraqCurios.CuriosAttribute
@@ -1039,6 +1051,9 @@ public class PlayerAttributes {
     public static double getBaseManaDamage(Player player) {
         double baseDamage = 0;
         baseDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDamage, true);
+        if (SceptreAttribute.isHandling(player)) {
+            baseDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.adaptivePower, true);
+        }
         baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.manaDamage);
         baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
         return baseDamage;
@@ -1065,6 +1080,9 @@ public class PlayerAttributes {
         }
 
         baseDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDamage, true);
+        if (SceptreAttribute.isHandling(player)) {
+            baseDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.adaptivePower, true);
+        }
         baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.manaDamage);
         baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
         exDamage += WraqCurios.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDamage,
@@ -1130,6 +1148,7 @@ public class PlayerAttributes {
                         StringUtils.RandomAttributes.percentManaDamageEnhance);
         exRate += WraqPassiveEquip.PassiveEquip.getAttribute(player, Utils.percentManaDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDamageEnhance, false);
+        exRate += SkyLineOffhand.getDynamicBonus(player, Utils.percentManaDamageEnhance);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDamage);
         exRate += StableAttributesModifier
                 .getModifierValue(player, StableAttributesModifier.playerPercentManaDamageModifier);
@@ -1189,6 +1208,7 @@ public class PlayerAttributes {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
         manaRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.manaRecover, false);
+        manaRecover += SkyLineOffhand.getDynamicBonus(player, Utils.manaRecover);
         manaRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttributes.manaRecover);
         manaRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.manaRecover);
 
@@ -1272,6 +1292,7 @@ public class PlayerAttributes {
         exDefence += SevenShadePiece.getEnhanceValue(player, Utils.manaDefence);
         // 精通：固定魔抗
         exDefence += MasteryBonusCache.stats(player).value(MasteryStat.MAGIC_RESIST);
+        exDefence += SkyLineOffhand.getDynamicBonus(player, Utils.manaDefence);
 
         // 请在上方添加
         double totalDefence = baseDefence + exDefence;

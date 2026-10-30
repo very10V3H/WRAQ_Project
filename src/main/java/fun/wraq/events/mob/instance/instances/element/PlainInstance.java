@@ -227,6 +227,6 @@ public class PlainInstance extends NoTeamInstance {
 
     @Override
     public int getRewardNeedItemCount() {
-        return 5;
+        return 1;
     }
 }

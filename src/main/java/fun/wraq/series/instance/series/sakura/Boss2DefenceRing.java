@@ -14,7 +14,7 @@ public class Boss2DefenceRing extends WraqCurios {
 
     public Boss2DefenceRing(Properties properties, int tier) {
         super(properties);
-        Utils.defence.put(this, new double[]{7, 8, 9, 10}[tier]);
+        Utils.defence.put(this, new double[]{20, 25, 30, 40}[tier]);
         Utils.percentDefenceEnhance.put(this, new double[]{0.01, 0.015, 0.02, 0.025}[tier]);
         Utils.levelRequire.put(this, 150);
     }

@@ -163,6 +163,24 @@ public class BasicAttributeDescription {
                 "魔法攻击", CustomStyle.styleOfMana, 1, true,
                 itemStack, false, null, event.getTooltipElements());
 
+        if (Utils.adaptivePower.containsKey(item)) {
+            double adaptivePower = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.adaptivePower);
+            if (adaptivePower != 0) {
+                boolean spell = SceptreAttribute.isHandling(localPlayer);
+                boolean swordOrBow = SwordAttribute.isHandling(localPlayer)
+                        || BowAttribute.isHandling(localPlayer);
+                Style style = spell ? CustomStyle.styleOfMana
+                        : swordOrBow ? CustomStyle.styleOfPower : CustomStyle.styleOfSea;
+                String value = (adaptivePower > 0 ? "+" : "") + getDecimal(adaptivePower, 1);
+                MutableComponent component = Component.literal("适应之力 ").withStyle(style)
+                        .append(Component.literal(value).withStyle(style));
+                index++;
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(component,
+                        spell ? TraditionalTooltip.manaDamage
+                                : swordOrBow ? TraditionalTooltip.attackDamage : TraditionalTooltip.element)));
+            }
+        }
+
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackSpeed, Utils.attackSpeedEnhance,
                 StringUtils.RandomAttributes.attackSpeedEnhance,
                 "攻击速度", CustomStyle.styleOfFlexible, 0, true,
