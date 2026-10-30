@@ -8,6 +8,9 @@ import fun.wraq.events.mob.instance.InstanceMechanicHintS2CPacket;
 import fun.wraq.events.mob.instance.instances.tower.network.ManaTowerS2CPacket;
 import fun.wraq.items.dev.rail.RailwayPillarSetToolModeC2SPacket;
 import fun.wraq.items.m.NearestSpawnPointS2CPacket;
+import fun.wraq.process.system.achievement.networking.AchievementClaimC2SPacket;
+import fun.wraq.process.system.achievement.networking.AchievementDataS2CPacket;
+import fun.wraq.render.gui.villagerTrade.networking.TradeDataSyncS2CPacket;
 import fun.wraq.networking.afk.AfkDataS2CPacket;
 import fun.wraq.networking.afk.AfkOperationC2SPacket;
 import fun.wraq.networking.bowAndSceptreActive.CommonActiveC2SPacket;
@@ -1630,6 +1633,26 @@ public class ModNetworking {
                 .consumerMainThread(InstanceMechanicHintS2CPacket::handle)
                 .add();
         V2_PACKAGE_CLASS.add(InstanceMechanicHintS2CPacket.class);
+        // AI-Generated, 2026-10-30 运行时 NPC 交易数据同步
+        netV2.messageBuilder(TradeDataSyncS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(TradeDataSyncS2CPacket::new)
+                .encoder(TradeDataSyncS2CPacket::toBytes)
+                .consumerMainThread(TradeDataSyncS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(TradeDataSyncS2CPacket.class);
+        // AI-Generated, 2026-10-30 成就数据同步 / 奖励领取
+        netV2.messageBuilder(AchievementDataS2CPacket.class, idV2(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(AchievementDataS2CPacket::new)
+                .encoder(AchievementDataS2CPacket::toBytes)
+                .consumerMainThread(AchievementDataS2CPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(AchievementDataS2CPacket.class);
+        netV2.messageBuilder(AchievementClaimC2SPacket.class, idV2(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(AchievementClaimC2SPacket::new)
+                .encoder(AchievementClaimC2SPacket::toBytes)
+                .consumerMainThread(AchievementClaimC2SPacket::handle)
+                .add();
+        V2_PACKAGE_CLASS.add(AchievementClaimC2SPacket.class);
     }
 
     @SuppressWarnings("unchecked")

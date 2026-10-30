@@ -46,6 +46,8 @@ public class CommandHandler {
         MobAttributeCommand.register(event.getDispatcher());
         // AI-Generated, 2026-10-27 /vmd itemattr 运行时装备属性表调整
         ItemAttributeCommand.register(event.getDispatcher());
+        // AI-Generated, 2026-10-30 /vmd trade 运行时 NPC 交易内容与配方调整
+        TradeCommand.register(event.getDispatcher());
         event.getDispatcher().register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("info")
