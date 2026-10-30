@@ -60,6 +60,7 @@ import fun.wraq.render.gui.blocks.ForgingBlockScreen;
 import fun.wraq.render.gui.blocks.FurnaceScreen;
 import fun.wraq.render.gui.blocks.InjectBlockScreen;
 import fun.wraq.render.gui.illustrate.Display;
+import fun.wraq.series.overworld.chapter2.sky.SkyLineScreen;
 import fun.wraq.render.gui.testAndHelper.ModMenuTypes;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
@@ -261,6 +262,7 @@ public class VMD {
         MenuScreens.register(ModMenuTypes.INJECT_BLOCK_MENU.get(), InjectBlockScreen::new);
         MenuScreens.register(ModMenuTypes.Furnace_Menu.get(), FurnaceScreen::new);
         MenuScreens.register(ModMenuTypes.PET_MENU.get(), PetScreen::new);
+        MenuScreens.register(ModMenuTypes.SKY_LINE_MENU.get(), SkyLineScreen::new);
         MenuScreens.register(BackpackMenuTypes.BACKPACK_MENU.get(), BackpackScreen::new);
 
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(

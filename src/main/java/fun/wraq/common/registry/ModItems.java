@@ -146,6 +146,7 @@ import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeSceptre;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeSword;
 import fun.wraq.series.overworld.chapter2.blackForest.BlackForestCore;
 import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
+import fun.wraq.series.overworld.chapter2.sky.SkyLineOffhand;
 import fun.wraq.series.overworld.chapter2.dimension.ToEnd;
 import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Empty;
@@ -1039,6 +1040,9 @@ public class ModItems {
             () -> new LakeBoss.LakeBossSword(ItemTier.VMaterial, 2, 0));
     public static final RegistryObject<Item> SKY_BOSS_BOW = ITEMS.register("sky_boss_bow",
             () -> new SkyBoss.SkyBossBow(new Item.Properties().rarity(CustomStyle.EntropyItalic).stacksTo(1)));
+
+    public static final RegistryObject<Item> SKY_LINE = ITEMS.register("skyline",
+            () -> new SkyLineOffhand(new Item.Properties().rarity(CustomStyle.SkyBold).stacksTo(1)));
 
     public static final RegistryObject<Item> NETHER_HELMET = ITEMS.register("netherarmorhelmet",
             () -> new NetherArmor(ModArmorMaterials.NetherAll, ArmorItem.Type.HELMET,

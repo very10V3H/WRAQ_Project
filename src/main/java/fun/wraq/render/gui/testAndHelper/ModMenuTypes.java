@@ -2,6 +2,7 @@ package fun.wraq.render.gui.testAndHelper;
 
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.profession.pet.dev.PetMenu;
+import fun.wraq.series.overworld.chapter2.sky.SkyLineMenu;
 import fun.wraq.render.gui.blocks.BrewingMenu;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
 import fun.wraq.render.gui.blocks.FurnaceMenu;
@@ -33,6 +34,9 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<PetMenu>> PET_MENU =
             registerMenuType(PetMenu::new, "pet_menu");
+
+    public static final RegistryObject<MenuType<SkyLineMenu>> SKY_LINE_MENU =
+            registerMenuType(SkyLineMenu::new, "sky_line_menu");
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
                                                                                                   String name) {
