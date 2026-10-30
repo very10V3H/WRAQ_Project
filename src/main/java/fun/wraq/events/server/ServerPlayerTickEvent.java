@@ -48,6 +48,7 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSwo
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.mastery.MasteryData;
+import fun.wraq.process.system.achievement.AchievementManager;
 import fun.wraq.process.system.missions.mainline.MainQuestHelper;
 import fun.wraq.process.system.missions.mission2.MissionV2;
 import fun.wraq.process.system.point.Point;
@@ -172,6 +173,7 @@ public class ServerPlayerTickEvent {
             ManaNewSkillFinal0.handleServerPlayerTickEvent(serverPlayer);
             MissionV2.handlePlayerTick(player);
             MainQuestHelper.handlePlayerTick(player);
+            AchievementManager.tick(player);
             SpringMobEvent.handleServerPlayerTick(player);
             MobSpawn.handlePlayerTick(player);
             SwordNewSkillBase3_0.handleServerPlayerTick(player);

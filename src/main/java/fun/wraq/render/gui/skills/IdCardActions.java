@@ -6,6 +6,7 @@ import fun.wraq.networking.misc.SmartPhonePackets.MarketScreenC2SPacket;
 import fun.wraq.networking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
+import fun.wraq.process.system.achievement.AchievementScreen;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
 import fun.wraq.process.system.tower.TowerScreen;
@@ -41,6 +42,10 @@ public final class IdCardActions {
 
     public static void openResearch() {
         ModNetworking.sendToServer(new WeeklyStoreScreenC2SPacket());
+    }
+
+    public static void openAchievements() {
+        Minecraft.getInstance().setScreen(new AchievementScreen(-1, 0));
     }
 
     public static void openMissions() {

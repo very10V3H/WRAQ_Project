@@ -10,6 +10,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.SkillDataUtil;
+import fun.wraq.process.system.achievement.AchievementManager;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
@@ -107,6 +108,8 @@ public class LoginInEvent {
             }
             // 预加载背包数据
             BackpackFileManager.get(player.getUUID());
+            // 同步玩家个人成就数据
+            AchievementManager.sync(serverPlayer);
             Scoreboard scoreboard = player.getServer().getScoreboard();
             scoreboard.entityRemoved(player);
             CompoundTag data = player.getPersistentData();

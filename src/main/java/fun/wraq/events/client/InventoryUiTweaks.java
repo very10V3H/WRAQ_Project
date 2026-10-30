@@ -53,9 +53,9 @@ public final class InventoryUiTweaks {
     private static final int PANEL_HEIGHT = 166;
     private static final int BAR_WIDTH = 196;
     private static final int BAR_HEIGHT = 20;
-    private static final int BUTTON_WIDTH = 44;
+    private static final int BUTTON_WIDTH = 38;
     private static final int BUTTON_HEIGHT = 16;
-    private static final int BUTTON_STEP = 48;
+    private static final int BUTTON_STEP = 38;
 
     /** 新旧身份卡底色的中间值，避免过深或过白。 */
     private static final int CARD_BG = 0xF2A7E6FF;
@@ -196,6 +196,8 @@ public final class InventoryUiTweaks {
                 CustomStyle.styleOfKaze, b -> IdCardActions.openMissions());
         addButton(event, barX + 4 + BUTTON_STEP * 3, barBottomY + 2, BUTTON_WIDTH, "组队副本",
                 ChatFormatting.AQUA, b -> IdCardActions.openTeam());
+        addButton(event, barX + 4 + BUTTON_STEP * 4, barBottomY + 2, BUTTON_WIDTH, "成就",
+                CustomStyle.styleOfGold, b -> IdCardActions.openAchievements());
 
         // tooltip 最后加入，保证鼠标停在补给物品上时不会被按钮覆盖。
         event.addListener(new DailySupplyTooltipWidget(panelX + 4, panelY + 132));

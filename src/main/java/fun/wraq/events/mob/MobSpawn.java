@@ -34,6 +34,7 @@ import fun.wraq.events.mob.ore.Ore3SpawnController;
 import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.system.achievement.AchievementManager;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.data.PersistentDataUtil;
 import fun.wraq.process.system.element.Element;
@@ -502,6 +503,7 @@ public class MobSpawn {
         String mobName = mob.getName().getString();
         // 主线击杀目标：放在掉落表早退之前，保证无掉落怪也能计数
         MainQuestHelper.recordKill(player, mobOriginName);
+        AchievementManager.onMobKill(player, mobOriginName);
         if (RandomUtils.nextInt(0, 10000) < 100) {
             ItemAndRate.send(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }
